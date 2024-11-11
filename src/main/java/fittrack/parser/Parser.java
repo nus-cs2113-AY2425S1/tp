@@ -302,8 +302,8 @@ public class Parser {
                 String inputDescription = remindInfo[0].trim();
 
                 if (inputDeadline.isEmpty() || inputDescription.isEmpty()) {
-                    throw new IllegalArgumentException("Input must contain a non-blank description and a deadline, with " +
-                            "'//' between them");
+                    throw new IllegalArgumentException("Input must contain a non-blank description and a deadline, " +
+                            "with '//' between them");
                 }
 
                 // Parse the deadline, handle any parsing errors
@@ -353,6 +353,7 @@ public class Parser {
             } catch (Exception e) {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
             }
+            break;
 
         case LIST_REMINDER_COMMAND:
             // Print the list of all reminders.

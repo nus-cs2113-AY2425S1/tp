@@ -42,7 +42,7 @@ public class ParserReminderTest {
 
 
     @Test
-    void testAddReminderCommand_ValidInput_MultiWordReminder() throws IOException {
+    void testAddReminderCommandValidMultiWordReminderInput() throws IOException {
         String input = "remind Workout as best as I can // 20/12/2023 10:00";
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
 
@@ -70,7 +70,7 @@ public class ParserReminderTest {
 
 
     @Test
-    void testAddReminderCommand_ValidInput_BeforeSystemDate() throws IOException {
+    void testAddReminderCommandValidBeforeSystemDateInput() throws IOException {
         String input = "remind Workout // 20/12/2023 10:00";
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
 
@@ -97,7 +97,7 @@ public class ParserReminderTest {
     }
 
     @Test
-    void testAddReminderCommand_ValidInput_AfterSystemDate() throws IOException {
+    void testAddReminderCommandValidAfterSystemDateInput() throws IOException {
         String input = "remind Do Something Fun // 31/12/2024 16:39";
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
 
@@ -124,7 +124,7 @@ public class ParserReminderTest {
     }
 
     @Test
-    void testAddReminderCommand_InvalidDateTime() throws IOException {
+    void testAddReminderCommandInvalidDateTime() throws IOException {
         String input = "remind Workout // invalid_date";
 
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
@@ -132,13 +132,12 @@ public class ParserReminderTest {
     }
 
     @Test
-    void testAddReminderCommand_MissingInformation() throws IOException {
+    void testAddReminderCommandMissingInformation() throws IOException {
         String[] input = { "remind Workout // ",        // Missing Deadline information
                            "remind // 25/12/2024",      // Missing Description information
                            "remind // ",      // Missing Deadline and Description information
                            "remind "                    // Missing '//' marker, Description and  Deadline information
-
-                         };
+        };
 
         for (String s : input) {
             parse(user, s, sessionList, reminderList, goalList, foodWaterList);
