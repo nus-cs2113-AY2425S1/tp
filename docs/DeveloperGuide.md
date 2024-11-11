@@ -13,6 +13,7 @@
         - [Expense and Expense List](#expense-and-expense-list)
         - [Expense Filter](#expense-filter)
         - [Date and Time Handling](#date-and-time-handling)
+        - [Calculations](#calculations)
         - [Visualizer](#visualizer)
         - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
         - [Category Package](#category-package)
