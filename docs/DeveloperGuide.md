@@ -141,6 +141,13 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
 
 ### 4. delete-category
 ### 5. tag-expense
+**Overview**
+
+The sequence diagram represents the flow for tagging an expense to an existing category in SpendSwift when the user inputs an `tag-expense` command.
+
+![tag-expenses](sequencediagrams/TagExpense.png)
+
+**Implementation**
 ### 6. set-budget
 ### 7. view-expenses
 **Overview**
