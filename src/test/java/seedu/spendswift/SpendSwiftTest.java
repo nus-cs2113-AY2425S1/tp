@@ -11,6 +11,11 @@ import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
 
+import seedu.spendswift.parser;
+
+import org.junit.jupiter.api.BeforeEach;
+
+
 import java.math.BigDecimal;
 //import java.util.Random;
 
@@ -608,6 +613,66 @@ private String generateRandomWord(Random random, int wordLength) {
         // Assert that the budget limit remains unchanged and is not set above the maximum
         assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
+    }
+}
+
+class InputParserTest {
+
+    private InputParser parser;
+
+    @BeforeEach
+    void setUp() {
+        parser = new InputParser();
+    }
+
+    // --------------------- parseIndex Test ---------------------
+
+    @Test
+    void parseIndex_validInput_returnsCorrectIndex() {
+        String input = "add e/3";
+        int expectedIndex = 2; // Since parseIndex subtracts 1
+        assertEquals(expectedIndex, parser.parseIndex(input),
+            "parseIndex should return the correct zero-based index for valid input.");
+    }
+
+    // --------------------- parseLimit Test ---------------------
+
+    @Test
+    void parseLimit_validInput_returnsCorrectLimit() {
+        String input = "set l/100.50";
+        double expectedLimit = 100.50;
+        assertEquals(expectedLimit, parser.parseLimit(input),
+            "parseLimit should return the correct limit for valid input.");
+    }
+
+    // --------------------- parseAmount Test ---------------------
+
+    @Test
+    void parseAmount_validInput_returnsCorrectAmount() {
+        String input = "expense a/50.25";
+        double expectedAmount = 50.25;
+        assertEquals(expectedAmount, parser.parseAmount(input),
+            "parseAmount should return the correct amount for valid input.");
+    }
+
+    // --------------------- parseName Test ---------------------
+
+    @Test
+    void parseName_validInput_returnsCorrectName() {
+        String input = "add n/Groceries";
+        String expectedName = "Groceries";
+        assertEquals(expectedName, parser.parseName(input),
+            "parseName should return the correct name for valid input.");
+    }
+
+    // --------------------- parseCategory Test ---------------------
+
+    @Test
+    void parseCategory_validInput_returnsCorrectCategory() {
+        String input = "add c/Essentials";
+        String expectedCategory = "Essentials";
+        assertEquals(expectedCategory, parser.parseCategory(input),
+            "parseCategory should return the correct category for valid input.");
     }
 }
 
