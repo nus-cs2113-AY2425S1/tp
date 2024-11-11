@@ -3,6 +3,7 @@ package seedu.manager.command;
 import seedu.manager.enumeration.Priority;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a command to edit an event to the event list.
@@ -63,7 +64,8 @@ public class EditEventCommand extends Command{
      * @return an output message with name, time, venue and priority.
      */
     private String getOutputMessage(String name, LocalDateTime time, String venue, Priority priority) {
-        String dateTimeString = time.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String dateTimeString = formatter.format(time);
         StringBuilder outputMessage = new StringBuilder();
         outputMessage.append(EDIT_EVENT_MESSAGE);
         String formattedString = String.format("Event name: %s / Event time: %s / Event venue: %s / " +

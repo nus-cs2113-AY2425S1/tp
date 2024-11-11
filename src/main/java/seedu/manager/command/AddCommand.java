@@ -3,6 +3,7 @@ package seedu.manager.command;
 import seedu.manager.enumeration.Priority;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 //@@author KuanHsienn
 /**
@@ -137,7 +138,8 @@ public class AddCommand extends Command {
 
         StringBuilder outputMessage = new StringBuilder();
         outputMessage.append(ADD_EVENT_MESSAGE);
-        String dateTimeString = time.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String dateTimeString = formatter.format(time);
         outputMessage.append(String.format("Event name: %s / Event time: %s / Event venue: %s / Event priority: %s",
                 nameToShow, dateTimeString, venue, priority));
         message = outputMessage.toString();
