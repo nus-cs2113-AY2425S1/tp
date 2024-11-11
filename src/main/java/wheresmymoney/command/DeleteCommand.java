@@ -15,7 +15,9 @@ public class DeleteCommand extends Command {
 
     /**
      * Deletes an expense or recurring expense given its index in the list
-     * @param expenseList List of expenses
+     *
+     * @param expenseList List of normal expenses
+     * @param categoryFacade Category facade to perform operations using categories
      * @param recurringExpenseList List of recurring expenses
      */
     @Override

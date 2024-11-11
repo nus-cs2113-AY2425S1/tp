@@ -55,6 +55,7 @@ public class Ui {
         return Ui.getUserInput();
     }
 
+    //@author shyaamald
     /**
      * Display index, category, description, price, and date added of the expense passed to it
      *
@@ -75,7 +76,7 @@ public class Ui {
         String index = recurringExpenseList.getIndexOf(recurringExpense) + 1 + ". ";
         String category = "CATEGORY: " + recurringExpense.getCategory();
         String description = "   DESCRIPTION: " + recurringExpense.getDescription();
-        String price = "   PRICE: " + String.format("%.2f", recurringExpense.getPrice());;
+        String price = "   PRICE: " + String.format("%.2f", recurringExpense.getPrice());
         String dateAdded = "   DATE ADDED: " + DateUtils.dateFormatToString(recurringExpense.getDateAdded());
         String lastAddedDate = "   LAST ADDED DATE: " + recurringExpense.getLastAddedDate();
         String frequency = "   FREQUENCY: " + recurringExpense.getFrequency();

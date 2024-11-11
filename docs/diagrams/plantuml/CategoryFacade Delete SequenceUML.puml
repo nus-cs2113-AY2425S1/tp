@@ -1,0 +1,22 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam sequence {
+    ArrowColor #2C3E50
+    LifeLineBorderColor #2C3E50
+    ParticipantBorderColor #2C3E50
+    ParticipantBackgroundColor #FFFFFF
+}
+hide footbox
+
+participant ":DeleteCommand" as DC
+participant ":CategoryFacade" as CF
+participant ":CategoryTracker" as CT
+' participant ":CategoryData" as CD
+
+DC -> CF: call interface's method
+CF -> CT: call relevant method
+CT -> CT: update tracker with new decreased total
+CT --> CF: return
+CF --> DC: return
+
+@enduml

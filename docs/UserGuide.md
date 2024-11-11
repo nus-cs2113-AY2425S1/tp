@@ -22,7 +22,7 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed in your computer.
-2. Download the latest .jar file from the Github Repository, under releases.
+2. Download the latest .jar file from the GitHub Repository, under releases.
 3. Copy the file to the folder you want to use as the home folder for your expenses.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar [CS2113-W12-3][WheresMyMoney].jar` command to run the application.
 
@@ -106,9 +106,10 @@ Format:  `list [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
 - `CATEGORY` is text.
-- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
-- Lists all expenses the user has.
-- If filters are specified, only matching expenses are shown.
+- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- `FROM_DATE` and `TO_DATE` are both inclusive of given date.
+- Lists all expenses the user has if filters are not specified.
+- Lists all expenses that pass through the filters if specified.
 
 Example: 
 ```
@@ -120,6 +121,7 @@ Example:
 > 
 ```
 
+
 ### Get statistics for your transactions: `stats`
 
 Provides statistics for expenses according to specified filters.
@@ -128,9 +130,10 @@ Format:  `stats [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
 - `CATEGORY` is text.
-- `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
-- Lists statistics for all expenses matching the provided filter. 
-  - This includes the highest expense, lowest expense, and the mean price.
+- `FROM_DATE` and `TO_DATE` are dates in DD-MM-YYYY format.
+- `FROM_DATE` and `TO_DATE` are both inclusive of given date.
+- Lists statistics of all expenses the user has if filters are not specified.
+- Lists statistics of all expenses that pass through the filters if specified.
 
 Example: 
 
@@ -283,6 +286,7 @@ Notes:
 - `/recur` is a command flag indicating that the command is for recurring expenses.
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
+- `FROM_DATE` and `TO_DATE` are both inclusive of given date.
 - Lists all recurring expenses that satisfy the given filter (if any).
 
 Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`

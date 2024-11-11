@@ -1,0 +1,22 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam sequence {
+    ArrowColor #2C3E50
+    LifeLineBorderColor #2C3E50
+    ParticipantBorderColor #2C3E50
+    ParticipantBackgroundColor #FFFFFF
+}
+hide footbox
+
+participant ":SetCommand" as SC
+participant ":CategoryFacade" as CF
+participant ":CategoryTracker" as CT
+' participant ":CategoryData" as CD
+
+SC -> CF: call interface's method
+CF -> CT: call method to set limit
+CT -> CT: update tracker with new limit
+CT --> CF: return
+CF --> SC: return
+
+@enduml
