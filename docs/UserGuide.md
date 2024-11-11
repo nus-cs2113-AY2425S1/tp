@@ -9,10 +9,10 @@ without the complexity of traditional tools.
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed on your computer.
-2. Download the latest CS2113-T10-4.SpendSwift.jar file.
+2. Download the latest `[CS2113-T10-4][SpendSwift].jar` file.
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file,
-   and run the following command to start the application: `java -jar "CS2113-T10-4.SpendSwift.jar".`
+   and run the following command to start the application: `java -jar "[CS2113-T10-4][SpendSwift].jar".`
 5. The application will start, and any existing expenses, categories and budgets will be loaded from the folder
    spendswift with 2 text files in it, expense.txt and category.txt.
    - If this file doesn't exist, it will be created automatically when expenses, categories and budgets are saved
@@ -230,9 +230,9 @@ Format:
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?
-**A**: Copy the `spendswift.txt` file from your SpendSwift home folder to the same folder on your new computer.
-Ensure the tp.jar file is also in the same folder. When you start the application on the new computer,
-it will load your saved expenses and categories from `spendswift.txt`.
+**A**: Copy the `spendswift` folder from your SpendSwift home folder to the same folder on your new computer.
+Ensure the `[CS2113-T10-4][SpendSwift].jar` file is also in the same folder. When you start the application on the new computer,
+it will load your saved expenses and categories from `spendswift`.
 
 **Q**: What happens if I enter an invalid command or make a typo?  
 **A**: SpendSwift will display an error message if it doesn't recognize the command.
@@ -242,10 +242,6 @@ You can type `help` to see the correct command syntax and available options.
 **Q**: Can I update or change an expense’s details after adding it?  
 **A**: Currently, SpendSwift doesn't support direct editing of expenses.
 To make changes, delete the existing expense using `delete-expense` and add a new one with the updated details.
-
-**Q**: What if I forget to set a category when adding an expense?  
-**A**: If no category is provided, the expense will be set to "Uncategorized" by default.
-You can later assign it to a specific category using `tag-expense`.
 
 **Q**: How are expenses rounded off if I enter an amount with more than two decimal places?  
 **A**: SpendSwift automatically rounds amounts to two decimal places.
