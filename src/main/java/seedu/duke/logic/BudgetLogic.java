@@ -58,8 +58,12 @@ public class BudgetLogic {
      * @throws FinanceBuddyException if an error occurs during the budget setting process.
      */
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
-        if (!budget.isBudgetSet()) {
-            logger.log(LogLevels.INFO, "Budget has not been set.");
+        LocalDate budgetSetDate = budget.getBudgetSetDate();
+        if (!isCurrentMonth(budgetSetDate)) {
+            System.out.println("Your budget was set in a previous month.");
+        }
+        if (!budget.isBudgetSet() || !isCurrentMonth(budgetSetDate)) {
+            logger.log(LogLevels.INFO, "Prompting user to set budget.");
             ui.displaySetBudgetMessage();
 
             if (!shouldSetBudget()) {
@@ -69,14 +73,6 @@ public class BudgetLogic {
                 return;
             }
 
-            final double amount = getValidBudgetAmountFromUser();
-            handleSetBudget(financialList, amount);
-            return;
-        }
-
-        LocalDate budgetSetDate = budget.getBudgetSetDate();
-        if (!isCurrentMonth(budgetSetDate)) {
-            System.out.println("Your budget was set in a previous month.");
             final double amount = getValidBudgetAmountFromUser();
             handleSetBudget(financialList, amount);
             return;
