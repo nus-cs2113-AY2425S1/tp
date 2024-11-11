@@ -50,6 +50,7 @@ import static fittrack.messages.Messages.INDEX_OUT_OF_BOUNDS_MESSAGE;
 import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
 import static fittrack.messages.Messages.INVALID_INDEX_NON_NUMERIC_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
+import static fittrack.messages.Messages.INVALID_VERTICAL_BAR_INPUT_MESSAGE;
 import static fittrack.messages.Messages.LIST_FOOD_COMMAND;
 import static fittrack.messages.Messages.LIST_GOAL_COMMAND;
 import static fittrack.messages.Messages.LIST_DAILY_INTAKE_COMMAND;
@@ -139,6 +140,11 @@ public class Parser {
 
         LocalDateTime timeNow = LocalDateTime.now();
         String formattedTimeNow = timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+
+        // Throw exception if user inputs a vertical bar '|'
+        if (input.contains("|")){
+            throw new IOException(INVALID_VERTICAL_BAR_INPUT_MESSAGE);
+        }
 
         // Split the input into command and description if applicable
         if (input.contains(" ")) {

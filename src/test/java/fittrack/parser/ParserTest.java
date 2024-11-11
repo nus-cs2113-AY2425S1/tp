@@ -18,9 +18,12 @@ import java.util.ArrayList;
 import static fittrack.messages.Messages.HELP_MESSAGE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
 import static fittrack.messages.Messages.INVALID_USER_INFO_MESSAGE;
+import static fittrack.messages.Messages.INVALID_VERTICAL_BAR_INPUT_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
     private User user;
@@ -59,6 +62,8 @@ public class ParserTest {
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
         assertEquals(24, user.getAge());
         assertEquals("MALE", user.getGender().toString());
+        String test = user.toSaveString();
+        assertEquals("User|MALE|24", user.toSaveString());
     }
 
     @Test
@@ -174,6 +179,26 @@ public class ParserTest {
         expectedOutput = expectedOutput.trim().replaceAll("\\r\\n?", "\n");
 
         assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    void testInvalidCommandWithVerticalBars() {
+
+        String[] invalidInputs = {"add TEST|",
+                                  "remind TEST| // 11/11/1111",
+                                  "add-food app|le 100",
+                                  "edit-mood happ|y"
+        };
+
+        for (String input : invalidInputs) {
+            Exception exception = assertThrows(IOException.class, () -> {
+                // This method should throw YourException with a specific message
+                parse(user, input, sessionList, reminderList, goalList, foodWaterList);
+            });
+
+            String actualMessage = exception.getMessage();
+            assertTrue(actualMessage.contains(INVALID_VERTICAL_BAR_INPUT_MESSAGE));
+        }
     }
 }
 
