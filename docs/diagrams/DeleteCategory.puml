@@ -11,12 +11,12 @@ participant Format
 participant SuccessMessage
 participant Category
 
-User -> SpendSwift : input("add-category c/<categoryName>")
+User -> SpendSwift : input("delete-category c/<categoryName>")
 activate SpendSwift
 SpendSwift -> Parser : parseCommand(input, trackerData)
 
 activate Parser
-Parser -> CategoryManager : addCategory(input, trackerData)
+Parser -> CategoryManager : deleteCategory(input, trackerData)
 
 activate CategoryManager
 CategoryManager -> InputParser : parseCategory(input)
