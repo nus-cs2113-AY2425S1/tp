@@ -100,7 +100,7 @@ For example, filter cs2040
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out the name of each school users could possibly go for their SEP.
+List out the name of each school CEG students could possibly go for their SEP in Oceania.
 
 Their abbreviated names will also be displayed. 
 
