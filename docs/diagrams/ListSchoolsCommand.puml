@@ -32,7 +32,7 @@ ListSchoolCommand -> ListSchoolCommand: displaySchoolList (jsonObject:JsonObject
 activate ListSchoolCommand
 
 loop for each PU Name in PU Names
-    alt no university name
+    alt no university name found
         ListSchoolCommand --> CEG_Student: Displays exception message
     else else
         ListSchoolCommand -> UI: printUniversityList(universityName: String)
