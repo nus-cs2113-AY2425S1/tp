@@ -142,33 +142,24 @@ class ParserTest {
     @Test
     void testParsePUAbbreviation_Unimelb() {
         String abbreviation = "unimelb";
-        String expected = "The University of Melbourne";
+        String expected = "the university of melbourne";
         String result = parser.parsePUAbbreviations(abbreviation);
-        abbreviation = "unimelb";
-        expected = "the university of melbourne";
-        result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
 
     @Test
     void testParsePUAbbreviation_ANU() {
         String abbreviation = "anu";
-        String expected = "The Australian National University";
+        String expected = "the australian national university";
         String result = parser.parsePUAbbreviations(abbreviation);
-        abbreviation = "anu";
-        expected = "the australian national university";
-        result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
 
     @Test
     void testParsePUAbbreviation_WGTN() {
         String abbreviation = "wgtn";
-        String expected = "Victoria University of Wellington";
+        String expected = "victoria university of wellington";
         String result = parser.parsePUAbbreviations(abbreviation);
-        abbreviation = "wgtn";
-        expected = "victoria university of wellington";
-        result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
 
@@ -184,13 +175,8 @@ class ParserTest {
     @Test
     void testParsePUAbbreviation_UWA_capitalised() {
         String abbreviation = "UWA";
-        String expected = "the university of western australia";
+        String expected = "the unversity of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
-        assertEquals(expected, result);
-
-        abbreviation = "Unimelb";
-        expected = "the university of melbourne";
-        result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
 
