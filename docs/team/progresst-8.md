@@ -14,7 +14,7 @@ Given below are my contributions to the project.
     - ExpenseListTest and ExpenseTest classes' JUnit tests
     - CategoryTracker, CategoryData, CategoryFilter, CategoryFacade classes
     - CategoryTracker and CategoryData classes' JUnit tests
-- **Documentation**
+- **Documentation Contributions**
   - User Guide 
     - Created section about setting spending limits for a category 
     - Add FAQs about:
@@ -31,4 +31,10 @@ Given below are my contributions to the project.
         - `Expense` and `ExpenseList`
         - Classes in the category package
       - 6 Sequence UMLs for key methods in `CategoryFacade` 
-- **Review & Mentoring Contributions:** Provide suggestions for designing various components of the software.
+- **Project Management**
+  - Resolved issues found by QA testers during PE-D.
+- **Review & Mentoring Contributions:** 
+  - Provide suggestions for designing various components of the software.
+  - Provide suggestions for how architecture diagram should look like
+- **Community**
+  - Reported bugs and suggestions for other teams in the class
