@@ -526,9 +526,5 @@ private String generateRandomWord(Random random, int wordLength) {
     assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), "The set limit should match the input limit");
     }
 
-//    @Test
-//    void testSetBudgetLimitAboveMaximum() {
-
-// }
 
 
