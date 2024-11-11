@@ -1,7 +1,7 @@
 # Project Portfolio: Low Beverly
 
 ## Project: BuffBuddy
-BuffBuddy is a fitness tracker that tracks your programmes, workouts, meals and water intake. The user interacts wtih
+BuffBuddy is a fitness tracker that tracks your programmes, workouts, meals and water intake. The user interacts with
 it using a CLI, and it has a GUI created with JavaFX. It is written in Java. 
 
 ## Summary of Contributions
@@ -11,21 +11,21 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 
 ### Enhancements Implemented
 
-- **Save/Load Feature**: Designed and wrote the code to save and load files into JSON Objects using the Gson Library.
-    - **What it does**: This feature allows the application to save and load data seamlessly, storing it in JSON format to ensure data persistence between sessions. The feature uses the Gson library to serialize and deserialize data into JSON objects, enabling a structured and readable file format.
-    - **Justification**: The save/load feature is essential for users to maintain their progress and data across sessions, making the application more reliable and user-friendly. Without this feature, users would risk losing their data upon closing the application.
-    - **Highlights**:  This feature required careful design and implementation to integrate seamlessly with the application's data model. Converting complex data into JSON format necessitated precise management of data structures and file handling to ensure both accuracy and consistency. The implementation includes error handling to manage `StorageException` and incorporates a robust validation method to detect and handle corrupted files. This approach ensures data integrity and reliable file-saving capabilities, providing users with a consistent and dependable experience.
-    - **Credits**: The Gson library was used extensively to handle JSON serialization and deserialization, making it easier to manage structured data within the application.
+- **Save/Load Feature**: Developed functionality to save and load data as JSON files using the Gson library.
+  - **What it does**: Enables the application to persist user data by saving it in JSON format, ensuring that data is retained across sessions. Utilizes Gson for efficient serialization and deserialization.
+  - **Justification**: Essential for user experience, allowing data continuity across application usage. Without it, users risk data loss upon closing.
+  - **Highlights**: Required careful integration with the data model, managing complex data structures accurately. Includes error handling through a `StorageException` and a validation method to detect and handle corrupted files, ensuring data integrity and reliability.
+  - **Credits**: The Gson library was extensively used for handling JSON serialization and deserialization.
 
-- **Water Intake Features**: Designed to manage all water related functions
-  - **What it does**: The Water Intake Features enable users to log, view, and manage their daily water consumption within the application. Users can add, view, or delete specific water intake entries, which helps them keep track of hydration goals over time. 
-  - **Justification**: Tracking water intake is essential for users focused on fitness and health. This feature allows users to easily monitor their hydration habits, which are vital for overall well-being. 36
-  - **Highlights**: Implementing this feature required creating methods to add, delete, and view water entries. It involved designing a data structure that could store and update daily water intake accurately and efficiently. Additionally, different commands were designed to handle specific actions, adhering to object-oriented principles to maximize modularity and reusability. This approach allows us to separate concerns, making each command responsible for a single operation, which improves code readability, maintainability, and extensibility. Error handling was incorporated to manage invalid entries, such as negative values, ensuring data integrity and preventing incorrect data from being stored.
+- **Water Intake Features**: Developed functions to track, view, and manage daily water consumption.
+  - **What it does**: Allows users to log daily water intake, helping them monitor hydration goals over time. Users can add, view, and delete intake entries.
+  - **Justification**: Aids health-focused users by providing an easy way to track hydration, a crucial part of fitness and well-being.
+  - **Highlights**: Implemented methods to add, delete, and view water entries, with a data structure designed for accurate daily updates. Modular commands (add, delete, view) were created to adhere to object-oriented principles, improving code modularity and readability. Error handling prevents invalid entries (e.g., negative values), maintaining data accuracy.
 
-- **Exceptions**: Custom exceptions to handle specific errors
-  - **What it does**: Custom exceptions were created to handle specific error scenarios within the application. Each custom exception is tailored to provide clear error messages and manage specific cases where operations may fail, ensuring a more user-friendly experience.
-  - **Justification**: By using custom exceptions, the application can provide more informative and user-friendly feedback when errors occur. Instead of generic error messages, users receive clear information about the issue, helping them understand what went wrong and how to correct it. This approach also improves the maintainability of the code by allowing specific handling of predictable issues.
-  - **Highlights**: Custom exceptions were designed and implemented for various classes, covering scenarios such as invalid inputs, index out of bounds or file corrupted. The exceptions were integrated throughout the application to ensure robust error handling and graceful failure in case of unexpected inputs or operations.
+- **Custom Exceptions**: Developed specific exceptions to handle distinct error scenarios.
+  - **What it does**: Custom exceptions provide tailored error messages for common issues, enhancing user experience by guiding them through specific errors.
+  - **Justification**: Improves usability by offering context-specific error messages, rather than generic ones, helping users understand and resolve issues more easily.
+  - **Highlights**: Custom exceptions cover scenarios such as invalid inputs, out-of-bounds errors, and corrupted files. These exceptions ensure robust error handling across the application, allowing graceful failure and preventing incorrect data from being stored.
 
 ### Contributions to the User Guide (UG)
 - Added/edited the following sections:
@@ -64,14 +64,7 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
     - [PR #90 - Add assertions and logging details for files in parser package](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/90)
     - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81)
     - [PR #79 - Unit Test for Core Command Classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/79)
-    - [PR #73 - Fixing the loading and logging of History class PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/73)
-    - [#52 - Finalize version one](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/52)
-    - [PR #51 - History PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/51)
-    - [#49 - Adjust Storage class for better separation of concern PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/49)
-    - [#48 - Add skeleton code for JUnit Testing PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/48)
-    - [#46 - Add date parsing support for logging workouts PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/46)
-    - [#45 - Add delete & create day functionality to edit command PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/46)
-    - [#44 - Add delete programme functionality](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/44)
+    - and more..
 - Mentored team members by providing code feedback and debugging assistance.
 
 ### Contributions Beyond the Project Team
