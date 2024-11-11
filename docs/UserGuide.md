@@ -183,7 +183,7 @@ This is the end of the list.
 * Note that the output would be a list of mappable courses of the format above.
 
 
-### Obtain contacts from the list of universities `obtain`
+### Obtain contacts from the list of universities: `obtain`
 Obtain the contact details of the university of interest from the list of schools available.
 
 Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
@@ -410,7 +410,7 @@ cs3244 | the australian national university | comp3670
 cs2102 | the university of melbourne | info20003
 ```
 
-### Find courses in personalised tracker `find`
+### Find courses in personalised tracker: `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`
