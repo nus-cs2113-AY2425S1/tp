@@ -29,6 +29,13 @@ public class Parser {
      *         or the input is empty.
      */
     public Command parseCommand(String line, State state){
+        //need to check if all space or will crash
+        if (line == null || line.trim().isEmpty()) {
+            Ui.showToUserException("Input cannot be empty");
+            LOGGER.log(Level.WARNING, "Empty or whitespace-only input");
+            return null;
+        }
+
         String[] parts = line.split(" ");
 
         switch(parts[0]){
