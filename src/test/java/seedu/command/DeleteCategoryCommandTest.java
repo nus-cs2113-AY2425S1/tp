@@ -26,6 +26,8 @@ class DeleteCategoryCommandTest {
     TransactionList transactionList;
     DeleteCategoryCommand deleteCategoryCommand;
 
+
+
     @BeforeEach
     public void setUp() {
         categoryList = new CategoryList();
@@ -37,7 +39,6 @@ class DeleteCategoryCommandTest {
                 "2024-10-10 2359", new Category("Default")));
         deleteCategoryCommand = new DeleteCategoryCommand(categoryList, transactionList);
     }
-
     @Test
     void execute_validArgumentWithNoTransaction_categoryDeleted() {
         // Arrange
