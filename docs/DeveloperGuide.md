@@ -253,7 +253,7 @@ Internally, the `list` operation does not modify any data but simply retrieves a
 
 The `ListCommand` class performs the following key operations:
 
-* ListCommand#execute() — Generates a formatted message displaying all events in the list.
+* `ListCommand#execute()` — Generates a formatted message displaying all events in the list.
 
 These operations are accessible through the `Command` and can be invoked when the list command is entered by the user.
 
@@ -261,13 +261,13 @@ These operations are accessible through the `Command` and can be invoked when th
 
 Given below is an example usage scenario and the behavior of the list feature at each step:
 
-1. User Command Input:
+1. User command input:
 The user enters the command `list` to view all scheduled events.
 
-2. Command Recognition:
+2. Command recognition:
 The `COMMAND_WORD` is set to "list", enabling the system to recognize the command input and invoke `ListCommand`.
 
-3. Execution of ListCommand#execute():
+3. Execution of `ListCommand#execute()`:
 The `execute()` method retrieves each event from `eventList` and appends it to a formatted output message.
 It uses the `String.format` method with `LIST_MESSAGE` to include the total number of events in the message header.
 Events are appended to `outputMessage` with numbered formatting for readability.
@@ -784,6 +784,12 @@ The user is able to organise and manage his events more quickly and efficiently 
 
 ## Appendix E: Instructions for manual testing
 
+### Remarks
+
+* For any dates listed in the test cases, if the current date is after the listed date, change the date in the test case to a date in the future.
+
+  * E.g. in the test case `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u high`, if the current date is after `2024-10-10`, the date should be changed to a date after the current date.
+
 ### Launch and shutdown
 
 1. Initial launch
@@ -855,7 +861,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       A `Item` with the name `Item 1` is present in `Event 1`'s `Item` list.
       List all `Item`s with `view -e Event 1 -y item` after each test case.
 
-   2. Test case: `add -p Item -e Event 1`.  
+   2. Test case: `add -m Item -e Event 1`.  
       Expected: A `Item` with name `Item(1)` is added. A success message is shown.
 
 ### Removing an event
@@ -948,7 +954,7 @@ The user is able to organise and manage his events more quickly and efficiently 
       A `Item` with the name `Toilet roll` is present in `Event 1`'s `Item` list.
       List all `Item`s with `view -e Event 1 -y item` after each test case.
 
-   2. Test case: `edit Toilet roll > Kitchen towel -e Event 1`  
+   2. Test case: `edit -m Toilet roll > Kitchen towel -e Event 1`  
       Expected: `Toilet roll` is no longer present, and `Kitchen towel` is present, in the `Item`s list. A success message is shown.
 
 ### Viewing an event
