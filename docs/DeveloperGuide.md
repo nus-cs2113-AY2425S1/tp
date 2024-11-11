@@ -48,6 +48,7 @@ img
   - [Instructions for manual testing](#instructions-for-manual-testing)
     - [Manual Testing](#manual-testing)
     - [JUnit Testing](#junit-testing)
+  - [Future Enhancements](#future-enhancements)
 
 ## Acknowledgements
 
@@ -58,13 +59,17 @@ Finance Buddy uses the following tools for development:
 
 ## Design and Implementation
 
-The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
+The heavily simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
 
 <img src="UML/overallArchi.png" alt="overall archi" width="auto" height="300">
 
 
 In the above diagram, Command and FinancialEntry are representative of the subclasses of 
 the `Command` and `FinancialEntry` classes, which are elaborated on in their respective sections.
+
+The `Commons` class contains various String constants and methods commonly used by the other classes,
+while the `Log` class contains a logger to facilitate logging in methods of other classes. Their relationship
+with the other classes has been omitted from the diagram for better understandability.
 
 The high-level overview of the program is shown in the diagram below as well.
 
@@ -963,7 +968,7 @@ the `BudgetLogic` class was created to specifically handle the logic related to 
 ## Product scope
 
 ### Target user profile:
-- University student who wants to manage their limited finances
+- Singaporean University student who wants to manage their limited finances
 - busy with academics and CCAs, wants to manage finances quickly
 - prefer desktop apps over other types
 - can type fast
@@ -978,21 +983,25 @@ faster than a typical mouse/GUI driven app
 
 ## User Stories
 
-| Version | As a ...                       | I want to ...                                                             | So that I can ...                                              |
-|---------|--------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | new user                       | see usage instructions                                                    | remember how to use the app in case I forget the commands      |
-| v1.0    | user                           | record my daily expenses                                                  | keep track on how much I spend and what I spend on             |
-| v1.0    | user                           | delete my logging records                                                 | remove a wrong record                                          |
-| v1.0    | user                           | edit my logs                                                              | edit a wrong record                                            |
-| v1.0    | user                           | see my cash flows                                                         | have an overview of my cash flow                               |
-| v2.0    | user                           | view my expenditure over a certain period                                 | see how much money I spent recently                            |
-| v2.0    | user                           | keep a log of my data                                                     | retain memory of past transactions in previous runs of the app |
-| v2.0    | user                           | set a monthly budget for myself                                           | ensure that I am saving enough money                           |
-| v2.0    | user                           | be alerted when I exceed my allocated budget                              | know when I spend too much money                               |
-| v2.0    | user                           | categorise my spendings                                                   | know my spending across different areas                        |
-| v2.0    | user                           | view my expenditure over different categories                             | see where I spend the most                                     |
-| v2.0    | busy user                      | log my finances in the shortest possible time                             | have more time for other activities                            |
-| v2.1    | busy user                      | edit/delete my last added/edited entry without needing to enter its index | save time undoing mistakes made when logging entries           |
+| Version | As a ...                     | I want to ...                                                               | So that I can ...                                              |
+|---------|------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | new user                     | see usage instructions                                                      | remember how to use the app in case I forget the commands      |
+| v1.0    | user                         | record my daily expenses                                                    | keep track on how much I spend and what I spend on             |
+| v1.0    | user                         | delete my logging records                                                   | remove a wrong record                                          |
+| v1.0    | user                         | edit my logs                                                                | edit a wrong record                                            |
+| v1.0    | user                         | see my cash flows                                                           | have an overview of my cash flow                               |
+| v2.0    | user                         | view my expenditure over a certain period                                   | see how much money I spent recently                            |
+| v2.0    | user                         | keep a log of my data                                                       | retain memory of past transactions in previous runs of the app |
+| v2.0    | user                         | set a monthly budget for myself                                             | ensure that I am saving enough money                           |
+| v2.0    | user                         | be alerted when I exceed my allocated budget                                | know when I spend too much money                               |
+| v2.0    | user                         | categorise my spendings                                                     | know my spending across different areas                        |
+| v2.0    | user                         | view my expenditure/income over different categories                        | see where I spend the most/earn the most from                  |
+| v2.0    | busy user                       | record transactions under the current date without having to enter the date | save time logging transactions                                 |
+| v2.0    | busy user                    | log my finances in the shortest possible time                               | have more time for other activities                            |
+| v2.1    | busy user                    | edit/delete my last added/edited entry without needing to enter its index   | save time undoing mistakes made when logging entries           |
+| v2.1    | user preoccupied with school | be prompted whether I want to set a new budget each month                   | remember to change my monthly budget should I wish to do so    |
+| v2.1    | user                         | be granted the option to carry over my budget from the previous month       | conveniently keep the same monthly budget across months        |
+| v2.1    | user                         | delete multiple entries at once                                             | quickly remove many old transactions at once                   |
 
 <div style="page-break-after: always;"></div>
 
@@ -1207,3 +1216,14 @@ View the [User Guide](UserGuide.md) for the list of UI commands and their relate
 ### JUnit Testing
 
 JUnit tests are written in the subdirectory `test` and serve to test the key methods part of the application.
+
+## Future Enhancements
+
+The following are features we intend to include in future iterations of this application.
+
+1. Allow methods for undo-ing previous commands.
+2. Implement feature to advise students on how to manage their money based on their income and financial goals.
+3. Implement gamification to encourage users to consistently log their finances and keep within their set budget
+4. Implement automatic categorization of transactions according to their description
+5. Allow automatic deletion of entries a certian duration (e.g. 5 months) after their recorded date according 
+to the user's preference

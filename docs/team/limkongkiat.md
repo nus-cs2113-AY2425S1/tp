@@ -57,7 +57,7 @@ they have exceeded, or are close to exceeding, their budget.
     - Updated List Entries by date section [#151](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/151)
     - Did overall formatting for v2.0 UG [#209](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/209)
   - <ins>Developer Guide</ins>
-    - Added overview of Desgin & Implementation [#126](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/126)
+    - Added overview of Design & Implementation [#126](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/126)
     - Added section on List Entries feature [#109](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/109), 
     [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110), 
     [#153](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/153)
