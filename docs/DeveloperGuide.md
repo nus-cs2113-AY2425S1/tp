@@ -493,6 +493,7 @@ uniform distribution of data across the graph, enhancing readability.
   printed at the top of the graph to indicate uniformity.
 
 Below is a sequence diagram detailing the above workflow:
+
 ![Sequence_graphPerformanceTime.png](Images%2FSequence_graphPerformanceTime.png)
 
 ## Product scope
