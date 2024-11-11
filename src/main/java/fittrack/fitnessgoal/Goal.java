@@ -67,15 +67,19 @@ public class Goal extends Saveable {
         }
 
         String goalDescription = stringData[1];
+        LocalDateTime goalDeadline = null; // Default to null if no deadline is provided
 
-        try {
-            LocalDateTime goalDeadline = LocalDateTime.parse(stringData[2],
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-            return new Goal(goalDescription, goalDeadline);
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid save string format for Goal: " + saveString);
+        // Check if the deadline is present and parse it if available
+        if (stringData.length > 2) {
+            try {
+                goalDeadline = LocalDateTime.parse(stringData[2], DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid save string format for Goal (Deadline): " + saveString);
+            }
         }
 
-        return null;
+        // Return the Goal object, with null deadline if not present
+        return new Goal(goalDescription, goalDeadline);
     }
+
 }
