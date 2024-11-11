@@ -13,27 +13,30 @@ keep track of what ingredients you have on hand.
 
 #### Features Implemented
 - Created command classes, inheriting from the base Command class
-  - addRecipeCommand, byeCommand, deleteCommand, listCommand, AddIngredientCommand, ListIngredientsCommand
+  - Classes created: addRecipeCommand, byeCommand, deleteCommand, listCommand, AddIngredientCommand, ListIngredientsCommand
   - Command classes deal with all the possible commands accepted by YMFC, with each command representing a specific 
 recognised user input
-- Created the Ingredient class, as well as its corresponding addIngredient and listIngredient logic
+- Created the Ingredient class, as well as its corresponding adding, deleting and listing logic
   - The Ingredient class represents the ingredients owned by the user. 
-  - Wrote code to allow users to add new ingredients to their inventory list and obtain a list of all the ingredients
-inside
+  - Wrote code to allow users to add new ingredients to their inventory list.
+  - Wrote code to allow users to obtain a list of all the ingredients.
+  - Wrote code to allow users to delete/remove ingredients from their inventory list.
   - Wrote code to allow YMFC to save and load Ingredients using a local .txt file.
+- Implemented validator for step parameters in Parser when adding recipes
+  - Prevents duplicate, missing step numbers, as well as numbers in a wrong order (i.e. not strictly increasing order)
 
 #### Enhancements Implemented
 - Created tests to ensure the proper functioning of command Classes
 - Improved on the usage example messages given during incorrect user input
 
-
 #### Contributions to the UG
-
+- Made instructions clearer by adding more details. 
 
 #### Contributions to the DG
 - Created a sequence diagram for the use of AddRecipeCommand
 - Added description for the section on `Command` class and its subclasses
-
+- Added more user stories
+- Created the table of contents
 
 #### Contributions to Team-Based Tasks
 - Helped routinely add new issues to work on and close issues that have been resolved

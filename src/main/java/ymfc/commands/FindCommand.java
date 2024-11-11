@@ -7,6 +7,7 @@ import ymfc.storage.Storage;
 import ymfc.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,7 @@ public class FindCommand extends Command {
 
     public FindCommand(String query, boolean isByName, boolean isByIngredient, boolean isByStep) {
         assert !query.isEmpty();
-        this.query = query;
+        this.query = query.toLowerCase(Locale.ROOT);
         this.isByName = isByName;
         this.isByIngredient = isByIngredient;
         this.isByStep = isByStep;
@@ -52,8 +53,8 @@ public class FindCommand extends Command {
         logger.log(Level.FINEST, "Executing FindCommand");
         ArrayList<Recipe> results = recipes.getRecipes()
                 .stream()
-                .filter((Recipe recipe) -> isQueryFoundInName(recipe) |
-                        isFoundInIngredients(recipe) |
+                .filter((Recipe recipe) -> isQueryFoundInName(recipe) ||
+                        isFoundInIngredients(recipe) ||
                         isFoundInSteps(recipe)
                 )
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -67,17 +68,21 @@ public class FindCommand extends Command {
     }
 
     private boolean isFoundInSteps(Recipe recipe) {
-        return isByStep &
-                recipe.getSteps().stream().anyMatch(s -> s.contains(query));
+        return isByStep &&
+                recipe.getSteps().stream().anyMatch(s -> s.toLowerCase().contains(query));
     }
 
     private boolean isFoundInIngredients(Recipe recipe) {
-        return isByIngredient &
+        return isByIngredient &&
                 recipe.getIngredients().stream()
-                        .anyMatch(ingredient -> ingredient.getName().contains(query));
+                        .anyMatch(ingredient ->
+                                ingredient.getName()
+                                        .toLowerCase()
+                                        .contains(query)
+                        );
     }
 
     private boolean isQueryFoundInName(Recipe recipe) {
-        return isByName & recipe.getName().contains(query);
+        return isByName && recipe.getName().toLowerCase().contains(query);
     }
 }

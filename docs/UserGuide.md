@@ -73,17 +73,19 @@ be automatically added to the ingredients inventory!
 * Your recipes and ingredients are saved automatically every time they are added, edited, removed or modified in any way
   * i.e. There is no manual way nor need to initiate this save process, as it is taken care of by YMFC itself.
 
-
 ### Input Formatting Guide
-* If the command format is in uppercase letters, then it means it is to be substituted for the user's desired phrase
+* If the command format is in `UPPER_CASE`, then it means it is to be substituted for the user's desired phrase
   * Example: In the parameter `n/NAME`, the user is to replace "NAME" with another word/phrase of their liking
-such as `n/ABC Soup`
-* If the command format is in lowercase letter, then it must be used as it is and cannot be substituted
+such as `n/ABC Soup`.
+* If the command format is in `lowercase` letter, then it must be used as it is and cannot be substituted
   * Example: In the parameter `s/name`, the command must be typed exactly as shown.
   * The word "name" cannot be replaced with anything else.
 * The [ ] in `[PARAMETER]` means that the parameter in question is optional to add in the command.
+  * e.g. `n/NAME [t/TEST]` can be used as `n/Sanjith t/YAYYY` or as `n/Sanjith`
 * The ... in `PARAMETER...` means that there can be multiple of that parameter.
-  * There must be at least 1 parameter included.
+  * NOTE: There must be **at least 1** parameter included.
+* Any command that has no additional parameters will ignore anything after the command, and will perform as usual.
+  * Example: `help me` would have the same results as `help`.
 
 ### Getting Help:`help`
 
@@ -107,7 +109,10 @@ Adds a new recipe to YMFC's cookbook.
 
 * The `c/CUISINE` and `t/TIME` parameters are optional
 * The `t/TIME` parameter should be a positive integer
-* The `n` in `sn/STEP` is the step number. `n` starts from 1 and counts up by 1 for every additional step  
+* The `n` in `sn/STEP` is the step number. 
+  * `n` starts from 1 and counts up by 1 for every additional step
+  * Step numbers must be in strictly increasing order, without skipping any numbers.
+  * Duplicate numbers, missing numbers, numbers in the wrong order will be **rejected**.
 
 Example of usage: 
 
@@ -275,7 +280,8 @@ ________________________________________________________________________________
 Format: `delete n/NAME`
 
 Will find the recipe of the entered name and delete it from YMFC's cookbook, and the name must be exact
-* This action is not reversible
+
+NOTE: This action is not reversible
 
 Example of usage:
 
@@ -297,7 +303,8 @@ ________________________________________________________________________________
 Format: `new n/INGREDIENT`
 
 Adds a new ingredient to your **inventory**
-* Ingredients can only be added one at a time
+
+NOTE: Ingredients can only be added one at a time
 
 Example of usage:
 
@@ -329,7 +336,8 @@ Search through your inventory list based on the ingredient name given
 Format: `deleteI n/INGREDIENT`
 
 Will find the ingredient of the entered name and delete it from YMFC's inventory, and the name must be exact
-* This action is not reversible
+
+NOTE: This action is not reversible
 
 ### Sorting Ingredients by Ingredient Name
 
