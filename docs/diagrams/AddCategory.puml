@@ -6,6 +6,8 @@ participant Parser
 participant CategoryManager
 participant Category
 participant TrackerData
+participant SuccessMessage
+participant ErrorMessage
 
 User -> SpendSwift : input("add-category <categoryName>")
 SpendSwift -> Parser : parseCommand(input, trackerData)
@@ -16,27 +18,32 @@ Parser -> CategoryManager : addCategory(input, trackerData)
 activate CategoryManager
 CategoryManager -> CategoryManager : parseCategory(input)
 CategoryManager -> CategoryManager : trim and format input
-CategoryManager -> CategoryManager : check if categoryName is empty
 
 alt categoryName is empty
-    CategoryManager -> Parser : "Category name is empty!"
+    CategoryManager -> ErrorMessage : printExpensesManagerEmptyCategory()
 else categoryName is not empty
+    CategoryManager -> CategoryManager : addCategoryHelper(trackerData, categoryName)
+    activate CategoryManager
+
     CategoryManager -> TrackerData : getCategories()
+    TrackerData --> CategoryManager : return categories list
     CategoryManager -> CategoryManager : check if categoryName exists in categories
 
     alt category already exists
-        CategoryManager -> Parser : "Category '<categoryName>' already exists!"
+        CategoryManager -> SuccessMessage : printExistingCategory(formattedCategoryName)
     else category does not exist
         CategoryManager -> Category : new Category(formattedCategoryName)
         activate Category
         Category --> CategoryManager : return new Category instance
         deactivate Category
 
-        CategoryManager -> TrackerData : Add new Category to categories
-        CategoryManager -> Parser : "Category '<categoryName>' added successfully."
+        CategoryManager -> TrackerData : add new Category to categories
+        CategoryManager -> SuccessMessage : printAddCategory(newCategory)
     end
+    deactivate CategoryManager
 end
 
 deactivate CategoryManager
 deactivate Parser
+
 @enduml
