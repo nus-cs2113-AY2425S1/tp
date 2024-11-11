@@ -45,4 +45,3 @@ public class TrackerData {
         this.budgets = budgets;
     }
 }
-
