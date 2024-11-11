@@ -18,6 +18,9 @@ import static seedu.exchangecoursemapper.constants.Logs.DATA_MISMATCH;
 import static seedu.exchangecoursemapper.constants.Logs.PARSING_ERROR_LINE;
 import static seedu.exchangecoursemapper.constants.Logs.FAILURE_READ_JSON_FILE;
 
+/**
+ * This class contains all the methods related to checking if the `myList.json` file is corrupted by the user.
+ */
 public class DataIntegrityChecker extends Command {
 
     private static final Logger logger = Logger.getLogger(DataIntegrityChecker.class.getName());
@@ -25,12 +28,13 @@ public class DataIntegrityChecker extends Command {
     private final CourseValidator courseValidator;
 
 
+    /** DataIntegrityChecker constructor.*/
     public DataIntegrityChecker() {
         this.courseValidator = new CourseValidator();
     }
 
     /**
-     * Validates the integrity of all entries in the file.
+     * Returns the integrity of all entries in the file.
      * Logs any integrity issues but does not terminate the program.
      *
      * @param entries List of all entries in the file to be validated.
@@ -49,6 +53,15 @@ public class DataIntegrityChecker extends Command {
         return isAllLineValid(entries, databaseJson);
     }
 
+    /**
+     * Returns true if all the course mappings in the `myList.json` file are valid against the JSON database.
+     * The method iterates through each course mapping and performs course validation, before returning the
+     * overall validity of all course mappings.
+     *
+     * @param entries a list of course mappings represented Strings, to be validated.
+     * @param databaseJson a JSON object containing the approved course mapping database.
+     * @return true if all course mappings are valid, otherwise false.
+     */
     private boolean isAllLineValid(List<String> entries, JsonObject databaseJson) {
         boolean isValid = true;
         for (int i = 0; i < entries.size(); i++) {
@@ -62,6 +75,15 @@ public class DataIntegrityChecker extends Command {
         return isValid;
     }
 
+    /**
+     * Returns whether duplicate entries are found in the provided List of courses mappings.
+     * If any duplicates are found, the duplicated course mapping is printed out
+     * and is subsequently removed from the `myList.json` file.
+     *
+     * @param courses the list of courses mappings to check for duplicates.
+     * @param storage the Storage instance used to save the updated list of non-duplicate courses.
+     * @return true if duplicates course mappings are found and removed,otherwise false.
+     */
     public boolean checkForDuplicateCourses(List<Course> courses, Storage storage) {
         Set<String> uniqueCourses = new HashSet<>();
         List<Course> nonDuplicateCourses = new ArrayList<>();
@@ -93,7 +115,8 @@ public class DataIntegrityChecker extends Command {
     }
 
     /**
-     * Validates a single course entry against the JSON database.
+     *  Returns true if the course entry is valid according to the database;
+     *  otherwise, logs an error and returns false.
      *
      * @param entry      The course entry in string format.
      * @param lineNumber The line number in the file for reference.
