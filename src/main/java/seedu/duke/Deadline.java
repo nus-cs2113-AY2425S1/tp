@@ -10,7 +10,8 @@ import java.time.format.ResolverStyle;
 /**
 * Represents a deadline associated with an internship, with a description and a specific due date.
 * The date is stored in the format "dd/MM/yy", and the class ensures that the date is parsed and validated
-* strictly according to the given pattern. The deadline also contains an internship ID to link it to a specific internship.
+* strictly according to the given pattern. The deadline also contains an internship ID
+* to link it to a specific internship.
 */
 public class Deadline {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/uu")
