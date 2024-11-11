@@ -69,8 +69,8 @@ public class Expense {
     public void setPrice(Float price) throws WheresMyMoneyException {
         if (price == null) {
             throw new WheresMyMoneyException("Expense's price shouldn't be null.");
-        } else if (price < 0) {
-            throw new WheresMyMoneyException("Expense's price shouldn't be negative.");
+        } else if (price <= 0) {
+            throw new WheresMyMoneyException("Expense's price shouldn't be non-positive.");
         }
         this.price = price;
     }
