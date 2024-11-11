@@ -672,3 +672,4 @@ Any mainstream OS with Java 17 installed
    Test case 2: `exit` (User's exit input only contains the exit command.) <br>
    Expected:
    `Bye! Hope to see you again soon!` <br>
+
