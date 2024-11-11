@@ -1,6 +1,6 @@
 //@@author nirala-ts
-
 package parser;
+import java.util.HashSet;
 
 public class FlagDefinitions {
     public static final String DATE_FLAG = "/t";
@@ -25,4 +25,25 @@ public class FlagDefinitions {
     public static final String MEAL_INDEX = "/m";
     public static final String WATER_INDEX = "/w";
     public static final String VOLUME_FLAG = "/v";
+
+    public static final HashSet<String> VALID_FLAGS = new HashSet<>();
+
+    static {
+        VALID_FLAGS.add(DATE_FLAG);
+        VALID_FLAGS.add(PROGRAMME_FLAG);
+        VALID_FLAGS.add(DAY_FLAG);
+        VALID_FLAGS.add(EXERCISE_FLAG);
+        VALID_FLAGS.add(NAME_FLAG);
+        VALID_FLAGS.add(SETS_FLAG);
+        VALID_FLAGS.add(REPS_FLAG);
+        VALID_FLAGS.add(WEIGHT_FLAG);
+        VALID_FLAGS.add(CALORIES_FLAG);
+        VALID_FLAGS.add(REMOVE_EXERCISE_FLAG);
+        VALID_FLAGS.add(ADD_EXERCISE_FLAG);
+        VALID_FLAGS.add(UPDATE_EXERCISE_FLAG);
+        VALID_FLAGS.add(ADD_DAY_FLAG);
+        VALID_FLAGS.add(REMOVE_DAY_FLAG);
+        VALID_FLAGS.add(MEAL_INDEX);
+        VALID_FLAGS.add(VOLUME_FLAG);
+    }
 }

@@ -13,9 +13,9 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
 ### Enhancements Implemented
 
 - Implemented the `BuffBuddy` class which serves as the main entry point for the application. This class initializes the UI, parser, storage, programme list, and history, and contains the main application loop.
-- Implemented the `Edit Programme` epic feature, which allows the user to edit the details of a programme.
-- Implemented all `ProgrammeCommand` classes, which allows the user to add, delete and view programmes.
-- Implemented the `Delete Workout Log` feature, which allows the user to delete a workout log.
+- Implemented the `Edit Programme` epic feature as well as its associated features `Edit Exercise`, `Create Exercise`, `Delete Exercise`, `Create Day`, `Delete Day` which allows the user to edit the details of a programme.
+- Designed and implemented initial version of `ProgrammeCommand` classes, which allows the user to add, delete and view programmes.
+- Implemented the `Delete Workout Log` feature, which allows the user to delete a logged workout from `History`.
 
 ### Contributions to the User Guide (UG)
 

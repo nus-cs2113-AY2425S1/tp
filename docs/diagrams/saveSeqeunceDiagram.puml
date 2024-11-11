@@ -7,9 +7,10 @@ activate Storage
 
 Storage -> Storage : createJSON (programmeList, history)
 activate Storage
+create JsonObject
 Storage -> JsonObject : new JsonObject()
 activate JsonObject
-
+JsonObject --> Storage : empty JsonObject
 deactivate JsonObject
 
 Storage -> Storage : programmeListToJson(programmeList)
@@ -35,7 +36,7 @@ deactivate Storage
 
 Storage -> FileManager : save(JsonObject)
 activate FileManager
-
+destroy JsonObject
 FileManager -> FileManager : createDirIfNotExists()
 activate FileManager
 deactivate FileManager

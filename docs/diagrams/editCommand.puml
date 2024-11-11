@@ -1,9 +1,9 @@
 @startuml
 actor User
-participant ":Ui" as Ui 
-participant ":BuffBuddy" as BuffBuddy 
+participant ":Ui" as Ui
+participant ":BuffBuddy" as BuffBuddy
 participant ":Parser" as Parser
-participant ":CommandFactory" as CommandFactory 
+participant ":CommandFactory" as CommandFactory
 participant ":ProgCommandFactory" as ProgCommandFactory
 participant ":EditProgrammeCommand" as Command
 participant ":Model" as Model
