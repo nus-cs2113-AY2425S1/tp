@@ -221,7 +221,8 @@ Edits an existing transaction in your financial list.
 
  - `DESCRIPTION` (optional): 
    - shouldn't be blank if provided.
-   - DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
+   - DO NOT USE `¦¦` and `/` in `DESCRIPTION` cause these symbols are used as separator tokens in the storage file and as prefixes for command arguments.
+   - We don't support characters outside of English alphabets and numbers.
  - `AMOUNT` (optional):
    - Must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `DATE` (optional):

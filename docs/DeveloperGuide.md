@@ -674,12 +674,19 @@ and stores and retrieves budget information to maintain data consistency across 
 
 <ins>Class Structure</ins>
 
+
  - **Attributes**:
+   - `logger`: `Logger` instance for logging information and errors, used for debugging and tracking purposes.
    - `FINANCIAL_LIST_FILE_PATH`: `String` constant storing the path to the file where financial transaction data is saved. 
-      Default path: `"data/FinancialList.txt"`.
-   - `BUDGET_FILE_PATH`: `String` constant storing the path to the file where budget data is saved. 
-      Default path: `"data/Budget.txt"`.
-   - `logger`: `Log` instance for logging information and errors for debugging and tracking purposes.
+   - `BUDGET_FILE_PATH`: `String` constant storing the path to the budget file where budget data is saved.
+   - `storageFileNotFoundMsg`: `String` message indicating that the storage file was not found. 
+  Used to inform users or logs of missing files.
+   - `budgetFileNotFoundMsg`: `String` message indicating that the budget file was not found. 
+    Notifies the user if budget records are missing.
+   - `loadedTransactionsMsg`: `String` message indicating that transactions were successfully loaded from the file.
+   - `failedLoadingBudgetMsg`: `String` message indicating that an error occurred while loading the budget.
+   - `loadedBudgetMsg`: `String` message confirming that the budget data was successfully loaded from the file.
+   - `invalidLines`: `List<String>` containing lines from the storage file that were deemed invalid during processing, typically due to format errors or missing data.
 
 <ins>Implementation Details</ins>
 
@@ -699,6 +706,9 @@ The `Storage` class contains functions for retrieving, updating, and loading dat
   For an `Expense` entry with a description "Transport," amount "5.00," date "25/10/2024," and category `TRANSPORT`:
   - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/2024) [TRANSPORT]`
   - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/2024 ¦¦ TRANSPORT`
+  
+  For a `budget` object with an amount of "10.00" which was set at "11/11/2024":
+  - `toStorageString()` method returns: `10.00\n2024-11-11`
 
 The figure below show how the program load FinantialList from the files:
 <img src="UML/loadTransactionFromStorage.png" alt="Storage Load FinantialList" width="auto" height="500">
@@ -707,24 +717,73 @@ The figure below show how the program load Budget from the files:
 
 <ins>Methods</ins>
 
- - **getStorageFile()**: 
-  Ensures the financial transaction storage file and its parent directories exist. If not, they are created. Returns the file handle to the storage file.
- - **getBudgetFile()**: 
-  Ensures the budget storage file and its parent directories exist. If not, they are created. Returns the file handle to the budget file.
- - **update(FinancialList theList, BudgetLogic budgetLogic)**: 
-  Writes the current entries in `FinancialList` to the storage file and updates the budget data in `BudgetLogic` to the budget file. Logs the number of entries saved or any encountered exceptions.
- - **checkParameters(double amount, String description, DateTimeFormatter formatter, LocalDate date)**: 
-  Validates financial entry parameters, ensuring they are non-negative, within limits, and the date is not in the future. Throws `FinanceBuddyException` for invalid values.
- - **parseExpense(String[] tokens)**: 
-  Parses an array of strings representing an `Expense` entry. Throws exceptions if any values (amount, date, category) are invalid, which are logged as warnings.
- - **parseIncome(String[] tokens)**: 
-  Parses an array of strings representing an `Income` entry. Similar to `parseExpense`, handles exceptions and logs warnings for invalid values.
- - **loadBudgetFromFile(FinancialList theList, BudgetLogic budgetLogic)**: 
-  Reads budget data from the budget file, validates it, and updates the `BudgetLogic` object. If any values are invalid, defaults are set, and warnings are logged.
- - **loadTransactionsFromFile()**: 
-  Loads `Expense` and `Income` entries from the financial transaction storage file into a `FinancialList`. Logs warnings for invalid or unrecognized formats and the count of successfully loaded entries.
- - **loadFromFile(BudgetLogic budgetLogic)**: 
-  High-level method that loads both transactions and budget data, returning a populated `FinancialList`. Catches exceptions to ensure a new `FinancialList` is returned even if loading fails.
+<ins>Methods</ins>
+
+ - **getStorageFile()**:  
+   Ensures the existence of the financial transaction storage file (`data/FinancialList.txt`) along with any necessary parent directories. 
+   If these do not exist, they are created. 
+   Returns a file handle to the storage file, allowing for further operations on it.
+
+ - **getBudgetFile()**:  
+   Ensures the existence of the budget file (`data/Budget.txt`) and its parent directories. 
+   Creates them if they do not exist. 
+   Returns a file handle to the budget file, enabling storage and retrieval of budget data.
+
+ - **getStorageFileWithoutMsg()**:  
+   Retrieves the storage file without displaying any creation or retrieval messages. 
+   Ensures silent handling of the storage file.
+
+ - **getBudgetFileWithoutMsg()**:  
+   Retrieves the budget file without showing messages, providing a quiet access method to the budget file.
+
+ - **update(FinancialList, BudgetLogic)**:  
+   Updates the storage files to include new entries from a given `FinancialList` and `Budget`. 
+   This ensures all financial records and budget adjustments are saved in the storage files for future retrieval.
+
+ - **parseExpense(String[])**:  
+   Parses a string array to create an `Expense` object from file.
+  The array should contain the required fields for an expense entry, which are extracted and assigned to the properties of the `Expense` object.
+
+ - **parseIncome(String[])**:  
+   Parses a string array to create an `Income` object. 
+   Each string in the array represents a component of the income data, used to populate the corresponding fields in the `Income` object.
+
+ - **loadFromFile(BudgetLogic)**:  
+   Loads financial data from the storage file into a `FinancialList` and updates the `Budget` object. 
+   This operation helps initialize the current state of financial records and budgeting information from saved data.
+
+ - **loadTransactionsFromFile()**:  
+   Loads transactions, including expenses and incomes, from the storage file into a `FinancialList`. 
+   It will call `parseExpense()` and `parseIncome` to parse each entry, ensuring that historical transaction data is accurately reflected in the application.
+
+ - **loadBudgetFromFile(FinancialList, BudgetLogic)**:  
+   Loads budget information from the file and applies it to the given `FinancialList` and `BudgetLogic` objects. 
+   This method re-establishes budget constraints and goals based on previous records.
+
+ - **checkParameters(double, String, DateTimeFormatter, LocalDate)**:  
+   Validates the parameters provided for creating financial entries. 
+   Checks that the amount (double), category (String), date formatter, and date (LocalDate) meet the required formats and constraints, ensuring data integrity.
+
+ - **getInvalidLines()**:  
+   Retrieves a list of lines from the storage file that were deemed invalid during processing. 
+   These lines might have incorrect formatting or missing fields, and are flagged for review.
+
+ - **clearInvalidLines()**:  
+   Clears all entries from the list of invalid lines, resetting the invalid entries log. This is typically done after errors have been addressed or reviewed.
+
+ - **printInvalidLines()**:  
+   Prints all lines stored in the invalid lines list to the console or log, allowing for quick review and troubleshooting of data issues.
+
+ - **printLoadingResult()**:  
+   Displays the result of the data loading operation, providing feedback on the success or failure of loading financial records from storage.
+
+ - **deleteBudgetFromFile()**:  
+   Permanently deletes the budget file from the file system. 
+   This is a non-reversible operation, intended for cases where budget data is no longer required.
+
+ - **deleteFinancialListFromFile()**:  
+   Permanently removes the financial list file from the storage. 
+   This clears all records of transactions stored in the file, effectively resetting financial history.
 
 <ins>Usage Example</ins>
 
