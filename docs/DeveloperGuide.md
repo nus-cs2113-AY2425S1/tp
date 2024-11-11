@@ -362,17 +362,21 @@ The `CategoryFilter` class is responsible for filtering categories based on vari
 
 <u>Methods</u>
 
-The `CategoryFacade` class has key methods for:
+The `CategoryFacade` class has key methods for the 6 commands of:
+- Add
+  - ![CategoryFacade Add SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Add%20SequenceUML.png)
+- Delete
+  - ![CategoryFacade Delete SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Delete%20SequenceUML.png)
+- Edit
+  - ![CategoryFacade Edit SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Edit%20SequenceUML.png)
+- Load
+  - ![CategoryFacade Load SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Load%20SequenceUML.png)
+- Save
+  - ![CategoryFacade Save SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Save%20SequenceUML.png)
+- Set
+  - ![CategoryFacade Set SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Set%20SequenceUML.png)
 
-|           Method            |                                    Description                                     |
-|:---------------------------:|:----------------------------------------------------------------------------------:|
-|        `addCategory`        |           The interface for AddCommand when the user adds a new Expense            |
-|      `deleteCategory`       |          The interface for DeleteCommand when the user deletes an Expense          |
-|       `editCategory`        |            The interface for EditCommand when the user edits an Expense            |
-|     `loadCategoryInfo`      |     The interface for LoadCommand to load category information from a CSV file     |
-| `displayFilteredCategories` | The interface for LoadCommand to show filtered categories based on spending limits |
-|     `saveCategoryInfo`      |  The interface for SaveCommand to save current category information to a CSV file  |
-| `setCategorySpendingLimit`  |   The interface for SetCommand to set a spending limit for a specified category    |
+Since this class' methods just call other methods from the other category classes, the (simplified) sequence diagrams are given instead of the method table.
 
 The `CategoryTracker` class has the following key methods: 
 
