@@ -26,6 +26,7 @@ Given below are my contributions to the project
 
 - Documentation
   - Added author tags in documentation to attribute work clearly: Pull Requests `#63`, `#64`
+  - Ensure that all documentation formatting is consistent and accurate: Pull Request `#218`
 
 - Error Handling
   - Added exceptions for edge cases, enhancing the robustness of the application: Pull request `#25`
@@ -48,8 +49,8 @@ Given below are my contributions to the project
 - Added documentation for v2.1 User Stories: #211
 - Added all manual testing instructions: #135, #136
 - Added all class diagrams and architecture diagram, with their explanation: #136, #213, #211
-- Added sequence diagrams: #66
-- Ensure all the formatting is accurate and consistent: #134,
+- Added all sequence diagrams, with their explanation: #66, #219, #226
+- Ensure all the formatting is accurate and consistent: #134, #227, #229
 
 #### Contributions to team-based tasks
 - Set up the GitHub team organisation
