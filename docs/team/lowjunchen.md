@@ -18,15 +18,15 @@ Given below are my contributions to the project.
     - **What it does**: The Parser class interprets and routes different command inputs, creating and executing the appropriate command objects based on user input. It enables the application to handle commands like adding tasks, marking, unmarking, deleting, finding, and listing tasks and patients.
     - **Justification**: A centralized parser is essential for user interactions, allowing diverse commands to be processed and executed in a structured and manageable way. This improves the application’s ability to expand with additional commands.
     - **Highlights**: The Parser class supports error handling and logs specific errors for each command, enabling easier debugging and better user feedback for incorrect inputs.
-- **New Feature:`AddTodoParser`, `AddDeadlineParser`, `AddRepeatParser`, and `AddParser` for handling specific add commands. **
+- **New Feature:**`AddTodoParser`, `AddDeadlineParser`, `AddRepeatParser`, and `AddParser` for handling specific add commands. 
     - **What it does**: These classes interpret and create command objects to add "todo," "deadline," "repeat" tasks, or new patients. They extract specific parameters such as task name, deadline, recurrence period, and tags.
     - **Justification**: Modular parsers for different add commands allow customization and extensibility in the handling of unique input patterns, facilitating complex task management.
     - **Highlights**: Each parser includes error handling for empty inputs, supports tag extraction, and uses a flexible design to parse optional parameters like tags or deadlines based on user input.
-- **New Feature: `ListParser` to handle list commands.**
+- **New Feature:** `ListParser` to handle list commands.
     - **What it does**: This parser checks the application state and lists either patients or tasks, depending on the current mode.
     - **Justification**: By allowing users to list either tasks or patients depending on context, the parser enhances the usability of the application in managing different types of data.
     - **Highlights**: The ListParser includes state-checking functionality that allows it to distinguish between listing patients in MAIN_STATE and tasks in TASK_STATE.
-- **New Feature: `DeleteParser` for deleting tasks or patients.**
+- **New Feature:** `DeleteParser` for deleting tasks or patients.
     - **What it does**:  Interprets the command for deleting a specified task or patient by extracting the ID and determining whether the deletion applies to tasks or patients based on the current state.
     - **Justification**: This parser provides a uniform way to handle deletion commands while adapting to context, which makes command processing simpler and more consistent.
     - **Highlights**:  It includes input validation and state-dependent behavior, improving user experience by automatically interpreting whether the deletion refers to a task or a patient.
