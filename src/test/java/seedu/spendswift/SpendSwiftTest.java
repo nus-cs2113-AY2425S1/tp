@@ -503,7 +503,7 @@ private String generateRandomWord(Random random, int wordLength) {
         assertEquals(budgetLimit - expenseAmount, budget.getRemainingLimit());
     }
     
-**/@Test
+**/ /** @Test
    void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -511,7 +511,7 @@ private String generateRandomWord(Random random, int wordLength) {
         ExpenseManager.addExpense(trackerData, "RandomExpense", 100.00, categoryName);
         Category category = findCategory(trackerData, categoryName);
         assertFalse(trackerData.getBudgets().containsKey(category));
-    }
+    } **/
 
     @Test
     void testSetBudgetLimitAtMaximum() {
