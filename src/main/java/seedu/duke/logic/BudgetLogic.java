@@ -176,7 +176,8 @@ public class BudgetLogic {
     }
 
     /**
-     * Prints the current balance amount to the user interface.
+     * Prints the current balance amount to the user interface if budget is set.
+     * Does nothing if budget has not been set.
      */
     public void printBalanceAmount() {
         if (!budget.isBudgetSet()) {
