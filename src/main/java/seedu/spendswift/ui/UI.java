@@ -7,10 +7,7 @@ public class UI {
     private static final String EXIT_MESSAGE = "Goodbye! :> Hope to see you again soon!";
     private static final String EXPENSE_FILE_NOT_FOUND = "Expense data file not found.";
     private static final String CATEGORY_FILE_NOT_FOUND = "Category data file not found.";
-    private static final String DATA_LOADED_MESSAGE = "Data loaded successfully";
-    private static final String DATA_SAVED_MESSAGE = "Data has been saved!";
     private static final String ERROR_LOADING_DATA_MESSAGE = "Error loading data: ";
-    private static final String ERROR_SAVING_DATA_MESSAGE = "Error saving data: ";
     private static final String INVALID_INPUT_MESSAGE = "Please enter a valid command! " +
             "Use the help command to find valid command.";
     private static final String HELP_INTRO_MESSAGE = "Here are the commands available:";
@@ -37,26 +34,9 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
-    public void printDataLoaded() {
-        System.out.println(SEPARATOR);
-        System.out.println(DATA_LOADED_MESSAGE);
-    }
-
-    public void printDataSaved() {
-        System.out.println(SEPARATOR);
-        System.out.println(DATA_SAVED_MESSAGE);
-        System.out.println(SEPARATOR);
-    }
-
     public void printLoadingError(String errorMessage) {
         System.out.println(SEPARATOR);
         System.out.println(ERROR_LOADING_DATA_MESSAGE + errorMessage);
-    }
-
-    public void printSavingError(String errorMessage) {
-        System.out.println(SEPARATOR);
-        System.out.println(ERROR_SAVING_DATA_MESSAGE + errorMessage);
-        System.out.println(SEPARATOR);
     }
 
     public void printParserInvalidInput() {

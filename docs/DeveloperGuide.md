@@ -52,6 +52,27 @@ This structure separates expenses and categories into distinct storage classes â
 â€” which clarifies their respective responsibilities. This separation promotes modularity and enhances maintainability 
 by ensuring each storage class focuses exclusively on managing one type of data.
 
+### Parser
+
+![Parser Class Diagram](developerguidepictures/Parser.drawio.png)
+
+`Parser` serves as the main component, acting as a command interpreter that directs input to the relevant classes 
+(`UI`, `Storage`, `ExpenseManager`, `CategoryManager`, and `BudgetManager`).
+- `UI`: Displays messages for various actions.
+- `Storage`: Enhances maintainability and allows updates to data handling without distrupting the logic.
+- `ExpenseManager`: Provide methods when an expense-related command is issued
+- `CategoryManager`: Provide methods when an category-related command is issued
+- `BudgetManager`: Provide methods when an budget-related command is issued
+
+By centralizing control, `Parser` simplifies input handling, efficiently routing and processing commands through the 
+appropriate subsystems. This design fosters modularity and separation of concerns, with each class surrounding `Parser` 
+dedicated to a specific role within the system. This enhances control flow and minimise direct dependencies among 
+components.
+
+Each class serves a distinct purpose and this clear division of responsibilities promotes modularity, 
+making the system more adaptable and maintainable.
+
+
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
 #### TrackerData

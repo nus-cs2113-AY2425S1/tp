@@ -29,10 +29,10 @@ public class Parser {
         input = input.trim().toLowerCase();
 
         if (input.startsWith("add-expense")) {
-            expenseManager.addExpenseRequest(input, expenseManager, trackerData);
+            expenseManager.addExpenseRequest(input, trackerData);
             storage.saveData(trackerData);
         } else if (input.startsWith("delete-expense")) {
-            expenseManager.deleteExpenseRequest(input, expenseManager, trackerData);
+            expenseManager.deleteExpenseRequest(input, trackerData);
             storage.saveData(trackerData);
         } else if (input.startsWith("tag-expense")) {
             expenseManager.tagExpense(trackerData, input);
