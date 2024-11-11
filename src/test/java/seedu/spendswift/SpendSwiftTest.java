@@ -602,7 +602,7 @@ private String generateRandomWord(Random random, int wordLength) {
         assertEquals(0, validLimit.compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     }
-
+}
 
 
 
