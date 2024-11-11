@@ -2,7 +2,7 @@
 
 package parser;
 
-import exceptions.ParserExceptions;
+import exceptions.ParserException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,7 +46,7 @@ public class ParserUtils {
      *
      * @param argumentString The string to trim.
      * @return The trimmed version of {@code argumentString}.
-     * @throws ParserExceptions if {@code argumentString} is empty after trimming.
+     * @throws ParserException if {@code argumentString} is empty after trimming.
      */
     static String trimInput(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -54,7 +54,7 @@ public class ParserUtils {
 
         if (trimmedString.isEmpty()){
             logger.log(Level.WARNING, "Trimmed input is empty");
-            throw ParserExceptions.missingArguments();
+            throw ParserException.missingArguments();
         }
 
         logger.log(Level.INFO, "Successfully trimmed input: {0}", trimmedString);
@@ -66,7 +66,7 @@ public class ParserUtils {
      *
      * @param intString The string to parse as an integer.
      * @return The parsed integer, or {@code NULL_INTEGER} if {@code intString} is null.
-     * @throws ParserExceptions if {@code intString} cannot be parsed as an integer.
+     * @throws ParserException if {@code intString} cannot be parsed as an integer.
      */
     public static int parseInteger(String intString){
         if (intString == null) {
@@ -78,7 +78,7 @@ public class ParserUtils {
         int result;
 
         if (trimmedIntString.length() > 10) { // 10 digits is the maximum for Integer.MAX_VALUE (2,147,483,647)
-            throw ParserExceptions.infinityInt(trimmedIntString);
+            throw ParserException.infinityInt(trimmedIntString);
         }
 
         try{
@@ -86,11 +86,11 @@ public class ParserUtils {
             logger.log(Level.INFO, "Successfully parsed integer: {0}", result);
         } catch (NumberFormatException e){
             logger.log(Level.WARNING, "Failed to parse integer from string: {0}", intString);
-            throw ParserExceptions.invalidInt(trimmedIntString);
+            throw ParserException.invalidInt(trimmedIntString);
         }
 
         if (result < 0){
-            throw ParserExceptions.invalidInt(trimmedIntString);
+            throw ParserException.invalidInt(trimmedIntString);
         }
 
         return result;
@@ -101,7 +101,7 @@ public class ParserUtils {
      *
      * @param floatString The string to parse as a float.
      * @return The parsed float, or {@code NULL_FLOAT} if {@code floatString} is null.
-     * @throws ParserExceptions if {@code floatString} cannot be parsed as a float.
+     * @throws ParserException if {@code floatString} cannot be parsed as a float.
      */
     public static float parseFloat(String floatString) {
         if (floatString == null) {
@@ -117,15 +117,15 @@ public class ParserUtils {
             logger.log(Level.INFO, "Successfully parsed float: {0}", result);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
-            throw ParserExceptions.invalidFloat(trimmedFloatString);
+            throw ParserException.invalidFloat(trimmedFloatString);
         }
 
         if (result == Double.POSITIVE_INFINITY) {
-            throw ParserExceptions.infinityFloat(trimmedFloatString);
+            throw ParserException.infinityFloat(trimmedFloatString);
         }
 
         if (result < 0){
-            throw ParserExceptions.invalidFloat(trimmedFloatString);
+            throw ParserException.invalidFloat(trimmedFloatString);
         }
 
         return result;
@@ -136,7 +136,7 @@ public class ParserUtils {
      *
      * @param indexString The string to parse as an index.
      * @return The zero-based index, or {@code NULL_INTEGER} if {@code indexString} is null.
-     * @throws ParserExceptions if the index is less than zero.
+     * @throws ParserException if the index is less than zero.
      */
     public static int parseIndex(String indexString) {
         if (indexString == null) {
@@ -147,7 +147,7 @@ public class ParserUtils {
         int index = parseInteger(indexString) - 1;
         if (index < 0){
             logger.log(Level.WARNING, "Invalid index: {0}. Index must be non-negative.", indexString);
-            throw ParserExceptions.indexOutOfBounds(indexString);
+            throw ParserException.indexOutOfBounds(indexString);
         }
 
         logger.log(Level.INFO, "Successfully parsed index: {0}", index);
@@ -159,7 +159,7 @@ public class ParserUtils {
      *
      * @param dateString The string to parse as a date.
      * @return The parsed {@code LocalDate} object, or today's date if {@code dateString} is null.
-     * @throws ParserExceptions if the date format is invalid.
+     * @throws ParserException if the date format is invalid.
      */
     public static LocalDate parseDate(String dateString) {
         if (dateString == null || dateString.trim().isEmpty()) {
@@ -189,7 +189,7 @@ public class ParserUtils {
         } catch (DateTimeParseException e) {
             logger.log(Level.WARNING, "Invalid date format: {0}. Expected format: {1}",
                     new Object[]{dateString, DATE_FORMAT});
-            throw ParserExceptions.invalidDate(trimmedDateString);
+            throw ParserException.invalidDate(trimmedDateString);
         }
     }
 }

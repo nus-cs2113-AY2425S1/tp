@@ -2,7 +2,7 @@
 
 package parser;
 
-import exceptions.ParserExceptions;
+import exceptions.ParserException;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +39,7 @@ class ParserUtilsTest {
 
     @Test
     void testTrimInputEmptyString() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.trimInput(" "),
+        assertThrows(ParserException.class, () -> ParserUtils.trimInput(" "),
                 "Should throw PaserExceptions on empty input.");
     }
 
@@ -61,7 +61,7 @@ class ParserUtilsTest {
     @Test
     void testParseIntegerNegativeEdgeCase() {
         String input = "-1";
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseInteger(input));
+        assertThrows(ParserException.class, () -> ParserUtils.parseInteger(input));
     }
 
     @Test
@@ -72,7 +72,7 @@ class ParserUtilsTest {
 
     @Test
     void testParseIntegerNonNumericInputInvalid() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseInteger("abc"),
+        assertThrows(ParserException.class, () -> ParserUtils.parseInteger("abc"),
                 "Should throw PaserExceptions on invalid integer.");
     }
 
@@ -94,7 +94,7 @@ class ParserUtilsTest {
     @Test
     void testParseFloatSmallNegativeEdgeCase() {
         String input = "-0.0001";
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseFloat(input));
+        assertThrows(ParserException.class, () -> ParserUtils.parseFloat(input));
     }
 
     @Test
@@ -105,7 +105,7 @@ class ParserUtilsTest {
 
     @Test
     void testParseFloatNonNumericInputInvalid() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseFloat("abc"),
+        assertThrows(ParserException.class, () -> ParserUtils.parseFloat("abc"),
                 "Should throw PaserExceptions on invalid float.");
     }
 
@@ -133,7 +133,7 @@ class ParserUtilsTest {
 
     @Test
     void testParseIndexNegativeIndexInvalid() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseIndex("-1"),
+        assertThrows(ParserException.class, () -> ParserUtils.parseIndex("-1"),
                 "Should throw PaserExceptions on negative index.");
     }
 
@@ -145,7 +145,7 @@ class ParserUtilsTest {
 
     @Test
     void testParseIndexNonNumericInputInvalid() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseIndex("abc"),
+        assertThrows(ParserException.class, () -> ParserUtils.parseIndex("abc"),
                 "Should throw PaserExceptions on non-numeric index.");
     }
 
@@ -188,13 +188,13 @@ class ParserUtilsTest {
 
     @Test
     void testParseDateInvalidDayInMonth() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseDate("31-02-2023"),
+        assertThrows(ParserException.class, () -> ParserUtils.parseDate("31-02-2023"),
                 "Should throw exception on invalid date (February 31st).");
     }
 
     @Test
     void testParseDateInvalidMonth() {
-        assertThrows(ParserExceptions.class, () -> ParserUtils.parseDate("31-13-2023"),
+        assertThrows(ParserException.class, () -> ParserUtils.parseDate("31-13-2023"),
                 "Should throw exception on invalid month (13).");
     }
 }

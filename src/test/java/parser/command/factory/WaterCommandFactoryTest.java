@@ -4,8 +4,8 @@ import command.Command;
 import command.water.AddWaterCommand;
 import command.water.DeleteWaterCommand;
 import command.water.ViewWaterCommand;
-import exceptions.FlagExceptions;
-import exceptions.ParserExceptions;
+import exceptions.FlagException;
+import exceptions.ParserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +58,7 @@ public class WaterCommandFactoryTest {
         // Missing /v (volume) flag
         String argumentString = "/t 31-10-2024";
 
-        assertThrows(FlagExceptions.class, () -> waterCommandFactory.prepareAddCommand(argumentString),
+        assertThrows(FlagException.class, () -> waterCommandFactory.prepareAddCommand(argumentString),
                 "Missing required flag /v should throw FlagException.");
     }
 
@@ -67,7 +67,7 @@ public class WaterCommandFactoryTest {
         // Missing /w (water index) flag
         String argumentString = "/t 31-10-2024";
 
-        assertThrows(FlagExceptions.class,
+        assertThrows(FlagException.class,
                 () -> waterCommandFactory.prepareDeleteCommand(argumentString),
                 "Missing required flag /w should throw FlagException.");
     }
@@ -76,7 +76,7 @@ public class WaterCommandFactoryTest {
     public void testPrepareViewCommandInvalidDate() {
         String argumentString = "invalid-date";
 
-        assertThrows(ParserExceptions.class,
+        assertThrows(ParserException.class,
                 () -> waterCommandFactory.prepareViewCommand(argumentString),
                 "Invalid date format should throw FlagException.");
     }

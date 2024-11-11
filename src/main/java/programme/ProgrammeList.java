@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -86,7 +86,7 @@ public class ProgrammeList {
 
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteProgram()", index);
-            throw ProgrammeExceptions.doesNotExist("programme");
+            throw ProgrammeException.doesNotExist("programme");
         }
 
         Programme programmeToDelete = programmeList.get(index);
@@ -119,7 +119,7 @@ public class ProgrammeList {
 
         if (index < 0 || index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
-            throw ProgrammeExceptions.doesNotExist("programme");
+            throw ProgrammeException.doesNotExist("programme");
         }
 
         logger.log(Level.INFO, "Retrieving programme at index {0}: {1}", new Object[]{index, programmeList.get(index)});
@@ -148,16 +148,16 @@ public class ProgrammeList {
             deactivateCurrentProgramme();
             //currentActiveProgramme = NULL_INTEGER;
             logger.log(Level.WARNING, "Attempted to start a programme but the list is empty");
-            throw ProgrammeExceptions.programmeListEmpty();
+            throw ProgrammeException.programmeListEmpty();
         }
 
         if (startIndex < 0 || startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
-            throw ProgrammeExceptions.doesNotExist("programme");
+            throw ProgrammeException.doesNotExist("programme");
         }
 
         if (currentActiveProgramme == startIndex) {
-            throw ProgrammeExceptions.programmeAlreadyActive(startIndex);
+            throw ProgrammeException.programmeAlreadyActive(startIndex);
         }
 
         currentActiveProgramme = startIndex;

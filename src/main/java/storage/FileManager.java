@@ -7,7 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
-import exceptions.StorageExceptions;
+import exceptions.StorageException;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -86,10 +86,10 @@ public class FileManager {
      * <p>
      * This method attempts to read the file at the specified path and parse its contents as a JSON object.
      * If the file is empty or contains no data, an empty JSON object is returned. Any I/O errors encountered
-     * during file reading will result in a {@link StorageExceptions}.
+     * during file reading will result in a {@link StorageException}.
      *
      * @return a JSON object containing the data loaded from the file, or an empty JSON object if the file is empty
-     * @throws StorageExceptions if an I/O error occurs during loading
+     * @throws StorageException if an I/O error occurs during loading
      */
     private JsonObject load() {
         logger.info("Attempting to load data from file: " + path);
@@ -127,9 +127,9 @@ public class FileManager {
         try (FileWriter writer = new FileWriter(path)) {
             gson.toJson(data, writer);
             logger.info("Data successfully saved to file.");
-        } catch (StorageExceptions e) {
+        } catch (StorageException e) {
             logger.log(Level.WARNING, "Failed to save data to file: " + path, e);
-            throw StorageExceptions.unableToSave();
+            throw StorageException.unableToSave();
         }
     }
 
@@ -150,7 +150,7 @@ public class FileManager {
 
         if (!isSuccess){
             logger.log(Level.WARNING, "Failed to create directory.");
-            throw StorageExceptions.unableToCreateDirectory();
+            throw StorageException.unableToCreateDirectory();
         }
         logger.log(Level.INFO, "Directory created");
     }
@@ -171,7 +171,7 @@ public class FileManager {
 
         if (!isSuccess) {
             logger.log(Level.WARNING, "Failed to create file.");
-            throw StorageExceptions.unableToCreateFile();
+            throw StorageException.unableToCreateFile();
         }
         logger.log(Level.INFO, "File created");
     }

@@ -1,7 +1,7 @@
 //@@author Bev-low
 package history;
 
-import exceptions.HistoryExceptions;
+import exceptions.HistoryException;
 import exceptions.MealException;
 import meal.Meal;
 import meal.MealList;
@@ -53,7 +53,7 @@ public class DailyRecord {
      */
     public Day deleteDayFromRecord() {
         if (this.day == null) {
-            throw HistoryExceptions.dayNotFound();
+            throw HistoryException.dayNotFound();
         }
 
         Day deleted = this.day;

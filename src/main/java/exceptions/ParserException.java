@@ -5,14 +5,14 @@ package exceptions;
 /**
  * Represents exceptions related to parsing operations in the application.
  */
-public class ParserExceptions extends BuffBuddyExceptions {
+public class ParserException extends BuffBuddyException {
 
     /**
      * Constructs a new ParserExceptions with the specified detail message.
      *
      * @param message The detail message for this exception.
      */
-    public ParserExceptions(String message) {
+    public ParserException(String message) {
         super(message);
     }
 
@@ -22,8 +22,8 @@ public class ParserExceptions extends BuffBuddyExceptions {
      * @param no The invalid float value.
      * @return A {@code ParserExceptions} with a message indicating that the provided float is invalid.
      */
-    public static ParserExceptions invalidFloat(String no) {
-        return new ParserExceptions("Float is not a valid, it should be more than 0");
+    public static ParserException invalidFloat(String no) {
+        return new ParserException("Float is not a valid, it should be more than 0");
     }
 
     /**
@@ -32,8 +32,8 @@ public class ParserExceptions extends BuffBuddyExceptions {
      * @param no The invalid integer value.
      * @return A {@code ParserExceptions} with a message indicating that the provided integer is invalid.
      */
-    public static ParserExceptions invalidInt(String no) {
-        return new ParserExceptions("Index is not a valid, it should be more than 0");
+    public static ParserException invalidInt(String no) {
+        return new ParserException("Index is not a valid, it should be more than 0");
     }
 
     /**
@@ -42,8 +42,8 @@ public class ParserExceptions extends BuffBuddyExceptions {
      * @param date The invalid date.
      * @return A {@code ParserExceptions} with a message indicating that the provided date is invalid.
      */
-    public static ParserExceptions invalidDate(String date) {
-        return new ParserExceptions("Invalid Date: " + date + ", Date in format dd-MM-yyyy.");
+    public static ParserException invalidDate(String date) {
+        return new ParserException("Invalid Date: " + date + ", Date in format dd-MM-yyyy.");
     }
 
     /**
@@ -51,8 +51,8 @@ public class ParserExceptions extends BuffBuddyExceptions {
      *
      * @return A {@code ParserExceptions} with a message indicating that a command is missing.
      */
-    public static ParserExceptions missingCommand() {
-        return new ParserExceptions("Missing Command, please refer to User Guide");
+    public static ParserException missingCommand() {
+        return new ParserException("Missing Command, please refer to User Guide");
     }
 
     /**
@@ -60,8 +60,8 @@ public class ParserExceptions extends BuffBuddyExceptions {
      *
      * @return A {@code ParserExceptions} with a message indicating that arguments are missing.
      */
-    public static ParserExceptions missingArguments() {
-        return new ParserExceptions("Missing Arguments, please refer to User Guide");
+    public static ParserException missingArguments() {
+        return new ParserException("Missing Arguments, please refer to User Guide");
     }
 
     /**
@@ -71,15 +71,15 @@ public class ParserExceptions extends BuffBuddyExceptions {
      * @return A {@code ParserExceptions} with a message indicating that the provided index is
      *         out of bounds.
      */
-    public static ParserExceptions indexOutOfBounds(String indexString) {
-        return new ParserExceptions("Index is not a valid, it should be more than 0");
+    public static ParserException indexOutOfBounds(String indexString) {
+        return new ParserException("Index is not a valid, it should be more than 0");
     }
 
-    public static ParserExceptions infinityFloat(String trimmedFloatString) {
-        return new ParserExceptions("Float is too large, please key in a smaller number.");
+    public static ParserException infinityFloat(String trimmedFloatString) {
+        return new ParserException("Float is too large, please key in a smaller number.");
     }
 
-    public static ParserExceptions infinityInt(String trimmedIntString) {
-        return new ParserExceptions("Integer is too large, please key in a smaller number.");
+    public static ParserException infinityInt(String trimmedIntString) {
+        return new ParserException("Integer is too large, please key in a smaller number.");
     }
 }
