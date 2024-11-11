@@ -18,7 +18,8 @@ public class CalendarCommand extends Command {
     public void execute(ArrayList<String> args) {
         ArrayList<Deadline> deadlines = getDeadlines();
         ArrayList<Deadline> sortedDeadlines = sortDeadlines(deadlines);
-        uiCommand.showCalendar(sortedDeadlines);
+        ArrayList<String> companies = getCompanies(sortedDeadlines);
+        uiCommand.showCalendar(sortedDeadlines, companies);
 
         LOGGER.log(Level.INFO, "CalendarCommand Executed");
     }
@@ -35,6 +36,15 @@ public class CalendarCommand extends Command {
     protected ArrayList<Deadline> sortDeadlines(ArrayList<Deadline> deadlines) {
         deadlines.sort(Comparator.comparing(deadline -> deadline.getUnformattedDate()));
         return deadlines;
+    }
+
+    protected ArrayList<String> getCompanies(ArrayList<Deadline> deadlines) {
+        ArrayList<String> companies = new ArrayList<>();
+        for (Deadline deadline : deadlines) {
+            int internshipIndex = deadline.getInternshipId() - 1;
+            companies.add(internships.getInternship(internshipIndex).getCompany());
+        }
+        return companies;
     }
 
     @Override
