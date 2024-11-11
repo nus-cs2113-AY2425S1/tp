@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import static fittrack.storage.Storage.DATA_DELIMITER;
+import static fittrack.storage.Storage.DATA_DELIMITER_REGEX;
+
 public class Reminder extends Saveable {
 
     private final LocalDateTime reminderDeadline;
@@ -42,8 +45,9 @@ public class Reminder extends Saveable {
      */
     @Override
     public String toSaveString() {
-        return "Reminder" + " | " + reminderDescription + " | " +
-                reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + " | " + user.toString();
+        return "Reminder" + DATA_DELIMITER + reminderDescription + DATA_DELIMITER +
+                reminderDeadline.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + DATA_DELIMITER
+                + user.toString();
     }
 
     /**
@@ -59,7 +63,7 @@ public class Reminder extends Saveable {
      */
     public static Reminder fromSaveString(String saveString) {
         // Split the string by the " | " delimiter
-        String[] stringData = saveString.split(" \\| ");
+        String[] stringData = saveString.split(DATA_DELIMITER_REGEX);
 
         // Check if the format is correct
         if (stringData.length < 3 || !stringData[0].equals("Reminder")) {
