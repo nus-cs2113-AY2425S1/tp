@@ -4,6 +4,7 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.exception.UnknownUniversityException;
+import seedu.exchangecoursemapper.parser.Parser;
 import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonArray;
@@ -18,6 +19,7 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 public class ListUniCoursesCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
     private static final UI ui = new UI();
+    private static final Parser parser = new Parser();
 
     /**
      * Executes the command to retrieve and list courses for a specified PU based on user input.
@@ -85,11 +87,11 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         assert jsonObject != null : Assertions.NULL_JSON_FILE;
         assert puName != null : Assertions.EMPTY_PU_NAME;
 
-        String lowerCasePuName = puName.toLowerCase();
+        String convertedPuName = parser.parsePUAbbreviations(puName).toLowerCase();
         Set<String> universityNames = jsonObject.keySet();
 
         logger.log(Level.INFO, Logs.SEARCH_UNIVERSITY, puName);
-        String universityName = findUniversityName(universityNames, lowerCasePuName);
+        String universityName = findUniversityName(universityNames, convertedPuName);
 
         if (universityName == null) {
             handleUnknownUniversity(puName);
@@ -103,13 +105,13 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
      * If no match is found, it returns null.
      *
      * @param universityNames A set of university names in the data.
-     * @param lowerCasePuName The lower case name of the university to be searched for.
+     * @param convertedPuName The lower case name of the university to be searched for.
      * @return The matching university name.
      */
-    private String findUniversityName(Set<String> universityNames, String lowerCasePuName) {
+    private String findUniversityName(Set<String> universityNames, String convertedPuName) {
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
-            if (universityName.toLowerCase().equals(lowerCasePuName)) {
+            if (universityName.toLowerCase().equals(convertedPuName)) {
                 logger.log(Level.INFO, Logs.UNIVERSITY_FOUND, universityName);
                 return universityName;
             }
