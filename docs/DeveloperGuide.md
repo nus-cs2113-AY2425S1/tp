@@ -4,7 +4,7 @@
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
 
-![Architecture Diagram](developerguidepictures/Architecture%20Diagram.drawio.png)
+![Architecture Diagram](classdiagrams/Architecture%20Diagram.drawio.png)
 
 ### Main Components  
 SpendSwift class is in charge of launching the program, 
@@ -21,7 +21,7 @@ In this sequence diagram, all the components would be grouped together and simpl
 - All the commands, which are all the classes in the commands package, would be classified under `:Command` here.
 - All storage classes would be classified under `:Storage`
 
-![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
+![Overal Sequence Diagram](classdiagrams/Overall%20Sequence%20Diagram.drawio.png)
 
 **The sections below give more details of the components and any additional components.**
 
@@ -30,7 +30,7 @@ In this sequence diagram, all the components would be grouped together and simpl
 ## Class Diagrams
 ### Storage
 
-![Storage Class Diagram](developerguidepictures/Storage.drawio.png)
+![Storage Class Diagram](classdiagrams/Storage.drawio.png)
 
 `Storage` is designed to handle the saving and loading of data for categories and expenses within the program.
 - `Storage`: Coordinates the loading and saving of data for both categories and expenses. 
@@ -52,7 +52,7 @@ by ensuring each storage class focuses exclusively on managing one type of data.
 
 ### Parser
 
-![Parser Class Diagram](developerguidepictures/Parser.drawio.png)
+![Parser Class Diagram](classdiagrams/Parser.drawio.png)
 
 `Parser` serves as the main component, acting as a command interpreter that directs input to the relevant classes 
 (`UI`, `Storage`, `ExpenseManager`, `CategoryManager`, and `BudgetManager`).
@@ -72,7 +72,7 @@ making the system more adaptable and maintainable.
 
 ### TrackerData
 
-![TrackerData Class Diagram](developerguidepictures/TrackerData.drawio.png)
+![TrackerData Class Diagram](classdiagrams/TrackerData.drawio.png)
 
 `TrackerData` serves as the main data structure, consolidating and managing `Category`, `Expense`, and `Budget` data 
 for efficient tracking and processing within the program.
@@ -104,16 +104,40 @@ without disrupting other parts of the system, supporting a scalable and well-org
 ---
 
 ## Sequence Diagrams
-### add-expense
-### delete-expense
-### add-category
-### delete-category
-### tag-expense
-### set-budget
-### view-expenses
-### view-category
-### view-budget
-### help
+### 1. add-expense
+### 2. delete-expense
+### 3. add-category
+**Overview**
+
+The sequence diagram represents the flow for adding a new category in SpendSwift when the user inputs an `add-category` command.
+
+![add-category](sequencediagrams/AddCategory.png)
+
+**Implementation**
+1. User Input and Parsing:
+   - The user inputs the command `add-category c/<categoryName>`. 
+   - SpendSwift receives the input and passes it to `Parser`, which then calls `addCategory` method in `CategoryManager`. 
+   - `CategoryManager` delegates input parsing to `InputParser` to extract the category name from the command.
+
+2. Validation of Category Name:
+   - After parsing, `CategoryManager` checks if the `categoryName` is null or empty. If it is, an error message is displayed using `ErrorMessage`. 
+
+3. Formatting and Duplicate Check:
+   - If the `categoryName` is valid, `CategoryManager` retrieves the list of categories from `TrackerData` and formats the `categoryName` using `Format`.
+   - It then iterates through the categories list, checking if a category with the same formatted name already exists. If a match is found, `SuccessMessage` is used to display a message stating that the category already exists.
+
+4. Adding a New Category:
+   - If no match is found, a new `Category` object is created with the formatted name.
+   - This new category is added to the categories list, which is then saved back to `TrackerData`.
+   - A success message is displayed indicating that the category was added successfully.
+
+### 4. delete-category
+### 5. tag-expense
+### 6. set-budget
+### 7. view-expenses
+### 8. view-category
+### 9. view-budget
+### 10. help
 
 ---
 

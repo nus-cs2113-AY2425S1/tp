@@ -4,39 +4,89 @@ actor User
 participant SpendSwift
 participant Parser
 participant CategoryManager
-participant Category
+participant InputParser
+participant ErrorMessage
 participant TrackerData
+participant Format
+participant SuccessMessage
+participant Category
 
-User -> SpendSwift : input("add-category <categoryName>")
+User -> SpendSwift : input("add-category c/<categoryName>")
+activate SpendSwift
 SpendSwift -> Parser : parseCommand(input, trackerData)
 
 activate Parser
 Parser -> CategoryManager : addCategory(input, trackerData)
 
 activate CategoryManager
-CategoryManager -> CategoryManager : parseCategory(input)
-CategoryManager -> CategoryManager : trim and format input
-CategoryManager -> CategoryManager : check if categoryName is empty
+CategoryManager -> InputParser : parseCategory(input)
 
-alt categoryName is empty
-    CategoryManager -> Parser : "Category name is empty!"
-else categoryName is not empty
+activate InputParser
+InputParser -> InputParser : parseComponent(input, "c/")
+
+    activate InputParser
+    InputParser --> InputParser : return categoryName: String
+    deactivate InputParser
+
+InputParser --> CategoryManager : return categoryName: String
+deactivate InputParser
+
+alt categoryName == null || categoryName.isEmpty()
+    CategoryManager -> ErrorMessage : printMissingCategory()
+    activate ErrorMessage
+    ErrorMessage --> CategoryManager : "Category name is empty!"
+    deactivate ErrorMessage
+
+else !(categoryName == null) && !(categoryName.isEmpty())
+    CategoryManager -> CategoryManager : addCategoryHelper(trackerData, categoryName)
+    activate CategoryManager
     CategoryManager -> TrackerData : getCategories()
-    CategoryManager -> CategoryManager : check if categoryName exists in categories
+    activate TrackerData
+    TrackerData --> CategoryManager : return categories: List<Category>
+    deactivate TrackerData
 
-    alt category already exists
-        CategoryManager -> Parser : "Category '<categoryName>' already exists!"
-    else category does not exist
+    CategoryManager -> Format : formatInput(categoryName)
+    activate Format
+    Format --> CategoryManager : return formattedCategoryName: String
+    deactivate Format
+
+    loop for each Category in categories
+        CategoryManager -> Category : getName()
+        activate Category
+        Category --> CategoryManager : return name: String
+        deactivate Category
+
+        opt name == formattedCategoryName
+            CategoryManager -> SuccessMessage : printExistingCategory(formattedCategoryName)
+            activate SuccessMessage
+            SuccessMessage --> CategoryManager : "Category '<formattedCategoryName>' already exists!"
+            deactivate SuccessMessage
+        end
+    end
+
+    opt !(name == formattedCategoryName)
         CategoryManager -> Category : new Category(formattedCategoryName)
         activate Category
         Category --> CategoryManager : return new Category instance
         deactivate Category
 
-        CategoryManager -> TrackerData : Add new Category to categories
-        CategoryManager -> Parser : "Category '<categoryName>' added successfully."
+        CategoryManager -> TrackerData : setCategories(categories)
+        activate TrackerData
+        TrackerData --> CategoryManager : return
+        deactivate TrackerData
+        CategoryManager -> SuccessMessage : printAddCategory(newCategory)
+        activate SuccessMessage
+        SuccessMessage --> CategoryManager : "Category '<newCategory>' added successfully."
+        deactivate SuccessMessage
     end
+    CategoryManager --> CategoryManager : return
+    deactivate CategoryManager
 end
 
+CategoryManager --> Parser : return
 deactivate CategoryManager
+Parser --> SpendSwift : return
 deactivate Parser
+SpendSwift --> User : return
+deactivate SpendSwift
 @enduml
