@@ -31,8 +31,24 @@ the participants and logistics of such events.
 
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest version of `EventManagerCLI` from [here](https://github.com/AY2425S1-CS2113-W13-3/tp/releases).
-3. Open a new terminal in the folder that you put the JAR file in, and run the program with the command ```java -jar manager.jar```.
+3. Open a new terminal in the folder that you put the JAR file in, and run the program with the following commands:
+
+For Windows:
+
+```
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8 
+chcp 65001 
+java "-Dfile.encoding=UTF-8" -jar tp.jar
+```
+
+For macOS:
+
+```
+java "-Dfile.encoding=UTF-8" -jar tp.jar
+```
+
 The following message would be printed:
+
 ```
 Welcome to EventManagerCLI.
 Enter a command:
@@ -161,7 +177,7 @@ Format:
 Remarks:
 
 * If there is already an `Event` with the name `NEW_EVENT_NAME` in the event list, or an `Item` with the name `NEW_ITEM_NAME` in the specified event, an indexed suffix is added to differentiate the events.
-  * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop (1)`.
+  * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop(1)`.
 * `TIME` cannot be edited to a date-time in the past.
 
 Examples:
