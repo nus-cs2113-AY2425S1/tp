@@ -1,52 +1,50 @@
 @startuml
 
-actor User
-participant Duke
-participant ExpenseTracker
+participant BudgetManager
+participant TrackerData
 participant Category
 participant Budget
 
-User -> Duke : input("set-budget c/<category> l/<limit>")
-activate Duke
+BudgetManager -> BudgetManager : setBudgetLimit(TrackerData trackerData, String categoryName, double limit)
 
-Duke -> ExpenseTracker : setBudgetLimitRequest(input)
-activate ExpenseTracker
+BudgetManager -> TrackerData : getCategories()
+TrackerData --> BudgetManager : Return list of categories
 
-ExpenseTracker -> ExpenseTracker : Parse category and limit from input
+BudgetManager -> TrackerData : getBudgets()
+TrackerData --> BudgetManager : Return map of budgets
 
-alt Invalid Input (Missing Category or Limit)
-    ExpenseTracker -> User : Display "Invalid input! Please provide name and amount."
-else Valid Input
-    ExpenseTracker -> ExpenseTracker : formatInput(categoryName)
+BudgetManager -> BudgetManager : Format category name (trim and standardize input)
 
+alt Limit Exceeds Maximum Value
+    BudgetManager -> User : Display "Budget limit exceeds maximum allowable value."
+else Valid Limit
     loop Search for Category
-        ExpenseTracker -> Category : Check if category matches formattedCategoryName
+        BudgetManager -> Category : Check if category matches formattedCategoryName
         activate Category
-        Category --> ExpenseTracker : Return matching category name
+        Category --> BudgetManager : Return matching category or null
         deactivate Category
     end
 
     alt Category Not Found
-        ExpenseTracker -> User : Display "Category '<formattedCategoryName>' not found. Please add the category first."
+        BudgetManager -> User : Display "Category '<formattedCategoryName>' not found."
     else Category Found
-        ExpenseTracker -> ExpenseTracker : Check if budget already exists for the category
-
-        alt Budget Exists
-            ExpenseTracker -> Budget : Update existing budget limit
+        alt Budget Exists for Category
+            BudgetManager -> Budget : Update existing budget with new limit
             activate Budget
-            Budget --> ExpenseTracker : Return updated budget details
+            Budget --> BudgetManager : Confirm updated budget
             deactivate Budget
-            ExpenseTracker -> User : Display "Updated budget for category '<category>' to <limit>"
+            BudgetManager -> User : Display "Updated budget for category '<category>' to <limit>."
         else No Existing Budget
-            ExpenseTracker -> Budget : Create new Budget instance with limit
+            BudgetManager -> Budget : Create new budget instance with limit
             activate Budget
-            Budget --> ExpenseTracker : Return new budget details
+            Budget --> BudgetManager : Return new budget instance
             deactivate Budget
-            ExpenseTracker -> User : Display "Set budget for category '<category>' to <limit>"
+            BudgetManager -> TrackerData : Add new budget to budgets map
+            BudgetManager -> User : Display "Set budget for category '<category>' to <limit>."
         end
     end
 end
-deactivate ExpenseTracker
-deactivate Duke
 
 @enduml
+
+
