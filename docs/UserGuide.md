@@ -875,13 +875,13 @@ __________________________________________________
 Deadlines:
 
 10/10/24 
-	1: interview round 1
+	1 (ABS): interview round 1
 
 02/11/24 --> Today
-	2: application deadline
+	2 (XYZ): application deadline
 
 05/11/24 
-	1: interview round 2
+	1 (ABS): interview round 2
 __________________________________________________
 __________________________________________________
 ```
