@@ -468,11 +468,16 @@ public class Event {
      * @return the updated version of name.
      */
     private String getUpdatedParticipantName(String name, Participant participant) {
-        if (name.equalsIgnoreCase(participant.getName())) {
-            return name;
-        } else {
-            return getDuplicateParticipantName(name);
+        int index = 1;
+        String updatedName = name;
+
+        while (getParticipantByName(updatedName).isPresent() &&
+                !updatedName.equalsIgnoreCase(participant.getName())) {
+            updatedName = String.format("%s(%d)", name, index);
+            index++;
         }
+
+        return updatedName;
     }
 
     /**
@@ -483,10 +488,14 @@ public class Event {
      * @return the updated version of name.
      */
     private String getUpdatedItemName(String name, Item item) {
-        if (name.equalsIgnoreCase(item.getName())) {
-            return name;
-        } else {
-            return getDuplicateItemName(name);
+        int index = 1;
+        String updatedName = name;
+
+        while (getItemByName(updatedName).isPresent() && !updatedName.equalsIgnoreCase(item.getName())) {
+            updatedName = String.format("%s(%d)", name, index);
+            index++;
         }
+
+        return updatedName;
     }
 }

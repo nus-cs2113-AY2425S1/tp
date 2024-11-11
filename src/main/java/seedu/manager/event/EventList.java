@@ -464,10 +464,14 @@ public class EventList  {
      * @return the updated version of name.
      */
     private String getUpdatedEventName(String name, Event event) {
-        if (name.equals(event.getEventName())) {
-            return name;
-        } else {
-            return getDuplicateEventName(name);
+        int index = 1;
+        String updatedName = name;
+
+        while (getEventByName(updatedName).isPresent() && !updatedName.equals(event.getEventName())) {
+            updatedName = String.format("%s(%d)", name, index);
+            index++;
         }
+
+        return updatedName;
     }
 }
