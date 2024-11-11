@@ -39,6 +39,7 @@ edit 1 /date 11-09-2001
 list
 edit 1 /date 2001-11-09
 
+stats
 list
 list /category expensive food
 list /category helpme
