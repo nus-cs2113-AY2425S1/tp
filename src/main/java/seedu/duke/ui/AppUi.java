@@ -78,6 +78,29 @@ public class AppUi {
     }
 
     /**
+     * Displays number of entries deleted by using delete all
+     */
+    public void displayDeleteAllMessage(int totalEntries) {
+        System.out.println(Commons.LINE_SEPARATOR);
+        if (totalEntries > 1) {
+            System.out.println("Okay! A total of " + totalEntries + " entries have been deleted.");
+        } else {
+            System.out.println("Okay! 1 entry has been deleted.");
+        }
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+    /**
+     * Displays number of entries deleted by using delete all
+     */
+    public void displayEmptyListMessage() {
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("The list is already empty.");
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+
+    /**
      * Displays warning that budget has been exceeded
      */
     public void displayBudgetBalanceExceededMessage(double amount) {

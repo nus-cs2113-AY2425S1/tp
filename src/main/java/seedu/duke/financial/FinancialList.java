@@ -230,4 +230,11 @@ public class FinancialList {
         totalIncomeByCategory.clear();
     }
 
+    public void clear() {
+        entries.clear(); // Assuming `entries` is the internal list of financial transactions
+    }
+
+    public ArrayList<FinancialEntry> getEntries() {
+        return new ArrayList<>(entries); // Return a copy to prevent external modification
+    }
 }

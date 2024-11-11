@@ -33,7 +33,6 @@ class EditEntryCommandTest {
      * Tests the EditEntryCommand when the financial list is null.
      * This test ensures that the command throws a FinanceBuddyException
      * with the appropriate message when attempting to execute with a null financial list.
-     *
      * The test creates an EditEntryCommand with sample data and then attempts to execute it
      * with a null financial list. It verifies that a FinanceBuddyException is thrown and
      * that the exception message contains the expected message "Financial list cannot be null".
@@ -55,7 +54,6 @@ class EditEntryCommandTest {
 
     /**
      * Tests the EditEntryCommand to ensure that it correctly edits an existing expense entry in the financial list.
-     * 
      * This test creates an EditEntryCommand with specific parameters and executes it on the financial list.
      * It then verifies that the entry count remains the same, and that the entry's amount, description, date,
      * and category have been updated to the new values provided in the command.
@@ -87,7 +85,7 @@ class EditEntryCommandTest {
      */
     @Test
     void testEditEntryCommand_editExpenseCategory() throws FinanceBuddyException {
-        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now()));
+        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now(),null));
         EditEntryCommand command = new EditEntryCommand(2, 50.0, "Salary", "01/10/2023",
                 Expense.Category.FOOD);
         command.execute(financialList);

@@ -225,16 +225,99 @@ public class Logic {
 
 
     /**
-     * Deletes an existing entry from the financial list based on the provided command arguments.
-     * <p>
-     * The method extracts the index of the entry to be deleted from the command arguments.
-     * A {@link DeleteCommand} is created and executed to remove the entry from the financial list.
+     * Deletes an existing entry or a range of entries from the financial list based on the command arguments.
      *
-     * @param commandArguments A map of parsed command arguments that contains the index of the entry
-     *                         to be deleted.
+     * @param commandArguments A map of parsed command arguments. Includes:
+     *                         - "argument": The start index (or "all" for deleting all entries).
+     *                         - "/to": The end index for range deletion (optional).
+     * @throws FinanceBuddyException If indices are invalid, out of range, or missing.
      */
     public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        int index = processIndexToAmend(commandArguments);
+        String end = commandArguments.get("/to");
+
+        if ("all".equalsIgnoreCase(commandArguments.get("argument"))) {
+            handleDeleteAll();
+            return;
+        }
+        int startIndex = processIndexToAmend(commandArguments);
+
+        if (end == null || end.isBlank()) {
+            deleteSingleEntry(startIndex);
+        } else {
+            int endIndex = parseIndex(end);
+            deleteRangeByIndex(startIndex, endIndex);
+        }
+
+    }
+
+    /**
+     * Deletes a range of entries in the financial list from the specified start index to the end index.
+     *
+     * @param start The start index (1-based).
+     * @param end   The end index (1-based).
+     * @throws FinanceBuddyException If the range is invalid or out of bounds.
+     */
+    public void deleteRangeByIndex(int start, int end) throws FinanceBuddyException {
+        if (start > end) {
+            throw new FinanceBuddyException("Start index must be less than or equal to end index.");
+        } else if (start < 1 || end > financialList.getEntryCount()) {
+            throw new FinanceBuddyException("Invalid range. Ensure indices are within the list bounds.");
+        }
+
+        // Delete entries in reverse to avoid shifting issues
+        for (int i = end; i >= start; i--) {
+            adjustBalanceAndDelete(i - 1); // Convert to 0-based index
+        }
+
+        Commons.printSingleLineWithBars("Entries from index " + start + " to " + end + " have been deleted.");
+    }
+
+
+    /**
+     * Deletes all entries in the financial list and resets the balance.
+     *
+     * @throws FinanceBuddyException If any issue occurs during the deletion process.
+     */
+    public void handleDeleteAll() throws FinanceBuddyException {
+        int totalEntries = financialList.getEntryCount();
+        if (totalEntries == 0) {
+            ui.displayEmptyListMessage();
+            return;
+        }
+
+        for (FinancialEntry entry : financialList.getEntries()) {
+            double amount = entry.getAmount();
+            budgetLogic.modifyBalance(amount);
+        }
+
+        financialList.clear();
+        ui.displayDeleteAllMessage(totalEntries);
+        financialList.resetLastAmendedIndex();
+    }
+
+    /**
+     * Deletes a single entry from the financial list, adjusts the budget balance, and resets the last amended index.
+     *
+     * @param index The index of the entry to delete (0-based).
+     * @throws FinanceBuddyException If the index is invalid or out of bounds.
+     */
+    private void adjustBalanceAndDelete(int index) throws FinanceBuddyException {
+        FinancialEntry entry = financialList.getEntry(index);
+        if (entry instanceof Expense) {
+            double amount = entry.getAmount();
+            budgetLogic.modifyBalance(amount);
+        }
+        financialList.deleteEntry(financialList.getEntries().indexOf(entry));
+        financialList.resetLastAmendedIndex();
+    }
+
+    /**
+     * Deletes a single entry at the specified index and adjusts the balance.
+     *
+     * @param index The index of the entry to delete (1-based).
+     * @throws FinanceBuddyException If the index is invalid or out of bounds.
+     */
+    private void deleteSingleEntry(int index) throws FinanceBuddyException {
         FinancialEntry entry = financialList.getEntry(index - 1);
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
