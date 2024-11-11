@@ -10,5 +10,6 @@ List of available commands:
 'add Flashcards /q <DESCRIPTION> /a <ANSWER>' to input for your own revision as well!
 ----------------------
 > Goodbye! Your quiz results have been successfully saved
-Flashcards have been successfully saved
+> Topic not found. Ensure the topic name matches exactly.
+> Flashcards have not been successfully saved unfortunately
 Thank you for using Java Ninja!
