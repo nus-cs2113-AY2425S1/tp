@@ -57,9 +57,9 @@ public class Parser {
     private static final String INVALID_EDIT_MESSAGE = """
             Invalid command!
             Please enter your commands in the following format:
-            edit -e EVENT -name EVENT_NAME -t TIME -v VENUE -u PRIORITY
-            edit -m ITEM > NEW_ITEM -e EVENT
-            edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT
+            edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY
+            edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT
+            edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT
             """;
     private static final String INVALID_VIEW_MESSAGE = """
             Invalid command!
@@ -85,8 +85,14 @@ public class Parser {
             """;
     private static final String INVALID_FILTER_MESSAGE = """
             Invalid command!
-            Please enter your commands in the following format:
-            filter -e/-d/-t/-x/-u FILTER_DESCRIPTION
+            
+            Please enter your command using either of the following format:
+            
+            - Use filter -e FILTER_DESCRIPTION to filter by event.
+            - Use filter -d FILTER_DESCRIPTION to filter by date.
+            - Use filter -t FILTER_DESCRIPTION to filter by time.
+            - Use filter -x FILTER_DESCRIPTION to filter by a date-time.
+            - Use filter -u FILTER_DESCRIPTION to filter by participant.
             """;
     private static final String INVALID_FIND_MESSAGE = """
             Invalid command!
@@ -979,7 +985,8 @@ public class Parser {
      * @return a {@code FilterCommand} object initialized with the specified flag and filter criteria
      * @throws InvalidCommandException if the command format is invalid or an invalid flag is provided
      */
-    private Command parseFilterCommand(String input, String[] commandParts) throws InvalidCommandException {
+    private Command parseFilterCommand(String input, String[] commandParts)
+            throws InvalidCommandException, ParseException {
         assert commandParts[0].equalsIgnoreCase(FilterCommand.COMMAND_WORD);
         checkForDuplicateFlags(input, FILTER_FLAG_REGEX);
         Matcher matcher = getMatcher(input, FILTER_REGEX);
@@ -988,15 +995,17 @@ public class Parser {
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
         }
 
-        if (matcher.group(1).isBlank()) {
+        String filterFlag = matcher.group(1).trim();
+        String filterDesc = matcher.group(2).trim();
+        if (filterFlag.isBlank()) {
             throw new InvalidCommandException(INVALID_FILTER_MESSAGE);
         }
 
-        if (matcher.group(2).isBlank()) {
+        if (filterDesc.isBlank()) {
             throw new InvalidCommandException(EMPTY_INPUT_MESSAGE);
         }
 
-        return new FilterCommand(matcher.group(1).trim(), matcher.group(2).trim());
+        return new FilterCommand(filterFlag, filterDesc);
     }
 
     /**

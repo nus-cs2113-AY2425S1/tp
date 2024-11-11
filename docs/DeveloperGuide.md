@@ -56,7 +56,7 @@
 
 This application uses the following dependencies:
 
-* [OpenCSV 5.9](https://mvnrepository.com/artifact/com.opencsv/opencsv/5.9) to read and write to `.csv` files.
+* [OpenCSV 5.9](https://mvnrepository.com/artifact/com.opencsv/opencsv/5.9) to read and write to `.txt` files.
 * [JUnit Jupiter API 5.10.0](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api/5.10.0) for unit testing.
 * [JUnit Jupiter Engine 5.10.0](https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine/5.10.0) for unit testing.
 <div style="page-break-after: always;"></div>
@@ -128,8 +128,8 @@ These are:
 * A `FileParser` that parses through the file contents when loading event data.
 
 The `Storage` component does the following:
-* Load event data from a`.csv` file into `EventList` upon program startup.
-* Save events data from `EventList` into the aforementioned `.csv` file each time a command is executed.
+* Load event data from `data.txt` file into `EventList` upon program startup.
+* Save events data from `EventList` into the aforementioned `data.txt` file each time a command is executed.
 
 Additional details on the implementation of the above operations can be found in the [Saving and loading of data](#saving-and-loading-of-data) section.
 <div style="page-break-after: always;"></div>
@@ -723,7 +723,7 @@ The logic for the saving of `Item`s is similar to that for `Participant`s.
 
 <div style="page-break-after: always;"></div>
 
-Reading and writing from and to the `.csv` storage files is done through operations from the **OpenCSV** library, namely:
+Reading and writing from and to `data.txt` is done through operations from the **OpenCSV** library, namely:
 
 * `CSVReader#readAll()`, which is invoked by `FileParser` when loading data, to convert the file into a list of arrays of `String` to be parsed.
 * `CSVWriter#writeNext()`, which is invoked when saving data, to save the fields for an `Event`, `Participant`, or `Item` into the file.
