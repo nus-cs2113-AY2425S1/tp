@@ -130,6 +130,7 @@ The available partner universities are:
 * The University of Melbourne (unimelb)
 * The Australian National University (anu)
 * Victoria University of Wellington (wgtn)
+
 Abbreviation of the universities name can be used.
 
 Example of usage:
@@ -394,7 +395,7 @@ cs3244 | the australian national university | comp3670
 cs2102 | the university of melbourne | info20003
 ```
 
-### Find courses in personalised tracker `find`
+### Find courses in personalised tracker: `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`
