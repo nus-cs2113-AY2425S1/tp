@@ -24,11 +24,15 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 * Abstract parent class to allow child classes for the Personal Tracker features to be implemented through over-riding methods
 
 #### Filter Courses Command Class
-* Implemented the `FilterCoursesCommand` class to allow users to filter out Partner University Courses that can be mapped
-  to a specific NUS course they plan to take during exchange.
+* Implemented the `FilterCoursesCommand` class to allow users to filter out Partner University Courses that can be
+  mapped to a specific NUS course they plan to take during exchange.
 * The user input format is `filter NUS_COURSE_CODE`, and the program, depending on whether there are available mappings,
   will print to the command line interface the name of the Partner University and the course it is offering that can be 
   mapped to `NUS_COURSE_CODE`.
+
+#### Nus Course Code Validator Class
+* Implemented the `NusCourseCodeValidator` class to check if the NUS course code input for the `FilterCoursesCommand`
+  follows a valid NUS SoC course code format
 
 #### Delete Courses Command Class
 * Implemented the `DeleteCoursesCommand` class to allow users to delete a course mapping plan from
@@ -39,28 +43,29 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 
 #### Miscellaneous
 * J-unit test, assertions and logging for all classes were done to gracefully handle errors
-* Started the use of named constants by creating the constants package, with the `Messages`, `Commands`, `JsonKey` 
-  and `Regex` files
+* Refactored code over the course of the project to follow SLAP
+* Started the use of named constants by creating the `constants` package, with the `Messages`, `Commands`, `JsonKey` 
+  and `Regex` files that stores the constants used throughout the code base
 
 ## 3. User Guide
-{WIP}
+* Documented Filter Courses Function
+* Documented Delete Courses Function
 
 ## 4. Developer Guide
-* Made config files for UML diagrams (Class and Sequence) to follow standard notations
 
 ### Design Section
-* Class Diagram of `Commands` package
-
-![Class diagram for Commands](../images/CommandClass.png)
+* Made config files for UML diagrams (Class and Sequence) to follow standard notations
+* Class Diagram of `Commands` structure: `Command` class inheritance, `CheckInformationCommand` and
+  `PersonalTrackerCommand`
 
 ### Implementation Section
-I wrote an overview for the FilterCourses and DeleteCourses commands, as well as how the features are implemented, 
-and why they were implemented that way.
-
-#### UML diagrams
-* Command package class diagrams
+* Documented the overview for the FilterCourses and DeleteCourses commands, as well as how the features are implemented.
 * Filter Courses Sequence Diagram
 * Delete Courses Sequence Diagram
+
+### Instructions for manual testing
+* Documented test cases for testers to follow for the `CheckInformationCommands`
+* Included notes for testers that could guide them through the testing
 
 ## 5. Contributions to team-based tasks
 * Set up the GitHub team organisation, tP repository, and issue tracker, while discussing with the team through a call.
@@ -71,9 +76,10 @@ and why they were implemented that way.
 
 ## 6. Review/mentoring contributions
 * GitHub code reviews and comments for multiple PRs, learning together with the team:
-    * https://github.com/AY2425S1-CS2113-W10-2/tp/pull/72 (Discussion on sequence diagrams)
-    * https://github.com/AY2425S1-CS2113-W10-2/tp/pull/109 (Discussion on JUnit tests)
-    * https://github.com/AY2425S1-CS2113-W10-2/tp/pull/125 (Discussion on SLAP)
+    * Discussion on sequence diagrams: [#72](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/72)
+    * Discussion on JUnit tests: [#109](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/109)
+    * Discussion on SLAP: [#125](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/125)
+* Guided team members through checkstyle errors during the CI process
 
-## Contributions beyond the project team:
-[Peer reviewed](https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893) the DG done by team CS2113-T10-3 for their application MangaTantou.
+## 7. Contributions beyond the project team:
+[Peer-reviewed](https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893) the DG done by team CS2113-T10-3 for their application MangaTantou.
