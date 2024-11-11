@@ -387,9 +387,9 @@ that NUS course is suitable to be mapped overseas in Oceania.
 
 
 #### Why it is implemented that way:
-- **Single Responsibility Principle:** The methods to check in the user's input for the NUS course code are extracted
+- **Single Responsibility Principle:** The methods to check the user's input for the NUS course code are extracted
   into the `NusCourseCodeValidator` class, separate from the methods used in the `FilterCoursesCommand` class, which
-  are mainly for the logic behind the filtering of courses.
+  are mainly used for the logic behind the filtering of courses.
 
 
 #### Sequence Diagram:
