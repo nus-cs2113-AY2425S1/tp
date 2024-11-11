@@ -12,43 +12,55 @@ they have exceeded, or are close to exceeding, their budget.
 ### Summary of Contributions
 
 - **Feature:** Edit Command (co-contribution)
-  - <ins>What it does:</ins> 
-  Allows users to edit existing transaction properties, such as description, date, amount, and categories.
-  - <ins>Justification:</ins> 
-  Provides users with the flexibility to modify a transaction after it has been created.
+  - <ins>What it does:</ins>  
+    Allows users to edit existing transaction properties, such as description, date, amount, and categories, making it easy to update or correct transaction details.
+
+  - <ins>Justification:</ins>  
+    Provides users with the flexibility to modify a transaction after it has been created. 
+    This feature is essential for maintaining accurate records, as users may need to adjust details due to mistakes or changes in transaction information. It enhances user control and ensures the data remains relevant and correct.
 
 &nbsp; 
 
 - **Feature:** Storage
-  - <ins>What it does:</ins> 
-  Saves the FinancialList to a file.
-  - <ins>Justification:</ins> 
-  Enables users to retain their financial data even after the program is closed, ensuring data persistence.
+  - <ins>What it does:</ins>  
+    Saves the `FinancialList` and `Budget` to files, preserving all user-recorded financial data and budget.
 
+  - <ins>Justification:</ins>  
+    Enables users to retain their financial data even after the program is closed, ensuring data persistence. 
+    This feature is crucial for any financial management tool as it allows users to access their records and updates without the need to re-enter data each time they open the application, enhancing convenience and data reliability.
 &nbsp; 
 
 - **Feature:** Exit Command
-  - <ins>What it does:</ins> 
-  Terminate the FinanceBuddy.
-  - <ins>Justification:</ins> 
-  Enables users to end the program.
+  - <ins>What it does:</ins>  
+    Terminates the FinanceBuddy application, allowing users to gracefully exit the program when they are done using it.
+  
+  - <ins>Justification:</ins>  
+    Provides users with the ability to end the program session, ensuring they have full control over when they wish to close the application. 
+    This is essential for user experience, as it allows users to end their session efficiently without needing to force close or terminate the app through other means.
 
 &nbsp; 
 
 - **Feature:** ViewAllExpenses Command (co-contribution)
-  - <ins>What it does:</ins> 
-  Allows users to see all the expenses.
-  - <ins>Justification:</ins> 
-  Provides users with the list of existing expenses in the list.
+  - <ins>What it does:</ins>  
+    The `ViewAllExpenses` command provides users with a comprehensive overview of all their recorded expenses. 
+    By simply executing this command, users can access a complete list of expenses they have logged, including details such as the amount spent, date, and purpose or category of the expense. 
+    This command is especially useful for users who want to review their past expenditures in one place and get a clear picture of their financial habits.
+  
+  - <ins>Justification:</ins>  
+    The `ViewAllExpenses` feature is a fundamental component of any expense-tracking application. 
+    It serves as a quick and efficient way for users to gain insight into their spending patterns and track their financial activities. 
+    By allowing users to see all expenses in a single view, this feature helps them analyze their financial behavior, identify areas where they might be overspending, and make informed budgeting decisions. 
+    Additionally, having all expenses readily accessible improves the user experience, as it removes the need for manual searching or filtering to retrieve past transactions, making it more convenient and user-friendly.
 
 &nbsp; 
 
-- **Documentation:**
+- **Documentations:**
   - <ins>User Guide</ins> 
     - Edit command
     - Saving Data
   - <ins>Developer Guide</ins> 
     - Storage component 
+    - SDs for loading from files
     - Use cases
     - NFRs
     - Glossary
