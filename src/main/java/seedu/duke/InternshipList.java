@@ -302,7 +302,7 @@ public class InternshipList {
                 break;
             default:
                 // If there's an unknown status, you might want to handle it or ignore it
-                logger.log(Level.WARNING, "Unknown status: " + status);
+                LOGGER.log(Level.WARNING, "Unknown status: " + status);
                 break;
             }
         }
@@ -406,7 +406,7 @@ public class InternshipList {
                 break;
             default:
                 // If there's an unknown status, you might want to handle it or ignore it
-                logger.log(Level.WARNING, "Unknown status: " + status);
+                LOGGER.log(Level.WARNING, "Unknown status: " + status);
                 break;
             }
         }
