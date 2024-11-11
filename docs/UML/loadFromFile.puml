@@ -16,6 +16,14 @@ deactivate ":InternshipList"
 activate ":Storage" #orange
 
 loop for each line in file
+
+    alt line starts with "FAVOURITES:"
+        ":Storage" -> ":Storage" : add favInternshipId to favouriteIds
+        activate ":Storage" #orange
+        return
+
+        end
+
     ":Storage"-> ":Internship" **: new Internship(role, company, startDate, endDate)
     activate ":Internship" #blue
     ":Storage"->":InternshipList": addInternship(internship)
@@ -35,6 +43,20 @@ loop for each line in file
         ":Storage" -> ":Internship" : addDeadline(description, date)
         activate ":Internship" #blue
         deactivate ":Internship"
+    end
+
+    loop for favInternshipId in favouriteIds
+        ":Storage" -> ":InternshipList" : getInternship(favInternshipId)
+        activate ":InternshipList" #aquamarine
+        ":InternshipList" --> ":Storage" : favInternship
+        deactivate ":InternshipList"
+
+        alt favInternship is found
+            ":Storage" -> ":InternshipList" : add to favouriteInternships
+        else favInternship is not found
+            ":Storage" -> ":Storage" : warning: favInternshipId not found.
+        end
+
     end
 
         deactivate ":Storage"

@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 public class Parser {
     private static final Ui ui = new Ui();
-    private static final Logger logger = Logger.getLogger("EasInternship");
+    private static final Logger LOGGER = Logger.getLogger("EasInternship");
 
     private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
@@ -60,12 +60,12 @@ public class Parser {
 
         if (!commands.containsKey(inputCommand)) {
             ui.showUnknownCommand(inputCommand);
-            logger.log(Level.WARNING, "Invalid Command: " + inputCommand);
+            LOGGER.log(Level.WARNING, "Invalid Command: " + inputCommand);
             return null;
         }
 
         Supplier<Command> commandSupplier = commands.get(inputCommand);
-        logger.log(Level.INFO, "Command Parsed: " + inputCommand);
+        LOGGER.log(Level.INFO, "Command Parsed: " + inputCommand);
         return commandSupplier.get();
     }
 
@@ -79,7 +79,7 @@ public class Parser {
         if (inputArgs.length < 2) {
             if (!(command instanceof SortCommand)) {
                 ui.showOutput("Please input some ID or flag following the command");
-                logger.log(Level.WARNING, "Invalid Command: " + input);
+                LOGGER.log(Level.WARNING, "Invalid Command: " + input);
                 return null;
             }
             return new ArrayList<>();

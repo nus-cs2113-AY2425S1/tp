@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidStatus;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -125,7 +127,7 @@ public class Storage {
                     Internship internship = new Internship(role, company, startDate, endDate);
                     internshipList.addInternship(internship);
                     internship.setSkills(skills);
-                    internship.setStatus(status);
+                    loadStatus(internship, status);
                     List<Deadline> loadedDeadlines = parseDeadlines(deadlines, internship.getId());
                     for (Deadline deadline : loadedDeadlines) {
                         internship.addDeadline(deadline.getDescription(), deadline.getDate());
@@ -183,6 +185,16 @@ public class Storage {
             }
         }
         return deadlines;
+    }
+
+    private static void loadStatus(Internship internship, String status) {
+        try {
+            internship.updateStatus(status);
+        } catch (InvalidStatus e) {
+            internship.setStatus("Application Pending");
+            System.out.println("Internship ID: " + internship.getId()
+                    + " has corrupted status, reverting to Application Pending");
+        }
     }
 
 }
