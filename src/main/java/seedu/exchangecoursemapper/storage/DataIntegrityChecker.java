@@ -81,7 +81,7 @@ public class DataIntegrityChecker extends Command {
      * and is subsequently removed from the `myList.json` file.
      *
      * @param courses the list of courses mappings to check for duplicates.
-     * @param storage the storage instance used to save the updated list of non-duplicate courses.
+     * @param storage the Storage instance used to save the updated list of non-duplicate courses.
      * @return true if duplicates course mappings are found and removed,otherwise false.
      */
     public boolean checkForDuplicateCourses(List<Course> courses, Storage storage) {

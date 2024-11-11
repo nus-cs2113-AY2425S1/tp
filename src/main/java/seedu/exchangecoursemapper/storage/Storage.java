@@ -4,8 +4,7 @@ import seedu.exchangecoursemapper.courses.Course;
 import java.util.List;
 
 /**
- * The Storage class contains all the methods related to storing course mappings
- * and detecting corrupted storage files.
+ * The Storage class contains all the methods related to storing course mappings.
  */
 public class Storage {
 
@@ -17,7 +16,7 @@ public class Storage {
     }
 
     /**
-     * Storage constructor without filepath.
+     * Storage constructor with filepath.
      *
      * @param filePath of which the `myList.json` file is located.
      */
@@ -37,7 +36,7 @@ public class Storage {
     /**
      * Deletes a course from `myList.json` file.
      *
-     * @param index index of the course to be deleted from `myList.json` file.
+     * @param index of the course to be deleted from `myList.json` file.
      */
     public void deleteCourse(int index) {
         courseRepository.deleteCourse(index);

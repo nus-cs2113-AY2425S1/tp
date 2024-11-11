@@ -40,7 +40,7 @@ public class FileHandler {
     }
 
     /**
-     * Initialises the `myList.json` file if it is not found in the specified file directory.
+     * Initialises the `myList.json` file if it is not found in the specified file path.
      */
     private void initializeFile() {
         Path path = Paths.get(filePath);
@@ -79,8 +79,8 @@ public class FileHandler {
      * Writes all lines from the provided list of course mappings to the `myList.json`
      * file at the specified file path.
      *
-     * @param lines a list of course mapping strings to be written to `myList.json`,
-     *              with each string represents a line.
+     * @param lines a list of course mappings represented as strings to be written to `myList.json`,
+     *              with each string representing a line.
      */
     public void writeAllLines(List<String> lines) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {

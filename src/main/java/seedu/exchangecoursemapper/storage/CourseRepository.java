@@ -48,7 +48,7 @@ public class CourseRepository {
 
     /**
      * Returns true if the `myList.json` file is valid, otherwise false.
-     * The file is valid if all the course mappings found in the database.json file are correct according to
+     * The file is valid if all the course mappings found in the `myList.json` file are correct according to
      * the approved course mapping database and the file is not corrupted.
      *
      * @return true if the file is valid, otherwise false.
@@ -67,6 +67,11 @@ public class CourseRepository {
         return dataIntegrityChecker.checkForDuplicateCourses(loadAllCourses(), new Storage());
     }
 
+    /**
+     * Loads all the user's stored course mappings.
+     *
+     * @return a list with all the user's course mappings.
+     */
     public List<Course> loadAllCourses() {
         List<Course> courses = new ArrayList<>();
         List<String> lines = fileHandler.readAllLines();
