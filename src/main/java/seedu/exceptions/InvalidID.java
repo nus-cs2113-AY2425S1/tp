@@ -1,10 +1,10 @@
 package seedu.exceptions;
 
-public class InvalidIndex extends Exception {
-    public InvalidIndex() {
+public class InvalidID extends Exception {
+    public InvalidID() {
         super("Invalid ID!\nPlease use list to find internship ID");
     }
-    public InvalidIndex(int internshipIndex) {
+    public InvalidID(int internshipIndex) {
         super("Invalid ID: " + (internshipIndex + 1) + "\nPlease use list to find internship ID");
     }
 }

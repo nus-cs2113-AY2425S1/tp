@@ -27,6 +27,14 @@ Given below are my contributions to the project.
 <br><br>
 
 
+- **New Feature:** Created the Storage Class.
+  - What it does: Allows the user to save and load their saved data to a .txt file.
+  - Justification: Applicants would want to be able to keep track of their internship applications using the application across multiple sessions and being able to store the file in one place allows for that to take place.
+  - Highlights: This functionality is integral to the reusability of the application and allows the application to be used continuously.
+<br><br>
+
+
+
 - **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=jadenlimjc&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 <br><br>
 
@@ -48,8 +56,11 @@ Given below are my contributions to the project.
   - Developer Guide:
     - Added implementation details for `add` and `delete` features.
     - Added implementation details for `Internship` ,`InternshipList`, and `Deadline` classes as well as how they interact with one another.
+    - Added implementation details for `loadFromFile` and `saveToFile` functions within the storage class.
+    - Created the Contents Page, Product Scope, NFRs, Glossary, and Instructions for manual testing sections of the DG.
   - User Guide:
     - Created the entire skeleton of the UserGuide with all base functions. (Add, Delete, Update, Sort Filter, Help)
+    - Created the Outline, Product Description, Quick Start, and FAQ sections of the UG.
 <br><br>
 
 - **Community:**

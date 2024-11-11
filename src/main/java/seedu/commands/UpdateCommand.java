@@ -1,7 +1,7 @@
 package seedu.commands;
 
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 import seedu.exceptions.InvalidStatus;
 
 import java.time.format.DateTimeParseException;
@@ -20,8 +20,8 @@ public class UpdateCommand extends Command {
 
             int internshipId = Integer.parseInt(args.get(0));
             int internshipIndex = internshipId - 1;
-            if (!internships.isWithinBounds(internshipIndex)) {
-                throw new InvalidIndex(internshipIndex);
+            if (!internshipsList.isWithinBounds(internshipIndex)) {
+                throw new InvalidID(internshipIndex);
             }
             args.remove(0);
 
@@ -35,12 +35,12 @@ public class UpdateCommand extends Command {
                 updateOneField(words, internshipIndex);
             }
 
-            uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
+            uiCommand.showEditedInternship(internshipsList.getInternship(internshipIndex), "update");
 
-            logger.log(Level.INFO, "UpdateCommand Executed");
+            LOGGER.log(Level.INFO, "UpdateCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
-        } catch (InvalidIndex ie) {
+        } catch (InvalidID ie) {
             uiCommand.showOutput(ie.getMessage());
         }
     }
@@ -73,8 +73,8 @@ public class UpdateCommand extends Command {
                     return;
                 }
                 String value = words[INDEX_DATA].trim();
-                internships.updateField(internshipIndex, field, value);
-                uiCommand.addUpdatedField(field, value, "update");
+                String updatedValue = internshipsList.updateField(internshipIndex, field, value);
+                uiCommand.addUpdatedField(field, updatedValue, "update");
                 break;
             default:
                 uiCommand.addInvalidFlag(field);
@@ -83,15 +83,18 @@ public class UpdateCommand extends Command {
         } catch (DateTimeParseException e) {
             uiCommand.addInvalidField(field, "Invalid date format");
         } catch (InvalidDeadline e) {
-            uiCommand.addInvalidField(field, "Either description or date is missing.");
+            String message = """
+                    Either description or date is missing.
+                    \tIf you have provided a date, please check it is valid and is in dd/MM/yy format""";
+            uiCommand.addInvalidField(field, message);
         } catch (InvalidStatus e) {
             String message = """
-                    Status provided is not recognised:
-                    Please provide one of the following:i
-                    - Application Pending
-                    - Application Completed
-                    - Accepted
-                    - Rejected""";
+                    Status provided is not recognised
+                    \tPlease provide one of the following:
+                    \t- Application Pending
+                    \t- Application Completed
+                    \t- Accepted
+                    \t- Rejected""";
             uiCommand.addInvalidField(field, message);
         }
     }
@@ -108,7 +111,7 @@ public class UpdateCommand extends Command {
                 - company
                 - start (in MM/yy format)
                 - end (in MM/yy format)
-                - deadline ({description} {date (in dd/MM/yy format)}
+                - deadline: {description} {date (in dd/MM/yy format)}
                 
                 Choose from the following statuses:
                 - Application Pending

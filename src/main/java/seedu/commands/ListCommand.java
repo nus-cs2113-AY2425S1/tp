@@ -10,9 +10,9 @@ import java.util.logging.Level;
 public class ListCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
-        internships.listAllInternships();
+        internshipsList.listAllInternships();
 
-        logger.log(Level.INFO, "ListCommand Executed");
+        LOGGER.log(Level.INFO, "ListCommand Executed");
     }
 
     @Override

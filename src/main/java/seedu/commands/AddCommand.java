@@ -1,6 +1,6 @@
 package seedu.commands;
 
-import seedu.duke.Internship;
+import seedu.EasInternship.Internship;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +9,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 //@@author jadenlimjc
+/**
+* The AddCommand class handles the addition of new internships to the internship list.
+* It parses the arguments provided by the user, validates the input (role, company, start date, and end date),
+* and then adds the new internship to the list if the input is valid.
+* If any input is invalid, appropriate error messages are shown to the user.
+* The command also logs the action for debugging purposes.
+*
+* Usage:
+* -role {Role name} -company {Company name} -from {start date} -to {end date}
+*
+* The date format for 'from' and 'to' is MM/yy.
+*/
 public class AddCommand extends Command {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     @Override
@@ -89,10 +101,10 @@ public class AddCommand extends Command {
         }
 
         Internship newInternship = new Internship(role, company, startDate, endDate);
-        internships.addInternship(newInternship);
+        internshipsList.addInternship(newInternship);
         uiCommand.showEditedInternship(newInternship, "add");
 
-        logger.log(Level.INFO, "AddCommand Executed");
+        LOGGER.log(Level.INFO, "AddCommand Executed");
     }
 
     @Override
