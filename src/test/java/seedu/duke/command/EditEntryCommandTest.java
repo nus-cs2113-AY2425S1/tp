@@ -287,4 +287,32 @@ class EditEntryCommandTest {
         assertEquals(LocalDate.now(), entry.getDate());
         assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
     }
+
+    /**
+     * Tests the execute method of AddExpenseCommand with a financial list with 5000 entries.
+     * Verifies that the 5000th expense is edited with no problems.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expenses.
+     */
+    @Test
+    void execute_addExpenseToFullList_expectErrorMessage() throws FinanceBuddyException {
+        for (int i = 1; i <= 4999; i++) {
+            financialList.addEntry(new Expense(100.0, "Test " + i, LocalDate.now(),
+                    Expense.Category.UNCATEGORIZED));
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dateAsString = LocalDate.now().format(formatter);
+
+        EditEntryCommand command = new EditEntryCommand(5000, 50.0, "Groceries", dateAsString,
+                Expense.Category.FOOD);
+        command.execute(financialList);
+
+        assertEquals(5000, financialList.getEntryCount());
+        Expense editedEntry = (Expense) financialList.getEntry(4999);
+        assertEquals(50.0, editedEntry.getAmount());
+        assertEquals(LocalDate.now(), editedEntry.getDate());
+        assertEquals("Groceries", editedEntry.getDescription());
+        assertEquals(Expense.Category.FOOD, editedEntry.getCategory());
+    }
 }

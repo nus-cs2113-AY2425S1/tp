@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.util.Commons;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -312,5 +313,31 @@ class AddExpenseCommandTest {
 
         assertEquals("Description cannot be blank.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Tests the execute method of AddExpenseCommand with a financial list with 4999 entries.
+     * Verifies that the 5000th expense is added but not the 5001st.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expenses.
+     */
+    @Test
+    void execute_addExpenseToFullList_expectErrorMessage() throws FinanceBuddyException {
+        for (int i = 0; i < 4999; i++) {
+            addExpenseCommand = new AddExpenseCommand(1, "test " + i, "01/11/2024", Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        }
+
+        addExpenseCommand = new AddExpenseCommand(1, "test 5000", "01/11/2024", Expense.Category.OTHER);
+        addExpenseCommand.execute(financialList);
+        assertEquals(5000, financialList.getEntryCount());
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(1, "test 5001", "01/11/2024", Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        });
+
+        assertEquals(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED, exception.getMessage());
+        assertEquals(5000, financialList.getEntryCount());
     }
 }
