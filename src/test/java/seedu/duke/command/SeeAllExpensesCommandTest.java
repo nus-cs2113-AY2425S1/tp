@@ -73,7 +73,8 @@ public class SeeAllExpensesCommandTest {
      * @param financialList Empty financial list to be filled.
      * @throws FinanceBuddyException when invalid parameters are passed into the financial list.
      */
-    private void fillMixedList(FinancialList financialList, ArrayList<FinancialEntry> entries) {
+    private void fillMixedList(FinancialList financialList, ArrayList<FinancialEntry> entries)
+            throws FinanceBuddyException {
         for (FinancialEntry entry : entries) {
             financialList.addEntry(entry);
         }

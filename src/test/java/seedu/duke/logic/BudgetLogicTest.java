@@ -115,7 +115,7 @@ class BudgetLogicTest {
         budget.setBudgetAmount(1000);
         budget.setBudgetSetDate(LocalDate.of(LocalDate.now().getYear() - 1, Month.JANUARY, 1));
 
-        ui.setInputs("1000");
+        ui.setInputs("yes", "1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
         String expectedOutput = "Your budget was set in a previous month." + System.lineSeparator() +

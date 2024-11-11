@@ -33,16 +33,6 @@ public class Expense extends FinancialEntry {
         this.category = category;
     }
 
-    /**
-     * Constructs an Expense object with the specified amount and description.
-     *
-     * @param amount The amount of the expense.
-     * @param description A description of the expense.
-     * @param date The date the expense occurred.
-     */
-    public Expense(double amount, String description, LocalDate date) throws FinanceBuddyException {
-        super(amount, description, date);
-    }
 
     /**
      * Retrieves the expense category for this entry.

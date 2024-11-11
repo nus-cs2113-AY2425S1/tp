@@ -62,10 +62,10 @@ public class Logic {
      *                         and the amount ("/a") and the date ("/d") and category ("/c") of the expense
      */
     public void addExpense(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        String description = commandArguments.get("argument");
-        double amount = parseAmount(commandArguments.get("/a"));
-        String date = commandArguments.get("/d");
-        Expense.Category category = parseExpenseCategoryOrDefault(commandArguments.get("/c"));
+        String description = commandArguments.get(Commons.KEY_FIRST_ARGUMENT);
+        double amount = parseAmount(commandArguments.get(Commons.FLAG_AMOUNT));
+        String date = commandArguments.get(Commons.FLAG_DATE);
+        Expense.Category category = parseExpenseCategoryOrDefault(commandArguments.get(Commons.FLAG_CATEGORY));
 
         try {
             AddExpenseCommand addExpenseCommand = new AddExpenseCommand(amount, description, date, category);
@@ -87,10 +87,10 @@ public class Logic {
      *                         and the amount ("/a").
      */
     public void addIncome(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        String description = commandArguments.get("argument");
-        double amount = parseAmount(commandArguments.get("/a"));
-        String date = commandArguments.get("/d");
-        Income.Category category = parseIncomeCategoryOrDefault(commandArguments.get("/c"));
+        String description = commandArguments.get(Commons.KEY_FIRST_ARGUMENT);
+        double amount = parseAmount(commandArguments.get(Commons.FLAG_AMOUNT));
+        String date = commandArguments.get(Commons.FLAG_DATE);
+        Income.Category category = parseIncomeCategoryOrDefault(commandArguments.get(Commons.FLAG_CATEGORY));
 
         try {
             AddIncomeCommand addIncomeCommand = new AddIncomeCommand(amount, description, date, category);
@@ -109,7 +109,7 @@ public class Logic {
         } catch (NumberFormatException e) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
         } catch (NullPointerException e) {
-            throw new FinanceBuddyException("Invalid argument. Please do not leave compulsory arguments blank.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_EMPTY_AMOUNT);
         }
     }
 
@@ -142,11 +142,15 @@ public class Logic {
         int index = processIndexToAmend(commandArguments);
         FinancialEntry entry = financialList.getEntry(index - 1);
 
-        double amount = parseAmountOrDefault(commandArguments.get("/a"), entry.getAmount());
-        String description = commandArguments.getOrDefault("/des", entry.getDescription());
-        String date = parseDateOrDefault(commandArguments.get("/d"), entry.getDate());
+        double amount = parseAmountOrDefault(commandArguments.get(Commons.FLAG_AMOUNT), entry.getAmount());
+        String description = commandArguments.getOrDefault(Commons.FLAG_DESCRIPTION, entry.getDescription());
+        String date = parseDateOrDefault(commandArguments.get(Commons.FLAG_DATE), entry.getDate());
 
         Enum<?> category = getCategoryFromInput(commandArguments, entry);
+
+        if (hasNoChange(amount, description, date, category, entry)){
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NO_CHANGES_DETECTED);
+        }
 
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
@@ -156,8 +160,23 @@ public class Logic {
         }
     }
 
+    private boolean hasNoChange (double amount, String description, String date, Enum<?> category,
+                                 FinancialEntry entry) {
+        boolean isSameAmount = amount == entry.getAmount();
+        boolean isSameDescription = description.equals(entry.getDescription());
+        boolean isSameDate = date.equals(entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        boolean isSameCategory;
+        if (entry instanceof Expense) {
+            isSameCategory = category.equals(((Expense) entry).getCategory());
+        } else {
+            isSameCategory = category.equals(((Income) entry).getCategory());
+        }
+        return isSameAmount && isSameDescription && isSameDate && isSameCategory;
+    }
+
     private boolean isEmptyArgument(HashMap<String, String> commandArguments) {
-        return commandArguments.get("argument") == null || commandArguments.get("argument").isBlank();
+        return commandArguments.get(Commons.KEY_FIRST_ARGUMENT) == null
+                || commandArguments.get(Commons.KEY_FIRST_ARGUMENT).isBlank();
     }
 
     /**
@@ -167,7 +186,7 @@ public class Logic {
         try {
             int index = Integer.parseInt(indexStr);
             if (index <= 0 || index > financialList.getEntryCount()) {
-                throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
+                throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX + index);
             }
             return index;
         } catch (NumberFormatException e) {
@@ -212,7 +231,7 @@ public class Logic {
      * Retrieves or parses the category based on input and entry type.
      */
     private Enum<?> getCategoryFromInput(HashMap<String, String> commandArguments, FinancialEntry entry) {
-        String categoryStr = commandArguments.get("/c");
+        String categoryStr = commandArguments.get(Commons.FLAG_CATEGORY);
         if (categoryStr != null) {
             return parseCategory(categoryStr, entry);
         } else if (entry instanceof Income) {
@@ -225,16 +244,100 @@ public class Logic {
 
 
     /**
-     * Deletes an existing entry from the financial list based on the provided command arguments.
-     * <p>
-     * The method extracts the index of the entry to be deleted from the command arguments.
-     * A {@link DeleteCommand} is created and executed to remove the entry from the financial list.
+     * Deletes an existing entry or a range of entries from the financial list based on the command arguments.
      *
-     * @param commandArguments A map of parsed command arguments that contains the index of the entry
-     *                         to be deleted.
+     * @param commandArguments A map of parsed command arguments. Includes:
+     *                         - "argument": The start index (or "all" for deleting all entries).
+     *                         - "/to": The end index for range deletion (optional).
+     * @throws FinanceBuddyException If indices are invalid, out of range, or missing.
      */
     public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        int index = processIndexToAmend(commandArguments);
+        String end = commandArguments.get(Commons.FLAG_END_POINT);
+
+        if ("all".equalsIgnoreCase(commandArguments.get(Commons.KEY_FIRST_ARGUMENT))) {
+            handleDeleteAll();
+            return;
+        }
+
+        int startIndex;
+        if (end == null || end.isBlank()){
+            startIndex = processIndexToAmend(commandArguments);
+        } else {
+            startIndex = parseIndex(commandArguments.get(Commons.KEY_FIRST_ARGUMENT));
+        }
+
+        if (end == null || end.isBlank()) {
+            deleteSingleEntry(startIndex);
+        } else {
+            int endIndex = parseIndex(end);
+            deleteRangeByIndex(startIndex, endIndex);
+        }
+    }
+
+    /**
+     * Deletes a range of entries in the financial list from the specified start index to the end index.
+     *
+     * @param start The start index (1-based).
+     * @param end   The end index (1-based).
+     * @throws FinanceBuddyException If the range is invalid or out of bounds.
+     */
+    public void deleteRangeByIndex(int start, int end) throws FinanceBuddyException {
+        if (start > end) {
+            throw new FinanceBuddyException("Start index must be less than or equal to end index.");
+        } else if (start < 1 || end > financialList.getEntryCount()) {
+            throw new FinanceBuddyException("Invalid range. Ensure indices are within the list bounds.");
+        }
+
+        // Delete entries in reverse to avoid shifting issues
+        for (int i = end; i >= start; i--) {
+            adjustBalanceAndDelete(i - 1); // Convert to 0-based index
+        }
+
+        Commons.printSingleLineWithBars("Entries from index " + start + " to " + end + " have been deleted.");
+    }
+
+
+    /**
+     * Deletes all entries in the financial list and resets the balance.
+     *
+     * @throws FinanceBuddyException If any issue occurs during the deletion process.
+     */
+    public void handleDeleteAll() throws FinanceBuddyException {
+        int totalEntries = financialList.getEntryCount();
+        if (totalEntries == 0) {
+            ui.displayEmptyListMessage();
+            return;
+        }
+
+        financialList.clear();
+        financialList.resetLastAmendedIndex();
+        budgetLogic.recalculateBalance(financialList);
+        ui.displayDeleteAllMessage(totalEntries);
+    }
+
+    /**
+     * Deletes a single entry from the financial list, adjusts the budget balance, and resets the last amended index.
+     *
+     * @param index The index of the entry to delete (0-based).
+     * @throws FinanceBuddyException If the index is invalid or out of bounds.
+     */
+    private void adjustBalanceAndDelete(int index) throws FinanceBuddyException {
+        FinancialEntry entry = financialList.getEntry(index);
+        if (entry instanceof Expense) {
+            double amount = entry.getAmount();
+            budgetLogic.modifyBalance(amount);
+        }
+        financialList.deleteEntry(financialList.getEntries().indexOf(entry));
+        financialList.resetLastAmendedIndex();
+    }
+
+    /**
+     * Deletes a single entry at the specified index and adjusts the balance.
+     *
+     * @param index The index of the entry to delete (1-based).
+     * @throws FinanceBuddyException If the index is invalid or out of bounds.
+     */
+    private void deleteSingleEntry(int index) throws FinanceBuddyException {
         FinancialEntry entry = financialList.getEntry(index - 1);
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
@@ -261,7 +364,7 @@ public class Logic {
             }
             return financialList.getLastAmendedIndex() + 1; //+1 to offset zero-based indexing
         }
-        return parseIndex(commandArguments.get("argument"));
+        return parseIndex(commandArguments.get(Commons.KEY_FIRST_ARGUMENT));
     }
 
     /**
@@ -275,16 +378,16 @@ public class Logic {
      *                         The value can be "expense", "income", or null/empty for listing all entries.
      */
     public void listHelper(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        String type = commandArguments.get("argument");
-        String start = commandArguments.get("/from");
-        String end = commandArguments.get("/to");
+        String type = commandArguments.get(Commons.KEY_FIRST_ARGUMENT);
+        String start = commandArguments.get(Commons.FLAG_START_POINT);
+        String end = commandArguments.get(Commons.FLAG_END_POINT);
 
         if ((start != null && start.isBlank()) || (end != null && end.isBlank())) {
             throw new FinanceBuddyException("Please enter a valid start/end date");
         }
 
-        LocalDate startDate = start != null ? DateParser.parse(commandArguments.get("/from")) : null;
-        LocalDate endDate = end != null ? DateParser.parse(commandArguments.get("/to")) : null;
+        LocalDate startDate = start != null ? DateParser.parse(commandArguments.get(Commons.FLAG_START_POINT)) : null;
+        LocalDate endDate = end != null ? DateParser.parse(commandArguments.get(Commons.FLAG_END_POINT)) : null;
 
         executeListCommand(type, startDate, endDate);
     }
@@ -320,7 +423,7 @@ public class Logic {
      *                                or fails validation rules.
      */
     public void setBudget(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        String amountInput = commandArguments.get("argument");
+        String amountInput = commandArguments.get(Commons.KEY_FIRST_ARGUMENT);
 
         if (amountInput == null || amountInput.trim().isEmpty()) {
             logger.log(LogLevels.WARNING, "Null or empty input for budget amount.");

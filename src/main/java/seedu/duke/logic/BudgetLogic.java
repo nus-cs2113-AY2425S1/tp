@@ -58,8 +58,12 @@ public class BudgetLogic {
      * @throws FinanceBuddyException if an error occurs during the budget setting process.
      */
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
-        if (!budget.isBudgetSet()) {
-            logger.log(LogLevels.INFO, "Budget has not been set.");
+        LocalDate budgetSetDate = budget.getBudgetSetDate();
+        if (budget.isBudgetSet() && !isCurrentMonth(budgetSetDate)) {
+            System.out.println("Your budget was set in a previous month.");
+        }
+        if (!budget.isBudgetSet() || !isCurrentMonth(budgetSetDate)) {
+            logger.log(LogLevels.INFO, "Prompting user to set budget.");
             ui.displaySetBudgetMessage();
 
             if (!shouldSetBudget()) {
@@ -69,14 +73,6 @@ public class BudgetLogic {
                 return;
             }
 
-            final double amount = getValidBudgetAmountFromUser();
-            handleSetBudget(financialList, amount);
-            return;
-        }
-
-        LocalDate budgetSetDate = budget.getBudgetSetDate();
-        if (!isCurrentMonth(budgetSetDate)) {
-            System.out.println("Your budget was set in a previous month.");
             final double amount = getValidBudgetAmountFromUser();
             handleSetBudget(financialList, amount);
             return;
@@ -91,10 +87,10 @@ public class BudgetLogic {
     public void handleSetBudget(FinancialList financialList, double amount) throws FinanceBuddyException {
         budget.setBudgetAmount(amount);
 
+        recalculateBalance(financialList);
+
         ui.displayBudgetSetMessage(budget.getBudgetAmount(), budget.getBalance());
         logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
-
-        recalculateBalance(financialList);
     }
 
     /**
@@ -178,9 +174,13 @@ public class BudgetLogic {
     }
 
     /**
-     * Prints the current balance amount to the user interface.
+     * Prints the current balance amount to the user interface if budget is set.
+     * Does nothing if budget has not been set.
      */
     public void printBalanceAmount() {
+        if (!budget.isBudgetSet()) {
+            return;
+        }
         ui.displayBudgetBalanceMessage(budget.getBalance());
     }
 
