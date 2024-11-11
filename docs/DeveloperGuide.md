@@ -268,9 +268,7 @@ then discarded, ensuring efficient memory use. The `updateSaveFile` function is 
 using the local `toSaveFile` helper method to write a formatted string to the SaveFile Document - for information 
 permanence between user sessions.
 
-### Add
-
-### Goals
+### Add Goals
 
 Goals allow users to set specific objectives within the application. Users can add goals using the
 `add-goal <description> <date> <time>` command and view a list of all current goals via list-goal. 
