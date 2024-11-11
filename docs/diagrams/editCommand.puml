@@ -8,7 +8,9 @@ participant ":ProgCommandFactory" as ProgCommandFactory
 participant ":EditProgrammeCommand" as Command
 participant ":Model" as Model
 participant ":CommandResult" as CommandResult
-
+participant ":Exercise" as Exercise
+participant ":ExerciseUpdate" as ExerciseUpdate
+participant ":Day" as Day
 
 User -> Ui : "prog edit..."
 activate Ui
@@ -24,19 +26,85 @@ Parser -> CommandFactory : createCommand("prog", "edit...")
 activate CommandFactory
 
 CommandFactory -> ProgCommandFactory : parse("edit",arguments)
+
 activate ProgCommandFactory
 
-create Command
-ProgCommandFactory -> Command : prepareEditCommand(arguments)
-activate Command
-ProgCommandFactory <-- Command: created Command
-CommandFactory <-- ProgCommandFactory: created Command
-deactivate ProgCommandFactory
-Parser <-- CommandFactory: created Command
-deactivate CommandFactory
-BuffBuddy <-- Parser: created Command
-deactivate Parser
+ProgCommandFactory -> ProgCommandFactory : prepareEditCommand(arguments)
+activate ProgCommandFactory
 
+create FlagParser
+
+ProgCommandFactory -> FlagParser: FlagParser(arguments)
+activate FlagParser
+FlagParser -> FlagParser : parse(arguments)
+activate FlagParser
+FlagParser --> FlagParser
+deactivate FlagParser
+ProgCommandFactory <-- FlagParser: parsed arguments
+deactivate FlagParser
+
+alt edit type is create day
+    ProgCommandFactory -> ProgCommandFactory: parseDay(dayString)
+    activate ProgCommandFactory
+    create Day
+    ProgCommandFactory -> Day : Day(...)
+    activate Day
+    ProgCommandFactory <-- Day: created Day
+
+
+    loop for each exercise in the day
+        create Exercise
+        ProgCommandFactory -> Exercise : Exercise(...)
+        activate Exercise
+        ProgCommandFactory <-- Exercise: created Exercise
+        deactivate Exercise
+        ProgCommandFactory -> Day : insertExercise(...)
+        ProgCommandFactory <-- Day
+    end
+
+    deactivate Day
+    ProgCommandFactory --> ProgCommandFactory: created Day
+    deactivate ProgCommandFactory
+else edit type is create exercise
+    ProgCommandFactory -> ProgCommandFactory: parseExercise(exerciseString)
+    activate ProgCommandFactory
+    create Exercise
+    ProgCommandFactory -> Exercise: Exercise(...)
+    activate Exercise
+    ProgCommandFactory <-- Exercise: created Exercise
+    deactivate Exercise
+    ProgCommandFactory --> ProgCommandFactory: created Exercise
+    deactivate ProgCommandFactory
+else  edit type is update exercise
+    ProgCommandFactory -> ProgCommandFactory: parseExerciseUpdate(updateString)
+    activate ProgCommandFactory
+    create ExerciseUpdate
+    ProgCommandFactory -> ExerciseUpdate: ExerciseUpdate(...)
+    activate ExerciseUpdate
+    ProgCommandFactory <-- ExerciseUpdate: created ExerciseUpdate
+    deactivate ExerciseUpdate
+    ProgCommandFactory --> ProgCommandFactory: created ExerciseUpdate
+
+    deactivate ProgCommandFactory
+else other edit type
+end
+create Command
+ProgCommandFactory -> Command : create appropiate Edit Command
+
+deactivate ProgCommandFactory
+
+activate Command
+ProgCommandFactory <-- Command : created EditProgrammeCommand
+CommandFactory <-- ProgCommandFactory : created EditProgrammeCommand
+deactivate ProgCommandFactory
+
+Parser <-- CommandFactory : created EditProgrammeCommand
+destroy FlagParser
+deactivate CommandFactory
+
+
+BuffBuddy <-- Parser : created EditProgrammeCommand
+deactivate Parser
 
 BuffBuddy -> Command : execute()
 
@@ -47,19 +115,21 @@ Command <-- Model: returned Data
 deactivate Model
 
 create CommandResult
-Command -> CommandResult: new CommandResult(message)
+Command -> CommandResult: create Command Result
+destroy ExerciseUpdate
 
 
-deactivate Command
 activate CommandResult
-BuffBuddy <-- CommandResult : return CommandResult
+Command <-- CommandResult : created CommandResult
 deactivate CommandResult
-BuffBuddy -> Ui : showMessage()
+BuffBuddy <-- Command: created CommandResult
+deactivate Command
 
-deactivate BuffBuddy
+BuffBuddy -> Ui : showMessage()
 destroy CommandResult
+deactivate BuffBuddy
+
 User <-- Ui : "Successfully edited..."
 deactivate Ui
-
 
 @enduml

@@ -412,79 +412,65 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 
 <!-- @@author TVageesan -->
 
-### Edit Programme
+### Start Programme
 
 #### Overview
 
-The **Edit Programme** feature allows for in-depth management of programme structures, supporting operations to add, remove, and update days and exercises within each programme.
-Due to the nature of modelling a Workout Programme, a hierarchical data structure is used to represent workout data.
+The **Start Programme** feature allows users to start a specific workout programme. This sets the programme as the active programme, which other commands will default to if no programme is explicitly specified.
 
-To perform an edit to any aspect of this data, the EditCommand will traverse the hierarchy until it reaches the necessary depth to perform its edit operation.
+#### Sequence diagram
 
-These operations include:
+![](images/startProgramme.png)
 
-- Adding or removing Days to the Programme
-- Adding or removing Exercises to Days in the Programme
-- Updating the details of Exercises in Days in the Programme
+#### Example Usage
+
+Given below is an example usage scenario for 'start programme' and how the start programme command functions at each step.
+
+**Step 1:** The user has a list of workout programmes stored in `ProgrammeList`. Each programme may contain multiple days and exercises.
+
+**Step 2:** The user executes the command `programme start 1` to start the first programme in the list.
+
+**Step 3:** After parsing this input, a `StartProgrammeCommand` is created and executed.
+
+**Step 4:** The command then calls `ProgrammeList#startProgramme()` with the given programme index to set the programme as active.
+
+**Step 5:** The `Programme` object that was started is returned to the `StartProgrammeCommand`.
+
+**Step 6:** The `StartProgrammeCommand` formats the details of the started programme into a message.
+
+**Step 7:** The formatted message is included in a `CommandResult`, which is returned to the user interface.
+
+**Step 8:** The user interface displays the result message to the user, confirming the successful activation of the programme.
+
+### View Programme
+
+#### Overview
+
+The **View Programme** feature allows users to view the details of a specific programme.
 
 #### Sequence Diagram
 
-The overall design that enables this functionality is described generically by the following sequence diagram.
+![](images/viewProgramme.png)
 
-![Edit Command generic sequence](images/editCommand.png)
+#### Example Usage
 
-The 'Model' class in the above diagram is a generalization of the various data models that are being interacted with
-to perform each specific edit command. For each edit command, the following sequence diagrams
-further break down how this interaction works.
+Given below is an example usage scenario for 'view programme' and how the view programme command functions at each step.
 
-In each diagram, error handling has been simplified to keep the diagram brief.
-Generally, if a conditional check fails (i.e. if the selected Programme does not exist), a ProgrammException will be thrown and interrupt the command exeuction. BuffBuddy will print the appropiate error message based on the Exception and then wait for the next command.
+**Step 1:** The user has a list of workout programmes stored in `ProgrammeList`. Each programme may contain multiple days and exercises.
 
-##### Add day
+**Step 2:** The user executes the command `programme view 1` to view the first programme in the list.
 
-![Add Day](images/addDayCommand.png)
+**Step 3:** After parsing this input, a `ViewProgrammeCommand` is created and executed.
 
-#### Delete Day
+**Step 4:** The command then calls `ProgrammeList#getProgramme()` with the given programme index to retrieve the programme from the list.
 
-![Remove Day](images/deleteDayCommand.png)
+**Step 5:** The retrieved `Programme` object is returned to the `ViewProgrammeCommand`.
 
-##### Add Exercise
+**Step 6:** The `ViewProgrammeCommand` formats the details of the retrieved programme into a message.
 
-![Add Exercise](images/addExerciseCommand.png)
+**Step 7:** The formatted message is included in a `CommandResult`, which is returned to the user interface.
 
-##### Delete Exercise
-
-![Delete Exercise](images/deleteExerciseCommand.png)
-
-##### Update Exercise
-
-![Edit Exercise](images/editExerciseCommand.png)
-
-##### Example Usage
-
-Given below is an example usage scenario for 'delete exercise' and how the edit programme functions at each step.
-
-Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
-
-Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme.
-
-Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
-
-Step 4. The command first retrieves the chosen Programme with `ProgrammeList#getProgramme()`.
-
-Step 5. The command then retrieves the chosen Day with `Programme#getDay()`.
-
-Step 6. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
-
-Step 7. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the returned `CommandResult`.
-
-#### Activity Diagram
-
-To summarize, the following activity diagram describes how the overall operation occurs.
-
-![Edit Command Diagram](images/editCommandActivityDiagram.png)
-
-<!-- @@author Atulteja -->
+**Step 8:** The user interface displays the result message to the user, showing the details of the selected programme.
 
 ### Delete Programme
 
@@ -516,9 +502,82 @@ Given below is an example usage scenario for 'delete programme' and how the dele
 
 **Step 8:** The user interface displays the result message to the user, confirming the successful deletion of the programme.
 
+### Edit Programme
+
+#### Overview
+
+The **Edit Programme** feature allows for in-depth management of programme structures, supporting operations to add, remove, and update days and exercises within each programme.
+
+To perform an edit to any aspect of this data, the EditCommand will traverse the ProgrammeList and its nested data structures until it reaches the necessary depth to perform its edit operation.
+
+These operations include:
+
+- Adding or removing Days to the Programme
+- Adding or removing Exercises to Days in the Programme
+- Updating the details of Exercises in Days in the Programme
+
+#### Sequence Diagram
+
+The overall design that enables this functionality is described generically by the following sequence diagram.
+
+![Edit Command generic sequence](images/editCommand.png)
+
+The `Model` class in the above diagram is a generalization of the various data models that are being interacted with
+to perform each specific edit command. For each edit command, the following sequence diagrams
+further break down how this interaction works.
+
+In each diagram, error handling has been simplified to keep the diagram brief.
+Generally, if a conditional check fails (i.e. if the selected `Programme` does not exist), a `ProgrammException` will be thrown and interrupt the command exeuction. `BuffBuddy` will print the appropiate error message based on the Exception and then wait for the next command.
+
+##### Add day
+
+![Add Day](images/addDayCommand.png)
+
+#### Delete Day
+
+![Remove Day](images/deleteDayCommand.png)
+
+##### Add Exercise
+
+![Add Exercise](images/addExerciseCommand.png)
+
+##### Delete Exercise
+
+![Delete Exercise](images/deleteExerciseCommand.png)
+
+##### Update Exercise
+
+![Edit Exercise](images/editExerciseCommand.png)
+
+##### Example Usage
+
+Given below is an example usage scenario for 'delete exercise' and how the edit programme functions at each step.
+
+Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
+
+Step 2. The user executes `programme edit /p 1 /d 1 /xe 1` to delete the first exercise in the first day of the first programme.
+
+Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
+
+Step 4. The command first retrieves the chosen Programme with `ProgrammeList#getProgramme()`.
+
+Step 5. The command then retrieves the chosen Day with `Programme#getDay()`.
+
+Step 6. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
+
+Step 7. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the returned `CommandResult`.
+
+#### Activity Diagram
+
+To summarize, the following activity diagram describes how the overall operation occurs.
+
+![Edit Command Diagram](images/editCommandActivityDiagram.png)
+
+<!-- @@author Atulteja -->
+
 ### Add Meal
 
-#### Feature Implementation
+#### Overview
 
 The **Add Meal** feature manages the functionality related to adding meals to a daily record. It interacts with various components such as `History`, `DailyRecord`, and `MealList` to ensure meals are added correctly.
 
