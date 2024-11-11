@@ -1,0 +1,20 @@
+@startuml
+actor User
+participant "DeleteWaterCommand" as DeleteCmd
+participant "DailyRecord" as DailyRec
+
+activate DeleteCmd
+DeleteCmd -> DailyRec: removeWaterFromRecord(index)
+activate DailyRec
+
+DailyRec -> Water: deleteWater(index)
+activate Water
+Water --> DailyRec
+deactivate Water
+
+DailyRec --> DeleteCmd: water log
+deactivate DailyRec
+
+deactivate DeleteCmd
+destroy DeleteCmd
+@enduml
