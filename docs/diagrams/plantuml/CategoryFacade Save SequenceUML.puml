@@ -1,0 +1,20 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam sequence {
+    ArrowColor #2C3E50
+    LifeLineBorderColor #2C3E50
+    ParticipantBorderColor #2C3E50
+    ParticipantBackgroundColor #FFFFFF
+}
+hide footbox
+
+participant "<<Class>> \n Storage" as S
+participant ":CategoryFacade" as CF
+participant ":CategoryStorage" as CS
+
+S -> CF: call interface's method
+CF -> CS: call save method
+CS --> CF: return
+CF --> S: return
+
+@enduml
