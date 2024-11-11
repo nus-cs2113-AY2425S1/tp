@@ -32,25 +32,20 @@ public abstract class Calculator {
             Gender gender, int age, int performance, boolean isHigherNumBetter) {
 
         try {
-            // Create a key based on gender and age
             LookUpKey key = new LookUpKey(gender, age);
             TreeMap<Integer, Integer> subTable = pointsTable.get(key);
 
             // Loop through the sub-table and match performance to the corresponding points
             for (Map.Entry<Integer, Integer> entry : subTable.entrySet()) {
-                // If higher number is better, check if performance is greater
-                // than or equal to entry key
-                // If not, check if performance is less than or equal to entry key
                 if ((!isHigherNumBetter && performance <= entry.getKey()) ||
                         (isHigherNumBetter && performance >= entry.getKey())) {
-                    // Return the points for the matched performance
                     return entry.getValue();
                 }
             }
-            return 0; // return 0 points as performance is below the minimum standard
+            return 0; // return 0 point as performance is below the minimum standard
         } catch (InvalidAgeException e) {
             System.out.println(e.getMessage());
-            return 0; // return 0 points as invalid age is inputted
+            return 0; // return 0 point as invalid age is inputted
         }
     }
 
@@ -65,7 +60,6 @@ public abstract class Calculator {
      */
     protected static void addAgeSubTable(Map<LookUpKey, TreeMap<Integer, Integer>> pointsTable,
                                          Gender gender, int age, int[][] points, boolean reverseOrder) {
-        // Ensure that age is within the valid range
         assert age >= AGE_RANGE_LOWER_START && age <= AGE_RANGE_UPPER_END :
                 "Age should be within 12 and 24 during table initialisation";
 
@@ -77,7 +71,6 @@ public abstract class Calculator {
             ageSubTable = new TreeMap<>();
         }
 
-        // Populate the sub-table with performance to points mapping
         for (int[] point : points) {
             assert point[0] >= 0 : "Performance metric cannot be negative";
             assert point[1] >= 0 : "Points should never be negative";
@@ -94,21 +87,21 @@ public abstract class Calculator {
     /**
      * Method to add all sub-tables for different ages and genders.
      *
-     * @param pullUpTable The main points table for pull-up performance.
+     * @param exerciseTable The main points table for exercise performance.
      * @param gender The gender for which the tables are being added.
      * @param ageTables A 3D array containing the performance-to-points data for different age groups.
      * @param reverseOrder Flag to reverse the order of the tables (for descending order).
      */
-    protected static void addAllTables(Map<LookUpKey, TreeMap<Integer, Integer>> pullUpTable,
+    protected static void addAllTables(Map<LookUpKey, TreeMap<Integer, Integer>> exerciseTable,
                                        Gender gender, int[][][] ageTables, boolean reverseOrder) {
         // Add data for lower ages (12-19)
         for (int age = AGE_RANGE_LOWER_START; age <= AGE_RANGE_LOWER_END; age++) {
-            addAgeSubTable(pullUpTable, gender, age, ageTables[age - AGE_RANGE_LOWER_START], reverseOrder);
+            addAgeSubTable(exerciseTable, gender, age, ageTables[age - AGE_RANGE_LOWER_START], reverseOrder);
         }
 
         // Add data for upper ages (20-24)
         for (int age = AGE_RANGE_UPPER_START; age <= AGE_RANGE_UPPER_END; age++) {
-            addAgeSubTable(pullUpTable, gender, age, ageTables[ageTables.length - 1], reverseOrder); // Age 20-24 table
+            addAgeSubTable(exerciseTable, gender, age, ageTables[ageTables.length - 1], reverseOrder);
         }
     }
 }

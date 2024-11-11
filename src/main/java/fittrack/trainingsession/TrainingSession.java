@@ -20,6 +20,12 @@ import static fittrack.messages.Messages.DEFAULT_MOOD_MSG;
 import static fittrack.storage.Storage.DATA_DELIMITER;
 import static fittrack.storage.Storage.DATA_DELIMITER_REGEX;
 
+
+/**
+ * Represents a training session, which contains session data (such as description, date-time, and mood)
+ * and data for various exercises performed during the session. This class allows for the manipulation,
+ * display, and saving/loading of training session data.
+ */
 public class TrainingSession extends Saveable {
 
     static final String[] EXERCISE_LIST = {"SU","SBJ", "SR", "SAR", "PU", "WAR"};
@@ -41,16 +47,23 @@ public class TrainingSession extends Saveable {
     static final String BRONZE_STRING = "Bronze";
     static final String NO_AWARD = "No Award";
 
+    // Static variable to track the longest session description length
     private static int longestSessionDescription = 0;
 
+    // Instance variables representing session details
     private LocalDateTime sessionDatetime;
     private String sessionDescription;
     private User user;
     private String mood = DEFAULT_MOOD_MSG;
-
     private Map<Exercise, ExerciseStation> exerciseStations = new EnumMap<>(Exercise.class);
 
-
+    /**
+     * Constructor to initialize a new training session with session details and a user.
+     *
+     * @param datetime The date and time when the session took place.
+     * @param sessionDescription A brief description of the training session.
+     * @param user The user who participated in the session.
+     */
     public TrainingSession(LocalDateTime datetime, String sessionDescription, User user) {
         this.sessionDatetime = datetime;
         this.sessionDescription = sessionDescription;
@@ -59,6 +72,9 @@ public class TrainingSession extends Saveable {
         updateSessionDescriptionLength();
     }
 
+    /**
+     * Updates the longest session description length if the current session description is longer.
+     */
     private void updateSessionDescriptionLength(){
         int currentLength = this.sessionDescription.length();
         if(currentLength > longestSessionDescription){
@@ -66,6 +82,9 @@ public class TrainingSession extends Saveable {
         }
     }
 
+    /**
+     * Initializes the exercise stations for all the exercise types.
+     */
     private void initialiseExerciseStations(){
         exerciseStations.put(Exercise.PULL_UP, new PullUpStation());
         exerciseStations.put(Exercise.SHUTTLE_RUN, new ShuttleRunStation());
@@ -75,6 +94,13 @@ public class TrainingSession extends Saveable {
         exerciseStations.put(Exercise.WALK_AND_RUN, new WalkAndRunStation());
     }
 
+    /**
+     * Processes the performance data for a given exercise and converts it to the appropriate value.
+     *
+     * @param exerciseType The type of exercise.
+     * @param reps The performance data input as a string.
+     * @return The processed performance value for the exercise.
+     */
     private int processReps(Exercise exerciseType, String reps){
         switch (exerciseType) {
         case SHUTTLE_RUN:
@@ -95,7 +121,13 @@ public class TrainingSession extends Saveable {
         }
     }
 
-    //Edits session data
+    /**
+     * Edits the performance data for a specified exercise in the training session.
+     *
+     * @param exerciseType The type of exercise to be edited.
+     * @param reps The new performance data for the exercise.
+     * @param printConfirmation A flag indicating whether to print a confirmation message.
+     */
     public void editExercise(Exercise exerciseType, String reps, Boolean printConfirmation) {
         int actualReps = processReps(exerciseType, reps);
         ExerciseStation currentExercise = this.exerciseStations.get(exerciseType);
@@ -106,23 +138,50 @@ public class TrainingSession extends Saveable {
         }
     }
 
-    //Override method to default true value
+    /**
+     * Overloaded method to edit the exercise with the confirmation message.
+     *
+     * @param exerciseType The type of exercise to be edited.
+     * @param reps The new performance data for the exercise.
+     */
     public void editExercise(Exercise exerciseType, String reps) {
         editExercise(exerciseType, reps, true);
     }
 
+    /**
+     * Gets the points associated with a particular exercise for this training session.
+     *
+     * @param exercise The exercise for which the points are requested.
+     * @return The points earned by the user for the specified exercise.
+     */
     public int getExercisePoints(Exercise exercise) {
         return this.exerciseStations.get(exercise).getPoints(user);
     }
 
+    /**
+     * Gets the performance value for a specific exercise.
+     *
+     * @param exercise The exercise for which the performance is requested.
+     * @return The performance value for the specified exercise.
+     */
     public int getExercisePerformance(Exercise exercise){
         return this.exerciseStations.get(exercise).getPerformance();
     }
 
+    /**
+     * Gets the length of the longest session description.
+     *
+     * @return The length of the longest session description.
+     */
     public static int getLongestSessionDescription(){
         return longestSessionDescription;
     }
 
+    /**
+     * Calculates the total points accumulated in the training session across all exercises.
+     *
+     * @return The total points for the session.
+     */
     public int getTotalPoints(){
         int totalPoints = 0;
         for(Map.Entry<Exercise, ExerciseStation> entry : exerciseStations.entrySet()){
@@ -131,7 +190,13 @@ public class TrainingSession extends Saveable {
         return totalPoints;
     }
 
-    //Returns string for award attained
+    /**
+     * Determines the award based on the minimum points and total points.
+     *
+     * @param minPoint The minimum points attained in any exercise during the session.
+     * @param totalPoints The total points accumulated across all exercises.
+     * @return The award as a string (Gold, Silver, Bronze, or No Award).
+     */
     private String award(int minPoint, int totalPoints) {
         if(minPoint >= GOLD_GRADE && totalPoints >= GOLD_POINT) {
             return GOLD_STRING;
@@ -144,24 +209,44 @@ public class TrainingSession extends Saveable {
         }
     }
 
+    /**
+     * Gets the description of the session.
+     *
+     * @return The session description.
+     */
     public String getSessionDescription() {
         return this.sessionDescription;
     }
 
+    /**
+     * Gets the formatted date and time of the session.
+     *
+     * @return The session date-time in "dd/MM/yyyy HH:mm" format.
+     */
     public String getSessionDatetime(){
         return this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
     }
 
+    /**
+     * Sets a new date and time for the training session.
+     *
+     * @param newDateTime The new date and time for the session.
+     */
     public void setSessionDateTime(LocalDateTime newDateTime) {
         this.sessionDatetime = newDateTime;
     }
 
+    /**
+     * Prints out the basic session information, including description and date-time.
+     */
     public void printSessionInformation() {
         System.out.print(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
     }
 
-    //Print out all exercise data, including the total points and award given
+    /**
+     * Prints out detailed session information, including exercise data, total points, and award achieved.
+     */
     public void viewSession() {
         int totalPoints = 0;
         int minPoint = MAX_POINT;
@@ -179,10 +264,8 @@ public class TrainingSession extends Saveable {
             if(minPoint > exercisePoint) {
                 minPoint = exercisePoint;
             }
-            System.out.print(exercise.getName() + " | " +
-                    exercise + System.lineSeparator());
+            System.out.print(exercise.getName() + " | " + exercise + System.lineSeparator());
         }
-
         System.out.print("Total points: " + totalPoints + System.lineSeparator() +
                 "Overall Award: " + award(minPoint, totalPoints) + System.lineSeparator());
     }
@@ -190,6 +273,7 @@ public class TrainingSession extends Saveable {
     public void setMood(String mood) {
         this.mood = mood;
     }
+
     /**
      * Serializes this `TrainingSession` object into a formatted string suitable for saving to storage.
      * The format includes the session description, session date-time, and data for each exercise type.

@@ -11,6 +11,7 @@ import static fittrack.messages.Messages.DELETE_SESSION_MESSAGE;
 import static fittrack.messages.Messages.EXIT_MESSAGE;
 import static fittrack.messages.Messages.INIT_SENTENCE;
 import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
+import static fittrack.messages.Messages.INVALID_LIST_COMMAND_MESSAGE;
 import static fittrack.messages.Messages.LIST_SESSION_EMPTY_MESSAGE;
 import static fittrack.messages.Messages.LIST_SESSION_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
@@ -93,6 +94,28 @@ public class UiTest {
                 + session.getSessionDescription() + " | " + session.getSessionDatetime() + System.lineSeparator()
                 + "There are 1 sessions in the list." + System.lineSeparator() + SEPARATOR + System.lineSeparator()
                 + System.lineSeparator(), outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testPrintInvalidListCommandMessage() {
+        Ui.printInvalidListCommandMessage();
+        assertEquals(SEPARATOR + System.lineSeparator() + INVALID_LIST_COMMAND_MESSAGE + System.lineSeparator()
+                + SEPARATOR + System.lineSeparator() + System.lineSeparator(), outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testPrintSessionViewIndexOutOfBounds() {
+        ArrayList<TrainingSession> sessions = new ArrayList<>();
+        TrainingSession session = new TrainingSession(LocalDateTime.now(), "Session Description",
+                new User("Male", "20"));
+        sessions.add(session);
+
+        // Test for an index that is out of bounds
+        try {
+            Ui.printSessionView(sessions, 1);
+        } catch (AssertionError e) {
+            assertEquals("Index is out of bounds", e.getMessage());
+        }
     }
 
     @Test
