@@ -613,6 +613,7 @@ private String generateRandomWord(Random random, int wordLength) {
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     
 }
+}
 
 
 
@@ -677,7 +678,7 @@ class TrackerDataTest {
         assertEquals(1, trackerData.getBudgets().size());
         assertEquals(newBudget, trackerData.getBudgets().get(newCategory));
     }
-
+}
 
 
 
