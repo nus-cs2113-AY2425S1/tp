@@ -16,4 +16,5 @@ DailyRec --> DeleteCmd: water log
 deactivate DailyRec
 
 deactivate DeleteCmd
+destroy DeleteCmd
 @enduml

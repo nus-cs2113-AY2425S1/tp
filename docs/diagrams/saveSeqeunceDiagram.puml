@@ -36,7 +36,7 @@ deactivate Storage
 
 Storage -> FileManager : save(JsonObject)
 activate FileManager
-
+destroy JsonObject
 FileManager -> FileManager : createDirIfNotExists()
 activate FileManager
 deactivate FileManager

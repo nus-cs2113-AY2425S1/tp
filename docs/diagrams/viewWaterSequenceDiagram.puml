@@ -10,4 +10,5 @@ DailyRec --> ViewCmd: Water object
 deactivate DailyRec
 
 deactivate ViewCmd
+destroy ViewCmd
 @enduml

@@ -16,7 +16,6 @@ alt element == null or element.isJsonNull()
     activate emptyJsonObject
     emptyJsonObject --> FileManager : Empty JsonObject
     deactivate emptyJsonObject
-    destroy emptyJsonObject
 else
     create JsonObject as allDataJsonObject
     FileManager -> allDataJsonObject : new JsonObject()
@@ -27,7 +26,7 @@ else
     activate allDataJsonObject
     allDataJsonObject --> FileManager : JsonObject containing all data
     deactivate allDataJsonObject
-    destroy allDataJsonObject
+
 end
 
 FileManager --> FileManager : JsonObject (entire data file)
@@ -37,11 +36,12 @@ alt jsonObject == null or !jsonObject.has("programmeList")
     create JsonObject as emptyProgrammeListJsonObject
     FileManager -> emptyProgrammeListJsonObject : new JsonObject()
     activate emptyProgrammeListJsonObject
+    destroy allDataJsonObject
+    destroy emptyJsonObject
     emptyProgrammeListJsonObject --> FileManager : Empty JsonObject
     deactivate emptyProgrammeListJsonObject
     FileManager --> Storage : Empty JsonObject
     deactivate JsonObject
-    destroy emptyProgrammeListJsonObject
 else
     create JsonObject
     FileManager -> JsonObject : new JsonObject()
@@ -53,7 +53,6 @@ else
     JsonObject --> FileManager : JsonObject containing programmeList
     deactivate JsonObject
     FileManager --> Storage : JsonObject containing programmeList
-    destroy JsonObject
 end
 deactivate FileManager
 
@@ -70,6 +69,8 @@ else
     activate Storage
     Storage --> Storage : loadedProgrammeList
     deactivate Storage
+    destroy emptyProgrammeListJsonObject
+    destroy JsonObject
     Storage --> Client : ProgrammeList object
     deactivate Storage
     end
