@@ -163,6 +163,13 @@ The sequence diagram represents the flow for tagging an expense to an existing c
 
 **Implementation**
 ### 6. set-budget
+**Overview**
+
+The sequence diagram represents the flow for setting a budget limit on an existing category in SpendSwift when the user inputs an `set-budget` command.
+
+![set-budget](sequencediagrams/SetBudget.png)
+
+**Implementation**
 ### 7. view-expenses
 **Overview**
 

@@ -66,6 +66,12 @@ activate Format
 Format --> ExpenseManager : return formattedCategoryName: String
 deactivate Format
 
+loop Search for Category
+ExpenseManager -> Category : Check if category matches formattedCategoryName
+activate Category
+Category --> ExpenseManager : Return matching category or null
+deactivate Category
+
 alt Category exists
     ExpenseManager -> Category : Retrieve existing category
     activate Category

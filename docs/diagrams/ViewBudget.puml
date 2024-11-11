@@ -27,10 +27,15 @@ opt No Budgets Set
     SpendSwift --> User : return
 end
 
-    BudgetManager -> BudgetManager : Initialize totalExpensesToCategory map
-    activate BudgetManager
-    BudgetManager --> BudgetManager : return
-    deactivate BudgetManager
+    BudgetManager -> TrackerData : Initialize totalExpensesToCategory map
+    activate TrackerData
+    TrackerData --> BudgetManager : return budgets Map<Category, Budget>
+    deactivate TrackerData
+
+    BudgetManager -> TrackerData : getExpenses()
+    activate TrackerData
+    TrackerData --> BudgetManager : return expenses: List<Expense>
+    deactivate TrackerData
 
     loop Calculate Total Expenses Per Category
         BudgetManager -> Expense : Get category and amount for each expense

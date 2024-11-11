@@ -1,48 +1,113 @@
 @startuml
 
+actor User
+participant SpendSwift
+participant Parser
 participant BudgetManager
+participant InputParser
 participant TrackerData
-participant Category
-participant Budget
 
-BudgetManager -> BudgetManager : setBudgetLimit(TrackerData trackerData, String categoryName, double limit)
+User -> SpendSwift : input("set-budget c/<category> l/<limit>")
+activate SpendSwift
+SpendSwift -> Parser : parseCommand(input, trackerData)
+
+activate Parser
+Parser -> BudgetManager : setBudgetLimitRequest(input, budgetManager, trackerData)
+
+activate BudgetManager
+BudgetManager -> InputParser : parseCategory(input)
+activate InputParser
+InputParser -> InputParser : parseComponent(input, "c/")
+    activate InputParser
+    InputParser --> InputParser : return category: String
+    deactivate InputParser
+InputParser --> BudgetManager : return category: String
+deactivate InputParser
+
+BudgetManager -> InputParser : parseLimit(input)
+activate InputParser
+InputParser -> InputParser : parseComponent(input, "l/")
+    activate InputParser
+    InputParser --> InputParser : return limit: double
+    deactivate InputParser
+InputParser --> BudgetManager : return limit: double
+deactivate InputParser
+
+opt category.isEmpty() || Double.isNaN(limit) || limit < 0
+    BudgetManager -> ErrorMessage : printMissingCategory(formattedCategoryName)
+    activate ErrorMessage
+    ErrorMessage --> BudgetManager : return
+    deactivate ErrorMessage
+    BudgetManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
+end
+
+BudgetManager -> BudgetManager : setBudgetLimit(trackerData, category, limit)
+activate BudgetManager
+
+BudgetManager -> TrackerData : Initialize totalExpensesToCategory map
+activate TrackerData
+TrackerData --> BudgetManager : return budgets Map<Category, Budget>
+deactivate TrackerData
 
 BudgetManager -> TrackerData : getCategories()
-TrackerData --> BudgetManager : Return list of categories
+activate TrackerData
+TrackerData --> BudgetManager : return categories: List<Category>
+deactivate TrackerData
 
-BudgetManager -> TrackerData : getBudgets()
-TrackerData --> BudgetManager : Return map of budgets
+BudgetManager -> Format : formatInput(categoryName)
+activate Format
+Format --> BudgetManager : return formattedCategoryName: String
+deactivate Format
 
-BudgetManager -> BudgetManager : Format category name (trim and standardize input)
+opt Limit Exceeds Maximum Value
+    BudgetManager -> ErrorMessage : printExceedMax(maxLimit)
+    activate ErrorMessage
+    ErrorMessage --> BudgetManager : return
+    deactivate ErrorMessage
+    BudgetManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
+end
 
-alt Limit Exceeds Maximum Value
-    BudgetManager -> User : Display "Budget limit exceeds maximum allowable value."
-else Valid Limit
     loop Search for Category
         BudgetManager -> Category : Check if category matches formattedCategoryName
         activate Category
         Category --> BudgetManager : Return matching category or null
         deactivate Category
+
+    opt Category Not Found
+        BudgetManager -> ErrorMessage : printMissingCategory(formattedCategoryName)
+        activate ErrorMessage
+        ErrorMessage --> BudgetManager : return
+        deactivate ErrorMessage
+        BudgetManager --> Parser : return
+        Parser --> SpendSwift : return
+        SpendSwift --> User : return
     end
 
-    alt Category Not Found
-        BudgetManager -> User : Display "Category '<formattedCategoryName>' not found."
-    else Category Found
-        alt Budget Exists for Category
-            BudgetManager -> Budget : Update existing budget with new limit
-            activate Budget
-            Budget --> BudgetManager : Confirm updated budget
-            deactivate Budget
-            BudgetManager -> User : Display "Updated budget for category '<category>' to <limit>."
-        else No Existing Budget
-            BudgetManager -> Budget : Create new budget instance with limit
-            activate Budget
-            Budget --> BudgetManager : Return new budget instance
-            deactivate Budget
-            BudgetManager -> TrackerData : Add new budget to budgets map
-            BudgetManager -> User : Display "Set budget for category '<category>' to <limit>."
-        end
+    alt Budget Exists for Category
+        BudgetManager -> Budget : update existing budget with new limit
+        activate Budget
+        Budget --> BudgetManager : confirm updated budget
+        deactivate Budget
+        BudgetManager -> SuccessMessage : printExistingLimit(existingCategory, preciseLimit)
+        activate SuccessMessage
+        SuccessMessage --> BudgetManager : return
+        deactivate SuccessMessage
+    else No Existing Budget
+        BudgetManager -> Budget : create new budget instance with limit
+        activate Budget
+        Budget --> BudgetManager : return new budget instance
+        deactivate Budget
+        BudgetManager -> TrackerData : add new budget to budgets map
+        BudgetManager -> SuccessMessage : printNewLimit(existingCategory, preciseLimit)
+        activate SuccessMessage
+        SuccessMessage --> BudgetManager : return
+        deactivate SuccessMessage
     end
+
 end
 
 @enduml
