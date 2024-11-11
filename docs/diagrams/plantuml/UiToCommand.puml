@@ -19,17 +19,18 @@ class Parser {
     -packCommandToExistingArgumentsMap(...) {static} : void
     -packArgumentToExistingArgumentsMap(...) {static} : void
     -packFollowingArgumentsToExistingArgumentsMap(...) {static} : void
-    -packWordsToArgumentsMap(words: String[]) {static} : HashMap<String, String>
-    -parseLineToArgumentsMap(line: String) {static} : HashMap<String, String>
+    -packWordsToArgumentsMap(words: String[]) {static} : ArgumentsMap
+    -parseLineToArgumentsMap(line: String) {static} : ArgumentsMap
     +commandMatching(...) {static} : Command
     +parseInputToCommand(line: String) {static} : Command
 }
 
 class "{abstract}\nCommand" {
-    +argumentsMap: HashMap<String, String>
-    +Command(HashMap<String, String>)
+    +argumentsMap: ArgumentsMap
+    +Command(ArgumentsMap)
     +execute(ExpenseList) {abstract}
     +isExit(): boolean
+    +isRecur(): boolean
 }
 
 
