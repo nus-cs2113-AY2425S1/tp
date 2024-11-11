@@ -105,41 +105,26 @@ The `Water` component,
 
 ![Class diagram of History Component](./images/historycomponent.png)
 
-- **Chronologically stores workout records**: The `History` class uses a `LinkedHashMap<LocalDate, DailyRecord>` to store workout records, where each `LocalDate` key maps to a `DailyRecord` for that day. This data structure preserves insertion order, making it ideal for managing and viewing records in a sequential, date-based manner.
+- **Chronologically stores workout records**: The `History` class uses a `LinkedHashMap<LocalDate, DailyRecord>` to store workout records, mapping each `LocalDate` to a `DailyRecord` for that day. This data structure preserves insertion order, enabling sequential, date-based record management.
 
-- **Attributes**:
-    - `logger`: A `Logger` instance for tracking actions within the class. This attribute logs key operations such as record creation, deletion, and retrieval.
-    - `history`: A `LinkedHashMap<LocalDate, DailyRecord>` that stores the workout history. Each entry corresponds to a specific date (`LocalDate`) and contains a `DailyRecord` detailing the workout, meals, and water intake for that day. This attribute is central to the `History` class, as it maintains the entire workout log.
+- **Key Attributes**:
+    - **History Map**: The main attribute `history` is a `LinkedHashMap<LocalDate, DailyRecord>` storing each workout log, meal, and water intake record by date.
+    - **Logging**: A `Logger` instance for tracking actions, such as record creation, deletion, and retrieval, ensuring traceability within the class.
 
-- **Methods**:
-    - **`getRecordByDate(LocalDate date): DailyRecord`**: Retrieves the `DailyRecord` for a given date. If a record does not exist for the specified date, it creates a new `DailyRecord`, adds it to `history`, and returns it. This method ensures that any requested date has an associated `DailyRecord`, thus providing consistency in record-keeping.
+- **Efficient data retrieval and management**:
+    - **Accessing Records by Date**: The `History` class allows retrieval of `DailyRecord` entries by specific dates, supporting users who wish to review or edit their fitness data for a particular day.
+    - **Adding and Deleting Records**: Users can log new workout records or delete existing entries, providing flexibility in managing their fitness history.
 
-    - **`getHistory(): LinkedHashMap<LocalDate, DailyRecord>`**: Returns the complete `history` map, enabling access to all stored workout records. This method is useful for displaying or analyzing the entire workout log.
+- **Detailed representation for user interaction**:
+    - **Formatted Summaries**: Methods such as `getFormattedPersonalBests()` and `getWeeklyWorkoutSummary()` provide clear, formatted outputs, making it easy for users to read and interpret their progress.
+    - **String Representation**: The `toString()` method generates a readable output of all records, enhancing user experience in viewing historical data within the application interface.
 
-    - **`getWeeklyWorkoutSummary(): String`**: Compiles a summary of workout data from the past seven days, iterating over entries in `history` and formatting each day’s activities. If no records are found within the past week, it returns a message indicating the absence of data. This method helps users quickly assess their weekly workout progress.
+- **Ensures data integrity and consistency**:
+    - **Validation**: Before operations like deletion or retrieval, checks ensure records exist for specified dates, preventing errors in data handling.
+    - **Safe Updates and Comparisons**: By providing methods like `isBetter()` for comparing exercises, the `History` component ensures users’ records accurately reflect their achievements without duplication or inconsistencies.
 
-    - **`logRecord(LocalDate date, DailyRecord record): void`**: Adds or updates a `DailyRecord` for the specified date in `history`. This method supports adding new records and updating existing ones, offering flexibility in managing daily workout data.
+This structured and user-focused design of the `History` component empowers BuffBuddy users to track, manage, and assess their fitness journey effectively.
 
-    - **`deleteRecord(LocalDate date): DailyRecord`**: Deletes and returns the `DailyRecord` for a given date. If no record exists, it returns `null`. This method is useful for users who need to remove specific workout entries.
-
-    - **`hasRecord(LocalDate date): boolean`**: Checks if a workout record exists for a specific date. This method is helpful for validating the existence of records before performing operations like deletion or retrieval.
-
-    - **`getHistorySize(): int`**: Returns the number of entries in the `history`. This method provides quick access to the total count of workout records, which can be useful for summary statistics.
-
-    - **`getFormattedPersonalBests(): String`**: Generates a formatted summary of personal bests across all exercises. It retrieves the highest weight or best performance for each exercise type, helping users track their progress in specific workouts.
-
-    - **`getPersonalBestForExercise(String exerciseName): String`**: Retrieves the personal best performance for a specific exercise, based on weight lifted. If no record is found, it returns a message indicating the absence of a personal best for that exercise. This method is useful for users focused on improving their personal records.
-
-    - **`getPersonalBestsMap(): Map<String, Exercise>`** (private): Builds a map of the best performance for each exercise type by iterating through `DailyRecord` entries. This helper method supports the `getFormattedPersonalBests()` functionality.
-
-    - **`isBetter(Exercise current, Exercise best): boolean`** (private): Compares two `Exercise` instances to determine if the current one has a better performance (higher weight). This method supports the evaluation of personal bests.
-
-    - **`toString(): String`**: Converts the `history` map to a readable string format, displaying each `DailyRecord` entry by date with clear dividers between records. If `history` is empty, it returns a message indicating no records are available. This method is useful for summarizing all workout data for display.
-
-- **Interacts with `DailyRecord`, `Day`, and `Exercise` classes**: The `History` component accesses related classes for comprehensive tracking:
-    - **`DailyRecord`**: Each `DailyRecord` represents a single day’s workout, meals, and water intake.
-    - **`Day`**: Inside each `DailyRecord`, `Day` stores workout program details.
-    - **`Exercise`**: Used to represent individual exercises within a `Day`, allowing for detailed tracking and comparison of workout data.
 
 <!-- @@author Bev-low -->
 The `DailyRecord` component,
@@ -537,7 +522,7 @@ The diagram shows the interactions among different classes and objects during th
 
 The **Add Water** feature uses a **hierarchical command pattern** to manage water additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
 
-<!-- @@author -->
+<!-- @@author andreusxcarvalho -->
 
 ### WeeklySummary Feature
 
@@ -585,7 +570,7 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ### Sequence Diagram
 
-![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
+![Sequence Diagram for WeeklySummary feature](./images/weeklysummarySequenceDiagram.png)
 
 
 <!-- @@author Bev-low -->

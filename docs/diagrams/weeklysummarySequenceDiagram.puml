@@ -1,0 +1,41 @@
+@startuml
+actor User
+participant UI
+participant BuffBuddy
+participant Parser
+participant HistoryCommandFactory
+participant WeeklySummaryCommand
+participant History
+participant DailyRecord
+
+User -> UI: "history wk"
+UI -> BuffBuddy: readCommand("history wk")
+BuffBuddy -> Parser: parse("history wk")
+Parser -> HistoryCommandFactory: create command("wk")
+HistoryCommandFactory -> WeeklySummaryCommand: new WeeklySummaryCommand()
+
+WeeklySummaryCommand -> History: getWeeklyWorkoutSummary()
+
+alt No DailyRecords in past week
+    History -> WeeklySummaryCommand: "No workout history available for the past week."
+else DailyRecords with workout data
+    loop Each DailyRecord in past week
+        History -> DailyRecord: getDayFromRecord()
+        alt DailyRecord has Day
+            DailyRecord -> DailyRecord: getExercisesCount()
+            loop Each exercise
+                DailyRecord -> DailyRecord: getExercise(i)
+                DailyRecord -> WeeklySummaryCommand: Add exercise to summary
+            end
+        else DailyRecord has no Day
+            History -> WeeklySummaryCommand: Ignore DailyRecord
+        end
+    WeeklySummaryCommand -> History: formatted weekly summary string
+end
+
+WeeklySummaryCommand -> BuffBuddy: CommandResult with weekly summary
+BuffBuddy -> UI: Show CommandResult (weekly summary or no history message)
+UI -> User: Display weekly summary or "No workout history available for the past week."
+
+@enduml
+
