@@ -14,5 +14,5 @@ public class InventraExcessInputException extends InventraException {
     public String getMessage() {
         return String.format("Input length exceeds the expected number. " +
             "Expected less than %d, but received: %d.", expected, actual);
-        }
     }
+}
