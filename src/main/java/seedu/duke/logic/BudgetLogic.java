@@ -59,7 +59,7 @@ public class BudgetLogic {
      */
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
         LocalDate budgetSetDate = budget.getBudgetSetDate();
-        if (!isCurrentMonth(budgetSetDate)) {
+        if (budget.isBudgetSet() && !isCurrentMonth(budgetSetDate)) {
             System.out.println("Your budget was set in a previous month.");
         }
         if (!budget.isBudgetSet() || !isCurrentMonth(budgetSetDate)) {
