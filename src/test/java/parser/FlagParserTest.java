@@ -2,8 +2,8 @@
 
 package parser;
 
-import exceptions.FlagExceptions;
-import exceptions.ParserExceptions;
+import exceptions.FlagException;
+import exceptions.ParserException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -53,7 +53,7 @@ class FlagParserTest {
 
     @Test
     void testValidateRequiredFlagsMissingFlag() {
-        FlagExceptions exception = assertThrows(FlagExceptions.class,
+        FlagException exception = assertThrows(FlagException.class,
                 () -> flagParser.validateRequiredFlags("/p", MEAL_INDEX),
                 "Expected MissingFlagBuffBuddyException for missing required flag");
         assertTrue(exception.getMessage().contains(MEAL_INDEX));
@@ -86,7 +86,7 @@ class FlagParserTest {
     @Test
     void testGetIndexByFlagInvalidIndex() {
         FlagParser invalidParser = new FlagParser("/p abc");
-        assertThrows(ParserExceptions.class, () -> invalidParser.getIndexByFlag("/p"),
+        assertThrows(ParserException.class, () -> invalidParser.getIndexByFlag("/p"),
                 "Expected InvalidFormatBuffBuddyException for invalid index");
     }
 
@@ -99,7 +99,7 @@ class FlagParserTest {
     @Test
     void testGetIntegerByFlagInvalidInteger() {
         FlagParser invalidParser = new FlagParser("/s abc");
-        assertThrows(ParserExceptions.class, () -> invalidParser.getIntegerByFlag("/s"),
+        assertThrows(ParserException.class, () -> invalidParser.getIntegerByFlag("/s"),
                 "Expected InvalidFormatBuffBuddyException for invalid integer");
     }
 
@@ -112,7 +112,7 @@ class FlagParserTest {
     @Test
     void testGetFloatByFlagInvalidFloat() {
         FlagParser invalidParser = new FlagParser("/w abc");
-        assertThrows(ParserExceptions.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
+        assertThrows(ParserException.class, () -> invalidParser.getFloatByFlag(WATER_INDEX),
                 "Expected InvalidFormatBuffBuddyException for invalid float");
     }
 
@@ -125,13 +125,13 @@ class FlagParserTest {
     @Test
     void testGetDateByFlagInvalidDate() {
         FlagParser invalidParser = new FlagParser("/t 32-12-2023");
-        assertThrows(ParserExceptions.class, () -> invalidParser.getDateByFlag("/t"),
+        assertThrows(ParserException.class, () -> invalidParser.getDateByFlag("/t"),
                 "Expected InvalidFormatBuffBuddyException for invalid date");
     }
 
     @Test
     void testParseNullArgumentString() {
-        assertThrows(FlagExceptions.class, () -> new FlagParser(null),
+        assertThrows(FlagException.class, () -> new FlagParser(null),
                 "Expected EmptyInputBuffBuddyException for null argument string");
     }
 }

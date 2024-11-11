@@ -5,14 +5,14 @@ package exceptions;
 /**
  * Represents exceptions related to water log operations in the application.
  */
-public class WaterExceptions extends BuffBuddyExceptions {
+public class WaterException extends BuffBuddyException {
 
     /**
      * Constructs a new {@code WaterExceptions} with the specified detail message.
      *
      * @param message The detail message for this exception.
      */
-    public WaterExceptions(String message) {
+    public WaterException(String message) {
         super(message);
     }
 
@@ -22,8 +22,8 @@ public class WaterExceptions extends BuffBuddyExceptions {
      * @return A {@code WaterExceptions} with a message indicating that the specified water log
      *         does not exist.
      */
-    public static WaterExceptions doesNotExist() {
-        return new WaterExceptions("Water log does not exist");
+    public static WaterException doesNotExist() {
+        return new WaterException("Water log does not exist");
     }
 
     /**
@@ -32,7 +32,7 @@ public class WaterExceptions extends BuffBuddyExceptions {
      * @return A {@code WaterExceptions} with a message indicating that the water volume \
      *                                  is less than 0.
      */
-    public static WaterExceptions volumeOutOfBounds() {
-        return new WaterExceptions("Water amount cannot be negative");
+    public static WaterException volumeOutOfBounds() {
+        return new WaterException("Water amount cannot be negative");
     }
 }

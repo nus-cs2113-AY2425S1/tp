@@ -1,12 +1,14 @@
 @startuml
+
 skinparam classAttributeIconSize 0
+
 abstract class WaterCommand {
     # date: LocalDate
     + execute(ProgrammeList, History): CommandResult
 }
 
 class AddWaterCommand {
-    -amount: int
+    - amount: int
     + execute(ProgrammeList, History): CommandResult
 }
 

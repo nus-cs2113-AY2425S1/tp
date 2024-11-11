@@ -1,12 +1,30 @@
 @startuml
+
 skinparam classAttributeIconSize 0
+
 class Storage {
+    - message : String
+    - isProgrammeListEmpty : boolean
+    - isProgrammelistCorrupted : boolean
+    - isHistoryEmpty : boolean
+    - isHistoryCorrupted : boolean
     - createJson(programmeList : ProgrammeList, history : History) : JsonObject
     - programmeListToJson(programmeList : ProgrammeList) : JsonObject
     - historyToJson(history : History) : JsonObject
+    - programmeListFromJson(JsonObject : jsonObject) : ProgrammeList
+    - historyFromJson(JsonObject : jsonObject) : History
+    - validateProgrammeList(JsonObject : programmeList) : void
+    - validateHistory(JsonObject : history) : void
+    - validateDate(String : dateString) : void
+    - validateProgramme(JsonArray : programmeList) : void
+    - validateDay(JsonArray : dayList) : void
+    - validateExercise(JsonArray : exercises) : void
+    - validateMeal(JsonArray : meals) : void
+    - validateWater(JsonArray : waterList) : void
     + loadProgrammeList() : ProgrammeList
     + loadHistory() : History
     + saveData(programmeList : ProgrammeList, history : History) : void
+    + getMessage() : String
 }
 
 class FileManager {

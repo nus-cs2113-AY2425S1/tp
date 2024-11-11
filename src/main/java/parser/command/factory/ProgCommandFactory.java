@@ -17,8 +17,8 @@ import command.programme.edit.DeleteExerciseProgrammeCommand;
 import command.programme.edit.CreateDayProgrammeCommand;
 import command.programme.edit.DeleteDayProgrammeCommand;
 
-import exceptions.FlagExceptions;
-import exceptions.ProgrammeExceptions;
+import exceptions.FlagException;
+import exceptions.ProgrammeException;
 import parser.FlagParser;
 import programme.Day;
 import programme.Exercise;
@@ -106,7 +106,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The argument string containing program details, including days and exercises.
      * @return A {@link CreateProgrammeCommand} object that represents the request to create a new program.
-     * @throws ProgrammeExceptions when programme is missing name.
+     * @throws ProgrammeException when programme is missing name.
      */
     private Command prepareCreateCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -119,7 +119,7 @@ public class ProgCommandFactory {
         String progName = progParts[0].trim();
         if (progName.isEmpty()) {
             logger.log(Level.WARNING, "Programme name is empty");
-            throw ProgrammeExceptions.programmeMissingName();
+            throw ProgrammeException.programmeMissingName();
         }
 
         for (int i = 1; i < progParts.length; i++) {
@@ -186,7 +186,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing flags for the date, program index, and day index.
      * @return A {@link LogProgrammeCommand} initialized with the specified date and indices.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      */
     public Command prepareLogCommand(String argumentString) {
         FlagParser flagParser = new FlagParser(argumentString);
@@ -210,7 +210,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString A {@link String} containing arguments to parse.
      * @return The specific {@link EditProgrammeCommand} object that corresponds to the flag detected.
-     * @throws FlagExceptions If required flags are missing or unique flags are supplied more than once
+     * @throws FlagException If required flags are missing or unique flags are supplied more than once
      */
     private EditProgrammeCommand prepareEditCommand(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -263,7 +263,7 @@ public class ProgCommandFactory {
      * @author TVageesan
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
      * @return An {@link EditExerciseProgrammeCommand} object to edit an existing exercise.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      */
     private EditExerciseProgrammeCommand prepareEditExerciseCommand(FlagParser flagParser) {
         assert flagParser != null: "flagParser must not be null";
@@ -288,7 +288,7 @@ public class ProgCommandFactory {
      *
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
      * @return A {@link CreateExerciseProgrammeCommand} object to create a new exercise.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      */
     private CreateExerciseProgrammeCommand prepareCreateExerciseCommand(FlagParser flagParser) {
         assert flagParser != null: "flagParser must not be null";
@@ -307,7 +307,7 @@ public class ProgCommandFactory {
      *
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
      * @return A {@link DeleteExerciseProgrammeCommand} object to delete an existing exercise.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      */
     private DeleteExerciseProgrammeCommand prepareDeleteExerciseCommand(FlagParser flagParser) {
         assert flagParser != null: "flagParser must not be null";
@@ -325,7 +325,7 @@ public class ProgCommandFactory {
      *
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
      * @return A {@link CreateDayProgrammeCommand} object to create a new day.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      */
     private CreateDayProgrammeCommand prepareCreateDayCommand(FlagParser flagParser) {
         assert flagParser != null: "flagParser must not be null";
@@ -342,7 +342,7 @@ public class ProgCommandFactory {
      *
      * @param flagParser A {@link FlagParser} containing parsed flags and arguments.
      * @return A {@link DeleteDayProgrammeCommand} object to delete an existing day.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      */
     private DeleteDayProgrammeCommand prepareDeleteDayCommand(FlagParser flagParser) {
         assert flagParser != null: "flagParser must not be null";
@@ -360,7 +360,7 @@ public class ProgCommandFactory {
      *
      * @param dayString the input string representing a day and its exercises, not null.
      * @return a Day object representing the parsed day and its exercises.
-     * @throws ProgrammeExceptions if there are missing arguments to create a day.
+     * @throws ProgrammeException if there are missing arguments to create a day.
      */
     private Day parseDay(String dayString) {
         assert dayString != null : "Day string must not be null";
@@ -368,7 +368,7 @@ public class ProgCommandFactory {
         String[] dayParts  = dayString.split(EXERCISE_FLAG);
         String dayName = dayParts[0].trim();
         if (dayName.isEmpty()) {
-            throw ProgrammeExceptions.missingDayName();
+            throw ProgrammeException.missingDayName();
         }
 
         Day day = new Day(dayName);
@@ -389,7 +389,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing exercise details and flags.
      * @return An {@link Exercise} object initialized with the specified attributes.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      * */
     private Exercise parseExercise(String argumentString) {
         assert argumentString != null : "Argument string must not be null";
@@ -414,7 +414,7 @@ public class ProgCommandFactory {
      *
      * @param argumentString The string containing exercise details and flags.
      * @return An {@link ExerciseUpdate} object initialized with the specified attributes.
-     * @throws FlagExceptions If required flags are missing.
+     * @throws FlagException If required flags are missing.
      * */
     private ExerciseUpdate parseExerciseUpdate(String argumentString){
         assert argumentString != null : "Argument string must not be null";

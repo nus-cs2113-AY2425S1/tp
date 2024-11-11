@@ -1,4 +1,6 @@
 @startuml
+skinparam classAttributeIconSize 0
+
 abstract class HistoryCommand {
     - date : LocalDate
     + HistoryCommand()

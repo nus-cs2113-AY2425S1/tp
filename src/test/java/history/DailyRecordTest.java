@@ -3,7 +3,7 @@
 package history;
 
 import exceptions.MealException;
-import exceptions.WaterExceptions;
+import exceptions.WaterException;
 import meal.Meal;
 import meal.MealList;
 import org.junit.jupiter.api.AfterEach;
@@ -152,7 +152,7 @@ public class DailyRecordTest {
     public void removeWaterFromRecord_negativeIndex() {
         dailyRecord = new DailyRecord();
         dailyRecord.addWaterToRecord(100.0f);
-        assertThrows(WaterExceptions.class, () -> dailyRecord.removeWaterFromRecord(-1),
+        assertThrows(WaterException.class, () -> dailyRecord.removeWaterFromRecord(-1),
                 "Expected WaterExceptions for negative index in water list.");
     }
 
@@ -160,7 +160,7 @@ public class DailyRecordTest {
     public void removeWaterFromRecord_outOfBoundsIndex() {
         dailyRecord = new DailyRecord();
         dailyRecord.addWaterToRecord(100.0f);
-        assertThrows(WaterExceptions.class, () -> dailyRecord.removeWaterFromRecord(10),
+        assertThrows(WaterException.class, () -> dailyRecord.removeWaterFromRecord(10),
                 "Expected WaterExceptions for out-of-bounds index in water list.");
     }
 

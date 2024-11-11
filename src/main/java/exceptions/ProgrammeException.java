@@ -5,14 +5,14 @@ package exceptions;
 /**
  * Represents exceptions related to programme operations in the application.
  */
-public class ProgrammeExceptions extends BuffBuddyExceptions {
+public class ProgrammeException extends BuffBuddyException {
 
     /**
      * Constructs a new ProgrammeExceptions with the specified detail message.
      *
      * @param message The detail message for this exception.
      */
-    public ProgrammeExceptions(String message) {
+    public ProgrammeException(String message) {
         super(message);
     }
 
@@ -21,8 +21,8 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
      *
      * @return A {@code ProgrammeExceptions} with a message indicating a missing programme name.
      */
-    public static ProgrammeExceptions programmeMissingName() {
-        return new ProgrammeExceptions("Programme is missing a name.");
+    public static ProgrammeException programmeMissingName() {
+        return new ProgrammeException("Programme is missing a name.");
     }
 
     /**
@@ -30,8 +30,8 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
      *
      * @return A {@code ProgrammeExceptions} with a message indicating an empty programme list
      */
-    public static ProgrammeExceptions programmeListEmpty() {
-        return new ProgrammeExceptions("Programme list is empty");
+    public static ProgrammeException programmeListEmpty() {
+        return new ProgrammeException("Programme list is empty");
     }
 
     /**
@@ -39,8 +39,8 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
      *
      * @return A {@code ProgrammeExceptions} with a message indicating the programme has already started.
      */
-    public static ProgrammeExceptions programmeAlreadyActive(int index) {
-        return new ProgrammeExceptions("Program " + (index + 1) + " has already been started");
+    public static ProgrammeException programmeAlreadyActive(int index) {
+        return new ProgrammeException("Program " + (index + 1) + " has already been started");
     }
 
     /**
@@ -48,8 +48,8 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
      *
      * @return A {@code ProgrammeExceptions} with a message indicating a missing day name.
      */
-    public static ProgrammeExceptions missingDayName() {
-        return new ProgrammeExceptions("Missing Day Name, please provide one.");
+    public static ProgrammeException missingDayName() {
+        return new ProgrammeException("Missing Day Name, please provide one.");
     }
 
     /**
@@ -60,7 +60,7 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
      * @return A {@code ProgrammeExceptions} with a message indicating that the specified
      *         object does not exist.
      */
-    public static ProgrammeExceptions doesNotExist(String name) {
-        return new ProgrammeExceptions(name + " does not exist.");
+    public static ProgrammeException doesNotExist(String name) {
+        return new ProgrammeException(name + " does not exist.");
     }
 }

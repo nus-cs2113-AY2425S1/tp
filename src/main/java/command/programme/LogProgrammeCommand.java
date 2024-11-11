@@ -60,15 +60,19 @@ public class LogProgrammeCommand extends ProgrammeCommand {
 
         Programme selectedProgramme = programmes.getProgramme(programmeIndex);
         Day completed = selectedProgramme.getDay(dayIndex);
+        StringBuilder result = new StringBuilder();
 
         DailyRecord dailyRecord = history.getRecordByDate(date);
+        if (dailyRecord.getDayFromRecord() != null) {
+            result.append("You are replacing a previously logged day.\n");
+        }
         dailyRecord.logDayToRecord(completed);
         history.logRecord(date, dailyRecord);
 
         logger.log(Level.INFO, "LogCommand executed successfully for day: {0}", completed);
 
-        String result =  String.format("Congrats! You've successfully completed:%n%s",completed);
-        return new CommandResult(result);
+        result.append(String.format("Congrats! You've successfully completed:%n%s", completed));
+        return new CommandResult(result.toString());
     }
 
     /**

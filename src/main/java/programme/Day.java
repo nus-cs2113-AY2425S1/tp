@@ -1,7 +1,7 @@
 // @@author Atulteja
 package programme;
 
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -75,11 +75,11 @@ public class Day {
      *
      * @param index the index of the exercise to retrieve
      * @return the exercise at the specified index
-     * @throws ProgrammeExceptions if the index is out of bounds
+     * @throws ProgrammeException if the index is out of bounds
      */
     public Exercise getExercise(int index){
         if (index < 0 || index >= exercises.size()) {
-            throw ProgrammeExceptions.doesNotExist("exercise");
+            throw ProgrammeException.doesNotExist("exercise");
         }
 
         logger.log(Level.INFO, "Retrieving exercise at index {0}: {1}", new Object[]{index, exercises.get(index)});
@@ -103,11 +103,11 @@ public class Day {
      *
      * @param index the index of the exercise to delete
      * @return the deleted exercise
-     * @throws ProgrammeExceptions if the index is out of bounds
+     * @throws ProgrammeException if the index is out of bounds
      */
     public Exercise deleteExercise(int index) {
         if (index < 0 || index >= exercises.size()) {
-            throw ProgrammeExceptions.doesNotExist("exercise");
+            throw ProgrammeException.doesNotExist("exercise");
         }
         Exercise toBeDeleted = exercises.get(index);
         exercises.remove(index);

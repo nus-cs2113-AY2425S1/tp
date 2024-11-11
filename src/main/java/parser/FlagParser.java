@@ -2,7 +2,7 @@
 
 package parser;
 
-import exceptions.FlagExceptions;
+import exceptions.FlagException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -61,11 +61,11 @@ public class FlagParser {
      *
      * @param argumentString The argument string to parse.
      * @param ignoredFlags   Flags that are optional for this instance.
-     * @throws FlagExceptions if {@code argumentString} is null.
+     * @throws FlagException if {@code argumentString} is null.
      */
     public FlagParser(String argumentString, String... ignoredFlags) {
         if (isNull(argumentString)){
-            throw FlagExceptions.missingArguments();
+            throw FlagException.missingArguments();
         }
 
         initializeAliasMap();
@@ -117,6 +117,7 @@ public class FlagParser {
         aliasMap.put("/name", NAME_FLAG);
 
         aliasMap.put("/exercise", EXERCISE_FLAG);
+        aliasMap.put("/ex", EXERCISE_FLAG);
         aliasMap.put("/set", SETS_FLAG);
         aliasMap.put("/sets", SETS_FLAG);
         aliasMap.put("/rep", REPS_FLAG);
@@ -157,7 +158,7 @@ public class FlagParser {
             flag = resolveAlias(flag);
 
             if (hasFlag(flag)) {
-                throw FlagExceptions.duplicateFlag(flag);
+                throw FlagException.duplicateFlag(flag);
             }
 
             if (!FlagDefinitions.VALID_FLAGS.contains(flag)) {
@@ -202,7 +203,7 @@ public class FlagParser {
      * Validates that all required flags are present in the parsed flags and contains a non-null value.
      *
      * @param requiredFlags The required flags to validate.
-     * @throws FlagExceptions if any required flag is missing.
+     * @throws FlagException if any required flag is missing.
      */
     public void validateRequiredFlags(String... requiredFlags) {
         assert requiredFlags != null : "Required flags string must not be null";
@@ -213,14 +214,14 @@ public class FlagParser {
 
             if (!hasFlag(flag)) {
                 logger.log(Level.WARNING, "Missing required flag: {0}", flag);
-                throw FlagExceptions.missingFlag(flag);
+                throw FlagException.missingFlag(flag);
             }
 
             String value = getStringByFlag(flag);
 
             if (isNull(value)) {
                 logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
-                throw FlagExceptions.missingRequiredArguments(flag);
+                throw FlagException.missingRequiredArguments(flag);
             }
         }
     }
@@ -237,7 +238,7 @@ public class FlagParser {
         }
 
         if (count > 1) {
-            throw FlagExceptions.nonUniqueFlag(seenFlags.toString());
+            throw FlagException.nonUniqueFlag(seenFlags.toString());
         }
     }
 

@@ -1,12 +1,12 @@
 # Developer Guide
 
 ## Acknowledgements
-
+<!-- @@author Bev-low -->
 We used these third party libraries to develop our application:
 
 - Gson
 - Mockito
-
+<!-- @@author -->
 ## Design
 
 ### UI Component
@@ -20,7 +20,7 @@ The `UI` component manages the input and output interface between the user and t
 - **Ensures consistency with static properties**: The class defines constants for formatting, including `ERROR_HEADER`, `LINE_CHAR`, and `LINE_LENGTH`, used to standardize message presentation throughout the application.
 - **Keeps input and output streams flexible for testing**: The `UI` component is constructed with a `Scanner` and `PrintStream`, which can be replaced or redirected as needed, allowing easy adaptability for testing and debugging purposes.
 
-
+<!-- @@author Bev-low -->
 ### Programme Component
 
 ![Programme Component Classes Diagram](./images/programmeComponentClassDiagram.png)
@@ -66,6 +66,7 @@ The `ExerciseUpdate` component,
 - **Supports integration with update methods**: The `ExerciseUpdate` class can be passed as a parameter to methods in the `Exercise` class (e.g., `updateExercise()`), facilitating a seamless process for applying partial updates based on provided non-null values.
 - **Simplifies exercise modification logic**: With this class, the logic for updating exercises is consolidated, simplifying the code and ensuring consistency when modifying `Exercise` objects in various contexts.
 
+<!-- @@author -->
 
 ### Meal Component
 
@@ -102,7 +103,7 @@ The `Water` component,
 
 ### History Component
 
-![Class diagram of History Component](./images/historyComponent.png)
+![Class diagram of History Component](./images/historycomponent.png)
 
 - **Chronologically stores workout records**: The `History` class uses a `LinkedHashMap<LocalDate, DailyRecord>` to store workout records, where each `LocalDate` key maps to a `DailyRecord` for that day. This data structure preserves insertion order, making it ideal for managing and viewing records in a sequential, date-based manner.
 
@@ -140,13 +141,7 @@ The `Water` component,
     - **`Day`**: Inside each `DailyRecord`, `Day` stores workout program details.
     - **`Exercise`**: Used to represent individual exercises within a `Day`, allowing for detailed tracking and comparison of workout data.
 
-In summary, the `History` component manages a comprehensive log of workout records, enabling users to view, update, and delete daily entries, track personal bests, and generate weekly summaries. Its methods and attributes work together to provide a structured, accessible history of the user's fitness activities.
-
-
-#### DailyRecord
-
-![Diagram for DailyRecord Component](./images/DailyRecordClass.png)
-
+<!-- @@author Bev-low -->
 The `DailyRecord` component,
 
 - **Tracks daily workout, meals, and water intake:** The `DailyRecord` class maintains a log of the day’s activities, meals consumed,
@@ -160,6 +155,8 @@ The `DailyRecord` component,
   calories gained from the `MealList`. It can also sum the total water intake for the day.
 - **Provides a comprehensive summary:** The class’s `toString()` method generates a detailed summary of the day’s activities, including
   calories burned, meals eaten, water consumed, and the caloric balance, making it easy to retrieve and display all relevant information in a readable format.
+
+In summary, the `History` component manages a comprehensive log of workout records, enabling users to view, update, and delete daily entries, track personal bests, and generate weekly summaries. Its methods and attributes work together to provide a structured, accessible history of the user's fitness activities.
 
 ### Storage Component
 
@@ -194,6 +191,7 @@ The `DateSerializer` component,
 - **Implements `JsonSerializer` and `JsonDeserializer` interfaces**: The class implements both `JsonSerializer<LocalDate>` and `JsonDeserializer<LocalDate>` from the Gson library, allowing it to handle JSON conversion for `LocalDate` objects.
 - **Uses a standardized date format**: The `DateTimeFormatter` is configured with the pattern `dd-MM-yyyy`, which ensures that all serialized and deserialized dates conform to this format.
 
+<!-- @@author -->
 ### Parser Component
 
 #### Overview
@@ -297,116 +295,13 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 
 ## Implementation
 
-### Save/Load Feature
-
-The save/load mechanism is handled by three main components: `Storage`, `FileManager`, and `DateSerializer`. `FileManager` manages file interactions, including reading from and writing to JSON data files, while `Storage` handles the conversion between JSON objects and `ProgrammeList`/`History` objects. The `DateSerializer` is used for converting `LocalDate` to/from JSON format.
-
-#### FileManager implements the following key operations:
-
-- **`FileManager#load()`**: Reads the data file into a `JsonObject`.
-- **`FileManager#save(JsonObject data)`**: Writes the `JsonObject` containing all data back into the file.
-- **`FileManager#createDirIfNotExist()`** and **`FileManager#createFileIfNotExist()`**: Ensure that the necessary directory and file exist before saving.
-
-#### Storage converts JSON data into Java objects:
-
-- **`Storage#loadProgrammeList()`**: Converts the `ProgrammeList` JSON data into a `ProgrammeList` object using `programmeListFromJson()`.
-- **`Storage#loadHistory()`**: Converts the `History` JSON data into a `History` object using `historyFromJson()`.
-- **`Storage#saveData()`**: Converts `ProgrammeList` and `History` into JSON using `createJSON()`, and passes it to `FileManager#save()`.
-
-#### DateSerializer is responsible for:
-
-- **`DateSerializer#serialize()`**: Converts `LocalDate` into `JsonElement`.
-- **`DateSerializer#deserialize()`**: Converts `JsonElement` back into `LocalDate`.
-
-These operations are exposed in the `Model` interface, allowing seamless saving and loading of `ProgrammeList` and `History` data.
-
-### Flow of Operations
-
-Given below is an example usage scenario and how the save/load mechanism behaves at each step.
-
-**Step 1.** The user launches the application for the first time. A `Storage` object is initialized by `BuffyBuddy`, and it attempts to load data from
-the file using `FileManager`. If no data file exists, `Storage` initializes an empty `ProgrammeList` and `History`.
-
-**Step 2.** The user interacts with the application by adding programmes or logging workout activities and meals, modifying both the
-`ProgrammeList` and `History`. These changes are stored temporarily in memory, but no data is saved to the file at this point.
-
-**Step 3.** When the user chooses to exit the application, `Model#saveData()` is triggered, which in turn calls `Storage#saveData()`.
-At this point, `Storage` converts the current `ProgrammeList` and `History` into JSON format using the `createJSON()` method and passes
-the `JsonObject` to `FileManager#save()`.
-
-**Step 4.** The `FileManager` saves the updated `JsonObject` to the data file, ensuring that the user's changes are preserved for the
-next session. If necessary, `FileManager#createDirIfNotExist()` and `FileManager#createFileIfNotExist()` ensure that the correct directories
-and files are in place before saving.
-
-**Step 5.** The next time the user launches the application, `Storage#loadProgrammeList()` and `Storage#loadHistory()` are called, which
-load the data from the file via `FileManager#load()`. The loaded data is then converted from JSON back into `ProgrammeList` and `History`
-objects, restoring the user's previous session.
-
-The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
-![Sequence Diagram for Load operation](./images/loadProgrammeListSeqenceDiagram.png)
-
-The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
-
----
-
-## WeeklySummary Feature
-
-The Weekly Summary feature allows users to view a summary of their workouts for the current week. This functionality is achieved through a combination of several interconnected components, including `WeeklySummaryCommand`, `Parser`, `HistoryCommandFactory`, and `History`. Users can access this feature through the `history wk` command in the UI. The implementation follows a command pattern, combined with the factory pattern for command creation.
-
-### Overview
-
-The following components are crucial to the Weekly Summary feature:
-
-1. **Parser Component**  
-   The `Parser` interprets the initial command and directs the flow as follows:
-
-   - **`Parser#parse(String)`**: Accepts the raw input string, splits it into the main command and arguments.
-   - **`CommandFactory`**: Generates the appropriate command object based on the parsed input.
-   - **`HistoryCommandFactory`**: Handles the creation of history-related commands, including `WeeklySummaryCommand`.
-
-2. **WeeklySummaryCommand Component**  
-   The `WeeklySummaryCommand` implements the `Command` interface and performs the following:
-
-   - Extends the abstract `Command` class.
-   - Uses the command word `"wk"`.
-   - Executes by retrieving the weekly summary from the `History` object.
-   - Returns a `CommandResult` that contains the formatted summary for display.
-
-3. **History Component**  
-   The `History` class manages workout data and provides:
-
-   - **`getWeeklyWorkoutSummary()`**: Retrieves and formats the workout data for the current week.
-
-### Flow of Operations
-
-The following example illustrates the usage scenario and behavior of the Weekly Summary feature:
-
-1. **Step 1**: The user enters the `"history wk"` command in the UI. The UI reads this command and passes it to the `Parser`.
-2. **Step 2**: The `Parser` breaks down the command `"history wk"` into:
-   - Main command: `"history"`
-   - Subcommand: `"wk"`
-3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a history command and delegates to `HistoryCommandFactory`.
-4. **Step 4**: `HistoryCommandFactory` identifies `"wk"` as the `WeeklySummaryCommand` trigger and creates a new `WeeklySummaryCommand` instance.
-5. **Step 5**: The `WeeklySummaryCommand` is passed back through the chain to the UI, which then calls its `execute` method.
-6. **Step 6**: During execution:
-   - `WeeklySummaryCommand` calls `History`'s `getWeeklyWorkoutSummary()`.
-   - The summary is formatted and wrapped in a `CommandResult`.
-   - The UI displays the result to the user.
-
-### Sequence Diagram
-
-![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
-
----
-
 ### Create Programme
 
-#### Overview 
-The **Create Programme** feature allows users to create a new workout programme, which can be either empty (with only a name) 
+#### Overview
+The **Create Programme** feature allows users to create a new workout programme, which can be either empty (with only a name)
 or contain multiple days with specific exercises.
 
-### Flow of Operations
+### Example Usage
 
 1. **User Starts BuffBuddy**:
     - The user initiates the BuffBuddy application.
@@ -470,6 +365,8 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
+
+
 ### Edit Programme
 
 #### Overview
@@ -529,9 +426,9 @@ Step 7. The deleted Exercise object is then returned to the `DeleteExerciseComma
 
 To summarize, the following activity diagram describes how the overall operation occurs.
 
-![](images/editCommandActivityDiagram.png)
+![Edit Command Diagram](images/editCommandActivityDiagram.png)
 
----
+
 
 ### Add Meal
 
@@ -543,7 +440,7 @@ The **Add Meal** command navigates through the following hierarchy:
 
 - **History** → **DailyRecord** → **MealList**
 - If a `DailyRecord` does not exist for a given date, it is created before adding the meal.
-- Similarly, a new `Meallist` object is created and added to the `DailyRecord` if it doesn't already exist. The meal is then added to the `MealList` object.
+- Similarly, a new `MealList` object is created and added to the `DailyRecord` if it doesn't already exist. The meal is then added to the `MealList` object.
 
 These operations include:
 
@@ -551,7 +448,7 @@ These operations include:
 
 Given below is an example usage scenario for adding a meal and how the add meal command functions at each step.
 
-#### Example Usage Scenario
+#### Example Usage
 
 **Step 1**: The user starts by adding a meal using the command:
 
@@ -589,45 +486,141 @@ The diagram shows the interactions among different classes and objects during th
 
 The **Add Meal** feature uses a **hierarchical command pattern** to manage meal additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
 
----
 
-### Create Programme Feature
+<!-- @@author Bev-low -->
+### Add Water
 
-#### Feature Overview
+The **Add Water** feature manages the functionality related to adding water to a daily record. It interacts with various components such as `History`, `DailyRecord`, and `Water` to ensure water are added correctly.
 
-The "Create Programme" feature enables users to build a structured fitness program with workout days, each containing specific exercises. This feature allows flexible customization, enabling users to plan their fitness goals in detail, including attributes such as the name, sets, reps, weight, and calories for each exercise.
+The Add Water command navigates through the following hierarchy:
+- **History** → **DailyRecord** → **Water**
+- If a `DailyRecord` does not exist for a given date, it is created before adding the water.
 
-#### Programme Flow
+These operations include:
+- Adding a water log to `Water` in the `DailyRecord` of a particular date in `History`.
+- 
+Given below is an example usage scenario for adding a water log and how to add water command functions at each step. 
 
-##### 1. **User Input and Command Handling**:
+#### Example Usage
 
-- Upon startup, BuffBuddy welcomes the user and continuously prompts for commands.
-- The command input is read, parsed, and handled by `handleCommand`. If the user enters a valid command (e.g., `create`), it is executed, producing a `CommandResult`.
+**Step 1**: The user starts by adding a water log using the command:
 
-##### 2. **Command Parsing and Execution**:
+water add /v WATER_VOLUME [/t Date] 
 
-- `Parser.parse()` analyzes the user’s input to identify the command type and arguments.
-- `CommandFactory.createCommand()` determines the specific command (e.g., `CreateCommand`) and forwards it to the relevant command factory (`ProgCommandFactory` for programme-related commands).
+- The command is parsed and translated into an `AddWaterCommand` object. Water contains an arrayList of floats, representing ml of water.
 
-##### 3. **Creating a Programme**:
+**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `getRecordByDate()`. If no record exists, a new one is created.
 
-- Within `ProgCommandFactory`, `prepareCreateCommand()` splits the input string by `/d` (indicating separate days) and `/e` (indicating exercises within each day).
-- Each **Day** is parsed by `parseDay`, and each **Exercise** is created using `parseExercise`, which extracts details such as name, sets, reps, weight, and calories using flag parsing (`/n`, `/s`, `/r`, `/w`, and `/c` flags).
-- The `CreateCommand` is then prepared with the programme name and its associated days.
+**Step 3**: The `AddWaterCommand` adds the water log to the `Water` of the `DailyRecord`. The `Water` is then updated with the new water log.
 
-###### 4. **Inserting and Storing Programmes**:
-
-- The `execute()` method of `CreateCommand` uses `ProgrammeList` to insert a new programme, which is then stored for future access and manipulation.
-- `ProgrammeList.insertProgramme()` creates a `Programme` object and adds it to the list, ensuring it is available for subsequent commands (e.g., viewing, editing, or deleting).
-
-###### 5. **Execution Feedback**:
-
-- A successful creation logs the programme details and returns a `CommandResult`, notifying the user of the new programme with its full structure.
-
-This flow allows users to easily create structured workout routines, customizing their fitness journey directly within BuffBuddy.
+**Step 4**: The newly added water log object is displayed as part of the `CommandResult`.
 
 The overall design that enables this functionality is described generically by the following sequence diagram.
 
+![Add Water Sequence Diagram](images/addWaterSequenceDiagram.png)
+
+The diagram shows the interactions among different classes and objects during the execution of the "Add Water" command.
+
+#### Sequence Diagram for "Delete Water" Command 
+
+![Delete Water Sequence Diagram](images/deleteWaterSequenceDiagram.png)
+
+#### Sequence Diagram for "View Water" Command
+
+![View Water Sequence Diagram](images/viewWaterSequenceDiagram.png)
+
+#### Activity Diagram for "Add Water" Feature
+
+![Add Water Activity Diagram](images/addWaterActivitydiagram.png)
+
+#### Summary of Feature
+
+The **Add Water** feature uses a **hierarchical command pattern** to manage water additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
+
+<!-- @@author -->
+
+### WeeklySummary Feature
+
+The Weekly Summary feature allows users to view a summary of their workouts for the current week. This functionality is achieved through a combination of several interconnected components, including `WeeklySummaryCommand`, `Parser`, `HistoryCommandFactory`, and `History`. Users can access this feature through the `history wk` command in the UI. The implementation follows a command pattern, combined with the factory pattern for command creation.
+
+### Overview
+
+The following components are crucial to the Weekly Summary feature:
+
+1. **Parser Component**  
+   The `Parser` interprets the initial command and directs the flow as follows:
+
+   - **`Parser#parse(String)`**: Accepts the raw input string, splits it into the main command and arguments.
+   - **`CommandFactory`**: Generates the appropriate command object based on the parsed input.
+   - **`HistoryCommandFactory`**: Handles the creation of history-related commands, including `WeeklySummaryCommand`.
+
+2. **WeeklySummaryCommand Component**  
+   The `WeeklySummaryCommand` implements the `Command` interface and performs the following:
+
+   - Extends the abstract `Command` class.
+   - Uses the command word `"wk"`.
+   - Executes by retrieving the weekly summary from the `History` object.
+   - Returns a `CommandResult` that contains the formatted summary for display.
+
+3. **History Component**  
+   The `History` class manages workout data and provides:
+
+   - **`getWeeklyWorkoutSummary()`**: Retrieves and formats the workout data for the current week.
+
+### Example Usage
+
+The following example illustrates the usage scenario and behavior of the Weekly Summary feature:
+
+1. **Step 1**: The user enters the `"history wk"` command in the UI. The UI reads this command and passes it to the `Parser`.
+2. **Step 2**: The `Parser` breaks down the command `"history wk"` into:
+   - Main command: `"history"`
+   - Subcommand: `"wk"`
+3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a history command and delegates to `HistoryCommandFactory`.
+4. **Step 4**: `HistoryCommandFactory` identifies `"wk"` as the `WeeklySummaryCommand` trigger and creates a new `WeeklySummaryCommand` instance.
+5. **Step 5**: The `WeeklySummaryCommand` is passed back through the chain to the UI, which then calls its `execute` method.
+6. **Step 6**: During execution:
+   - `WeeklySummaryCommand` calls `History`'s `getWeeklyWorkoutSummary()`.
+   - The summary is formatted and wrapped in a `CommandResult`.
+   - The UI displays the result to the user.
+
+### Sequence Diagram
+
+![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
+
+
+<!-- @@author Bev-low -->
+### Save/Load Feature
+
+The save/load mechanism is handled by three main components: `Storage`, `FileManager`, and `DateSerializer`. `FileManager` manages file interactions, including reading from and writing to JSON data files, while `Storage` handles the conversion between JSON objects and `ProgrammeList`/`History` objects. The `DateSerializer` is used for converting `LocalDate` to/from JSON format.
+
+### Example Usage
+
+Given below is an example usage scenario and how the save/load mechanism behaves at each step.
+
+**Step 1.** The user launches the application for the first time. A `Storage` object is initialized by `BuffyBuddy`, and it attempts to load data from
+the file using `FileManager`. If no data file exists, `Storage` initializes an empty `ProgrammeList` and `History`.
+
+**Step 2.** The user interacts with the application by adding programmes or logging workout activities and meals, modifying both the
+`ProgrammeList` and `History`. After each command is carried out and when the user chooses to exit the application, `Storage#saveData()` is called.
+
+**Step 3.** At this point, `Storage` converts the current `ProgrammeList` and `History` into JSON format using the `createJSON()` method and passes
+the `JsonObject` to `FileManager#save()`.
+
+**Step 4.** The `FileManager` saves the updated `JsonObject` to the data file, ensuring that the user's changes are preserved for the
+next command or session. If necessary, `FileManager#createDirIfNotExist()` and `FileManager#createFileIfNotExist()` ensure that the correct directories
+and files are in place before saving.
+
+**Step 5.** The next time the user launches the application, `Storage#loadProgrammeList()` and `Storage#loadHistory()` are called, which
+load the data from the file via `FileManager#load()`. The loaded data is then converted from JSON back into `ProgrammeList` and `History`
+objects, restoring the user's previous session.
+
+The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
+![Sequence Diagram for Load operation](./images/loadProgrammeListSeqenceDiagram.png)
+
+The following sequence diagram shows how a save operation goes through the Storage component:
+![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
+<!-- @@author -->
+---
 
 ## Documentation, logging, testing, configuration, dev-ops
 

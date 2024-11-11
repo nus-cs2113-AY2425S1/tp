@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +55,7 @@ public class DayTest {
 
     @Test
     void testGetExerciseInvalidIndex() {
-        assertThrows(ProgrammeExceptions.class, () -> day.getExercise(0));
+        assertThrows(ProgrammeException.class, () -> day.getExercise(0));
     }
 
     @Test
@@ -73,7 +73,7 @@ public class DayTest {
 
     @Test
     void testDeleteExerciseInvalidIndex() {
-        assertThrows(ProgrammeExceptions.class, () -> day.deleteExercise(0));
+        assertThrows(ProgrammeException.class, () -> day.deleteExercise(0));
     }
 
     @Test

@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -45,12 +45,12 @@ public class Programme {
      *
      * @param index the index of the day to retrieve
      * @return the Day at the specified index
-     * @throws ProgrammeExceptions if the index is out of bounds for the day list
+     * @throws ProgrammeException if the index is out of bounds for the day list
      */
     public Day getDay(int index){
         if (index < 0 || index >= dayList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getDay()", index);
-            throw ProgrammeExceptions.doesNotExist("day");
+            throw ProgrammeException.doesNotExist("day");
         }
         logger.log(Level.INFO, "Retrieving day at index {0}: {1}", new Object[]{index, dayList.get(index)});
         return dayList.get(index);
@@ -80,12 +80,12 @@ public class Programme {
      *
      * @param index the index of the day to delete
      * @return the Day that was deleted
-     * @throws ProgrammeExceptions if the index is out of bounds for the day list
+     * @throws ProgrammeException if the index is out of bounds for the day list
      */
     public Day deleteDay(int index){
         if (index < 0 || index >= dayList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for deleteDay()", index);
-            throw ProgrammeExceptions.doesNotExist("day");
+            throw ProgrammeException.doesNotExist("day");
         }
         Day toBeDeleted = dayList.get(index);
         dayList.remove(index);

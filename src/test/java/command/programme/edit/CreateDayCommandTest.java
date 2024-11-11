@@ -1,7 +1,7 @@
 package command.programme.edit;
 
 import command.CommandResult;
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programme.Day;
@@ -69,7 +69,7 @@ class CreateDayCommandTest {
     @Test
     void execute_handlesNonexistentProgrammeIdGracefully() {
         CreateDayProgrammeCommand invalidCommand = new CreateDayProgrammeCommand(OUT_OF_RANGE_PROGRAMME_ID, day);
-        assertThrows(ProgrammeExceptions.class, () -> invalidCommand.execute(programme));
+        assertThrows(ProgrammeException.class, () -> invalidCommand.execute(programme));
     }
 }
 
