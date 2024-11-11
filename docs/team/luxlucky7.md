@@ -21,7 +21,6 @@ Please view all my contributions to the project codes [here](https://nus-cs2113-
 * Implemented assertions for defensive programming
 * Additionally, perform Gradle test and CI Pipelines, which include:
     - performed checks to ensure program's sanity
-    - 
 ### Contributions to User Guide (UG)
 1. Contributed the `update` section of `Command`
     - Detailed annotation on individual command's: General format, flags, and command examples.
