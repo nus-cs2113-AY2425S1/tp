@@ -14,9 +14,10 @@ Please view all my contributions to the project codes [here](https://nus-cs2113-
 * `view -f`: Enable user to search for record using keyword provided.
 * `view`: Maintain the main execution of view command and add exception handling for 'view -a' and 'view <id>'
 2. Exception Handling and Assertions:
-* Custom exception were build on-top of existing code to handle invalid inputs:
+* Update Custom exception were build on-top of existing code to handle invalid inputs:
     - InventraExcessArgsException
     - InventraLessArgsException
+    - InventraInvalidNumberException
 * Implement ViewCommandTest to check for exception handling of `view` command
 * Address bug in PE-D
 ### Contributions to User Guide (UG)

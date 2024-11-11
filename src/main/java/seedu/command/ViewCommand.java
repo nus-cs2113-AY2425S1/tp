@@ -1,10 +1,6 @@
 package seedu.command;
 
-import seedu.exceptions.InventraException;
-import seedu.exceptions.InventraExcessArgsException;
-import seedu.exceptions.InventraInvalidNumberException;
-import seedu.exceptions.InventraMissingArgsException;
-import seedu.exceptions.InventraOutOfBoundsException;
+import seedu.exceptions.*;
 import seedu.model.Inventory;
 import seedu.ui.Ui;
 
@@ -73,6 +69,10 @@ public class ViewCommand extends Command {
 
         String keyword = String.join(" ",
                 java.util.Arrays.copyOfRange(args, 2, args.length)).toLowerCase();
+
+        if(keyword.length() > 20) {
+            throw new InventraExcessInputException(20, args.length);
+        }
 
         List<Map<String, String>> records = inventory.getRecords();
         List<Map<String, String>> matchingRecords = new ArrayList<>();
