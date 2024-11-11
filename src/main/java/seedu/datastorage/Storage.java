@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +36,9 @@ import java.util.logging.Level;
  */
 public class Storage {
     private static final Logger logger = Logger.getLogger("Storage");
-    private static String TRANSACTIONS_PATH = "transactions.json";
-    private static String CATEGORIES_PATH = "categories.json";
-    private static String BUDGETS_PATH = "budgets.json";
+    private static String transactionsPath = "transactions.json";
+    private static String categoriesPath = "categories.json";
+    private static String budgetsPath = "budgets.json";
 
     private static final Gson gson;
     private static final UI ui = new UI();
@@ -62,14 +63,14 @@ public class Storage {
      * @return A list of transactions loaded from the file, or an empty list if no transactions are found.
      */
     public static ArrayList<Transaction> loadTransactions(ArrayList<Category> categories) {
-        File transactionsFile = new File(TRANSACTIONS_PATH);
+        File transactionsFile = new File(transactionsPath);
 
         if (!transactionsFile.exists()) {
             ui.printMessage(InfoMessages.NO_TRANSACTION_FILE_FOUND);
             saveTransaction(new ArrayList<>()); // Create an empty transactions file
         }
 
-        try (FileReader reader = new FileReader(TRANSACTIONS_PATH)) {
+        try (FileReader reader = new FileReader(transactionsPath)) {
             Type listType = new TypeToken<ArrayList<Transaction>>() {}.getType();
             ArrayList<Transaction> temp =  new ArrayList<>(gson.fromJson(reader, listType));
             ArrayList<Transaction> transactions = new ArrayList<>();
@@ -87,7 +88,6 @@ public class Storage {
             return new ArrayList<>();
         } catch (Exception e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_TRANSACTIONS, e.getMessage()));
-            // e.printStackTrace();
         }
 
         return new ArrayList<>();
@@ -127,7 +127,11 @@ public class Storage {
         }
 
         try {
-            DateTimeUtils.parseDateTime(t.getDateTimeString());
+            LocalDateTime date = DateTimeUtils.parseDateTime(t.getDateTimeString());
+            if(date.isAfter(LocalDateTime.now())) {
+                logger.log(Level.WARNING, "Transaction is in the future: " + t);
+                return false;
+            }
         } catch (InvalidDateFormatException e) {
             logger.log(Level.WARNING, "Transaction has an invalid date format: " + t);
             return false;
@@ -141,12 +145,11 @@ public class Storage {
      * @param transactions The list of transactions to be saved.
      */
     public static void saveTransaction(ArrayList<Transaction> transactions) {
-        try (FileWriter writer = new FileWriter(TRANSACTIONS_PATH)) {
+        try (FileWriter writer = new FileWriter(transactionsPath)) {
             gson.toJson(transactions, writer);
             writer.flush();
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_TRANSACTIONS, e.getMessage()));
-            e.printStackTrace();
         }
     }
 
@@ -157,13 +160,13 @@ public class Storage {
      * @return A list of categories loaded from the file, or an empty list if no categories are found.
      */
     public static ArrayList<Category> loadCategories() {
-        File categoriesFile = new File(CATEGORIES_PATH);
+        File categoriesFile = new File(categoriesPath);
         if (!categoriesFile.exists()) {
             ui.printMessage(InfoMessages.NO_CATEGORY_FILE_FOUND);
             saveCategory(new ArrayList<>()); // Create an empty file if it doesn't exist
         }
 
-        try (FileReader reader = new FileReader(CATEGORIES_PATH)) {
+        try (FileReader reader = new FileReader(categoriesPath)) {
             Type listType = new TypeToken<ArrayList<Category>>() {}.getType();
             ArrayList<Category> temp =  gson.fromJson(reader, listType);
             ArrayList<Category> categories = new ArrayList<>();
@@ -175,12 +178,11 @@ public class Storage {
                     }
                 }
             }
-            return (categories != null) ? categories : new ArrayList<>();
+            return categories;
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_CATEGORIES, e.getMessage()));
         } catch (Exception e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_CATEGORIES, e.getMessage()));
-            e.printStackTrace();
         }
         return new ArrayList<>();
     }
@@ -209,12 +211,11 @@ public class Storage {
      * @param categories The list of categories to be saved.
      */
     public static void saveCategory(ArrayList<Category> categories) {
-        try (FileWriter writer = new FileWriter(CATEGORIES_PATH)) {
+        try (FileWriter writer = new FileWriter(categoriesPath)) {
             gson.toJson(categories, writer);
             writer.flush();
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_CATEGORIES, e.getMessage()));
-            e.printStackTrace();
         }
     }
 
@@ -225,13 +226,13 @@ public class Storage {
      * @return A map of YearMonth to budget amounts loaded from the file, or an empty map if no budgets are found.
      */
     public static Map<YearMonth, Double> loadBudgets() {
-        File budgetsFile = new File(BUDGETS_PATH);
+        File budgetsFile = new File(budgetsPath);
         if (!budgetsFile.exists()) {
             ui.printMessage(InfoMessages.NO_BUDGET_FILE_FOUND);
             saveBudgets(new HashMap<>()); // Create an empty file if it doesn't exist
         }
 
-        try (FileReader reader = new FileReader(BUDGETS_PATH)) {
+        try (FileReader reader = new FileReader(budgetsPath)) {
             Type mapType = new TypeToken<Map<String, Double>>() {}.getType();
             Map<String, Double> budgetsAsStringMap = gson.fromJson(reader, mapType);
             return budgetsAsStringMap.entrySet().stream()
@@ -240,7 +241,6 @@ public class Storage {
             ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_BUDGETS, e.getMessage()));
         } catch (Exception e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_DESERIALIZING_BUDGETS, e.getMessage()));
-            e.printStackTrace();
         }
         return new HashMap<>();
     }
@@ -253,18 +253,17 @@ public class Storage {
     public static void saveBudgets(Map<YearMonth, Double> budgets) {
         Map<String, Double> budgetsAsStringMap = budgets.entrySet().stream()
                 .collect(Collectors.toMap(e -> e.getKey().toString(), Map.Entry::getValue));
-        try (FileWriter writer = new FileWriter(BUDGETS_PATH)) {
+        try (FileWriter writer = new FileWriter(budgetsPath)) {
             gson.toJson(budgetsAsStringMap, writer);
             writer.flush();
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_SAVING_BUDGETS, e.getMessage()));
-            e.printStackTrace();
         }
     }
 
     public static void setPaths(String transactionsPath, String categoriesPath, String budgetsPath) {
-        TRANSACTIONS_PATH = transactionsPath;
-        CATEGORIES_PATH = categoriesPath;
-        BUDGETS_PATH = budgetsPath;
+        Storage.transactionsPath = transactionsPath;
+        Storage.categoriesPath = categoriesPath;
+        Storage.budgetsPath = budgetsPath;
     }
 }

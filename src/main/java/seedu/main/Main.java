@@ -27,6 +27,7 @@ import seedu.transaction.TransactionList;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -206,6 +207,8 @@ public class Main {
             if (commandParts.length == 2) {
                 Map<String, String> arguments = parser.extractArguments(command, commandParts[1]);
                 command.setArguments(arguments);
+            } else {
+                command.setArguments(new HashMap<String, String>());
             }
 
             List<String> messages = command.execute();
