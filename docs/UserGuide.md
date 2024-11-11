@@ -62,7 +62,7 @@ For details on all available commands, refer to the Features section below.
 This command allows you to record a new expense.
 
 Format:
-`add-expense n/NAME a/AMOUNT [c/CATEGORY]`
+`add-expense n/NAME a/AMOUNT c/CATEGORY`
 
 - `NAME`
 
@@ -82,7 +82,7 @@ Format:
 
   - The category under which the expense will be recorded.
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
-  - If the category has not be created, this command will automatically create the category.
+  - If the category has not been created, this command will automatically create the category.
 
 Example:
 
@@ -108,7 +108,7 @@ Example:
 Create a new category under which expenses can be categorised.
 
 Format:
-`add-category CATEGORY`
+`add-category c/CATEGORY`
 
 - `CATEGORY`
   - The name of the new category.
@@ -134,7 +134,8 @@ Format:
 - `CATEGORY`
   - The name of the category to assign the expense to.
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
-  - This must be an existing category.
+  - This must be an existing category. This must be an existing category. If the category has not been created,
+    use the `add-category` command to create the category first, before using this command to tag an expense. 
   - This parameter is required.
 
 Example:
@@ -150,7 +151,8 @@ Format:
 - `CATEGORY`
   - The name of the category to set the budget for.
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
-  - This must be an existing category.
+  - This must be an existing category. This must be an existing category. If the category has not been created,
+    use the `add-category` command to create the category first, before using this command to set budget limit.
   - This parameter is required.
 
 - `LIMIT`
