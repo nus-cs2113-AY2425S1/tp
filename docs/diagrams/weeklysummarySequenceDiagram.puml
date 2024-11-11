@@ -9,18 +9,27 @@ participant History
 participant DailyRecord
 
 User -> UI: "history wk"
+activate UI
 UI -> BuffBuddy: readCommand("history wk")
+activate BuffBuddy
 BuffBuddy -> Parser: parse("history wk")
+activate Parser
 Parser -> HistoryCommandFactory: create command("wk")
+activate HistoryCommandFactory
 HistoryCommandFactory -> WeeklySummaryCommand: new WeeklySummaryCommand()
+deactivate HistoryCommandFactory
+deactivate Parser
 
 WeeklySummaryCommand -> History: getWeeklyWorkoutSummary()
+activate WeeklySummaryCommand
+activate History
 
 alt No DailyRecords in past week
     History -> WeeklySummaryCommand: "No workout history available for the past week."
 else DailyRecords with workout data
     loop Each DailyRecord in past week
         History -> DailyRecord: getDayFromRecord()
+        activate DailyRecord
         alt DailyRecord has Day
             DailyRecord -> DailyRecord: getExercisesCount()
             loop Each exercise
@@ -30,12 +39,18 @@ else DailyRecords with workout data
         else DailyRecord has no Day
             History -> WeeklySummaryCommand: Ignore DailyRecord
         end
+        deactivate DailyRecord
+    end
     WeeklySummaryCommand -> History: formatted weekly summary string
 end
+deactivate History
 
 WeeklySummaryCommand -> BuffBuddy: CommandResult with weekly summary
+deactivate WeeklySummaryCommand
 BuffBuddy -> UI: Show CommandResult (weekly summary or no history message)
+deactivate BuffBuddy
 UI -> User: Display weekly summary or "No workout history available for the past week."
+deactivate UI
 
 @enduml
 
