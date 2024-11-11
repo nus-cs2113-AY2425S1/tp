@@ -84,6 +84,8 @@ AddRecipeCommand --> AddRecipeCommand
 deactivate AddRecipeCommand
 AddRecipeCommand --> YMFC
 deactivate AddRecipeCommand
+AddRecipeCommand -[hidden]-> YMFC
+
 
 destroy AddRecipeCommand
 
