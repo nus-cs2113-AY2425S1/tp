@@ -38,7 +38,6 @@ public class StandingBroadJumpCalculator extends Calculator {
      * with the corresponding distance and performance points.
      */
     protected static void initialiseMaleData() {
-        // 2D array of age-specific broad jump data for males (distance in cm and performance points)
         int[][][] ageTables = {
                 {{203, 5}, {189, 4}, {176, 3}, {163, 2}, {150, 1}},
                 {{215, 5}, {202, 4}, {189, 3}, {176, 2}, {164, 1}},
@@ -50,16 +49,11 @@ public class StandingBroadJumpCalculator extends Calculator {
                 {{252, 5}, {242, 4}, {232, 3}, {222, 2}, {212, 1}},
                 {{243, 5}, {234, 4}, {225, 3}, {216, 2}, {207, 1}}
         };
-        // Adds the male data to the lookup table
         addAllTables(broadJumpTable, Gender.MALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 
-    /**
-     * Initializes the female data for the standing broad jump test, adding the data for each age group
-     * with the corresponding distance and performance points.
-     */
     protected static void initialiseFemaleData() {
-        // 2D array of age-specific broad jump data for females (distance in cm and performance points)
+
         int[][][] ageTables = {
                 {{168, 5}, {159, 4}, {150, 3}, {141, 2}, {132, 1}},
                 {{171, 5}, {162, 4}, {153, 3}, {144, 2}, {135, 1}},
@@ -71,7 +65,6 @@ public class StandingBroadJumpCalculator extends Calculator {
                 {{196, 5}, {185, 4}, {174, 3}, {165, 2}, {156, 1}},
                 {{198, 5}, {186, 4}, {174, 3}, {162, 2}, {150, 1}}
         };
-        // Adds the female data to the lookup table
         addAllTables(broadJumpTable, Gender.FEMALE, ageTables, SHOULD_SORT_DESCENDING);
     }
 }
