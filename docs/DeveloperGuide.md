@@ -105,6 +105,14 @@ without disrupting other parts of the system, supporting a scalable and well-org
 
 ## Sequence Diagrams
 ### 1. add-expense
+**Overview**
+
+The sequence diagram represents the flow for adding a new expense in SpendSwift when the user inputs an `add-expense` command. 
+For simplification, the UI package is not included.
+
+![add-expense](sequencediagrams/AddExpense.png)
+
+**Implementation**
 ### 2. delete-expense
 ### 3. add-category
 **Overview**

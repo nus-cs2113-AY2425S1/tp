@@ -3,7 +3,9 @@ actor User
 participant SpendSwift
 participant Parser
 participant ExpenseManager
+participant InputParser
 participant TrackerData
+participant Format
 participant Category
 participant Expense
 
@@ -12,45 +14,91 @@ activate SpendSwift
 SpendSwift -> Parser : parseCommand(input, trackerData)
 
 activate Parser
-Parser -> ExpenseManager : addExpenseRequest(input, expenseManager, trackerData)
+Parser -> ExpenseManager : addExpenseRequest(input, trackerData)
 
 activate ExpenseManager
-ExpenseManager -> ExpenseManager : Parse name, amount, category from input
+ExpenseManager -> InputParser : parseName(input)
+activate InputParser
+InputParser -> InputParser : parseComponent(input, "n/")
+    activate InputParser
+    InputParser --> InputParser : return name: String
+    deactivate InputParser
+InputParser --> ExpenseManager : return name: String
+deactivate InputParser
 
-alt Invalid Input
-    ExpenseManager -> Parser : Print error message (e.g., "Invalid input!")
-else Valid Input
-    ExpenseManager -> ExpenseManager : Call addExpense(trackerData, name, amount, category)
-    activate ExpenseManager
+ExpenseManager -> InputParser : parseAmount(input)
+activate InputParser
+InputParser -> InputParser : parseComponent(input, "a/")
+    activate InputParser
+    InputParser --> InputParser : return amount: double
+    deactivate InputParser
+InputParser --> ExpenseManager : return amount: double
+deactivate InputParser
 
-    ExpenseManager -> TrackerData : getCategories()
-    TrackerData --> ExpenseManager : Return list of categories
+ExpenseManager -> InputParser : parseCategory(input)
+activate InputParser
+InputParser -> InputParser : parseComponent(input, "c/")
+    activate InputParser
+    InputParser --> InputParser : return category: String
+    deactivate InputParser
+InputParser --> ExpenseManager : return category: String
+deactivate InputParser
 
-    ExpenseManager -> ExpenseManager : Format category name (trim and standardize input)
-    ExpenseManager -> ExpenseManager : Check if category exists in categories
-
-    alt Category exists
-        ExpenseManager -> Category : Retrieve existing category
-        activate Category
-        Category --> ExpenseManager : Return category
-        deactivate Category
-    else Category does not exist
-        ExpenseManager -> Category : Create new Category
-        activate Category
-        Category --> ExpenseManager : Return new category
-        deactivate Category
-        ExpenseManager -> TrackerData : Add new category to categories
-    end
-
-    ExpenseManager -> Expense : Create Expense(name, amount, existingCategory)
-    activate Expense
-    Expense --> ExpenseManager : Return expense
-    deactivate Expense
-
-    ExpenseManager -> TrackerData : Add Expense to expenses
-    ExpenseManager -> Parser : Print confirmation of added expense
-    deactivate ExpenseManager
+opt Name is empty || Amount is NaN || Category is empty || Amount < 0
+    ExpenseManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
 end
+
+ExpenseManager -> ExpenseManager : addExpense(trackerData, name, amount, category)
+activate ExpenseManager
+ExpenseManager -> TrackerData : getExpenses()
+activate TrackerData
+TrackerData --> ExpenseManager : return expenses: List<Expense>
+deactivate TrackerData
+ExpenseManager -> TrackerData : getCategories()
+activate TrackerData
+TrackerData --> ExpenseManager : return categories: List<Category>
+deactivate TrackerData
+
+ExpenseManager -> Format : formatInput(categoryName.trim())
+activate Format
+Format --> ExpenseManager : return formattedCategoryName: String
+deactivate Format
+
+alt Category exists
+    ExpenseManager -> Category : Retrieve existing category
+    activate Category
+    Category --> ExpenseManager : return category
+    deactivate Category
+else Category does not exist
+    ExpenseManager -> Category : Create new Category
+    activate Category
+    Category --> ExpenseManager : return new category
+    deactivate Category
+end
+
+ExpenseManager -> Expense : Create Expense(name, amount, category)
+activate Expense
+Expense --> ExpenseManager : return newExpense: Expense
+deactivate Expense
+
+ExpenseManager -> TrackerData : setExpenses(expenses)
+activate TrackerData
+TrackerData --> ExpenseManager : return
+deactivate TrackerData
+
+ExpenseManager -> TrackerData : setCategories(categories)
+activate TrackerData
+TrackerData --> ExpenseManager : return
+deactivate TrackerData
+
+ExpenseManager --> ExpenseManager : return
+deactivate ExpenseManager
+
+ExpenseManager --> Parser : return
+deactivate ExpenseManager
+Parser --> SpendSwift : return
 deactivate Parser
 SpendSwift --> User : return
 deactivate SpendSwift
