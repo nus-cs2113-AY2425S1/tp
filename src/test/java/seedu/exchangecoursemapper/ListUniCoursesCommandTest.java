@@ -38,14 +38,14 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void getPuName_withValidInput_success() {
-        String userInput = "set the university of western australia";
+        String userInput = "list courses the university of western australia";
         String puName = listUniCoursesCommand.getPuName(userInput);
         assertEquals("the university of western australia", puName);
     }
 
     @Test
     public void getPuName_withNullUni_throwsException() {
-        String userInput = "set";
+        String userInput = "list courses";
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> listUniCoursesCommand.getPuName(userInput));
 
@@ -101,6 +101,7 @@ public class ListUniCoursesCommandTest {
                 CYBR371: System and Network Security
                 CS5231: Systems Security
                 -----------------------------------------------------
+                This is the end of the list.
                 """;
 
         String actualOutput = outputStreamCaptor.toString();
@@ -124,7 +125,7 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void execute_validInput_success() {
-        String userInput = "set Victoria University of Wellington";
+        String userInput = "list courses Victoria University of Wellington";
         listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """
@@ -167,6 +168,7 @@ public class ListUniCoursesCommandTest {
                 CYBR371: System and Network Security
                 CS5231: Systems Security
                 -----------------------------------------------------
+                This is the end of the list.
                 """;
 
         String actualOutput = outputStreamCaptor.toString();
@@ -175,7 +177,7 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void execute_invalidUni_displayError() {
-        String userInput = "set Invalid Uni";
+        String userInput = "list courses Invalid Uni";
         listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """
@@ -189,7 +191,7 @@ public class ListUniCoursesCommandTest {
 
     @Test
     public void execute_emptyUni_displayError() {
-        String userInput = "set";
+        String userInput = "list courses";
         listUniCoursesCommand.execute(userInput);
 
         String expectedOutput = """

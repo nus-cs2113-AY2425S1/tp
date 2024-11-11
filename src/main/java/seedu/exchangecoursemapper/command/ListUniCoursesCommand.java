@@ -4,6 +4,7 @@ import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.exception.UnknownUniversityException;
+import seedu.exchangecoursemapper.parser.Parser;
 import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonArray;
@@ -18,6 +19,7 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 public class ListUniCoursesCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListUniCoursesCommand.class.getName());
     private static final UI ui = new UI();
+    private static final Parser parser = new Parser();
 
     /**
      * Executes the command to retrieve and list courses for a specified PU based on user input.
@@ -31,25 +33,32 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
-            JsonObject jsonObject = super.createJsonObject();
-            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
-            assert jsonObject != null : Assertions.NULL_JSON_FILE;
-            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+            JsonObject jsonObject = fetchData();
             String puName = getPuName(userInput);
             getUniCourses(jsonObject, puName);
         } catch (IOException e) {
-            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
-            System.out.println(LINE_SEPARATOR);
+            handleFileReadError();
         } catch (UnknownUniversityException e) {
-            logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
-            System.err.println(e.getMessage());
-            System.out.println(LINE_SEPARATOR);
+            handleUnknownUniversityError(e);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, Logs.NULL_UNIVERSITY);
-            System.err.println(e.getMessage());
-            System.out.println(LINE_SEPARATOR);
+            handleIllegalArgumentError(e);
         }
+    }
+
+    /**
+     * Fetches data by creating and returning a JsonObject instance.
+     * Logs the success of reading the JSON file and performs assertions to check that
+     * the JSON object is not null or empty.
+     *
+     * @return A JsonObject containing the data from the JSON file.
+     * @throws IOException if an I/O error occurs while creating the JsonObject.
+     */
+    private JsonObject fetchData() throws IOException {
+        JsonObject jsonObject = super.createJsonObject();
+        logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+        assert jsonObject != null : Assertions.NULL_JSON_FILE;
+        assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+        return jsonObject;
     }
 
     /**
@@ -61,7 +70,7 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
     public String getPuName (String userInput) {
         assert userInput != null : Assertions.EMPTY_USER_INPUT;
 
-        String puName = userInput.replaceFirst("set", "").trim();
+        String puName = userInput.replaceFirst("list courses", "").trim();
         logger.log(Level.INFO, Logs.EXTRACT_PU_NAME);
 
         if (puName.isEmpty()) {
@@ -85,11 +94,11 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         assert jsonObject != null : Assertions.NULL_JSON_FILE;
         assert puName != null : Assertions.EMPTY_PU_NAME;
 
-        String lowerCasePuName = puName.toLowerCase();
+        String convertedPuName = parser.parsePUAbbreviations(puName).toLowerCase();
         Set<String> universityNames = jsonObject.keySet();
 
         logger.log(Level.INFO, Logs.SEARCH_UNIVERSITY, puName);
-        String universityName = findUniversityName(universityNames, lowerCasePuName);
+        String universityName = findUniversityName(universityNames, convertedPuName);
 
         if (universityName == null) {
             handleUnknownUniversity(puName);
@@ -103,13 +112,13 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
      * If no match is found, it returns null.
      *
      * @param universityNames A set of university names in the data.
-     * @param lowerCasePuName The lower case name of the university to be searched for.
+     * @param convertedPuName The lower case name of the university to be searched for.
      * @return The matching university name.
      */
-    private String findUniversityName(Set<String> universityNames, String lowerCasePuName) {
+    private String findUniversityName(Set<String> universityNames, String convertedPuName) {
         for (String universityName : universityNames) {
             assert universityName != null && !universityName.isEmpty();
-            if (universityName.toLowerCase().equals(lowerCasePuName)) {
+            if (universityName.toLowerCase().equals(convertedPuName)) {
                 logger.log(Level.INFO, Logs.UNIVERSITY_FOUND, universityName);
                 return universityName;
             }
@@ -186,6 +195,24 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
             assert courseObject != null : Assertions.NO_COURSE_OBJECT;
             ui.printListUniCoursesCommand(courseObject);
         }
+        ui.printTheEnd();
     }
 
+    private static void handleIllegalArgumentError(IllegalArgumentException e) {
+        logger.log(Level.WARNING, Logs.NULL_UNIVERSITY);
+        System.err.println(e.getMessage());
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleUnknownUniversityError(UnknownUniversityException e) {
+        logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
+        System.err.println(e.getMessage());
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleFileReadError() {
+        logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
+        System.err.println(Exception.fileReadError());
+        System.out.println(LINE_SEPARATOR);
+    }
 }

@@ -15,7 +15,7 @@
   - [List Commands](#1-list-commands-command)
   - [Help Command](#2-help-command)
   - [List Schools Command](#3-list-schools-command)
-  - [Set Command](#4-list-university-courses-command)
+  - [List Courses Command](#4-list-university-courses-command)
   - [Obtain Command](#5-obtain-partner-university-email-and-contact-number-command)
   - [Filter Command](#6-filter-courses-command)
   - [Add Command](#7-add-courses-command)
@@ -302,7 +302,7 @@ partner university.
 * The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method
   for custom behaviour.
 * The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
-* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
+* The getPuName method then parses and extracts the PU name from the input (with the format of `list courses [PU_NAME]`).
 * Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
   JsonObject with `findUniversityName()`.
 * If the university is not found, an exception `UnknownUniversityException` will be thrown.
@@ -472,13 +472,14 @@ This helps the users to keep track of their most recent course mapping plans, an
 ### 9. ListPersonalTrackerCommand
 
 #### Overview:
-The `ListPersonalTrackerCommand` is responsible for listing all the mapped modules stored in the user’s personal tracker. This command retrieves all stored courses from `myList.json` via the Storage class and displays them in an indexed list format on the CLI.
+The `ListPersonalTrackerCommand` is responsible for listing all the mapped modules stored in the user’s personal tracker. 
+This command retrieves all stored courses from `myList.json` via the Storage class and displays them in an indexed list format on the CLI.
 
 #### How the Feature is Implemented:
 - The `ListPersonalTrackerCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define custom behavior.
 - The constructor accepts a `Storage` object to access stored course mappings.
 - **Execution Flow in `execute` Method:**
-  - Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
+  - Checks the data integrity of `myList.json` using `courseRepository.isFileValid` and `courseRepository.hasDuplicateEntries`. If the data integrity fails, the command exits without further execution.
   - Calls `loadAllCourses` from the Storage class to retrieve the list of mapped modules.
   - If the list is empty, a message is displayed to inform the user that no modules have been mapped.
   - If there are mapped modules, it logs that modules will be displayed and then:
@@ -513,7 +514,7 @@ unique course mappings specific to each university.
 The `CompareMappedCommand` class extends `CheckInformationCommand` and overrides the `execute` method to define its custom behavior. 
 Below is an outline of the execution flow:
 
-- Checks the data integrity of `myList.json` using `courseRepository.isFileValid`. If the data integrity fails, the command exits without further execution.
+- Checks the data integrity of `myList.json` using `courseRepository.isFileValid` and `courseRepository.hasDuplicateEntries`. If the data integrity fails, the command exits without further execution.
 - The command splits the user input based on the delimiter `pu/` to retrieve the names of the two universities specified by the user.
   - If fewer than two universities are specified, the `printInvalidInputFormat` method in the `UI` class is called to inform the user of incorrect input format.
 - The command calls `isValidUniversity` to check if the input is a valid university. Otherwise, it will print an error message with the wrong university name and a suggestion.
@@ -649,14 +650,14 @@ testers are expected to do more *exploratory* testing.
 
 * 2.3.1 See all mappable courses from a valid PU
   * Prerequisites: None
-  * Test Case: `set The University of Western Australia` <br/>
+  * Test Case: `list courses The University of Western Australia` <br/>
   * Expected: List of mappable courses, with information of the PU course code and name to the matching
     NUS course code and name.
 
 
 * 2.3.2 See all mappable courses from an invalid PU
   * Prerequisites: None
-  * Test Case: `set tokyo university` <br/>
+  * Test Case: `list courses tokyo university` <br/>
   * Expected: Error message stating that input is an unknown university to ExchangeCourseMapper.
 
 

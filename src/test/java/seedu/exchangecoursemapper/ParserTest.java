@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exchangecoursemapper.constants.Commands.COMMANDS;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
-import static seedu.exchangecoursemapper.constants.Commands.SET;
+import static seedu.exchangecoursemapper.constants.Commands.LIST_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
@@ -100,7 +100,7 @@ class ParserTest {
 
     @Test
     void testProcessUserInput_setCoursesCommand() {
-        assertDoesNotThrow(() -> parser.processUserInput(SET, tempStorage));
+        assertDoesNotThrow(() -> parser.processUserInput(LIST_COURSES, tempStorage));
     }
 
     @Test
@@ -134,22 +134,22 @@ class ParserTest {
     @Test
     void testParsePUAbbreviations_validAbbreviation() {
         String abbreviation = "uwa";
-        String expected = "The University of Western Australia";
+        String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
 
         abbreviation = "unimelb";
-        expected = "The University of Melbourne";
+        expected = "the university of melbourne";
         result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
 
         abbreviation = "anu";
-        expected = "The Australian National University";
+        expected = "the australian national university";
         result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
 
         abbreviation = "wgtn";
-        expected = "Victoria University of Wellington";
+        expected = "victoria university of wellington";
         result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
@@ -165,12 +165,12 @@ class ParserTest {
     @Test
     void testParsePUAbbreviations_caseInsensitive() {
         String abbreviation = "UWA";
-        String expected = "The University of Western Australia";
+        String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
 
         abbreviation = "Unimelb";
-        expected = "The University of Melbourne";
+        expected = "the university of melbourne";
         result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }

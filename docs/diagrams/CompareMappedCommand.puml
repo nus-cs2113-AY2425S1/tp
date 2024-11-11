@@ -13,7 +13,7 @@ participant ":CourseRepository" as CR
 CEG_Student -> Command: execute(userInput)
 activate Command
 
-Command -> CR: isFileValid()
+Command -> CR: Check data validity
 activate CR
 CR --> Command: validity: boolean
 deactivate CR
@@ -51,3 +51,4 @@ Command --> CEG_Student
 deactivate Command
 
 @enduml
+
