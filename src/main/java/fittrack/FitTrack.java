@@ -83,8 +83,8 @@ public class FitTrack {
                     return;
                 }
                 String[] userInfo = parseUserInfo(userInput);
-                validUser(userInfo[0], userInfo[1]);
-                user = new User(userInfo[0], userInfo[1]);
+                validUser(userInfo[0].toLowerCase(), userInfo[1]);
+                user = new User(userInfo[0].toLowerCase(), userInfo[1]);
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
                 updateSaveFile(user, sessionList, goalList, reminderList,  foodWaterList);
             } catch (Exception e) {
@@ -100,7 +100,7 @@ public class FitTrack {
         String input = scan.nextLine();
 
         // Until the exit command is entered, execute command then read user input
-        while (!input.trim().equals(EXIT_COMMAND)) {
+        while (!input.toLowerCase().trim().equals(EXIT_COMMAND)) {
             Parser.parse(user, input, sessionList, reminderList, goalList, foodWaterList);
             input = scan.nextLine();
         }
