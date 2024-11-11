@@ -25,6 +25,7 @@ public class AddCoursesCommandTest {
 
         assertEquals("cs2102 /pu university of melbourne" + " /coursepu INFO20003", trimmedInput);
     }
+    
 
     @Test
     void trimString_commandOnly_exceptionThrown() {
