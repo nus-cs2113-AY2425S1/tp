@@ -24,7 +24,7 @@ class ExpenseListTest {
         try {
             ExpenseList expenseList = new ExpenseList();
             assertEquals(0, expenseList.getTotal());
-            expenseList.addExpense(0.0F, "desc", "category", "25-10-2024");
+            expenseList.addExpense(10.0F, "desc", "category", "25-10-2024");
             assertEquals(1, expenseList.getTotal());
             expenseList.deleteExpense(0);
             assertEquals(0, expenseList.getTotal());
@@ -37,7 +37,7 @@ class ExpenseListTest {
         try {
             ExpenseList expenseList = new ExpenseList();
             assertTrue(expenseList.isEmpty());
-            expenseList.addExpense(0.0F, "desc", "category", "25-10-2024");
+            expenseList.addExpense(10.0F, "desc", "category", "25-10-2024");
             assertFalse(expenseList.isEmpty());
             expenseList.deleteExpense(0);
             assertTrue(expenseList.isEmpty());

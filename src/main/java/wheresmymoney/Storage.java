@@ -9,6 +9,18 @@ public class Storage {
     private static final String RECURRING_EXPENSES_FILE_PATH = "./recurring_expenses_data.csv";
     private static final String CATEGORIES_FILE_PATH = "./category_spending_limit.csv";
 
+    /**
+     * Saves to the respective file paths.
+     * If no file paths are given, it saves all the data to the default file paths.
+     *
+     * @param expenseList Expense List to save to
+     * @param categoryFacade CategoryFacade to save to
+     * @param recurringExpenseList RecurringExpenseList to save to
+     * @param expenseFilePath Expense list file path
+     * @param categoryFilePath Category limit file path
+     * @param recurrExpenseFilePath Recurring expense list file path
+     * @throws WheresMyMoneyException If there is a saving error
+     */
     public static void save(
             ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList,
             String expenseFilePath, String categoryFilePath, String recurrExpenseFilePath) throws StorageException {
@@ -36,7 +48,18 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Loads from the respective file paths.
+     * If no file paths are given, it loads all the data from the default file paths.
+     *
+     * @param expenseList Expense List to load to
+     * @param categoryFacade CategoryFacade to load to
+     * @param recurringExpenseList RecurringExpenseList to load to
+     * @param expenseFilePath Expense list file path
+     * @param categoryFilePath Category limit file path
+     * @param recurrExpenseFilePath Recurring expense list file path
+     * @throws WheresMyMoneyException If there is a loading error
+     */
     public static void load(
             ExpenseList expenseList, CategoryFacade categoryFacade, RecurringExpenseList recurringExpenseList,
             String expenseFilePath, String categoryFilePath, String recurrExpenseFilePath)

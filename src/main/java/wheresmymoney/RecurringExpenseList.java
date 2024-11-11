@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.time.LocalDate;
 
+//@@author khsienkit
+
 public class RecurringExpenseList extends ExpenseList {
     private ArrayList<RecurringExpense> recurringExpenses;
     private ExpenseList expenseList;
@@ -78,6 +80,8 @@ public class RecurringExpenseList extends ExpenseList {
             assert (recurringExpense != null);
             recurringExpenses.add(recurringExpense);
             Logging.log(Level.INFO, "Successfully added recurring expense.");
+
+            expenseList.addExpense(price, description, category, lastAddedDate);
         } catch (WheresMyMoneyException e) {
             throw new WheresMyMoneyException(e.getMessage());
         }
@@ -97,6 +101,33 @@ public class RecurringExpenseList extends ExpenseList {
                 price, description, category, frequency));
         try {
             RecurringExpense recurringExpense = new RecurringExpense(price, description, category, frequency);
+            assert (recurringExpense != null);
+            recurringExpenses.add(recurringExpense);
+            Logging.log(Level.INFO, "Successfully added recurring expense.");
+
+            expenseList.addExpense(price, description, category);
+        } catch (WheresMyMoneyException e) {
+            throw new WheresMyMoneyException(e.getMessage());
+        }
+    }
+
+    /**
+     * Load a recurring expense with a specified date to the end of the recurring expense list
+     *
+     * @param price New price of expense
+     * @param description New description of expense
+     * @param category New category of expense
+     * @param lastAddedDate Date of when the expense was last updated
+     * @param frequency Frequency of recurring expense
+     */
+    public void loadRecurringExpense(Float price, String description, String category, 
+            String lastAddedDate, String frequency) {
+        Logging.log(Level.INFO,
+                String.format("Adding recurring expense with parameters: %f, %s, %s, %s, %s", 
+                price, description, category, lastAddedDate, frequency));
+        try {
+            RecurringExpense recurringExpense = new RecurringExpense(price, description, category, 
+                    lastAddedDate, frequency);
             assert (recurringExpense != null);
             recurringExpenses.add(recurringExpense);
             Logging.log(Level.INFO, "Successfully added recurring expense.");
@@ -175,10 +206,12 @@ public class RecurringExpenseList extends ExpenseList {
             String description = recurringExpense.getDescription();
             String category = recurringExpense.getCategory();
 
-            while (nextDate.isBefore(currentDate)) {
+            while (nextDate.isBefore(currentDate) || nextDate.isEqual(currentDate)) {
+                expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(nextDate));  
                 nextDate = nextDate.plusDays(1);
-                expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(nextDate));    
             }
+
+            recurringExpense.setLastAddedDate(DateUtils.dateFormatToString(currentDate));
         } catch (WheresMyMoneyException e) {
             throw new WheresMyMoneyException(e.getMessage());
         }
@@ -198,10 +231,12 @@ public class RecurringExpenseList extends ExpenseList {
             String description = recurringExpense.getDescription();
             String category = recurringExpense.getCategory();
 
-            while (nextDate.isBefore(currentDate) || nextDate.isEqual(currentDate)) {
+            while (nextDate.isBefore(currentDate)) {
                 expenseList.addExpense(price, description, category, DateUtils.dateFormatToString(nextDate));
                 nextDate = nextDate.plusDays(7);
             }
+
+            recurringExpense.setLastAddedDate(DateUtils.dateFormatToString(nextDate.minusDays(7)));
         } catch (WheresMyMoneyException e) {
             Ui.displayMessage(e.getMessage());
         }
@@ -231,6 +266,9 @@ public class RecurringExpenseList extends ExpenseList {
                 numberOfMonthsToAdd += 1;
                 newDate = nextDate.plusMonths(numberOfMonthsToAdd);
             }
+
+            newDate = nextDate.plusMonths(numberOfMonthsToAdd - 1);
+            recurringExpense.setLastAddedDate(DateUtils.dateFormatToString(newDate));
         } catch (WheresMyMoneyException e) {
             Ui.displayMessage(e.getMessage());
         }
@@ -243,8 +281,9 @@ public class RecurringExpenseList extends ExpenseList {
      */
     public void loadFromCsv(String filePath) throws StorageException {
         clear();
+
         CsvUtils.readCsv(filePath, line -> {
-            addRecurringExpense(CsvUtils.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
+            loadRecurringExpense(CsvUtils.parseFloat(line[2]), line[1], line[0], line[4], line[5]);
         });
 
         LocalDate currentDate = DateUtils.getCurrentDate();
