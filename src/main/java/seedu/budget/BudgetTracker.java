@@ -14,8 +14,7 @@ import seedu.utils.DateTimeUtils;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,6 +79,18 @@ public class BudgetTracker {
 
     public Double getMonthlyBudget(YearMonth month) {
         return monthlyBudgets.get(month);
+    }
+
+    public List<String> getAllBudgets() {
+        Map<YearMonth, Double> sortedBudgets = new TreeMap<>(monthlyBudgets);
+        List<String> budgets = new ArrayList<>();
+
+        int index = 1;
+        for (Map.Entry<YearMonth, Double> entry : sortedBudgets.entrySet()) {
+            budgets.add(String.format("%d. Budget for %s: $%.2f", index++, entry.getKey(), entry.getValue()));
+        }
+
+        return budgets.isEmpty() ? List.of("No budgets set.") : budgets;
     }
 
     /**

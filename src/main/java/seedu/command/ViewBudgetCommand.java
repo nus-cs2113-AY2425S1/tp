@@ -10,10 +10,10 @@ import static seedu.utils.DateTimeUtils.parseYearMonth;
 
 public class ViewBudgetCommand extends Command {
     public static final String COMMAND_WORD = "view-budget";
-    public static final String COMMAND_GUIDE = "view-budget m/ MONTH: " +
+    public static final String COMMAND_GUIDE = "view-budget [m/ MONTH]: view all budgets, or view budget for a specific month " +
             "Track your progress towards your budget for a certain month";
-    public static final String[] COMMAND_MANDATORY_KEYWORDS = {"m/"};
-    public static final String[] COMMAND_EXTRA_KEYWORDS = {};
+    public static final String[] COMMAND_MANDATORY_KEYWORDS = {};
+    public static final String[] COMMAND_EXTRA_KEYWORDS = {"m/"};
 
     private final BudgetTracker budgetTracker;
 
@@ -26,19 +26,24 @@ public class ViewBudgetCommand extends Command {
         if (!isArgumentsValid()) {
             return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
         }
+        String monthStr = arguments.get("m/");
 
-        String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
-        YearMonth month = null;
-        try {
-            month = parseYearMonth(monthStr);
-        } catch (InvalidDateFormatException e) {
-            return List.of(CommandResultMessages.TRACK_PROGRESS_FAIL +
-                    ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
-        } catch (Exception e) {
-            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
+        if (monthStr != null) {
+            // Specific month view
+            YearMonth month;
+            try {
+                month = parseYearMonth(monthStr);
+            } catch (InvalidDateFormatException e) {
+                return List.of(CommandResultMessages.TRACK_PROGRESS_FAIL + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT);
+            } catch (Exception e) {
+                return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
+            }
+            return List.of(budgetTracker.checkBudgetProgress(month));
+        } else {
+            // All budgets view
+            return budgetTracker.getAllBudgets();
         }
 
-        return List.of(budgetTracker.checkBudgetProgress(month));
     }
 
     @Override
