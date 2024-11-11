@@ -166,11 +166,16 @@ public class Internship {
      * @param description   description of the deadline to remove.
      * @throws MissingValue No deadline in the list of deadlines is
      */
-    public void removeDeadline(String description) throws MissingValue {
+    public String removeDeadline(String description) throws MissingValue {
         String trimmedDescription = description.trim();
-        if(!deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(trimmedDescription))) {
-            throw new MissingValue();
+        for (int i = 0; i < deadlines.size(); i++) {
+            Deadline deadline = deadlines.get(i);
+            if (deadline.getDescription().equalsIgnoreCase(trimmedDescription)) {
+                deadlines.remove(i);
+                return deadline.toStringMessage();
+            }
         }
+        throw new MissingValue();
     }
 
     /**

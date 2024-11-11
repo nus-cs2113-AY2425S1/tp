@@ -136,19 +136,21 @@ public class InternshipList {
         return updatedValue;
     }
 
-    public void removeField(int index, String field, String value) throws MissingValue {
+    public String removeField(int index, String field, String value) throws MissingValue {
+        String removedValue = value;
         switch (field) {
         case "skills":
             internships.get(index).removeSkill(value);
             break;
         case "deadline":
-            internships.get(index).removeDeadline(value);
+            removedValue = internships.get(index).removeDeadline(value);
             break;
         default:
             assert false : "All valid fields should we handled in individual cases";
             break;
         }
         LOGGER.log(Level.INFO, "Internship " + (index + 1) + " removed: " + field);
+        return removedValue;
     }
 
     //@@author jadenlimjc
