@@ -1,25 +1,7 @@
 @startuml
-skinparam participant {
-    BackgroundColor #DFF6FF
-    BorderColor #0096C7
-    FontColor #023E8A
-    FontStyle bold
-}
-skinparam sequence {
-    ActorBorderColor #F28482
-    ActorBackgroundColor #F8AD9D
-    LifeLineBorderColor #6D6875
-    LifeLineBackgroundColor #B5838D
-    ParticipantBorderColor #457B9D
-    ParticipantBackgroundColor #CAF0F8
-    ArrowColor #023E8A
-    BoxBorderColor #495867
-    BoxBackgroundColor #B0C4DE
-}
-
 actor User
-participant "BuffBuddy" as BB
 participant "UI" as UI
+participant "BuffBuddy" as BB
 participant "Parser" as Parser
 participant "AddMealCommand" as AddCmd
 participant "History" as History
@@ -27,48 +9,54 @@ participant "DailyRecord" as DailyRec
 participant "MealList" as MealList
 participant "Meal" as Meal
 
-User -> UI: Enter "meal add /n [mealName] /c [calories]"
+User -> UI: "meal add /n [mealName] /c [calories]"
 activate UI
-BB -> UI: Read command
+BB -> UI: readCommand()
 activate BB
-UI --> BB: return command
-BB -> Parser: Parse command
+UI --> BB: command object
+BB -> Parser: parse(command)
 activate Parser
 
-Parser -> AddCmd: Create AddMealCommand
+Parser -> Meal: Meal(mealname, calories)
+activate Meal
+Meal --> Parser: meal object
+deactivate Meal
+
+Parser --> AddCmd: AddMealCommand(meal, date)
 deactivate Parser
 activate AddCmd
 
-AddCmd -> History: Get DailyRecord by date
+AddCmd -> History: getRecordByDate(date)
 activate History
 
 alt DailyRecord exists
-  History --> AddCmd: Return existing DailyRecord
+  History --> AddCmd: DailyRecord object
 else No DailyRecord exists
-  History -> DailyRec: Create new DailyRecord
+  History -> DailyRec: new DailyRecord()
   activate DailyRec
-  DailyRec --> History: Add new DailyRecord to history
+  DailyRec --> History
   deactivate DailyRec
-  History --> AddCmd: Return new DailyRecord
+  History --> AddCmd
 end
 deactivate History
 
-AddCmd -> DailyRec: Check if MealList exists
+AddCmd -> DailyRec:
 activate DailyRec
 
-alt MealList exists
-  DailyRec -> MealList: Add meal to existing MealList
-  activate MealList
-else MealList does not exist
-  DailyRec -> MealList: Create new MealList
-  activate MealList
-  MealList -> MealList: Add meal to new MealList
-end
+DailyRec -> MealList: addMealToRecord(meal)
+activate MealList
+MealList -> MealList: addMeal(meal)
+activate MealList
+
 deactivate MealList
-DailyRec --> AddCmd: Return added meal
+MealList --> DailyRec
+deactivate MealList
+
+
+DailyRec --> AddCmd
 deactivate DailyRec
 
-AddCmd --> BB: Return CommandResult
+AddCmd --> BB: CommandResult object
 deactivate AddCmd
 destroy AddCmd
 
