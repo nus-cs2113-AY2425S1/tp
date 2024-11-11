@@ -555,7 +555,7 @@ private String generateRandomWord(Random random, int wordLength) {
          
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
-        double validLimit = 1000000000000000.00; // The maximum budget limit as per your requirements
+        double validLimit = 9999999999999999.99; // The maximum budget limit as per your requirements
 
         // Find the "Education" category
         Category category = findCategory(trackerData, "Education");
