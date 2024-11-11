@@ -166,7 +166,6 @@ This class diagram represents the parsing of commands in Personal Tracker. The `
 
 ![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.jpg)
 
-<div style="page-break-after: always;"></div>
 
 #### CourseValidator Class Diagram: 
 
