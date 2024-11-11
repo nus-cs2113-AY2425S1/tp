@@ -27,14 +27,10 @@ import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.HashSet;
 
 /**
  * Parse user input commands
@@ -491,17 +487,26 @@ public final class Parser {
     }
 
     public static void validateStepNumbers(List<String> stepStrings) throws InvalidArgumentException {
-        Set<Integer> stepNumbers = new HashSet<>();
+        if (stepStrings.isEmpty()) {
+            throw new InvalidArgumentException("No steps provided. Please provide at least one step.");
+        }
+
+        ArrayList<Integer> stepNumbers = new ArrayList<>();
         int maxStepNumber = 0;
 
+        // Parse step numbers and check for duplicates
         for (String step : stepStrings) {
             // Extract the step number (e.g., "s1" -> 1)
             try {
                 int stepNumber = Integer.parseInt(step.split("/")[0].substring(1));
-                if (!stepNumbers.add(stepNumber)) {
+                if (stepNumbers.contains(stepNumber)) {
                     throw new InvalidArgumentException("Duplicate step number found: s" + stepNumber
                             + "\nLearn to count!");
                 }
+                if (stepNumber == 0) {
+                    throw new InvalidArgumentException("Invalid step number s0 found. \nStep numbers start from s1!");
+                }
+                stepNumbers.add(stepNumber);
                 maxStepNumber = Math.max(maxStepNumber, stepNumber);
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException exception) {
                 throw new InvalidArgumentException("Invalid step format. Expected format: s1, s2, ...");
@@ -513,6 +518,14 @@ public final class Parser {
             if (!stepNumbers.contains(i)) {
                 throw new InvalidArgumentException("Missing step number: s" + i
                         + "\nLearn to count!");
+            }
+        }
+
+        // Verify the steps are in strict sequential order
+        for (int i = 0; i < stepNumbers.size(); i++) {
+            if (stepNumbers.get(i) != i + 1) {  // Steps should be exactly 1, 2, 3, ..., n
+                throw new InvalidArgumentException("Steps are not in order. Arrange them sequentially " +
+                        "(s1, s2, s3, ...)!");
             }
         }
     }
