@@ -52,7 +52,7 @@ For details on all available commands, refer to the Features section below.
 
    Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
 
-6. Avoid using command prefixes (e.g., n/, a/, c/, etc.) within parameter values, as they may interfere with parsing.
+6. Avoid using command prefixes (e.g., n/, a/, c/, etc.) and '|' this special character within parameter values, as they may interfere with parsing.
 
    Example: `add-expense n/Coffee 2023/02/12 a/5.50 c/Food` is valid, but `n/Coffee a/s/a/a/a/ a/5.50 c/Food` is not,
    as `a/` is used within the `NAME` parameter, causing confusion with the `a/AMOUNT` prefix.
@@ -263,7 +263,7 @@ To make changes, delete the existing expense using `delete-expense` and add a ne
 For example, if you enter an amount of 5.678, it will be saved as 5.68.
 
 ## Command Summary
-- Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
+- Add expense `add-expense n/NAME a/AMOUNT c/CATEGORY`
 - Delete expense `delete-expense e/INDEX`
 - Add category `add-category c/CATEGORY`
 - Delete category `delete-category c/CATEGORY`
