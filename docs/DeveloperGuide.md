@@ -156,7 +156,7 @@ The `Parser` instance is no longer referenced. The current state is as shown in 
 
 The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
 
-Further details regarding command parsing can be found in the [Command parsing](#command-parsing-) section.
+Further details regarding command parsing can be found in the [Command parsing](#command-parsing) section.
 
 ### Command component
 

@@ -130,6 +130,7 @@ Examples:
 * `add -e Origami workshop -t 2024-10-12 18:00 -v Building A -u HIGH` adds an event with name `Origami workshop`, time `2024-10-12 18:00`, venue `Building A` and priority `HIGH` to the events list.
 * `add -p John Tan -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
+<div style="page-break-after: always;"></div>
 
 ### Removing an event, participant or item: `remove`
 
@@ -146,7 +147,6 @@ Examples:
 * `remove -e Origami workshop` removes the event `Origami workshop` from the event list.
 * `remove -p John Tan -e Origami workshop` removes the participant `John Tan` from the event `Origami workshop`.
 * `remove -m Origami paper -e Origami workshop` removes the item `Origami paper` from the event `Origami workshop`.
-<div style="page-break-after: always;"></div>
 
 ### Viewing all participants or items for an event: `view`
 
@@ -162,7 +162,8 @@ Format: `view -e EVENT -y TYPE`
 Examples:
 
 * `view -e Origami workshop -y participant` shows a list of all participants for the event `Origami workshop`.
-* `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`. 
+* `view -e Origami workshop -y item` shows a list of all items for the event `Origami workshop`.
+<div style="page-break-after: always;"></div>
 
 ### Editing the information of an event, participant or item: `edit`
 
@@ -222,6 +223,7 @@ Examples:
 
   * `mark -m Origami paper -e Origami workshop -s accounted` marks the item `Origami paper` in the `Origami workshop` event as accounted.
   * `mark -m Origami paper -e Origami workshop -s unaccounted` marks the item `Origami paper` in the `Origami workshop` event as unaccounted.
+<div style="page-break-after: always;"></div>
 
 ### Copying the participant list: `copy`
 
@@ -249,6 +251,7 @@ Examples:
 * `sort -by name` will output a list of all the user's events alphabetically (from A to Z).
 * `sort -by time` will output a list of all the user's events chronologically (earliest to latest).
 * `sort -by priority` will output a list of all the user's events in terms of urgency (most to least important).
+<div style="page-break-after: always;"></div>
 
 ### Filtering the event list: `filter`
 
@@ -265,7 +268,6 @@ Examples:
 * `filter -t 12:00` will output all events that are occurring at `12:00`.
 * `filter -x 2024-03-02 12:00` will output all events that are occurring at `2024-03-02 12:00`. 
 * `filter -u high` with output all events with priority level `HIGH`.
-<div style="page-break-after: always;"></div>
 
 ### Finding a participant: `find`
 
@@ -283,6 +285,7 @@ Examples:
 Exits the program.
 
 Format: `exit`
+<div style="page-break-after: always;"></div>
 
 ### Saving of program data
 
