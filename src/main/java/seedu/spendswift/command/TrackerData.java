@@ -1,4 +1,4 @@
-package seedu.spendswift.model;
+package seedu.spendswift.command;
 
 //@@author kq2003
 import java.util.ArrayList;

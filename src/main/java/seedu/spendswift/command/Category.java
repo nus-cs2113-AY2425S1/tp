@@ -1,5 +1,5 @@
 //@@author glenda-1506
-package seedu.spendswift.model;
+package seedu.spendswift.command;
 
 public class Category {
     private String name;

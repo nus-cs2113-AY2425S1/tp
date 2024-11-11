@@ -1,5 +1,5 @@
 //@@author glenda-1506
-package seedu.spendswift.format;
+package seedu.spendswift.command;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
