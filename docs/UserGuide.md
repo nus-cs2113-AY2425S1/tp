@@ -6,8 +6,10 @@
 
 Java Ninja is a command-line interface (CLI) learning tool focused on helping beginner programmers enhance their understanding of fundamental programming concepts. This tool provides different modes of assessments with various difficulty levels as you progress.
 
-- [Quickstart](#QuickStart)
-- [Features](#Features)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Command Summary](#command-summary)
+- [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -33,7 +35,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 
 ---
 
-## Features 
+## Features
 
 ### 1. View Topics: `view`
 Displays a list of all available quiz topics that you can attempt, such as loops, conditionals, and data types.

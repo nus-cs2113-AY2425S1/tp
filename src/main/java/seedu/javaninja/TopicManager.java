@@ -58,10 +58,11 @@ public class TopicManager {
      */
     public Topic getTopic(String topicName) {
         for (Topic topic : topics) {
-            if (topic.getName().equalsIgnoreCase(topicName)) {
+            if (topic.getName().equals(topicName)) { // Case-sensitive comparison
                 return topic;
             }
         }
+        cli.printMessage("Topic not found. Ensure the topic name matches exactly.");
         return null;
     }
 

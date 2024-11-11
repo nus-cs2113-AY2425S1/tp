@@ -1,6 +1,10 @@
 package seedu.javaninja;
 
-import seedu.javaninja.question.*;
+import seedu.javaninja.question.Question;
+import seedu.javaninja.question.Mcq;
+import seedu.javaninja.question.TrueFalse;
+import seedu.javaninja.question.FillInTheBlank;
+import seedu.javaninja.question.Flashcard;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;

@@ -140,7 +140,8 @@ public class QuizGenerator {
                 if (questionLimit > 0 && questionLimit <= maxQuestions) {
                     return questionLimit;
                 } else if (questionLimit > UPPER_LIMIT) {
-                    cli.printMessage("The number entered is too large. Please enter a realistic number below " + UPPER_LIMIT + ".");
+                    cli.printMessage("The number entered is too large. Please enter a realistic number below "
+                            + UPPER_LIMIT + ".");
                 } else {
                     cli.printMessage("Invalid number. Please enter a number between 1 and " + maxQuestions + ".");
                 }
