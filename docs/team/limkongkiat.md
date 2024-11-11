@@ -32,6 +32,14 @@ they have exceeded, or are close to exceeding, their budget.
 
 &nbsp;
 
+- **Extension of Feature:** Edit/Delete command acts on last amended entry if no index is specified.
+  - <ins>What it does:</ins> If the `edit` or `delete` command is entered with no index specified, the app
+    will edit/delete the last amended entry according to the other arguments specified.
+  - <ins>Justification:</ins> This allows users to quickly and conveniently edit/delete their last
+  amended (added/edited) entry should they realise that they made a mistake.
+
+&nbsp;
+
 - **General Contribution:** Refactoring of repeated messages into Commons class
   - <ins> What it does:</ins> Refactors strings that are printed multiple times (e.g. line separator, error messages)
     into a Commons class. 
@@ -47,12 +55,14 @@ they have exceeded, or are close to exceeding, their budget.
   - <ins>User Guide</ins>
     - Added Contents Page and Section Headers [#137](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/137)
     - Updated List Entries by date section [#151](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/151)
+    - Did overall formatting for v2.0 UG [#209](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/209)
   - <ins>Developer Guide</ins>
     - Added overview of Desgin & Implementation [#126](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/126)
     - Added section on List Entries feature [#109](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/109), 
     [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110), 
     [#153](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/153)
     - Added Product Scope and User Stories section [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110)
+    - Did overall formatting for v2.0 DG [#214](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/214)
 
 &nbsp;
 
