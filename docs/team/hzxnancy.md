@@ -19,7 +19,7 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 + Using the `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY /coursepu PU_COURSE_CODE` format, users could add their desired 
   course mapping into `myList.json` file for storage.
   [#31](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/31)
-+ Parse user's inputs to extract relevant information before the validating course mapping in the `CourseValidator` class.
++ Parse user's inputs to extract relevant information before validating the course mapping in the `CourseValidator` class.
   [#31](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/31)
 + Throw exceptions when there are missing inputs and keywords. 
 + Implement assertions, exceptions, and JUnit tests to handle and test error cases. 
@@ -55,7 +55,7 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 ## Developer Guide Contribution
 
 + Add documentation for the add course mapping implementation, including a detailed explanation of the `AddCourseCommand`and `CourseValidator` classes. [#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112)
-+ Create a sequence diagram for the AddCoursesCommand and CourseValidator respectively.[#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112), 
++ Create a sequence diagram for AddCoursesCommand and CourseValidator respectively. [#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112), 
 [#208](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/208)
 + Create a class diagram for the `CourseValidator` class. 
  [#165](https://github.com/AY2425S1-CS2113-W10-2/tp/issues/165)
