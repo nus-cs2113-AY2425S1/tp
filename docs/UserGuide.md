@@ -46,6 +46,8 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Features - Expenses
 
 ### Add an expense: `add`
@@ -198,6 +200,8 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Features - Recurring Expenses
 
 Recurring expenses allow you to automate adding expenses that occur on a regular basis.
@@ -282,6 +286,8 @@ Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Features - Storage
 
 ### Save data to files: `save`
@@ -327,6 +333,8 @@ Examples:
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## FAQ
 
 **Q1**: How do I transfer my data to another computer? 
@@ -351,6 +359,8 @@ Examples:
 **A4**: The backend uses floats to represent prices, which may cause inaccuracies of about 1 cent.
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## Command Summary
 
