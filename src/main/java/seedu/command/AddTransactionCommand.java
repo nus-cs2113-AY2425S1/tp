@@ -5,6 +5,7 @@ import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 import seedu.utils.AmountUtils;
 import seedu.utils.DateTimeUtils;
+import seedu.utils.DescriptionUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,8 +21,8 @@ public abstract class AddTransactionCommand extends Command {
         this.transactions = transactions;
     }
 
-    protected String parseDescription(Map<String, String> arguments) {
-        String description = arguments.get("");
+    protected String parseDescription(Map<String, String> arguments) throws IllegalArgumentException {
+        String description = DescriptionUtils.parseDescription(arguments.get(""));
         return (description == null || description.isEmpty()) ? "" : description;
     }
 
