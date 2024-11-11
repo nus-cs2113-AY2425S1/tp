@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  */
 public class EditEventCommand extends Command{
     public static final String COMMAND_WORD = "edit";
-    private static final String EDIT_EVENT_MESSAGE = "The following event has been updated:\n";
+    private static final String EDIT_EVENT_MESSAGE = "The following event has been updated to:\n";
     private static final String EDIT_FAILURE_MESSAGE = "Event not found!";
     protected String eventName;
     protected String eventNewName;
