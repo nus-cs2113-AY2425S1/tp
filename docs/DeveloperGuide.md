@@ -46,6 +46,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
+- [Calculations](#calculations)
 - [Visualizer](#visualizer)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
@@ -100,7 +101,7 @@ The `ArgumentMap` class extends the `HashMap<String, String>` class with the fol
 
 <u>Design Considerations</u>
 
-Low-level I/O operations (eg. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
+Low-level I/O operations (e.g. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
 modifying only the Ui class. This would make it easier to port the application to other platforms if needed.
 
 Ui class is used as part of exception handling for displaying of error messages to the user for feedback.
@@ -120,7 +121,7 @@ The Parser also has some considerations such as
        1. commands -> e.g. `/command /argument value1` -> the command is `/command`
            1. It is discouraged to do so, but the option is left for potential expandability
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
-    3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
+    3. Leading and Trailing spaces are ignored, but additional spaces within values (e.g. `main  value`) are counted 
 
 An ArgumentMap class is created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
@@ -284,6 +285,34 @@ The `DateUtils` class' attributes and methods are all class-level, because:
 
 
 
+### Calculations
+
+<u>Overview</u>
+
+The `StatsCommand` class first passes the expense list through the filters specified by the user, then performs
+calculations on the expenses in the list to obtain meaningful statistics from them.
+
+<u>Implementation Details</u>
+
+`StatsCommand`, similar to the `list` command, takes in `category` and `from`/`to` dates.
+It uses `ExpenseFilter` to generate an `ArrayList<Expense>` of matched expenses and passes it to `displayStats`.
+
+The `displayStats` method, upon receiving `filteredExpenses`, performs the following steps:
++ Determine `highest` and `lowest` (expenses with the highest and lowest `price` in `filteredExpenses` respectively).
++ Calculate `sum` by adding `price` of all expenses in `filteredExpenses`.
++ Calculate `mean` by dividing `sum` by the number of expenses in `filteredExpenses`.
++ Obtain `truncatedMean`:
+  + On displaying it to the user, `mean` has too many decimal places since it is a float, making it hard to read and 
+  slightly inaccurate.
+  + This is why `displayStats` obtains `truncatedMean`, a double with only two decimal places to display to the
+  user. This is done by:
+    + First multiplying `mean` by 100 to keep 2 decimal places,
+    + Passing it through `Math.floor()` to remove the excess decimal places,
+    + Dividing it by 100 to get the final `mean`, but with only 2 decimal places.
++ Display the obtained statistics to the user.
+
+
+
 ### Visualizer
 
 The `VisualizeCommand`, similar to the `list` command, takes in `category` and `from`/`to` dates.
@@ -305,7 +334,7 @@ Data is passed to the XChart library in the form of two series - a `timeSeries` 
 
 <u>Overview</u>
 
-The `RecurringExpense` class extends from the `Expense` class and it represents an indivual recurring expense with a price, description, category, last date added and a frequency.
+The `RecurringExpense` class extends from the `Expense` class and it represents an individual recurring expense with a price, description, category, last date added and a frequency.
 
 The `RecurringExpenseList` class extends from the `ExpenseList` class and it manages a collection of `RecurringExpense` objects.
 It allows for addition, editing and deletion of expenses.
@@ -328,11 +357,11 @@ The `RecurringExpenseList` class has the following key methods:
 
 Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
 
-Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will be added after a `save` and a `load` command is used.
 - The `save` command is needed to register the recurring expense into the system.
 - The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
 
-Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
+Editing a recurring expense will not edit the normal expenses that are associated with the recurring expense. You will need to edit the normal expenses yourself.
 
 Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
