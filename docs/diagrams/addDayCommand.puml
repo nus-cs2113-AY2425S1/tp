@@ -1,25 +1,25 @@
 @startuml
-participant ":CreateDayCommand" as CreateDayCommand #cc88cc
-participant ":ProgrammeList" as ProgrammeList #ffbb77
-participant ":Programme" as Programme #ffbb77
+participant ":CreateDayProgrammeCommand" as CreateDayProgrammeCommand
+participant ":ProgrammeList" as ProgrammeList
+participant ":Programme" as Programme
 
+-> CreateDayProgrammeCommand : execute()
+activate CreateDayProgrammeCommand
 
-
-
--> CreateDayCommand : execute()
-activate CreateDayCommand
-CreateDayCommand -> ProgrammeList : getProgramme(programmeIndex)
+CreateDayProgrammeCommand -> ProgrammeList : getProgramme(programmeIndex)
 activate ProgrammeList
 
-ProgrammeList --> CreateDayCommand : selected Programme
-deactivate ProgrammeList
+opt Programme exists
+    ProgrammeList --> CreateDayProgrammeCommand : selected Programme
+    deactivate ProgrammeList
 
-CreateDayCommand -> Programme : insertDay(createdDay)
-activate Programme
+    CreateDayProgrammeCommand -> Programme : insertDay(createdDay)
+    activate Programme
 
-Programme --> CreateDayCommand :  inserted day
-deactivate Programme
+    Programme --> CreateDayProgrammeCommand : inserted Day
+    deactivate Programme
+end
 
-<-- CreateDayCommand
-deactivate CreateDayCommand
+<-- CreateDayProgrammeCommand : inserted Day
+deactivate CreateDayProgrammeCommand
 @enduml
