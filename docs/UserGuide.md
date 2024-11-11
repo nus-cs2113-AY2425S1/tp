@@ -4,7 +4,9 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
-3. [Features](#features)
+3. [Notes on Command format](#notes-on-command-format)
+4. [Terminology](#terminology)
+5. [Features](#features)
     - [1. Add New Programme](#1-add-new-programme)
     - [2. Set Programme as Active](#2-set-programme-as-active)
     - [3. List All Programmes](#3-list-all-programmes)
@@ -29,10 +31,10 @@
     - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises-)
     - [23. Delete Record](#23-delete-record-)
     - [24. Exiting BuffBuddy](#24-exit-buffbuddy)
-4. [Data Storage](#data-storage)
-5. [FAQ](#FAQ)
-6. [Alias Table](#alias-table)
-7. [Command Summary](#command-summary)
+6. [Data Storage](#data-storage)
+7. [FAQ](#FAQ)
+8. [Alias Table](#alias-table)
+9. [Command Summary](#command-summary)
 
 
 ## Introduction
