@@ -76,7 +76,7 @@ be automatically added to the ingredients inventory!
 ### Input Formatting Guide
 * If the command format is in `UPPER_CASE`, then it means it is to be substituted for the user's desired phrase
   * Example: In the parameter `n/NAME`, the user is to replace "NAME" with another word/phrase of their liking
-such as `n/ABC Soup`
+such as `n/ABC Soup`.
 * If the command format is in `lowercase` letter, then it must be used as it is and cannot be substituted
   * Example: In the parameter `s/name`, the command must be typed exactly as shown.
   * The word "name" cannot be replaced with anything else.
@@ -84,6 +84,8 @@ such as `n/ABC Soup`
   * e.g. `n/NAME [t/TEST]` can be used as `n/Sanjith t/YAYYY` or as `n/Sanjith`
 * The ... in `PARAMETER...` means that there can be multiple of that parameter.
   * NOTE: There must be **at least 1** parameter included.
+* Any command that has no additional parameters will ignore anything after the command, and will perform as usual.
+  * Example: `help me` would have the same results as `help`.
 
 ### Getting Help:`help`
 
