@@ -34,7 +34,7 @@ public class DataIntegrityChecker extends Command {
     }
 
     /**
-     * Validates the integrity of all entries in the file.
+     * Returns the integrity of all entries in the file.
      * Logs any integrity issues but does not terminate the program.
      *
      * @param entries List of all entries in the file to be validated.
@@ -54,9 +54,9 @@ public class DataIntegrityChecker extends Command {
     }
 
     /**
-     * Checks if all the course mappings in the `myList.json` file are valid against the JSON database.
+     * Returns true if all the course mappings in the `myList.json` file are valid against the JSON database.
      * The method iterates through each course mapping and performs course validation, before returning the
-     * validity of all course mappings.
+     * overall validity of all course mappings.
      *
      * @param entries a list of course mappings represented Strings, to be validated.
      * @param databaseJson a JSON object containing the approved course mapping database.
@@ -76,8 +76,8 @@ public class DataIntegrityChecker extends Command {
     }
 
     /**
-     * Checks for duplicate course mapping entries in the provided List of courses mappings
-     * and removes any duplicates. If any duplicates are found, the duplicated course mapping is printed out
+     * Returns whether duplicate entries are found in the provided List of courses mappings.
+     * If any duplicates are found, the duplicated course mapping is printed out
      * and is subsequently removed from the `myList.json` file.
      *
      * @param courses the list of courses mappings to check for duplicates.
@@ -115,7 +115,8 @@ public class DataIntegrityChecker extends Command {
     }
 
     /**
-     * Validates a single course entry against the JSON database.
+     *  Returns true if the course entry is valid according to the database;
+     *  otherwise, logs an error and returns false.
      *
      * @param entry      The course entry in string format.
      * @param lineNumber The line number in the file for reference.

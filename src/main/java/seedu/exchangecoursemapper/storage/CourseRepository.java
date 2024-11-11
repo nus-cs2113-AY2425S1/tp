@@ -68,7 +68,7 @@ public class CourseRepository {
     }
 
     /**
-     * Loads all the user's stored course mappings.
+     * Returns a list of all the user's stored course mappings.
      *
      * @return a list with all the user's course mappings.
      */
@@ -125,7 +125,7 @@ public class CourseRepository {
     }
 
     /**
-     * Gets a course from the storage by indicating its index.
+     * Returns a course from the storage by indicating its index.
      *
      * @param index of course that the user refers to.
      * @return the course specified by the index as a Course object.

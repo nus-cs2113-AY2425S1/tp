@@ -52,7 +52,7 @@ public class Storage {
     }
 
     /**
-     * Gets a course from the storage by indicating its index.
+     * Returns a course from the storage by indicating its index.
      *
      * @param index of course that the user refers to.
      * @return the course specified by the index as a Course object.
@@ -62,9 +62,9 @@ public class Storage {
     }
 
     /**
-     * Loads all the user's stored course mappings.
+     * Returns a list all the user's stored course mappings.
      *
-     * @return a list with all the user's course mappings.
+     * @return a list with all the user's stored course mappings.
      */
     public List<Course> loadAllCourses() {
         return courseRepository.loadAllCourses();

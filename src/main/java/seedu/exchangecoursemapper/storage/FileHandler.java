@@ -56,8 +56,8 @@ public class FileHandler {
     }
 
     /**
-     * Reads all stored course mappings from the `myList.json` file at the specified file path,
-     * and returns them as a String List.
+     * Returns a list of all stored course mappings from the `myList.json` file at the specified file path
+     * as a String List.
      *
      * @return a String List, where each string represents a formatted course mapping from `myList.json`.
      */
