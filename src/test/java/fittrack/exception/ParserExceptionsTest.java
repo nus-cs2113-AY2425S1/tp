@@ -1,6 +1,5 @@
-package fittrack.exceptions;
+package fittrack.exception;
 
-import fittrack.exception.ParserExceptions;
 import fittrack.trainingsession.TrainingSession;
 import fittrack.user.User;
 import org.junit.jupiter.api.BeforeEach;
