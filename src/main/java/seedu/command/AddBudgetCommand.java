@@ -2,6 +2,7 @@ package seedu.command;
 
 import seedu.budget.BudgetTracker;
 import seedu.datastorage.Storage;
+import seedu.exceptions.InvalidAmountFormatException;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
 import seedu.utils.AmountUtils;
@@ -30,8 +31,9 @@ public class AddBudgetCommand extends Command {
         Double amount = null;
         try {
             amount = AmountUtils.parseAmount(amountStr);
-        } catch (Exception e) {
-            return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage());
+        } catch (InvalidAmountFormatException e) {
+            return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage(),
+                    ErrorMessages.INVALID_AMOUNT_GUIDE);
         }
 
         String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[1]);

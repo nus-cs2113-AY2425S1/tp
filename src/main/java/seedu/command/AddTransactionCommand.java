@@ -1,6 +1,8 @@
 package seedu.command;
 
+import seedu.exceptions.InvalidAmountFormatException;
 import seedu.exceptions.InvalidDateFormatException;
+import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 import seedu.utils.AmountUtils;
@@ -21,12 +23,12 @@ public abstract class AddTransactionCommand extends Command {
         this.transactions = transactions;
     }
 
-    protected String parseDescription(Map<String, String> arguments) throws IllegalArgumentException {
+    protected String parseDescription(Map<String, String> arguments) throws InvalidDescriptionFormatException {
         String description = DescriptionUtils.parseDescription(arguments.get(""));
         return (description == null || description.isEmpty()) ? "" : description;
     }
 
-    protected Double parseAmount(String amountStr) throws Exception {
+    protected Double parseAmount(String amountStr) throws InvalidAmountFormatException {
         return AmountUtils.parseAmount(amountStr);
     }
 

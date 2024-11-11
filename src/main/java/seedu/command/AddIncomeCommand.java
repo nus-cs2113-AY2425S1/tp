@@ -1,7 +1,9 @@
 package seedu.command;
 
 import seedu.datastorage.Storage;
+import seedu.exceptions.InvalidAmountFormatException;
 import seedu.exceptions.InvalidDateFormatException;
+import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
 import seedu.message.InfoMessages;
@@ -31,13 +33,20 @@ public class AddIncomeCommand extends AddTransactionCommand {
             return messages;
         }
 
-        String incomeName = parseDescription(arguments);
+        String incomeName = null;
+        try {
+            incomeName = parseDescription(arguments);
+        } catch (InvalidDescriptionFormatException e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage(),
+                    ErrorMessages.INVALID_DESCRIPTION_GUIDE);
+        }
 
         Double amount;
         try {
             amount = parseAmount(arguments.get(COMMAND_MANDATORY_KEYWORDS[0]));
-        } catch (Exception e) {
-            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
+        } catch (InvalidAmountFormatException e) {
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage(),
+                    ErrorMessages.INVALID_AMOUNT_GUIDE);
         }
 
         String dateString;
