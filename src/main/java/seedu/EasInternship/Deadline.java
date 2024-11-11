@@ -38,6 +38,7 @@ public class Deadline {
     }
 
     public void setDate(String date) throws DateTimeParseException {
+        assert date != null;
         this.date = LocalDate.parse(date, DATE_FORMATTER);
     }
 

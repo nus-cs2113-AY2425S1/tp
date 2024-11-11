@@ -128,6 +128,7 @@ public class InternshipList {
             break;
         }
         LOGGER.log(Level.INFO, "Internship " + (index + 1) + " updated: " + field);
+
         return updatedValue;
     }
 
