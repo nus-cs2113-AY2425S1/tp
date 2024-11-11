@@ -55,6 +55,7 @@ Error loading data from file: data.txt. New file will be created since it does n
 ------------------------
 Enter a command:
 ```
+<div style="page-break-after: always;"></div>
 
 ## Features
 
