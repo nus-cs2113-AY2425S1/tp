@@ -10,7 +10,6 @@ import ymfc.recipe.RecommendedRecipe;
 import ymfc.recipe.SortByPercentMatch;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.logging.Level;
 import static ymfc.YMFC.logger;
 
@@ -32,6 +31,15 @@ public class RecommendCommand extends Command {
         logger.log(Level.FINEST, "Creating RecommendCommand");
     }
 
+    private ArrayList<Ingredient> toLowerCaseIngredients(ArrayList<Ingredient> ingredients) {
+        ArrayList<Ingredient> newIngredients = new ArrayList<>();
+        for (Ingredient ingredient : ingredients) {
+            String lowerCaseName = ingredient.getName().toLowerCase();
+            newIngredients.add(new Ingredient(lowerCaseName));
+        }
+        return newIngredients;
+    }
+
     /**
      * Executes the {@code RecommendCommand}.
      * Recipes from the {@code RecipeList} that has ingredients found in {@code IngredientList} are collated.
@@ -47,8 +55,7 @@ public class RecommendCommand extends Command {
         logger.log(Level.FINEST, "Executing RecommendCommand");
         assert recipes.getCounter() > 0;
 
-
-        ArrayList<Ingredient> ingredientsList = ingredients.getIngredients();
+        ArrayList<Ingredient> lowerCaseInventory = toLowerCaseIngredients(ingredients.getIngredients());
         ArrayList<RecommendedRecipe> recommendedList = new ArrayList<>();
 
         // Iterate through all recipes and find recipes with matching ingredients
@@ -56,11 +63,9 @@ public class RecommendCommand extends Command {
             Recipe targetRecipe = recipes.getRecipe(i);
 
             // Find ingredients of recipe that matches ingredient list
-            // Clone is used so that a new arraylist is created
-            // and the retainAll method doesn't overwrite the original recipe
-            ArrayList<Ingredient> matchIngredients = (ArrayList<Ingredient>) targetRecipe.getIngredients().clone();
+            ArrayList<Ingredient> matchIngredients = toLowerCaseIngredients(targetRecipe.getIngredients());
             int recipeIngredientsCount = matchIngredients.size();
-            matchIngredients.retainAll(ingredientsList);
+            matchIngredients.retainAll(lowerCaseInventory);
 
             // Add recipe to list of recommended recipes if matching ingredients found
             if (!matchIngredients.isEmpty()) {
@@ -68,8 +73,7 @@ public class RecommendCommand extends Command {
                 int percentMatch = 100 * matchIngredients.size() / recipeIngredientsCount;
 
                 // Find list of missing ingredients
-                ArrayList<Ingredient> missingIngredients = (ArrayList<Ingredient>) targetRecipe.
-                        getIngredients().clone();
+                ArrayList<Ingredient> missingIngredients = toLowerCaseIngredients(targetRecipe.getIngredients());
                 missingIngredients.removeAll(matchIngredients);
 
                 recommendedList.add(new RecommendedRecipe(targetRecipe, percentMatch, missingIngredients));
@@ -77,7 +81,7 @@ public class RecommendCommand extends Command {
         }
 
         // Sort the recommendedList by each recipe's percentMatch value in descending order
-        Collections.sort(recommendedList, new SortByPercentMatch());
+        recommendedList.sort(new SortByPercentMatch());
 
         ui.printRecommendedRecipes(recommendedList);
     }

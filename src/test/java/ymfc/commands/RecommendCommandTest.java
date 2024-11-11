@@ -41,22 +41,22 @@ public class RecommendCommandTest {
         ArrayList<Ingredient> ingredients2 = new ArrayList<>();
         ArrayList<Ingredient> ingredients3 = new ArrayList<>();
         ArrayList<String> steps = new ArrayList<>();
-        steps.add("Cook ABC in salted water for 76 days.");
-        ingredients1.add(new Ingredient("ABC"));
-        recipe1 = new Recipe("ABC", ingredients1, steps);
-        ingredients2.add(new Ingredient("ABC"));
-        ingredients2.add(new Ingredient("Water"));
-        recipe2 = new Recipe("ABC Soup", ingredients2, steps);
-        ingredients3.add(new Ingredient("ABC"));
-        ingredients3.add(new Ingredient("Water"));
-        ingredients3.add(new Ingredient("Salt"));
-        recipe3 = new Recipe("Salted ABC Soup", ingredients3, steps);
+        steps.add("Cook abc in salted water for 76 days.");
+        ingredients1.add(new Ingredient("abc"));
+        recipe1 = new Recipe("abc", ingredients1, steps);
+        ingredients2.add(new Ingredient("abc"));
+        ingredients2.add(new Ingredient("water"));
+        recipe2 = new Recipe("abc soup", ingredients2, steps);
+        ingredients3.add(new Ingredient("abc"));
+        ingredients3.add(new Ingredient("water"));
+        ingredients3.add(new Ingredient("salt"));
+        recipe3 = new Recipe("salted abc soup", ingredients3, steps);
 
         recipeList.addRecipe(recipe1);
         recipeList.addRecipe(recipe2);
         recipeList.addRecipe(recipe3);
 
-        ingredientList.addIngredient(new Ingredient("Water"));
+        ingredientList.addIngredient(new Ingredient("water"));
 
         recommendCommand = new RecommendCommand();
     }
@@ -77,10 +77,10 @@ public class RecommendCommandTest {
 
         ArrayList<Ingredient> missingIngredients1 = new ArrayList<>();
         ArrayList<Ingredient> missingIngredients2 = new ArrayList<>();
-        missingIngredients1.add(new Ingredient("ABC"));
+        missingIngredients1.add(new Ingredient("abc"));
         RecommendedRecipe recommended1 = new RecommendedRecipe(recipe2, 50, missingIngredients1);
-        missingIngredients2.add(new Ingredient("ABC"));
-        missingIngredients2.add(new Ingredient("Salt"));
+        missingIngredients2.add(new Ingredient("abc"));
+        missingIngredients2.add(new Ingredient("salt"));
         RecommendedRecipe recommended2 = new RecommendedRecipe(recipe3, 33, missingIngredients2);
         String expected = ui.getLine() + System.lineSeparator()
                 + "\tAlright, here are my recommendations:" + System.lineSeparator()
