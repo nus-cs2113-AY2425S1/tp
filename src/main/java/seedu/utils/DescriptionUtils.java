@@ -4,11 +4,7 @@ import seedu.message.ErrorMessages;
 
 public class DescriptionUtils {
     public static boolean isValidDescription(String description) {
-        try {
-            return (description == null || description.length() <= 120) ;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
+        return (description == null || description.length() <= 50) ;
     }
 
     public static String parseDescription(String description) throws IllegalArgumentException {
