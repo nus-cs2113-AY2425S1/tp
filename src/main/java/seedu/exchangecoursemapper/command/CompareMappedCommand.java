@@ -5,6 +5,7 @@ import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
+import seedu.exchangecoursemapper.parser.Parser;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,6 +45,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
 
     private static final Logger logger = Logger.getLogger(CompareMappedCommand.class.getName());
     private static final CourseRepository courseRepository = new CourseRepository();
+    private static final Parser parser = new Parser();
     private static final UI ui = new UI();
     private final Storage storage;
 
@@ -74,8 +76,8 @@ public class CompareMappedCommand extends CheckInformationCommand {
             return;
         }
 
-        String university1 = inputs[1].trim().toLowerCase();
-        String university2 = inputs[2].trim().toLowerCase();
+        String university1 = parser.parsePUAbbreviations(inputs[1].trim().toLowerCase());
+        String university2 = parser.parsePUAbbreviations(inputs[2].trim().toLowerCase());
 
         // Load the database JSON
         JsonObject databaseJson;
