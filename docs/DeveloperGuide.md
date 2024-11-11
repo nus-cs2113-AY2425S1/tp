@@ -11,6 +11,7 @@ We used these third party libraries to develop our application:
 
 <!-- @@author nirala-ts -->
 ### UI Component
+
 ![Class_Diagram_for_Ui](images/uiComponent.png)
 
 The `UI` component manages the input and output interface between the user and the system, allowing interaction through command input and message displays. It enables seamless communication of user requests and system feedback in an organized and formatted manner.
