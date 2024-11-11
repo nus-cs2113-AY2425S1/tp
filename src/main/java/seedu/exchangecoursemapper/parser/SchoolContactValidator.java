@@ -8,7 +8,7 @@ import static seedu.exchangecoursemapper.constants.JsonKey.NUMBER_KEY;
 public class SchoolContactValidator {
 
     /**
-     * Checks if the provided contact type is a valid type.
+     * Returns if the provided contact type is a valid type.
      *
      * @param contactType The contact type to be checked.
      * @return true if the contact type is valid (either EMAIL_KEY or NUMBER_KEY), false otherwise.
@@ -18,7 +18,7 @@ public class SchoolContactValidator {
     }
 
     /**
-     * Checks if the provided school name exists.
+     * Returns if the provided school name exists.
      *
      * @param jsonObject The JSON object containing the data.
      * @param schoolName The name of the school to be checked.

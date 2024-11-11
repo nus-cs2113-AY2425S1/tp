@@ -35,4 +35,18 @@ public class Course {
         assert parts.length == 3 : THREE_COURSE_PARTS;
         return new Course(parts[2], parts[0], parts[1]);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Course course = (Course) obj;
+        return nusCourseCode.equals(course.nusCourseCode) &&
+                partnerUniversity.equals(course.partnerUniversity) &&
+                puCourseCode.equals(course.puCourseCode);
+    }
 }

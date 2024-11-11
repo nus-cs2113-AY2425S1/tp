@@ -33,7 +33,7 @@ public class HelpCommand extends CheckInformationCommand {
      * @param input The user input containing help command.
      */
     @Override
-    public void execute (String input) {
+    public void execute(String input) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         assert input != null: Assertions.EMPTY_USER_INPUT;
         try {
@@ -43,8 +43,7 @@ public class HelpCommand extends CheckInformationCommand {
         } catch (IllegalArgumentException e) {
             handleIllegalArgumentError(e);
         } catch (java.lang.Exception e) {
-            logger.log(Level.SEVERE, Logs.EXECUTION_FAILED, e);
-            throw new RuntimeException(e);
+            handleUnexpectedException(e);
         }
     }
 
@@ -136,5 +135,10 @@ public class HelpCommand extends CheckInformationCommand {
         logger.log(Level.WARNING, Logs.INVALID_COMMAND);
         System.out.println(e.getMessage());
         System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleUnexpectedException(java.lang.Exception e) {
+        logger.log(Level.SEVERE, Logs.EXECUTION_FAILED, e);
+        throw new RuntimeException(e);
     }
 }

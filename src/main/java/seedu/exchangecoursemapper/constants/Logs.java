@@ -8,12 +8,18 @@ public class Logs {
     public static final String FAILURE_READ_JSON_FILE = "Failed to read JSON file";
     public static final String COMPLETE_EXECUTION  = "Execution complete";
     public static final String LIST_SCHOOLS_NAMES = "Displaying university names ...";
-    public static final String LIST_MAPPABLE_COURSES = "Displaying mappable PU courses ...";
     public static final String POSSIBLE_NULL_JSON_KEY = "Encountered an empty or null university name.";
-    public static final String NO_NUS_COURSE_CODE_FILTER = "No NUS course code provided to filter";
-    public static final String FILTER_COURSES_LIMIT = "More than one NUS course code provided to filter";
     public static final String NUMBER_SUCCESS = "Number successfully retrieved";
     public static final String EMAIL_SUCCESS = "Email successfully retrieved";
+
+    // FilterCoursesCommand
+    public static final String LIST_MAPPABLE_COURSES = "Displaying mappable PU courses ...";
+    public static final String NO_NUS_COURSE_CODE_FILTER = "No NUS course code provided to filter";
+    public static final String FILTER_COURSES_LIMIT = "More than one NUS course code provided to filter";
+    public static final String INVALID_SOC_COURSE_CODE_FORMAT = "Non SoC Course Code input.";
+    public static final String INVALID_NUS_COURSE_CODE_FORMAT = "Invalid NUS Course Code input.";
+    public static final String NO_MAPPABLE_COURSES = "Unmappable course.";
+    public static final String MAPPABLE_COURSES_EXIST = "Course is mappable.";
 
     // ListUniCoursesCommand
     public static final String UNKNOWN_UNIVERSITY = "Unknown university encountered";
@@ -53,6 +59,7 @@ public class Logs {
     public static final String RETRIEVE_COURSE_LIST = "Retrieve course list for partner university";
 
     // Delete Course
+    public static final String PARSE_DELETE_COMMAND = "Check user input and split it into substrings.";
     public static final String DELETE_COURSE_MAPPING = "Deleting course mapping from storage..";
     public static final String RETURN_PARSED_DELETE_COMMAND = "Returning separated user input...";
     public static final String GET_COURSE_TO_DELETE = "Obtaining information on the course to be deleted.";
@@ -113,4 +120,10 @@ public class Logs {
     public static final String THE_AUSTRALIAN_NATIONAL_UNIVERSITY = "the australian national university";
     public static final String VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION = "wgtn";
     public static final String VICTORIA_UNIVERSITY_OF_WELLINGTON = "victoria university of wellington";
+
+    //Obtain logs
+    public static final String INVALID_OBTAIN_INPUT = "Invalid input format.";
+    public static final String UNKNOWN_UNIVERSITY_CHECK = "Unknown university - {0}";
+    public static final String INVALID_CONTACT_OBTAIN ="Invalid contact type requested: ";
+
 }

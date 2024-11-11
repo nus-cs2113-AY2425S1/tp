@@ -22,15 +22,26 @@ import static seedu.exchangecoursemapper.constants.Logs.LINE_WRITE_FAIL;
 import static seedu.exchangecoursemapper.constants.Logs.APPEND_LINE;
 import static seedu.exchangecoursemapper.constants.Logs.APPEND_LINE_FAIL;
 
+/**
+ * The FileHandler class contains all the methods related to file handling.
+ */
 public class FileHandler {
     private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
     private final String filePath;
 
+    /**
+     * FileHandler constructor.
+     *
+     * @param filePath of which the `myList.json` file is located.
+     */
     public FileHandler(String filePath) {
         this.filePath = filePath;
         initializeFile();
     }
 
+    /**
+     * Initialises the `myList.json` file if it is not found in the specified file path.
+     */
     private void initializeFile() {
         Path path = Paths.get(filePath);
         try {
@@ -44,6 +55,12 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Returns a list of all stored course mappings from the `myList.json` file at the specified file path
+     * as a String List.
+     *
+     * @return a String List, where each string represents a formatted course mapping from `myList.json`.
+     */
     public List<String> readAllLines() {
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -58,6 +75,13 @@ public class FileHandler {
         return lines;
     }
 
+    /**
+     * Writes all lines from the provided list of course mappings to the `myList.json`
+     * file at the specified file path.
+     *
+     * @param lines a list of course mappings represented as strings to be written to `myList.json`,
+     *              with each string representing a line.
+     */
     public void writeAllLines(List<String> lines) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (String line : lines) {
@@ -70,6 +94,11 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Appends a single line to the `myList.json` file at the specified file path.
+     *
+     * @param line the string to be appended to `myList.json`.
+     */
     public void appendLine(String line) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(line);
