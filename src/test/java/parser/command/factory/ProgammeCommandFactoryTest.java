@@ -29,12 +29,12 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ProgCommandFactoryTest {
-    private ProgCommandFactory progCommandFactory;
+class ProgammeCommandFactoryTest {
+    private ProgammeCommandFactory progammeCommandFactory;
 
     @BeforeEach
     void setUp() {
-        progCommandFactory = new ProgCommandFactory();
+        progammeCommandFactory = new ProgammeCommandFactory();
     }
 
     // Tests for parse
@@ -42,7 +42,7 @@ class ProgCommandFactoryTest {
     void testParseValidCreateCommand() {
         String argumentString = "create /p MyProgram /d Day1";
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertInstanceOf(CreateProgrammeCommand.class, result);
     }
@@ -51,7 +51,7 @@ class ProgCommandFactoryTest {
     void testParseValidListCommand() {
         String argumentString = "list";
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertInstanceOf(ListProgrammeCommand.class, result);
     }
@@ -60,7 +60,7 @@ class ProgCommandFactoryTest {
     void testParseInvalidCommand() {
         String argumentString = "unknownCommand";
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertInstanceOf(InvalidCommand.class, result);
     }
@@ -76,7 +76,7 @@ class ProgCommandFactoryTest {
         ArrayList<Day> expectedDays = new ArrayList<>(List.of(expectedDay));
         CreateProgrammeCommand expectedCommand = new CreateProgrammeCommand("MyProgram", expectedDays);
 
-        Command result = progCommandFactory.parse("create " + argumentString);
+        Command result = progammeCommandFactory.parse("create " + argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -88,7 +88,7 @@ class ProgCommandFactoryTest {
         CreateProgrammeCommand expectedCommand = new CreateProgrammeCommand("MyEmptyProgram",
                 new ArrayList<>());
 
-        Command result = progCommandFactory.parse("create " + argumentString);
+        Command result = progammeCommandFactory.parse("create " + argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -108,7 +108,7 @@ class ProgCommandFactoryTest {
         ArrayList<Day> expectedDays = new ArrayList<>(Arrays.asList(day1, day2));
         CreateProgrammeCommand expectedCommand = new CreateProgrammeCommand("MyProgram", expectedDays);
 
-        Command result = progCommandFactory.parse("create " + argumentString);
+        Command result = progammeCommandFactory.parse("create " + argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -132,7 +132,7 @@ class ProgCommandFactoryTest {
         ArrayList<Day> expectedDays = new ArrayList<>(Arrays.asList(day1, day2));
         CreateProgrammeCommand expectedCommand = new CreateProgrammeCommand("MyProgram", expectedDays);
 
-        Command result = progCommandFactory.parse("create " + argumentString);
+        Command result = progammeCommandFactory.parse("create " + argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -141,7 +141,7 @@ class ProgCommandFactoryTest {
         String argumentString = "MyProgram /d Day1 /e /name PushUps /set -3 /rep 15 /w 5 /c 50";
 
         assertThrows(ParserException.class,
-                () -> progCommandFactory.parse("create " + argumentString));
+                () -> progammeCommandFactory.parse("create " + argumentString));
     }
 
     @Test
@@ -149,7 +149,7 @@ class ProgCommandFactoryTest {
         String argumentString = "/d Day1 /e /name PushUps /set 3 /rep 15 /w 0 /c 50";
 
         assertThrows(ProgrammeException.class,
-                () -> progCommandFactory.parse("create " + argumentString));
+                () -> progammeCommandFactory.parse("create " + argumentString));
     }
 
     @Test
@@ -157,7 +157,7 @@ class ProgCommandFactoryTest {
         String argumentString = "MyProgram /d /e /name PushUps /set 3 /rep 15 /w 0 /c 50";
 
         assertThrows(ProgrammeException.class,
-                () -> progCommandFactory.parse("create " + argumentString));
+                () -> progammeCommandFactory.parse("create " + argumentString));
     }
 
     @Test
@@ -165,7 +165,7 @@ class ProgCommandFactoryTest {
         String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w invalid /c 50";
 
         assertThrows(ParserException.class,
-                () -> progCommandFactory.parse("create " + argumentString));
+                () -> progammeCommandFactory.parse("create " + argumentString));
     }
 
     @Test
@@ -173,7 +173,7 @@ class ProgCommandFactoryTest {
         String argumentString = "MyProgram /d Day1 /e /name  /set 3 /rep 15 /w 0 /c 50";
 
         assertThrows(FlagException.class,
-                () -> progCommandFactory.parse("create " + argumentString));
+                () -> progammeCommandFactory.parse("create " + argumentString));
     }
 
     @Test
@@ -181,7 +181,7 @@ class ProgCommandFactoryTest {
         String argumentString = "MyProgram /d Day1 /e /name Lunges /rep 15 /w 0 /c 50";
 
         assertThrows(FlagException.class,
-                () -> progCommandFactory.parse("create " + argumentString));
+                () -> progammeCommandFactory.parse("create " + argumentString));
     }
 
 
@@ -191,7 +191,7 @@ class ProgCommandFactoryTest {
         String argumentString = "view 1";
         ViewProgrammeCommand expectedCommand = new ViewProgrammeCommand(0);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -200,7 +200,7 @@ class ProgCommandFactoryTest {
     public void testPrepareViewCommandInvalidIndexFormat() {
         String argumentString = "view invalidIndex";
 
-        assertThrows(ParserException.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(ParserException.class, () -> progammeCommandFactory.parse(argumentString));
     }
 
     @Test
@@ -208,7 +208,7 @@ class ProgCommandFactoryTest {
         String argumentString = "view";
         ViewProgrammeCommand expectedCommand = new ViewProgrammeCommand(-1);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -219,7 +219,7 @@ class ProgCommandFactoryTest {
         String argumentString = "start 1";
         StartProgrammeCommand expectedCommand = new StartProgrammeCommand(0);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -228,14 +228,14 @@ class ProgCommandFactoryTest {
     public void testPrepareStartCommandNoIndex() {
         String argumentString = "start";
 
-        assertThrows(ParserException.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(ParserException.class, () -> progammeCommandFactory.parse( argumentString));
     }
 
     @Test
     public void testPrepareStartCommandInvalidIndexFormat() {
         String argumentString = "start invalidIndex";
 
-        assertThrows(ParserException.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(ParserException.class, () -> progammeCommandFactory.parse(argumentString));
     }
 
     // Tests for prepareDeleteCommand
@@ -244,7 +244,7 @@ class ProgCommandFactoryTest {
         String argumentString = "delete 1";
         DeleteProgrammeCommand expectedCommand = new DeleteProgrammeCommand(0);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -253,7 +253,7 @@ class ProgCommandFactoryTest {
     public void testPrepareDeleteCommandInvalidIndexFormat() {
         String argumentString = "delete invalidIndex";
 
-        assertThrows(ParserException.class, () -> progCommandFactory.parse(argumentString));
+        assertThrows(ParserException.class, () -> progammeCommandFactory.parse(argumentString));
     }
 
     @Test
@@ -261,7 +261,7 @@ class ProgCommandFactoryTest {
         String argumentString = "delete";
         DeleteProgrammeCommand expectedCommand = new DeleteProgrammeCommand(-1);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -273,7 +273,7 @@ class ProgCommandFactoryTest {
         LogProgrammeCommand expectedCommand = new LogProgrammeCommand(0, 0,
                 LocalDate.of(2023, 11, 5));
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -282,7 +282,7 @@ class ProgCommandFactoryTest {
     public void testPrepareLogCommandMissingDayFlag() {
         String argumentString = "log /p 1 /date 05-11-2023";
 
-        assertThrows(FlagException.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(FlagException.class, () -> progammeCommandFactory.parse( argumentString));
     }
 
     @Test
@@ -290,7 +290,7 @@ class ProgCommandFactoryTest {
         //Expected format: dd-MM-yyyy
         String argumentString = "log /p 1 /d 0 /date 2023-11-05";
 
-        assertThrows(ParserException.class, () -> progCommandFactory.parse( argumentString));
+        assertThrows(ParserException.class, () -> progammeCommandFactory.parse( argumentString));
     }
 
     @Test
@@ -299,7 +299,7 @@ class ProgCommandFactoryTest {
         LocalDate currentDate = LocalDate.now();
         LogProgrammeCommand expectedCommand = new LogProgrammeCommand(0, 0, currentDate);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
@@ -311,7 +311,7 @@ class ProgCommandFactoryTest {
         LocalDate currentDate = LocalDate.now();
         LogProgrammeCommand expectedCommand = new LogProgrammeCommand(-1, 3, currentDate);
 
-        Command result = progCommandFactory.parse(argumentString);
+        Command result = progammeCommandFactory.parse(argumentString);
 
         assertEquals(expectedCommand, result);
     }
