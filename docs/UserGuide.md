@@ -324,9 +324,11 @@ Deletes the transaction at index 5 in the financial list.
 ### List Transactions
 
 Lists out transactions in your financial list in ascending order of date for your perusal. Transactions can be 
-filtered by type (income/expense) or restricted to a stipulated period. The app will display the total
-cashflow/expenditure/income during the stipulated period depending on the transaction type selected to be listed,
-as well as the category with the highest total expenditure/income.
+filtered by type (income/expense) or restricted to a stipulated period. The app will display the total number of 
+transactions listed, total cashflow/expenditure/income during the stipulated period depending on the transaction type
+selected to be listed, as well as the category with the highest total expenditure/income.
+Beside each listed transaction, the transaction's index in the financial list is shown for quick reference should
+you wish to edit/delete the transaction.
 
 **Format:** `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
@@ -349,6 +351,8 @@ Here's a list of all recorded entries:
 5. [Income] - allowance $ 100.00 (on 27/10/24) [GIFT]
 6. [Income] - ang pow money $ 15.00 (on 01/11/24) [GIFT]
 
+Total count: 6
+
 Net cashflow: $ 3087.00
                 
 Highest Expense Category: ENTERTAINMENT ($20.00)
@@ -362,21 +366,15 @@ Displays total cashflow (income - expenditure), and shows categories with the hi
 
 <br>
 
-
-![list](screenshots/UG_list2.png)<br>
-Lists out all expenses. Displays total expenditure, and shows category with the highest total expenditure.
-
-<br><br>
-
-![list](screenshots/UG_list3.png)<br>
-Lists out all incomes. Displays total income, and shows category with the highest total income.
 ```
 list expense
 --------------------------------------------
 Here's a list of all recorded expenses:
 1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
-2. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-3. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
+3. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
+4. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
+
+Total count: 3
 
 Total expense: $ 28.00
 
@@ -403,35 +401,19 @@ Category with the highest expenditure/income displayed will also be based on the
 
 **Example Usage:**
 
-
-![list](screenshots/UG_list4.png)<br>
-Lists out all expenses and incomes with date equal to or after 03/10/2024.
-Displays total cashflow (income - expenditure) during that period, and shows
-categories with the highest total expenditure and income during that period respectively.
-
-<br><br>
-
-![list](screenshots/UG_list5.png)<br>
-Lists out all expenses with dates before or equal to 03/10/2024.
-Displays total expenditure + category with the highest total expenditure during that period.
-
-<br><br>
-
-![list](screenshots/UG_list6.png)<br>
-Lists out all incomes with dates between 03/10/2024 and 10/10/2024 inclusive.
-Displays total income + category with the highest total income during that period.
-
 ```
 list /from 03/10/24 /to 10/10/24
 --------------------------------------------
 Here's a list of all recorded entries:
-1. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
-2. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-3. [Income] - allowance $ 100.00 (on 10/10/24) [GIFT]
+2. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
+3. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
+4. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
 
-Net cashflow: $ 3095.50
+Total count: 3
+
+Net cashflow: $ 2975.50
                 
-Highest Expense Category: FOOD ($4.50)
+Highest Expense Category: ENTERTAINMENT ($20.00)
 Highest Income Category: SALARY ($3000.00)
 --------------------------------------------
 No budget has been set.
