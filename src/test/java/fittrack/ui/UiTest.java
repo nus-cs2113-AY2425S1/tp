@@ -106,7 +106,8 @@ public class UiTest {
     @Test
     public void testPrintSessionViewIndexOutOfBounds() {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
-        TrainingSession session = new TrainingSession(LocalDateTime.now(), "Session Description", new User("Male", "20"));
+        TrainingSession session = new TrainingSession(LocalDateTime.now(), "Session Description",
+                new User("Male", "20"));
         sessions.add(session);
 
         // Test for an index that is out of bounds
