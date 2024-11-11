@@ -5,8 +5,6 @@ import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +28,12 @@ import static seedu.exchangecoursemapper.constants.Regex.OPEN_BRACKET;
 import static seedu.exchangecoursemapper.constants.Regex.CLOSE_BRACKET;
 
 public class ListSchoolCommand extends CheckInformationCommand {
+    private static final String[] SHORT_HAND = new String[]
+            {THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION,
+            THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION,
+            VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION,
+            THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION};
+
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
     private static UI ui;
 
@@ -96,12 +100,6 @@ public class ListSchoolCommand extends CheckInformationCommand {
     public static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
 
-        String[] shortHand =
-                        {THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION,
-                        THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION,
-                        VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION,
-                        THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION};
-
         int index = 0;
 
         System.out.println(LINE_SEPARATOR);
@@ -112,7 +110,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
             } else {
                 logger.log(Level.INFO, LIST_SCHOOLS_NAMES);
                 ui.printUniversityList
-                        (universityName + OPEN_BRACKET +  shortHand[index] + CLOSE_BRACKET);
+                        (universityName + OPEN_BRACKET +  SHORT_HAND[index] + CLOSE_BRACKET);
             }
             index++;
         }
