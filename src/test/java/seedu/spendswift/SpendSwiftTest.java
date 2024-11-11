@@ -494,7 +494,7 @@ private String generateRandomWord(Random random, int wordLength) {
         assertEquals(expenseAmount, totalSpent);
         assertEquals(budgetLimit - expenseAmount, budget.getRemainingLimit());
     }*/
-  /*
+    /*
     @Test
     void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
@@ -547,7 +547,7 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
         
         assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), 
-        "The budget limit should be exactly set to the maximum allowed");
+            "The budget limit should be exactly set to the maximum allowed");
     }
 
     @Test
@@ -560,9 +560,10 @@ private String generateRandomWord(Random random, int wordLength) {
         
         Category category = findCategory(trackerData, "Education");
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).
-        getLimit());
+            getLimit());
         
-        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), "The set limit should match the input limit");
+        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
+             "The set limit should match the input limit");
     }
 }
 
