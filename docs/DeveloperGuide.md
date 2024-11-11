@@ -356,13 +356,13 @@ System.out.println(expense.toString());
 <ins>Overview</ins>
 
 The abstract class `Command` has been implemented to introduce an additional layer
-of abstraction between the `CommandHandler` class and command execution,
+of abstraction between the `Logic` class and command execution,
 allowing for separation of handling command keywords and executing commands.
 
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
-<img src="UML/CommandInheritance.png" alt="Command Inheritance Diagram" width="auto" height="200">
+<img src="UML/Command.png" alt="Command Inheritance Diagram" width="auto" height="200">
 
 <ins>Constructor</ins>
 
@@ -399,8 +399,8 @@ The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method
 <ins>Implementation</ins>
 
 The user invokes the command to add entries by entering the following commands:
-- `expense [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
-- `income [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
+- `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
+- `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
