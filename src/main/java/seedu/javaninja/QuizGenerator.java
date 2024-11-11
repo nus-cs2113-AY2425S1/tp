@@ -130,7 +130,7 @@ public class QuizGenerator {
      */
     private int getQuestionLimitFromUser(Topic topic) {
         int maxQuestions = topic.getQuestions().size();
-        final int upperLimit = 1000; // Define a practical upper limit for question count
+        final int UPPER_LIMIT = 1000; // Define a practical upper limit for question count
 
         while (true) {
             cli.printMessage("Enter the number of questions you want to attempt (Max " + maxQuestions + "): ");
@@ -139,9 +139,9 @@ public class QuizGenerator {
 
                 if (questionLimit > 0 && questionLimit <= maxQuestions) {
                     return questionLimit;
-                } else if (questionLimit > upperLimit) {
+                } else if (questionLimit > UPPER_LIMIT) {
                     cli.printMessage("The number entered is too large. Please enter a realistic number below "
-                            + upperLimit + ".");
+                            + UPPER_LIMIT + ".");
                 } else {
                     cli.printMessage("Invalid number. Please enter a number between 1 and " + maxQuestions + ".");
                 }
