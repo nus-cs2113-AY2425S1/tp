@@ -40,6 +40,8 @@ img
       - [Use Case: Edit an Expense](#use-case-edit-an-expense)
       - [Use Case: Delete an Expense](#use-case-delete-an-expense)
       - [Use Case: Add Income](#use-case-add-income)
+      - [Use Case: Set a Budget](#use-case-set-a-budget)
+      - [Use Case: Delete Multiple Transactions](#use-case-delete-multiple-transactions)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
   - [Instructions for manual testing](#instructions-for-manual-testing)
@@ -1020,6 +1022,52 @@ faster than a typical mouse/GUI driven app
     - 3a1. FinanceBuddy shows an error message.
     - 3a2. FinanceBuddy prompts the user to re-enter the information.
     - **Use case resumes at step 2.**
+
+#### Use Case: Set a Budget
+
+**MSS**
+
+1. User requests to set a new budget.
+2. FinanceBuddy prompts the user to enter a budget amount.
+3. User enters the budget amount.
+4. FinanceBuddy sets and displays the budget, updating the remaining balance accordingly.
+
+**Use case ends.**
+
+**Extensions**
+
+- 2a. The user has already set a budget.
+    - 2a1. FinanceBuddy prompts for confirmation to overwrite the existing budget.
+    - 2a2. User confirms to overwrite the existing budget.
+    - **Use case resumes at step 3.**
+
+- 3a. The amount entered by the user is invalid (e.g., a negative number or non-numeric).
+    - 3a1. FinanceBuddy displays an error message and prompts the user to re-enter a valid amount.
+    - **Use case resumes at step 2.**
+
+#### Use Case: Delete Multiple Transactions
+
+**MSS**
+
+1. User requests to delete multiple transactions by specifying a start index and an end index.
+
+2. FinanceBuddy deletes the specified range of transactions and updates the transaction list.
+
+**Use case ends.**
+
+**Extensions**
+
+- 1a. User omits the start and end index.
+    - 1a1. FinanceBuddy deletes the most recent transaction by default.
+    - **Use case ends.**
+
+- 1b. User enters an invalid start or end index.
+    - 2a1. FinanceBuddy shows an error message indicating the invalid index.
+    - **Use case resumes at step 1.**
+
+- 1c. User types `delete all`.
+    - 1c1. FinanceBuddy delete all entries.
+    - **Use case ends.**
 
 ## Non-Functional Requirements
 
