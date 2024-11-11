@@ -49,7 +49,7 @@ public class ArgumentsMap extends HashMap<String, String> {
         try {
             return Integer.parseInt(indexArgument) - 1;
         } catch (Exception e) {
-            throw new InvalidInputException("Index given is invalid. Check if it is a number, or in range.");
+            throw new InvalidInputException("Index given \""+indexArgument+"\" is invalid. Check if it is a number.");
         }
     }
 
@@ -58,7 +58,8 @@ public class ArgumentsMap extends HashMap<String, String> {
         try {
             price = Float.parseFloat(priceString);
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("Price given is invalid.");
+            throw new InvalidInputException("Price given \""+priceString+"\" is invalid. "+
+                    "Please make sure it is a number");
         }
         assert price != null;
         if (price <= 0) {
