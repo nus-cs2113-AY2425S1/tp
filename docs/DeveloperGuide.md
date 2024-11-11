@@ -1,23 +1,30 @@
 # Developer Guide
 
 ## Table of Contents
-1. [Acknowledgements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#acknowledgements)
-2. [Notes](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#notes)
-3. [Design & Implementation](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#design--implementation)
-    - [Category](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#category)
-    - [Transaction - Expense - Income](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionexpenseincome)
-    - [TransactionList](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionlist)
-    - [Command](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command)
-    - [AddIncomeCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#addincomecommand)
-    - [ViewHistoryCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#viewhistorycommand)
-    - [Command Parser](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command-parser)
-4. [Product Scope](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#product-scope)
-    - [Target User Profile](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#target-user-profile)
-    - [Value Proposition](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#value-proposition)
-5. [User Stories](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#user-stories)
-6. [Non-Functional Requirements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#non-functional-requirements)
-7. [Glossary](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#glossary)
-8. [Instructions for Manual Testing](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#instructions-for-manual-testing)
+1. [Acknowledgements](#acknowledgements)
+2. [Notes](#notes)
+3. [High-level Architecture](#high-level-architecture)
+    - [User interaction](#user-interaction)
+    - [UI layer](#ui-layer)
+    - [Command handling layer](#command-handling-layer)
+    - [Data layer](#data-layer)
+    - [Persistent storage (Editable .json files)](#persistent-storage-editable-json-files)
+    - [General system flow](#general-system-flow)
+4. [Design & Implementation](#design--implementation)
+    - [Category](#category)
+    - [Transaction - Expense - Income](#transactionexpenseincome)
+    - [TransactionList](#transactionlist)
+    - [Command](#command)
+    - [AddIncomeCommand](#addincomecommand)
+    - [ViewHistoryCommand](#viewhistorycommand)
+    - [Command Parser](#command-parser)
+5. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+5. [User Stories](#user-stories)
+7. [Non-Functional Requirements](#non-functional-requirements)
+8. [Glossary](#glossary)
+9. [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
@@ -25,6 +32,90 @@
 
 ## Notes
 - The Developer guide doesn't contain all the classes implemented in the final product, however, it contains the basic and important components, and some demonstration classes for providing an insight of how the product works.
+
+## High-level Architecture
+![Architecture](./diagrams/highArchitecture/high_level_architecture.png)
+
+### User interaction:
+
+- User - UI:
+    - The user interacts with the **UI** component via the CLI. This is where commands are input by the user.
+    - The **UI** displays the results of the commands processed by the system to the user.
+
+### UI layer:
+
+- Main - UI:
+    - The **Main** class calls the **UI** layer to get user input and display messages. It's a central point that manages the flow of execution.
+    - **UI** receives the user input and then sends it to the **Main** class for further processing.
+
+### Command handling layer:
+- **Main - Parser**:
+    - The **Main** class sends the user input (command) to the **Parser**, which is responsible for parsing the string to get correct command object and extract arguments.
+
+- **Parser - Command**:
+    - The **Parser** identifies the appropriate **Command** class based on the input, returning a specific command object (e.g., `AddExpenseCommand`, `ViewTotalCommand`, etc.).
+
+- **Main - Command**:
+    - **Main** then invokes the `execute()` method on the appropriate **Command**. The **Command** is responsible for processing the business logic related to the user request.
+
+### Data layer:
+
+- **Command - TransactionList**:
+    - **TransactionList** stores and manages all transactions (expenses and incomes). **Commands** interact with **TransactionList** to retrieve or modify transactions as needed (e.g., adding an expense, viewing a transaction).
+
+- **TransactionList - Transaction**:
+    - **TransactionList** contains individual **Transaction** objects. Each transaction represents a financial action (e.g., an expense or income), with details such as amount, description, date, or category. TransactionList provides methods to modify the list.
+
+- **Command - CategoryList**:
+    - **CategoryList** stores the categories used by transactions. **Commands** may interact with **CategoryList** to retrieve categories or modify them based on user input.
+
+- **CategoryList - Category**:
+    - **CategoryList** contains **Category** objects. Each category represents a classification for transactions, such as "Food," "Entertainment," etc. CategoryList provides methods to modify the list.
+  
+- **Command - BudgetTracker**:
+    - **BudgetTracker** handles the budgeting logic, ensuring that the user’s spending is within their defined budget. **Commands** can query **BudgetTracker** to get the current budget status or modify it.
+
+- **Command - Storage**:
+    - The **Command** interacts with **Storage** after execution to save data. For example, if a command requires adding a new transaction, the **Command** will use **Storage** to save that transaction to the file system.
+
+- **Main - Storage**:
+    - The **Main** class utilizes **Storage** to read the data on initialization.
+
+- **Storage - TransactionList, CategoryList, BudgetTracker**:
+    - **Storage** is responsible for reading and saving data to and from persistent storage (files). It manages interactions with the `transactions.json`, `categories.json`, and `budgets.json` files.
+    - **Storage** interacts with **TransactionList**, **CategoryList**, and **BudgetTracker** to load and save the relevant data.
+
+### Persistent storage (Editable .json files):
+
+- **transactions.json - Storage**:
+    - **transactions.json** is the file where all transaction data is stored. **Storage** interacts with this file to read and save transactions data.
+
+- **budgets.json - Storage**:
+    - **budgets.json** is the file where all user's budget data is stored. **Storage** interacts with this file to read and save budgets data.
+
+- **categories.json - Storage**:
+    - **categories.json** is the file contains the list of categories used to classify expenses (a subclass of transaction). **Storage** interacts with this file to load and save categories data.
+
+### General system flow
+1. **User interaction**:
+    - The **User** sends an input request to **UI**, which forwards this input (commandString) to **Main** for processing.
+
+2. **Command parsing**:
+    - **Main** splits `commandString` into `commandParts` and then calls **Parser** with the primary command identifier (`commandParts[0]`).
+    - **Parser** checks if a matching **Command** is registered. If the command is not found, **Parser** returns `null`. If the command is found, **Parser** returns the appropriate **Command** instance to **Main**.
+   
+3. **Error handling (if Command is not found)**:
+    - If no command matches, **Main** calls **UI** to print an error message.
+
+4. **Executing the command (if found)**:
+    - If the command exists, - **Main** then calls **Parser** with the secondary command argument string to extract arguments (`commandParts[1]`), **Parser** returns an `arguments` map.
+    - **Main** sets these arguments on the **Command** and then executes the command.
+    - The **Command** processes the request and returns a `result` list containing messages generated by the execution.
+
+5. **Displaying the result**:
+    - **Main** instructs **UI** to display the result to the **User**, providing feedback about the command execution.
+ 
+    ![Flow](./diagrams/highArchitecture/user_flow.png)
 
 ## Design & implementation
 ### Category
