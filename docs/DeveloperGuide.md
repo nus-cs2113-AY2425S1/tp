@@ -62,13 +62,21 @@ The `EasInternship` class serves as the entry point of the application. It manag
 
 The UI component is responsible for displaying information to the user and reading input. It interacts with the user by printing messages and prompts, and retrieves commands for the rest of the application to process.
 
+This component comprises the following classes:
+- `Ui`: Parent class with methods expect of all `Ui` subclasses.
+- `UiCommand`: Has specific methods related to displaying output of commands.
+- `UiInternshipList`: Handles outputs by methods in `InternshipList` class.
+
+This is represented with the class diagram below:
+![](UML/Ui_Component.png)
+
 ### 1.3 Logic Component
 
 The logic component is handled by the `Parser` and `Command` classes. The `Parser` interprets the user's input and returns a command object, which is then executed to perform the desired operation.
 
 ### 1.4 Model Component
 
-The model component includes the `Internship`, `InternshipList`, `Deadline` and `DeadlineList` classes.
+The model component includes the `Internship`, `InternshipList` and `Deadline` classes.
 
 `Internship`: Represents the individual internship entries.
 
