@@ -1,16 +1,13 @@
 @startuml
 actor User
-participant ":Ui" as Ui #88cc88
-participant ":BuffBuddy" as BuffBuddy #88cc88
-participant ":Parser" as Parser #88bbff
-participant ":CommandFactory" as CommandFactory #88bbff
-participant ":ProgCommandFactory" as ProgCommandFactory #88bbff
-participant ":EditCommand" as Command #cc88cc
-participant ":Model" as Model #ffbb77
-participant ":CommandResult" as CommandResult #cc88cc
-
-
-
+participant ":Ui" as Ui 
+participant ":BuffBuddy" as BuffBuddy 
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory 
+participant ":ProgCommandFactory" as ProgCommandFactory
+participant ":EditProgrammeCommand" as Command
+participant ":Model" as Model
+participant ":CommandResult" as CommandResult
 
 
 User -> Ui : "prog edit..."
@@ -23,19 +20,23 @@ BuffBuddy -> Parser : parse("prog edit...")
 activate Parser
 
 Parser -> CommandFactory : createCommand("prog", "edit...")
-deactivate Parser
+
 activate CommandFactory
 
 CommandFactory -> ProgCommandFactory : parse("edit",arguments)
-deactivate CommandFactory
 activate ProgCommandFactory
 
-
-ProgCommandFactory -> Command : createEditCommand(arguments)
-deactivate ProgCommandFactory
-
+create Command
+ProgCommandFactory -> Command : prepareEditCommand(arguments)
 activate Command
-BuffBuddy <-- Command
+ProgCommandFactory <-- Command: created Command
+CommandFactory <-- ProgCommandFactory: created Command
+deactivate ProgCommandFactory
+Parser <-- CommandFactory: created Command
+deactivate CommandFactory
+BuffBuddy <-- Parser: created Command
+deactivate Parser
+
 
 BuffBuddy -> Command : execute()
 
@@ -45,17 +46,20 @@ activate Model
 Command <-- Model: returned Data
 deactivate Model
 
-
+create CommandResult
 Command -> CommandResult: new CommandResult(message)
+
 
 deactivate Command
 activate CommandResult
 BuffBuddy <-- CommandResult : return CommandResult
 deactivate CommandResult
 BuffBuddy -> Ui : showMessage()
-deactivate BuffBuddy
 
-User <-- Ui
+deactivate BuffBuddy
+destroy CommandResult
+User <-- Ui : "Successfully edited..."
 deactivate Ui
+
 
 @enduml

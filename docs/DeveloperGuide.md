@@ -301,7 +301,7 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 The **Create Programme** feature allows users to create a new workout programme, which can be either empty (with only a name)
 or contain multiple days with specific exercises.
 
-### Example Usage
+#### Example Usage
 
 1. **User Starts BuffBuddy**:
     - The user initiates the BuffBuddy application.
@@ -429,6 +429,37 @@ To summarize, the following activity diagram describes how the overall operation
 
 ![Edit Command Diagram](images/editCommandActivityDiagram.png)
 <!-- @@author Atulteja -->
+
+### Delete Programme
+
+#### Overview
+
+The **Delete Programme** feature allows users to delete created programmes from the programme list.
+
+#### Sequence Diagram
+
+![Delete Programme Sequence Diagram](images/deleteProgramme.png)
+
+#### Example Usage
+
+Given below is an example usage scenario for 'delete programme' and how the delete programme command functions at each step.
+
+**Step 1:** The user has a list of workout programmes stored in `ProgrammeList`. Each programme may contain multiple days and exercises.
+
+**Step 2:** The user executes the command `programme delete 1` to delete the first programme in the list.
+
+**Step 3:** After parsing this input, a `DeleteProgrammeCommand` is created and executed.
+
+**Step 4:** The command then calls `ProgrammeList#deleteProgram()` with the given programme index to remove the programme from the list.
+
+**Step 5:** The deleted `Programme` object is returned to the `DeleteProgrammeCommand`.
+
+**Step 6:** The `DeleteProgrammeCommand` formats the details of the deleted programme into a message.
+
+**Step 7:** The formatted message is included in a `CommandResult`, which is returned to the user interface.
+
+**Step 8:** The user interface displays the result message to the user, confirming the successful deletion of the programme.
+
 ### Add Meal
 
 #### Feature Implementation
