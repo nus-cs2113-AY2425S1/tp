@@ -21,9 +21,9 @@ deactivate Category
 @enduml
 
 @startuml
-participant "Main" as Main
-participant "Category" as Category1
-participant "Category" as Category2
+participant ":Main" as Main
+participant ":Category" as Category1
+
 activate Main
 
 Main -> Category1: equals(Category2)

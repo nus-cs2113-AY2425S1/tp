@@ -1,6 +1,7 @@
 @startuml
 skinparam classAttributeIconSize 0
-abstract class Command {
+hide circle
+abstract class "<<abstract>>\nCommand" {
     + execute(): List<String>
 }
 
@@ -38,7 +39,7 @@ class Income {
 }
 
 AddTransactionCommand <|-- AddIncomeCommand
-Command <|-- AddTransactionCommand
+"<<abstract>>\nCommand" <|-- AddTransactionCommand
 AddIncomeCommand --> "1" TransactionList : uses >
 TransactionList --> "*" Income : stores >
 @enduml
