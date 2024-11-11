@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 public class BudgetTracker {
     private static final Logger logger = Logger.getLogger("BudgetTracker");
     private Map<YearMonth, Double> monthlyBudgets;
-    private TransactionList transactionList;
+    private final TransactionList transactionList;
 
     /**
      * Constructs a BudgetTracker with the specified transaction list.
