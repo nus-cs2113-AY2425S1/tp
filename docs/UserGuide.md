@@ -212,13 +212,16 @@ Adds an income of $200 from a gift, using today’s date and the default categor
 ### Edit Transaction
 Edits an existing transaction in your financial list.
 
-**Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
+**Format**: `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called. 
- - `INDEX` must be a positive integer.
+ - Edits the the specific field(s) of a transaction.
+ - Should at least modify one field.
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
-
+ - `INDEX` (optional):
+   - `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called.
+   - `INDEX` must be a positive integer.
+   - If the `INDEX` is omitted, then will edit the amended trasaction as default.
  - `DESCRIPTION` (optional): 
    - shouldn't be blank if provided.
    - DO NOT USE `¦¦` and `/` in `DESCRIPTION` cause these symbols are used as separator tokens in the storage file and as prefixes for command arguments.
@@ -226,75 +229,85 @@ Edits an existing transaction in your financial list.
  - `AMOUNT` (optional):
    - Must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `DATE` (optional):
-   - Should follow `DD/MM/YY` format and cannot be after the system date.
+   - Should follow `DD/MM/YYYY` format and cannot be after the system date.
  - `CATEGORY` (optional):
    - Should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
-
+Example 1: Edits the description of the 1st entry to be breakfast.
 ```
 edit 1 /des breakfast
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 10.50 (on 12/10/24) [FOOD]
+[Expense] - breakfast $ 10.50 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the description of the 1st entry to be breakfast.
 
 <br>
 
+Example 2: Edits the amount of the 1st entry to be 5.99.
 ```
 edit 1 /a 5.99
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 5.99 (on 12/10/24) [FOOD]
+[Expense] - breakfast $ 5.99 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the amount of the 1st entry to be 5.99.
 
 <br>
 
+Example 3: Edits the description and amount of the 2nd entry to be lunch and 20 respectively.
 ```
 edit 2 /des lunch /a 20
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - lunch $ 20.00 (on 12/10/24) [FOOD]
+[Expense] - lunch $ 20.00 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the description and amount of the 2nd entry to be lunch and 20 respectively.
 
 <br>
 
+Example 4: Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively.
 ```
 edit 3 /des dinner /d 11/09/24
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - dinner $ 8.00 (on 11/09/24) [UNCATEGORIZED]
+[Expense] - dinner $ 8.00 (on 11/09/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively.
 
 <br>
 
+Example 5: Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively.
 ```
 edit 4 /des breakfast /a 5 /d 12/09/24
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 5.00 (on 12/09/24) [UNCATEGORIZED]
+[Expense] - breakfast $ 5.00 (on 12/09/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively.
 
 <br>
 
+Example 6: Edits the category of the 5th entry to be FOOD.
 ```
 edit 5 /c FOOD
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - bubble tea $ 4.00 (on 07/11/24) [FOOD]
+[Expense] - bubble tea $ 4.00 (on 07/11/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the category of the 5th entry to be FOOD.
+
+<br>
+
+Example 7: Edits the amount of the last amended entry to be 11.
+```
+edit /a 11
+--------------------------------------------
+Got it. I've edited this expense:
+[Expense] - Taiwanese bubble tea $ 11.00 (on 11/11/2024) [FOOD]
+--------------------------------------------
+```
 
 <hr>
 <div style="page-break-after: always;"></div>
