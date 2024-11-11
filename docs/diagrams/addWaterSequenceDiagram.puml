@@ -1,0 +1,73 @@
+@startuml
+actor User
+participant "UI" as UI
+participant "BuffBuddy" as BB
+participant "Parser" as Parser
+participant "AddWaterCommand" as AddCmd
+participant "History" as History
+participant "DailyRecord" as DailyRec
+
+User -> UI: "water add /v WATER_VOLUME /t Date"
+activate UI
+BB -> UI: readCommand()
+activate BB
+UI --> BB: command object
+BB -> Parser: parse(command)
+activate Parser
+
+Parser -> Parser : Validate inputs
+activate Parser
+opt inputs are not valid
+    Parser --> BB : throw ParserException
+    end
+deactivate Parser
+
+Parser -> Parser : Parse inputs
+activate Parser
+deactivate Parser
+Parser --> AddCmd: AddWaterCommand(waterToAdd, date)
+deactivate Parser
+
+activate AddCmd
+
+AddCmd -> History: getRecordByDate(date)
+activate History
+
+alt DailyRecord exists
+  History --> AddCmd: DailyRecord object
+else No DailyRecord exists
+  History -> DailyRec: new DailyRecord()
+  activate DailyRec
+  DailyRec --> History
+  deactivate DailyRec
+  History --> AddCmd
+end
+deactivate History
+
+AddCmd -> DailyRec:
+activate DailyRec
+
+DailyRec -> DailyRec: addWaterToRecord(waterToAdd)
+activate DailyRec
+DailyRec -> Water
+activate Water
+Water -> Water: addWater(waterVolume)
+activate Water
+deactivate Water
+Water --> DailyRec
+deactivate Water
+
+
+DailyRec --> AddCmd
+deactivate DailyRec
+
+AddCmd --> BB: CommandResult object
+deactivate AddCmd
+destroy AddCmd
+
+BB -> UI: Show CommandResult
+deactivate BB
+
+UI -> User: Display success message
+deactivate UI
+@enduml
