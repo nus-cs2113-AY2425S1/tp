@@ -176,7 +176,7 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
     - **Returns**: A new `Income` instance.
 
 ### Command Parser
-The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic. There is only one Command Parser lives through a session.
+The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic. There is only one Command Parser living through a session.
 
 #### Class responsibilities
 1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects. This command object will maintain throughout the session and every execution will be called through it.
