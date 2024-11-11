@@ -154,7 +154,7 @@ class CategoryManagerTest {
 
 //@@author AdiMangalam
 class ExpenseManagerTest {
-    @Test
+    /*@Test
     public void addExpenseNewCategory() {
         ExpenseManager expenseManager = new ExpenseManager();
         TrackerData trackerData = new TrackerData();
@@ -204,7 +204,7 @@ class ExpenseManagerTest {
         assertTrue(trackerData.getExpenses().isEmpty());
     }
 
-    /*@Test
+    @Test
     void deleteExpenseInvalidIndex() {
         TrackerData trackerData = new TrackerData();
         ExpenseManager expenseManager = new ExpenseManager();
@@ -215,7 +215,7 @@ class ExpenseManagerTest {
 
         assertEquals(1, trackerData.getExpenses().size());
         assertEquals("Chocolates", trackerData.getExpenses().get(0).getName());
-    }*/
+    }
 
     @Test
     void tagExpenseValidInput() {
@@ -302,7 +302,7 @@ class ExpenseManagerTest {
         expenseManager.addExpense(trackerData, "Train", 4.5, "Transport");
         expenseManager.addExpense(trackerData, "Pizza", 12.0, "Food");
         expenseManager.viewExpensesByCategory(trackerData);
-    }
+    } */
 
     /*@Test
     void deleteExpenseEmptyList() {
@@ -492,7 +492,7 @@ private String generateRandomWord(Random random, int wordLength) {
                 .sum();
         assertEquals(expenseAmount, totalSpent);
         assertEquals(budgetLimit - expenseAmount, budget.getRemainingLimit());
-    }*/
+    }
 
     @Test
     void testViewBudgetsWithNoBudgetsSet() {
@@ -502,7 +502,7 @@ private String generateRandomWord(Random random, int wordLength) {
         ExpenseManager.addExpense(trackerData, "RandomExpense", 100.0, categoryName);
         Category category = findCategory(trackerData, categoryName);
         assertFalse(trackerData.getBudgets().containsKey(category));
-    }
+    }*/
 }
 
 

@@ -54,7 +54,7 @@ public class ExpenseManager {
      * @param amount       The amount of the expense.
      * @param categoryName The name of the category to which the expense belongs.
      */
-    public static void addExpense(TrackerData trackerData, String name, double amount, String categoryName) {
+    private static void addExpense(TrackerData trackerData, String name, double amount, String categoryName) {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();
 
@@ -108,7 +108,7 @@ public class ExpenseManager {
      *
      * @param expenseIndex the 0-based index of the expense to delete
      */
-    public void deleteExpense(TrackerData trackerData, int expenseIndex) {
+    private void deleteExpense(TrackerData trackerData, int expenseIndex) {
         List<Expense> expenses = trackerData.getExpenses();
 
         Expense removedExpense = expenses.remove(expenseIndex);
