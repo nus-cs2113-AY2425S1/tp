@@ -508,6 +508,7 @@ private String generateRandomWord(Random random, int wordLength) {
     @Test
     void testSetBudgetLimitAtMaximum() {
     // Assuming the max limit is explicitly known here as "1000000000000000"
+    TrackerData trackerData = new TrackerData();
     double maxLimit = 1000000000000000.00; // This should be the same value as used in your BudgetManager
     budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
     BigDecimal setLimit = trackerData.getBudgetForCategory("Education").getLimit();
@@ -516,6 +517,7 @@ private String generateRandomWord(Random random, int wordLength) {
     @Test
     void testSetValidBudgetLimit() {
         double validLimit = 9999999999999999.99; // within typical range
+        TrackerData trackerData = new TrackerData();
         budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
         BigDecimal setLimit = trackerData.getBudgetForCategory("Education").getLimit();
         assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), "The set limit should match the input limit");
