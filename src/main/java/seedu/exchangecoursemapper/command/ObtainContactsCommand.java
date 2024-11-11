@@ -1,8 +1,5 @@
 package seedu.exchangecoursemapper.command;
 
-import seedu.exchangecoursemapper.constants.Assertions;
-import seedu.exchangecoursemapper.constants.Logs;
-import seedu.exchangecoursemapper.constants.Messages;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.parser.Parser;
 import seedu.exchangecoursemapper.parser.SchoolContactValidator;
@@ -13,6 +10,24 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static seedu.exchangecoursemapper.constants.Assertions.EMPTY_JSON_FILE;
+import static seedu.exchangecoursemapper.constants.Assertions.NULL_JSON_FILE;
+import static seedu.exchangecoursemapper.constants.Assertions.NULL_SCHOOL_NAME;
+import static seedu.exchangecoursemapper.constants.Assertions.NULL_JSON_OBJECT;
+import static seedu.exchangecoursemapper.constants.Assertions.EMPTY_SCHOOL_NAME;
+import static seedu.exchangecoursemapper.constants.Logs.INVALID_OBTAIN_INPUT;
+import static seedu.exchangecoursemapper.constants.Logs.UNKNOWN_UNIVERSITY_CHECK;
+import static seedu.exchangecoursemapper.constants.Logs.NUMBER_SUCCESS;
+import static seedu.exchangecoursemapper.constants.Logs.EMAIL_SUCCESS;
+import static seedu.exchangecoursemapper.constants.Logs.EXECUTING_COMMAND;
+import static seedu.exchangecoursemapper.constants.Logs.SUCCESS_READ_JSON_FILE;
+import static seedu.exchangecoursemapper.constants.Logs.FAILURE_READ_JSON_FILE;
+import static seedu.exchangecoursemapper.constants.Logs.COMPLETE_EXECUTION;
+import static seedu.exchangecoursemapper.constants.Logs.INVALID_CONTACT_OBTAIN;
+import static seedu.exchangecoursemapper.constants.Commands.SPACE_DELIMITER;
+import static seedu.exchangecoursemapper.constants.Messages.EMAIL_TAG;
+import static seedu.exchangecoursemapper.constants.Messages.NUMBER_TAG;
+import static seedu.exchangecoursemapper.constants.Messages.UNKNOWN_UNIVERSITY_TAG;
 import static seedu.exchangecoursemapper.constants.Regex.BACKSLASH;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
 import static seedu.exchangecoursemapper.constants.JsonKey.EMAIL_KEY;
@@ -42,13 +57,13 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      */
     @Override
     public void execute(String userInput) {
-        logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
+        logger.log(Level.INFO, EXECUTING_COMMAND);
         try {
             JsonObject jsonObject = super.createJsonObject();
-            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+            logger.log(Level.INFO, SUCCESS_READ_JSON_FILE);
 
-            assert jsonObject != null : Assertions.NULL_JSON_FILE;
-            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+            assert jsonObject != null : NULL_JSON_FILE;
+            assert !jsonObject.isEmpty() : EMPTY_JSON_FILE;
 
             String schoolName = getSchoolName(userInput).toLowerCase();
             String contactType = getContactType(userInput);
@@ -58,16 +73,17 @@ public class ObtainContactsCommand extends CheckInformationCommand {
             if (schoolInfo == null) {
                 return;
             }
+
             checkValidContact(schoolInfo, matchingSchool, contactType);
         } catch (IOException e) {
-            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
+            logger.log(Level.WARNING, FAILURE_READ_JSON_FILE);
             System.err.println(Exception.fileReadError());
             return;
         } catch (IllegalArgumentException e) {
-            logger.log(Level.OFF, e.getMessage());
+            logger.log(Level.WARNING, e.getMessage());
             return;
         }
-        logger.log(Level.INFO, Logs.COMPLETE_EXECUTION);
+        logger.log(Level.INFO, COMPLETE_EXECUTION);
     }
 
     /**
@@ -78,11 +94,13 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * @throws AssertionError if the school name is empty.
      */
     public String getSchoolName(String userInput) {
-        String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
+        String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + SPACE_DELIMITER).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
-        assert inputParts.length > 0 : Assertions.EMPTY_SCHOOL_NAME;
-        inputParts[0] = parser.parsePUAbbreviations(inputParts[0]);
-        return inputParts[0].trim();
+
+        assert inputParts.length > 0 : EMPTY_SCHOOL_NAME;
+
+        String partnerUniversityName = parser.parsePUAbbreviations(inputParts[0]);
+        return partnerUniversityName.trim();
     }
 
     /**
@@ -93,15 +111,16 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * @throws IllegalArgumentException if the input is invalid.
      */
     public String getContactType(String userInput) {
-        String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + 1).trim();
+        String inputWithoutCommand = userInput.substring(userInput.indexOf(SPACE) + SPACE_DELIMITER).trim();
         String[] inputParts = inputWithoutCommand.split(BACKSLASH);
 
         if (inputParts.length != 2) {
             System.out.println(Exception.invalidInputFormat());
-            logger.log(Level.WARNING, "Invalid input format.");
+            logger.log(Level.WARNING, INVALID_OBTAIN_INPUT);
             throw new IllegalArgumentException(Exception.invalidInputFormat());
         }
-        return inputParts[1].trim();
+        String contactType = inputParts[1];
+        return contactType.trim();
     }
 
 
@@ -130,8 +149,8 @@ public class ObtainContactsCommand extends CheckInformationCommand {
      * @throws AssertionError if jsonObject or schoolName is null.
      */
     public String findMatchingSchool(JsonObject jsonObject, String schoolName) {
-        assert jsonObject != null : Assertions.NULL_JSON_OBJECT;
-        assert schoolName != null : Assertions.NULL_SCHOOL_NAME;
+        assert jsonObject != null : NULL_JSON_OBJECT;
+        assert schoolName != null : NULL_SCHOOL_NAME;
 
         if (schoolContactValidator.isSchoolValid(jsonObject, schoolName)) {
             String key = getMatchingSchoolName(jsonObject, schoolName);
@@ -139,8 +158,8 @@ public class ObtainContactsCommand extends CheckInformationCommand {
                 return key;
             }
         } else {
-            logger.log(Level.WARNING, "Unknown university - {0}", schoolName);
-            System.out.println("Unknown university - " + schoolName);
+            logger.log(Level.WARNING, UNKNOWN_UNIVERSITY_CHECK, schoolName);
+            System.out.println(UNKNOWN_UNIVERSITY_TAG + schoolName);
         }
 
         return schoolName;
@@ -157,7 +176,7 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         if (schoolContactValidator.isValidContactType(contactType)) {
             contactTypeIdentifier(schoolInfo, schoolName, contactType);
         } else {
-            logger.log(Level.WARNING, "Invalid contact type requested: " + contactType);
+            logger.log(Level.WARNING, INVALID_CONTACT_OBTAIN + contactType);
             System.out.println(Exception.invalidContactType());
         }
     }
@@ -173,13 +192,13 @@ public class ObtainContactsCommand extends CheckInformationCommand {
         switch (contactType) {
         case EMAIL_KEY:
             String email = schoolInfo.getString(EMAIL_KEY);
-            logger.log(Level.INFO, Logs.EMAIL_SUCCESS);
-            ui.printContactInformation(Messages.EMAIL_TAG, schoolName, email);
+            logger.log(Level.INFO, EMAIL_SUCCESS);
+            ui.printContactInformation(EMAIL_TAG, schoolName, email);
             break;
         case NUMBER_KEY:
             String number = schoolInfo.getString(NUMBER_KEY);
-            logger.log(Level.INFO, Logs.NUMBER_SUCCESS);
-            ui.printContactInformation(Messages.NUMBER_TAG, schoolName, number);
+            logger.log(Level.INFO, NUMBER_SUCCESS);
+            ui.printContactInformation(NUMBER_TAG, schoolName, number);
             break;
         default:
             break;

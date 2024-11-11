@@ -283,7 +283,7 @@ from our data source file which contains university data. It helps the users to 
   superclass.
 * The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
-* There are also assertions and logging in place for error handling.
+* There are also exceptions, assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram:
@@ -338,12 +338,18 @@ exchange opportunities.
 * The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested
   university name and contact type (email or phone number).
 * After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
-* The `handleContactType()` method retrieves and prints the requested contact information based on the input,
-  displaying either the university’s email address or phone number.
-* There are also assertions and logging in place for error handling.
+* During this time, the `isSchoolValid()` method inside the `SchoolContactValidator` class is used to check if the school 
+  name exists.
+* If school exists, the `checkValidContact()` method checks the validity of the contact type through a 
+  handler `isValidContactType()` in `SchoolContactValidator` class.
+* The `contactTypeIdentifier()` method then checks retrieves the contact type and displays the contact information via the 
+  `printContactInformation()` in the `UI` class.
+* There are also exceptions, assertions and logging in place for error handling.
 
 #### Why it is implemented that way:
 * The `execute` method is essential and unique to every command class so inheritance was used.
+* Validating the contact and school name is crucial and a separate class (`SchoolContactValidator`) is used to handle
+  the validity of each input category.
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
 * By using inheritance, new command classes can easily extend the functionality of existing ones
@@ -590,11 +596,11 @@ to check and plan course mappings for that specified course.
 
 | Version | As a ...    | I want to ...                                           | So that I can ...                                              |
 |---------|-------------|---------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in those regions                   |
+| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in that region                     |
 | v1.0    | CEG student | search for NUS courses to map                           | search for related courses in PUs                              |
 | v1.0    | CEG student | key in the school I want to go for exchange             | view the available course offered by the school                |
 | v1.0    | CEG student | want to see a list of commands                          | know what to do to go to access the features                   |
-| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any queries                        |
+| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any non-urgent queries             |
 | v2.0    | CEG student | obtain the contact number of the partner universities   | call the number should I have any urgent queries               |
 | v2.0    | CEG student | add a course mapping plan for a PU                      | keep track of my courses for a specific PU                     |
 | v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |

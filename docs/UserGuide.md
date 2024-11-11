@@ -100,17 +100,17 @@ For example, filter cs2040
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out all the schools users could possibly go for their SEP.
+List out the name of each school users could possibly go for their SEP.
 
 Format: `list schools`
 
 Expected Output:
 ```
 -----------------------------------------------------
-The University of Melbourne
-The Australian National University
-Victoria University of Wellington
-The University of Western Australia
+The University of Melbourne (unimelb)
+The Australian National University (anu)
+Victoria University of Wellington (wgtn)
+The University of Western Australia (uwa)
 -----------------------------------------------------
 ```
 
@@ -189,6 +189,14 @@ Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 
 * The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
 * The `CONTACT_TYPE` is the type of contact either number or email
+
+The available partner universities are:
+* The University of Western Australia (uwa)
+* The University of Melbourne (unimelb)
+* The Australian National University (anu)
+* Victoria University of Wellington (wgtn)
+
+Abbreviation of the universities name can be used.
 
 Example: `obtain victoria university of wellington /number`
 

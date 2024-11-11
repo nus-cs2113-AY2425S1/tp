@@ -113,4 +113,10 @@ public class Logs {
     public static final String THE_AUSTRALIAN_NATIONAL_UNIVERSITY = "the australian national university";
     public static final String VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION = "wgtn";
     public static final String VICTORIA_UNIVERSITY_OF_WELLINGTON = "victoria university of wellington";
+
+    //Obtain logs
+    public static final String INVALID_OBTAIN_INPUT = "Invalid input format.";
+    public static final String UNKNOWN_UNIVERSITY_CHECK = "Unknown university - {0}";
+    public static final String INVALID_CONTACT_OBTAIN ="Invalid contact type requested: ";
+
 }
