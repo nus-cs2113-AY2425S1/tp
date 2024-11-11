@@ -233,7 +233,7 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+        String expection = "I have loaded 1 expense(s) and 0 income(s) from file." + System.lineSeparator() +
                             "Budget loaded from file." + System.lineSeparator();
         assertEquals(expection, output);
     }
@@ -315,7 +315,7 @@ public class StorageTest {
         assertEquals(2, financialList.getEntryCount());
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "Deleting invalid line from file: " + System.lineSeparator() +
+        String expection = "Deleting invalid line(s) from storage file: " + System.lineSeparator() +
                                 "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ TAIWANGOOD" + System.lineSeparator() +
                                 "\tE ¦¦ 100 ¦¦ Lunch ¦¦ 01/01/2323 ¦¦ FOOD" + System.lineSeparator() +
                                 "\tE ¦¦ -100 ¦¦ Lunch ¦¦ 01/01/2023 ¦¦ FOOD" + System.lineSeparator() +
@@ -324,7 +324,7 @@ public class StorageTest {
                                 "\tE ¦¦ 100 ¦¦ 01/01/2023 ¦¦ FOOD" + System.lineSeparator() +
                                 "\tE ¦¦ 1 ¦¦ 0 ¦¦ 0 ¦¦ L ¦¦ u ¦¦ n ¦¦ c ¦¦ h ¦¦ 01/01/2023 ¦¦ FOOD ¦¦ FOOD" +
                                         System.lineSeparator() + System.lineSeparator() +
-                            "I have loaded 1 expenses and 1 incomes from file." + System.lineSeparator() +
+                            "I have loaded 1 expense(s) and 1 income(s) from file." + System.lineSeparator() +
                             "Budget loaded from file." + System.lineSeparator();
         assertEquals(expection, output);
     }
@@ -355,7 +355,7 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+        String expection = "I have loaded 1 expense(s) and 0 income(s) from file." + System.lineSeparator() +
                             "Budget format in file is invalid, the budget won't be set." + System.lineSeparator();
         assertEquals(expection, output);
     }
@@ -387,7 +387,7 @@ public class StorageTest {
         
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
+        String expection = "I have loaded 1 expense(s) and 0 income(s) from file." + System.lineSeparator() +
                             "Date in budget file is invalid, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
     }
@@ -420,8 +420,8 @@ public class StorageTest {
         
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 1 expenses and 0 incomes from file." + System.lineSeparator() +
-                            "Date in budget file is invalid, setting to current date." + System.lineSeparator();
+        String expection = "I have loaded 1 expense(s) and 0 income(s) from file." + System.lineSeparator() +
+                            "Date in budget file is in the future, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
@@ -457,7 +457,7 @@ public class StorageTest {
 
         storage.printLoadingResult();
         String output = outputStream.toString();
-        String expection = "I have loaded 3 expenses and 0 incomes from file." + System.lineSeparator() +
+        String expection = "I have loaded 3 expense(s) and 0 income(s) from file." + System.lineSeparator() +
                             "Date in budget file is invalid, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
     }
