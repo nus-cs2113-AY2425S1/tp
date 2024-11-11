@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -427,7 +426,7 @@ public final class Parser {
         String cuisine = null;
         if (cuisineInput != null) {
             // Trim all leading whitespaces from cuisineInput
-//            String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
+            // String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
             cuisine = cuisineInput.trim().substring(2).trim();
         }
 
