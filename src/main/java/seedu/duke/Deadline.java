@@ -3,11 +3,13 @@ package seedu.duke;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 
 //@@author jadenlimjc
 public class Deadline {
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/uu")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private int internshipID;
     private String description;
@@ -50,5 +52,9 @@ public class Deadline {
     @Override
     public String toString() {
         return description + ": " + getDate();
+    }
+
+    public String toStringMessage() {
+        return description + " (" + getDate() + ")";
     }
 }

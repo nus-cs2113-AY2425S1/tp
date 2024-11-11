@@ -84,29 +84,33 @@ public class SortCommand extends Command {
             internships.listInternshipsInvalidFlag(sortOption);
         }
 
-        logger.log(Level.INFO, "SortCommand Executed");
+        LOGGER.log(Level.INFO, "SortCommand Executed");
     }
 
     @Override
     public String getUsage() {
         return """
                 sort
-                Usage: sort [-role | -duration | -deadline | -skills | -status | -company
-                            | -role in favourite | -duration in favourite | -deadline in favourite
-                            | -skills in favourite | -status in favourite | -company in favourite ]
+                Usage: sort -{field}
                 
                 Only sort by exactly one field in each time
                 
-                role: Sort internships alphabetically by role (case-insensitive).
-                deadline: Sort internships by start date (year first), then end date.
-                duration: Sort internships by internship duration.
-                skills: Sort internships by the first skill alphabetically.
-                status: Sort internships by status alphabetically.
-                role in favourite: Sort internships in favourite alphabetically by role (case-insensitive).
-                deadline in favourite: Sort internships in favourite by start date (year first), then end date.
-                duration in favourite: Sort internships in favourite by internship duration.
-                skills in favourite: Sort internships in favourite by the first skill alphabetically.
-                status in favourite: Sort internships in favourite by status alphabetically.
+                List of fields:
+                
+                - role: Sort internships alphabetically by role (case-insensitive).
+                - deadline: Sort internships by start date (year first), then end date.
+                - duration: Sort internships by internship duration.
+                - skills: Sort internships by the first skill alphabetically.
+                - status: Sort internships by status, (application pending, application completed
+                         ,accepted, rejected) with this ascending order. Within the same status, the order is sorted by
+                         role.
+                - role in favourite: Sort internships in favourite alphabetically by role (case-insensitive).
+                - deadline in favourite: Sort internships in favourite by start date (year first), then end date.
+                - duration in favourite: Sort internships in favourite by internship duration.
+                - skills in favourite: Sort internships in favourite by the first skill alphabetically.
+                - status in favourite: Sort internships in favourite by status, (application pending,
+                                       application completed, accepted, rejected) with this ascending order. Within the 
+                                       same status, the order is sorted by role.
                 """;
     }
 }

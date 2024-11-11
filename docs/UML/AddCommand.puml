@@ -1,5 +1,5 @@
 @startuml
-title ":AddCommand" Sequence Diagram
+title AddCommand Sequence Diagram
 hide footbox
 
 participant ":User"
@@ -15,43 +15,29 @@ activate ":AddCommand" #red
 activate ":uiCommand" #green
 ":AddCommand"->":AddCommand" : Initialize variables
 
-loop for each arg in args
-  ":AddCommand" -> ":AddCommand" : split arg into flag and data
-  alt flag == "role"
-    ":AddCommand" -> ":AddCommand": hasRole = true
+loop Process each argument in args
+  ":AddCommand" -> ":AddCommand" : process flag and data
+  alt flag is valid
     alt data is present
-      ":AddCommand"-> ":AddCommand": set role
+      ":AddCommand" -> ":AddCommand" : set data
     else
-      ":AddCommand" -> ":uiCommand": addInvalidFlag("role")
+      ":AddCommand" -> ":uiCommand" : addInvalidFlag(flag)
+      activate ":uiCommand" #green
+      deactivate ":uiCommand"
     end
-  else flag -- "company"
-    ":AddCommand" -> ":AddCommand": hasCompany = true
-    alt data is present
-      ":AddCommand"->":AddCommand": set company
-    else
-      ":AddCommand"->":uiCommand": addInvalidFlag("company")
-    end
-  else flag == "from"
-        alt data is present
-            ":AddCommand" -> ":AddCommand": set startDate
-        else
-            ":AddCommand" -> ":uiCommand": addInvalidFlag("from")
-        end
-    else flag == "to"
-        alt data is present
-            ":AddCommand" -> ":AddCommand": set endDate
-        else
-            ":AddCommand" -> ":uiCommand": addInvalidFlag("to")
-        end
-    else
-        ":AddCommand" -> ":uiCommand": addInvalidFlag(flag)
-    end
+  else
+    ":AddCommand" -> ":uiCommand" : addInvalidFlag(flag)
+    activate ":uiCommand" #green
+    deactivate ":uiCommand"
+  end
 end
 
 alt invalid flags found
   ":AddCommand"->":uiCommand": printInvalidFlags()
+  activate ":uiCommand" #green
+  deactivate ":uiCommand"
 else all required flags present
-  ":AddCommand" -> ":Internship": new ":Internship"(role, company, startDate, endDate)
+  ":AddCommand" -> ":Internship" **: new Internship(role, company, startDate, endDate)
   activate ":Internship" #blue
   ":AddCommand"-> ":InternshipList": addInternship(newInternship)
   activate ":InternshipList" #aquamarine
