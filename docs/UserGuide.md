@@ -278,7 +278,8 @@ Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_COD
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
 * Do not add punctuation to the above three parameters.
 * Do not switch the order of parameters. Keyword `/pu` must come before the `/coursepu` keyword.
-* For `PARTNER_UNIVERSITY_NAME`, indicate the partner university's full name or their respective official abbreviation.
+* For `PARTNER_UNIVERSITY_NAME`, indicate either the partner university's full name or its respective 
+  official abbreviation.
 
 Example of usage (lowercase):
 
@@ -295,14 +296,6 @@ Example of usage (normal case):
 Expected output:
 
 ![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
-
-Example of usage (using partner university abbreviations):
-
-`add cs2102 /pu unimelb /coursepu info20003`
-
-Expected output:
-
-![Add Courses Normal Case Output](images/AddCoursesCommandLowercaseScreenshot.png)
 
 
 ### Delete course mapping plans from Personal Tracker: `delete`
