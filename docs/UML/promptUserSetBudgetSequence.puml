@@ -1,0 +1,67 @@
+@startuml
+
+participant FinanceBuddy
+participant BudgetLogic
+participant Budget
+participant AppUi
+
+FinanceBuddy -> BudgetLogic: promptUserToSetBudget(financialList)
+activate BudgetLogic
+BudgetLogic -> Budget: isBudgetSet()
+activate Budget
+Budget --> BudgetLogic: return isBudgetSet
+deactivate Budget
+
+opt budget not set
+    BudgetLogic -> AppUi: displaySetBudgetMessage()
+    BudgetLogic -> BudgetLogic: shouldSetBudget()
+    activate BudgetLogic
+    return boolean
+    alt user does not wish to set budget
+        BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
+        activate BudgetLogic
+        ref over BudgetLogic
+        recalculateBalance
+        end
+        return
+    else
+        BudgetLogic -> BudgetLogic: getValidBudgetAmountFromUser()
+        activate BudgetLogic
+        return amount
+        BudgetLogic -> BudgetLogic: handleSetBudget()
+        activate BudgetLogic
+        ref over BudgetLogic
+        handleSetBudget
+        end
+        return
+        BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
+        activate BudgetLogic
+        return
+    end
+end
+opt budget set in a previous month
+    BudgetLogic -> AppUi: display budget set in previous month message
+    BudgetLogic -> AppUi: displaySetBudgetMessage()
+    alt user does not wish to set new budget
+        BudgetLogic -> AppUi: display use previous budget message
+        BudgetLogic -> BudgetLogic: recalculateBalance()
+        activate BudgetLogic
+        return
+        BudgetLogic -> Budget: setBudgetSetDate(current date)
+        activate Budget
+        return
+    else
+        BudgetLogic -> BudgetLogic: getValidBudgetAmountFromUser()
+        activate BudgetLogic
+        return amount
+        BudgetLogic -> BudgetLogic: handleSetBudget()
+        activate BudgetLogic
+        return
+        BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
+        activate BudgetLogic
+        return
+    end
+end
+
+return
+@enduml

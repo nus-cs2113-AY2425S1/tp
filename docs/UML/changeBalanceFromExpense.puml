@@ -33,8 +33,6 @@ opt budget is set
         opt budget has exceeded
             BudgetLogic -> AppUi: displayBudgetBalanceExceededMessage(budgetAmount)
         end
-
-        BudgetLogic -> AppUi: displayBudgetBalanceMessage(balance)
     end
 end
 

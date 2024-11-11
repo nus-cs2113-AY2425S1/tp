@@ -533,7 +533,9 @@ following arguments:
 - `/d` Represents the date on which the transaction occurred. This is an optional argument.
 - `/c` Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
 
-Below is a simplified sequence diagram of the user editing an entry.
+Below is a simplified sequence diagram of the user editing an entry. Note that the lifeline
+of `Expense` should terminate with the cross, but due to the limitations of plantUML, the
+lifeline is shown to continue.
 
 <img src="UML/editEntryCommandSequence.png" alt="Edit Entry Sequence Diagram" width="auto" height="500">
 
@@ -902,15 +904,26 @@ specifically for `Storage` class
   specifically for the `Storage` class
 
 The `BudgetLogic` class has the following methods:
-- `getBudget()`: `Budget` Returns `budget`
 - `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
-- `setBudget(FinancialList)` Displays different messages depending on whether a budget has been set,
+- `getBudget()`: `Budget` Returns `budget`
+- `promptUserToSetBudget(FinancialList)` Decides whether to prompt user to set a new budget
+  - If no budget has been set, or budget was set in a previous month, user is prompted to set a new budget
+  - If budget was set in a previous month and user does not wish to set a new budget, `budgetAmount` is retained
 - `handleSetBudget(FinancialList)`
   - Handles the user input of whether to set a budget, and of the budget amount
   - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
   - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
+- `shouldSetBudget()`: `boolean`
+  - Constantly prompts user for a "yes" or "no" input
+  - Returns `true` if "yes" is inputted, `false` if "no" is inputted
+- `getValidBudgetAmountFromUser()`: `double`
+  - Constantly prompts user for a budget amount
+  - Returns the value inputted
+- `isValidBudgetAmount(double)`: `boolean` Returns `true` if the amount is within 0.01 to 9999999.00,
+otherwise return `false`
 - `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
-- `getBudgetAndBalance()` Displays budget amount and remaining balance
+- `printBudgetAndBalance()` Displays budget amount and remaining balance
+- `printBalanceAmount()` Displays the remaining balance if budget has been set
 - `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
 - `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
 same year and month as the current date
@@ -924,22 +937,21 @@ then scans through the whole `FinancialList` and deducts the remaining balance a
 
 <ins>Implementation Details</ins>
 
-
-
 The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 
-The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
+The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
 The sequence diagram shows an example of the method being called by the `Logic` class.
 
-<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+<img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
-The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
+The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class,
+and by the `Logic` class.
 
 <img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
-The `changeBalanceFromExpense()` method is shown below.
+The `changeBalanceFromExpense()` method is called by the `Logic` class.
 
-<img src="UML/changeExpenseFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+<img src="UML/changeBalanceFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
 <ins>Design Considerations</ins>
 
