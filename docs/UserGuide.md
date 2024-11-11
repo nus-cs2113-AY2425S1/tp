@@ -36,9 +36,9 @@ Progress is restored when FinanceBuddy is started up each time.
 
 ## Quick Start
 
-1. Ensure that Java 17 or above is installed.
+1. Ensure that Java17 or above is installed in the computer you are using (supported OS: Windows, macOS, Linux).
 2. Download the latest version of `FinanceBuddy` [here](https://github.com/AY2425S1-CS2113-W14-3/tp/releases).
-3. Download the `.jar` file and save it on the computer.
+3. Download the `FinanceBuddy.jar` file and save it on the computer.
 4. In the directory where the jar file is saved, open Terminal.
 5. In Terminal, run `java -jar FinanceBuddy.jar`.
 6. Happy logging!
@@ -71,12 +71,17 @@ List of commands:
 3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
    - Adds a new income with an optional date and category
     - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED
-4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
+4. edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
    - Edits the transaction at the specified INDEX with optional fields
-5. delete INDEX
+     - If no INDEX is specified, last amended transaction will be edited by default
+5. delete [INDEX] [/to END_INDEX]
    - Deletes the transaction at the specified INDEX
-6. budget
+    - If no INDEX is specified, last last amended transaction will be deleted by default
+    - If /to flag is included: Deletes transactions INDEX to END_INDEX inclusive
+    - Bonus: delete all - deletes all transactions
+6. budget AMOUNT
    - Set/modify your monthly budget
+   - Delete set budget by setting AMOUNT to 0
 7. exit
    - Exits the program
 8. help
