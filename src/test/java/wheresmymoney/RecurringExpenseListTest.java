@@ -53,7 +53,7 @@ class RecurringExpenseListTest {
             ExpenseList expenseList = new ExpenseList();
             RecurringExpenseList recurringExpenseList = new RecurringExpenseList(expenseList);
             assertTrue(recurringExpenseList.isEmpty());
-            recurringExpenseList.addRecurringExpense(0.0F, "desc", "category", "daily");
+            recurringExpenseList.addRecurringExpense(10.0F, "desc", "category", "daily");
             assertFalse(recurringExpenseList.isEmpty());
             recurringExpenseList.deleteRecurringExpense(0);
             assertTrue(recurringExpenseList.isEmpty());

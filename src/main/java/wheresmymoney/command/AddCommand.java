@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
-        float price = argumentsMap.getRequiredPrice();
+        Float price = argumentsMap.getRequiredPrice();
         String description = argumentsMap.getRequired(Parser.ARGUMENT_DESCRIPTION);
         String category = argumentsMap.getRequired(Parser.ARGUMENT_CATEGORY);
 

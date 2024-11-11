@@ -46,10 +46,10 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
-- Visualizer
-- [Exceptions and Logging](#exceptions-and-logging)
+- [Visualizer](#visualizer)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
+- [Exceptions and Logging](#exceptions-and-logging)
 
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
@@ -66,9 +66,11 @@ This architecture consist of:
 
 <u>Overview</u>
 
-The Ui class handles I/O operations such as displaying messages and reading user input.
-The Parser parses user input and returns the relevant Command Object. 
-Both these classes are important for allowing the User to interact with the application.
+The `Ui` class handles I/O operations such as displaying messages and reading user input.
+The `Parser` parses user input and returns the relevant Command Object.
+An `ArgumentMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
+These classes are important for allowing the User to interact with the application.
+
 
 <u>Methods</u>
 
@@ -85,6 +87,16 @@ The Parser class has the following key method:
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
+The `ArgumentMap` class extends the `HashMap<String, String>` class with the following methods
+
+| Method             | Description                                                                                   |
+|--------------------|-----------------------------------------------------------------------------------------------|
+| `isRecur`          | Checks if the arguments passed shows that the user wants to access the Recurring Expense List |
+| `getRequired`      | Gets a required argument and throws an exception if that argument is not provided.            |
+| `getRequiredIndex` | Gets a required index and throws an exception if that index is not provided.                  |
+| `getPrice`        | Gets a price and throws an exception if that price is invalid.                                |
+| `getRequiredPrice` | Gets a required price and throws an exception if that price is not provided/ invalid.         |
+
 
 <u>Design Considerations</u>
 
@@ -96,7 +108,7 @@ Ui class is used as part of exception handling for displaying of error messages 
 The Parser also has some considerations such as
 1. Restricted arguments which should not be used by other developers in their commands. These include
     1. `/command` -> used for the main command keyword
-    2. `/main` -> used for the main text argument right after the command keyword
+    2. `/index` -> used for the main text argument (the index of the expense to edit/ delete) right after the command keyword
 3. Any duplicate arguments will throw an InvalidInputException
 4. All `/` in the argument values should be escaped
     1. Examples
@@ -109,6 +121,8 @@ The Parser also has some considerations such as
            1. It is discouraged to do so, but the option is left for potential expandability
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
+
+An ArgumentMap class is created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
 ### Commands
 
@@ -123,7 +137,6 @@ The following diagram is a class diagram for Command and its children classes.
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
-
 
 The following diagram is a sequence diagram for execution of Command.
 
@@ -315,7 +328,13 @@ The `RecurringExpenseList` class has the following key methods:
 
 Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
 
-To minimise the amount of checks that need to be done, the recurring expenses are only added after the user calls the `load` command.
+Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+- The `save` command is needed to register the recurring expense into the system.
+- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
+
+Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
+
+Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
 <u>Implementation Details</u>
 
@@ -489,7 +508,19 @@ The application can provide summaries and statistical insights to spending habit
 
 ## Manual Testing
 
-View the [User Guide](UserGuide.md) for the full list of UI commands and their related use case and expected outcomes.
+View the [User Guide](UserGuide.md) for the full list of commands and their related use case and expected outcomes.
+
+### Recurring Expenses
+
+Recurring expenses can be tested by setting its date. Below is an example.
+
+```
+add /recur /price 1.00 /category A /description A /date 01-01-2024 /frequency daily
+add /recur /price 10.00 /category B /description B /date 01-01-2024 /frequency weekly
+add /recur /price 100.00 /category C /description C /date 31-01-2024 /frequency monthly
+save
+load
+```
 
 ## JUnit Testing
 
