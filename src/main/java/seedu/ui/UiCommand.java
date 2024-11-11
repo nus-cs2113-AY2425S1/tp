@@ -1,8 +1,8 @@
 package seedu.ui;
 
 import seedu.commands.Command;
-import seedu.EasInternship.Deadline;
-import seedu.EasInternship.Internship;
+import seedu.easinternship.Deadline;
+import seedu.easinternship.Internship;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

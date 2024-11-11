@@ -40,7 +40,7 @@ By using this tool, the user can:
 
 ### Testing
 - Wrote comprehensive JUnit tests for the `SortCommand` to ensure accuracy across different sorting criteria and edge cases
-- Achieved 60% coverage for the `SortCommand` class.
+- Achieved 75% coverage for the `SortCommand` class.
 
 ### Documentation Contributions
 
