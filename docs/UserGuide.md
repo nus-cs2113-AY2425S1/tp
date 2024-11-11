@@ -2,15 +2,29 @@
 
 ## Introduction
 
-SpendSwift is a simple budgeting tool designed for budget-conscious users. With intuitive text commands, you can effortlessly track expenses and manage your finances without the complexity of traditional tools.
+SpendSwift is a simple budgeting tool designed for budget-conscious users.
+With intuitive text commands, you can effortlessly track expenses and manage your finances
+without the complexity of traditional tools.
 
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed on your computer.
 2. Download the latest CS2113-T10-4.SpendSwift.jar file.
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
-4. Open a command terminal, cd into the folder where you placed the jar file, and run the following command to start the application: `java -jar "CS2113-T10-4.SpendSwift.jar".`
-5. The application will start, and any existing tasks will be loaded from the file spendswift.txt. If this file doesn't exist, it will be created automatically when tasks are saved after exiting the program properly.
+4. Open a command terminal, cd into the folder where you placed the jar file,
+   and run the following command to start the application: `java -jar "CS2113-T10-4.SpendSwift.jar".`
+5. The application will start, and any existing tasks will be loaded from the folder spendswift with 2 text files in it,
+   expense.txt and category.txt. If this file doesn't exist, it will be created automatically when tasks are saved
+   after exiting the program properly.
+
+Your command terminal should look similar to the one below.
+
+![welcome](userguidepictures/welcome.png)
+
+If the line separator have overlaps, please extend your terminal screen or reduce your font size. For example:
+
+![separator](userguidepictures/separator.png)
+
 6. Type commands below the outputs and press Enter to execute them.
 
 For details on all available commands, refer to the Features section below.
@@ -24,22 +38,24 @@ For details on all available commands, refer to the Features section below.
 
    Example: In `add n/NAME`, `NAME` is a parameter, which can be used as `add n/Udon`.
 
-3. All parameters are required unless specified: Every parameter must be supplied unless marked optional using square brackets `[ ]`.
+3. All parameters must be provided for commands that require them.
 
-   Example: In `add-expense n/NAME a/AMOUNT [c/CATEGORY]`, `add-expense n/Coffee a/5.50` is valid because `c/CATEGORY` is optional, while `add-expense` with no parameters will fail.
+   Example: In `add-expense n/NAME a/AMOUNT c/CATEGORY`, you must provide the expense name, amount and category,
+   such as `add-expense n/Coffee a/5.50 c/Drinks`
 
 4. Order of parameters: Parameters can be provided in any order.
 
    Example: `add-expense n/Coffee a/5.50 c/Food` is equivalent to `add-expense a/5.50 n/Coffee c/Food`.
 
-5. Extraneous parameters for commands that do not take in parameters (such as `view-expenses` and `bye`) will be ignored.
+5. Extraneous parameters for commands that do not take in parameters (such as `view-expenses` and `bye`)
+   will be ignored.
 
    Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
 
-6. Avoid using command prefixes (e.g., n/, a/, c/, etc.) within parameter values, as they may interfere with parsing. 
+6. Avoid using command prefixes (e.g., n/, a/, c/, etc.) within parameter values, as they may interfere with parsing.
 
-    Example: `add-expense n/Coffee 2023/02/12 a/5.50 c/Food` is valid, but `n/Coffee a/s/a/a/a/ a/5.50 c/Food` is not, 
-as `a/` is used within the `NAME` parameter, causing confusion with the `a/AMOUNT` prefix.
+   Example: `add-expense n/Coffee 2023/02/12 a/5.50 c/Food` is valid, but `n/Coffee a/s/a/a/a/ a/5.50 c/Food` is not,
+   as `a/` is used within the `NAME` parameter, causing confusion with the `a/AMOUNT` prefix.
 
 ### Add an Expense: add-expense
 This command allows you to record a new expense.
@@ -58,15 +74,14 @@ Format:
   - This input must be an integer or a double.
   - This parameter is required.
   - When the input is an integer, the input would be saved as an integer.
-  - When the input is a double, the input would be saved to 2 decimal places. 
-  If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
+  - When the input is a double, the input would be saved to 2 decimal places.
+    If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
 
 - `CATEGORY`
 
   - The category under which the expense will be recorded.
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
   - If the category has not be created, this command will automatically create the category.
-  - This parameter is optional. If not provided, the category will be set to `Uncategorized`.
 
 Example:
 
@@ -96,7 +111,7 @@ Format:
 
 - `CATEGORY`
   - The name of the new category.
-  - This parameter is required. 
+  - This parameter is required.
   - The category is case-insensitive. It can be typed in any combination of upper or lower case.
 
 Example:
@@ -182,7 +197,7 @@ Format:
 `toggle-reset`
 
 - No parameters are required.
-- It would automatically switch to the other setting. 
+- It would automatically switch to the other setting.
   - If automatic budget reset is off, `toggle-reset` would turn it on, vice versa.
 
 Example output:
@@ -201,7 +216,7 @@ Example output:
 ![help](userguidepictures/help.png)
 
 ### Exiting the program: bye
-Exits the program, and saves the data for that session. 
+Exits the program, and saves the data for that session.
 If the data file has yet to be created, this command would also create the data file.
 
 Format:
@@ -211,30 +226,30 @@ Format:
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
-**A**: Copy the `spendswift.txt` file from your SpendSwift home folder to the same folder on your new computer. 
-Ensure the tp.jar file is also in the same folder. When you start the application on the new computer, 
+**Q**: How do I transfer my data to another computer?
+**A**: Copy the `spendswift.txt` file from your SpendSwift home folder to the same folder on your new computer.
+Ensure the tp.jar file is also in the same folder. When you start the application on the new computer,
 it will load your saved expenses and categories from `spendswift.txt`.
 
 **Q**: What happens if I enter an invalid command or make a typo?  
-**A**: SpendSwift will display an error message if it doesn't recognize the command. 
-Double-check the command format and ensure all required parameters are included. 
+**A**: SpendSwift will display an error message if it doesn't recognize the command.
+Double-check the command format and ensure all required parameters are included.
 You can type `help` to see the correct command syntax and available options.
 
 **Q**: Can I update or change an expense’s details after adding it?  
-**A**: Currently, SpendSwift doesn't support direct editing of expenses. 
+**A**: Currently, SpendSwift doesn't support direct editing of expenses.
 To make changes, delete the existing expense using `delete-expense` and add a new one with the updated details.
 
 **Q**: What if I forget to set a category when adding an expense?  
-**A**: If no category is provided, the expense will be set to "Uncategorized" by default. 
+**A**: If no category is provided, the expense will be set to "Uncategorized" by default.
 You can later assign it to a specific category using `tag-expense`.
 
 **Q**: How are expenses rounded off if I enter an amount with more than two decimal places?  
-**A**: SpendSwift automatically rounds amounts to two decimal places. 
+**A**: SpendSwift automatically rounds amounts to two decimal places.
 For example, if you enter an amount of 5.678, it will be saved as 5.68.
 
 **Q**: How do I check if my budgets reset automatically each month?  
-**A**: Use the `toggle-reset` command to switch the automatic monthly budget reset on or off. 
+**A**: Use the `toggle-reset` command to switch the automatic monthly budget reset on or off.
 If the feature is currently off, typing the command will turn it on, and vice versa.
 
 
