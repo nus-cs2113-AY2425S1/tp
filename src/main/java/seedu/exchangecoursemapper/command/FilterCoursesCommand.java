@@ -23,6 +23,7 @@ import static seedu.exchangecoursemapper.constants.Logs.NO_NUS_COURSE_CODE_FILTE
 import static seedu.exchangecoursemapper.constants.Logs.FILTER_COURSES_LIMIT;
 import static seedu.exchangecoursemapper.constants.Logs.LIST_MAPPABLE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
+import static seedu.exchangecoursemapper.constants.Commands.FILTER_COMMAND_PARAMETER_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES_MAX_ARGS;
 import static seedu.exchangecoursemapper.constants.JsonKey.COURSES_ARRAY_LABEL;
@@ -103,8 +104,8 @@ public class FilterCoursesCommand extends CheckInformationCommand {
      * @return a String containing the extracted information: NUS course code.
      */
     public String getNusCourseCode(String[] descriptionSubstrings) throws IllegalArgumentException {
-        assert descriptionSubstrings[1] != null : NO_NUS_COURSE_CODE_PARSED;
-        String nusCourseCode = descriptionSubstrings[1].toLowerCase();
+        assert descriptionSubstrings[FILTER_COMMAND_PARAMETER_INDEX] != null : NO_NUS_COURSE_CODE_PARSED;
+        String nusCourseCode = descriptionSubstrings[FILTER_COMMAND_PARAMETER_INDEX].toLowerCase();
         if (!NusCourseCodeValidator.isValidSocCourseCode(nusCourseCode)) {
             throw new IllegalArgumentException(Exception.nonSocNusCourseGiven());
         }

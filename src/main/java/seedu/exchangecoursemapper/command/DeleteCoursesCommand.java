@@ -11,7 +11,8 @@ import seedu.exchangecoursemapper.ui.UI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.Commands.PLAN_INDEX_TO_DELETE;
+import static seedu.exchangecoursemapper.constants.Commands.DELETE_COMMAND_PARAMETER_INDEX;
+import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES_MAX_ARGS;
 import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
 import static seedu.exchangecoursemapper.constants.Regex.REPEATED_SPACES;
 import static seedu.exchangecoursemapper.constants.Regex.SPACE;
@@ -51,7 +52,7 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
             }
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseDeleteCommand(userInput);
-            assert descriptionSubstrings.length == 2 : Assertions.MISSING_FIELDS;
+            assert descriptionSubstrings.length == DELETE_COURSES_MAX_ARGS : Assertions.MISSING_FIELDS;
             int listIndex = getListIndex(descriptionSubstrings);
             deleteCourse(listIndex, storage);
         } catch (IllegalArgumentException e) {
@@ -70,10 +71,11 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
         String input = userInput.trim().replaceAll(REPEATED_SPACES, SPACE);
         assert !input.isEmpty() : Assertions.NULL_INPUT;
         String[] descriptionSubstrings = input.split(SPACE);
-        if (descriptionSubstrings.length < 2 || descriptionSubstrings[1].trim().isEmpty()) {
+        if (descriptionSubstrings.length < DELETE_COURSES_MAX_ARGS ||
+                descriptionSubstrings[DELETE_COMMAND_PARAMETER_INDEX].trim().isEmpty()) {
             throw new IllegalArgumentException(Exception.noInputAfterDelete());
         }
-        if (descriptionSubstrings.length > 2) {
+        if (descriptionSubstrings.length > DELETE_COURSES_MAX_ARGS) {
             throw new IllegalArgumentException(Exception.deleteCoursesLimitExceeded());
         }
         logger.log(Level.INFO, Logs.RETURN_PARSED_DELETE_COMMAND);
@@ -89,10 +91,10 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
      */
     public int getListIndex(String[] descriptionSubstrings) {
         try {
-            assert descriptionSubstrings.length == 2 |  descriptionSubstrings[1].trim().isEmpty() :
-                    Assertions.MISSING_FIELDS;
+            assert descriptionSubstrings.length == DELETE_COURSES_MAX_ARGS |
+                    descriptionSubstrings[DELETE_COMMAND_PARAMETER_INDEX].trim().isEmpty() : Assertions.MISSING_FIELDS;
             logger.log(Level.INFO, Logs.GET_INDEX_OF_COURSE_TO_DELETE);
-            return Integer.parseInt(descriptionSubstrings[PLAN_INDEX_TO_DELETE]);
+            return Integer.parseInt(descriptionSubstrings[DELETE_COMMAND_PARAMETER_INDEX]);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(Exception.nonNumericListIndexInput());
         }
