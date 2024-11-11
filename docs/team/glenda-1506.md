@@ -29,50 +29,44 @@ Given below are my contributions to the project
 
 - Error Handling
   - Added exceptions for edge cases, enhancing the robustness of the application: Pull request `#25`
+  - Resolve bugs identified by teammates: Pull request `#91` - `#99`, `#102`, `#104`, `#105`
+  - Resolve issues identified during Practical Exam Dry Run: Pull request `#187` - `#192`, `#194` - `#213`
 
 - File Organisation
-  - Removed redundant code to streamline the codebase and maintain organized files: Pull request `#78`
+  - Removed redundant code to streamline the codebase and maintain organized files: Pull request `#78`, `#106`, `#207`
 
 #### Contributions to the UG
-- Added documentation for Introduction: #65
-- Added documentation for Command Format Notes: #65
-- Added documentation for features: #65
-    - `add-expense`
-    - `delete-expense`
-    - `add-cateogry`
-    - `tag-expense`
-    - `set-budget`
-    - `view-expenses`
-    - `set-budget-reset`
-    - `bye`
+- Added documentation for Introduction: #65, #208
+- Added documentation for Command Format Notes: #65, #208
+- Added documentation for all features: #65, #208
 
 #### Contributions to the DG
 - Added documentation for Target User Profile: #32
 - Added documentation for Value Proposition: #32
 - Added documentation for v1.0 User Stories: #32
+- Added documentation for v2.0 User Stories: #32
+- Added documentation for v2.1 User Stories: #211
+- Added all manual testing instructions: #135, #136
+- Added all class diagrams and architecture diagram, with their explanation: #136, #213, #211
 - Added sequence diagrams: #66
-    - `add-expense`
-    - `delete-expense`
-    - `add-cateogry`
-    - `tag-expense`
-    - `set-budget`
-    - `view-expenses`
-    - `set-budget-reset`
-    - `bye`
+- Ensure all the formatting is accurate and consistent: #134,
 
 #### Contributions to team-based tasks
 - Set up the GitHub team organisation
 - Set up the GitHub team repository
 - Maintain the issue tracker
 - Release management
-- Updating user and developer documents that are not specific to a feature
+- Updating user and developer guides that are not specific to a feature
 - Necessary general code enhancements
 
 #### Review/mentoring contributions
 - Guidance on Project Workflow: Actively provided clear guidelines to ensure the team followed best practices for version control, including instructions for local edits, creating pull requests, and verifying auto-build success before merging. This helped maintain build consistency and prevented errors.
 - Team Coordination: Helped the team stay on track by reminding members of deadlines, prompting active participation, and clarifying steps to streamline contributions and avoid common mistakes.
+- Assign different tasks to each team member, ensuring that the team is productive in what they do
 
 #### Contributions beyond the project team
 - Design and Implementation Review
   - Conducted a detailed review of the Developer Guide of a peer team
   - Focused on identifying potential issues or improvements by examining possible DG bugs, with an emphasis on clarity and accuracy in the documentation
+  - Conducted peer acceptance/system testing on peer team during Practical Exam Dry Run
+  - Conducted peer acceptance/system testing on peer teams outside of Practical Exam Dry Run
