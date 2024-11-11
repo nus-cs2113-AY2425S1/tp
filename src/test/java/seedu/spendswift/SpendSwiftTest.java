@@ -537,7 +537,7 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, "Education");
 
         // Manually initialize the Budget for "Education" to avoid NullPointerException
-        Budget budget = new Budget(category);
+        Budget budget = new Budget(category,maxLimit);
         trackerData.getBudgets().put(category, budget); // Add Budget to the map
 
         // Now set the budget limit
