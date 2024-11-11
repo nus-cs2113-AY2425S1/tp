@@ -185,6 +185,7 @@ Okay! A total of 15 entries have been deleted.
 **Notes**:
 - Ensure indices provided are valid; otherwise, an error message will be displayed.
 - Use the `delete` command cautiously, especially when using `delete all`.
+- Special case "all" is case-sensitive so variation like All or aLL will not execute delete all function.
 - Balances will automatically adjust after each deletion.
 - Last amended entry is not saved after exiting the app.
 
