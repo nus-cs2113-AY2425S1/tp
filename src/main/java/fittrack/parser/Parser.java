@@ -234,17 +234,24 @@ public class Parser {
             break;
 
         case ADD_REMINDER_COMMAND:
-            sentence = description.split(" ", 2);
+            try {
+                sentence = description.split(" ", 2);
 
-            String inputDeadline = sentence[1];
-            description = sentence[0];
+                String inputDeadline = sentence[1];
+                description = sentence[0];
 
-            assert !description.isEmpty() : "Reminder description must not be empty";
-            assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
-            LocalDateTime deadline = parseDeadline(inputDeadline);
-            reminderList.add(new Reminder(description, deadline, user));
-            printAddedReminder(reminderList);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                assert !description.isEmpty() : "Reminder description must not be empty";
+                assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
+                LocalDateTime deadline = parseDeadline(inputDeadline);
+                reminderList.add(new Reminder(description, deadline, user));
+                printAddedReminder(reminderList);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use 'dd/MM/yyyy HH:mm'.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
             break;
         case DELETE_REMINDER_COMMAND:
             int reminderIndexToDelete = Integer.parseInt(description) - 1;
@@ -263,27 +270,33 @@ public class Parser {
             break;
 
         case ADD_GOAL_COMMAND:  // use "add-goal" consistently in input and command handling
-            if (!description.isEmpty()) {
-                String[] goalParts = description.split(" ", 2);
-                String goalDescription = goalParts[0];
-                LocalDateTime goalDeadline = null;
+            try {
+                if (!description.isEmpty()) {
+                    String[] goalParts = description.split(" ", 2);
+                    String goalDescription = goalParts[0];
+                    LocalDateTime goalDeadline = null;
 
-                if (goalParts.length > 1) {
-                    String goalDeadlineInput = goalParts[1];
-                    try {
-                        goalDeadline = parseGoalDeadline(goalDeadlineInput);
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid date format: " + e.getMessage());
-                        return;
+                    if (goalParts.length > 1) {
+                        String goalDeadlineInput = goalParts[1];
+                        try {
+                            goalDeadline = parseGoalDeadline(goalDeadlineInput);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println("Invalid date format: " + e.getMessage());
+                            return;
+                        }
                     }
+                    Goal newGoal = new Goal(goalDescription, goalDeadline);
+                    goalList.add(newGoal);
+                    printAddedGoal(goalList);
+                } else {
+                    System.out.println("Please specify a goal to add.");
                 }
-                Goal newGoal = new Goal(goalDescription, goalDeadline);
-                goalList.add(newGoal);
-                printAddedGoal(goalList);
-            } else {
-                System.out.println("Please specify a goal to add.");
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format for goal deadline. Please use 'dd/MM/yyyy HH:mm'.");
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case DELETE_GOAL_COMMAND:
@@ -296,7 +309,7 @@ public class Parser {
                     System.out.println("Invalid goal index.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Please specify a valid index to delete.");
+                System.out.println("Invalid format: Please specify a valid index to delete.");
             }
             updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
@@ -316,7 +329,7 @@ public class Parser {
 
             // Check if description is empty or not a valid single numeral
             if (description.isEmpty() || !description.matches("\\d+")) {
-                System.out.println("Please provide a valid amount of water.");
+                System.out.println("Invalid water format: Please use 'add-water' + (water in ml)");
                 break;
             }
 
@@ -333,7 +346,7 @@ public class Parser {
         case DELETE_WATER_COMMAND:
             // Check if description is empty or not a valid single numeral
             if (description.isEmpty() || !description.matches("\\d+")) {
-                System.out.println("Please provide a valid water index number.");
+                System.out.println("Invalid format: Please provide a valid water index number.");
                 break;
             }
 
@@ -361,17 +374,18 @@ public class Parser {
                     System.out.println(SEPARATOR);
                     updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
                 } catch (NumberFormatException e) {
-                    System.out.println("Please enter a valid number for calories.");
+                    System.out.println("Invalid water format: Please use 'add-food' + (food item) "
+                        + "+ (calories)");
                 }
             } else {
-                System.out.println("Please provide both food name and calories.");
+                System.out.println("Invalid format: Please provide both food name and calories.");
             }
             break;
 
         case DELETE_FOOD_COMMAND:
             // Check if description is empty or not a valid single numeral
             if (description.isEmpty() || !description.matches("\\d+")) {
-                System.out.println("Please provide a valid food index number.");
+                System.out.println("Invalid format: Please provide a valid food index number.");
                 break;
             }
 

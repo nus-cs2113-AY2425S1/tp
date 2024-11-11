@@ -3,16 +3,23 @@ import fittrack.user.User;
 import java.time.LocalDateTime;
 
 public class AddFitnessGoal {
- 
-    private final Goal goal;
 
-    public AddFitnessGoal(String description, LocalDateTime deadline) {
-        this.goal = new Goal(description, deadline);
+    private String goalDescription;
+    private LocalDateTime deadline;
+
+    public AddFitnessGoal(String goalDescription, LocalDateTime deadline) {
+        this.goalDescription = goalDescription;
+        this.deadline = deadline;
+
     }
 
     public void addGoal(User user) {
-        user.addGoal(goal); // Add the goal object to the user's goal list
-        // Use the correct method to get the description of the goal
-        System.out.println("Added goal: " + goal.getDescription());
+        if (deadline == null) {
+            System.out.println("Goal added: " + goalDescription + ". No deadline set."
+                + System.lineSeparator());
+        } else {
+            System.out.println("Goal added: " + goalDescription + " with deadline: " + deadline
+                +System.lineSeparator());
+        }
     }
 }
