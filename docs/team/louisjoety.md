@@ -15,11 +15,11 @@ support usability and team collaboration. Check out my contributions on the [TP 
 
 ## 3. Enhancements implemented:
 
-### Command | CheckInformationCommand | PersonalTrackerCommand
+### Command Class | Check Information Command Class | Personal Tracker Command Class
 * Abstract parent classes to allow child classes to be implemented through over-riding methods
 * This is essential for ease of debugging and task allocation
 
-### Obtain Contacts Command Class
+### Obtain Contacts Command Class | School Contact Validator Class
 * Updated Database with new contact number and email information
 * Managed controls to allow users to retrieve either email or number
 * J-unit test, assertions and logging were done to gracefully handle errors
@@ -34,7 +34,7 @@ support usability and team collaboration. Check out my contributions on the [TP 
 ### Miscellaneous
 * Implemented starting points for 4 major components: `Parser`, `UI`, `Commands`, `Storage`
 * Trivial features: Creating `Assertions`, `Logs` file and getting rid of magic strings
-* J-unit test for Parser Class
+* J-unit test for `Parser` Class
 * Help team do QA to obtain bugs around code namely in more complex commands
 
 ## 4. User Guide:
