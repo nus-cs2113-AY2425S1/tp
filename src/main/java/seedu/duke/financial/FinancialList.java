@@ -15,6 +15,7 @@ import java.util.Map;
 public class FinancialList {
     private static final Double AMOUNTZERO = 0.0;
     private static final int DEFAULT_LAST_AMENDED_INDEX = -1;
+    private static final int ZERO_TO_ONE_BASED_INDEX = 1;
     private ArrayList<FinancialEntry> entries;
     private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
     private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
@@ -56,7 +57,7 @@ public class FinancialList {
      */
     public void addEntry(FinancialEntry entry) throws FinanceBuddyException {
         int insertIndex = entries.size();
-        if (insertIndex >= 5000) {
+        if (insertIndex >= Commons.MAX_NUM_OF_ENTRIES) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
         }
         while (shouldDecrementIndex(entry, insertIndex)) {
@@ -76,7 +77,7 @@ public class FinancialList {
      * @param insertIndex The index at which the new entry should be inserted into the list at.
      */
     public void addEntryAtSpecificIndex(FinancialEntry entry, int insertIndex) throws FinanceBuddyException {
-        if (entries.size() >= 5000) {
+        if (entries.size() >= Commons.MAX_NUM_OF_ENTRIES) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
         }
         entries.add(insertIndex, entry);
@@ -126,7 +127,8 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX +
+                    (index + ZERO_TO_ONE_BASED_INDEX));
         }
     }
 
@@ -156,8 +158,8 @@ public class FinancialList {
      */
     public void editEntry(int index, double amount, String description, LocalDate date,
                           Enum<?> category) {
-        assert amount >= 0.01 : "Amount < 0.01 entered.";
-        assert amount <= 9999999.0 : "Amount > 9999999.0 entered.";
+        assert amount >= Commons.MIN_AMOUNT : "Amount < 0.01 entered.";
+        assert amount <= Commons.MAX_AMOUNT : "Amount > 9999999.0 entered.";
         assert !description.isBlank() : "Description is blank.";
         assert !date.isAfter(LocalDate.now()): "Date is after system date";
 
@@ -230,4 +232,11 @@ public class FinancialList {
         totalIncomeByCategory.clear();
     }
 
+    public void clear() {
+        entries.clear(); // Assuming `entries` is the internal list of financial transactions
+    }
+
+    public ArrayList<FinancialEntry> getEntries() {
+        return new ArrayList<>(entries); // Return a copy to prevent external modification
+    }
 }

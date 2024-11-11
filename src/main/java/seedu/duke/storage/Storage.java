@@ -35,6 +35,9 @@ import seedu.duke.logic.BudgetLogic;
  * <p>Methods:</p>
  * <ul>
  *   <li>{@link #getStorageFile()} - Retrieves the storage file, creating it if necessary.</li>
+ *   <li>{@link #getBudgetFile()} - Retrieves the budget file, creating it if necessary.</li>
+ *   <li>{@link #getStorageFileWithoutMsg()} - Retrieves the storage file without displaying a message.</li>
+ *   <li>{@link #getBudgetFileWithoutMsg()} - Retrieves the budget file without displaying a message.</li>
  *   <li>{@link #update(FinancialList, BudgetLogic)} - Updates the storage file with the entries 
  *          from the given FinancialList and BudgetLogic.</li>
  *   <li>{@link #parseExpense(String[])} - Parses a string array into an Expense object.</li>
@@ -51,7 +54,8 @@ import seedu.duke.logic.BudgetLogic;
  *   <li>{@link #clearInvalidLines()} - Clears all the invalid lines stored in the invalidLines list.</li>
  *   <li>{@link #printInvalidLines()} - Prints the invalid lines stored in the invalidLines list.</li>
  *   <li>{@link #printLoadingResult()} - Prints the result of loading data from storage.</li>
- *  
+ *   <li>{@link #deleteBudgetFromFile()} - Deletes the budget file from the file system.</li>
+ *   <li>{@link #deleteFinancialListFromFile()} - Deletes the financial list file from the storage.</li>
  * </ul>
  * 
  * <p>Fields:</p>
@@ -93,7 +97,7 @@ public class Storage {
         File file = new File(FINANCIAL_LIST_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
-            storageFileNotFoundMsg = "File not found: " + FINANCIAL_LIST_FILE_PATH + " Creating new one.";
+            storageFileNotFoundMsg = "Creating new " + FINANCIAL_LIST_FILE_PATH + " file.";
             try {
                 // check if the dictionary exists
                 File directory = new File(file.getParent());
@@ -118,7 +122,7 @@ public class Storage {
         File file = new File(BUDGET_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
-            budgetFileNotFoundMsg = "File not found: " + BUDGET_FILE_PATH + " Creating new one.";
+            budgetFileNotFoundMsg = "Creating new " + BUDGET_FILE_PATH + " file.";
             try {
                 // check if the dictionary exists
                 File directory = new File(file.getParent());
@@ -342,11 +346,11 @@ public class Storage {
                     date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     failedLoadingBudgetMsg = "Date in budget file is invalid, setting to current date.";
                 }
-                // check if the date is in past 
+                // check if the date is in future 
                 if (LocalDate.parse(date).isAfter(LocalDate.now())) {
                     budget.setBudgetSetDate(LocalDate.now());
                     logger.log(LogLevels.WARNING, "Budget date is in the future, setting to current date.");
-                    failedLoadingBudgetMsg = "Date in budget file is invalid, setting to current date.";
+                    failedLoadingBudgetMsg = "Date in budget file is in the future, setting to current date.";
                 } else {
                     budget.setBudgetSetDate(LocalDate.parse(date));
                 }
@@ -413,13 +417,13 @@ public class Storage {
                 }
             }
             if (loadedExpenseCount > 0 || loadedIncomeCount > 0) {
-                loadedTransactionsMsg = "I have loaded " + loadedExpenseCount + " expenses and " +
-                        loadedIncomeCount + " incomes from file." ;
+                loadedTransactionsMsg = "I have loaded " + loadedExpenseCount + " expense(s) and " +
+                        loadedIncomeCount + " income(s) from file." ;
             }else{
                 loadedTransactionsMsg =  "No transactions loaded from file.";
             }
-            logger.log(LogLevels.INFO, "Loaded " + loadedExpenseCount + " expenses and " +
-                    loadedIncomeCount + " incomes from file.");
+            logger.log(LogLevels.INFO, "Loaded " + loadedExpenseCount + " expense(s) and " +
+                    loadedIncomeCount + " income(s) from file.");
             sc.close();
             return theList;
         } catch(FileNotFoundException e){
@@ -472,7 +476,7 @@ public class Storage {
         if (invalidLines.isEmpty()) {
             return;
         }
-        System.out.println("Deleting invalid line from file: ");
+        System.out.println("Deleting invalid line(s) from storage file: ");
         for (String line : invalidLines) {
             System.out.println(line);
         }

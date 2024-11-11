@@ -41,7 +41,7 @@ class BudgetLogicTest {
     @Test
     void testSetBudgetValidAmount() throws FinanceBuddyException {
         ui.setInputs("yes", "1000");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
         assertEquals(1000, budget.getBudgetAmount());
@@ -52,7 +52,7 @@ class BudgetLogicTest {
     @Test
     void testSetBudgetInvalidAmountCorrected() throws FinanceBuddyException {
         ui.setInputs("yes", "invalid", "1000");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
         assertEquals(1000, budget.getBudgetAmount());
@@ -62,7 +62,7 @@ class BudgetLogicTest {
     @Test
     void handleSetBudget_amountOutOfRange_printWarningMessage() throws FinanceBuddyException {
         ui.setInputs("yes", "0", "1000000000", "1000");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
         assertEquals(1000, budget.getBudgetAmount());
@@ -73,15 +73,7 @@ class BudgetLogicTest {
                 "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
-                "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount." +
-                System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
                 "Please set your budget amount:" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
-                "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount." +
-                System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Please set your budget amount:" + System.lineSeparator() +
@@ -100,7 +92,7 @@ class BudgetLogicTest {
      */
     @Test
     void promptUserToSetBudget_budgetNotSet_setBudget() throws FinanceBuddyException {
-        ui.setInputs("1000");
+        ui.setInputs("yes", "1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
@@ -123,10 +115,10 @@ class BudgetLogicTest {
         budget.setBudgetAmount(1000);
         budget.setBudgetSetDate(LocalDate.of(LocalDate.now().getYear() - 1, Month.JANUARY, 1));
 
-        ui.setInputs("1000");
+        ui.setInputs("yes", "1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
-        String expectedOutput = "Your budget was set in a previous month." + System.lineSeparator() +
+        String expectedOutput = "Your budget of $ 1000.00 was set in a previous month." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
@@ -156,7 +148,7 @@ class BudgetLogicTest {
     @Test
     void testSetBudgetSkippedByUser() throws FinanceBuddyException {
         ui.setInputs("no");
-        budgetLogic.setBudget(financialList);
+        budgetLogic.promptUserToSetBudget(financialList);
 
         assertFalse(budget.isBudgetSet());
         assertEquals(0, budget.getBudgetAmount());

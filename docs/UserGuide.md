@@ -36,9 +36,9 @@ Progress is restored when FinanceBuddy is started up each time.
 
 ## Quick Start
 
-1. Ensure that Java 17 or above is installed.
+1. Ensure that Java17 or above is installed in the computer you are using (supported OS: Windows, macOS, Linux).
 2. Download the latest version of `FinanceBuddy` [here](https://github.com/AY2425S1-CS2113-W14-3/tp/releases).
-3. Download the `.jar` file and save it on the computer.
+3. Download the `FinanceBuddy.jar` file and save it on the computer.
 4. In the directory where the jar file is saved, open Terminal.
 5. In Terminal, run `java -jar FinanceBuddy.jar`.
 6. Happy logging!
@@ -71,12 +71,17 @@ List of commands:
 3. income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]
    - Adds a new income with an optional date and category
     - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED
-4. edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
+4. edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
    - Edits the transaction at the specified INDEX with optional fields
-5. delete INDEX
+     - If no INDEX is specified, last amended transaction will be edited by default
+5. delete [INDEX] [/to END_INDEX]
    - Deletes the transaction at the specified INDEX
-6. budget
+    - If no INDEX is specified, last last amended transaction will be deleted by default
+    - If /to flag is included: Deletes transactions INDEX to END_INDEX inclusive
+    - Bonus: delete all - deletes all transactions
+6. budget AMOUNT
    - Set/modify your monthly budget
+   - Delete set budget by setting AMOUNT to 0
 7. exit
    - Exits the program
 8. help
@@ -91,20 +96,20 @@ A few line breaks have been added to allow the sample output to fit within the b
 
 ### Set/Edit Budget
 
-User can set a monthly budget when app is initialized and budget is not set, or by using the budget command.
-If the user has already set a budget, the app will prompt the user to ask if they would like to modify their budget at start up.
+User can set a monthly budget when app is initialized and budget is not set, or by using the budget command. 
+The application will also prompt the user when budget has not been set for the current month. 
 
-Budget command can be used to set budget if `no` is keyed in for the initial prompt.
-The command can also be used to edit budget after initial budget is set.
+The budget command can also be used to modify the current month's budget amount.
 
 After budget is set by user, adding, deleting or editing expenses will show the budget and remaining balance for the month.
 The budget amount and balance will also be viewable by the user under the list command.
 
-**Format**: `budget`
+**Format**: `budget AMOUNT`
 
 **Example Usage**:
 
 ```
+// Initial budget setting option
 Would you like to set a budget? (yes/no)
 --------------------------------------------
 yes
@@ -117,27 +122,28 @@ Your budget has successfully been set to: $ 1000.00
 Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
-Initial budget setting option.
-
-<br>
-
 ```
-budget
+// Setting budget using the budget command
+budget 1000
 --------------------------------------------
-Your current budget is: $ 1000.00
-Would you like to modify your budget? (yes/no)
---------------------------------------------
-yes
---------------------------------------------
-Please set your budget amount:
---------------------------------------------
-2000
---------------------------------------------
-Your budget has successfully been set to: $ 2000.00
-Your current monthly balance is: $ 2000.00
+Your budget has successfully been set to: $ 1000.00
+Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
-Budget modification option to change budget amount.
+
+### Delete Budget
+User can delete their budget completely by using the budget command.
+
+**Format**: `budget 0`
+
+**Example Usage**:
+```
+// Delete budget by setting amount to 0
+budget 0
+--------------------------------------------
+Budget has been deleted.
+--------------------------------------------
+```
 
 <hr>
 <div style="page-break-after: always;"></div>
@@ -212,88 +218,109 @@ Adds an income of $200 from a gift, using today’s date and the default categor
 ### Edit Transaction
 Edits an existing transaction in your financial list.
 
-**Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
+**Format**: `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called. 
- - `INDEX` must be a positive integer.
+ - Edits the the specific field(s) of a transaction.
+ - Should at least modify one field.
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
-
+ - `INDEX` (optional):
+   - `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called (ordered by date).
+   - `INDEX` must be a positive integer.
+   - If the `INDEX` is omitted, then will edit the amended trasaction as default.
  - `DESCRIPTION` (optional): 
    - shouldn't be blank if provided.
-   - DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
+   - DO NOT USE `¦¦` and `/` in `DESCRIPTION` cause these symbols are used as separator tokens in the storage file and as prefixes for command arguments.
+   - We don't support characters outside of English alphabets and numbers.
  - `AMOUNT` (optional):
    - Must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `DATE` (optional):
-   - Should follow `DD/MM/YY` format and cannot be after the system date.
+   - Should follow `DD/MM/YYYY` format and cannot be after the system date.
  - `CATEGORY` (optional):
    - Should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
+Example 1: Edits the description of the 1st entry to be `breakfast`.
 
 ```
 edit 1 /des breakfast
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 10.50 (on 12/10/24) [FOOD]
+[Expense] - breakfast $ 10.50 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the description of the 1st entry to be breakfast.
 
 <br>
+
+Example 2: Edits the amount of the 1st entry to be `5.99`.
 
 ```
 edit 1 /a 5.99
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 5.99 (on 12/10/24) [FOOD]
+[Expense] - breakfast $ 5.99 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the amount of the 1st entry to be 5.99.
 
 <br>
+
+Example 3: Edits the description and amount of the 2nd entry to be `lunch` and `20` respectively.
 
 ```
 edit 2 /des lunch /a 20
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - lunch $ 20.00 (on 12/10/24) [FOOD]
+[Expense] - lunch $ 20.00 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the description and amount of the 2nd entry to be lunch and 20 respectively.
 
 <br>
+
+Example 4: Edits the description and date of the 3rd entry to be `dinner` and `11/09/2024` respectively.
 
 ```
 edit 3 /des dinner /d 11/09/24
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - dinner $ 8.00 (on 11/09/24) [UNCATEGORIZED]
+[Expense] - dinner $ 8.00 (on 11/09/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively.
 
 <br>
+
+Example 5: Edits the description, amount, and date of the 4th entry to be `breakfast`, `5` and `12/09/2024` respectively.
 
 ```
 edit 4 /des breakfast /a 5 /d 12/09/24
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 5.00 (on 12/09/24) [UNCATEGORIZED]
+[Expense] - breakfast $ 5.00 (on 12/09/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively.
 
 <br>
+
+Example 6: Edits the category of the 5th entry to be `FOOD`.
 
 ```
 edit 5 /c FOOD
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - bubble tea $ 4.00 (on 07/11/24) [FOOD]
+[Expense] - bubble tea $ 4.00 (on 07/11/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the category of the 5th entry to be FOOD.
+
+<br>
+
+Example 7: Edits the amount of the last amended entry to be `11`.
+
+```
+edit /a 11
+--------------------------------------------
+Got it. I've edited this expense:
+[Expense] - Taiwanese bubble tea $ 11.00 (on 11/11/2024) [FOOD]
+--------------------------------------------
+```
 
 <hr>
 <div style="page-break-after: always;"></div>
@@ -468,36 +495,22 @@ Please do not modify these files manually, otherwise the transactions or the bud
 <div style="page-break-after: always;"></div>
 
 ## Command Summary
-
-| **Command**                   | **Usage**                                                                                  |
-|-------------------------------|---------------------------------------------------------------------------------------------|
-| **Help**                      | `help`                                                                                     |
-| **List All Transactions**     | `list`                                                                                      |
-| **List Income Transactions**  | `list income`                                                                               |
-| **List Expense Transactions** | `list expense`                                                                              |
-| **List Transactions by Date** | `list [/from START_DATE] [/to END_DATE]`                                                    |
-| **Add Expense**               | `expense DESCRIPTION /a AMOUNT`                                                             |
-| **Add Expense with Date**     | `expense DESCRIPTION /a AMOUNT /d DATE`                                                     |
-| **Add Expense with Category** | `expense DESCRIPTION /a AMOUNT /c CATEGORY`                                                 |
-| **Add Expense with Date and Category** | `expense DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                |
-| **Add Income**                | `income DESCRIPTION /a AMOUNT`                                                              |
-| **Add Income with Date**      | `income DESCRIPTION /a AMOUNT /d DATE`                                                      |
-| **Add Income with Category**  | `income DESCRIPTION /a AMOUNT /c CATEGORY`                                                  |
-| **Add Income with Date and Category**  | `income DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
-| **Edit Entry**                | `edit INDEX`                                                                               |
-| **Edit Entry Description**    | `edit INDEX /des DESCRIPTION`                                                               |
-| **Edit Entry Amount**         | `edit INDEX /a AMOUNT`                                                                      |
-| **Edit Entry Date**           | `edit INDEX /d DATE`                                                                       |
-| **Edit Entry Category**       | `edit INDEX /c CATEGORY`                                                                    |
-| **Edit Entry with All Fields**| `edit INDEX /des DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
-| **Delete Entry**              | `delete INDEX`                                                                             |
-| **Set Budget**                | `budget`                                                                                   |
-| **Exit Program**              | `exit`                                                                                     |
+| **Command**                                                      | **Description**                                                                            |
+|------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `list [income \| expense] [/from START_DATE] [/to END_DATE]`     | Shows logged transactions, highlights categories, monthly budget, and balance              |
+| `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`           | Logs a new expense with optional date and category.                                        |
+| `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`          | Logs a new income with optional date and category.                                         |
+| `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]` | Edits the specified transaction. Defaults to last amended transaction if INDEX is omitted. |
+| `delete [INDEX] [/to END_INDEX]`                                | Deletes the specified transaction(s). Defaults to last amended if INDEX is omitted.        | 
+| `budget AMOUNT`                                                 | Sets or modifies the monthly budget                                                        |
+| `budget 0`                                                      | Deletes budget                                                                             |
+| `exit`                                                           | Exits the program.                                                                         |
+| `help`                                                         | Displays a list of all valid commands.                                                     |
 
 **Defined Categories**:
 
-| **Category Type**  | **Categories**                                  |
-|--------------------|-------------------------------------------------|
+| **Category Type**  | **Categories**                                                  |
+|--------------------|-----------------------------------------------------------------|
 | **Expense**        | FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED |
-| **Income**         | SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED  |
+| **Income**         | SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED                  |
 

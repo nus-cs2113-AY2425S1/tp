@@ -23,7 +23,7 @@ public abstract class FinancialEntry {
      * @param date The date of the transaction (dd/MM/yyyy).
      */
     public FinancialEntry(double amount, String description, LocalDate date) throws FinanceBuddyException {
-        double roundedAmount = Math.round(amount * 100.0) / 100.0;
+        double roundedAmount = Commons.roundToTwoDP(amount);
         checkValidParameters(roundedAmount, description, date);
         this.description = description;
         this.amount = roundedAmount;
@@ -84,8 +84,8 @@ public abstract class FinancialEntry {
      * @param newAmount The new amount.
      */
     public void setAmount(double newAmount) {
-        assert newAmount >= 0.01 : "Attempted to set amount less than 0.01";
-        assert newAmount <= 9999999.00 : "Attempted to set amount greater than 9999999.00";
+        assert newAmount >= Commons.MIN_AMOUNT : "Attempted to set amount less than 0.01";
+        assert newAmount <= Commons.MAX_AMOUNT : "Attempted to set amount greater than 9999999.00";
         this.amount = newAmount;
     }
 
@@ -129,10 +129,10 @@ public abstract class FinancialEntry {
 
     private static void checkValidParameters(double amount, String description, LocalDate date)
             throws FinanceBuddyException {
-        if (amount < 0.01) {
+        if (amount < Commons.MIN_AMOUNT) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_SMALL);
         }
-        if (amount > 9999999.00) {
+        if (amount > Commons.MAX_AMOUNT) {
             throw new FinanceBuddyException(Commons.ERROR_MESSAGE_AMOUNT_TOO_LARGE);
         }
         if (description == null || description.isBlank()) {

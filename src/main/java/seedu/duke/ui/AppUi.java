@@ -55,7 +55,7 @@ public class AppUi {
      */
     public void displaySetBudgetMessage() {
         System.out.println(Commons.LINE_SEPARATOR);
-        System.out.println("Would you like to set a budget? (yes/no)");
+        System.out.println("Would you like to set a new budget? (yes/no)");
         System.out.println(Commons.LINE_SEPARATOR);
     }
 
@@ -76,6 +76,29 @@ public class AppUi {
         System.out.println("Your current monthly balance is: " + String.format("$ %.2f", amount));
         System.out.println(Commons.LINE_SEPARATOR);
     }
+
+    /**
+     * Displays number of entries deleted by using delete all
+     */
+    public void displayDeleteAllMessage(int totalEntries) {
+        System.out.println(Commons.LINE_SEPARATOR);
+        if (totalEntries > 1) {
+            System.out.println("Okay! A total of " + totalEntries + " entries have been deleted.");
+        } else {
+            System.out.println("Okay! 1 entry has been deleted.");
+        }
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+    /**
+     * Displays number of entries deleted by using delete all
+     */
+    public void displayEmptyListMessage() {
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("The list is already empty.");
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
+
 
     /**
      * Displays warning that budget has been exceeded

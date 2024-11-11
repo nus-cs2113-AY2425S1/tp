@@ -9,6 +9,10 @@ participant FinancialList
 User -> Logic: editCommand(commandArguments)
 activate Logic
 
+Logic -> Logic: processIndexToAmend(commandArguments)
+activate Logic
+return index
+
 Logic -> FinancialList: getEntry()
 activate FinancialList
 return entry
@@ -52,13 +56,11 @@ alt entry instanceof Expense
     EditEntryCommand -> FinancialList: addEntry(replacementEntry)
     activate FinancialList
     return
+    Logic -> Logic: updateExpenseBalance(entry, amount, date)
+    activate Logic
+    return
     deactivate Expense
     destroy Expense
-    note over Expense
-            Lifeline of Expense should be
-            terminated, but still continues
-            due to limitations of plantuml
-        endnote
 else
     Create Income
     EditEntryCommand -> Income: new(amount, description, date, category)
@@ -81,6 +83,7 @@ deactivate Income
 destroy Income
 deactivate EditEntryCommand
 destroy EditEntryCommand
+Logic --> User
 deactivate Logic
 
 @enduml

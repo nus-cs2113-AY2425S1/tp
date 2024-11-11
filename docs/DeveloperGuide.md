@@ -40,6 +40,9 @@ img
       - [Use Case: Edit an Expense](#use-case-edit-an-expense)
       - [Use Case: Delete an Expense](#use-case-delete-an-expense)
       - [Use Case: Add Income](#use-case-add-income)
+      - [Use Case: Set a Budget](#use-case-set-a-budget)
+      - [Use Case: Delete Multiple Transactions](#use-case-delete-multiple-transactions)
+      - [Use Case: View Transactions within a Specific Date Range](#use-case-view-transactions-within-a-specific-date-range)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
   - [Instructions for manual testing](#instructions-for-manual-testing)
@@ -72,12 +75,14 @@ The high-level overview of the program is shown in the diagram below as well.
 
 The Ui component, `AppUi` manages user interactions by displaying messages and receiving input. 
 
-The Parser component, comprising `DateParser` and `InputParser`, handles input parsing to interpret commands and dates entered by the user accurately
+The Parser component, comprising `DateParser` and `InputParser`, handles input parsing to interpret commands and dates 
+entered by the user accurately
 
 <ins>Implementation</ins>
 
 **Sequence Diagram**:
-This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and `DateParser` classes work together to parse and validate the user's expense input.
+This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and `DateParser` classes work together to 
+parse and validate the user's expense input.
 
 <img src="UML/UiParserSequence.png" alt="UiParserSequence" width="auto" height="auto">
 
@@ -85,21 +90,30 @@ This sequence diagram illustrates the flow of how the `AppUi`, `InputParser` and
 
 <ins>Overview</ins>
 
-The `AppUi` class in the Ui component facilitates user interactions, including displaying start up messages, errors, and capturing input from users.
+The `AppUi` class in the Ui component facilitates user interactions, including displaying start up messages, errors, 
+and capturing input from users.
 
 <ins>Class Structure</ins>
+
+The `AppUi` constructor initializes the class by creating a `Scanner` object to read user input from the console, 
+setting up the necessary components for user interaction.
 
 - **Attributes**:
   - `scanner`: `Scanner` — Reads user input from the console
 
 <ins>Methods</ins>
 
-- **AppUi()**: Constructor that initializes the `AppUi` instance and prepares the `Scanner` for reading user input.
+- **displayBudgetBalanceExceededMessage()**: Warns the user that the budget balance has been exceeded.
+- **displayBudgetBalanceMessage(double balance)**: Displays the current budget balance to the user.
+- **displayBudgetResetMessage()**: Notifies the user that the budget has been reset.
+- **displayBudgetSetMessage(double newBudget)**: Confirms that a new budget has been set to the specified value.
+- **displayDeleteAllMessage()**: Outputs a message confirming all entries have been deleted.
+- **displayEmptyListMessage()**: Notifies the user that the financial list is empty.
+- **displaySetBudgetMessage()**: Outputs a set budget message.
 - **displayWelcomeMessage()**: Outputs a startup message.
-- **displaySetBudgetMessage()**:  Outputs set budget message.
 - **getUserInput()**: Reads input from the user.
-- **showUnknownCommandMessage()**: Notifies the user of an unrecognized command.
 - **showErrorMessage(String message)**: Displays a specific error message.
+- **showUnknownCommandMessage()**: Notifies the user of an unrecognized command.
 
 <ins>Usage Example</ins>
 
@@ -117,29 +131,54 @@ ui.showUnknownCommandMessage();
 #### Parser Component
 <ins>Overview</ins>
 
-The Parser component includes `InputParser` and `DateParser`. `InputParser` processes user commands, while `DateParser` validates date string.
+The Parser component includes `InputParser` and `DateParser`, which helps the application process user input and dates. `InputParser` turns 
+user commands into a clear format and checks for valid arguments, while `DateParser` checks and converts date strings into the correct 
+format, using today's date if none is given. They help ensure that commands and dates are handled accurately and smoothly.
 
 <ins>Class Structure</ins>
 
-- **Attributes**:
+The `InputParser` class serves as a utility class for parsing user input into commands and arguments.
+
+The `DateParser` class serves as a utility class which provides static methods and attributes for parsing and validating date strings in 
+the `dd/MM/yyyy` format.
+
+**Attributes**:
+- **Input Parser**
+  - `COMMAND`: `String` — Constant key for storing the main command in parsed input.
+  - `ARGUMENT`: `String` — Constant key for storing unnamed arguments in parsed input.
+  - `VALID_ARGUMENTS`: `Set<String>` — A predefined set of valid argument keys (e.g., `/des`, `/a`, `/d`, etc.).
+- **Date Parser**
   - `formatter`: `DateTimeFormatter` — Defines a date format for parsing.
 
 <ins>Implementation Details</ins>
 
 **InputParser**
-- This method takes a raw input string, parses it, and returns a HashMap where keys represent the command and argument names, and values represent the argument contents.
-- 
+- The `InputParser` class processes user input by splitting it into a command and arguments, storing them in a `HashMap`. It validates 
+  argument keys against a predefined set and ensures each key has an associated value. Helper methods manage appending tokens to argument 
+  values, detecting argument keys, and handling errors for invalid or missing inputs. This ensures user commands are properly structured 
+  and ready for execution.
 
-<ins>Methods</ins>
+<ins>Methods</ins>:
 
-- **InputParser.parseCommands(String input)**: Breaks down commands and arguments.
-- **DateParser.parse(String dateStr)**: Validates and converts date strings.
+**Input Parser**:
+- **parseCommands(String input)**: Parses the user's input string into a command and its arguments, returning a structured `HashMap` format for execution.
+- **processArguments(String[] tokens, HashMap<String, String> commandArguments)**: Processes and validates arguments from the input tokens, populating the `commandArguments` map. Throws a `FinanceBuddyException` for invalid or missing arguments.
+- **validateArgument(String token)**: Validates an argument token to ensure it is one of the predefined valid arguments. Throws a `FinanceBuddyException` if the argument is invalid.
+- **handleNewArgument(HashMap<String, String> commandArguments, String key, StringBuilder value)**: Finalizes an argument-value pair and adds it to the map. Ensures no named argument is left without a value.
+- **appendValue(StringBuilder value, String token)**: Appends a token to the current argument value being built, ensuring proper spacing.
+- **isArgument(String token)**: Determines if a given token is an argument key (e.g., starts with "/").
+
+**Date Parser**:
+- **parse(String dateStr)**: Parses a date string in the format `dd/MM/yyyy` into a `LocalDate` object.
+  - If the string is null, the current date is returned.
+  - Throws a `FinanceBuddyException` if the string is not in the expected format or if the date is invalid.
+
 
 <ins>Usage Example</ins>
 
 ``` java
-HashMap<String, String> commandArgs = 
-        InputParser.parseCommands("add /date 12/10/2024 /amount 500");
+HashMap<String, String> commandArgs = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
+        
 LocalDate parsedDate = DateParser.parse("12/10/2024");
 ```
 
@@ -157,14 +196,17 @@ It interacts with `FinancialList`, `AppUi` and `Storage`, and leverages command 
 
 <ins>Class Structure</ins>
 
+The `Logic` constructor initializes the class with key components: a `FinancialList` to manage financial entries, a `Storage` object for 
+data persistence, an `AppUi` for user interaction, and a `BudgetLogic` to handle budget-related operations. It ensures these components 
+are to facilitate CRUD operations and manage interactions with users and stored data.
+
 - **Attributes**:
   - `financialList`: `FinancialList` — Stores financial entries.
-  - `ui`: `AppUi` - Manages user interactions.
-  - `storage`: `Storage` - Handles data persistence
-
-<ins>Class Structure</ins>
-
-The Logic constructor initializes key components (FinancialList, AppUi, and Storage) to facilitate CRUD operations and manage interactions with users and stored data. 
+  - `ui`: `AppUi` — Manages user interactions.
+  - `storage`: `Storage` — Handles data persistence.
+  - `budgetLogic`: `BudgetLogic` — Handles budget-related operations and calculations.
+  - `isSameCategory`: `boolean` — Indicates if the category of two entries is the same.
+  - `amount`: `double` — Represents the amount for financial operations.
 
 <ins>Implementation</ins>
 
@@ -175,30 +217,32 @@ This sequence diagram illustrates how the `Logic` class works with other classes
 
 <ins>Methods</ins>
 
-- **Logic(FinancialList financialList, Storage storage, AppUi ui,  BudgetLogic budgetLogic)**: Constructor that initializes the `Logic` class with necessary components like financial list, storage, UI, and budget logic.
 - **addExpense(double amount, String description, LocalDate date, Expense.Category category)**: Adds a new `Expense` to `FinancialList` specified or default category.
 - **addIncome(double amount, String description, LocalDate date, Income.Category category)**: Adds a new `Income` to `FinancialList` specified or default category.
-- **parseAmount(String amountStr)**: Parses and validates the `amountStr` as a double, throwing a `FinanceBuddyException` for invalid values.
-- **parseExpenseCategoryOrDefault(String categoryStr)**: Parses the expense category from `categoryStr`, or returns a default category if `categoryStr` is null.
-- **parseIncomeCategoryOrDefault(String categoryStr)**: Parses the income category from `categoryStr`, or returns a default category if `categoryStr` is null.
-- **editEntry(int index, double amount, String description, String date, Enum<?> category)**: Updates an entry's amount, description, date and category.
-- **parseIndex(String indexStr)**: Parses and validates an index from `indexStr`, throwing a `FinanceBuddyException` if the index is invalid.
-- **parseAmountOrDefault(String amountStr, double defaultAmount)**: Parses `amountStr` as a double, or returns `defaultAmount` if `amountStr` is null.
-- **parseDateOrDefault(String dateStr, LocalDate defaultDate)**: Parses `dateStr` as a date, or returns `defaultDate` if `dateStr` is null.
-- **updateExpenseBalance(Expense entry, double newAmount, String newDate)**: Updates the balance when an expense entry is edited, based on the old and new amounts and dates of the entry.
-- **getCategoryFromInput(HashMap<String, String> commandArguments, FinancialEntry entry)**: Retrieves or parses the category based on command input in `commandArguments` and the type of `entry` (income or expense). 
 - **deleteEntry(int index)**: Removes an entry at a given index.
+- **deleteRangeByIndex(int startIndex, int endIndex)**: Deletes multiple entries from the `FinancialList` within the specified range, inclusive.
+- **editEntry(int index, double amount, String description, String date, Enum<?> category)**: Updates an entry's amount, description, date and category.
+- **getCategoryFromInput(HashMap<String, String> commandArguments, FinancialEntry entry)**: Retrieves or parses the category based on command input in `commandArguments` and the type of `entry` (income or expense).
+- **handleDeleteAll()**: Deletes all entries in the `FinancialList` and resets balances as necessary.
 - **listHelper(HashMap<String, String> commandArguments)**: Lists financial entries filtered by type (e.g., expenses, incomes) and date range based on command arguments.
-- **printHelpMenu()**: Executes the help command to display the available commands and their usage to the user.
 - **matchCommand(String command, HashMap<String, String> commandArguments)**: Matches a user command to the corresponding action, executes it, and determines if the application should continue running.
-- **parseExpenseCategory(String categoryStr)**: Parses and returns the `Expense.Category` from a string, defaulting to `UNCATEGORIZED` if invalid.
-- **parseIncomeCategory(String categoryStr)**: Parses and returns the `Income.Category` from a string, defaulting to `UNCATEGORIZED` if invalid.
+- **parseAmount(String amountStr)**: Parses and validates the `amountStr` as a double, throwing a `FinanceBuddyException` for invalid values.
+- **parseAmountOrDefault(String amountStr, double defaultAmount)**: Parses `amountStr` as a double, or returns `defaultAmount` if `amountStr` is null.
 - **parseCategory(String categoryStr, FinancialEntry entry)**: Determines the category type (Expense or Income) of a financial entry based on the category string and entry type.
+- **parseDateOrDefault(String dateStr, LocalDate defaultDate)**: Parses `dateStr` as a date, or returns `defaultDate` if `dateStr` is null.
+- **parseExpenseCategory(String categoryStr)**: Parses and returns the `Expense.Category` from a string, defaulting to `UNCATEGORIZED` if invalid.
+- **parseExpenseCategoryOrDefault(String categoryStr)**: Parses the expense category from `categoryStr`, or returns a default category if `categoryStr` is null.
+- **parseIncomeCategory(String categoryStr)**: Parses and returns the `Income.Category` from a string, defaulting to `UNCATEGORIZED` if invalid.
+- **parseIncomeCategoryOrDefault(String categoryStr)**: Parses the income category from `categoryStr`, or returns a default category if `categoryStr` is null.
+- **parseIndex(String indexStr)**: Parses and validates an index from `indexStr`, throwing a `FinanceBuddyException` if the index is invalid.
+- **printHelpMenu()**: Executes the help command to display the available commands and their usage to the user.
+- **setBudget(double newBudget)**: Sets the user's budget to the specified value.
+- **updateExpenseBalance(Expense entry, double newAmount, String newDate)**: Updates the balance when an expense entry is edited, based on the old and new amounts and dates of the entry.
 
 <ins>Usage Example</ins>
 
 ``` java
-FinancialList financialList = new FinancialList();
+FinancialList financialList = new FinancialList();  
 AppUi ui = new AppUi();
 Storage storage = new Storage();
 
@@ -366,13 +410,13 @@ System.out.println(expense.toString());
 <ins>Overview</ins>
 
 The abstract class `Command` has been implemented to introduce an additional layer
-of abstraction between the `CommandHandler` class and command execution,
+of abstraction between the `Logic` class and command execution,
 allowing for separation of handling command keywords and executing commands.
 
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
-<img src="UML/CommandInheritance.png" alt="Command Inheritance Diagram" width="auto" height="200">
+<img src="UML/Command.png" alt="Command Inheritance Diagram" width="auto" height="200">
 
 <ins>Constructor</ins>
 
@@ -398,10 +442,11 @@ The `AddEntryCommand` class has the following attributes:
 - `amount`: `double` An object representing the amount of money in the transaction.
 - `description`: `String` An object representing the description of the transaction.
 - `date`: `LocalDate` An object representing the date on which the transaction occurred.
-- `category`: `Enum<?>` Specifies the category of the entry for income or expense.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
-from the `AddEntryCommand` class and have no additional attributes.
+from the `AddEntryCommand` class and have an additional attribute:
+- `category`: `Enum<?>` Specifies the category of the entry. Categories available depend on
+whether the entry is an `Expense` or `Income`.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method:
 - `execute` Adds `Expense` or `Income` to the `financialList`
@@ -409,12 +454,12 @@ The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method
 <ins>Implementation</ins>
 
 The user invokes the command to add entries by entering the following commands:
-- `expense [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
-- `income [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
+- `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
+- `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
 
-This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
+This is parsed by `InputParser`, returning a HashMap `commandArguments`, containing the
 following arguments:
-- `argument`: Represents the description of the entry. The value can be left blank.
+- `argument`: Represents the description of the entry. This is a compulsory argument.
 - `/a`: Represents the amount of money in the transaction. This is a compulsory argument.
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
@@ -477,18 +522,20 @@ The `EditEntryCommand` class has the following method:
 <ins>Implementation</ins>
 
 The user invokes the command to edit entries by entering the following command:
-`edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
+`edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
 - `argument` Represents the index of the entry in the full financial list.
-  This is a compulsory argument.
+  If no index is provided, the latest entry is edited.
 - `/des` Represents the description of the transaction. This is an optional argument.
 - `/a` Represents the amount of money used in the transaction. This is an optional argument.
 - `/d` Represents the date on which the transaction occurred. This is an optional argument.
 - `/c` Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
 
-Below is a simplified sequence diagram of the user editing an entry.
+Below is a simplified sequence diagram of the user editing an entry. Note that the lifeline
+of `Expense` should terminate with the cross, but due to the limitations of plantUML, the
+lifeline is shown to continue.
 
 <img src="UML/editEntryCommandSequence.png" alt="Edit Entry Sequence Diagram" width="auto" height="500">
 
@@ -674,12 +721,19 @@ and stores and retrieves budget information to maintain data consistency across 
 
 <ins>Class Structure</ins>
 
+
  - **Attributes**:
+   - `logger`: `Logger` instance for logging information and errors, used for debugging and tracking purposes.
    - `FINANCIAL_LIST_FILE_PATH`: `String` constant storing the path to the file where financial transaction data is saved. 
-      Default path: `"data/FinancialList.txt"`.
-   - `BUDGET_FILE_PATH`: `String` constant storing the path to the file where budget data is saved. 
-      Default path: `"data/Budget.txt"`.
-   - `logger`: `Log` instance for logging information and errors for debugging and tracking purposes.
+   - `BUDGET_FILE_PATH`: `String` constant storing the path to the budget file where budget data is saved.
+   - `storageFileNotFoundMsg`: `String` message indicating that the storage file was not found. 
+  Used to inform users or logs of missing files.
+   - `budgetFileNotFoundMsg`: `String` message indicating that the budget file was not found. 
+    Notifies the user if budget records are missing.
+   - `loadedTransactionsMsg`: `String` message indicating that transactions were successfully loaded from the file.
+   - `failedLoadingBudgetMsg`: `String` message indicating that an error occurred while loading the budget.
+   - `loadedBudgetMsg`: `String` message confirming that the budget data was successfully loaded from the file.
+   - `invalidLines`: `List<String>` containing lines from the storage file that were deemed invalid during processing, typically due to format errors or missing data.
 
 <ins>Implementation Details</ins>
 
@@ -699,6 +753,9 @@ The `Storage` class contains functions for retrieving, updating, and loading dat
   For an `Expense` entry with a description "Transport," amount "5.00," date "25/10/2024," and category `TRANSPORT`:
   - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/2024) [TRANSPORT]`
   - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/2024 ¦¦ TRANSPORT`
+  
+  For a `budget` object with an amount of "10.00" which was set at "11/11/2024":
+  - `toStorageString()` method returns: `10.00\n2024-11-11`
 
 The figure below show how the program load FinantialList from the files:
 <img src="UML/loadTransactionFromStorage.png" alt="Storage Load FinantialList" width="auto" height="500">
@@ -707,24 +764,73 @@ The figure below show how the program load Budget from the files:
 
 <ins>Methods</ins>
 
- - **getStorageFile()**: 
-  Ensures the financial transaction storage file and its parent directories exist. If not, they are created. Returns the file handle to the storage file.
- - **getBudgetFile()**: 
-  Ensures the budget storage file and its parent directories exist. If not, they are created. Returns the file handle to the budget file.
- - **update(FinancialList theList, BudgetLogic budgetLogic)**: 
-  Writes the current entries in `FinancialList` to the storage file and updates the budget data in `BudgetLogic` to the budget file. Logs the number of entries saved or any encountered exceptions.
- - **checkParameters(double amount, String description, DateTimeFormatter formatter, LocalDate date)**: 
-  Validates financial entry parameters, ensuring they are non-negative, within limits, and the date is not in the future. Throws `FinanceBuddyException` for invalid values.
- - **parseExpense(String[] tokens)**: 
-  Parses an array of strings representing an `Expense` entry. Throws exceptions if any values (amount, date, category) are invalid, which are logged as warnings.
- - **parseIncome(String[] tokens)**: 
-  Parses an array of strings representing an `Income` entry. Similar to `parseExpense`, handles exceptions and logs warnings for invalid values.
- - **loadBudgetFromFile(FinancialList theList, BudgetLogic budgetLogic)**: 
-  Reads budget data from the budget file, validates it, and updates the `BudgetLogic` object. If any values are invalid, defaults are set, and warnings are logged.
- - **loadTransactionsFromFile()**: 
-  Loads `Expense` and `Income` entries from the financial transaction storage file into a `FinancialList`. Logs warnings for invalid or unrecognized formats and the count of successfully loaded entries.
- - **loadFromFile(BudgetLogic budgetLogic)**: 
-  High-level method that loads both transactions and budget data, returning a populated `FinancialList`. Catches exceptions to ensure a new `FinancialList` is returned even if loading fails.
+<ins>Methods</ins>
+
+ - **getStorageFile()**:  
+   Ensures the existence of the financial transaction storage file (`data/FinancialList.txt`) along with any necessary parent directories. 
+   If these do not exist, they are created. 
+   Returns a file handle to the storage file, allowing for further operations on it.
+
+ - **getBudgetFile()**:  
+   Ensures the existence of the budget file (`data/Budget.txt`) and its parent directories. 
+   Creates them if they do not exist. 
+   Returns a file handle to the budget file, enabling storage and retrieval of budget data.
+
+ - **getStorageFileWithoutMsg()**:  
+   Retrieves the storage file without displaying any creation or retrieval messages. 
+   Ensures silent handling of the storage file.
+
+ - **getBudgetFileWithoutMsg()**:  
+   Retrieves the budget file without showing messages, providing a quiet access method to the budget file.
+
+ - **update(FinancialList, BudgetLogic)**:  
+   Updates the storage files to include new entries from a given `FinancialList` and `Budget`. 
+   This ensures all financial records and budget adjustments are saved in the storage files for future retrieval.
+
+ - **parseExpense(String[])**:  
+   Parses a string array to create an `Expense` object from file.
+  The array should contain the required fields for an expense entry, which are extracted and assigned to the properties of the `Expense` object.
+
+ - **parseIncome(String[])**:  
+   Parses a string array to create an `Income` object. 
+   Each string in the array represents a component of the income data, used to populate the corresponding fields in the `Income` object.
+
+ - **loadFromFile(BudgetLogic)**:  
+   Loads financial data from the storage file into a `FinancialList` and updates the `Budget` object. 
+   This operation helps initialize the current state of financial records and budgeting information from saved data.
+
+ - **loadTransactionsFromFile()**:  
+   Loads transactions, including expenses and incomes, from the storage file into a `FinancialList`. 
+   It will call `parseExpense()` and `parseIncome` to parse each entry, ensuring that historical transaction data is accurately reflected in the application.
+
+ - **loadBudgetFromFile(FinancialList, BudgetLogic)**:  
+   Loads budget information from the file and applies it to the given `FinancialList` and `BudgetLogic` objects. 
+   This method re-establishes budget constraints and goals based on previous records.
+
+ - **checkParameters(double, String, DateTimeFormatter, LocalDate)**:  
+   Validates the parameters provided for creating financial entries. 
+   Checks that the amount (double), category (String), date formatter, and date (LocalDate) meet the required formats and constraints, ensuring data integrity.
+
+ - **getInvalidLines()**:  
+   Retrieves a list of lines from the storage file that were deemed invalid during processing. 
+   These lines might have incorrect formatting or missing fields, and are flagged for review.
+
+ - **clearInvalidLines()**:  
+   Clears all entries from the list of invalid lines, resetting the invalid entries log. This is typically done after errors have been addressed or reviewed.
+
+ - **printInvalidLines()**:  
+   Prints all lines stored in the invalid lines list to the console or log, allowing for quick review and troubleshooting of data issues.
+
+ - **printLoadingResult()**:  
+   Displays the result of the data loading operation, providing feedback on the success or failure of loading financial records from storage.
+
+ - **deleteBudgetFromFile()**:  
+   Permanently deletes the budget file from the file system. 
+   This is a non-reversible operation, intended for cases where budget data is no longer required.
+
+ - **deleteFinancialListFromFile()**:  
+   Permanently removes the financial list file from the storage. 
+   This clears all records of transactions stored in the file, effectively resetting financial history.
 
 <ins>Usage Example</ins>
 
@@ -769,6 +875,11 @@ has been greatly simplified to simply show the association between these classes
 
 <img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
 
+The constructor of the `Budget` class
+- Sets `budgetAmount` and `balance` to 0
+- Sets `isBudgetSet` to false
+- Sets `budgetSetDate` to null
+
 <ins>Methods</ins>
 
 The `Budget` class has the following methods:
@@ -777,22 +888,42 @@ The `Budget` class has the following methods:
   - Sets the value of `budgetAmount` and `balance` to the provided value
   - Sets `isBudgetSet` to true
   - Sets `budgetSetDate` to the current date of the machine
+- `resetBudgetAmount()` Similar to the constructor,
+  - Sets `budgetAmount` and `balance` to 0
+  - Sets `isBudgetSet` to false
+  - Sets `budgetSetDate` to null
+- `getBudgetAmountString()`: `String` Returns a `String` format of `budgetAmount`
 - `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
 - `getBalance()`: `double` Returns the value of `balance`
-- `updateBalance(double)` Sets the value of `balance` to the provided value
+- `updateBalance(double)` Sets the value of `balance` to the provided value, rounded to 2 decimal places
+- `getBalanceString()`: `String` Returns a `String` format of `balance`
+- `setBudgetSetDate(LocalDate)` Sets `budgetSetDate` to the date provided,
+specifically for `Storage` class
+- `getBudgetSetDate()`: `LocalDate` Returns `budgetSetDate`
 - `toStorageString`: `String` Converts the budget attributes to a formatted `String`
   specifically for the `Storage` class
 
 The `BudgetLogic` class has the following methods:
-- `getBudget()`: `Budget` Returns `budget`
 - `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
-- `setBudget(FinancialList)` Displays different messages depending on whether a budget has been set,
+- `getBudget()`: `Budget` Returns `budget`
+- `promptUserToSetBudget(FinancialList)` Decides whether to prompt user to set a new budget
+  - If no budget has been set, or budget was set in a previous month, user is prompted to set a new budget
+  - If budget was set in a previous month and user does not wish to set a new budget, `budgetAmount` is retained
 - `handleSetBudget(FinancialList)`
   - Handles the user input of whether to set a budget, and of the budget amount
   - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
   - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
+- `shouldSetBudget()`: `boolean`
+  - Constantly prompts user for a "yes" or "no" input
+  - Returns `true` if "yes" is inputted, `false` if "no" is inputted
+- `getValidBudgetAmountFromUser()`: `double`
+  - Constantly prompts user for a budget amount
+  - Returns the value inputted
+- `isValidBudgetAmount(double)`: `boolean` Returns `true` if the amount is within 0.01 to 9999999.00,
+otherwise return `false`
 - `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
-- `getBudgetAndBalance()` Displays budget amount and remaining balance
+- `printBudgetAndBalance()` Displays budget amount and remaining balance
+- `printBalanceAmount()` Displays the remaining balance if budget has been set
 - `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
 - `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
 same year and month as the current date
@@ -806,25 +937,21 @@ then scans through the whole `FinancialList` and deducts the remaining balance a
 
 <ins>Implementation Details</ins>
 
-The constructor of the `Budget` class
-- Sets `budgetAmount` and `balance` to 0
-- Sets `isBudgetSet` to false
-- Sets `budgetSetDate` to null
-
 The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 
-The `setBudget()` method is invoked by the `Logic` class or `FinanceBuddy` main class.
+The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
 The sequence diagram shows an example of the method being called by the `Logic` class.
 
-<img src="UML/setBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+<img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
-The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class.
+The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class,
+and by the `Logic` class.
 
 <img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
-The `changeBalanceFromExpense()` method is shown below.
+The `changeBalanceFromExpense()` method is called by the `Logic` class.
 
-<img src="UML/changeExpenseFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+<img src="UML/changeBalanceFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
 <ins>Design Considerations</ins>
 
@@ -961,6 +1088,76 @@ faster than a typical mouse/GUI driven app
     - 3a1. FinanceBuddy shows an error message.
     - 3a2. FinanceBuddy prompts the user to re-enter the information.
     - **Use case resumes at step 2.**
+
+#### Use Case: Set a Budget
+
+**MSS**
+
+1. User requests to set a new budget.
+2. FinanceBuddy prompts the user to enter a budget amount.
+3. User enters the budget amount.
+4. FinanceBuddy sets and displays the budget, updating the remaining balance accordingly.
+
+**Use case ends.**
+
+**Extensions**
+
+- 2a. The user has already set a budget.
+    - 2a1. FinanceBuddy prompts for confirmation to overwrite the existing budget.
+    - 2a2. User confirms to overwrite the existing budget.
+    - **Use case resumes at step 3.**
+
+- 3a. The amount entered by the user is invalid (e.g., a negative number or non-numeric).
+    - 3a1. FinanceBuddy displays an error message and prompts the user to re-enter a valid amount.
+    - **Use case resumes at step 2.**
+
+#### Use Case: Delete Multiple Transactions
+
+**MSS**
+
+1. User requests to delete multiple transactions by specifying a start index and an end index.
+
+2. FinanceBuddy deletes the specified range of transactions and updates the transaction list.
+
+**Use case ends.**
+
+**Extensions**
+
+- 1a. User omits the start and end index.
+    - 1a1. FinanceBuddy deletes the most recent transaction by default.
+    - **Use case ends.**
+
+- 1b. User enters an invalid start or end index.
+    - 2a1. FinanceBuddy shows an error message indicating the invalid index.
+    - **Use case resumes at step 1.**
+
+- 1c. User types `delete all`.
+    - 1c1. FinanceBuddy delete all entries.
+    - **Use case ends.**
+
+#### Use Case: View Transactions within a Specific Date Range
+
+**MSS**
+
+1. User requests to view a list of transactions within a specific date range by specifying a start date and an end date.
+2. FinanceBuddy displays the list of transactions that fall within the specified date range, including each transaction’s details.
+3. FinanceBuddy additionally displays summary information, such as the category with the highest income and expenditure, the current monthly budget, and balance.
+
+**Use case ends.**
+
+**Extensions**
+
+- 1a. User omits either the start date or end date.
+    - 1a1. FinanceBuddy lists transactions up to the specified end date (if only start date is omitted) or from the specified start date onward (if only end date is omitted).
+    - **Use case resumes at step 2.**
+
+- 1b. User provides an invalid date format.
+    - 1b1. FinanceBuddy displays an error message indicating the invalid date format and prompts the user to re-enter a valid date.
+    - **Use case resumes at step 1.**
+
+- 2a. No transactions are found within the specified date range.
+    - 2a1. FinanceBuddy displays a message indicating that no transactions were found in the specified range.
+    - **Use case ends.** 
 
 ## Non-Functional Requirements
 

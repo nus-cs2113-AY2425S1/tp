@@ -59,27 +59,7 @@ public class BudgetLogic {
      */
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
-            final double amount = getValidBudgetAmountFromUser();
-            handleSetBudget(financialList, amount);
-            return;
-        }
-        LocalDate budgetSetDate = budget.getBudgetSetDate();
-        if (!isCurrentMonth(budgetSetDate)) {
-            System.out.println("Your budget was set in a previous month.");
-            final double amount = getValidBudgetAmountFromUser();
-            handleSetBudget(financialList, amount);
-            return;
-        }
-        recalculateBalance(financialList);
-    }
-
-    /**
-     * Sets the budget if it has not been set. If the budget is already set,
-     * prompts the user to confirm whether they want to modify it.
-     */
-    public void setBudget(FinancialList financialList) throws FinanceBuddyException {
-        if (!budget.isBudgetSet()) {
-            logger.log(LogLevels.INFO, "Budget has not been set.");
+            logger.log(LogLevels.INFO, "Prompting user to set budget.");
             ui.displaySetBudgetMessage();
 
             if (!shouldSetBudget()) {
@@ -89,9 +69,29 @@ public class BudgetLogic {
                 return;
             }
 
-            double budgetAmount = getValidBudgetAmountFromUser();
+            final double amount = getValidBudgetAmountFromUser();
+            handleSetBudget(financialList, amount);
+            recalculateBalance(financialList);
+            return;
+        }
 
-            handleSetBudget(financialList, budgetAmount);
+        LocalDate budgetSetDate = budget.getBudgetSetDate();
+        if (!isCurrentMonth(budgetSetDate)) {
+            logger.log(LogLevels.INFO, "Prompting user to set budget.");
+            System.out.println("Your budget of " + budget.getBudgetAmountString() + " was set in a previous month.");
+            ui.displaySetBudgetMessage();
+
+            if (!shouldSetBudget()) {
+                Commons.printSingleLineWithBars("Using previous budget of " + budget.getBudgetAmountString() + ".");
+                logger.log(LogLevels.INFO, "Using previous budget.");
+                recalculateBalance(financialList);
+                budget.setBudgetSetDate(LocalDate.now());
+                return;
+            }
+
+            final double amount = getValidBudgetAmountFromUser();
+            handleSetBudget(financialList, amount);
+            recalculateBalance(financialList);
         }
     }
 
@@ -102,10 +102,10 @@ public class BudgetLogic {
     public void handleSetBudget(FinancialList financialList, double amount) throws FinanceBuddyException {
         budget.setBudgetAmount(amount);
 
+        recalculateBalance(financialList);
+
         ui.displayBudgetSetMessage(budget.getBudgetAmount(), budget.getBalance());
         logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
-
-        recalculateBalance(financialList);
     }
 
     /**
@@ -157,9 +157,7 @@ public class BudgetLogic {
         if (amount >= 0.01 && amount <= 9999999.00) {
             return true;
         } else {
-            Commons.printSingleLineWithBars(
-                    "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount.");
-            logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
+            logger.log(LogLevels.WARNING, "Amount less than $0.01 and more than $9999999.00 entered.");
             return false;
         }
     }
@@ -191,9 +189,13 @@ public class BudgetLogic {
     }
 
     /**
-     * Prints the current balance amount to the user interface.
+     * Prints the current balance amount to the user interface if budget is set.
+     * Does nothing if budget has not been set.
      */
     public void printBalanceAmount() {
+        if (!budget.isBudgetSet()) {
+            return;
+        }
         ui.displayBudgetBalanceMessage(budget.getBalance());
     }
 
