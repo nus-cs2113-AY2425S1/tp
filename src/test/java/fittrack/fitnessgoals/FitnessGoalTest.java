@@ -14,8 +14,6 @@ import java.io.PrintStream;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FitnessGoalTest {
 
@@ -44,7 +42,8 @@ public class FitnessGoalTest {
         addGoal.addGoal(testUser); // Adding the goal to the user
 
         // Updated expected output, including the deadline
-        String expectedOutput = "Goal added: " + goalDescription + " with deadline: " + testDeadline.toString() + System.lineSeparator();
+        String expectedOutput = "Goal added: " + goalDescription + " with deadline: "
+            + testDeadline.toString() + System.lineSeparator();
 
         // Compare the expected and actual output
         assertEquals(expectedOutput.trim(), outContent.toString().trim());
