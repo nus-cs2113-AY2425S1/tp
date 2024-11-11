@@ -31,8 +31,24 @@ the participants and logistics of such events.
 
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest version of `EventManagerCLI` from [here](https://github.com/AY2425S1-CS2113-W13-3/tp/releases).
-3. Open a new terminal in the folder that you put the JAR file in, and run the program with the command ```java -jar manager.jar```.
+3. Open a new terminal in the folder that you put the JAR file in, and run the program with the following commands:
+
+For Windows:
+
+```
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8 
+chcp 65001 
+java "-Dfile.encoding=UTF-8" -jar manager.jar
+```
+
+For macOS and Linux:
+
+```
+java "-Dfile.encoding=UTF-8" -jar manager.jar
+```
+
 The following message would be printed:
+
 ```
 Welcome to EventManagerCLI.
 Enter a command:
@@ -161,7 +177,7 @@ Format:
 Remarks:
 
 * If there is already an `Event` with the name `NEW_EVENT_NAME` in the event list, or an `Item` with the name `NEW_ITEM_NAME` in the specified event, an indexed suffix is added to differentiate the events.
-  * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop (1)`.
+  * e.g. given that an `Event` named `Wood workshop` is already present in the list, editing another `Event` to have the name `Wood workshop` would result in it being named `Wood workshop(1)`.
 * `TIME` cannot be edited to a date-time in the past.
 
 Examples:
@@ -241,7 +257,7 @@ Filters out events from the event list based on name, date-time or priority leve
 Format: `filter -e/-d/-t/-x/-u DESCRIPTION`
 
 * `-e/-d/-t/-x/-u` are the flags for name, date, time, date-time and priority level respectively.
-* `DESCRIPTION` is case-insensitive.
+* `DESCRIPTION` is only case-insensitive for priority level.
 
 Examples:
 * `filter -e workshop` will output all events with `workshop` in their event name.
@@ -335,15 +351,15 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 
 * List possible commands: `menu`
 * List all events: `list`
-* Add event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
-* Add participant to an event: `add -p PARTICIPANT -email EMAIL -e EVENT`
-* Add item to an event: `add -m ITEM -e EVENT`
-* Remove event: `remove -e EVENT`
-* Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
-* Remove item from an event: `remove -m ITEM -e EVENT`
-* Edit event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
-* Edit participant of an event: `edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT`
-* Edit item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
+* Add an event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
+* Add a participant to an event: `add -p PARTICIPANT -email EMAIL -e EVENT`
+* Add an item to an event: `add -m ITEM -e EVENT`
+* Remove an event: `remove -e EVENT`
+* Remove a participant from an event: `remove -p PARTICIPANT -e EVENT`
+* Remove an item from an event: `remove -m ITEM -e EVENT`
+* Edit an event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
+* Edit a participant of an event: `edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT`
+* Edit an item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
 * View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`

@@ -790,7 +790,22 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    1. Download the `.jar` file and copy it to an empty folder.  
    
-   2. Open a new terminal window in the folder the `.jar` file is in, and enter the command `java -jar manager.jar`.
+   2. Open a new terminal window in the folder the `.jar` file is in, and enter the following commands, depending on operating system:
+
+      For Windows:
+
+      ```
+      [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 
+      chcp 65001 
+      java "-Dfile.encoding=UTF-8" -jar manager.jar
+      ```
+
+      For macOS and Linux:
+
+      ```
+      java "-Dfile.encoding=UTF-8" -jar manager.jar
+      ```
+      
       Expected: The terminal will print a welcome message and prompt for user input.
 
 ### Adding an event
