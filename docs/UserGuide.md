@@ -133,7 +133,7 @@ Format:
 
 Example:
 
-![add-category](userguidepictures/add-category.png)
+![delete-category](userguidepictures/delete-category.png)
 
 ### Tag an Expense to a Category: tag-expense
 Assign or change the category of an existing expense.
@@ -196,8 +196,8 @@ Example output:
 
 ![view-expenses](userguidepictures/view-expenses.png)
 
-### View All Expenses: view-expenses
-Displays all categories.
+### View All Categories: view-category
+Displays all categories, without expenses and their budget limit.
 
 Format:
 `view-category`
@@ -207,7 +207,7 @@ Format:
 
 Example output:
 
-![view-expenses](userguidepictures/view-expenses.png)
+![view-category](userguidepictures/view-category.png)
 
 ### View Budget for Each Category: view-budget
 View the total expenses for each category and how much remains before the budget limit is reached.
@@ -265,9 +265,11 @@ For example, if you enter an amount of 5.678, it will be saved as 5.68.
 ## Command Summary
 - Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
 - Delete expense `delete-expense e/INDEX`
-- Add category `add-category CATEGORY`
+- Add category `add-category c/CATEGORY`
+- Delete category `delete-category c/CATEGORY`
 - Tag expense to category `tag-expense e/INDEX c/CATEGORY`
 - View expenses `view-expenses`
+- View categories `view-category`
 - Set budget `set-budget c/CATEGORY l/LIMIT`
 - View budget `view-budget`
 - Exit `bye`
