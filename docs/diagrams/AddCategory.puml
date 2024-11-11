@@ -65,6 +65,7 @@ else !(categoryName == null) && !(categoryName.isEmpty())
     end
 
     opt !(name == formattedCategoryName)
+
         CategoryManager -> Category : new Category(formattedCategoryName)
         activate Category
         Category --> CategoryManager : return new Category instance
@@ -89,4 +90,5 @@ Parser --> SpendSwift : return false
 deactivate Parser
 SpendSwift --> User : return
 deactivate SpendSwift
+
 @enduml

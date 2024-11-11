@@ -1,54 +1,41 @@
 @startuml
-
 actor User
-participant Duke
-participant ExpenseTracker
-participant Expense
+participant SpendSwift
+participant Parser
+participant ExpenseManager
+participant TrackerData
+participant SuccessMessage
 participant Category
 
-User -> Duke : input("view-expenses")
-activate Duke
+User -> SpendSwift : input("view-expenses")
+SpendSwift -> Parser : parseCommand(input, trackerData)
 
-Duke -> ExpenseTracker : viewExpensesByCategory()
-activate ExpenseTracker
+activate Parser
+Parser -> ExpenseManager : viewExpensesByCategory(trackerData)
 
-alt No Expenses
-    ExpenseTracker -> User : Print "No expenses to display."
-else Expenses Exist
-    ExpenseTracker -> ExpenseTracker : Initialize expensesByCategory Map
+activate ExpenseManager
+ExpenseManager -> TrackerData : getExpenses()
+TrackerData --> ExpenseManager : Return list of expenses
 
-    loop Populate Expenses By Category
-        ExpenseTracker -> Expense : Get category for each expense
-        activate Expense
-        Expense --> ExpenseTracker : Return category
-        deactivate Expense
+ExpenseManager -> TrackerData : getCategories()
+TrackerData --> ExpenseManager : Return list of categories
 
-        alt Category Exists
-            ExpenseTracker -> ExpenseTracker : Add expense to existing category list
-        else New Category
-            ExpenseTracker -> ExpenseTracker : Create new category list and add expense
-        end
+alt No Expenses or Categories
+    ExpenseManager -> SuccessMessage : printNoExpense()
+else Expenses exist
+    ExpenseManager -> SuccessMessage : printExpensesByCategory(expenses, categories)
+
+    activate SuccessMessage
+    SuccessMessage -> SuccessMessage : Group expenses by category
+    SuccessMessage -> SuccessMessage : Iterate through categories
+    alt Category has expenses
+        SuccessMessage -> SuccessMessage : Print expenses for category
+    else Category has no expenses
+        SuccessMessage -> SuccessMessage : Print "No expense" for category
     end
-
-    loop Print Grouped Expenses by Category
-        ExpenseTracker -> Category : Get category name
-        activate Category
-        Category --> ExpenseTracker : Return category name
-        deactivate Category
-
-        ExpenseTracker -> User : Print "Category: <Category>"
-
-        loop Print Each Expense
-            ExpenseTracker -> Expense : Get expense details
-            activate Expense
-            Expense --> ExpenseTracker : Return formatted expense details
-            deactivate Expense
-
-            ExpenseTracker -> User : Print formatted expense details
-        end
-    end
+    deactivate SuccessMessage
 end
-deactivate ExpenseTracker
-deactivate Duke
+deactivate ExpenseManager
+deactivate Parser
 
 @enduml
