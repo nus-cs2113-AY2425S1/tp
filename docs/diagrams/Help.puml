@@ -1,8 +1,8 @@
 @startuml
 actor User
-participant SpendSwift
-participant Parser
-participant UI
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":UI" as UI
 
 User -> SpendSwift : input("help")
 activate SpendSwift

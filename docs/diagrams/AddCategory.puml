@@ -1,15 +1,15 @@
 @startuml
 
 actor User
-participant SpendSwift
-participant Parser
-participant CategoryManager
-participant InputParser
-participant ErrorMessage
-participant TrackerData
-participant Format
-participant SuccessMessage
-participant Category
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":CategoryManager" as CategoryManager
+participant ":InputParser" as InputParser
+participant ":ErrorMessage" as ErrorMessage
+participant ":TrackerData" as TrackerData
+participant ":Format" as Format
+participant ":SuccessMessage" as SuccessMessage
+participant ":Category" as Category
 
 User -> SpendSwift : input("add-category c/<categoryName>")
 activate SpendSwift

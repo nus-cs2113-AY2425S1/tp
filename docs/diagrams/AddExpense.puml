@@ -1,13 +1,13 @@
 @startuml
 actor User
-participant SpendSwift
-participant Parser
-participant ExpenseManager
-participant InputParser
-participant TrackerData
-participant Format
-participant Category
-participant Expense
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":ExpenseManager" as ExpenseManager
+participant ":InputParser" as InputParser
+participant ":TrackerData" as TrackerData
+participant ":Format" as Format
+participant ":Category" as Category
+participant ":Expense" as Expense
 
 User -> SpendSwift : input("add-expense n/<name> a/<amount> c/<category>")
 activate SpendSwift

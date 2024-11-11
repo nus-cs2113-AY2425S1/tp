@@ -1,11 +1,11 @@
 @startuml
 
 actor User
-participant SpendSwift
-participant Parser
-participant BudgetManager
-participant InputParser
-participant TrackerData
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":BudgetManager" as BudgetManager
+participant ":InputParser" as InputParser
+participant ":TrackerData" as TrackerData
 
 User -> SpendSwift : input("set-budget c/<category> l/<limit>")
 activate SpendSwift
