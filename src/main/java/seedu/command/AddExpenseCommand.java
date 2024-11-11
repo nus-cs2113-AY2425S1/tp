@@ -54,8 +54,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         try {
             amount = parseAmount(arguments.get(COMMAND_MANDATORY_KEYWORDS[0]));
         } catch (InvalidAmountFormatException e) {
-            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage(),
-                    ErrorMessages.INVALID_AMOUNT_GUIDE);
+            return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
         String dateString;

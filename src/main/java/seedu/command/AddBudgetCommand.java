@@ -32,8 +32,7 @@ public class AddBudgetCommand extends Command {
         try {
             amount = AmountUtils.parseAmount(amountStr);
         } catch (InvalidAmountFormatException e) {
-            return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage(),
-                    ErrorMessages.INVALID_AMOUNT_GUIDE);
+            return List.of(CommandResultMessages.SET_BUDGET_FAIL + e.getMessage());
         }
 
         String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[1]);

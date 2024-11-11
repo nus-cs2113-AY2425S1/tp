@@ -31,8 +31,7 @@
 	2. Income [amount=1000.0, description=, date=2024-11-01 0000]
 	-------------------------------------
 	-------------------------------------
-	Error creating transaction: Invalid amount format: -100
-	Make sure the amount is positive and is smaller than 1000000000
+	Error creating transaction: Amount cannot be negative: -100
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
@@ -287,13 +286,13 @@
 	6. Expense [amount=1000000.0, description=, date=2024-11-07 0000, category=LessLuxury]
 	-------------------------------------
 	-------------------------------------
-	Progress can only be checked for current or past months.
+	Invalid command.
 	-------------------------------------
 	-------------------------------------
-	Missing budget for given month
+	Invalid command.
 	-------------------------------------
 	-------------------------------------
-	Error tracking progress: Your year and month format is invalid. Should be: yyyy-MM
+	Invalid command.
 	-------------------------------------
 	-------------------------------------
 	Invalid command.
