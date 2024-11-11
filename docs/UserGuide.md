@@ -51,6 +51,8 @@ The following message would be printed:
 
 ```
 Welcome to EventManagerCLI.
+Error loading data from file: data.txt. New file will be created since it does not exists.
+------------------------
 Enter a command:
 ```
 
