@@ -21,7 +21,15 @@ public class Expense {
     protected String category;
     protected LocalDate dateAdded;
 
-    
+    /**
+     * Constructs an Expense with a specified price, description, and category.
+     * The date is automatically set to the current date.
+     *
+     * @param price       the price of the expense
+     * @param description the description of the expense
+     * @param category    the category of the expense
+     * @throws WheresMyMoneyException if any parameter is null or blank
+     */
     public Expense(Float price, String description, String category)
             throws WheresMyMoneyException {
         this.setPrice(price);
@@ -32,10 +40,19 @@ public class Expense {
         assert (!description.isBlank()) && (!category.isBlank());
     }
 
+    /**
+     * Constructs an Expense with a specified price, description, category, and date.
+     *
+     * @param price       the price of the expense
+     * @param description the description of the expense
+     * @param category    the category of the expense
+     * @param dateAdded   the date the expense was added, as a string in the format {@code dd-MM-yyyy}
+     * @throws WheresMyMoneyException if the date format is invalid or if any parameter is null or blank
+     */
     public Expense(Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         if (!DateUtils.isInDateFormat(dateAdded)){
-            throw new InvalidInputException("Invalid date format " + DateUtils.DATE_FORMAT);
+            throw new InvalidInputException("Invalid date format, please follow " + DateUtils.DATE_FORMAT);
         }
         this.setPrice(price);
         this.setDescription(description);
@@ -71,7 +88,7 @@ public class Expense {
         if (price == null) {
             throw new WheresMyMoneyException("Expense's price shouldn't be null.");
         } else if (price <= 0) {
-            throw new WheresMyMoneyException("Price should not be less than or equal to 0");
+            throw new WheresMyMoneyException("Expense's price should not be less than or equal to 0");
         }
         this.price = price;
     }

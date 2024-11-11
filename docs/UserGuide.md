@@ -4,7 +4,10 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
-- [Features](#features)
+- [Notes](#notes)
+- [Features - Expenses](#features---expenses)
+- [Features - Recurring Expenses](#features---recurring-expenses)
+- [Features - Storage](#features---storage)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -21,9 +24,11 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 1. Ensure you have Java 17 or above installed in your computer.
 2. Download the latest .jar file from the GitHub Repository, under releases.
 3. Copy the file to the folder you want to use as the home folder for your expenses.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar [CS2113-W12-3][WheresMyMoney].jar` command to run the application.
 
 ---
+
+<div style="page-break-after: always;"></div>
 
 ## Notes
 
@@ -35,13 +40,19 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
   - e.g. `<command> main value` -> `main`: `main value` (The main argument is the value following the command, such as `INDEX` in `delete INDEX`)
 - When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`.
   - e.g. `<command> /argument \/value` -> `argument`: `/value`
+- The program only officially supports values till 9999.99 (excluding), and to 2 decimal places. 
+  - Inaccuracies may occur due to the implementation of floating point numbers used.
+  - However, we allow the usage of numbers above the range for advanced users. 
+  - We will give a warning on user input, and no warning on csv load/ other operations
 - Commands default to no output on successful completion unless
   - The command produces an output by its nature (eg. `list`) or
   - There is an error in the command.
 
 ---
 
-## Features 
+<div style="page-break-after: always;"></div>
+
+## Features - Expenses
 
 ### Add an expense: `add`
 
@@ -128,11 +139,12 @@ Example:
 
 ```
 > stats /category food /from 02-11-2024 /to 09-11-2024
-HIGHEST EXPENSE:
-1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
-LOWEST EXPENSE:
-1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 09-11-2024
-MEAN PRICE: 4.5
+HIGHEST EXPENSE:4.5
+2. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 04-11-2024
+LOWEST EXPENSE:4.5
+2. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 04-11-2024
+TOTAL EXPENSES: 27.0
+AVERAGE PRICE: 4.5
 > 
 ```
 
@@ -192,9 +204,13 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 
 >
 ```
+<br>
+
 ---
 
-## Recurring Expenses
+<div style="page-break-after: always;"></div>
+
+## Features - Recurring Expenses
 
 Recurring expenses allow you to automate adding expenses that occur on a regular basis.
 
@@ -279,8 +295,9 @@ Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`
 
 ---
 
+<div style="page-break-after: always;"></div>
 
-## Storage
+## Features - Storage
 
 ### Save data to files: `save`
 
@@ -325,6 +342,8 @@ Examples:
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## FAQ
 
 **Q1**: How do I transfer my data to another computer? 
@@ -350,6 +369,8 @@ Examples:
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Command Summary
 
 | Command                           | Format                                                                                                                 | 
@@ -363,7 +384,7 @@ Examples:
 | Set Spending Limit for a Category | `set /category CATEGORY /limit LIMIT`                                                                                  |
 | View Help                         | `help [/recur] [/method METHOD]`                                                                                       |
 | Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
-| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
 | Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
 | Edit Recurring Expense            | `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]` |
 | Delete Recurring Expense          | `delete INDEX /recur`                                                                                                  |

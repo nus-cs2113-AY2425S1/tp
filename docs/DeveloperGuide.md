@@ -6,6 +6,17 @@
     - [Table of Contents](#table-of-contents)
     - [Acknowledgements](#acknowledgements)
     - [Design & Implementation](#design--implementation)
+        - [Architecture](#architecture)
+        - [Ui and Parser](#ui-and-parser)
+        - [Commands](#commands)
+        - [Storage](#storage)
+        - [Expense and Expense List](#expense-and-expense-list)
+        - [Expense Filter](#expense-filter)
+        - [Date and Time Handling](#date-and-time-handling)
+        - [Visualizer](#visualizer)
+        - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
+        - [Category Package](#category-package)
+        - [Exceptions and Logging](#exceptions-and-logging)
     - [Product Scope](#product-scope)
         - [Target User Profile](#target-user-profile)
         - [Value Proposition](#value-proposition)
@@ -15,6 +26,7 @@
     - [Instructions for Testing](#instructions-for-testing)
         - [Manual Testing](#manual-testing)
         - [JUnit Testing](#junit-testing)
+        - [Text UI Testing](#text-ui-testing)
 
 <div style="page-break-after: always;"></div>
 
@@ -61,7 +73,7 @@ This architecture consist of:
 1. `Ui`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
 2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
 3. `Storage` class: Stores information between sessions.
-4. Logger and other utility classes: Provide extra functionalities for the software.
+4. `Logging` and other utility classes: Provide extra functionalities for the software.
 
 ### Ui and Parser
 
@@ -69,7 +81,7 @@ This architecture consist of:
 
 The `Ui` class handles I/O operations such as displaying messages and reading user input.
 The `Parser` parses user input and returns the relevant Command Object.
-An `ArgumentMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
+An `ArgumentsMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
 These classes are important for allowing the User to interact with the application.
 
 
@@ -82,35 +94,36 @@ The `Ui` class has the following key methods:
 | `displayMessage` | Displays a message (`String`) |
 | `getUserInput`   | Reads User Input              |
 
-The Parser class has the following key method:
+The `Parser` class has the following key method:
 
 | Method                 | Description                                               |
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
-The `ArgumentMap` class extends the `HashMap<String, String>` class with the following methods
+The `ArgumentsMap` class extends the `HashMap<String, String>` class with the following methods:
 
 | Method             | Description                                                                                   |
 |--------------------|-----------------------------------------------------------------------------------------------|
 | `isRecur`          | Checks if the arguments passed shows that the user wants to access the Recurring Expense List |
 | `getRequired`      | Gets a required argument and throws an exception if that argument is not provided.            |
 | `getRequiredIndex` | Gets a required index and throws an exception if that index is not provided.                  |
-| `getPrice`        | Gets a price and throws an exception if that price is invalid.                                |
+| `getPrice`         | Gets a price and throws an exception if that price is invalid.                                |
 | `getRequiredPrice` | Gets a required price and throws an exception if that price is not provided/ invalid.         |
+| `getRequiredLimit` | Gets a required limit and throws an exception if that limit is not provided/ invalid.         |
 
 
 <u>Design Considerations</u>
 
-Low-level I/O operations (e.g. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
-modifying only the Ui class. This would make it easier to port the application to other platforms if needed.
+Low-level I/O operations (e.g. stdio) are consolidated in the `Ui` class such that we can easily switch the I/O methods by 
+modifying only the `Ui` class. This would make it easier to port the application to other platforms if needed.
 
-Ui class is used as part of exception handling for displaying of error messages to the user for feedback.
+`Ui` class is used as part of exception handling for displaying of error messages to the user for feedback.
 
 The Parser also has some considerations such as
 1. Restricted arguments which should not be used by other developers in their commands. These include
     1. `/command` -> used for the main command keyword
     2. `/index` -> used for the main text argument (the index of the expense to edit/ delete) right after the command keyword
-3. Any duplicate arguments will throw an InvalidInputException
+3. Any duplicate arguments will throw an `InvalidInputException`
 4. All `/` in the argument values should be escaped
     1. Examples
        1. `command /argument \/value` -> `argument`: `/value`
@@ -123,23 +136,23 @@ The Parser also has some considerations such as
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (e.g. `main  value`) are counted 
 
-An ArgumentMap class is created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
+An `ArgumentsMap` class was created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
 ### Commands
 
 #### Overview
 
-The abstract Command class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
+The abstract `Command` class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
 
 
 <u>Implementation Details</u>
 
-The following diagram is a class diagram for Command and its children classes. 
+The following diagram is a class diagram for `Command` and its children classes. 
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
 
-The following diagram is a sequence diagram for execution of Command.
+The following diagram is a sequence diagram for execution of `Command`.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
 
@@ -154,17 +167,17 @@ Commands interact with `Ui` and `Parser` classes via `Main`, as illustrated in t
 Storage is mostly handled by the different states themselves (`ExpenseList`, `RecurringExpenseList`, `CategoryStorage`).
 This is to keep the storage tightly coupled with the data and ensures that when the data format is updated,
 the storage format is updated accordingly, increasing cohesion.
-The current implementation abstracted out common Csv functions into the CsvUtils class, but this implementation
+The current implementation abstracted out common Csv functions into the `CsvUtils` class, but this implementation
 also allows more flexible file formats between different classes, instead of relying solely on a certain format. 
 This might help for future expandability.
 
 
-However, we also do have a Storage class which handles how these file handling methods interact with one another. 
+However, we also do have a `Storage` class which handles how these file handling methods interact with one another. 
 This is to consolidate the overall file loading and saving logic in the program. 
 This is useful for certain cases, such as standardising default file paths 
 It would be modified when there is a change of interaction between the various loading/ saving methods of the classes.
 
-The LoadCommand and SaveCommand would reference the Storage class, so ideally they would not need to be changed much 
+The `LoadCommand` and `SaveCommand` would reference the Storage class, so ideally they would not need to be changed much 
 for feature changes.
 
 <u>Implementation Details</u>
@@ -379,6 +392,8 @@ Below is the sequence diagram for when the user calls the `load` command.
 
 ### Category Package
 
+This packages contains 5 classes relating to category management: `CategoryFacade`, `CategoryTracker`, `CategoryData`, `CategoryFilter` and `CategoryStorage`. 
+
 <u>Overview</u>
 
 The `CategoryFacade` class serves as an interface that simplifies the interaction with various category-related classes (`CategoryTracker` and `CategoryFilter`), providing a unified API for the rest of the application (namely the `Command` classes).
@@ -389,19 +404,26 @@ The `CategoryData` class contains category-related information, namely the cumul
 
 The `CategoryFilter` class is responsible for filtering categories based on various criteria.
 
+The `CategoryStorage` class contains methods to convert between category tracker and CSV file.
+
 <u>Methods</u>
 
-The `CategoryFacade` class has key methods for:
+The `CategoryFacade` class has key methods for the 6 commands of:
+- Add
+  - ![CategoryFacade Add SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Add%20SequenceUML.png)
+- Delete
+  - ![CategoryFacade Delete SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Delete%20SequenceUML.png)
+- Edit
+  - ![CategoryFacade Edit SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Edit%20SequenceUML.png)
+- Load
+  - ![CategoryFacade Load SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Load%20SequenceUML.png)
+- Save
+  - ![CategoryFacade Save SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Save%20SequenceUML.png)
+- Set
+  - ![CategoryFacade Set SequenceUML.png](diagrams%2Fimages%2FCategoryFacade%20Set%20SequenceUML.png)
 
-|           Method            |                                    Description                                     |
-|:---------------------------:|:----------------------------------------------------------------------------------:|
-|        `addCategory`        |           The interface for AddCommand when the user adds a new Expense            |
-|      `deleteCategory`       |          The interface for DeleteCommand when the user deletes an Expense          |
-|       `editCategory`        |            The interface for EditCommand when the user edits an Expense            |
-|     `loadCategoryInfo`      |     The interface for LoadCommand to load category information from a CSV file     |
-| `displayFilteredCategories` | The interface for LoadCommand to show filtered categories based on spending limits |
-|     `saveCategoryInfo`      |  The interface for SaveCommand to save current category information to a CSV file  |
-| `setCategorySpendingLimit`  |   The interface for SetCommand to set a spending limit for a specified category    |
+Since this class' methods just call other methods from the other category classes, the (simplified) sequence diagrams are given instead of the method table.
+
 
 The `CategoryTracker` class has the following key methods: 
 
@@ -413,6 +435,7 @@ The `CategoryTracker` class has the following key methods:
 |    `editCategory`     |                   Updates the old and new category's total expenditure when an `Expense`'s category is changed                   |
 | `setSpendingLimitFor` |                                         Sets a spending limit for a particular category                                          |
 
+
 The `CategoryData` class has these key methods: 
 
 |           Method            |                   Description                   |
@@ -421,6 +444,7 @@ The `CategoryData` class has these key methods:
 | `decreaseCurrExpenditureBy` |    Decrements current total by a given price    |
 |      `isNearingLimit`       | Checks if current total is 80% of limit or more |
 |     `hasExceededLimit`      |   Checks if current total is more than limit    |
+
 
 The `CategoryFilter` class has key methods for:
 
@@ -463,28 +487,29 @@ Each of the classes in this package handle a separate concern relating to catego
   - Setter methods checks for null inputs. Constructor methods also do, as they use those setters. 
 - `CategoryFilter` class
   -  Uses priority queue data structures as max heaps to sort the category expenditure information
+- `CategoryStorage` class
+  - Methods are specifically related to saving and loading category-information to achieve SoC and SRP.
 
 <u>Implementation Details</u>
 
-The following diagram is a UML class diagram for `CategoryData`, `CategoryTracker`, `CategoryFilter` and `CategoryFacade`:
+The following diagram is a UML class diagram for `CategoryFacade`, `CategoryTracker`, `CategoryData`, `CategoryFilter` and `CategoryStorage`:
 
-![Category Classes ClassUML.png](diagrams%2Fimages%2FCategory%20Classes%20ClassUML.png)
-
+![CategoryClasses ClassUML.png](diagrams%2Fimages%2FCategoryClasses%20ClassUML.png)
 
 
 ### Exceptions and Logging
 
 <u>Overview</u>
 
-The program implements Exception handling and Logging with the WheresMyMoneyException and Logging classes.
+The program implements Exception handling and Logging with the `WheresMyMoneyException` and `Logging` classes.
 
 <u>Implementation Details</u>
 
-WheresMyMoneyException has various children classes, such as `StorageException` and `InvalidInputException`. 
+`WheresMyMoneyException` has various children classes, such as `StorageException` and `InvalidInputException`. 
 These children classes are meant to provide more information on the error to the developer (beyond the message) such 
 that exception handling in the program could be better targeted in the future.
 
-The Logging class is implemented as a Singleton for ease of use. 
+The `Logging` class is implemented as a Singleton for ease of use. 
 Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 
 
 ---
@@ -554,3 +579,19 @@ load
 ## JUnit Testing
 
 JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.
+
+## Text UI Testing
+
+Files relating to Text UI Testing can be found in the directory text-ui-test.
+
+When running tests on a Windows system, run the following command from the specified directory:
+
+```
+./runtest.bat
+```
+
+When running tests on a UNIX-based system, run the following command from the specified directory:
+
+```
+./runtest.sh
+```

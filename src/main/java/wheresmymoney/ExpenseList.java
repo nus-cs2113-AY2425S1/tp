@@ -109,7 +109,7 @@ public class ExpenseList {
     public void editExpense(int index, Float price, String description, String category, String dateAdded)
             throws WheresMyMoneyException {
         if (dateAdded != null && !DateUtils.isInDateFormat(dateAdded)){
-            throw new WheresMyMoneyException("Invalid date format " + DateUtils.DATE_FORMAT);
+            throw new WheresMyMoneyException("Invalid date format, please follow " + DateUtils.DATE_FORMAT);
         }
         try {
             Logging.log(Level.INFO, "Attempting to edit expense.");

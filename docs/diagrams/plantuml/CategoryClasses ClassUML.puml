@@ -4,9 +4,9 @@ hide circle
 
 ' class "<<Facade>> \n CategoryFacade" {
 class CategoryFacade {
-'    # categoryTracker : CategoryTracker
-'    # categoryFilter : CategoryFilter
-'    # categoryStorage : CategoryStorage
+'    # categoryTracker: CategoryTracker
+'    # categoryFilter: CategoryFilter
+'    # categoryStorage: CategoryStorage
 
 '    + CategoryFacade()
 '    + getCategoryTracker(): CategoryTracker
@@ -20,7 +20,8 @@ class CategoryFacade {
 }
 
 class CategoryTracker {
-    - HashMap<String, CategoryData> tracker
+    - tracker: HashMap<String, CategoryData>
+'    - categoryFacade: CategoryFacade
 
 '    + CategoryTracker()
 '    + getTracker(): HashMap<String, CategoryData>
@@ -51,9 +52,9 @@ class CategoryData {
 }
 
 class CategoryFilter {
-'    - CategoryFacade categoryFacade
-    - PriorityQueue<Map.Entry<String, CategoryData>> exceededCategories
-    - PriorityQueue<Map.Entry<String, CategoryData>> nearingCategories
+'    - categoryFacade : CategoryFacade
+    - exceededCategories: PriorityQueue<Map.Entry<String, CategoryData>>
+    - nearingCategories: PriorityQueue<Map.Entry<String, CategoryData>>
 
 '    + setCategoryFacade(categoryFacade: CategoryFacade): void
     - initMaxHeap(): PriorityQueue<Map.Entry<String, CategoryData>>
@@ -63,8 +64,18 @@ class CategoryFilter {
     + displayNearingCategories(): void
 }
 
-CategoryFacade " 1    " <-d-> " 1 " CategoryTracker
+class CategoryStorage {
+'    - categoryFacade: CategoryFacade
+
+'    + setCategoryFacade(categoryFacade: CategoryFacade): void
+    + trackCategoriesOf(expenseList : ArrayList<Expense>)
+    + loadFromCsv(filePath : String, categoryTracker : CategoryTracker )
+    + saveToCsv(filePath : String, tracker : HashMap<String, CategoryData>)
+}
+
+CategoryFacade " 1         " <-d-> " 1 " CategoryTracker
 CategoryFacade " 1 " <---d-> " 1 " CategoryFilter
 CategoryTracker " 0..1 " -d-> " * " CategoryData : " contains "
+CategoryFacade " 1 " <-d-> " 1 " CategoryStorage
 
 @enduml
