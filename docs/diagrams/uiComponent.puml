@@ -4,12 +4,6 @@ skinparam classAttributeIconSize 0
 !define CLASS(x) class x
 
 class Ui {
-    - <u>ERROR_HEADER: String
-    - <u>LINE_CHAR: String
-    - <u>LINE_LENGTH: int
-    - in: Scanner
-    - out: PrintStream
-
     + readCommand(): String
     + showLine(): void
     + showMessage(String msg): void
@@ -26,8 +20,8 @@ class CommandResult {
   + getMessage(): String
 }
 
-Ui ..> Scanner
-Ui ..> PrintStream
-Ui ..> CommandResult
+Ui ..> Scanner : "  uses"
+Ui ..> PrintStream : "  uses"
+Ui ..> CommandResult : "  uses"
 
 @enduml

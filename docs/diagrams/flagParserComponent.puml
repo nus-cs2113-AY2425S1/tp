@@ -18,8 +18,8 @@ class FlagParser {
   + getDateByFlag(String flag): LocalDate
 }
 
-ProgCommandFactory "1" --> "1" FlagParser : uses
-WaterCommandFactory "1" --> "1" FlagParser : uses
-MealCommandFactory "1" --> "1" FlagParser : uses
+ProgCommandFactory ..>  FlagParser : "  uses"
+WaterCommandFactory ..>  FlagParser : "  uses"
+MealCommandFactory ..>  FlagParser : "  uses"
 
 @enduml

@@ -9,11 +9,11 @@ class ParserUtils {
   + <u>parseDate(String dateString): LocalDate
 }
 
-Parser "1" --> "*" ParserUtils : uses
-ProgCommandFactory "1" --> "*" ParserUtils : uses
-WaterCommandFactory "1" --> "*" ParserUtils : uses
-FlagParser "1" --> "*" ParserUtils : uses
-HistoryCommandFactory "1" --> "*" ParserUtils : uses
-MealCommandFactory "1" --> "*" ParserUtils : uses
+Parser ..> ParserUtils : uses
+ProgCommandFactory ..> ParserUtils : uses
+WaterCommandFactory  ..>  ParserUtils : uses
+FlagParser ..>  ParserUtils : uses
+HistoryCommandFactory ..>  ParserUtils : uses
+MealCommandFactory ..> ParserUtils : uses
 
 @enduml

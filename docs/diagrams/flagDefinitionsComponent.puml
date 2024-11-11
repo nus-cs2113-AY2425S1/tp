@@ -21,8 +21,8 @@ class FlagDefinitions {
   + <u>VOLUME_FLAG: String
 }
 
-MealCommandFactory "1" --> "*" FlagDefinitions : uses
-ProgCommandFactory "1" --> "*" FlagDefinitions : uses
-WaterCommandFactory "1" --> "*" FlagDefinitions : uses
+MealCommandFactory ..> FlagDefinitions : "  uses"
+ProgCommandFactory ..> FlagDefinitions : "  uses"
+WaterCommandFactory ..> FlagDefinitions : "  uses"
 
 @enduml
