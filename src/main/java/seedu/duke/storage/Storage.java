@@ -93,7 +93,7 @@ public class Storage {
         File file = new File(FINANCIAL_LIST_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
-            storageFileNotFoundMsg = "File not found: " + FINANCIAL_LIST_FILE_PATH + " Creating new one.";
+            storageFileNotFoundMsg = "Creating new " + FINANCIAL_LIST_FILE_PATH + " file.";
             try {
                 // check if the dictionary exists
                 File directory = new File(file.getParent());
@@ -118,7 +118,7 @@ public class Storage {
         File file = new File(BUDGET_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
-            budgetFileNotFoundMsg = "File not found: " + BUDGET_FILE_PATH + " Creating new one.";
+            budgetFileNotFoundMsg = "Creating new " + BUDGET_FILE_PATH + " file.";
             try {
                 // check if the dictionary exists
                 File directory = new File(file.getParent());
