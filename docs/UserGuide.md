@@ -257,7 +257,7 @@ Filters out events from the event list based on name, date-time or priority leve
 Format: `filter -e/-d/-t/-x/-u DESCRIPTION`
 
 * `-e/-d/-t/-x/-u` are the flags for name, date, time, date-time and priority level respectively.
-* `DESCRIPTION` is case-insensitive.
+* `DESCRIPTION` is only case-insensitive for priority level.
 
 Examples:
 * `filter -e workshop` will output all events with `workshop` in their event name.
@@ -351,15 +351,15 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 
 * List possible commands: `menu`
 * List all events: `list`
-* Add event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
-* Add participant to an event: `add -p PARTICIPANT -email EMAIL -e EVENT`
-* Add item to an event: `add -m ITEM -e EVENT`
-* Remove event: `remove -e EVENT`
-* Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
-* Remove item from an event: `remove -m ITEM -e EVENT`
-* Edit event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
-* Edit participant of an event: `edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT`
-* Edit item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
+* Add an event: `add -e EVENT -t TIME -v VENUE -u PRIORITY`
+* Add a participant to an event: `add -p PARTICIPANT -email EMAIL -e EVENT`
+* Add an item to an event: `add -m ITEM -e EVENT`
+* Remove an event: `remove -e EVENT`
+* Remove a participant from an event: `remove -p PARTICIPANT -e EVENT`
+* Remove an item from an event: `remove -m ITEM -e EVENT`
+* Edit an event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
+* Edit a participant of an event: `edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT`
+* Edit an item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
 * View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
 * Mark a participant as present: `mark -p PARTICIPANT -e EVENT -s STATUS`
