@@ -1,18 +1,58 @@
 @startuml
 participant "TransactionList" as TL
 participant "Stream<Transaction>" as Stream
-participant "List<Transaction>" as List
+participant "List<Expense>" as ResultList
+participant "Transaction" as Transaction
+participant "Expense" as Expense
+participant "Category" as Category
+
+TL -> TL: getExpensesByCategory(category)
+activate TL
 
 TL -> Stream: transactions.stream()
 activate Stream
 
-Stream -> Stream: filter(transaction instanceof Expense)
-Stream -> Stream: map(transaction -> (Expense) transaction)
-Stream -> Stream: filter(expense.getCategory().equals(category))
-Stream -> List: collect(Collectors.toList())
-activate List
+' The terminal operation collect triggers execution
+TL -> Stream: collect(Collectors.toList())
+activate Stream
 
-List --> TL: List<Expense> (result)
-deactivate List
+loop for each transaction in transactions
+    ' First filter: transaction instanceof Expense
+    Stream -> Transaction: instanceof Expense
+    activate Transaction
+    Transaction --> Stream: boolean
+    deactivate Transaction
+
+    alt transaction instanceof Expense == true
+        ' Map: (Expense) transaction
+        Stream -> Expense: (Expense) transaction
+        activate Expense
+        deactivate Expense
+
+        ' Second filter: expense.getCategory().equals(category)
+        Stream -> Expense: getCategory()
+        activate Expense
+        Expense --> Stream: Category
+        deactivate Expense
+
+        Stream -> Category: equals(category)
+        activate Category
+        Category --> Stream: boolean
+        deactivate Category
+
+        alt expense.getCategory().equals(category) == true
+            ' Include in result list
+        else
+            ' Exclude from result list
+        end
+    else
+        ' Skip transaction
+    end
+end
+
+' Collect the results into a list
+Stream --> TL: List<Expense> (result)
 deactivate Stream
+
+deactivate TL
 @enduml
