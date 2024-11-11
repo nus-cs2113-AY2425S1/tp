@@ -261,6 +261,7 @@ The sequence diagram represents the flow for setting a budget limit on an existi
   - If the category already has a budget, `BudgetManager` updates the budget with the new limit.
   - Otherwise, `BudgetManager` creates a new budget instance and adds it to the budgets map in `TrackerData`.
 - `SuccessMessage` displays either an update or new budget message, depending on whether the budget was modified or newly created.
+
 ## view-expenses
 **Overview**
 
@@ -285,6 +286,7 @@ The sequence diagram represents the flow for printing all the expenses by catego
 - For each category:
   - If it has expenses, they are printed in a structured format.
   - If it has no expenses, a "No expense" message is printed for that category.
+
 ## view-category
 **Overview**
 
@@ -308,6 +310,7 @@ The sequence diagram represents the flow for printing all the categories in Spen
 
 4. Return Flow
 - `CategoryManager` completes its task and returns control back through `Parser` to `SpendSwift`, which then completes the process.
+
 ## view-budget
 **Overview**
 
