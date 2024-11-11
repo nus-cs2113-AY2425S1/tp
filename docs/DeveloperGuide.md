@@ -55,13 +55,16 @@ Finance Buddy uses the following tools for development:
 
 ## Design and Implementation
 
-The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
+The heavily simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
 
 <img src="UML/overallArchi.png" alt="overall archi" width="auto" height="300">
 
 
 In the above diagram, Command and FinancialEntry are representative of the subclasses of 
 the `Command` and `FinancialEntry` classes, which are elaborated on in their respective sections.
+
+The `Commons` class contains various String constants and methods commonly used by the other classes,
+while the `Log` class contains a logger to facilitate logging in methods of other classes.
 
 The high-level overview of the program is shown in the diagram below as well.
 
