@@ -24,6 +24,7 @@
 ### Category
 The `Category` class encapsulates the name of a category and provides functionality for equality checks, hash code generation, and string representation. It serves as the foundational representation of a category.
 
+![Category](./diagrams/category/category-class-diagram-2.png)
 #### Class responsibilities
 1. **Attribute Encapsulation**: Encapsulates the category name to prevent external modification.
 2. **Equality Checks**: Implements equality based on the category name, allowing categories with the same name to be considered equal.
@@ -49,15 +50,16 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Returns**: `true` if `obj` is a Category instance with the same name, `false` otherwise.
    - **Process**: Checks if `obj` is a Category instance and compares its name with the current `Category` object’s name.
 
+   ![Category](./diagrams/category/category-class-diagram.png)
 4. **public int hashCode()**
    - **Returns**: The hash code based on the name.
    - **Process**: Calculates the hash code for storing `Category` objects in hash-based collections.
 
-5. **public int hashCode()**
+5. **public String toString()**
    - **Returns**: The formatted description of the category
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
-    ![Category](./diagrams/category/category-class-diagram.png)
+
 
 ### TransactionList
 The `TransactionList` class is responsible for storing user transactions of different types. It also provides various
