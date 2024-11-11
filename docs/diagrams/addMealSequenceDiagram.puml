@@ -17,7 +17,8 @@ UI --> BB: command object
 BB -> Parser: parse(command)
 activate Parser
 
-Parser -> Meal: Meal(mealname, calories)
+create Meal
+Parser -> Meal: new Meal(mealname, calories)
 activate Meal
 Meal --> Parser: meal object
 deactivate Meal
@@ -32,6 +33,7 @@ activate History
 alt DailyRecord exists
   History --> AddCmd: DailyRecord object
 else No DailyRecord exists
+create DailyRec
   History -> DailyRec: new DailyRecord()
   activate DailyRec
   DailyRec --> History
