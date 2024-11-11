@@ -149,7 +149,7 @@ public class ParserTest {
     }
 
     @Test
-    void testAddWaterCommand_ValidInput() {
+    void testAddWaterCommandValidInput() {
 
     }
 

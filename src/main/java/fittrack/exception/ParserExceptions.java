@@ -92,8 +92,7 @@ public class ParserExceptions extends RuntimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
             LocalDateTime.parse(modifyDetails[1], formatter);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(INVALID_MODIFY_DETAILS_MESSAGE);
         }
 
