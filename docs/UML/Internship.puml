@@ -13,13 +13,13 @@ class Internship {
     - skills: ArrayList<String>
     - status: String
 
-    + updateStatus(String userStatus): void
-    + setStartDate(String start): void
-    + setEndDate(String end): void
-    + addDeadline(String description, String date): void
-    + removeDeadline(String description): void
-    + setSkills(String skills): void
-    + removeSkill(String skill): void
+    + updateStatus(userStatus : String): void
+    + setStartDate(start : String): void
+    + setEndDate(end : String): void
+    + addDeadline(description : String , date : String): void
+    + removeDeadline(description : String ): void
+    + setSkills(skills : String): void
+    + removeSkill(skill : String): void
 }
 
 

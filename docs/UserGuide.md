@@ -38,7 +38,7 @@ This product aims to streamline the tracking of internship applications for the 
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `.jar` file from [here]().
+2. Download the latest version of `.jar` file from [here](https://github.com/AY2425S1-CS2113-T10-1/tp/releases/tag/v2.1).
 3. Copy the file to the home folder of your Internship Tracker.
 4. Open the terminal, `cd` into the folder with the `.jar` file and use `java -jar easInternship.jar` 
    command to run the application.
@@ -165,7 +165,7 @@ Valid Statuses for `status` flag:<br>
 ```
 __________________________________________________
 __________________________________________________
-status updated: application completed
+status updated: Application Completed
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -247,7 +247,7 @@ Company: Venti
 Duration: 04/25 to 08/25
 Skills: No Skills Entered 
 Deadlines:
-	Interview Round 1: 03/02/25
+	Interview Round 1: 05/02/25
 __________________________________________________
 __________________________________________________
 ```
@@ -259,7 +259,7 @@ __________________________________________________
 __________________________________________________
 deadline: Interview Round 2 is not found
 __________________________________________________
-deadline removed: Interview Round 1
+deadline removed: Interview Round 1 (05/02/25)
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -308,8 +308,6 @@ __________________________________________________
 
 This feature allows the user to mark certain internships as a Favourite. The user can input any number of ID's in a single command to mark them all as favourites.
 
-The functionality to remove a command's favourite status will be implemented in v2.1.
-
 **Format:** `favourite {Internship ID}`
 
 **Example:**
@@ -351,20 +349,20 @@ __________________________________________________
 ```
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Pending
+The favourite internships are listed below
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+ID: 1   Status: Application Pending
 Role: Software Engineer
 Company: Meta
 Duration: 01/24 to 09/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
+        No deadlines set.
 __________________________________________________
 __________________________________________________
 ```
@@ -372,38 +370,39 @@ __________________________________________________
 `favourite 2, 3`
 
 ```
+Enter command: favourite 2, 3
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Pending
+The favourite internships are listed below
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+ID: 1   Status: Application Pending
 Role: Software Engineer
 Company: Meta
 Duration: 01/24 to 09/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
+        No deadlines set.
 __________________________________________________
-ID: 2	Status: Application Pending
+ID: 2   Status: Application Pending
 Role: Data Scientist
 Company: Meta
 Duration: 09/23 to 05/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
+        No deadlines set.
 __________________________________________________
-ID: 3	Status: Application Pending
+ID: 3   Status: Application Pending
 Role: Data Scientist
 Company: Google
 Duration: 04/24 to 07/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
+        No deadlines set.
 __________________________________________________
 __________________________________________________
 
@@ -420,8 +419,6 @@ The role and company name parameters are case-insensitive.
 For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user. If the start and/or end dates with which to filter, are not explicitly specified by the user, they take on the default values of 01/01 and 12/99 respectively.
 
 For the favourite parameter, the user has to enter a boolean `true` or `false` (case-insensitive) to specify if they only want internships which have been marked as a favourite or if they only want internships which have not been marked as a favourite. In the default scenario where no `-favourite` flag is given, all internships are considered regardless of their favourite status.
-
-Users will be able to filter the internships by application statuses and deadlines as well in v2.1.
 
 **Format:** `filter -{field} {value}`
 
@@ -521,22 +518,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`filter -role Data Scientist -to 06/24`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
 `filter -favourite true`
 
 ```
@@ -561,21 +542,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`filter -favourite false`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
 
 ## Sort Command: `sort`
 
@@ -605,31 +571,31 @@ The fields are not case-sensitive.
 ```
 __________________________________________________
 __________________________________________________
-Sorted internships by start date (year first), then end date.
+Sorted internships by duration with start date (year first), then end date.
 __________________________________________________
-ID: 3	Status: Accepted
+ID: 3   Status: Accepted
 Role: IT support Intern
 Company: Microsoft
 Duration: 03/24 to 08/24
-Skills: Java 
+Skills: Java
 Deadlines:
-	certificate submit: 15/04/24
-_________________________________________________
-ID: 1	Status: Rejected
+        certificate submit: 15/04/24
+__________________________________________________
+ID: 1   Status: Rejected
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: C++ 
+Skills: C++
 Deadlines:
-	online interview: 12/06/24
+        online interview: 12/06/24
 __________________________________________________
-ID: 2	Status: Application Completed
+ID: 2   Status: Application Completed
 Role: Customer Service Intern
 Company: Google
 Duration: 05/25 to 09/25
-Skills: Python SQL 
+Skills: Python SQL
 Deadlines:
-	interview reply: 12/04/24
+        interview reply: 12/04/24
 __________________________________________________
 __________________________________________________
 ```
@@ -664,40 +630,6 @@ Duration: 03/24 to 08/24
 Skills: Java 
 Deadlines:
 	certificate submit: 15/04/24
-__________________________________________________
-__________________________________________________
-```
-
-`sort -deadline`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by deadline.
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
 __________________________________________________
 __________________________________________________
 ```
@@ -770,81 +702,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`sort -company`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by company.
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
-__________________________________________________
-```
-
-`sort -role in favourite`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships in favourite by role in favourite.
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
-=======
-ID: 1	Status: Application Pending
-Role: engineer
-Company: ABS
-Duration: 01/01 to 01/01
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: accountant
-Company: XYZ
-Duration: 01/01 to 01/01
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
 
 ## Delete Command: `delete`
 
@@ -962,13 +819,23 @@ __________________________________________________
 
 ## FAQ
 
-**Q**: Can I use "-" in my fields?
-
+**Q**: Can I use "-" in my fields?<br>
 **A**: No. Unknown flag will be thrown.
 
-**Q**: How do I transfer my data to another computer? 
-
+**Q**: How do I transfer my data to another computer?<br>
 **A**: Locate the `/data/` directory, in the same directory as your `.jar` file. Copy this `/data/` directory to the second computer and store it in the same directory as the `.jar` file.
+
+**Q**: Does the application ensure my dates are logical?<br>
+**A**: No. The application only checks whether dates exist, logic checking is coming soon.
+
+**Q**: It gives random responses when I click `Enter` quickly.<br>
+**A**: Please give the application time to respond, every time `Enter` is pressed, the application will give a response.
+
+**Q**: Why can't I add `deadline`, `skills` and `status` in the `add` function?<br>
+**A**: The `add` function only covers the crucial information such as `role` and `company`, the fields above are not critical to the internship application's existence and hence can be updated through the `update` function.
+
+**Q**: Can I add multiple entries in the same command?<br>
+**A**: No. The application does not support adding multiple entries at the same time, please input them in separate commands.
 
 ## Command Summary
 

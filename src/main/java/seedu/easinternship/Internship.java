@@ -1,4 +1,4 @@
-package seedu.EasInternship;
+package seedu.easinternship;
 
 import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidStatus;
@@ -17,10 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+//@@author jadenlimjc
 /**
  * Class to store the relevant information for an internship.
+ * This includes the internship's role, company, start and end dates, status, skills, and deadlines.
  */
-//@@author jadenlimjc
 public class Internship {
     private final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
     private final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
@@ -166,11 +167,16 @@ public class Internship {
      * @param description   description of the deadline to remove.
      * @throws MissingValue No deadline in the list of deadlines is
      */
-    public void removeDeadline(String description) throws MissingValue {
+    public String removeDeadline(String description) throws MissingValue {
         String trimmedDescription = description.trim();
-        if(!deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(trimmedDescription))) {
-            throw new MissingValue();
+        for (int i = 0; i < deadlines.size(); i++) {
+            Deadline deadline = deadlines.get(i);
+            if (deadline.getDescription().equalsIgnoreCase(trimmedDescription)) {
+                deadlines.remove(i);
+                return deadline.toStringMessage();
+            }
         }
+        throw new MissingValue();
     }
 
     /**
@@ -252,7 +258,7 @@ public class Internship {
     //@@author jadenlimjc
     public Deadline getEarliestDeadline() {
         return getDeadlines().stream()
-                .min(Comparator.comparing(Deadline::getDate)).orElse(null);
+                .min(Comparator.comparing(Deadline::getUnformattedDate)).orElse(null);
     }
 
     //@@author jadenlimjc

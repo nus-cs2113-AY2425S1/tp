@@ -5,40 +5,49 @@ participant User
 participant FilterCommand
 participant InternshipList
 participant UICommand
+hide footbox
 
 User -> FilterCommand: execute(args)
 activate FilterCommand #turquoise
-activate InternshipList #green
-activate UICommand #red
 
 FilterCommand -> InternshipList: getAllInternships()
+activate InternshipList #green
 InternshipList --> FilterCommand: internships
+deactivate InternshipList
 
 FilterCommand -> InternshipList: favouriteInternships
+activate InternshipList #green
 InternshipList --> FilterCommand: favouriteInternships
+deactivate InternshipList
 
 FilterCommand -> InternshipList: new InternshipList(internshipList)
+activate InternshipList #green
 InternshipList --> FilterCommand: filteredInternshipsList
+deactivate InternshipList
 
-break Empty args
+opt Empty args
     FilterCommand -> UICommand: showInsufficientArguments()
+    activate UICommand #red
+    UICommand --> FilterCommand
+    deactivate UICommand
     FilterCommand --> User
-else
-    loop for each arg in args
-        FilterCommand -> FilterCommand: executeFilterByOneFlag(words)
-        activate FilterCommand #turquoise
-        break Incomplete or invalid arg
-        FilterCommand --> FilterCommand: IllegalArgumentException()
-        FilterCommand --> User
-        end break
-        FilterCommand --> FilterCommand
-        deactivate FilterCommand
+end
+loop for each arg in args
+    FilterCommand -> FilterCommand: executeFilterByOneFlag(words)
+    activate FilterCommand #turquoise
+    opt invalid arg
+    FilterCommand --> FilterCommand: IllegalArgumentException()
+    FilterCommand --> User
     end
-end break
+    FilterCommand --> FilterCommand
+    deactivate FilterCommand
+end
 
 FilterCommand -> InternshipList: listAllInternships()
-deactivate FilterCommand
+activate InternshipList #green
+InternshipList --> FilterCommand
 deactivate InternshipList
-deactivate UICommand
+FilterCommand --> User
+deactivate FilterCommand
 
 @enduml

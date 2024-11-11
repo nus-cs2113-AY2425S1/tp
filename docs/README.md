@@ -6,7 +6,10 @@ Useful links:
 * [User Guide](UserGuide.md)
 * [Developer Guide](DeveloperGuide.md)
 * [About Us](AboutUs.md)
-* [jadenlim-PPP](team/jadenlim.md)
-* [rahul-PPP](team/rahul.md)
-* [tantinghui-PPP](team/tantinghui.md)
-* [Toby Yu-PPP](team/toby-yu.md)
+<br><br>
+* Personal Portfolio Pages
+  * [Jaden (jadenlimjc)](team/jadenlimjc.md)
+  * [Rahul (rahuljai-05)](team/rahuljai-05.md)
+  * [Ting Hui (ridiculouswifi)](team/ridiculouswifi.md)
+  * [Toby (toby-yu)](team/toby-yu.md)
+

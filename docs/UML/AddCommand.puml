@@ -34,6 +34,7 @@ end
 
 alt invalid flags found
   ":AddCommand"->":uiCommand": printInvalidFlags()
+  ":uiCommand" --> ":User"
   activate ":uiCommand" #green
   deactivate ":uiCommand"
 else all required flags present
@@ -46,5 +47,5 @@ else all required flags present
   ":AddCommand" -> ":uiCommand": showEditedInternship(newInternship, "add")
   deactivate ":uiCommand"
 end
-
+return
 @enduml

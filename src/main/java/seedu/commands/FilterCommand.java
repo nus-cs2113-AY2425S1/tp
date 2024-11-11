@@ -1,7 +1,7 @@
 package seedu.commands;
 
-import seedu.EasInternship.InternshipList;
-import seedu.EasInternship.Internship;
+import seedu.easinternship.InternshipList;
+import seedu.easinternship.Internship;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

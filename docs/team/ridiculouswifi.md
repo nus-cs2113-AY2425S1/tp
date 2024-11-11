@@ -3,7 +3,7 @@
 ## Overview
 
 EasInternship is a desktop tracking application used for tracking internship applications along the various stages
-of an application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+of an application. The user interacts with it using a CLI and the application is written in Java.
 
 Given below are my contributions to the project.
 
@@ -46,6 +46,14 @@ Given below are my contributions to the project.
   - Credits: jadenlimjc was a co-author that drafted several implementations.
 <br><br>
 
+- **New Feature:** Added the ability to view consolidated deadlines in a chronological order.
+  - What it does: Allows the user to view all the deadlines in all Internship entries, along with a pointer to the 
+    current date.
+  - Justification: The user will likely have multiple deadlines to keep track of all at once,
+    this provides a way for the user to view all their deadlines at once.
+  - Highlights: This enhancement required some revisions to the output to ensure the data was readable for the user.
+<br><br>
+
 - **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=ridiculouswifi&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 <br><br>
 
@@ -55,15 +63,20 @@ Given below are my contributions to the project.
 <br><br>
 
 - **Enhancement to Existing Features:**
-  - Updated `update` and `remove` function ([#74]() for skills, [#86]() for deadlines).
+  - Updated `update` and `remove` function ([#74](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/74) for skills, [#86](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/86) for deadlines).
+  - Added logging to code [#132](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/132).
+  - Improved output of `calendar` function [#223](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/223).
 <br><br>
 
 - **Documentation:**
   - Developer Guide:
-    - Added implementation details for `update` and `remove` feature.
+    - Added implementation details for `update`, `remove` and `calendar` feature.
+    - Added Ui Component section and Ui class diagram.
   - User Guide:
     - Reformatted document to reduce excess information.
+    - Added usage instructions for `update`, `remove` and `calendar` functions.
+    - Added command summary table.
 <br><br>
 
 - **Community:**
-  - PRs reviewed (with non-trivial review comments): [#28](), [#33](), [#49](), [#69]()
+  - PRs reviewed (with non-trivial review comments): [#28](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/28), [#33](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/33), [#49](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/49), [#69](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/69), [#125](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/125), [#127](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/127).
