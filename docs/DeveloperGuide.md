@@ -423,13 +423,21 @@ Expected Outcome: Prints a summarized list of possible commands in SpendSwift.
     
     Expected Outcome: "Coffee" expense of $5.50 is added under "Food" category.
 
-- ##### 2.2.2 Add an Expense Without Category (Defaults to 'Uncategorized')
+- ##### 2.2.2 Add an Expense Without Category
     
     Prerequisites: None
     
     Test Case: `add-expense n/Book a/15`
     
-    Expected Outcome: "Book" expense of $15 is added under "Uncategorized".
+    Expected Outcome: Error message indicating missing category parameter.
+
+- ##### 2.2.3 Add an Expense With Negative Amount
+
+  Prerequisites: None
+
+  Test Case: `add-expense n/Book a/15`
+
+  Expected Outcome: Error message prompting for a positive number.
 
 #### 2.3 Deleting Expenses
 - ##### 2.3.1 Delete an Existing Expense by Index
@@ -473,8 +481,25 @@ Expected Outcome: Prints a summarized list of possible commands in SpendSwift.
     
     Expected Outcome: Error message indicating category "Luxury" does not exist.
 
-#### 2.5 Setting and Viewing Budget Limits
-- ##### 2.5.1 Set Budget Limit for a Category
+#### 2.5 Deleting Categories
+- ##### 2.5.1 Delete a Category without Expense
+
+    Prerequisites: No expense tagged to the category
+
+    Test Case: `delete-category c/food`
+
+    Expected Outcome: "Food" Category is deleted
+
+- ##### 2.5.2 Delete a Category with Expense
+
+  Prerequisites: At least 1 expense tagged to the category
+
+  Test Case: `delete-category c/food`
+
+  Expected Outcome: Error message prompting user to tag expenses to another category or deleteb the expenses tagged to it.
+
+#### 2.6 Setting Budget Limits
+- ##### 2.6.1 Set Budget Limit for a Category
     
     Prerequisites: Category "Food" added.
     
@@ -482,7 +507,7 @@ Expected Outcome: Prints a summarized list of possible commands in SpendSwift.
     
     Expected Outcome: Budget of $100.00 is set for "Food", viewable in view-budget.
 
-- ##### 2.5.2 Set Budget for a Non-Existing Category
+- ##### 2.6.2 Set Budget for a Non-Existing Category
     
     Prerequisites: None
     
@@ -490,8 +515,8 @@ Expected Outcome: Prints a summarized list of possible commands in SpendSwift.
     
     Expected Outcome: Error message indicating the category does not exist.
 
-#### 2.6 Viewing Expenses and Budgets
-- ##### 2.6.1 View All Expenses
+#### 2.7 Viewing Expenses, Categories and Budgets
+- ##### 2.7.1 View All Expenses
     
     Prerequisites: None
     
@@ -499,24 +524,25 @@ Expected Outcome: Prints a summarized list of possible commands in SpendSwift.
     
     Expected Outcome: Displays a list of all recorded expenses, categorized.
 
-- ##### 2.6.2 View Budget Summary for Each Category
+- ##### 2.7.2 View All Expenses
+
+  Prerequisites: None
+
+  Test Case: `view-category`
+
+  Expected Outcome: Displays a list of all recorded categories without expenses.
+
+- ##### 2.7.3 View Budget Summary for Each Category
     
-    Prerequisites: Budget set for at least one category.
+    Prerequisites: None
     
     Test Case: `view-budget`
     
     Expected Outcome: Displays summary of spending and remaining budget for categories with budget limits.
-
-#### 2.7 Toggle Automatic Budget Reset
-Prerequisites: None
-
-Test Case: `toggle-reset`
-
-Expected Outcome: Toggles the automatic monthly budget reset between "on" and "off".
 
 ### 3. End SpendSwift
 Prerequisite: None
 
 Test Case: `bye`
 
-Expected Outcome: Application exits and data is saved in spendswift.txt.
+Expected Outcome: Application exits and data is saved in spendswift folder with 2 text files inside (expense.txt and category.txt).
