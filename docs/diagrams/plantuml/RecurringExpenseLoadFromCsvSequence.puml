@@ -6,6 +6,7 @@ skinparam sequence {
     ParticipantBorderColor #2C3E50
     ParticipantBackgroundColor #FFFFFF
 }
+hide footbox
 
 participant ":LoadCommand" as LC
 participant ":RecurringExpenseList" as REL
