@@ -15,7 +15,7 @@ activate UI
 UI --> Parser : return
 
 deactivate UI
-Parser --> SpendSwift : return
+Parser --> SpendSwift : return false
 
 deactivate Parser
 

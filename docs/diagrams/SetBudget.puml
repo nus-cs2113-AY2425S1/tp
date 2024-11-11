@@ -114,7 +114,7 @@ end
     BudgetManager --> Parser : return
     deactivate BudgetManager
 
-    Parser --> SpendSwift : return
+    Parser --> SpendSwift : return false
     deactivate Parser
 
     SpendSwift --> User : return
