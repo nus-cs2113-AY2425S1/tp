@@ -473,18 +473,20 @@ Please do not modify these files manually, otherwise the transactions or the bud
 
 <div style="page-break-after: always;"></div>
 
+
 ## Command Summary
-| **Command**                                                      | **Description**                                                                            |
-|------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| `list [income \| expense] [/from START_DATE] [/to END_DATE]`     | Shows logged transactions, highlights categories, monthly budget, and balance              |
-| `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`           | Logs a new expense with optional date and category.                                        |
-| `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`          | Logs a new income with optional date and category.                                         |
-| `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]` | Edits the specified transaction. Defaults to last amended transaction if INDEX is omitted. |
-| `delete [INDEX] [/to END_INDEX]`                                | Deletes the specified transaction(s). Defaults to last amended if INDEX is omitted.        | 
-| `budget AMOUNT`                                                 | Sets or modifies the monthly budget                                                        |
-| `budget 0`                                                      | Deletes budget                                                                             |
-| `exit`                                                           | Exits the program.                                                                         |
-| `help`                                                         | Displays a list of all valid commands.                                                     |
+| **Command**                                                           | **Description**                                                                                 |
+|-----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| `list [income \| expense] [/from START_DATE] [/to END_DATE]`          | Shows logged transactions, highlights categories, monthly budget, and balance                   |
+| `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`               | Logs a new expense with optional date and category.                                             |
+| `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`                | Logs a new income with optional date and category.                                              |
+| `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]` | Edits the specified transaction. Defaults to last amended transaction if INDEX is omitted.      |
+| `delete [INDEX] [/to END_INDEX]`                                      | Deletes the specified transaction(s). Defaults to last amended transaction if INDEX is omitted. | 
+| `delete all`                                                          | Deletes all transaction(s).                                                                     |
+| `budget AMOUNT`                                                       | Sets or modifies the monthly budget                                                             |
+| `budget 0`                                                            | Deletes budget                                                                                  |
+| `exit`                                                                | Exits the program.                                                                              |
+| `help`                                                                | Displays a list of all valid commands.                                                          |
 
 **Defined Categories**:
 
