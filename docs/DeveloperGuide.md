@@ -6,7 +6,7 @@
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
 
-![Architecture Diagram](developerguidepictures/Architecture%20DIagram.drawio.png)
+![Architecture Diagram](developerguidepictures/Architecture%20Diagram.drawio.png)
 
 ### Main Components  
 SpendSwift class is in charge of launching the program, 
@@ -15,6 +15,11 @@ and initialising the components that does the main execution of the program.
 - Parser: Determines the command to execute and checks the logic 
 - Command: Determines the feature the user wants to use
 - Storage: Writes data to, and reads data from hard disk
+
+### Overall Sequence Diagram
+The sequence diagram below describes how the components interacts with one another when the user issues a command.
+
+![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
 
 ### SpendSwift
 #### Purpose
