@@ -80,7 +80,7 @@ This architecture consist of:
 
 The `Ui` class handles I/O operations such as displaying messages and reading user input.
 The `Parser` parses user input and returns the relevant Command Object.
-An `ArgumentMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
+An `ArgumentsMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
 These classes are important for allowing the User to interact with the application.
 
 
@@ -99,7 +99,7 @@ The Parser class has the following key method:
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
-The `ArgumentMap` class extends the `HashMap<String, String>` class with the following methods
+The `ArgumentsMap` class extends the `HashMap<String, String>` class with the following methods
 
 | Method             | Description                                                                                   |
 |--------------------|-----------------------------------------------------------------------------------------------|
@@ -135,7 +135,7 @@ The Parser also has some considerations such as
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
 
-An ArgumentMap class is created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
+An ArgumentsMap class was created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
 ### Commands
 
