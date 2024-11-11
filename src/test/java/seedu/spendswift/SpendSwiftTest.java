@@ -11,7 +11,6 @@ import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
 
-import seedu.spendswift.parser;
 
 import org.junit.jupiter.api.BeforeEach;
 import java.util.Arrays;
