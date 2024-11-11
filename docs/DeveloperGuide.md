@@ -153,6 +153,13 @@ The sequence diagram represents the flow for printing all the budgets in SpendSw
 
 **Implementation**
 ### 10. help
+**Overview**
+
+The sequence diagram represents the flow for printing all the help messages in SpendSwift when the user inputs an `help` command.
+
+![help](sequencediagrams/Help.png)
+
+**Implementation**
 
 ---
 
