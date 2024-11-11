@@ -1,5 +1,8 @@
 package seedu.duke.util;
 
+/**
+ * Class to store reoeatedly used strings and simple functions to call throughout the program.
+ */
 public class Commons {
     public static final String LINE_SEPARATOR = "--------------------------------------------";
 
