@@ -125,7 +125,6 @@ public class Parser {
      * It will return the original string if no match with the formatted abbreviation is found.
      *
      * @param partnerUniversity User's partner university input.
-     *
      * @return the full name of the partner university if it matches a known abbreviation.
      */
     public String parsePUAbbreviations(String partnerUniversity) {
