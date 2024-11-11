@@ -5,7 +5,7 @@ package parser;
 import command.Command;
 import command.InvalidCommand;
 import command.ExitCommand;
-import exceptions.ParserExceptions;
+import exceptions.ParserException;
 import parser.command.factory.CommandFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -63,19 +63,19 @@ class ParserTest {
 
     @Test
     void testParseEmptyCommand() {
-        assertThrows(ParserExceptions.class, () -> parser.parse(""),
+        assertThrows(ParserException.class, () -> parser.parse(""),
                 "Should throw EmptyInputBuffBuddyException on empty command");
     }
 
     @Test
     void testParseOnlySpacesCommand() {
-        assertThrows(ParserExceptions.class, () -> parser.parse("   "),
+        assertThrows(ParserException.class, () -> parser.parse("   "),
                 "Should throw EmptyInputBuffBuddyException on command with only spaces");
     }
 
     @Test
     void testParseNullCommand() {
-        assertThrows(ParserExceptions.class, () -> parser.parse(null),
+        assertThrows(ParserException.class, () -> parser.parse(null),
                 "Should throw EmptyInputBuffBuddyException on null command");
     }
 }

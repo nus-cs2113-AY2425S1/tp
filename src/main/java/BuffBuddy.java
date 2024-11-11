@@ -15,8 +15,8 @@ public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
 
     private final Ui ui;
-    private final History history;
-    private final ProgrammeList programmes;
+    private History history;
+    private ProgrammeList programmes;
     private final Storage storage;
     private final Parser parser;
 
@@ -26,6 +26,7 @@ public class BuffBuddy {
         storage = new Storage(filePath);
         programmes = storage.loadProgrammeList();
         history = storage.loadHistory();
+        ui.showMessage(storage.getMessage());
     }
 
     public static void main(String[] args) {

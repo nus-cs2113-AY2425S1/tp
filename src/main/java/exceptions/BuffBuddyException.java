@@ -7,12 +7,12 @@ package exceptions;
  * All custom exceptions in BuffBuddy should inherit from this class to
  * allow unified handling of exceptions.
  */
-public class BuffBuddyExceptions extends RuntimeException {
+public class BuffBuddyException extends RuntimeException {
 
     /**
      * Default constructor with a generic error message.
      */
-    public BuffBuddyExceptions() {
+    public BuffBuddyException() {
         super("An error occurred in BuffBuddy.");
     }
 
@@ -20,7 +20,7 @@ public class BuffBuddyExceptions extends RuntimeException {
      * Constructor that accepts a custom error message.
      * @param message Custom error message describing the exception.
      */
-    public BuffBuddyExceptions(String message) {
+    public BuffBuddyException(String message) {
         super(message);
     }
 
@@ -32,7 +32,7 @@ public class BuffBuddyExceptions extends RuntimeException {
      * @param message Custom error message describing the exception.
      * @param cause The cause of the exception. 
      */
-    public BuffBuddyExceptions(String message, Throwable cause) {
+    public BuffBuddyException(String message, Throwable cause) {
         super(message, cause);
     }
 }

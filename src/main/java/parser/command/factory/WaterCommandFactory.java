@@ -6,7 +6,7 @@ import command.InvalidCommand;
 import command.water.AddWaterCommand;
 import command.water.DeleteWaterCommand;
 import command.water.ViewWaterCommand;
-import exceptions.WaterExceptions;
+import exceptions.WaterException;
 import parser.FlagParser;
 
 import java.time.LocalDate;
@@ -60,7 +60,7 @@ public class WaterCommandFactory {
         float water = flagParser.getFloatByFlag(VOLUME_FLAG);
 
         if (water < 0){
-            throw WaterExceptions.volumeOutOfBounds();
+            throw WaterException.volumeOutOfBounds();
         }
 
         LocalDate date = flagParser.getDateByFlag("/t");

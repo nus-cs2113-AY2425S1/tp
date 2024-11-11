@@ -1,4 +1,6 @@
 @startuml
+skinparam classAttributeIconSize 0
+
     class EditProgrammeCommand {
         <<abstract>>
         #exerciseIndex: int
@@ -8,7 +10,7 @@
         +execute(programmes: ProgrammeList): CommandResult
     }
 
-    Fclass CreateDayCommand {
+    class CreateDayCommand {
         # createdDay: Day
         + CreateDayCommand(programmeIndex: int, createdDay: Day)
         +execute(programmes: ProgrammeList): CommandResult

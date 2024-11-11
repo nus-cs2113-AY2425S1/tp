@@ -3,7 +3,7 @@
 package command.programme;
 
 import command.CommandResult;
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 import history.History;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +53,7 @@ public class StartProgrammeCommandTest {
     @Test
     void execute_invalidProgrammeIndex_throwsException() {
         command = new StartProgrammeCommand(5);
-        assertThrows(ProgrammeExceptions.class, () -> command.execute(programmeList, history));
+        assertThrows(ProgrammeException.class, () -> command.execute(programmeList, history));
     }
 
     @Test

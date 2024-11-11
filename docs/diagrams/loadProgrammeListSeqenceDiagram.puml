@@ -39,14 +39,22 @@ else
 end
 deactivate FileManager
 
-alt programmeListJson == null
+alt programmeListJson == null or programmeListJson.size() == 0
     Storage --> Client : new ProgrammeList()
 else
+    Storage -> Storage : validateProgrammeList(programmeListJson)
+    activate Storage
+    deactivate Storage
+    alt programmeListJson not valid
+    Storage --> Client : new ProgrammeList()
+    else
     Storage -> Storage : programmeListFromJson(programmeListJson)
     activate Storage
-    Storage -> Storage : loadedProgrammeList
+    Storage --> Storage : loadedProgrammeList
+    deactivate Storage
     Storage --> Client : ProgrammeList object
     deactivate Storage
+    end
 end
 deactivate Storage
 
