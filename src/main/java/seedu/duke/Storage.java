@@ -178,7 +178,8 @@ public class Storage {
                     }
 
                 } else {
-                    System.out.println("Internship with ID " + favInternshipId + " not found. Not added to Favourites List.");
+                    System.out.println("Internship with ID " + favInternshipId
+                            + " not found. Not added to Favourites List.");
                 }
             }
             LOGGER.log(Level.INFO, "Data loaded");
