@@ -33,16 +33,6 @@ public class Expense extends FinancialEntry {
         this.category = category;
     }
 
-    /**
-     * Constructs an Expense object with the specified amount and description.
-     *
-     * @param amount The amount of the expense.
-     * @param description A description of the expense.
-     * @param date The date the expense occurred.
-     */
-    public Expense(double amount, String description, LocalDate date) throws FinanceBuddyException {
-        super(amount, description, date);
-    }
 
     /**
      * Retrieves the expense category for this entry.
@@ -76,7 +66,7 @@ public class Expense extends FinancialEntry {
      */
     @Override
     public String toString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return String.format("[Expense] - %s $ %.2f (on %s) [%s]", description, amount, date.format(pattern),category);
     }
 
@@ -87,10 +77,10 @@ public class Expense extends FinancialEntry {
      *
      * @return A formatted string representing the expense entry for storage.
      *         The format is: "E ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"
-     *         where the date is formatted as "dd/MM/yy".
+     *         where the date is formatted as "dd/MM/yyyy".
      */
     public String toStorageString() {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return String.format("E ¦¦ %.2f ¦¦ %s ¦¦ %s ¦¦ %s", amount, description, date.format(pattern),category);
     }
 }

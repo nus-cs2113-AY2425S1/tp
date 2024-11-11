@@ -12,29 +12,39 @@ img
 
 ## Table of Contents
 
-- [Acknowledgements](#acknowledgements)
-- [Design and Implementation](#design--implementation)
-  - [Ui and Parser](#ui-and-parser)
-  - [Logic](#logic)
-  - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
-  - [Commands](#commands)
+- [Developer Guide](#developer-guide)
+  - [Table of Contents](#table-of-contents)
+  - [Acknowledgements](#acknowledgements)
+  - [Design and Implementation](#design-and-implementation)
+    - [Ui and Parser](#ui-and-parser)
+      - [Ui Component](#ui-component)
+      - [Parser Component](#parser-component)
+    - [Logic](#logic)
+    - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
+      - [FinancialList Component](#financiallist-component)
+      - [FinancialEntry Component](#financialentry-component)
+    - [Commands](#commands)
     - [Adding Entries](#adding-entries)
     - [Deleting Entries](#deleting-entries)
     - [Editing Entries](#editing-entries)
     - [Listing Entries](#listing-entries)
-  - [Exceptions and Logging](#exceptions-and-logging)
-  - [Storage](#storage)
-  - [Budget and BudgetLogic](#budget-and-budgetlogic)
-- [Product Scope](#product-scope)
-  - [Target User Profile](#target-user-profile)
-  - [Value Proposition](#value-proposition)
-- [User Stories](#user-stories)
-- [Use Cases](#use-cases)
-- [Non-Functional Requirements](#non-functional-requirements)
-- [Glossary](#glossary)
-- [Instructions for Manual Testing](#instructions-for-manual-testing)
-  - [Manual Testing](#manual-testing)
-  - [JUnit Testing](#junit-testing)
+    - [Exceptions and Logging](#exceptions-and-logging)
+    - [Storage](#storage)
+    - [Budget and BudgetLogic](#budget-and-budgetlogic)
+  - [Product scope](#product-scope)
+    - [Target user profile:](#target-user-profile)
+    - [Value proposition](#value-proposition)
+  - [User Stories](#user-stories)
+  - [Use Cases](#use-cases)
+      - [Use Case: Add an Expense](#use-case-add-an-expense)
+      - [Use Case: Edit an Expense](#use-case-edit-an-expense)
+      - [Use Case: Delete an Expense](#use-case-delete-an-expense)
+      - [Use Case: Add Income](#use-case-add-income)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+  - [Instructions for manual testing](#instructions-for-manual-testing)
+    - [Manual Testing](#manual-testing)
+    - [JUnit Testing](#junit-testing)
 
 ## Acknowledgements
 
@@ -93,7 +103,7 @@ The `AppUi` class in the Ui component facilitates user interactions, including d
 
 <ins>Usage Example</ins>
 
-```
+``` java
 AppUi ui = new AppUi();
 ui.displayWelcomeMessage();
 String userInput = ui.getUserInput();
@@ -127,10 +137,10 @@ The Parser component includes `InputParser` and `DateParser`. `InputParser` proc
 
 <ins>Usage Example</ins>
 
-```
+``` java
 HashMap<String, String> commandArgs = 
-        InputParser.parseCommands("add /date 12/10/24 /amount 500");
-LocalDate parsedDate = DateParser.parse("12/10/24");
+        InputParser.parseCommands("add /date 12/10/2024 /amount 500");
+LocalDate parsedDate = DateParser.parse("12/10/2024");
 ```
 
 <ins>Design Considerations</ins>
@@ -187,7 +197,7 @@ This sequence diagram illustrates how the `Logic` class works with other classes
 
 <ins>Usage Example</ins>
 
-```
+``` java
 FinancialList financialList = new FinancialList();
 AppUi ui = new AppUi();
 Storage storage = new Storage();
@@ -257,7 +267,7 @@ The `FinancialList` component is the primary data structure responsible for mana
 
 <ins>Usage Example</ins>
 
-```
+``` java
 FinancialList financialList = new FinancialList();
 Income income = new Income(500.00, "Freelance Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
@@ -335,7 +345,7 @@ System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey(
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
 
-```
+``` java
 Income income = new Income(500.00, "Freelancåe Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
 Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),
@@ -559,14 +569,14 @@ but only marks `Expense`s and `Income`s respectively as to be included.
 SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
 seeAllEntriesCommand.execute(financialList);
 
-// Listing all expenses starting from 12/10/24 in the financial list
+// Listing all expenses starting from 12/10/2024 in the financial list
 SeeAllExpensesCommand seeAllExpensesCommand = 
-        new SeeAllExpensesCommand(DateParser.parse("12/10/24"), null);
+        new SeeAllExpensesCommand(DateParser.parse("12/10/2024"), null);
 seeAllExpensesCommand.execute(financialList);
 
-// Listing all expenses starting from 12/10/24 until 24/10/24 in the financial list
-LocalDate startDate = DateParser.parse("12/10/24");
-LocalDate endDate = DateParser.parse("24/10/24");
+// Listing all expenses starting from 12/10/2024 until 24/10/2024 in the financial list
+LocalDate startDate = DateParser.parse("12/10/2024");
+LocalDate endDate = DateParser.parse("24/10/2024");
 SeeAllIncomesCommand seeAllIncomesCommand = 
         new SeeAllIncomesCommand(startDate, endDate);
 seeAllIncomesCommand.execute(financialList);
@@ -640,12 +650,12 @@ try {
 ```
 
 The `Log` class can be used in other classes using the following code example:
-```java
+``` java
 private static final Log logger = Log.getInstance();
 ```
 
 Logging can then be done by invoking `logger.log()`. For example:
-```java
+``` java
 logger.log(LogLevels.INFO, "Expense added successfully.");
 logger.log(LogLevels.WARNING, "Invalid index inputted.");
 logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
@@ -682,17 +692,18 @@ The `Storage` class contains functions for retrieving, updating, and loading dat
   - The storage format of `Expense` and `Income` entries, generated by `toStorageString()`, differs from their CLI display format (`toString()`). 
 
   **Example Storage Formats**:
-  For an `Income` entry with a description "Lunch," amount "10.90," date "25/10/24," and category `FOOD`:
-  - `toString()` method returns: `[Income] - Lunch $10.90 (on 25/10/24) [FOOD]`
-  - `toStorageString()` method returns: `I ¦¦ 10.90 ¦¦ Lunch ¦¦ 25/10/24 ¦¦ FOOD`
+  For an `Income` entry with a description "Lunch," amount "10.90," date "25/10/2024," and category `FOOD`:
+  - `toString()` method returns: `[Income] - Lunch $10.90 (on 25/10/2024) [FOOD]`
+  - `toStorageString()` method returns: `I ¦¦ 10.90 ¦¦ Lunch ¦¦ 25/10/2024 ¦¦ FOOD`
 
-  For an `Expense` entry with a description "Transport," amount "5.00," date "25/10/24," and category `TRANSPORT`:
-  - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/24) [TRANSPORT]`
-  - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/24 ¦¦ TRANSPORT`
+  For an `Expense` entry with a description "Transport," amount "5.00," date "25/10/2024," and category `TRANSPORT`:
+  - `toString()` method returns: `[Expense] - Transport $5.00 (on 25/10/2024) [TRANSPORT]`
+  - `toStorageString()` method returns: `E ¦¦ 5.00 ¦¦ Transport ¦¦ 25/10/2024 ¦¦ TRANSPORT`
 
-The figure below show how the program load data from the files:
-
-<img src="UML/StorageLoad.png" alt="Storage Load Diagram" width="auto" height="500">
+The figure below show how the program load FinantialList from the files:
+<img src="UML/loadTransactionFromStorage.png" alt="Storage Load FinantialList" width="auto" height="500">
+The figure below show how the program load Budget from the files:
+<img src="UML/loadBudgetFromStorage.png" alt="Storage Load Budget" width="auto" height="500">
 
 <ins>Methods</ins>
 
@@ -968,7 +979,7 @@ faster than a typical mouse/GUI driven app
 
 - **Amount**: A numeric value representing the monetary value of the transaction. The amount must be greater than or equal to zero, with precision up to two decimal places.
 
-- **Date**: Represents the date of the financial entry, recorded in the format `dd/MM/yy`, indicating the day, month, and year when the transaction occurred.
+- **Date**: Represents the date of the financial entry, recorded in the format `dd/MM/yyyy`, indicating the day, month, and year when the transaction occurred.
 
 - **Category**: A classification that groups similar types of expenses or incomes, such as "Food," "Transport," or "Salary," to help users organize their finances.
 

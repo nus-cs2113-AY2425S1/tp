@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
+import seedu.duke.util.Commons;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -55,7 +56,7 @@ class AddExpenseCommandTest {
      */
     @Test
     void execute_addExpense_expectAddedToFinancialList() throws FinanceBuddyException {
-        String specificDate = "14/10/24";
+        String specificDate = "14/10/2024";
         Expense.Category category = Expense.Category.FOOD;
         addExpenseCommand = new AddExpenseCommand(50.00, "groceries", specificDate, category);
         addExpenseCommand.execute(financialList);
@@ -63,7 +64,7 @@ class AddExpenseCommandTest {
         String output = outputStream.toString();
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Got it! I've added this expense:" + System.lineSeparator() +
-                "[Expense] - groceries $ 50.00 (on 14/10/24) [FOOD]" + System.lineSeparator() +
+                "[Expense] - groceries $ 50.00 (on 14/10/2024) [FOOD]" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator();
 
         assertEquals(1, financialList.getEntryCount());
@@ -83,7 +84,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithoutDate_expectAddedToFinancialListWithCurrentDate() throws FinanceBuddyException {
         // Use current system date
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         addExpenseCommand = new AddExpenseCommand(30.00, "lunch", null, Expense.Category.UNCATEGORIZED);
         addExpenseCommand.execute(financialList);
 
@@ -109,9 +110,8 @@ class AddExpenseCommandTest {
      */
     @Test
     void execute_addMultipleExpenses_expectAllAddedToFinancialList() throws FinanceBuddyException {
-        //String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        String earlierDate = "11/10/24";
-        String laterDate = "12/10/24";
+        String earlierDate = "11/10/2024";
+        String laterDate = "12/10/2024";
 
         // Add first expense without a specific date
         addExpenseCommand = new AddExpenseCommand(30.00, "lunch", earlierDate, Expense.Category.FOOD);
@@ -151,10 +151,9 @@ class AddExpenseCommandTest {
      */
     @Test
     void execute_addMultipleExpensesNotInDateOrder_expectSortedByDate() throws FinanceBuddyException {
-        //String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yy"));
-        String dateOne = "15/10/24";
-        String dateTwo = "12/10/24";
-        String dateThree = "13/10/24";
+        String dateOne = "15/10/2024";
+        String dateTwo = "12/10/2024";
+        String dateThree = "13/10/2024";
 
         // Add first expense
         addExpenseCommand = new AddExpenseCommand(30.00, "lunch", dateOne, Expense.Category.FOOD);
@@ -212,7 +211,7 @@ class AddExpenseCommandTest {
         });
 
         // Verify the error message
-        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        assertEquals("Invalid date format. Please use 'dd/MM/yyyy'.", exception.getMessage());
     }
 
     /**
@@ -273,7 +272,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithDateAfterCurrentDate_expectErrorMessage() {
         LocalDate laterDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String laterDateAsString = laterDate.format(formatter);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
@@ -293,7 +292,7 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithEmptyDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(1, "", "01/11/24", Expense.Category.OTHER);
+            addExpenseCommand = new AddExpenseCommand(1, "", "01/11/2024", Expense.Category.OTHER);
             addExpenseCommand.execute(financialList);
         });
 
@@ -308,11 +307,37 @@ class AddExpenseCommandTest {
     @Test
     void execute_addExpenseWithBlankDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addExpenseCommand = new AddExpenseCommand(1, " ", "01/11/24", Expense.Category.OTHER);
+            addExpenseCommand = new AddExpenseCommand(1, " ", "01/11/2024", Expense.Category.OTHER);
             addExpenseCommand.execute(financialList);
         });
 
         assertEquals("Description cannot be blank.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Tests the execute method of AddExpenseCommand with a financial list with 4999 entries.
+     * Verifies that the 5000th expense is added but not the 5001st.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expenses.
+     */
+    @Test
+    void execute_addExpenseToFullList_expectErrorMessage() throws FinanceBuddyException {
+        for (int i = 0; i < 4999; i++) {
+            addExpenseCommand = new AddExpenseCommand(1, "test " + i, "01/11/2024", Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        }
+
+        addExpenseCommand = new AddExpenseCommand(1, "test 5000", "01/11/2024", Expense.Category.OTHER);
+        addExpenseCommand.execute(financialList);
+        assertEquals(5000, financialList.getEntryCount());
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addExpenseCommand = new AddExpenseCommand(1, "test 5001", "01/11/2024", Expense.Category.OTHER);
+            addExpenseCommand.execute(financialList);
+        });
+
+        assertEquals(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED, exception.getMessage());
+        assertEquals(5000, financialList.getEntryCount());
     }
 }

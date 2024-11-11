@@ -33,14 +33,13 @@ class EditEntryCommandTest {
      * Tests the EditEntryCommand when the financial list is null.
      * This test ensures that the command throws a FinanceBuddyException
      * with the appropriate message when attempting to execute with a null financial list.
-     *
      * The test creates an EditEntryCommand with sample data and then attempts to execute it
      * with a null financial list. It verifies that a FinanceBuddyException is thrown and
      * that the exception message contains the expected message "Financial list cannot be null".
      */
     @Test
     void testEditEntryCommand_nullFinancialList() throws FinanceBuddyException {
-        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
+        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/2023",
                 Expense.Category.FOOD);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
@@ -55,7 +54,6 @@ class EditEntryCommandTest {
 
     /**
      * Tests the EditEntryCommand to ensure that it correctly edits an existing expense entry in the financial list.
-     * 
      * This test creates an EditEntryCommand with specific parameters and executes it on the financial list.
      * It then verifies that the entry count remains the same, and that the entry's amount, description, date,
      * and category have been updated to the new values provided in the command.
@@ -64,7 +62,7 @@ class EditEntryCommandTest {
      */
     @Test 
     void testEditEntryCommand_editExpense() throws FinanceBuddyException {
-        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
+        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/2023",
                 Expense.Category.FOOD);
         command.execute(financialList);
 
@@ -87,8 +85,8 @@ class EditEntryCommandTest {
      */
     @Test
     void testEditEntryCommand_editExpenseCategory() throws FinanceBuddyException {
-        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now()));
-        EditEntryCommand command = new EditEntryCommand(2, 50.0, "Salary", "01/10/23",
+        financialList.addEntry(new Expense(100.0, "Initial Entry", LocalDate.now(),null));
+        EditEntryCommand command = new EditEntryCommand(2, 50.0, "Salary", "01/10/2023",
                 Expense.Category.FOOD);
         command.execute(financialList);
 
@@ -110,7 +108,7 @@ class EditEntryCommandTest {
      */
     @Test
     void testEditEntryCommand_editDate() throws FinanceBuddyException {
-        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
+        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/2023",
                 Expense.Category.FOOD);
         command.execute(financialList);
 
@@ -136,7 +134,7 @@ class EditEntryCommandTest {
      */
     @Test 
     void testEditEntryCommand_multipleEdits() throws FinanceBuddyException {
-        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/23",
+        EditEntryCommand command = new EditEntryCommand(1, 50.0, "Groceries", "01/10/2023",
                 Expense.Category.FOOD);
         command.execute(financialList);
 
@@ -146,7 +144,7 @@ class EditEntryCommandTest {
         assertEquals(LocalDate.of(2023, 10, 1), financialList.getEntry(0).getDate());
         assertEquals(Expense.Category.FOOD, ((Expense) financialList.getEntry(0)).getCategory());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         command = new EditEntryCommand(1, 100.0, "Initial Entry", LocalDate.now().format(formatter),
                 Expense.Category.UTILITIES);
         command.execute(financialList);
@@ -166,11 +164,11 @@ class EditEntryCommandTest {
     void execute_editOutOfBoundsIndex_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             EditEntryCommand editEntryCommand = new EditEntryCommand(0, 5, "Groceries",
-                    "01/10/23", Expense.Category.FOOD);
+                    "01/10/2023", Expense.Category.FOOD);
             editEntryCommand.execute(financialList);
         });
 
-        assertEquals(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX, exception.getMessage());
+        assertEquals(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX + 0, exception.getMessage());
         assertEquals(1, financialList.getEntryCount());
     }
 
@@ -182,7 +180,7 @@ class EditEntryCommandTest {
     void execute_setAmountToNegative_expectErrorMessage() throws FinanceBuddyException {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             EditEntryCommand editEntryCommand = new EditEntryCommand(1, -5, "Groceries",
-                    "01/10/23", Expense.Category.FOOD);
+                    "01/10/2023", Expense.Category.FOOD);
             editEntryCommand.execute(financialList);
         });
 
@@ -204,7 +202,7 @@ class EditEntryCommandTest {
     void execute_setAmountToVerySmallAmount_expectErrorMessage() throws FinanceBuddyException {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             EditEntryCommand editEntryCommand = new EditEntryCommand(1, 0.0001, "Groceries",
-                    "01/10/23", Expense.Category.FOOD);
+                    "01/10/2023", Expense.Category.FOOD);
             editEntryCommand.execute(financialList);
         });
 
@@ -226,7 +224,7 @@ class EditEntryCommandTest {
     void execute_setAmountToVeryLarge_expectErrorMessage() throws FinanceBuddyException {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
             EditEntryCommand editEntryCommand = new EditEntryCommand(1, 10000000, "Groceries",
-                    "01/10/23", Expense.Category.FOOD);
+                    "01/10/2023", Expense.Category.FOOD);
             editEntryCommand.execute(financialList);
         });
 
@@ -247,7 +245,7 @@ class EditEntryCommandTest {
     @Test
     void execute_setDateToFutureDate_expectErrorMessage() throws FinanceBuddyException {
         LocalDate laterDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String laterDateAsString = laterDate.format(formatter);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
@@ -279,12 +277,40 @@ class EditEntryCommandTest {
         });
 
         // Verify error message
-        assertEquals("Invalid date format. Please use 'dd/MM/yy'.", exception.getMessage());
+        assertEquals("Invalid date format. Please use 'dd/MM/yyyy'.", exception.getMessage());
         // Verify entry is unchanged
         FinancialEntry entry = financialList.getEntry(0);
         assertEquals("Initial Entry", entry.getDescription());
         assertEquals(100.0, entry.getAmount());
         assertEquals(LocalDate.now(), entry.getDate());
         assertEquals(Expense.Category.UNCATEGORIZED, ((Expense) entry).getCategory());
+    }
+
+    /**
+     * Tests the execute method of AddExpenseCommand with a financial list with 5000 entries.
+     * Verifies that the 5000th expense is edited with no problems.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the expenses.
+     */
+    @Test
+    void execute_addExpenseToFullList_expectErrorMessage() throws FinanceBuddyException {
+        for (int i = 1; i <= 4999; i++) {
+            financialList.addEntry(new Expense(100.0, "Test " + i, LocalDate.now(),
+                    Expense.Category.UNCATEGORIZED));
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String dateAsString = LocalDate.now().format(formatter);
+
+        EditEntryCommand command = new EditEntryCommand(5000, 50.0, "Groceries", dateAsString,
+                Expense.Category.FOOD);
+        command.execute(financialList);
+
+        assertEquals(5000, financialList.getEntryCount());
+        Expense editedEntry = (Expense) financialList.getEntry(4999);
+        assertEquals(50.0, editedEntry.getAmount());
+        assertEquals(LocalDate.now(), editedEntry.getDate());
+        assertEquals("Groceries", editedEntry.getDescription());
+        assertEquals(Expense.Category.FOOD, editedEntry.getCategory());
     }
 }

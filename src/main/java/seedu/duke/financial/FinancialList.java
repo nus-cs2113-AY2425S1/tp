@@ -14,9 +14,12 @@ import java.util.Map;
  */
 public class FinancialList {
     private static final Double AMOUNTZERO = 0.0;
+    private static final int DEFAULT_LAST_AMENDED_INDEX = -1;
+    private static final int ZERO_TO_ONE_BASED_INDEX = 1;
     private ArrayList<FinancialEntry> entries;
     private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
     private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
+    private int lastAmendedIndex;
 
     /**
      * Constructs a FinancialList object with an empty list.
@@ -25,6 +28,7 @@ public class FinancialList {
         entries = new ArrayList<>();
         totalExpenseByCategory = new HashMap<>();
         totalIncomeByCategory = new HashMap<>();
+        lastAmendedIndex = DEFAULT_LAST_AMENDED_INDEX;
     }
 
     /**
@@ -47,17 +51,37 @@ public class FinancialList {
 
     /**
      * Adds a new financial entry to the list in ascending order of date.
+     * Updates last amended index after adding the entry.
      *
      * @param entry The financial entry (income or expense) to be added.
      */
-    public void addEntry(FinancialEntry entry) {
+    public void addEntry(FinancialEntry entry) throws FinanceBuddyException {
         int insertIndex = entries.size();
+        if (insertIndex >= 5000) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
+        }
         while (shouldDecrementIndex(entry, insertIndex)) {
             insertIndex--;
         }
         assert insertIndex >= 0 && insertIndex <= entries.size(): "Invalid insertion index";
         entries.add(insertIndex, entry);
+        lastAmendedIndex = insertIndex;
         updateCategoryTotal(entry);
+    }
+
+    /**
+     * Adds a new financial entry to the list at a specified index.
+     * Updates last amended index after adding the entry.
+     *
+     * @param entry The financial entry (income or expense) to be added.
+     * @param insertIndex The index at which the new entry should be inserted into the list at.
+     */
+    public void addEntryAtSpecificIndex(FinancialEntry entry, int insertIndex) throws FinanceBuddyException {
+        if (entries.size() >= 5000) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
+        }
+        entries.add(insertIndex, entry);
+        lastAmendedIndex = insertIndex;
     }
 
     /**
@@ -103,11 +127,26 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX +
+                    (index + ZERO_TO_ONE_BASED_INDEX));
         }
     }
 
+    /**
+     * Getter to return the index of the last added/edited entry in the financial list.
+     *
+     * @return index of last added/edited entry.
+     */
+    public int getLastAmendedIndex() {
+        return lastAmendedIndex;
+    }
 
+    /**
+     * Method to reset last amended index to -1 after deleting an entry.
+     */
+    public void resetLastAmendedIndex() {
+        lastAmendedIndex = DEFAULT_LAST_AMENDED_INDEX;
+    }
     /**
      * Edits an existing financial entry in the list.
      *
@@ -193,4 +232,11 @@ public class FinancialList {
         totalIncomeByCategory.clear();
     }
 
+    public void clear() {
+        entries.clear(); // Assuming `entries` is the internal list of financial transactions
+    }
+
+    public ArrayList<FinancialEntry> getEntries() {
+        return new ArrayList<>(entries); // Return a copy to prevent external modification
+    }
 }

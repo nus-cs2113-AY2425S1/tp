@@ -11,6 +11,7 @@ import seedu.duke.financial.Income;
 import seedu.duke.logic.BudgetLogic;
 import seedu.duke.logic.Logic;
 import seedu.duke.storage.Storage;
+import seedu.duke.util.Commons;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,7 +31,7 @@ public class LogicTest {
 
     private Logic logic;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    private final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private final DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Sets up the test environment by initializing the {@link AppUi} instance and its financial list.
@@ -79,7 +80,7 @@ public class LogicTest {
 
         // Prepare command arguments for the "seeAllExpenses" command
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "expense");
+        commandArguments.put(Commons.KEY_FIRST_ARGUMENT, "expense");
 
         // Execute the command
         logic.matchCommand("list", commandArguments);
@@ -88,7 +89,9 @@ public class LogicTest {
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
                 "Here's a list of all recorded expenses:" + System.lineSeparator() +
-                "1. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ") [FOOD]" + System.lineSeparator()  +
+                "2. [Expense] - Lunch $ 100.00 (on " + date1.format(pattern) + ") [FOOD]" + System.lineSeparator()  +
+                System.lineSeparator() +
+                "Total count: 1" + System.lineSeparator() +
                 System.lineSeparator() +
                 "Total expense: $ 100.00" + System.lineSeparator() +
                 System.lineSeparator() +
@@ -108,8 +111,8 @@ public class LogicTest {
     @Test
     void testMatchCommand_expenseCommand() throws FinanceBuddyException {
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "Lunch");
-        commandArguments.put("/a", "12.00");
+        commandArguments.put(Commons.KEY_FIRST_ARGUMENT, "Lunch");
+        commandArguments.put(Commons.FLAG_AMOUNT, "12.00");
 
         boolean result = logic.matchCommand("expense", commandArguments);
 
@@ -126,8 +129,8 @@ public class LogicTest {
     void testMatchCommand_incomeCommand() throws FinanceBuddyException {
         // Prepare command arguments for the "income" command
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "Salary");
-        commandArguments.put("/a", "2500.00");
+        commandArguments.put(Commons.KEY_FIRST_ARGUMENT, "Salary");
+        commandArguments.put(Commons.FLAG_AMOUNT, "2500.00");
 
         // Execute the command
         boolean result = logic.matchCommand("income", commandArguments);
@@ -150,10 +153,10 @@ public class LogicTest {
 
         // Prepare command arguments for the "edit" command
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "1");
-        commandArguments.put("/a", "25.00");
-        commandArguments.put("/des", "Edited Description");
-        commandArguments.put("/d", "11/11/11");
+        commandArguments.put(Commons.KEY_FIRST_ARGUMENT, "1");
+        commandArguments.put(Commons.FLAG_AMOUNT, "25.00");
+        commandArguments.put(Commons.FLAG_DESCRIPTION, "Edited Description");
+        commandArguments.put(Commons.FLAG_DATE, "11/11/2011");
 
         // Execute the command
         boolean result = logic.matchCommand("edit", commandArguments);
@@ -178,7 +181,7 @@ public class LogicTest {
 
         // Prepare command arguments for the "delete" command
         HashMap<String, String> commandArguments = new HashMap<>();
-        commandArguments.put("argument", "1");  // Deleting first entry
+        commandArguments.put(Commons.KEY_FIRST_ARGUMENT, "1");  // Deleting first entry
 
         // Execute the command
         boolean result = logic.matchCommand("delete", commandArguments);

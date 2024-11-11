@@ -27,8 +27,9 @@ loop i < financialListEntryCount
     return decision to include entry
 
     opt entry should be included
-        cmd -> cmd : increment entryCount
-
+        cmd -> cmd : increment this.entryCount
+        activate cmd
+        return
 
         cmd -> entry : toString()
         activate entry
@@ -46,12 +47,12 @@ loop i < financialListEntryCount
     end
 end
 
-alt entryCount == 0
-    cmd --> cmd : print no entry message
+alt this.entryCount == 0
+    cmd -> cmd : print no entry message
         activate cmd
         return
 else else
-    cmd --> cmd: print entryList with net cashflow
+    cmd -> cmd: print entryList with net cashflow
         activate cmd
         return
     cmd -> list : getHighestExpenseCategory()
