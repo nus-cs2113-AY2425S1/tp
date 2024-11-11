@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+//import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static org.junit.jupiter.api.Assertions.assertNotEquals;
 //import static org.junit.jupiter.api.Assertions.assertNull;
@@ -546,7 +546,8 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the set limit matches the maximum limit
-        assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), "The budget limit should be exactly set to the maximum allowed");
+        assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit),
+                     "The budget limit should be exactly set to the maximum allowed");
     }
 
     @Test
@@ -570,16 +571,17 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the set limit matches the maximum limit
-        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), "The budget limit is set below  the maximum allowed");
+        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
+                     "The budget limit is set below  the maximum allowed");
 
     }
 
 
-     /**
+    /**
      * Tests setting a budget limit above the maximum allowed.
      * Ensures that the budget limit does not exceed the predefined maximum
      * when an invalid higher limit is attempted to be set.
-     */
+    **/
     @Test
     void testSetInvalidBudgetLimitAboveMaximum() {
         BudgetManager budgetManager = new BudgetManager();
