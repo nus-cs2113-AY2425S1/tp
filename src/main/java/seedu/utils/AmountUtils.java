@@ -1,5 +1,6 @@
 package seedu.utils;
 
+import seedu.exceptions.InvalidAmountFormatException;
 import seedu.message.ErrorMessages;
 
 /**
@@ -27,12 +28,11 @@ public class AmountUtils {
      *
      * @param amountString The amount in string format to parse.
      * @return The parsed amount as a double.
-     * @throws IllegalArgumentException if the amount is invalid.
+     * @throws InvalidAmountFormatException if the amount is invalid.
      */
-    public static double parseAmount(String amountString) throws IllegalArgumentException {
+    public static double parseAmount(String amountString) throws InvalidAmountFormatException {
         if (!isValidAmount(amountString)) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_AMOUNT_FORMAT + amountString
-                    + ErrorMessages.INVALID_AMOUNT_GUIDE);
+            throw new InvalidAmountFormatException(ErrorMessages.INVALID_AMOUNT_FORMAT + amountString);
         }
         return Double.parseDouble(amountString);
     }

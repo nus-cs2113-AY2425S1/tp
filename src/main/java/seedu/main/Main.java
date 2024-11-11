@@ -112,7 +112,7 @@ public class Main {
         Storage.saveCategory(categories.getCategories());
 
         transactions = new TransactionList();
-        transactions.setTransactions(Storage.loadTransactions());
+        transactions.setTransactions(Storage.loadTransactions(categories.getCategories()));
 
         budgetTracker = new BudgetTracker(transactions);
         budgetTracker.setMonthlyBudgets(Storage.loadBudgets());

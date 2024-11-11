@@ -20,7 +20,7 @@ public class Category {
             return false;
         }
         Category category = (Category) obj;
-        return name.equalsIgnoreCase(category.name);
+        return name.trim().equalsIgnoreCase(category.name);
     }
 
     @Override

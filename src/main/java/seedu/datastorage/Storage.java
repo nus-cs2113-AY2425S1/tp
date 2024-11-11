@@ -4,12 +4,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import seedu.category.Category;
+import seedu.exceptions.InvalidDateFormatException;
 import seedu.main.UI;
 import seedu.message.ErrorMessages;
 import seedu.message.InfoMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.Expense;
 import seedu.transaction.Income;
+import seedu.utils.AmountUtils;
+import seedu.utils.DateTimeUtils;
+import seedu.utils.DescriptionUtils;
 
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -57,7 +61,7 @@ public class Storage {
      *
      * @return A list of transactions loaded from the file, or an empty list if no transactions are found.
      */
-    public static ArrayList<Transaction> loadTransactions() {
+    public static ArrayList<Transaction> loadTransactions(ArrayList<Category> categories) {
         File transactionsFile = new File(TRANSACTIONS_PATH);
 
         if (!transactionsFile.exists()) {
@@ -70,7 +74,7 @@ public class Storage {
             ArrayList<Transaction> temp =  new ArrayList<>(gson.fromJson(reader, listType));
             ArrayList<Transaction> transactions = new ArrayList<>();
             for (Transaction t : temp) {
-                if (isValidTransaction(t)) {
+                if (isValidTransaction(t, categories)) {
                     transactions.add(t);
                 }
             }
@@ -95,26 +99,39 @@ public class Storage {
      * @param t The transaction to validate.
      * @return True if the transaction is valid, false otherwise.
      */
-    private static boolean isValidTransaction(Transaction t) {
+    private static boolean isValidTransaction(Transaction t, ArrayList<Category> categories) {
         if (t == null) {
             return false;
         }
 
-        if (t.getAmount() < 0) {
-            logger.log(Level.WARNING, "Transaction has negative amount: " + t);
+        if (t instanceof Expense) {
+            String validCategoryName = ((Expense) t).getCategory().getName().trim();
+            Category validCategory = new Category(validCategoryName);
+            ((Expense) t).setCategory(validCategory);
+            if (validCategoryName.isEmpty()) {
+                return true;
+            }
+            if (!categories.contains(validCategory)) {
+                logger.log(Level.WARNING, "Can not find the category in the category list: " + t);
+                return false;
+            }
+        }
+        if (!AmountUtils.isValidAmount(String.valueOf(t.getAmount()))) {
+            logger.log(Level.WARNING, "Transaction has invalid amount: " + t);
             return false;
         }
 
-        if (t.getDescription() == null || t.getDescription().isEmpty()) {
-            logger.log(Level.WARNING, "Transaction has null or empty description: " + t);
+        if (!DescriptionUtils.isValidDescription(t.getDescription())) {
+            logger.log(Level.WARNING, "Transaction has invalid description: " + t);
             return false;
         }
 
-        if (t.getDate() == null) {
+        try {
+            DateTimeUtils.parseDateTime(t.getDateTimeString());
+        } catch (InvalidDateFormatException e) {
             logger.log(Level.WARNING, "Transaction has an invalid date format: " + t);
             return false;
         }
-
         return true;
     }
 
@@ -148,7 +165,16 @@ public class Storage {
 
         try (FileReader reader = new FileReader(CATEGORIES_PATH)) {
             Type listType = new TypeToken<ArrayList<Category>>() {}.getType();
-            ArrayList<Category> categories = gson.fromJson(reader, listType);
+            ArrayList<Category> temp =  gson.fromJson(reader, listType);
+            ArrayList<Category> categories = new ArrayList<>();
+            if (temp!= null) {
+                for (Category t : temp) {
+                    Category validT = new Category(t.getName().trim());
+                    if (isValidCategory(validT, categories)) {
+                        categories.add(validT);
+                    }
+                }
+            }
             return (categories != null) ? categories : new ArrayList<>();
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_CATEGORIES, e.getMessage()));
@@ -157,6 +183,24 @@ public class Storage {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    private static boolean isValidCategory(Category t, ArrayList<Category> categories) {
+        if (!DescriptionUtils.isValidDescription(t.getName())) {
+            logger.log(Level.WARNING, "Category has invalid description: " + t);
+            return false;
+        }
+        if (t.getName().equalsIgnoreCase("skip")
+                || t.getName().equalsIgnoreCase("yes")
+                || t.getName().equalsIgnoreCase("no")) {
+            logger.log(Level.WARNING, "Category has invalid description: " + t);
+            return false;
+        }
+        if (categories.contains(t)) {
+            logger.log(Level.WARNING, "Duplicated category: " + t);
+            return false;
+        }
+        return true;
     }
 
     /**
