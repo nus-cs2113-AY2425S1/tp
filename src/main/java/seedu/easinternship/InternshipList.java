@@ -6,6 +6,8 @@ import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
