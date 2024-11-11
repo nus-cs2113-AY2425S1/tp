@@ -330,7 +330,7 @@ Since the programme does not have an auto-save function upon closing the program
 
 Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
 - The `save` command is needed to register the recurring expense into the system.
-- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
+- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified.
 
 Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
 
