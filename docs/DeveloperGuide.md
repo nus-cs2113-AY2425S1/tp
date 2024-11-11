@@ -363,6 +363,8 @@ Below is the sequence diagram for when the user calls the `load` command.
 
 ### Category Package
 
+This packages contains 5 classes relating to category management: `CategoryFacade`, `CategoryTracker`, `CategoryData`, `CategoryFilter` and `CategoryStorage`. 
+
 <u>Overview</u>
 
 The `CategoryFacade` class serves as an interface that simplifies the interaction with various category-related classes (`CategoryTracker` and `CategoryFilter`), providing a unified API for the rest of the application (namely the `Command` classes).
@@ -372,6 +374,8 @@ The `CategoryTracker` class manages a collection of Category-`CategoryData` pair
 The `CategoryData` class contains category-related information, namely the cumulative expenditure (the sum of all prices of expenses with that category) and the spending limits for that category. 
 
 The `CategoryFilter` class is responsible for filtering categories based on various criteria.
+
+The `CategoryStorage` class contains methods to convert between category tracker and CSV file.
 
 <u>Methods</u>
 
@@ -454,13 +458,14 @@ Each of the classes in this package handle a separate concern relating to catego
   - Setter methods checks for null inputs. Constructor methods also do, as they use those setters. 
 - `CategoryFilter` class
   -  Uses priority queue data structures as max heaps to sort the category expenditure information
+- `CategoryStorage` class
+  - Methods are specifically related to saving and loading category-information to achieve SoC and SRP.
 
 <u>Implementation Details</u>
 
-The following diagram is a UML class diagram for `CategoryData`, `CategoryTracker`, `CategoryFilter` and `CategoryFacade`:
+The following diagram is a UML class diagram for `CategoryFacade`, `CategoryTracker`, `CategoryData`, `CategoryFilter` and `CategoryStorage`:
 
-![Category Classes ClassUML.png](diagrams%2Fimages%2FCategory%20Classes%20ClassUML.png)
-
+![CategoryClasses ClassUML.png](diagrams%2Fimages%2FCategoryClasses%20ClassUML.png)
 
 
 ### Exceptions and Logging
