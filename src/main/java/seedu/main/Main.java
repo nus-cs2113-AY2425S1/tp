@@ -93,6 +93,7 @@ public class Main {
             start();
             runCommandLoop();
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             logger.log(Level.WARNING, "Unknown error: " + e.getMessage());
         }
     }
@@ -189,6 +190,7 @@ public class Main {
      */
     private static void runCommandLoop() {
         while (isRunning) {
+
             String commandString = ui.getUserInput();
             String[] commandParts = commandString.split(" ", 2);
 
