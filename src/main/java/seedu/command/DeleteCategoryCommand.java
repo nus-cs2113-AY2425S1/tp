@@ -80,7 +80,7 @@ public class DeleteCategoryCommand extends Command {
 
         boolean isContinue = true;
         if (!transactionListByCategory.isEmpty()) {
-            isContinue = updateExistingTransactions(transactionListByCategory);
+            isContinue = updateExistingTransactions(transactionListByCategory, temp);
         }
 
         if (isContinue) {
@@ -114,21 +114,23 @@ public class DeleteCategoryCommand extends Command {
      *
      * @return false if user choose to cancel the action, true if user proceed
      */
-    private boolean updateExistingTransactions(List<Transaction> transactionListByCategory) {
+    private boolean updateExistingTransactions
+    (List<Transaction> transactionListByCategory, Category category) {
         ui.printMessage("These expenses need modification: ");
         for (Transaction transaction : transactionListByCategory) {
             ui.printMessage(transaction.toString());
         }
-        ui.printMiddleMessage("Type 'no' to cancel, " +
+        ui.printMessage("Type 'no' to cancel, " +
                 "'skip' to remove the category of these expenses," +
                 "or enter a category name to re-categorize: ");
-        Category temp = processUserInput();
+        Category temp = processUserInput(category);
         if (temp == null) {
             return false;
         } else {
             for (Transaction transaction : transactionListByCategory) {
                 ((Expense) transaction).setCategory(temp);
             }
+            Storage.saveTransaction(transactionList.getTransactions());
             return true;
         }
     }
@@ -140,7 +142,7 @@ public class DeleteCategoryCommand extends Command {
      * @return null if the user cancel the command, empty category if they skip,
      *      and a Category if they re-categorize
      */
-    private Category processUserInput(){
+    private Category processUserInput(Category deletedCategory){
         Category temp = null;
         while (true) {
             String response = ui.getUserInput().trim();
@@ -174,17 +176,25 @@ public class DeleteCategoryCommand extends Command {
                 return new Category("");
             } else {
                 temp = categoryList.findCategory(response);
-                if (temp != null) {
-                    return temp;
-                } else {
+                if (temp == null) {
                     ui.printMessage("Category '" + response + "' does not exist. Current categories:");
                     for (Category category:categoryList.getCategories()) {
                         ui.printMessage(category.toString());
                     }
-                    ui.printMiddleMessage("Type 'yes' to create a new category, or enter an existing category name. " +
+                    ui.printMessage("Type 'yes' to create a new category, or enter an existing category name. " +
                             "Type 'no' to cancel, skip' to remove the category of these expenses: ");
                     // Temporarily save the inserted category
                     temp = new Category(response);
+                } else if (temp.equals(deletedCategory)){
+                    ui.printMessage("You are inputting the same category of your deletion. Current category list: ");
+                    for (Category category:categoryList.getCategories()) {
+                        ui.printMessage(category.toString());
+                    }
+                    ui.printMessage("Type 'no' to cancel, " +
+                            "'skip' to remove the category of these expenses," +
+                            "or enter a category name to re-categorize: ");
+                } else {
+                    return temp;
                 }
             }
         }
