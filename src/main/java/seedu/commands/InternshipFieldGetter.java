@@ -1,6 +1,6 @@
 package seedu.commands;
 
-import seedu.EasInternship.Internship;
+import seedu.easinternship.Internship;
 
 @FunctionalInterface
 public interface InternshipFieldGetter {

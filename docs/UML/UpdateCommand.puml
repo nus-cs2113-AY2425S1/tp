@@ -1,90 +1,82 @@
 @startuml
 title UpdateCommand Sequence Diagram
+hide footbox
 
 participant User
 participant UpdateCommand
-participant uiCommand
-participant Internship
+participant UiCommand
 participant InternshipList
 participant UiInternshipList
 
-activate InternshipList #orange
-activate UiInternshipList #yellow
-activate Internship #lightblue
-
 User -> UpdateCommand:execute(args)
 activate UpdateCommand #red
-activate uiCommand #green
 
 UpdateCommand -> InternshipList:isWithinBounds(index)
+activate InternshipList #orange
+
 break Not in Bounds
     InternshipList -> UiInternshipList:showInvalidIndex()
+    activate UiInternshipList #yellow
     UiInternshipList --> User:show invalid index message
-    InternshipList --> UpdateCommand: false
+    deactivate UiInternshipList
 end
 
-InternshipList --> UpdateCommand: true
+deactivate InternshipList
 
-UpdateCommand -> uiCommand:clearInvalidFlags()
-UpdateCommand -> uiCommand:clearUpdatedFields()
-UpdateCommand -> uiCommand:clearInvalidFields()
+UpdateCommand -> UiCommand:clearInvalidFlags()
+activate UiCommand #green
+deactivate UiCommand
+
+UpdateCommand -> UiCommand:clearUpdatedFields()
+activate UiCommand #green
+deactivate UiCommand
+
+UpdateCommand -> UiCommand:clearInvalidFields()
+activate UiCommand #green
+deactivate UiCommand
 
 loop for arg in args
     UpdateCommand -> UpdateCommand:updateOneField(words, internshipIndex)
     activate UpdateCommand #red
+
     alt status || skills || role || company || from || to || deadline
         UpdateCommand -> UpdateCommand:isValidWords()
         activate UpdateCommand #red
-        UpdateCommand --> UpdateCommand
+
+        alt field is empty
+            UpdateCommand -> UiCommand:addInvalidField(field, message)
+            activate UiCommand #green
+            deactivate UiCommand
+        end
+
+        UpdateCommand --> UpdateCommand: :boolean
         deactivate UpdateCommand
 
         UpdateCommand -> InternshipList:updateField(internshipIndex, field, value)
-        alt status
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:updateStatus(value)
-        else skills
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:setSkills(value)
-        else role
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:setRole(value)
-        else company
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:setCompany(value)
-        else from
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:setStartDate(value)
-        else to
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:setEndDate(value)
-        else deadline
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:updateDeadline(value)
-        end
+        activate InternshipList #orange
+        InternshipList --> UpdateCommand:updatedValue: String
+        deactivate InternshipList
 
-        UpdateCommand -> uiCommand:addUpdatedField(field, value, type)
+        UpdateCommand -> UiCommand:addUpdatedField(field, value, type)
+        activate UiCommand #green
+        deactivate UiCommand
     else default
-        UpdateCommand -> uiCommand:addInvalidFlag(field)
+        UpdateCommand -> UiCommand:addInvalidFlag(field)
+        activate UiCommand #green
+        deactivate UiCommand
     end
+
     UpdateCommand --> UpdateCommand
     deactivate UpdateCommand
-end
-
-UpdateCommand -> uiCommand:showEditedInternships(internship, action)
-
-uiCommand -> uiCommand:getInvalidFlags();
-uiCommand -> uiCommand:getInvalidFields();
-
-alt add
-
-else word
-    uiCommand -> uiCommand:getUpdatedFields()
-
-else default
 
 end
 
-uiCommand -> uiCommand:showOutput(message)
-uiCommand --> User:print output
+UpdateCommand -> UiCommand:showEditedInternships(internship, action)
+activate UiCommand #green
+UiCommand --> User:print output
+deactivate UiCommand
+
+UpdateCommand --> User
+deactivate UpdateCommand
 
 @enduml
