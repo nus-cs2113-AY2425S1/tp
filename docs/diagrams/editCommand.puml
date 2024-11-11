@@ -1,16 +1,13 @@
 @startuml
 actor User
-participant ":Ui" as Ui #88cc88
-participant ":BuffBuddy" as BuffBuddy #88cc88
-participant ":Parser" as Parser #88bbff
-participant ":CommandFactory" as CommandFactory #88bbff
-participant ":ProgCommandFactory" as ProgCommandFactory #88bbff
-participant ":EditCommand" as Command #cc88cc
-participant ":Model" as Model #ffbb77
-participant ":CommandResult" as CommandResult #cc88cc
-
-
-
+participant ":Ui" as Ui 
+participant ":BuffBuddy" as BuffBuddy 
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory 
+participant ":ProgCommandFactory" as ProgCommandFactory
+participant ":EditProgrammeCommand" as Command
+participant ":Model" as Model
+participant ":CommandResult" as CommandResult
 
 
 User -> Ui : "prog edit..."
@@ -23,19 +20,51 @@ BuffBuddy -> Parser : parse("prog edit...")
 activate Parser
 
 Parser -> CommandFactory : createCommand("prog", "edit...")
-deactivate Parser
+
 activate CommandFactory
 
 CommandFactory -> ProgCommandFactory : parse("edit",arguments)
-deactivate CommandFactory
+
 activate ProgCommandFactory
 
+ProgCommandFactory -> ProgCommandFactory : prepareEditCommand(arguments)
+activate ProgCommandFactory
 
-ProgCommandFactory -> Command : createEditCommand(arguments)
+opt edit type is create day
+    ProgCommandFactory -> ProgCommandFactory: parseDay(dayString)
+    activate ProgCommandFactory
+    ProgCommandFactory --> ProgCommandFactory: created Day
+    deactivate ProgCommandFactory
+end
+
+opt edit type is create exercise
+    ProgCommandFactory -> ProgCommandFactory: parseExercise(exerciseString)
+    activate ProgCommandFactory
+    ProgCommandFactory --> ProgCommandFactory: created Exercise
+    deactivate ProgCommandFactory
+end
+
+opt edit type is update exercise
+    ProgCommandFactory -> ProgCommandFactory: parseExerciseUpdate(updateString)
+    activate ProgCommandFactory
+    ProgCommandFactory --> ProgCommandFactory: created ExerciseUpdate
+    deactivate ProgCommandFactory
+end
+
+create Command
+ProgCommandFactory -> Command : create appropiate Edit Command
 deactivate ProgCommandFactory
 
 activate Command
-BuffBuddy <-- Command
+ProgCommandFactory <-- Command
+CommandFactory <-- ProgCommandFactory : created EditProgrammeCommand
+deactivate ProgCommandFactory
+
+Parser <-- CommandFactory : created EditProgrammeCommand
+deactivate CommandFactory
+
+BuffBuddy <-- Parser : created EditProgrammeCommand
+deactivate Parser
 
 BuffBuddy -> Command : execute()
 
@@ -45,8 +74,8 @@ activate Model
 Command <-- Model: returned Data
 deactivate Model
 
-
-Command -> CommandResult: new CommandResult(message)
+create CommandResult
+Command -> CommandResult: create Command Result
 
 deactivate Command
 activate CommandResult
@@ -55,7 +84,7 @@ deactivate CommandResult
 BuffBuddy -> Ui : showMessage()
 deactivate BuffBuddy
 
-User <-- Ui
+User <-- Ui : "Successfully edited..."
 deactivate Ui
 
 @enduml

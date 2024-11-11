@@ -25,7 +25,7 @@ abstract class ProgrammeCommand {
     + equals(other: Object): boolean
 }
 
-abstract class EditCommand {
+abstract class EditProgrammeCommand {
     # exerciseIndex: int
     + execute(programmes: ProgrammeList): CommandResult
 }
@@ -47,7 +47,7 @@ Command <|-- InvalidCommand
 Command <|-- WaterCommand
 Command <|-- MealCommand
 Command <|-- HistoryCommand
-ProgrammeCommand <|-- EditCommand
+ProgrammeCommand <|-- EditProgrammeCommand
 Command ..> CommandResult
 
 @enduml
