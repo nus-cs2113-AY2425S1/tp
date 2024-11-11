@@ -44,11 +44,12 @@ The category is keyed in as such: <command> [index] /category value ...remaining
 > 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
 > Invalid date format, please follow dd-MM-yyyy
 > No valid command given!
-> HIGHEST EXPENSE:
+> HIGHEST EXPENSE:120.0
 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
-LOWEST EXPENSE:
+LOWEST EXPENSE:120.0
 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
-MEAN PRICE: 120.0
+TOTAL EXPENSES: 120.0
+AVERAGE PRICE: 120.0
 > 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
 > 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
 > No matching expenses were found!
