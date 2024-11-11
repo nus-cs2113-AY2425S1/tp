@@ -37,7 +37,7 @@ public class UpdateCommand extends Command {
 
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
 
-            logger.log(Level.INFO, "UpdateCommand Executed");
+            LOGGER.log(Level.INFO, "UpdateCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
         } catch (InvalidIndex ie) {

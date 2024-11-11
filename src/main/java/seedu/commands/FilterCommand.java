@@ -60,7 +60,7 @@ public class FilterCommand extends Command {
         functionComplete = true;
         filteredInternships.listAllInternships();
 
-        logger.log(Level.INFO, "FilterCommand Executed");
+        LOGGER.log(Level.INFO, "FilterCommand Executed");
     }
 
     private void executeFilterByOneFlag(String[] words) {

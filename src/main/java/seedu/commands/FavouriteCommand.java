@@ -23,7 +23,7 @@ public class FavouriteCommand extends Command {
                 }
                 favouriteInternships.add(internship);
 
-                logger.log(Level.INFO, "FavouriteCommand Executed");
+                LOGGER.log(Level.INFO, "FavouriteCommand Executed");
             } catch (NumberFormatException e) {
                 uiCommand.showOutput("Invalid integer: " + arg + "\nPlease provide a valid internship ID");
             }
