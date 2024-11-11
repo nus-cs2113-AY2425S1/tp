@@ -26,51 +26,8 @@ loop for each event in eventList
 
 end
 
-return :boolean
+return :String
 
 return
-
-@enduml
- 39 changes: 39 additions & 0 deletions39
-docs/diagrams/EditParticipantCommandSequenceDiagram.puml
-Original file line number	Original file line	Diff line number	Diff line change
-@@ -0,0 +1,39 @@
-@startuml
-hide footbox
-
-participant ":Main" as main
-participant ":EditParticipantCommand" as editCommand
-participant ":EventList" as eventList
-participant ":Event" as event
-
-main -> editCommand : execute()
-activate editCommand
-
-editCommand -> eventList : editParticipant(participantName, participantNumber, participantEmail, eventName)
-activate eventList
-
-loop for each event in eventList
-    eventList -> event : getEventName()
-    activate event
-    event --> eventList : eventName
-    deactivate event
-
-    alt eventName matches
-        eventList -> event : updateParticipant(participantName, participantNumber, participantEmail)
-        activate event
-        event --> eventList : updated
-        deactivate event
-        eventList --> editCommand : true
-    end
-
-end
-
-alt no match found
-    eventList --> editCommand : false
-end
-
-editCommand --> main : message
-deactivate eventList
-deactivate editCommand
 
 @enduml
