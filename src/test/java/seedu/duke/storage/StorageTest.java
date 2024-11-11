@@ -67,6 +67,8 @@ public class StorageTest {
         financialList = new FinancialList();
         budgetLogic = new BudgetLogic(budget,ui);
         System.setOut(new PrintStream(outputStream));
+        Storage.getStorageFileWithoutMsg();
+        Storage.getBudgetFileWithoutMsg();
     }
 
     /**
@@ -458,5 +460,29 @@ public class StorageTest {
         String expection = "I have loaded 3 expenses and 0 incomes from file." + System.lineSeparator() +
                             "Date in budget file is invalid, setting to current date." + System.lineSeparator();
         assertEquals(expection, output);
+    }
+
+    /**
+     * Tests the deleteBudgetFromFile method of the Storage class.
+     * Ensures that no exception is thrown when deleting the budget file
+     * and verifies that the budget file no longer exists after deletion.
+     */
+    @Test
+    void testDeleteBudgetFromFile() {
+        File budgetFile = Storage.getBudgetFile();
+        assertDoesNotThrow(() -> storage.deleteBudgetFromFile());
+        assertFalse(budgetFile.exists());
+    }
+
+    /**
+     * Tests the deleteFinancialListFromFile method in the Storage class.
+     * Ensures that no exception is thrown when attempting to delete the financial list from the file.
+     * Also verifies that the file no longer exists after the deletion.
+     */
+    @Test
+    void testDeleteFinancialListFromFile() {
+        File file = Storage.getStorageFile();
+        assertDoesNotThrow(() -> storage.deleteFinancialListFromFile());
+        assertFalse(file.exists());
     }
 }

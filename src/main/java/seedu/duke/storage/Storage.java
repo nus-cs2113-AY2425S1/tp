@@ -133,6 +133,53 @@ public class Storage {
         return file;
     }
 
+    /**
+     * Retrieves the log file. If the storage file does not exist, it creates the file
+     * and its parent directories if necessary.
+     *
+     * @return The storage file.
+     */
+    public static File getStorageFileWithoutMsg() {
+        File file = new File(FINANCIAL_LIST_FILE_PATH);
+        // check if the file exists
+        if (!file.exists()) {
+            try {
+                // check if the dictionary exists
+                File directory = new File(file.getParent());
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                file.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
+
+    /**
+     * Retrieves the budget file. If the file does not exist, it creates the necessary directories
+     * and the file itself.
+     *
+     * @return The budget file.
+     */
+    public static File getBudgetFileWithoutMsg() {
+        File file = new File(BUDGET_FILE_PATH);
+        // check if the file exists
+        if (!file.exists()) {
+            try {
+                // check if the dictionary exists
+                File directory = new File(file.getParent());
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+                file.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return file;
+    }
 
     /**
      * Updates the storage file with the current entries in the provided FinancialList.
@@ -453,6 +500,32 @@ public class Storage {
             System.out.println(loadedBudgetMsg);
         }
         clearInvalidLines();
+    }
+
+    /**
+     * Deletes the budget file from the file system.
+     * If an error occurs during deletion, it logs a warning message.
+     */
+    public void deleteBudgetFromFile() {
+        try {
+            File budgetFile = getBudgetFile();
+            budgetFile.delete();
+        } catch (Exception e) {
+            logger.log(LogLevels.WARNING, "Error deleting budget file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Deletes the financial list file from the storage.
+     * If an error occurs during the deletion process, it logs a warning message.
+     */
+    public void deleteFinancialListFromFile() {
+        try {
+            File financialListFile = getStorageFile();
+            financialListFile.delete();
+        } catch (Exception e) {
+            logger.log(LogLevels.WARNING, "Error deleting financial list file: " + e.getMessage());
+        }
     }
 }
 
