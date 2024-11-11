@@ -15,7 +15,7 @@
   - [List Commands](#1-list-commands-command)
   - [Help Command](#2-help-command)
   - [List Schools Command](#3-list-schools-command)
-  - [Set Command](#4-list-university-courses-command)
+  - [List Courses Command](#4-list-university-courses-command)
   - [Obtain Command](#5-obtain-partner-university-email-and-contact-number-command)
   - [Filter Command](#6-filter-courses-command)
   - [Add Command](#7-add-courses-command)
@@ -302,7 +302,7 @@ partner university.
 * The `ListUniCoursesCommand` class extends the `CheckInformationCommand` class where it overrides the execute method
   for custom behaviour.
 * The command first reads a JSON file to obtain the JsonObject containing the names of all the partner universities.
-* The getPuName method then parses and extracts the PU name from the input (with the format of `set [PU_NAME]`).
+* The getPuName method then parses and extracts the PU name from the input (with the format of `list courses [PU_NAME]`).
 * Next, the extracted PU name is passed into the `getUniCourses()` method which will search for the specified PU in the
   JsonObject with `findUniversityName()`.
 * If the university is not found, an exception `UnknownUniversityException` will be thrown.
@@ -654,14 +654,14 @@ testers are expected to do more *exploratory* testing.
 
 * 2.3.1 See all mappable courses from a valid PU
   * Prerequisites: None
-  * Test Case: `set The University of Western Australia` <br/>
+  * Test Case: `list courses The University of Western Australia` <br/>
   * Expected: List of mappable courses, with information of the PU course code and name to the matching
     NUS course code and name.
 
 
 * 2.3.2 See all mappable courses from an invalid PU
   * Prerequisites: None
-  * Test Case: `set tokyo university` <br/>
+  * Test Case: `list courses tokyo university` <br/>
   * Expected: Error message stating that input is an unknown university to ExchangeCourseMapper.
 
 

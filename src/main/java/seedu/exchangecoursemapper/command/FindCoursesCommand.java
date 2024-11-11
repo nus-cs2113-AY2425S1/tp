@@ -50,9 +50,7 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
             logger.log(Level.INFO, Logs.EXECUTE_FIND_COMMAND);
             findCommand(keyword);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, Logs.MISSING_KEYWORD);
-            System.out.println(e.getMessage());
-            System.out.println(LINE_SEPARATOR);
+            handleIllegalArgumentError(e);
         }
     }
 
@@ -138,5 +136,11 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
         String nusCourseCode = course.getNusCourseCode();
         logger.log(Level.INFO, Logs.EXTRACTED_COURSE_CODE);
         return nusCourseCode;
+    }
+
+    private static void handleIllegalArgumentError(IllegalArgumentException e) {
+        logger.log(Level.WARNING, Logs.MISSING_KEYWORD);
+        System.out.println(e.getMessage());
+        System.out.println(LINE_SEPARATOR);
     }
 }

@@ -31,7 +31,7 @@ public class Messages {
             """
                     Here are the available commands:
                     filter <subject code> - Filter courses by subject code.
-                    set <SCHOOL_NAME>     - Set a partner university for course mapping.
+                    list courses <SCHOOL_NAME>   - To list out the mappable courses provided by a specific PU.
                     list schools          - List all available partner universities.
                     add <NUS_COURSE_CODE> /pu <NAME_OF_PU> /coursepu <PU_COURSE_CODE> \
                     - Add mapped courses between NUS and partner universities.
