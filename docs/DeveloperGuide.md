@@ -143,6 +143,13 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
 ### 5. tag-expense
 ### 6. set-budget
 ### 7. view-expenses
+**Overview**
+
+The sequence diagram represents the flow for printing all the expenses by categories in SpendSwift when the user inputs an `view-expenses` command.
+
+![view-expenses](sequencediagrams/ViewExpenses.png)
+
+**Implementation**
 ### 8. view-category
 **Overview**
 
