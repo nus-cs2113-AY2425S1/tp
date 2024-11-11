@@ -92,8 +92,8 @@ public class DayTest {
         day.insertExercise(exercise2);
 
         String expectedOutput = "Push\n" +
-                "1. Bench_Press: 3 sets of 10 at 50kg | Burnt 160 cals\n" +
-                "2. Triceps_Extension: 3 sets of 12 at 20kg | Burnt 100 cals\n";
+                "1. Bench_Press: 3 sets of 10 at 50kg | Burnt 160 kcal\n" +
+                "2. Triceps_Extension: 3 sets of 12 at 20kg | Burnt 100 kcal\n";
         assertEquals(
                 expectedOutput.replace("\r\n", "\n").replace("\r", "\n"),
                 day.toString().replace("\r\n", "\n").replace("\r", "\n")

@@ -146,7 +146,7 @@ public class Exercise {
      */
     @Override
     public String toString() {
-        return String.format("%s: %d sets of %d at %dkg | Burnt %d cals", name, sets, reps, weight, calories);
+        return String.format("%s: %d sets of %d at %dkg | Burnt %d kcal", name, sets, reps, weight, calories);
     }
 
     /**
