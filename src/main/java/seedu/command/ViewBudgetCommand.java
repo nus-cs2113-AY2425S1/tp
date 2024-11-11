@@ -26,7 +26,7 @@ public class ViewBudgetCommand extends Command {
         if (!isArgumentsValid()) {
             return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
         }
-        String monthStr = arguments.get("m/");
+        String monthStr = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
 
         if (monthStr != null) {
             // Specific month view
