@@ -37,10 +37,19 @@ public class Budget {
      * @param newBudgetAmount the new budget amount to be set.
      */
     public void setBudgetAmount(double newBudgetAmount) {
-        this.budgetAmount = newBudgetAmount;
+        this.budgetAmount = Math.round(newBudgetAmount * 100.0) / 100.0;
         this.balance = newBudgetAmount;
         this.isBudgetSet = true;
         this.budgetSetDate = LocalDate.now();
+    }
+
+    /**
+     * Returns the budget amount in 2dp String format.
+     *
+     * @return the budget amount in 2dp String format.
+     */
+    public String getBudgetAmountString() {
+        return String.format("$ %.2f", budgetAmount);
     }
 
     /**
@@ -67,7 +76,16 @@ public class Budget {
      * @param newBalance the new balance to be updated.
      */
     public void updateBalance(double newBalance) {
-        this.balance = newBalance;
+        this.balance = Math.round(newBalance * 100.0) / 100.0;
+    }
+
+    /**
+     * Returns the current balance in 2dp String format.
+     *
+     * @return the current balance in 2dp String format.
+     */
+    public String getBalanceString() {
+        return String.format("$ %.2f", balance);
     }
 
     /**
