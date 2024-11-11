@@ -17,6 +17,8 @@ import java.util.Objects;
 
 import static fittrack.enums.Exercise.fromUserInput;
 
+import static fittrack.exception.ParserExceptions.stringToValidInteger;
+import static fittrack.exception.ParserExceptions.validModifySessionDateTime;
 import static fittrack.exception.ParserExceptions.validSession;
 import static fittrack.exception.ParserExceptions.validSessionIndex;
 import static fittrack.exception.ParserExceptions.validUser;
@@ -46,6 +48,7 @@ import static fittrack.messages.Messages.LIST_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_SESSIONS_COMMAND;
 import static fittrack.messages.Messages.LIST_UPCOMING_REMINDER_COMMAND;
 import static fittrack.messages.Messages.LIST_WATER_COMMAND;
+import static fittrack.messages.Messages.MODIFY_SESSION_DATETIME_COMMAND;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
@@ -56,6 +59,7 @@ import static fittrack.ui.Ui.printDeletedReminder;
 import static fittrack.ui.Ui.printDeletedSession;
 import static fittrack.ui.Ui.printHelp;
 import static fittrack.ui.Ui.printInvalidListCommandMessage;
+import static fittrack.ui.Ui.printModifiedSession;
 import static fittrack.ui.Ui.printPerformanceGraph;
 import static fittrack.ui.Ui.printPointGraph;
 import static fittrack.ui.Ui.printReminderList;
@@ -154,10 +158,23 @@ public class Parser {
                 System.out.println(e.getMessage());
             }
             break;
+        case MODIFY_SESSION_DATETIME_COMMAND:
+            try {
+                String[] userInput = validModifySessionDateTime(description, sessionList.size());
+                int sessionIndex = stringToValidInteger(userInput[0]) -1;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                LocalDateTime newDateTime = LocalDateTime.parse(userInput[1], formatter);
+                sessionList.get(sessionIndex).setSessionDateTime(newDateTime);
+                printModifiedSession(sessionList,sessionIndex + 1);
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            break;
         case EDIT_EXERCISE_COMMAND:
             try {
                 String[] userInput = validEditDetails(description,sessionList.size());
-                int sessionIndex = Integer.parseInt(userInput[0]) - 1;
+                int sessionIndex = stringToValidInteger(userInput[0]) - 1;
                 String exerciseAcronym = userInput[1].trim().toUpperCase();
                 String exerciseData = userInput[2].trim();
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);

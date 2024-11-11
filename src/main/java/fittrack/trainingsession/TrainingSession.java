@@ -152,6 +152,10 @@ public class TrainingSession extends Saveable {
 
     }
 
+    public void setSessionDateTime(LocalDateTime newDateTime) {
+        this.sessionDatetime = newDateTime;
+    }
+
     public void printSessionInformation() {
         System.out.print(this.sessionDescription + " | " +
                 this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) + System.lineSeparator());
@@ -278,5 +282,4 @@ public class TrainingSession extends Saveable {
 
         return loadedSession;
     }
-
 }
