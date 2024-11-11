@@ -87,10 +87,10 @@ public class BudgetLogic {
     public void handleSetBudget(FinancialList financialList, double amount) throws FinanceBuddyException {
         budget.setBudgetAmount(amount);
 
+        recalculateBalance(financialList);
+
         ui.displayBudgetSetMessage(budget.getBudgetAmount(), budget.getBalance());
         logger.log(LogLevels.INFO, "Budget set to " + String.format("$ %.2f", budget.getBudgetAmount()) + ".");
-
-        recalculateBalance(financialList);
     }
 
     /**
