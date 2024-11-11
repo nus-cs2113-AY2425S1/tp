@@ -5,6 +5,7 @@ import seedu.exceptions.InvalidDateFormatException;
 import seedu.message.CommandResultMessages;
 import seedu.message.ErrorMessages;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import static seedu.utils.DateTimeUtils.parseYearMonth;
 
@@ -24,7 +25,10 @@ public class ViewBudgetCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
         String monthStr = arguments.get(COMMAND_EXTRA_KEYWORDS[0]);
 

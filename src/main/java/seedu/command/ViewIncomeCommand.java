@@ -63,12 +63,6 @@ public class ViewIncomeCommand extends Command {
             LocalDateTime end;
             if (startDate != null) {
 
-                String[] datetimeParts = startDate.trim().split(" ", 2);
-
-                // If only the date is provided, append time as "0000" (00:00 AM)
-                if (datetimeParts.length == 1) {
-                    startDate += " 0000";
-                }
                 start = DateTimeUtils.parseDateTime(startDate);
                 temp = temp.stream()
                         .filter((t) -> t.getDate().isAfter(start) || t.getDate().isEqual(start))
@@ -78,6 +72,13 @@ public class ViewIncomeCommand extends Command {
                 start = null;
             }
             if (endDate != null) {
+
+                String[] datetimeParts = endDate.trim().split(" ", 2);
+
+                // If only the date is provided, append time as "0000" (00:00 AM)
+                if (datetimeParts.length == 1) {
+                    endDate += " 2359";
+                }
 
                 end = DateTimeUtils.parseDateTime(endDate);
                 temp = temp.stream()

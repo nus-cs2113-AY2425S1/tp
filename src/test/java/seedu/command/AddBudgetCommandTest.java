@@ -80,8 +80,7 @@ class AddBudgetCommandTest {
         List<String> result = command.execute();
 
         assertEquals(CommandResultMessages.SET_BUDGET_FAIL +
-                ErrorMessages.INVALID_AMOUNT_FORMAT + "one thousand"
-                + ErrorMessages.INVALID_AMOUNT_GUIDE, result.get(0));
+                ErrorMessages.INVALID_AMOUNT_FORMAT + "one thousand", result.get(0));
     }
 
     @Test
@@ -94,8 +93,8 @@ class AddBudgetCommandTest {
         command.setArguments(Map.of("a/", "1000", "m/", "12-2024"));
         List<String> result = command.execute();
 
-        assertEquals(CommandResultMessages.SET_BUDGET_FAIL + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT,
-                result.get(0));
+        assertEquals(CommandResultMessages.SET_BUDGET_FAIL
+                        + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, result.get(0));
     }
 
 }

@@ -1,6 +1,10 @@
 package seedu.command;
 
+import seedu.exceptions.FutureTransactionException;
+import seedu.exceptions.InvalidAmountFormatException;
 import seedu.exceptions.InvalidDateFormatException;
+import seedu.exceptions.InvalidDescriptionFormatException;
+import seedu.message.ErrorMessages;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
 import seedu.utils.AmountUtils;
@@ -21,16 +25,17 @@ public abstract class AddTransactionCommand extends Command {
         this.transactions = transactions;
     }
 
-    protected String parseDescription(Map<String, String> arguments) throws IllegalArgumentException {
+    protected String parseDescription(Map<String, String> arguments) throws InvalidDescriptionFormatException {
         String description = DescriptionUtils.parseDescription(arguments.get(""));
         return (description == null || description.isEmpty()) ? "" : description;
     }
 
-    protected Double parseAmount(String amountStr) throws Exception {
+    protected Double parseAmount(String amountStr) throws InvalidAmountFormatException {
         return AmountUtils.parseAmount(amountStr);
     }
 
-    protected String parseDate(String dateStr) throws InvalidDateFormatException {
+    protected String parseDate(String dateStr)
+            throws InvalidDateFormatException, FutureTransactionException {
         if (dateStr == null || dateStr.isEmpty()) {
             return LocalDateTime.now().format(DEFAULT_FORMATTER);
         }
@@ -38,10 +43,13 @@ public abstract class AddTransactionCommand extends Command {
 
         // If only the date is provided, append time as "2359" (23:59 AM)
         if (datetimeParts.length == 1) {
-            dateStr += " 2359";
+            dateStr += " 0000";
         }
 
-        DateTimeUtils.parseDateTime(dateStr); // Validates the date
+        LocalDateTime dateTime = DateTimeUtils.parseDateTime(dateStr); // Validates the date
+        if(dateTime.isAfter(LocalDateTime.now())) {
+            throw new FutureTransactionException(ErrorMessages.FUTURE_TRANSACTION);
+        }
         return dateStr;
     }
 
