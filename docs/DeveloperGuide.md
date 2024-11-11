@@ -21,6 +21,12 @@ The sequence diagram below describes how the components interacts with one anoth
 
 ![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
 
+The sections below give more details of the components and any additional components.
+
+---
+
+## Class Diagrams
+
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
 #### TrackerData
@@ -117,6 +123,8 @@ Represents a budget limit associated with a category, enabling users to track an
 
 - Each Expense is linked to exactly one Category, while each Budget is also associated with one Category.
 
+---
+
 ### Sequence Diagrams
 #### add-expense
 ![Add Expense Sequence Diagram](diagrams/AddExpense.png)
@@ -153,17 +161,19 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 ## User Stories
 <!-- @@author glenda-1506 -->  
 
-| Version | As a...               | I want to...                                                          | So that I can...                                         |
-|---------|-----------------------|-----------------------------------------------------------------------|----------------------------------------------------------|
-| v1.0    | Budget-conscious user | Quickly log an expense using a typed command (e.g., add 50 groceries) | track my spending with easy input                        |
-| v1.0    | Budget-conscious user | View my budget for all categories                                     | see how much I could spend                               |
-| v1.0    | Budget-conscious user | Set a monthly reset for my budget tracking                            | start each month fresh with my budgeting                 |
-| v1.0    | Budget planner        | View all my expenses                                                  | monitor what I have been spending on                     |
-| v1.0    | Frequent user         | Set a budget limit for each category (e.g., set budget 200 groceries) | limit my spending according to categories                |
-| v1.0    | Frequent user         | Delete an expense entry (e.g., delete 5)                              | quickly correct mistakes                                 |
-| v1.0    | Frequent user         | Categorize expenses (e.g., add category food)                         | customize my expense tracking to better manage my budget |
-| v2.0    | New user              | See commands easily                                                   | quickly familiarise myself with the program              |
-| v2.0    | Frequent user         | Save my previous inputs                                               | Record over a period of time                             |
+| Version | As a...               | I want to...                                 | So that I can...                                         |
+|---------|-----------------------|----------------------------------------------|----------------------------------------------------------|
+| v1.0    | Budget-conscious user | Quickly log an expense using a typed command | track my spending with easy input                        |
+| v1.0    | Budget-conscious user | View my budget for all categories            | see how much I could spend                               |
+| v1.0    | Budget planner        | View all my expenses                         | monitor what I have been spending on                     |
+| v1.0    | Frequent user         | Set a budget limit for each category         | limit my spending according to categories                |
+| v1.0    | Frequent user         | Delete an expense entry                      | quickly correct mistakes                                 |
+| v1.0    | Frequent user         | Categorize expenses                          | customize my expense tracking to better manage my budget |
+| v2.0    | New user              | See commands easily                          | quickly familiarise myself with the program              |
+| v2.0    | Frequent user         | Save my previous inputs                      | record over a period of time                             |
+| v2.1    | Frequent user         | Delete a category entry                      | remove what is not in use                                |
+| v2.1    | Frequent user         | View all categories                          | see what categories I have been spending on              |
+
 
 ## Non-Functional Requirements
 <!-- @@author mayfairmi6 -->  
