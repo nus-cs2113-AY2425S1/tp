@@ -35,7 +35,7 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 
 #### Miscellaneous
 * J-unit test, assertions and logging for all classes were done to gracefully handle errors
-* Refactored code over the course of the project to follow SLAP
+* Refactored code over the course of the project to follow SLAP 
 * Started the use of named constants by creating the `constants` package, with the `Messages`, `Commands`, `JsonKey` 
   and `Regex` files that stores the constants used throughout the code base
 
@@ -45,15 +45,12 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 
 ## 4. Developer Guide
 
-### Design Section
+### Design and Implementation Section
 * Made config files for UML diagrams (Class and Sequence) to follow standard notations
-* Class Diagram of `Commands` structure: `Command` class inheritance, `CheckInformationCommand` and
+* Made class diagrams of `Commands` structure: `Command` class inheritance, `CheckInformationCommand` and
   `PersonalTrackerCommand`
-
-### Implementation Section
-* Documented the overview for the FilterCourses and DeleteCourses commands, as well as how the features are implemented.
-* Filter Courses Sequence Diagram
-* Delete Courses Sequence Diagram
+* Documented the implementation of FilterCourses and DeleteCourses commands.
+* Made sequence diagrams for FilterCourses and DeleteCourses commands
 
 ### Instructions for manual testing
 * Documented test cases for testers to follow for the commands inheriting from `CheckInformationCommands`
