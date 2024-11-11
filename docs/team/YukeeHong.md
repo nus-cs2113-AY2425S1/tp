@@ -18,14 +18,50 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
         - Default Categories: When the application starts without any predefined categories, default categories such as "Food" and "Utilities" are initialized for convenience.
         - Category Deletion: Users can remove categories they no longer find relevant. Deleting a category requires checking its existence to ensure smooth user interaction.
         - Interactive Category Addition: Allows users to add categories interactively, making the application more user-friendly.
+* **Enhanced Test Coverage**:
+*  What I did: Implemented comprehensive unit tests for multiple critical components
+    * Command Tests:
+        * `AddExpenseCommand`: Tests for expense creation with various parameters
+        * `UpdateCategoryCommand`: Tests for category modification scenarios
+        * `KeywordsSearchCommand`: Tests for search functionality with different keywords
+        * `DeleteTransactionCommand`: Tests for transaction deletion edge cases
+        * `AddCategoryCommand`: Tests for category creation and validation
+    * Utility Tests:
+        * `LocalDateTimeAdapter`: Tests for date-time parsing and formatting
+
+* Justification:
+    * Ensured reliability of core application commands
+    * Validated proper handling of edge cases and error conditions
+    * Protected against regression bugs in critical functionality
+
+* Highlights:
+    * Covered both valid and invalid input scenarios
+    * Implemented boundary value testing
+    * Ensured proper error handling and messages
+    * Added tests for command parsing and execution
+    * Verified proper state updates after command execution
+
+* Key Test Scenarios:
+    * Invalid input validation
+    * Null handling
+    * Edge cases (empty strings, boundary values)
+    * Error conditions
+    * Command execution results
+
 
 #### Documentation
 * **User Guide**:
     * Added documentation for the features in v1.0
+    * Fixed errors of user guide after v2.0
+  
 * **Developer Guide**:
     * Added implementation details of the Category class.
+    * Fixed bugs for the sequence diagrams
 
 #### Contributions to Team-based Tasks
+* Participated in weekly team meetings
+* Helped maintain project documentation
+* Contributed to user testing
 
 #### Community
 * **Review/Mentoring Contributions**:
