@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +23,8 @@ import java.util.logging.Logger;
 //@@author jadenlimjc
 public class Internship {
     private static final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
-    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
+            .withResolverStyle(ResolverStyle.LENIENT);
 
     private static final List<String> STATUSES = Arrays.asList(
             "Application Pending", "Application Completed", "Accepted", "Rejected");
