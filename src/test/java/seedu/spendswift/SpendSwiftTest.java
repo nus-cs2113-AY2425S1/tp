@@ -1,6 +1,7 @@
 //@@author glenda-1506
 package seedu.spendswift;
 //import java.util.Calendar;
+
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
@@ -9,13 +10,14 @@ import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
+
+import java.math.BigDecimal;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertNotEquals;
 //import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -324,10 +326,10 @@ class ExpenseManagerTest {
 
 class BudgetManagerTest {
 
-    
+
     BudgetManager budgetManager = new BudgetManager();
     TrackerData trackerData = new TrackerData();
-  
+
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
         for (Category category : trackerData.getCategories()) {
@@ -502,7 +504,126 @@ private String generateRandomWord(Random random, int wordLength) {
         ExpenseManager.addExpense(trackerData, "RandomExpense", 100.0, categoryName);
         Category category = findCategory(trackerData, categoryName);
         assertFalse(trackerData.getBudgets().containsKey(category));
+    }
+
+    @Test
+    void testSetBudgetLimitAtMaximum() {
+    // Assuming the max limit is explicitly known here as "1000000000000000"
+    TrackerData trackerData = new TrackerData();
+    double maxLimit = 1000000000000000.00; // This should be the same value as used in your BudgetManager
+    budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
+    Category category = findCategory(trackerData, "Education");
+    BigDecimal setLimit = trackerData.getBudgets().containskey(category).getLimit();
+    
+    assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), 
+    "The budget limit should be exactly set to the maximum allowed");
+}
+    @Test
+    void testSetValidBudgetLimit() {
+    double validLimit = 9999999999999999.99; // within typical range
+    TrackerData trackerData = new TrackerData();
+    budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
+    Category category = findCategory(trackerData, "Education");
+    BigDecimal setLimit = trackerData.getBudgets().containskey(category).getLimit();
+    assertEquals(0, BigDe
+    @Test
+    void testSetBudgetLimitAtMaximum() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
+        double maxLimit = 1000000000000000.00; // The maximum budget limit as per your requirements
+
+        // Find the "Education" category
+        Category category = findCategory(trackerData, "Education");
+
+        // Manually initialize the Budget for "Education" to avoid NullPointerException
+        Budget budget = new Budget(category, maxLimit);
+        trackerData.getBudgets().put(category, budget); // Add Budget to the map
+
+        // Now set the budget limit
+        budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
+
+        // Retrieve the set limit
+        BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
+
+        // Assert that the set limit matches the maximum limit
+        assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit),
+                     "The budget limit should be exactly set to the maximum allowed");
+    }
+
+    @Test
+    void testSetValidBudgetLimit() {
+
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
+        double validLimit = 9999999999999999.99; // The maximum budget limit as per your requirements
+
+        // Find the "Education" category
+        Category category = findCategory(trackerData, "Education");
+
+        // Manually initialize the Budget for "Education" to avoid NullPointerException
+        Budget budget = new Budget(category, validLimit);
+        trackerData.getBudgets().put(category, budget); // Add Budget to the map
+
+        // Now set the budget limit
+        budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
+
+        // Retrieve the set limit
+        BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
+
+        // Assert that the set limit matches the maximum limit
+        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
+                     "The budget limit is set below  the maximum allowed");
+
+    } */
+
+
+    /**
+     * Tests setting a budget limit above the maximum allowed.
+     * Ensures that the budget limit does not exceed the predefined maximum
+     * when an invalid higher limit is attempted to be set.
+    **/
+    /*@Test
+    void testSetInvalidBudgetLimitAboveMaximum() {
+        BudgetManager budgetManager = new BudgetManager();
+        TrackerData trackerData = new TrackerData();
+        final double maxAllowedLimit = 1000000000000000.00; // Define the maximum allowed limit
+        final double invalidLimit = maxAllowedLimit + 0.01; // Slightly above the maximum
+
+        // Find the "Education" category
+        Category category = findCategory(trackerData, "Education");
+
+        // Ensure that the category is not null
+     
+
+        // Manually initialize the Budget for "Education" with a valid limit to test setting an invalid one
+        Budget budget = new Budget(category, maxAllowedLimit);
+        trackerData.getBudgets().put(category, budget); // Add Budget to the map
+
+        // Attempt to set the budget limit above the maximum allowed
+        budgetManager.setBudgetLimit(trackerData, "Education", invalidLimit);
+
+        // Retrieve the current limit
+        BigDecimal currentLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
+
+        // Assert that the budget limit remains unchanged and is not set above the maximum
+        assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
+            "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     }*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
