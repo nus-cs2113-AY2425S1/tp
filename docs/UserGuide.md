@@ -65,6 +65,8 @@ Notes about commands' convention:
 5. Any extra parameters defined after the following commands: view -a, delete -a, delete -e, exit will be
    ignored.
 6. All inputs to inventory is limited to 20 characters, this is to save space and preserve table Ui
+7. Please note that you do not need to consider index(ID) number when adding fields/records. 
+It is assigned and maintained automatically by the system.
 
 ### Getting Help `help`
 Get help from manual page for inventra
