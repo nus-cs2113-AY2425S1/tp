@@ -24,7 +24,7 @@ BuffBuddy is a CLI-based fitness tracker that helps users manage workout routine
 ### Contributions to the User Guide (UG)
 - Documented sections for each history-related command, explaining usage and expected outcomes.
 
-## Contributions to the Developer Guide (DG)
+### Contributions to the Developer Guide (DG)
 
 - **Sections Contributed**: Documented the entire History feature, covering all commands and their interactions.
 - **History Component Overview**: Provided an overview of the History component and its role within BuffBuddy.
@@ -34,7 +34,7 @@ BuffBuddy is a CLI-based fitness tracker that helps users manage workout routine
   - **History Commands Class Diagram**: Designed a class diagram that details the structure and relationships of all the History-related command classes.
 
 - **Sequence Diagrams**:
-  - **WeeklySummaryCommand Sequence Diagram**: Designed a complete sequence diagram for the `WeeklySummaryCommand` feature.
+  - **WeeklySummaryCommand Sequence Diagram**: Designed a complete sequence diagram for the `WeeklySummaryCommand` feature, representing its flow and interactions.
   - **LogProgrammeCommand Sequence Diagram**: Developed a sequence diagram for the `LogProgrammeCommand` feature, illustrating the interactions between components during the logging process.
 
 ### Contributions to Team-Based Tasks

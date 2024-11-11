@@ -14,28 +14,39 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 - **Save/Load Feature**: Designed and wrote the code to save and load files into JSON Objects using the Gson Library.
     - **What it does**: This feature allows the application to save and load data seamlessly, storing it in JSON format to ensure data persistence between sessions. The feature uses the Gson library to serialize and deserialize data into JSON objects, enabling a structured and readable file format.
     - **Justification**: The save/load feature is essential for users to maintain their progress and data across sessions, making the application more reliable and user-friendly. Without this feature, users would risk losing their data upon closing the application.
-    - **Highlights**: This feature required careful design and implementation to integrate with the application's data model. Converting complex data into JSON format required precise management of data structures and file handling to ensure accuracy and consistency. The implementation also included error handling to manage file I/O exceptions and ensure robust file-saving capabilities.
+    - **Highlights**:  This feature required careful design and implementation to integrate seamlessly with the application's data model. Converting complex data into JSON format necessitated precise management of data structures and file handling to ensure both accuracy and consistency. The implementation includes error handling to manage `StorageException` and incorporates a robust validation method to detect and handle corrupted files. This approach ensures data integrity and reliable file-saving capabilities, providing users with a consistent and dependable experience.
     - **Credits**: The Gson library was used extensively to handle JSON serialization and deserialization, making it easier to manage structured data within the application.
 
-- **Water Intake Features**: Brief description of additional features or optimizations you contributed.
+- **Water Intake Features**: Designed to manage all water related functions
+  - **What it does**: The Water Intake Features enable users to log, view, and manage their daily water consumption within the application. Users can add, view, or delete specific water intake entries, which helps them keep track of hydration goals over time. 
+  - **Justification**: Tracking water intake is essential for users focused on fitness and health. This feature allows users to easily monitor their hydration habits, which are vital for overall well-being. 36
+  - **Highlights**: Implementing this feature required creating methods to add, delete, and view water entries. It involved designing a data structure that could store and update daily water intake accurately and efficiently. Additionally, different commands were designed to handle specific actions, adhering to object-oriented principles to maximize modularity and reusability. This approach allows us to separate concerns, making each command responsible for a single operation, which improves code readability, maintainability, and extensibility. Error handling was incorporated to manage invalid entries, such as negative values, ensuring data integrity and preventing incorrect data from being stored.
+
+- **Exceptions**: Custom exceptions to handle specific errors
+  - **What it does**: Custom exceptions were created to handle specific error scenarios within the application. Each custom exception is tailored to provide clear error messages and manage specific cases where operations may fail, ensuring a more user-friendly experience.
+  - **Justification**: By using custom exceptions, the application can provide more informative and user-friendly feedback when errors occur. Instead of generic error messages, users receive clear information about the issue, helping them understand what went wrong and how to correct it. This approach also improves the maintainability of the code by allowing specific handling of predictable issues.
+  - **Highlights**: Custom exceptions were designed and implemented for various classes, covering scenarios such as invalid inputs, index out of bounds or file corrupted. The exceptions were integrated throughout the application to ensure robust error handling and graceful failure in case of unexpected inputs or operations.
 
 ### Contributions to the User Guide (UG)
 - Added/edited the following sections:
-    - **Added documentation for programme edit features**: Provided comprehensive explanations and examples on how users can utilize the programme editing functionality, including steps to modify existing programmes and commands to customize their workout schedules.
-    - **Added documentation for day edit features**: Detailed the process for editing day-specific attributes within a programme, explaining how users can change, add, or remove day information, and offering clear usage examples for better understanding.
+    - **Added documentation for water features**: Documented how to use the water intake features, including adding, viewing, and deleting water entries.
+    - **Edited documentation for programme edit features**: Made the user guide more readable by splitting up the programme edit features into smaller commands
 
 ### Contributions to the Developer Guide (DG)
-- **Sections Contributed**: Storage component, Save/Load implementation, DailyRecord Class, Programme component, Exceptions
+- **Sections Contributed**: Storage component, DailyRecord Class, Programme component, Add Water Feature, Save/Load Feature
 - **UML Diagrams**:
     - **Storage Component**: Illustrates the structure and interactions of the Storage class within the system, including its methods and relationships with other components such as FileManager, ProgrammeList, and History. This diagram highlights how data is loaded, saved, and managed to ensure file operations are seamless and robust.
     - **DailyRecord Class**: Shows the design of the DailyRecord class, detailing its attributes (e.g., Day, MealList, Water) and methods (e.g., logging and retrieving records). This diagram showcases the relationships between DailyRecord and other classes it interacts with, demonstrating how it integrates within the system to manage daily workout, meal, and water intake data.
-    - **Save/Load Feature**: Depicts the sequence of operations involved in saving and loading data within the application. This includes interactions between the Storage, FileManager, and any serialization or deserialization logic. The diagram highlights the workflow of data persistence, ensuring data integrity and user session restoration.
     - **Programme component**: Provides an overview of the Programme component structure, displaying the relationships between ProgrammeList, Programme, Day, and Exercise classes. This diagram showcases how workout programmes are organized, managed, and stored, emphasizing the hierarchical relationship and flow of data within the system.
-    - **Exceptions**: Describes the custom exceptions defined in the system, detailing their inheritance from standard exception classes. The diagram displays how each custom exception (e.g., InvalidInputException, FileLoadException) is used and where it fits into the error-handling framework of the application, ensuring graceful degradation and user feedback during unexpected events.
+    - **Add Water Feature**: Depicts the sequence of operations and interactions involved in adding a water entry. The diagram shows the flow from the user’s action to the adding of the water entry in DailyRecord.
+    - **Save/Load Feature**: Depicts the sequence of operations involved in saving and loading data within the application. This includes interactions between the Storage, FileManager, and any serialization or deserialization logic. The diagram highlights the workflow of data persistence, ensuring data integrity and user session restoration.
+
 
 ### Contributions to Team-Based Tasks
 - Participated in team meetings.
-- Assisted with [mention any collaborative tasks, like integrating code from different features or team-based debugging sessions].
+- Helped refactor and adapt meal-related functionality to align with the revised `History` and `DailyRecord` structure. Ensured that meal data was correctly managed and persisted within the updated framework.
+- Assisted with integrating custom exceptions into the main and test code in V2.0.
+- Participated in a collaborative debugging session to identify and resolve issues before the V2.0 release.
 
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:
@@ -64,3 +75,4 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 - Mentored team members by providing code feedback and debugging assistance.
 
 ### Contributions Beyond the Project Team
+- Reported bugs in other team's product during peer reviews

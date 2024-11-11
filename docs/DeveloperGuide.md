@@ -351,6 +351,8 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
 
+<!-- @@author TVageesan -->
+
 
 ### Edit Programme
 
@@ -414,6 +416,8 @@ To summarize, the following activity diagram describes how the overall operation
 ![Edit Command Diagram](images/editCommandActivityDiagram.png)
 
 
+<!-- @@author Atulteja -->
+
 
 ### Add Meal
 
@@ -454,6 +458,8 @@ The overall design that enables this functionality is described generically by t
 ![Add Meal Sequence Diagram](images/addMealSequenceDiagram.png)
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
+
+The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram.
 
 #### Sequence Diagram for "Delete Meal" Command
 
@@ -506,7 +512,13 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Water" command.
 
+
 #### Sequence Diagram for "Delete Water" Command 
+
+The following sequence diagrams (Delete Water, View Water) follow the same structure as the Add Water sequence diagram. In these diagrams, the section where `addWaterToRecord(waterToAdd)` is called is replaced with the respective method for each action.
+
+#### Sequence Diagram for "Delete Water" Command
+
 
 ![Delete Water Sequence Diagram](images/deleteWaterSequenceDiagram.png)
 
@@ -516,7 +528,7 @@ The diagram shows the interactions among different classes and objects during th
 
 #### Activity Diagram for "Add Water" Feature
 
-![Add Water Activity Diagram](images/addWaterActivitydiagram.png)
+![Add Water Activity Diagram](images/addWaterActivityDiagram.png)
 
 #### Summary of Feature
 
@@ -690,7 +702,7 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## Non-Functional Requirements
 
-- Java 11 or above installed
+- Java 17 or above installed
 - Program built to support only single user
 
 ## Glossary
@@ -701,6 +713,7 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
+1. Complete the [quick start](UserGuide.md) guide.
+2.
 

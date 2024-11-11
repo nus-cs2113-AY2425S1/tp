@@ -39,4 +39,5 @@ end
 
 <-- EditExerciseCommand
 deactivate EditExerciseCommand
+destroy EditExerciseCommand
 @enduml
