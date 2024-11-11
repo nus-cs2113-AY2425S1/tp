@@ -8,15 +8,24 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class FoodEntry extends Saveable {
-    private String foodName;
-    private int calories;
-    private LocalDateTime dateTime;  // Timestamp of when the food item is added
+    private String foodName;        // Name of the food item
+    private int calories;           // Calorie content of the food item
+    private LocalDateTime dateTime; // Timestamp of when the food item was added
+
+    /**
+     * Constructs a FoodEntry with the specified food name, calorie count, and timestamp.
+     *
+     * @param inputFoodName Name of the food item.
+     * @param inputCalories Calorie content of the food item.
+     * @param inputDateTime Timestamp of when the food item was added.
+     */
 
     public FoodEntry(String inputFoodName, int inputCalories, LocalDateTime inputDateTime) {
         this.foodName = inputFoodName ;
         this.calories = inputCalories;
         this.dateTime = inputDateTime;  }
 
+    // Returns the name of the food item
     public String getFoodName() {
         return foodName;
     }
@@ -25,35 +34,63 @@ public class FoodEntry extends Saveable {
         return calories;
     }
 
-    // Method to format the timestamp without milliseconds
+    /**
+     * Formats the timestamp of the food entry to exclude milliseconds.
+     *
+     * @return Formatted date-time string in "dd/MM/yyyy HH:mm" format.
+     */
     public String getFormattedDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return dateTime.format(formatter);  // Format date-time without milliseconds
     }
 
+    /**
+     * Returns the date part of the timestamp, excluding the time.
+     *
+     * @return LocalDate representing the date of the food entry.
+     */
     public LocalDate getLocalDate() {
         return dateTime.toLocalDate();
     }
 
+
+    /**
+     * Provides a string representation of the food entry, including its name, calories,
+     * and formatted timestamp.
+     *
+     * @return String representation of the food entry.
+     */
     @Override
     public String toString() {
         return foodName + " - " + calories + " calories, added on " + getFormattedDateTime();
     }
 
+    /**
+     * Formats the food entry as a string suitable for saving, with fields separated by "|".
+     *
+     * @return Formatted save string for the food entry.
+     */
     @Override
     public String toSaveString() {
         return "Food" + "|" + foodName + "|" + calories + "|" + getFormattedDateTime();
     }
 
-
+    /**
+     * Recreates a FoodEntry from a saved string representation.
+     *
+     * @param saveString The save string representing a FoodEntry, typically from storage.
+     * @return A FoodEntry object parsed from the save string.
+     * @throws IllegalArgumentException if the save string format is invalid.
+     */
     public static FoodEntry fromSaveString(String saveString) {
         String[] stringData = saveString.split("\\|");
 
-        // Check if the format is correct
+        // Validate the save string format
         if (stringData.length < 4 || !stringData[0].equals("Food")) {
             throw new IllegalArgumentException("Invalid save string format for Food Entry");
         }
 
+        // Parse fields from the save string
         String foodDescription = stringData[1];
         int calories = Integer.parseInt(stringData[2]);
 
@@ -66,5 +103,6 @@ public class FoodEntry extends Saveable {
         }
 
         return null;
+        // Return null if parsing fails
     }
 }

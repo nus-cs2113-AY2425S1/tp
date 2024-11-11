@@ -88,7 +88,6 @@ public class TrainingSession extends Saveable {
             } else {
                 return Integer.parseInt(reps); // Data can be interpreted as given in seconds
             }
-
         default:
             return Integer.parseInt(reps);
         }
@@ -149,7 +148,10 @@ public class TrainingSession extends Saveable {
 
     public String getSessionDatetime(){
         return this.sessionDatetime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+    }
 
+    public void setSessionDateTime(LocalDateTime newDateTime) {
+        this.sessionDatetime = newDateTime;
     }
 
     public void printSessionInformation() {
@@ -278,5 +280,4 @@ public class TrainingSession extends Saveable {
 
         return loadedSession;
     }
-
 }

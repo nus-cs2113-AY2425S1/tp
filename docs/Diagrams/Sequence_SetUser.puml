@@ -1,29 +1,30 @@
 @startuml
 title Sequence Diagram for "set <gender, age>" Command
+skinparam style strictuml
 
 actor User.
 
-User. -> FitTrack: User inputs Set User command
+User. -> ":FitTrack": User inputs Set User command
 
-activate FitTrack
-FitTrack -> Parser: parse(...)
-activate Parser
+activate ":FitTrack"
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
 
-Parser -> User: new User(gender, age)
-activate User
-User --> Parser: User
-deactivate User
+":Parser" -> ":User": new ":User"(gender, age)
+activate ":User"
+":User" --> ":Parser": ":User"
+deactivate ":User"
 
-Parser -> Ui: printUser(userAge, userGender)
-activate Ui
+":Parser" -> ":Ui": printUser(userAge, userGender)
+activate ":Ui"
 
-note over Ui
+note over ":Ui"
     Print user details
 end note
-Ui --> Parser
-deactivate Ui
-Parser --> FitTrack
-deactivate Parser
-deactivate FitTrack
+":Ui" --> ":Parser"
+deactivate ":Ui"
+":Parser" --> ":FitTrack"
+deactivate ":Parser"
+deactivate ":FitTrack"
 
 @enduml

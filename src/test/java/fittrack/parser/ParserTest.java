@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static fittrack.messages.Messages.HELP_MESSAGE;
@@ -20,9 +22,7 @@ import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-class ParserTest {
-
+public class ParserTest {
     private User user;
     private ArrayList<TrainingSession> sessionList;
     private ArrayList<Reminder> reminderList;
@@ -62,6 +62,23 @@ class ParserTest {
     }
 
     @Test
+    public void testModifySessionDateTimeNoReorder() throws IOException {
+        // Modify the datetime of a session to a value that doesn't change its order
+        String input = "modify 2 11/11/2024 11:10"; // Modify session at index 2 (original datetime 2024-11-12 11:00)
+
+        Parser.parse(user, input, sessionList, new ArrayList<>(), new ArrayList<>(), new FoodWaterIntake());
+
+        // Verify the session list order is unchanged
+        for (int i = 0; i < sessionList.size(); i++) {
+            assertEquals("Test Session " + (i + 1), sessionList.get(i).getSessionDescription());
+            // Verify that the datetime has been updated
+            if (i == 1) {
+                assertEquals("11/11/2024 11:10", sessionList.get(i).getSessionDatetime());
+            }
+        }
+    }
+
+    @Test
     void testSetUserCommandInvalidInput() throws IOException {
         String input = "set";
         String expectedOutput = INVALID_USER_INFO_MESSAGE;
@@ -78,15 +95,37 @@ class ParserTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
+
+    @Test
+    public void testModifySessionDateTimeReorder() throws IOException {
+        // Modify the datetime of a session to make it fall earlier (to trigger reordering)
+        String input = "modify 3 10/11/2024 10:00";
+
+        Parser.parse(user, input, sessionList, new ArrayList<>(), new ArrayList<>(), new FoodWaterIntake());
+
+        // Verify the order of session datetime after modification
+        String expectedFirstSessionDatetime = "10/11/2024 10:00";
+        String expectedSecondSessionDatetime = "11/11/2024 10:00";
+
+        assertEquals(expectedFirstSessionDatetime, sessionList.get(0).getSessionDatetime());
+        assertEquals(expectedSecondSessionDatetime, sessionList.get(1).getSessionDatetime());
+    }
+
     @Test
     void testAddSessionCommandValidInput() {
+        // Verify the order of session datetime after modification
+        String expectedFirstSessionDatetime = "10/11/2024 10:00";
+        String expectedSecondSessionDatetime = "11/11/2024 10:00";
 
+        assertEquals(expectedFirstSessionDatetime, sessionList.get(0).getSessionDatetime());
+        assertEquals(expectedSecondSessionDatetime, sessionList.get(1).getSessionDatetime());
     }
 
     @Test
     void testDeleteSessionCommandValidIndex() {
 
     }
+
 
     @Test
     void testDeleteSessionCommandInvalidIndex() {

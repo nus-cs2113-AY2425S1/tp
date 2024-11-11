@@ -5,6 +5,8 @@ import fittrack.healthprofile.FoodEntry;
 import fittrack.user.User;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import static fittrack.enums.Exercise.isValidExercise;
 import static fittrack.messages.Messages.EXAMPLE_PULL_UP_REPETITIONS_FORMAT;
@@ -16,6 +18,7 @@ import static fittrack.messages.Messages.EXAMPLE_WALK_AND_RUN_TIMING_FORMAT;
 import static fittrack.messages.Messages.FEMALE_GENDER;
 import static fittrack.messages.Messages.INVALID_EXERCISE_ACRONYM_MESSAGE;
 import static fittrack.messages.Messages.INVALID_EXERCISE_DETAILS_MESSAGE;
+import static fittrack.messages.Messages.INVALID_MODIFY_DETAILS_MESSAGE;
 import static fittrack.messages.Messages.INVALID_PULL_UP_REPETITIONS_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_NAME_MESSAGE;
@@ -67,6 +70,40 @@ public class ParserExceptions extends RuntimeException {
         return indexToDelete;
     }
 
+    public static String[] validModifySessionDateTime(String description, int sessionListSize)
+            throws DateTimeParseException {
+        if (!description.contains(" ")) {
+            throw new IllegalArgumentException(INVALID_MODIFY_DETAILS_MESSAGE);
+        }
+
+        String[] modifyDetails = description.split(" ", 2);
+
+        if (modifyDetails.length != 2) {
+            throw new IllegalArgumentException(INVALID_MODIFY_DETAILS_MESSAGE);
+        }
+
+        for (String editDetail : modifyDetails) {
+            if (editDetail.trim().isEmpty()) {
+                throw new IllegalArgumentException(INVALID_MODIFY_DETAILS_MESSAGE);
+            }
+        }
+
+        int sessionIndex = stringToValidInteger(modifyDetails[0]) -1;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        try {
+            LocalDateTime.parse(modifyDetails[1], formatter);
+        }
+        catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(INVALID_MODIFY_DETAILS_MESSAGE);
+        }
+
+        if (sessionIndex < 0 || sessionIndex >= sessionListSize) {
+            throw new IllegalArgumentException(INVALID_SESSION_INDEX_MESSAGE);
+        }
+
+        return modifyDetails;
+    }
+
     public static String[] validEditDetails(String description, int sessionListSize)
             throws IllegalArgumentException, NullPointerException {
         if (!description.contains(" ")) {
@@ -105,12 +142,7 @@ public class ParserExceptions extends RuntimeException {
             }
             break;
         case "SR":
-            if (!exerciseData.contains(".")) {
-                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData
-                        + System.lineSeparator() + EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT);
-            }
-            exerciseData = exerciseData.replace(".", "");
-            if (stringToValidInteger(exerciseData) == -1) {
+            if(!exerciseData.matches("\\d+\\.\\d")){
                 throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData
                         + System.lineSeparator() + EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT);
             }
@@ -134,16 +166,9 @@ public class ParserExceptions extends RuntimeException {
             }
             break;
         case "WAR":
-            if (!exerciseData.contains(":")) {
+            if(!exerciseData.matches("\\d+:[0-5]\\d")){
                 throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData
                         + System.lineSeparator() + EXAMPLE_WALK_AND_RUN_TIMING_FORMAT);
-            }
-            String[] warTime = exerciseData.split(":");
-            if (warTime.length != 2) {
-                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
-            }
-            if (stringToValidInteger(warTime[0]) == -1 || stringToValidInteger(warTime[1]) == -1) {
-                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
             }
             break;
         default:

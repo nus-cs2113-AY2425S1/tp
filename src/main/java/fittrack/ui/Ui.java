@@ -71,6 +71,15 @@ public class Ui {
         endSegment();
     }
 
+    public static void printModifiedSession(ArrayList<TrainingSession> sessionList, int sessionIndex) {
+        assert sessionList != null : "Session list must not be null";
+        assert !sessionList.isEmpty() : "Session list must not be empty";
+        beginSegment();
+        System.out.println("Session " + sessionIndex + " has been modified:");
+        System.out.println("New Date/Time: " + sessionList.get(sessionIndex).getSessionDatetime());
+        endSegment();
+    }
+
     public static void printUpdatedMood(int sessionId, String newMood) {
         System.out.println(SEPARATOR);
         System.out.println("Mood for Training Session " + (sessionId + 1) + " updated: " + newMood);

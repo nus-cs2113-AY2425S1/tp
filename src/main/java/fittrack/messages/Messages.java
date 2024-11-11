@@ -7,6 +7,7 @@ public class Messages {
     public static final String SET_USER_COMMAND = "set";
     public static final String HELP_COMMAND = "help";
     public static final String ADD_SESSION_COMMAND = "add";
+    public static final String MODIFY_SESSION_DATETIME_COMMAND = "modify";
     public static final String LIST_SESSIONS_COMMAND = "list";
     public static final String VIEW_SESSION_COMMAND = "view";
     public static final String EDIT_EXERCISE_COMMAND = "edit";
@@ -43,9 +44,12 @@ public class Messages {
             + System.lineSeparator() + "help                                                             help"
             + System.lineSeparator() + "set (gender) (age)                                               set male 12"
             + System.lineSeparator() + "add (session name)                                               add session1"
+            + System.lineSeparator() + "modify (session index) (new datetime)                            " +
+            "modify 1 1986-04-08 12:30"
             + System.lineSeparator() + "list                                                             list"
             + System.lineSeparator() + "view (session index)                                             view 1"
             + System.lineSeparator() + "edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1"
+            + System.lineSeparator() + "delete (session index)                                           delete 1"
             + System.lineSeparator() + "edit-mood (session index) (mood description)                     "
             + "edit-mood 1 Sad"
             + System.lineSeparator() + "delete (session index)                                           delete 1"
@@ -60,6 +64,9 @@ public class Messages {
             " 12/12/2024 14:00:00"
             + System.lineSeparator() + "delete-goal (goal index)                                         delete-goal 1"
             + System.lineSeparator() + "list-goal                                                        list-goal"
+            + System.lineSeparator() + "gpoints                                                          gpoints PU"
+            + System.lineSeparator() + "gperformance                                                     gperformance" +
+            " WAR"
             + System.lineSeparator() + "add-water (amount)                                               add-water 500"
             + System.lineSeparator() + "delete-water (index)                                             delete-water 1"
             + System.lineSeparator() + "list-water                                                       list-water"
@@ -113,6 +120,8 @@ public class Messages {
     public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Invalid index provided. Please enter a positive number " +
             "corresponding to the existing item you want to edit/delete";
 
+    public static final String INVALID_MODIFY_DETAILS_MESSAGE =
+            "Please provide a valid session index and DateTime (e.g. 12/03/2007 10:15).";
     public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
     public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
     public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";

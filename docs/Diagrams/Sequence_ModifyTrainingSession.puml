@@ -1,0 +1,35 @@
+@startuml
+skinparam style strictuml
+
+actor User
+participant ":FitTrack"
+participant ":Parser"
+participant ":TrainingSession"
+participant ":Ui"
+
+User -> ":FitTrack": modify session datetime
+activate ":FitTrack"
+
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
+
+":Parser" -> ":FitTrack": sessionList.get(...)
+activate ":FitTrack"
+":FitTrack" --> ":Parser": ":TrainingSession"
+deactivate ":FitTrack"
+
+":Parser" -> ":TrainingSession": setSessionDatetime(...)
+activate ":TrainingSession"
+":TrainingSession" --> ":Parser":
+deactivate ":TrainingSession"
+
+":Parser" -> ":Ui": printModifiedSession(...)
+activate ":Ui"
+":Ui" --> ":Parser"
+deactivate ":Ui"
+
+":Parser" --> ":FitTrack"
+
+deactivate ":Parser"
+deactivate ":FitTrack"
+@enduml
