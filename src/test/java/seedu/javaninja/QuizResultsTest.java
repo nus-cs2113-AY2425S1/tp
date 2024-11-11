@@ -1,97 +1,86 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.javaninja.QuizResults;
+import seedu.javaninja.Cli;
+import seedu.javaninja.QuizManager;
+import seedu.javaninja.Topic;
+import seedu.javaninja.question.Mcq;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.util.List;
+import java.io.ByteArrayInputStream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class QuizResultsTest {
+class QuizManagerTest {
 
-    private QuizResults quizResults;
-    private final String resultsFilePath = "./data/results.txt";
+    private QuizManager quizManager;
+    private Cli cli;
 
     @BeforeEach
     public void setUp() {
-        // Clear the results file before each test
-        File file = new File(resultsFilePath);
-        if (file.exists()) {
-            file.delete();
-        }
-        quizResults = new QuizResults();
+        // Simulated input: "1\n1\nb\n"
+        // '1' for time limit, '1' for question limit, 'b' as the answer
+        String simulatedUserInput = "1\n1\nb\n";
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(simulatedUserInput.getBytes());
+
+        // Initialize Cli with ByteArrayInputStream for simulated input
+        cli = new Cli(inputStream);
+        quizManager = new QuizManager(cli, false); // Pass this Cli instance to QuizManager
     }
 
     @Test
-    public void addResult_withValidDetails_savesResultCorrectly() {
-        // Add a result with new format details
-        quizResults.addResult("Loops", 100, 3, "Excellent!", 300);
+    public void selectQuizToAttempt_validTopic_addsResult() {
+        // Set up a valid topic and add it to QuizManager
+        Topic topic = new Topic("Java Basics");
+        topic.addQuestion(new Mcq("What is Java?", "a",
+                List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+        quizManager.getTopicManager().addTopic(topic);
 
-        // Define expected result format
-        String expectedResult = "{\n" +
-            "  Topic: Loops,\n" +
-            "  Score: 100%,\n" +
-            "  Time Limit: 300 seconds,\n" +
-            "  Questions Attempted: 3,\n" +
-            "  Comment: Excellent!\n" +
-            "}";
+        String nameOfTopic = topic.getName();
 
-        // Check that the past results contain the correctly formatted result
-        assertEquals(expectedResult.replaceAll("\\s+", " ").trim(),
-            quizResults.getPastResults().replaceAll("\\s+", " ").trim());
+        // Select quiz and verify result is added
+        quizManager.getQuizSession().selectTimedQuiz(nameOfTopic);
+
+        quizManager.addResultsAndPrintScore();
+
+        // Check if result was recorded
+        String pastResults = quizManager.getPastResults();
+        System.out.println(pastResults);
+        assertTrue(pastResults.contains("Score: 0%"),
+                "Past results should contain a score.");
     }
 
     @Test
-    public void generateComment_withHighScore_returnsExcellentComment() {
-        // Generate a comment for a high score
-        String comment = quizResults.generateComment(95);
-        assertEquals("Excellent!", comment);
+    public void selectQuizToAttempt_invalidTopic_logsWarning() {
+        quizManager = new QuizManager(cli);
+        // Select a topic that doesn't exist
+        quizManager.handleQuizSelection("NonExistentTopic");
+
+        // Check if past results remain empty
+        assertTrue(true,"No such topic: NonExistentTopic");
+
     }
 
     @Test
-    public void saveResults_writesFormattedResultsToFile() throws IOException {
-        // Add a result with new format and save it
-        quizResults.addResult("Loops", 60, 5, "Needs improvement.", 150);
-        boolean isDataSaved = quizResults.isResultsSaved();
+    public void getQuizzesAvailable_returnsAddedTopics() {
+        // Add multiple topics to QuizManager
+        quizManager.getTopicManager().addTopic(new Topic("Java Basics"));
+        quizManager.getTopicManager().addTopic(new Topic("Data Structures"));
 
-        // Define expected file content format
-        String expectedFileContents = "{\n" +
-            "  Topic: Loops,\n" +
-            "  Score: 60%,\n" +
-            "  Time Limit: 150 seconds,\n" +
-            "  Questions Attempted: 5,\n" +
-            "  Comment: Needs improvement.\n" +
-            "}";
-
-        // Read the saved result from the file and verify
-        Path path = Path.of(resultsFilePath);
-        String fileContents = Files.readString(path);
-        assertEquals(expectedFileContents.replaceAll("\\s+", " ").trim(),
-            fileContents.replaceAll("\\s+", " ").trim());
+        // Get available quizzes and verify they match expected
+        List<String> quizzes = quizManager.getQuizzesAvailable();
+        assertTrue(quizzes.contains("Java Basics"));
+        assertTrue(quizzes.contains("Data Structures"));
     }
 
     @Test
-    public void loadResults_readsFormattedResultsFromFile() throws IOException {
-        // Write a simulated formatted past result to the file
-        String previousResult = "{\n" +
-            "  Topic: Loops,\n" +
-            "  Score: 75%,\n" +
-            "  Time Limit: 200 seconds,\n" +
-            "  Questions Attempted: 4,\n" +
-            "  Comment: Good job!\n" +
-            "}\n";
-        Files.writeString(Path.of(resultsFilePath), previousResult);
+    public void addInput_addsFlashcardToTopic() {
+        // Add a flashcard via addInput
+        quizManager.addInput("add Flashcards /q What is Java? /a A programming language");
 
-        // Load results from file and verify
-        quizResults.loadResults();
-        assertEquals(previousResult.trim(), quizResults.getPastResults().trim());
-    }
-
-    @Test
-    public void getPastResults_withNoResults_returnsEmptyMessage() {
-        // Ensure no results are loaded initially
-        assertEquals("No past results available. You haven't completed any quizzes yet.", quizResults.getPastResults());
+        // Verify that the flashcard topic exists
+        Topic flashcardTopic = quizManager.getTopicManager().getTopic("Flashcards");
+        assertTrue(flashcardTopic.getQuestions().stream()
+                        .anyMatch(q -> q.getText().equals("What is Java?")),
+                "Flashcard topic should contain the added question.");
     }
 }

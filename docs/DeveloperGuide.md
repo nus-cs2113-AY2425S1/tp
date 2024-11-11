@@ -186,20 +186,20 @@ This tool offers an interactive learning experience through a series of tasks an
 
 ## User Stories
 
-| Version | As a ...              | I want to ...                                      | So that I can ...                                         | Notes                              |
-|---------|-----------------------|----------------------------------------------------|-----------------------------------------------------------|-------------------------------------|
-| v1.0    | user                  | see usage instructions                             | learn how to use the app                                  | can be displayed on app open       |
-| v1.0    | user                  | submit quiz                                        | complete the assessment                                   |                                     |
-| v1.1    | user                  | take quizzes on Java fundamentals                  | test my knowledge and practice programming concepts       |                                     |
-| v1.2    | user                  | see my quiz score at the end of the quiz           | track my progress and improve                             |                                     |
-| v2.0    | user                  | receive feedback after each quiz question          | understand the correct answer and learn from my mistakes  |                                     |
-| v2.0    | user                  | practice different CS topics individually (e.g., OOP, data structures, algorithms) | focus on weak areas and strengthen my knowledge |               |
-| v2.0    | user                  | keep track of my quiz history                      | monitor my improvement over time and revisit past mistakes |                                     |
-| v2.0    | user                  | attempt timed quizzes                              | simulate real exam conditions and manage my time efficiently |                                |
-| v2.0    | user                  | exit the quiz at any point                         | take a break or do something else                         |                                     |
-| v2.0    | user                  | see the correct answer to quiz questions           | learn and improve                                         |                                     |
-| v2.0    | user                  | take quizzes in MCQ or true/false format           | get used to typing out answers                            |                                     |
-| v2.0    | user                  | take quizzes in FITB format                        | be exposed to multiple formats of assessment              |                                     |
+| Version | As a ...              | I want to ...                             | So that I can ...                                            | Notes                        |
+|---------|-----------------------|-------------------------------------------|--------------------------------------------------------------|------------------------------|
+| v1.0    | user                  | see usage instructions                    | learn how to use the app                                     | can be displayed on app open |
+| v1.0    | user                  | submit quiz                               | complete the assessment                                      |                              |
+| v1.1    | user                  | take quizzes on Java fundamentals         | test my knowledge and practice programming concepts          |                              |
+| v1.2    | user                  | see my quiz score at the end of the quiz  | track my progress and improve                                |                              |
+| v2.0    | user                  | receive feedback after each quiz question | understand the correct answer and learn from my mistakes     |                              |
+| v2.0    | user                  | practice different topics individually    | focus on weak areas and strengthen my knowledge              |                              |
+| v2.0    | user                  | keep track of my quiz history             | monitor my improvement over time and revisit past mistakes   |                              |
+| v2.0    | user                  | attempt timed quizzes                     | simulate real exam conditions and manage my time efficiently |                              |
+| v2.0    | user                  | exit the quiz at any point                | take a break or do something else                            |                              |
+| v2.0    | user                  | see the correct answer to quiz questions  | learn and improve                                            |                              |
+| v2.0    | user                  | take quizzes in MCQ or true/false format  | get used to typing out answers                               |                              |
+| v2.0    | user                  | take quizzes in FITB format               | be exposed to multiple formats of assessment                 |                              |
 
 ## Non-Functional Requirements
 

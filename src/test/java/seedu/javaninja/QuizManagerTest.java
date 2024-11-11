@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import seedu.javaninja.Cli;
 import seedu.javaninja.QuizManager;
 import seedu.javaninja.Topic;
+import seedu.javaninja.QuizResults;
 import seedu.javaninja.question.Mcq;
 
 import java.util.List;
@@ -32,21 +33,19 @@ class QuizManagerTest {
         // Set up a valid topic and add it to QuizManager
         Topic topic = new Topic("Java Basics");
         topic.addQuestion(new Mcq("What is Java?", "a",
-            List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
+                List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
         quizManager.getTopicManager().addTopic(topic);
 
         String nameOfTopic = topic.getName();
 
         // Select quiz and verify result is added
         quizManager.getQuizSession().selectTimedQuiz(nameOfTopic);
-
         quizManager.addResultsAndPrintScore();
 
         // Check if result was recorded
-        String pastResults = quizManager.getPastResults();
-        System.out.println(pastResults);
-        assertTrue(pastResults.contains("Score: 0%"),
-            "Past results should contain a score.");
+        List<QuizResults.Result> pastResults = quizManager.getQuizResults().getAllResults();
+        assertTrue(pastResults.stream().anyMatch(result -> result.getTopic().equals(nameOfTopic) && result.getScore() == 0),
+                "Past results should contain a score for the topic.");
     }
 
     @Test
@@ -56,8 +55,7 @@ class QuizManagerTest {
         quizManager.handleQuizSelection("NonExistentTopic");
 
         // Check if past results remain empty
-        assertTrue(true,"No such topic: NonExistentTopic");
-
+        assertTrue(true, "No such topic: NonExistentTopic");
     }
 
     @Test
@@ -80,7 +78,7 @@ class QuizManagerTest {
         // Verify that the flashcard topic exists
         Topic flashcardTopic = quizManager.getTopicManager().getTopic("Flashcards");
         assertTrue(flashcardTopic.getQuestions().stream()
-                .anyMatch(q -> q.getText().equals("What is Java?")),
-            "Flashcard topic should contain the added question.");
+                        .anyMatch(q -> q.getText().equals("What is Java?")),
+                "Flashcard topic should contain the added question.");
     }
 }
