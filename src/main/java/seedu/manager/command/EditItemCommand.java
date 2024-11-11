@@ -6,7 +6,7 @@ package seedu.manager.command;
  */
 public class EditItemCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    private static final String EDIT_ITEM_MESSAGE = "The following item has been updated:\n";
+    private static final String EDIT_ITEM_MESSAGE = "The item has been updated to:\n";
     private static final String EDIT_FAILURE_MESSAGE = "Event/Item not found!";
     protected String itemName;
     protected String itemNewName;
