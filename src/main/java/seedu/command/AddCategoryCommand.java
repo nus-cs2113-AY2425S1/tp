@@ -7,7 +7,6 @@ import seedu.exceptions.InvalidCategoryNameException;
 import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
-import seedu.utils.DescriptionUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -93,8 +93,8 @@ class AddBudgetCommandTest {
         command.setArguments(Map.of("a/", "1000", "m/", "12-2024"));
         List<String> result = command.execute();
 
-        assertEquals(CommandResultMessages.SET_BUDGET_FAIL + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT,
-                result.get(0));
+        assertEquals(CommandResultMessages.SET_BUDGET_FAIL
+                        + ErrorMessages.MESSAGE_INVALID_YEAR_MONTH_FORMAT, result.get(0));
     }
 
 }

@@ -82,7 +82,7 @@ public class Storage {
         } catch (IOException e) {
             ui.printMessage(String.format(ErrorMessages.ERROR_LOADING_TRANSACTIONS, e.getMessage()));
         } catch (com.google.gson.JsonSyntaxException | com.google.gson.JsonIOException e) {
-            System.out.println(ErrorMessages.INVALID_JSON_TRANSACTIONS);
+            ui.printMessage(ErrorMessages.INVALID_JSON_TRANSACTIONS);
             saveTransaction(new ArrayList<>());
             return new ArrayList<>();
         } catch (Exception e) {

@@ -50,7 +50,7 @@ public class ErrorMessages {
 
     public static final String INVALID_AMOUNT_GUIDE = "Make sure the amount is positive and is smaller than " +
             "1000000000";
-    public static final String INVALID_STRING_FORMAT = "Invalid description format ";
+    public static final String INVALID_STRING_FORMAT = "Invalid description format: ";
     public static final String INVALID_DESCRIPTION_GUIDE = "Description can have at most 40 characters";
     public static final String INVALID_CATEGORY_NAME = "Category name couldn't be 'yes' or 'no' or 'skip'";
 }
