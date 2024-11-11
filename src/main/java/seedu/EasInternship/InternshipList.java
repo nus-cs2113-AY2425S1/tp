@@ -1,7 +1,7 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
@@ -59,9 +59,9 @@ public class InternshipList {
     // Method to remove an internship by index (0-based)
 
     //@@author jadenlimjc
-    public void removeInternship(int index) throws InvalidIndex {
+    public void removeInternship(int index) throws InvalidID {
         if (!isWithinBounds(index)) {
-            throw new InvalidIndex(index);
+            throw new InvalidID(index);
         }
         Internship internship = internships.remove(index);
         assert internship != null : "Removed internship should not be null";
@@ -85,15 +85,10 @@ public class InternshipList {
 
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        try {
-            if (!isWithinBounds(index)) {
-                throw new InvalidIndex(index);
-            }
-            return internships.get(index);
-        } catch (InvalidIndex ie) {
-            ui.showOutput(ie.getMessage());
+        if (!isWithinBounds(index)) {
             return null;
         }
+        return internships.get(index);
     }
 
     //@@author Ridiculouswifi

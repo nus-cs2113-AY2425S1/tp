@@ -2,8 +2,8 @@ package seedu.commands;
 
 //@@author Ridiculouswifi
 
-import seedu.duke.Deadline;
-import seedu.duke.Internship;
+import seedu.EasInternship.Deadline;
+import seedu.EasInternship.Internship;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -24,7 +24,7 @@ public class CalendarCommand extends Command {
     }
 
     protected ArrayList<Deadline> getDeadlines() {
-        List<Internship> allInternships = internships.getAllInternships();
+        List<Internship> allInternships = internshipsList.getAllInternships();
         ArrayList<Deadline> deadlines = new ArrayList<>();
         for (Internship internship : allInternships) {
             deadlines.addAll(internship.getDeadlines());

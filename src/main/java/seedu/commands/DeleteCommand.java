@@ -1,6 +1,6 @@
 package seedu.commands;
 
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -12,12 +12,12 @@ public class DeleteCommand extends Command {
         try {
             int id = Integer.parseInt(args.get(0));
             int index = id - 1;
-            internships.removeInternship(index);
+            internshipsList.removeInternship(index);
 
             logger.log(Level.INFO, "DeleteCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
-        } catch (InvalidIndex ie) {
+        } catch (InvalidID ie) {
             uiCommand.showOutput(ie.getMessage());
         }
     }

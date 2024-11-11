@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.commands.Command;
 import seedu.commands.AddCommand;
@@ -22,31 +22,42 @@ import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Interprets user input and converts it
+ * into executable commands. It identifies the command type and parses any associated arguments or flags.
+ */
 public class Parser {
     private final Ui ui = new Ui();
     private final Logger logger = Logger.getLogger("EasInternship");
 
-    private final Map<String, Supplier<Command>> commands = new HashMap<>();
+    private final Map<String, Supplier<Command>> commandConstructors = new HashMap<>();
 
     public Parser() {
-        // Initialize command map
         initializeCommands();
     }
 
-    // Initialize map with suppliers
+    /**
+     * Populates the {@code commandConstructors} map with command keywords and their constructors.
+     */
     private void initializeCommands() {
-        commands.put("add", AddCommand::new);
-        commands.put("delete", DeleteCommand::new);
-        commands.put("update", UpdateCommand::new);
-        commands.put("sort", SortCommand::new);
-        commands.put("filter", FilterCommand::new);
-        commands.put("list", ListCommand::new);
-        commands.put("help", HelpCommand::new);
-        commands.put("remove", RemoveCommand::new);
-        commands.put("favourite", FavouriteCommand::new);
-        commands.put("calendar", CalendarCommand::new);
+        commandConstructors.put("add", AddCommand::new);
+        commandConstructors.put("delete", DeleteCommand::new);
+        commandConstructors.put("update", UpdateCommand::new);
+        commandConstructors.put("sort", SortCommand::new);
+        commandConstructors.put("filter", FilterCommand::new);
+        commandConstructors.put("list", ListCommand::new);
+        commandConstructors.put("help", HelpCommand::new);
+        commandConstructors.put("remove", RemoveCommand::new);
+        commandConstructors.put("favourite", FavouriteCommand::new);
+        commandConstructors.put("calendar", CalendarCommand::new);
     }
 
+    /**
+     * Parses the user's input string to determine the command to execute.
+     *
+     * @param input the raw input string from the user; must not be blank.
+     * @return the corresponding {@code Command} object to be executed, or {@code null} if the {@code input} is invalid.
+     */
     public Command parseCommand(String input) {
         if (input.isBlank()) {
             ui.showOutput("Please enter a command");
@@ -54,28 +65,33 @@ public class Parser {
         }
 
         String[] inputArgs = input.trim().split(" ", 2);
-
-        assert inputArgs[0].equals(inputArgs[0].trim());
         String inputCommand = inputArgs[0].trim();
 
-        if (!commands.containsKey(inputCommand)) {
+        if (!commandConstructors.containsKey(inputCommand)) {
             ui.showUnknownCommand(inputCommand);
             logger.log(Level.WARNING, "Invalid Command: " + inputCommand);
             return null;
         }
 
-        Supplier<Command> commandSupplier = commands.get(inputCommand);
+        Supplier<Command> commandConstructor = commandConstructors.get(inputCommand);
         logger.log(Level.INFO, "Command Parsed: " + inputCommand);
-        return commandSupplier.get();
+        Command command = commandConstructor.get();
+        return command;
     }
 
+    /**
+     * Parses the input data for the given command, extracting any arguments or flags.
+     *
+     * @param command the {@code Command} object for which to parse data
+     * @param input   the raw input string from the user
+     * @return an {@code ArrayList<String>} containing the parsed arguments, or {@code null} if the input is invalid.
+     */
     public ArrayList<String> parseData(Command command, String input) {
         if (command instanceof ListCommand || command instanceof HelpCommand || command instanceof CalendarCommand) {
             return new ArrayList<>();
         }
 
         String[] inputArgs = input.trim().split(" ", 2);
-
         if (inputArgs.length < 2) {
             if (!(command instanceof SortCommand)) {
                 ui.showOutput("Please input some ID or flag following the command");
@@ -84,23 +100,16 @@ public class Parser {
             }
             return new ArrayList<>();
         }
-
         String inputData = inputArgs[1];
 
-        if (command instanceof AddCommand) {
-            return parseAddCommandData(inputData);
+        if (command instanceof AddCommand || command instanceof FilterCommand || command instanceof SortCommand) {
+            return parseFlagData(inputData);
         }
         if (command instanceof DeleteCommand) {
             return parseDeleteCommandData(inputData);
         }
         if (command instanceof UpdateCommand) {
             return parseUpdateCommandData(inputData);
-        }
-        if (command instanceof SortCommand) {
-            return parseSortCommandData(inputData);
-        }
-        if (command instanceof FilterCommand) {
-            return parseFilterCommandData(inputData);
         }
         if (command instanceof FavouriteCommand) {
             return parseFavouriteCommandData(inputData);
@@ -109,6 +118,13 @@ public class Parser {
         return null;
     }
 
+    /**
+     * Parses input data containing flags and their corresponding values.
+     *
+     * @param inputData the input data string containing flags
+     * @return an {@code ArrayList<String>} of parsed flags and their corresponding data, or {@code null} if there is an
+     * empty flag
+     */
     private ArrayList<String> parseFlagData(String inputData) {
         ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split("-")));
         if (commandArgs.isEmpty()) {
@@ -120,45 +136,48 @@ public class Parser {
         return commandArgs;
     }
 
-    private ArrayList<String> parseAddCommandData(String inputData) {
-        return parseFlagData(inputData);
-    }
-
+    /**
+     * Parses input data for the delete command, extracting the internship ID.
+     *
+     * @param inputData the input data string containing the internship ID
+     * @return an {@code ArrayList<String>} containing a single element - the internship ID.
+     */
     private ArrayList<String> parseDeleteCommandData(String inputData) {
         ArrayList<String> commandArgs = new ArrayList<>();
-        commandArgs.add(inputData);
-        commandArgs.set(0, inputData.trim());
+        commandArgs.add(inputData.trim());
         return commandArgs;
     }
 
+    /**
+     * Parses input data for the update command, extracting the internship ID and flags.
+     *
+     * @param inputData the input data string containing the internship ID and flags
+     * @return an {@code ArrayList<String>} containing the internship ID followed by parsed flags and their
+     * corresponding data. or {@code null} if there are no/empty flags.
+     */
     private ArrayList<String> parseUpdateCommandData(String inputData) {
         String[] splitArray = inputData.trim().split(" ", 2);
-        assert splitArray[0].equals(splitArray[0].trim());
         String id = splitArray[0].trim();
-        try {
-            String fields = splitArray[1].trim();
-
-            ArrayList<String> commandArgs = parseFlagData(fields);
-            if (commandArgs == null) {
-                return null;
-            }
-
-            commandArgs.add(0, id);
-            return commandArgs;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        if (splitArray.length < 2) {
             ui.showEmptyFlags();
             return null;
         }
+        String fields = splitArray[1].trim();
+        ArrayList<String> commandArgs = parseFlagData(fields);
+        if (commandArgs == null) {
+            return null;
+        }
+        commandArgs.add(0, id);
+        return commandArgs;
     }
 
-    private ArrayList<String> parseSortCommandData(String inputData) {
-        return parseFlagData(inputData);
-    }
-
-    private ArrayList<String> parseFilterCommandData(String inputData) {
-        return parseFlagData(inputData);
-    }
-
+    /**
+     * Parses input data for the favourite command, extracting the list of internship IDs.
+     *
+     * @param inputData the input data string containing internship IDs separated by commas; must not be empty.
+     * @return an {@code ArrayList<String>} containing the internship IDs, or {@code null} if the {@code inputData}
+     * is empty.
+     */
     private ArrayList<String> parseFavouriteCommandData(String inputData) {
         if (inputData.trim().isEmpty()) {
             return null;

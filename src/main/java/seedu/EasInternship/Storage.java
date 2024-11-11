@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import java.io.File;
 import java.io.FileWriter;

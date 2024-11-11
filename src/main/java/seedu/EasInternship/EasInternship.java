@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.commands.Command;
 import seedu.ui.Ui;
@@ -57,7 +57,7 @@ public class EasInternship {
                 continue;
             }
 
-            command.setInternshipList(internshipList);
+            command.setInternshipsList(internshipList);
             ArrayList<String> commandArgs = parser.parseData(command, input);
 
             if (commandArgs == null) {

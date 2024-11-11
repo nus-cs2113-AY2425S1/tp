@@ -1,7 +1,7 @@
 package seedu.commands;
 
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 import seedu.exceptions.InvalidStatus;
 
 import java.time.format.DateTimeParseException;
@@ -20,8 +20,8 @@ public class UpdateCommand extends Command {
 
             int internshipId = Integer.parseInt(args.get(0));
             int internshipIndex = internshipId - 1;
-            if (!internships.isWithinBounds(internshipIndex)) {
-                throw new InvalidIndex(internshipIndex);
+            if (!internshipsList.isWithinBounds(internshipIndex)) {
+                throw new InvalidID(internshipIndex);
             }
             args.remove(0);
 
@@ -35,12 +35,12 @@ public class UpdateCommand extends Command {
                 updateOneField(words, internshipIndex);
             }
 
-            uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
+            uiCommand.showEditedInternship(internshipsList.getInternship(internshipIndex), "update");
 
             logger.log(Level.INFO, "UpdateCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
-        } catch (InvalidIndex ie) {
+        } catch (InvalidID ie) {
             uiCommand.showOutput(ie.getMessage());
         }
     }
@@ -73,7 +73,7 @@ public class UpdateCommand extends Command {
                     return;
                 }
                 String value = words[INDEX_DATA].trim();
-                internships.updateField(internshipIndex, field, value);
+                internshipsList.updateField(internshipIndex, field, value);
                 uiCommand.addUpdatedField(field, value, "update");
                 break;
             default:

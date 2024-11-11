@@ -1,6 +1,6 @@
 package seedu.commands;
 
-import seedu.duke.Internship;
+import seedu.EasInternship.Internship;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
@@ -89,7 +89,7 @@ public class AddCommand extends Command {
         }
 
         Internship newInternship = new Internship(role, company, startDate, endDate);
-        internships.addInternship(newInternship);
+        internshipsList.addInternship(newInternship);
         uiCommand.showEditedInternship(newInternship, "add");
 
         logger.log(Level.INFO, "AddCommand Executed");

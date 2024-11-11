@@ -2,8 +2,8 @@ package seedu.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.duke.Internship;
-import seedu.duke.InternshipList;
+import seedu.EasInternship.Internship;
+import seedu.EasInternship.InternshipList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ class SortCommandTest {
     @Test
     void execute_sortNoArgs_expectNoCrash() {
         SortCommand sortCommand = new SortCommand();
-        sortCommand.setInternshipList(internshipList);
+        sortCommand.setInternshipsList(internshipList);
 
         // Test "sort" with no additional arguments
         ArrayList<String> arguments = new ArrayList<>();
@@ -41,7 +41,7 @@ class SortCommandTest {
     @Test
     void execute_sortEmptyFlag_expectNoCrash() {
         SortCommand sortCommand = new SortCommand();
-        sortCommand.setInternshipList(internshipList);
+        sortCommand.setInternshipsList(internshipList);
 
         // Test "sort -" with an empty flag
         ArrayList<String> arguments = new ArrayList<>(List.of("-"));
@@ -51,7 +51,7 @@ class SortCommandTest {
     @Test
     void execute_sortAlphabet_expectSortedByRole() {
         SortCommand sortCommand = new SortCommand();
-        sortCommand.setInternshipList(internshipList);
+        sortCommand.setInternshipsList(internshipList);
 
         // Test "sort -alphabet"
         ArrayList<String> arguments = new ArrayList<>(List.of("alphabet"));
@@ -61,7 +61,7 @@ class SortCommandTest {
     @Test
     void execute_sortDeadline_expectSortedByDate() {
         SortCommand sortCommand = new SortCommand();
-        sortCommand.setInternshipList(internshipList);
+        sortCommand.setInternshipsList(internshipList);
 
         // Test "sort -deadline"
         ArrayList<String> arguments = new ArrayList<>(List.of("deadline"));
@@ -71,7 +71,7 @@ class SortCommandTest {
     @Test
     void execute_sortInvalid_expectNoCrash() {
         SortCommand sortCommand = new SortCommand();
-        sortCommand.setInternshipList(internshipList);
+        sortCommand.setInternshipsList(internshipList);
 
         // Test "sort -invalid"
         ArrayList<String> arguments = new ArrayList<>(List.of("invalid"));
@@ -81,7 +81,7 @@ class SortCommandTest {
     @Test
     void execute_sortUnknown_expectNoCrash() {
         SortCommand sortCommand = new SortCommand();
-        sortCommand.setInternshipList(internshipList);
+        sortCommand.setInternshipsList(internshipList);
 
         // Test "sort -unknown"
         ArrayList<String> arguments = new ArrayList<>(List.of("unknown"));
