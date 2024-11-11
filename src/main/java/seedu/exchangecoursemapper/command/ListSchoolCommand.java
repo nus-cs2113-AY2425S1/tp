@@ -35,7 +35,6 @@ public class ListSchoolCommand extends CheckInformationCommand {
         THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION
     };
 
-
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
     private static UI ui;
 
