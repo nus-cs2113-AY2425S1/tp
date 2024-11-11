@@ -20,7 +20,9 @@ The app is optimised for quick, command-based interactions, ideal for users who 
     * Justification: Persistent storage is a crucial feature for any event management tool, as it allows users to retrieve previously entered data and continue their work seamlessly.
     <div style="page-break-after: always;"></div>
 
-  * Highlights: The storage feature supports loading from a single CSV file, handling all event-related data in one file. It includes validation checks to ensure data integrity, and if any data entry is corrupted or unreadable, a warning is logged without crashing the application.
+  * Highlights: The storage feature supports loading from a single CSV file, handling all event-related data in one file. 
+  It includes validation checks to ensure data integrity, and if any data entry is corrupted or unreadable, a warning is logged without crashing the application.
+  At the same time, it is able to save a wider range of characters due to adoption of UTF-8 encoding.
 
 * **New feature**: Added feature to edit participant's contact info.
     * What it does: Allows the user to update the contact details (phone number and email) of participants associated with any event.
@@ -32,16 +34,17 @@ The app is optimised for quick, command-based interactions, ideal for users who 
     * Managed release `v1.0` (1 release) on GitHub
 
 * **Enhancements to existing features**:
-    * Fixed input formats of email and phone number of participants (Pull request [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
-    * Fixed trailing whitespace bugs in causing invalid command (Pull request [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
+    * Fixed input formats of email and phone number of participants )
+    * Fixed trailing whitespace bugs in causing invalid command )
+    * Fixed bugs from PE (PR [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150), [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150), [#249](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/249), [#252](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/252))
   
 * **Documentation**
     * User Guide
-        * Added documentation for storage features (Pull request [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
+        * Added documentation for storage features (PR [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
     * Developer Guide
-        * Added design details for `add`, `remove` and `view` components (Pull request [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128))
-        * Added implementation details for the `add`, `remove`, `view`, `copy`, `sort` and `find` feature (Pull requests [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128), [#142](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/142)) 
-        * Added documentation for storage features (Pull request [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
+        * Added design details for `add`, `remove` and `view` components (PR [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128))
+        * Added implementation details for the `add`, `remove`, `view`, `copy`, `sort` and `find` feature (PR [#128](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/128), [#142](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/142)) 
+        * Added documentation for storage features (PR [#156](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/156))
 
 * **Community**
-    * PRs reviewed (with non-trivial review comments): [#119](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/119), [#130](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/130), [#149](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/149)
+    * PRs reviewed (with non-trivial review comments): (PR [#119](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/119), [#130](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/130), [#149](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/149), [#234](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/234))
