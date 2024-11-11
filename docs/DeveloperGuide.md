@@ -393,9 +393,9 @@ that NUS course is suitable to be mapped overseas in Oceania.
 
 
 #### Why it is implemented that way:
-- **Single Responsibility Principle:** The methods to check in the user's input for the NUS course code is extracted
-  into the `NusCourseCodeValidator` class, separate from the methods used in the `FilterCoursesCommand` clas, which
-  are mainly for the logic behind the filtering of courses.
+- **Single Responsibility Principle:** The methods to check the user's input for the NUS course code are extracted
+  into the `NusCourseCodeValidator` class, separate from the methods used in the `FilterCoursesCommand` class, which
+  are mainly used for the logic behind the filtering of courses.
 
 
 #### Sequence Diagram:
@@ -651,12 +651,18 @@ testers are expected to do more *exploratory* testing.
 
 #### 2.3 Find mappable courses in a specific PU in Oceania
 > [NOTE!]
-> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
-> word for word!
+> SCHOOL_NAME is not case-sensitive, and you can either input the University's full name, or its abbreviation.
 
-* 2.3.1 See all mappable courses from a valid PU
+* 2.3.1 See all mappable courses from a valid PU (Using full university name)
   * Prerequisites: None
   * Test Case: `list courses The University of Western Australia` <br/>
+  * Expected: List of mappable courses, with information of the PU course code and name to the matching
+    NUS course code and name.
+
+
+* 2.3.1 See all mappable courses from a valid PU (Using university abbreviation)
+  * Prerequisites: None
+  * Test Case: `list courses uwa` <br/>
   * Expected: List of mappable courses, with information of the PU course code and name to the matching
     NUS course code and name.
 
@@ -707,13 +713,19 @@ testers are expected to do more *exploratory* testing.
 
 
 #### 2.6 Add course mapping plans into Personal Tracker
-* 2.6.1 Add course mappings with the correct format and valid mapping
+* 2.6.1 Add course mappings with the correct format and valid mapping (Using full university name)
   * Prerequisites: None
   * Test case: `add CS2040 /pu The university of western australia /coursepu CITS2200`
   * Expected: Prints out a confirmation message indicating success
 
 
-* 2.6.2 Add course mapping with incorrect format
+* 2.6.2 Add course mappings with the correct format and valid mapping (Using University abbreviation)
+  * Prerequisites: None
+  * Test case: `add CS2040 /pu uwa /coursepu CITS2200`
+  * Expected: Prints out a confirmation message indicating success
+
+
+* 2.6.3 Add course mapping with incorrect format
   * Prerequisites: None
   * Test case 1: `add invalid format`
   * Test case 2: `add cs2040 /pu invalid uni`
@@ -721,14 +733,14 @@ testers are expected to do more *exploratory* testing.
   * Expected: Prints out error message indicating to provide all valid parts
 
 
-* 2.6.3 Add course mappings with invalid NUS course code/ PU course code
+* 2.6.4 Add course mappings with invalid NUS course code/ PU course code
   * Prerequisites: None
   * Test case 1: `add CS1231 /pu the university of western australia /coursepu CITS2200`
   * Test case 2: `add CS2040 /pu the university of western australia /coursepu CITS1111`
   * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`
 
 
-* 2.6.4 Add course mappings with invalid partner university (PU) name
+* 2.6.5 Add course mappings with invalid partner university (PU) name
   * Prerequisites: None
   * Test case: `add CS2040 /pu the university of australia /coursepu CITS2200`
   * Expected: Prints out error message and a list of partner universities
@@ -798,7 +810,7 @@ testers are expected to do more *exploratory* testing.
 
 #### 2.10 Find course mappings in Personal Tracker
 * 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
-  * Prerequisites: This course mapping saved `CS2040 | The university of western australia | CITS2200`*
+  * Prerequisites: This course mapping saved `CS2040 | The university of western australia | CITS2200`
   * Test case: `find cs2040`
   * Expected: Prints out the course mappings in the format of *
 
