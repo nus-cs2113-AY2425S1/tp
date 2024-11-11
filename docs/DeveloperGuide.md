@@ -301,26 +301,7 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 
 The save/load mechanism is handled by three main components: `Storage`, `FileManager`, and `DateSerializer`. `FileManager` manages file interactions, including reading from and writing to JSON data files, while `Storage` handles the conversion between JSON objects and `ProgrammeList`/`History` objects. The `DateSerializer` is used for converting `LocalDate` to/from JSON format.
 
-#### FileManager implements the following key operations:
-
-- **`FileManager#load()`**: Reads the data file into a `JsonObject`.
-- **`FileManager#save(JsonObject data)`**: Writes the `JsonObject` containing all data back into the file.
-- **`FileManager#createDirIfNotExist()`** and **`FileManager#createFileIfNotExist()`**: Ensure that the necessary directory and file exist before saving.
-
-#### Storage converts JSON data into Java objects:
-
-- **`Storage#loadProgrammeList()`**: Converts the `ProgrammeList` JSON data into a `ProgrammeList` object using `programmeListFromJson()`.
-- **`Storage#loadHistory()`**: Converts the `History` JSON data into a `History` object using `historyFromJson()`.
-- **`Storage#saveData()`**: Converts `ProgrammeList` and `History` into JSON using `createJSON()`, and passes it to `FileManager#save()`.
-
-#### DateSerializer is responsible for:
-
-- **`DateSerializer#serialize()`**: Converts `LocalDate` into `JsonElement`.
-- **`DateSerializer#deserialize()`**: Converts `JsonElement` back into `LocalDate`.
-
-These operations are exposed in the `Model` interface, allowing seamless saving and loading of `ProgrammeList` and `History` data.
-
-### Flow of Operations
+### Example usage
 
 Given below is an example usage scenario and how the save/load mechanism behaves at each step.
 
@@ -328,14 +309,13 @@ Given below is an example usage scenario and how the save/load mechanism behaves
 the file using `FileManager`. If no data file exists, `Storage` initializes an empty `ProgrammeList` and `History`.
 
 **Step 2.** The user interacts with the application by adding programmes or logging workout activities and meals, modifying both the
-`ProgrammeList` and `History`. These changes are stored temporarily in memory, but no data is saved to the file at this point.
+`ProgrammeList` and `History`. After each command is carried out and when the user chooses to exit the application, `Storage#saveData()` is called.
 
-**Step 3.** When the user chooses to exit the application, `Model#saveData()` is triggered, which in turn calls `Storage#saveData()`.
-At this point, `Storage` converts the current `ProgrammeList` and `History` into JSON format using the `createJSON()` method and passes
+**Step 3.** At this point, `Storage` converts the current `ProgrammeList` and `History` into JSON format using the `createJSON()` method and passes
 the `JsonObject` to `FileManager#save()`.
 
 **Step 4.** The `FileManager` saves the updated `JsonObject` to the data file, ensuring that the user's changes are preserved for the
-next session. If necessary, `FileManager#createDirIfNotExist()` and `FileManager#createFileIfNotExist()` ensure that the correct directories
+next command or session. If necessary, `FileManager#createDirIfNotExist()` and `FileManager#createFileIfNotExist()` ensure that the correct directories
 and files are in place before saving.
 
 **Step 5.** The next time the user launches the application, `Storage#loadProgrammeList()` and `Storage#loadHistory()` are called, which
