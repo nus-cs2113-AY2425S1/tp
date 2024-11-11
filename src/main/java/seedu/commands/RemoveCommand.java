@@ -44,6 +44,7 @@ public class RemoveCommand extends UpdateCommand {
                 Usage: remove {ID} -{field} {value}
                 
                 List of fields:
-                - skills""";
+                - skills
+                - deadline: {description}""";
     }
 }

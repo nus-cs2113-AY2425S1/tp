@@ -20,7 +20,7 @@ public class CalendarCommand extends Command {
         ArrayList<Deadline> sortedDeadlines = sortDeadlines(deadlines);
         uiCommand.showCalendar(sortedDeadlines);
 
-        logger.log(Level.INFO, "CalendarCommand Executed");
+        LOGGER.log(Level.INFO, "CalendarCommand Executed");
     }
 
     protected ArrayList<Deadline> getDeadlines() {

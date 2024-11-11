@@ -1,5 +1,7 @@
 package seedu.duke;
 
+import seedu.exceptions.InvalidStatus;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
 public class Storage {
     //define filepath
     private static final String FILE_PATH = "./data/EasInternship.txt";
-    private static final Logger logger = Logger.getLogger("EasInternship");
+    private static final Logger LOGGER = Logger.getLogger("EasInternship");
 
 
     /**
@@ -31,7 +33,7 @@ public class Storage {
             //create directory if file does not exist
             if (!dir.exists()) {
                 dir.mkdirs();
-                logger.log(Level.INFO, "Directory created");
+                LOGGER.log(Level.INFO, "Directory created");
             }
             FileWriter writer = new FileWriter(FILE_PATH);
             List<Internship> internships = internshipList.getAllInternships();
@@ -70,12 +72,12 @@ public class Storage {
                 writer.write(" " + favInternship.getId());
             }
             writer.write("\n");
-            logger.log(Level.INFO, "Data saved");
+            LOGGER.log(Level.INFO, "Data saved");
 
             writer.close();
         } catch (IOException e) {
             System.out.println("Error while saving tasks: " + e.getMessage());
-            logger.log(Level.WARNING, "Error while saving tasks", e);
+            LOGGER.log(Level.WARNING, "Error while saving tasks", e);
         }
     }
 
@@ -87,7 +89,7 @@ public class Storage {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
             System.out.println("No data file found.");
-            logger.log(Level.INFO, "No data file found.");
+            LOGGER.log(Level.INFO, "No data file found.");
             return;
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -111,7 +113,7 @@ public class Storage {
                     Internship internship = new Internship(role, company, startDate, endDate);
                     internshipList.addInternship(internship);
                     internship.setSkills(skills);
-                    internship.setStatus(status);
+                    loadStatus(internship, status);
                     List<Deadline> loadedDeadlines = parseDeadlines(deadlines, internship.getId());
                     for (Deadline deadline : loadedDeadlines) {
                         internship.addDeadline(deadline.getDescription(), deadline.getDate());
@@ -133,10 +135,10 @@ public class Storage {
                     internshipList.favouriteInternships.add(favInternship);
                 }
             }
-            logger.log(Level.INFO, "Data loaded");
+            LOGGER.log(Level.INFO, "Data loaded");
         } catch (IOException e) {
             System.out.println("Error while loading tasks: " + e.getMessage());
-            logger.log(Level.WARNING, "Error while loading tasks", e);
+            LOGGER.log(Level.WARNING, "Error while loading tasks", e);
         }
     }
 
@@ -173,6 +175,16 @@ public class Storage {
             }
         }
         return deadlines;
+    }
+
+    private static void loadStatus(Internship internship, String status) {
+        try {
+            internship.updateStatus(status);
+        } catch (InvalidStatus e) {
+            internship.setStatus("Application Pending");
+            System.out.println("Internship ID: " + internship.getId()
+                    + " has corrupted status, reverting to Application Pending");
+        }
     }
 
 }
