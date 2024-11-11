@@ -62,10 +62,10 @@ activate FileWriter
 FileWriter --> Storage
 deactivate FileWriter
 
-destroy File
-destroy FileWriter
-
 Storage -->[
 deactivate Storage
+
+destroy File
+destroy FileWriter
 
 @enduml

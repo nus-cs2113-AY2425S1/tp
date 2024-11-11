@@ -136,7 +136,7 @@ public final class Parser {
      * Checks if the recipe save line is of the proper format.
      * Then, interprets the recipe save line to extract out its parameters.
      *
-     * @param saveRecipeString Save line from recipes.txt to check and interpret
+     * @param saveRecipeString Save line from cookbook.txt to check and interpret
      * @return AddCommand object containing the proper input parameters
      * @throws InvalidSaveLineException If the save line is of an improper format
      */
@@ -167,7 +167,7 @@ public final class Parser {
      * Checks if the ingredient save line is of the proper format.
      * Then, interprets the ingredient save line to extract out its parameters.
      *
-     * @param saveIngredientString Save line from ingredients.txt to check and interpret
+     * @param saveIngredientString Save line from inventory.txt to check and interpret
      * @return AddIngredientCommand object containing the proper input parameters
      * @throws InvalidSaveLineException If the save line is of an improper format
      */

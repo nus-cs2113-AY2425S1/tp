@@ -36,7 +36,7 @@ public class Ingredient {
     }
 
     /**
-     * Returns a string in the proper format to be written to the ingredients.txt save file
+     * Returns a string in the proper format to be written to the inventory.txt save file
      *
      * @return String to be written to the save file
      */

@@ -281,8 +281,10 @@ is requested. In the example of the sort command, the getXYZCommand(args) method
 
 ### Storage Class
 The Storage class 
-- saves the User's added recipes to a .txt file
-  - This is done every time the recipes are modified in any way (such as added, deleted, sorted or edited)
+1. Saves the User's added recipes to a .txt file
+  - Empty save files are created immediately once YMFC is launched for the first time
+    - New empty save files are also created upon launch if the previous ones were deleted by the user
+  - Saving recipes is done every time the recipes are modified in any way (such as added, deleted, sorted or edited)
   - The following Sequence diagram shows how the saveRecipes() method in the Storage class
     saves all the created recipes into the .txt file
 
@@ -290,9 +292,14 @@ The Storage class
 
 <div style="page-break-after: always;"></div>
 
-- reads the .txt save file to load in past saved recipes when app is launched
+2. reads the .txt save files to load in past saved recipes immediately when app is launched
+  - If the user had modified the save files to contain irregular lines of text, then they are simply ignored.
+    - A message is printed to the CLI to alert user of the irregular lines within the save file
+    - The irregular lines are immediately deleted from the save files
   - The following Sequence diagram shows how the loadRecipes() method in the Storage class
     loads in past saved recipes from the .txt file when the app is first launched
+    - The sequence diagram does not show how irregular lines within save files are handled, 
+and only describes how regular, properly formatted save files are loaded in
 
 ![loadRecipes.png](img/SequenceDiagrams/LoadRecipesSequenceDiagram.png)
 

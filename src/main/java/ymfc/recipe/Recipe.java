@@ -144,7 +144,7 @@ public class Recipe {
     }
 
     /**
-     * Returns a string in the proper format to be written to the recipes.txt save file
+     * Returns a string in the proper format to be written to the cookbook.txt save file
      *
      * @return String to be written to the save file
      */

@@ -5,7 +5,8 @@
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Auto-Save Databases](#auto-save-databases)
+  - [Recipes and Ingredients](#recipes-and-ingredients)
+  - [Save-Load System](#save-load-system)
   - [Input Formatting Guide](#input-formatting-guide)
   - [Getting Help](#getting-helphelp)
   - [Exiting YMFC](#exiting-ymfc-bye)
@@ -29,7 +30,7 @@
 
 Your Mother's Favourite Cookbook (YMFC) is a desktop app for managing recipes, designed for use through the
 Command Line Interface (CLI). YMFC can help you manage all your recipes with ease, using the simplicity of the CLI.
-It can also keep track of what ingredients you have on hand, and recommend recipes based on what you can make. 
+It can also keep track of what ingredients you have on hand, and recommend recipes based on what you can make with them. 
 
 ## Quick Start
 
@@ -44,13 +45,34 @@ It can also keep track of what ingredients you have on hand, and recommend recip
 
 ## Features
 
-### Auto-Save Databases
+### Recipes and Ingredients
+* There are 2 categories of data that YMFC will help you store: Recipes and Ingredients
+* The **Recipes** are stored in the **cookbook** database while **Ingredients** are stored in the **inventory** database
+
+
+* **Recipes** are what you would expect in a **cookbook** and contain details such as ingredients needed, steps to take,
+cuisine of the meal and time taken to prepare the meal
+  * They are essentially descriptions of a meal and steps on how to prepare those meals
+
+
+* **Ingredients** in the **inventory** refer to ingredients that you as a cook have on hand at the moment
+  * i.e. The inventory database of ingredients contains items that the user currently has available to cook with
+* NOTE: These ingredients are **COMPLETELY DISTINCT** from the ingredients contained within recipes!!!
+  * As such, when creating and adding recipes to the cookbook, the ingredients mentioned within them **WILL NOT** 
+be automatically added to the ingredients inventory! 
+  * Because the ingredients within recipes and ingredients within the inventory refer to 2 completely different things!
+  * The only way to add ingredients to your inventory is through the `new` command, which will be described later
+
+
+### Save-Load System
 * YMFC keeps 2 separate databases, stored locally in 2 text files.
-  * The cookbook database stores your Recipes, located at `[JAR File Location]/data/recipes.txt`.
-  * The inventory database stores your available Ingredients, located at `[JAR File Location]/data/ingredients.txt`.
-* YMFC loads your recipes and ingredients from these 2 databases when launched
-* If the databases don't yet exist, YMFC will create them automatically
-* Your recipes and ingredients are saved automatically every time they are added, edited or removed
+  * The cookbook database stores your Recipes, located at `[JAR File Location]/data/cookbook.txt`.
+  * The inventory database stores your available Ingredients, located at `[JAR File Location]/data/inventory.txt`.
+* YMFC automatically loads your recipes and ingredients from these 2 databases when launched
+* If the databases don't yet exist, YMFC will create them automatically upon launch of the app
+* Your recipes and ingredients are saved automatically every time they are added, edited, removed or modified in any way
+  * i.e. There is no manual way nor need to initiate this save process, as it is taken care of by YMFC itself.
+
 
 ### Input Formatting Guide
 * If the command format is in uppercase letters, then it means it is to be substituted for the user's desired phrase
@@ -69,40 +91,6 @@ Format: `help`
 
 Lists out all the available commands and their proper format for use.
 
-````
-__________________________________________________________________________________
-This is all the things you can do with me:
-0. help                              -  Lists out all the available commands and their usage
-__________________________________________________________________________________
-The following commands is for working with your recipes list
-1. list                              -  Lists out all the existing recipes
-2. add n/name i/ingredients s1/step  -  Adds a new recipe.
-         add more ingredients using more i/ tags
-         add more steps using more sx/ tags, where x starts from 1 and increases one by one
-3. sort s/name                       -  Sorts the recipes alphabetically by name
-4. sort s/time                       -  Sorts the recipes by time, from least to most
-5. find KEYWORDS                     -  Looks for the keyword in recipes' 
-         find name             = name
-         find i/keyword        = ingredients
-         find ns/keyword       = name or steps
-         find nis/keyword      = name or ingredients or steps
-6. edit e/name i/ingredients s1/step -  Edit an existing recipe's steps and ingredients
-         add more ingredients using more i/ tags
-         add more steps using more sx/ tags, where x starts from 1 and increases one by one
-7. delete n/name                     -  Deletes the recipe of that name
-8. recommend                         -  Ranks recipes based on how many ingredients are available
-9. random                            -  Picks a recipe at random and shows it to you
-10. bye                              -  Ends the program
-__________________________________________________________________________________
-The following commands is for working with your ingredients list
-1. new n/name                        -  Add a new ingredient to your list
-2. listI                             -  Lists out all your current ingredients
-3. findI name                        -  Looks for your ingredient in your ingredients list
-4. deleteI n/name                    -  Deletes the ingredient of that name
-5. sortI                             -  Sorts your ingredients alphabetically by name
-__________________________________________________________________________________
-````
-
 ### Exiting YMFC: `bye`
 
 Format: `bye`
@@ -115,7 +103,7 @@ Will end the program and close the app.
 
 Format: `Format: add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`
 
-Adds a new recipe to YMFC.
+Adds a new recipe to YMFC's cookbook.
 
 * The `c/CUISINE` and `t/TIME` parameters are optional
 * The `t/TIME` parameter should be a positive integer
@@ -166,25 +154,29 @@ ________________________________________________________________________________
 
 Format: `list`
 
-Lists out all the recipes currently stored in YMFC.
+Lists out all the recipes currently stored in YMFC's cookbook.
 
 ### Sorting Recipes by Recipe Name
 
 Format: `sort s/name`
 
 Sorts all the stored recipes alphabetically by name, from 'a' to 'z'
+Entire command **MUST** be in **lowercase**
+- i.e. sort s/NAME will be rejected
 
 ### Sorting Recipes by Time Taken
 
 Format: `sort s/time`
 
 Sorts all the stored recipes by time taken, from lowest to highest
+Entire command **MUST** be in **lowercase**
+- i.e. sort s/TIME will be rejected
 
 ### Searching for specific Recipes
 
 Format: `find [OPTIONS/]KEYWORDS`
 
-Looks through the stored recipes to find those with matching names/steps/ingredients.
+Looks through the stored recipes in the cookbook to find those with matching names/steps/ingredients.
 * `KEYWORDS` can't be blank, and is case-sensitive.
 * `OPTIONS` could be any combination of "n" (by recipe name), "i" (by ingredients) and "s" (by steps).
   * For example, if you want to find "egg" recipes based on recipe names and ingredients: `find ni/egg`
@@ -232,21 +224,23 @@ Format: `edit e/NAME [n/NAME] [i/INGREDIENTS...] [sn/STEPn...] [c/CUISINE] [t/TI
 
 Will find the recipe of the entered name and change its parameters to the newly entered parameters.
 - All parameters are optional except for `e/NAME`, leaving any of the optional parameters out of the command means 
-the existing parameters of that type is untouched (e.g. don't need to add `c/CUISINE` to your command if you 
+the existing parameters of that type is untouched 
+  - (e.g. don't need to add `c/CUISINE` to your command if you 
 wish to keep the cuisine parameter of the recipe unedited).
-- However, leaving every single optional parameter out will basically do nothing, 
+- However, leaving every single optional parameter out **will basically do nothing**, 
 so that isn't really an edit now, is it? (You will get a reminder from YMFC for this)
-- The `e/NAME` refers to the current name of the recipe you wish to edit
-- The `n/NAME` refers to the new name you wish to rename the recipe to
-- The `i/INGREDIENTS...` refers to the new list of ingredients for the recipe (note that the entire current list of  
-ingredients for the recipe is overwritten with the new list inputted)
-- The `sn/STEPn...` refers to the new list of steps for the recipe (note that the entire current list of 
-steps for the recipe is overwritten with the new list inputted)
-- The `c/CUISINE` refers to the new cuisine you wish to edit the recipe to have, leaving CUISINE blank
-(e.g. typing `c/ `) will delete the existing cuisine parameter of the recipe
-- The `t/TIME` refers to the new time taken you wish to edit the recipe to have, leaving TIME blank
-(e.g. typing `c/ `) will delete the existing time parameter of the recipe
-* Parameters follow the same rule as adding a new recipe
+- The `e/NAME` refers to the **current name** of the recipe **you wish to edit**
+- The `n/NAME` refers to the **new name** you wish to **rename the recipe** to
+- The `i/INGREDIENTS...` refers to the **new list of ingredients** for the recipe 
+  - NOTE: The entire current list of ingredients for the recipe is **overwritten** with the new list inputted
+- The `sn/STEPn...` refers to the new list of steps for the recipe
+  - NOTE: The entire current list of steps for the recipe is **overwritten** with the new list inputted
+- The `c/CUISINE` refers to the new cuisine you wish to edit the recipe to have
+  - NOTE: Leaving CUISINE blank (by typing `c/ `) will **delete** the existing cuisine parameter of the recipe
+- The `t/TIME` refers to the new time taken you wish to edit the recipe to have
+  - NOTE: leaving TIME blank (by typing `t/ `) will **delete** the existing time parameter of the recipe
+* **Parameters follow the same rule as adding a new recipe**
+  * See the add recipe command section for the proper rules and format, and **follow it EXACTLY**
 * Existing recipes cannot be renamed to a name already used by another recipe (this is case-insensitive)
 
 Example of usage:
@@ -280,7 +274,7 @@ ________________________________________________________________________________
 
 Format: `delete n/NAME`
 
-Will find the recipe of the entered name and delete it from YMFC, name must be exact
+Will find the recipe of the entered name and delete it from YMFC's cookbook, and the name must be exact
 * This action is not reversible
 
 Example of usage:
@@ -302,7 +296,7 @@ ________________________________________________________________________________
 
 Format: `new n/INGREDIENT`
 
-Adds a new ingredient to your inventory list
+Adds a new ingredient to your **inventory**
 * Ingredients can only be added one at a time
 
 Example of usage:
@@ -332,16 +326,16 @@ Search through your inventory list based on the ingredient name given
 
 ### Deleting an Existing Ingredient
 
-Format: `deleteI n/NAME`
+Format: `deleteI n/INGREDIENT`
 
-Will find the ingredient of the entered name and delete it from YMFC, name must be exact
+Will find the ingredient of the entered name and delete it from YMFC's inventory, and the name must be exact
 * This action is not reversible
 
 ### Sorting Ingredients by Ingredient Name
 
 Format: `sortI`
 
-Sorts all the stored ingredients alphabetically by name, from 'a' to 'z'
+Sorts all the stored ingredients within the inventory alphabetically by name, from 'a' to 'z'
 
 ## Features and Command - Getting Recipe Inspirations
 
@@ -349,7 +343,7 @@ Sorts all the stored ingredients alphabetically by name, from 'a' to 'z'
 
 Format: `random`
 
-Picks a recipe at random and displays it
+Picks a recipe from the cookbook at random and displays it
 
 <div style="page-break-after: always;"></div>
 
@@ -357,7 +351,7 @@ Picks a recipe at random and displays it
 
 Format: `recommend`
 
-Find recipes that share common ingredients with what is in your ingredient inventory. 
+Find recipes that share common ingredients with what is in your ingredients inventory. 
 Recipes are then recommended from having the highest percentage of shared common ingredients 
 to the least.
 
@@ -365,32 +359,33 @@ to the least.
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Copy the data folder containing recipes.txt and ingredients.txt,
+**A**: Copy the data folder containing cookbook.txt and inventory.txt,
 and paste it in your other computer in the same directory where YMFC.jar is located
 
 **Q**: Can I edit the .txt files directly?
 
 **A**: Yes, but you must ensure that the format of how recipes and ingredients are saved is followed.
+If there are irregular lines in the save files, YMFC will discard them upon launch.
 
 <div style="page-break-after: always;"></div>
 
 ## YMFC\.Command Summary
 
-| Command                                                         | Usage                                                                                                     |
-|-----------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| `help`                                                          | List out all the available commands and their usage                                                       |
-| `bye`                                                           | Terminate the program                                                                                     |
-| `list`                                                          | List out all the existing recipes                                                                         |
-| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`  | Add a new recipe                                                                                          |
-| `sort s/name`                                                   | Sort the recipes alphabetically by name                                                                   |
-| `sort s/time`                                                   | Sort the recipes by time, from least to most                                                              |
-| `find [OPTIONS/]KEYWORDS`                                       | Look for the KEYWORDS in sections of recipes (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
-| `edit e/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]` | Edit an existing recipe                                                                                   |
-| `delete n/NAME`                                                 | Delete the recipe of that name                                                                            |
-| `new n/INGREDIENT`                                              | Add a new ingredient to your list                                                                         |
-| `listI`                                                         | List out all your current ingredients                                                                     |
-| `findI INGREDIENT`                                              | Search ingredient list with input ingredient name                                                         |
-| `deleteI n/Name`                                                | Delete the ingredient of that name                                                                        |
-| `sortI`                                                         | Sort the ingredients alphabetically by name                                                               |
-| `random`                                                        | Display a randomly-chosen recipe                                                                          |
-| `recommend`                                                     | Display all recipes that share common ingredients with the ingredient list                                |
+| Command                                                                      | Usage                                                                                                 |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| `help`                                                                       | List out all the available commands and their usage                                                   |
+| `bye`                                                                        | Terminate the program                                                                                 |
+| `list`                                                                       | List out all the existing recipes in the cookbook                                                     |
+| `add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`               | Add a new recipe to the cookbook                                                                      |
+| `sort s/name`                                                                | Sort the recipes alphabetically by name. Entire command must be in lowercase.                         |
+| `sort s/time`                                                                | Sort the recipes by time, from least to most. Entire command must be in lowercase.                    |
+| `find [OPTIONS/]KEYWORDS`                                                    | Look for the KEYWORDS in recipes section (provided by `OPTIONS`)<br/>(Find in recipe name by default) |
+| `edit e/NAME [n/NAME] [i/INGREDIENTS...] [sn/STEPn...] [c/CUISINE] [t/TIME]` | Edit an existing recipe in the cookbook                                                               |
+| `delete n/NAME`                                                              | Delete the recipe of that name from the cookbook                                                      |
+| `new n/INGREDIENT`                                                           | Add a new ingredient to your inventory                                                                |
+| `listI`                                                                      | List out all your current ingredients in the inventory                                                |
+| `findI INGREDIENT`                                                           | Search the inventory with input ingredient name                                                       |
+| `deleteI n/INGREDIENT`                                                       | Delete the ingredient from inventory of that name                                                     |
+| `sortI`                                                                      | Sort the ingredients in the inventory alphabetically by name                                          |
+| `random`                                                                     | Display a randomly-chosen recipe from cookbook                                                        |
+| `recommend`                                                                  | Display all recipes that share common ingredients with what's available in the inventory              |
