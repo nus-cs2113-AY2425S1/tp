@@ -22,8 +22,6 @@ import static fittrack.messages.Messages.INVALID_VERTICAL_BAR_INPUT_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
     private User user;
@@ -62,7 +60,6 @@ public class ParserTest {
         parse(user, input, sessionList, reminderList, goalList, foodWaterList);
         assertEquals(24, user.getAge());
         assertEquals("MALE", user.getGender().toString());
-        String test = user.toSaveString();
         assertEquals("User|MALE|24", user.toSaveString());
     }
 
@@ -182,22 +179,28 @@ public class ParserTest {
     }
 
     @Test
-    void testInvalidCommandWithVerticalBars() {
+    void testInvalidCommandWithVerticalBars() throws IOException {
 
-        String[] invalidInputs = {"add TEST|",
+        String[] invalidInputs = {"add TEST||",
                                   "remind TEST| // 11/11/1111",
                                   "add-food app|le 100",
-                                  "edit-mood happ|y"
+                                  "edit-mood app|y"
         };
 
-        for (String input : invalidInputs) {
-            Exception exception = assertThrows(IOException.class, () -> {
-                // This method should throw YourException with a specific message
-                parse(user, input, sessionList, reminderList, goalList, foodWaterList);
-            });
+        String expectedOutput = SEPARATOR + System.lineSeparator()
+                + INVALID_VERTICAL_BAR_INPUT_MESSAGE + System.lineSeparator() +
+                SEPARATOR + System.lineSeparator();
 
-            String actualMessage = exception.getMessage();
-            assertTrue(actualMessage.contains(INVALID_VERTICAL_BAR_INPUT_MESSAGE));
+        for (String input : invalidInputs) {
+            parse(user, input, sessionList, reminderList, goalList, foodWaterList);
+
+            // Capture the actual output
+            String actualOutput = outputStreamCaptor.toString().trim().replaceAll("\\r\\n?", "\n");
+
+            // Normalize both the expected and actual output by removing extra line breaks or spaces
+            expectedOutput = expectedOutput.trim().replaceAll("\\r\\n?", "\n");
+
+            assertEquals(expectedOutput, actualOutput);
         }
     }
 }
