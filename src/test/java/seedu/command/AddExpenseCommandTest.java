@@ -72,8 +72,8 @@ class AddExpenseCommandTest {
 
         // Assert
         assertEquals(expectedList, transactionList.getTransactions());
-        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + "Invalid amount format: invalid",
-                result.get(0));
+        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + "Invalid amount format: invalid"
+                + ErrorMessages.INVALID_AMOUNT_GUIDE, result.get(0));
     }
 
     @Test
@@ -109,7 +109,8 @@ class AddExpenseCommandTest {
                 "c/", "Food"
         ));
 
-        Expense expectedExpense = new Expense(1000, "dinner", currentDateTime, new Category("Food"));
+        Expense expectedExpense = new Expense(1000, "dinner", currentDateTime,
+                new Category("Food"));
 
         // Act
         List<String> result = command.execute();
@@ -147,8 +148,8 @@ class AddExpenseCommandTest {
 
         // Assert
         assertEquals(0, transactionList.getTransactions().size());
-        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + "Invalid amount format: -1000",
-                result.get(0));
+        assertEquals(CommandResultMessages.ADD_TRANSACTION_FAIL + "Invalid amount format: -1000"
+                        + ErrorMessages.INVALID_AMOUNT_GUIDE, result.get(0));
     }
 
     @Test

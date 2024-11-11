@@ -48,5 +48,6 @@ public class ErrorMessages {
     public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format: ";
 
 
-
+    public static final String INVALID_AMOUNT_GUIDE = "\n    Make sure the amount is positive and is smaller than " +
+            "1000000000";
 }

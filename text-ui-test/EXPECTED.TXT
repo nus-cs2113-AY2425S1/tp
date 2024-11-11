@@ -31,6 +31,7 @@
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Invalid amount format: -100
+    Make sure the amount is positive and is smaller than 1000000000
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
