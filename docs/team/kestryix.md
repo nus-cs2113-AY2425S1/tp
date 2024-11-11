@@ -8,7 +8,7 @@ they have exceeded, or are close to exceeding, their budget.
 
 ### Summary of Contributions
 
-**New Feature:** UI Class
+**New Feature:** AppUi Class
 
 **New Feature:** Parser Class
 
@@ -16,6 +16,7 @@ they have exceeded, or are close to exceeding, their budget.
 
 **New Feature:** Budget setting
 
+**Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=kestryix&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other)
 
 **Documentation:** 
 - <ins>User Guide</ins>
