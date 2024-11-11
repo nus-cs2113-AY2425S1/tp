@@ -20,22 +20,22 @@
         - [Command Base Class](#1-the-command-base-class)
         - [Command Flow](#2-command-flow-using-command-classes)
         - [Adding New Command Classes](#3-adding-new-command-classes)
-        - [Command Child Classes](#command-child-classes)
-            - [AddCommand](#1-addcommand-class)
-            - [EditCommand](#2-editcommand-class)
-            - [AddIngredientCommand](#3-addingredientcommand-class)
-            - [ByeCommand](#4-byecommand-class)
-            - [DeleteCommand](#5-deletecommand)
-            - [DeleteIngredientCommand](#6-deleteingredientcommand-class)
-            - [FindCommand](#7-findcommand-class)
-            - [FindIngredientCommand](#8-findingredientcommand-class)
-            - [HelpCommand](#9-helpcommand-class)
-            - [ListCommand](#10-listcommand-class)
-            - [ListIngredientCommand](#11-listingredientcommand-class)
-            - [RandomCommand](#12-randomcommand-class)
-            - [RecommendCommand](#13-recommendcommand-class)
-            - [SortCommand](#14-sortcommand-class)
-            - [SortIngredientCommand](#15-sortingredientcommand-class)
+    - [Command Child Classes](#command-child-classes)
+        - [AddCommand](#1-addcommand-class)
+        - [EditCommand](#2-editcommand-class)
+        - [AddIngredientCommand](#3-addingredientcommand-class)
+        - [ByeCommand](#4-byecommand-class)
+        - [DeleteCommand](#5-deletecommand)
+        - [DeleteIngredientCommand](#6-deleteingredientcommand-class)
+        - [FindCommand](#7-findcommand-class)
+        - [FindIngredientCommand](#8-findingredientcommand-class)
+        - [HelpCommand](#9-helpcommand-class)
+        - [ListCommand](#10-listcommand-class)
+        - [ListIngredientCommand](#11-listingredientcommand-class)
+        - [RandomCommand](#12-randomcommand-class)
+        - [RecommendCommand](#13-recommendcommand-class)
+        - [SortCommand](#14-sortcommand-class)
+        - [SortIngredientCommand](#15-sortingredientcommand-class)
     - [Parser Class](#parser-class)
     - [Storage Class](#storage-class)
 3. [Appendix: Requirements](#appendix-requirements)
@@ -43,7 +43,7 @@
     - [User Stories](#user-stories)
     - [Non-Functional Requirements](#non-functional-requirements)
     - [Glossary](#glossary)
-4. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+4. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 ----------------------------------
 
 ## Acknowledgements
@@ -373,19 +373,22 @@ whatever ingredients the user has on hand.
 
 | Version | As a ...              | I want to ...                                              | So that I can ...                                                 |
 |---------|-----------------------|------------------------------------------------------------|-------------------------------------------------------------------|
+| v1.0    | user                  | start and close the application                            | use it only when I need to                                        |
 | v1.0    | new user              | see list of available commands                             | refer to them when I forget how to use the application            |
 | v1.0    | constant user         | see list of all my added recipes                           | glance at all my recipes in one go                                |
 | v1.0    | picky user            | remove recipes from database                               | remove recipes that do not fit my changing taste buds             |
-| v1.0    | busy user             | store information about my recipes in a database           | have a tool to organise my recipes                                |
-| v2.0    | busy user             | sort my recipes by preparation time                        | find a recipe that I can cook within my current time limit        |
+| v1.0    | forgetful user        | store information about my recipes in a database           | have a tool to track organise my recipes                          |
 | v2.0    | heavy user            | find specific recipes by name/ingredients/steps            | filter through my huge list of recipes easily to find what I want |
 | v2.0    | unimaginative cook    | get random recipe suggestions                              | find and cook recipes that I have not cooked recently             |
 | v2.0    | broke college student | get recipe suggestions based on my current ingredient list | get recipes that I can currently cook with my limited ingredients |
 | v2.0    | user                  | sort my recipes alphabetically                             | glance through my recipes more easily                             |
-| v2.0    | forgetful user        | store information about my ingredients in a database       | have a tool to organise my ingredients                            |
-| v2.0    |                       |                                                            |                                                                   |
-
-
+| v2.0    | busy user             | sort my recipes by preparation time                        | find a recipe that I can cook within my current time limit        |
+| v2.0    | picky user            | edit the recipes inside my database                        | update and improve on my existing recipes                         |
+| v2.0    | forgetful user        | store information about my ingredients in a database       | have a tool to track and organise my ingredients                  |
+| v2.0    | user                  | remove ingredients from database                           | remove ingredients that I have used/expired                       |
+| v2.0    | forgetful user        | find specific ingredients by name                          | check if I have the specific ingredient in my inventory           |
+| v2.0    | user                  | sort the ingredients in my inventory list                  | glance through my inventory list more easily                      |
+| v2.0    | constant user         | see list of all the ingredients in my inventory list       | glance at all my ingredients in one go                            |
 
 <div style="page-break-after: always;"></div>
 
