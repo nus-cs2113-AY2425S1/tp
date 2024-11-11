@@ -76,6 +76,13 @@ public class UiCommand extends Ui {
         setInvalidFields("");
     }
 
+    /**
+     * Adds appropriate message to <code>updatedFields</code> for a specified field.
+     *
+     * @param updatedField  Field to update.
+     * @param updatedValue  Value to update the field with.
+     * @param type          Whether the value was updated or removed.
+     */
     public void addUpdatedField(String updatedField, String updatedValue, String type) {
         String newUpdatedFields = getUpdatedFields();
         newUpdatedFields += updatedField;
@@ -92,12 +99,6 @@ public class UiCommand extends Ui {
         }
         newUpdatedFields += updatedValue + "\n";
         setUpdatedFields(newUpdatedFields);
-    }
-
-    public void addCreatedField(String createdField, String createdValue) {
-        String newCreatedFields = getUpdatedFields();
-        newCreatedFields += createdField + " created: " + createdValue + "\n";
-        setUpdatedFields(newCreatedFields);
     }
 
     /**
