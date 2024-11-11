@@ -716,14 +716,6 @@ __________________________________________________
 __________________________________________________
 Sorted internships by status.
 __________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
 ID: 2	Status: Application Completed
 Role: Customer Service Intern
 Company: Google
@@ -731,6 +723,14 @@ Duration: 05/25 to 09/25
 Skills: Python SQL 
 Deadlines:
 	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
 __________________________________________________
 ID: 1	Status: Rejected
 Role: Embedded Software Engineer Intern
