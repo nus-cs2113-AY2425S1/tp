@@ -109,7 +109,16 @@ Valid Fields:<br>
 - `from`: Provide the new start date in `MM/yy` format
 - `to`: Provide the new end date in `MM/yy` format
 - `skills`: Provide a new skill
-- `deadline`: Provide the description and deadline (in `dd/MM/yy` format) with a whitespace between them
+  - Skills already listed will be omitted (case-sensitive)
+  - Example: When `Python` is listed as a skill, future updates with `Python` will be omitted, 
+  however `python` will be accepted as a new skill
+- `deadline`: Provide the description (case-insensitive) followed 
+deadline (in `dd/MM/yy` format) with a whitespace between them
+  - Inputs after the deadline (till the next field) will be discarded
+
+> For fields with dates, the program only checks for the validity of dates (i.e. whether it exists).<br>
+> Logic checking (e.g. `from` cannot be after `to` etc) is not available, coming in v2.2.<br>
+> Please check your dates and deadlines to ensure they are correct.
 
 Valid Statuses for `status` flag:<br>
 - Application Pending (Default Status)
@@ -117,7 +126,7 @@ Valid Statuses for `status` flag:<br>
 - Accepted
 - Rejected
 
-For multiple uses of flags that are not `skills` or `deadline` only the last occurrence of the flag is used.
+> For multiple uses of flags that are not `skills` or `deadline` only the last occurrence of the flag is used.
 
 **Format:**
 `update {ID} -{field} {updated information}`
@@ -149,7 +158,7 @@ __________________________________________________
 __________________________________________________
 __________________________________________________
 company updated: Venti
-deadline updated: Interview Round 1 03/02/25
+deadline updated: Interview Round 1 (03/02/25)
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -163,13 +172,14 @@ __________________________________________________
 __________________________________________________
 ```
 
-`update 02 -from 04/25 -skills Python`
+`update 02 -from 04/25 -skills Python -deadline Interview Round 1 05/02/25`
 
 ```
 __________________________________________________
 __________________________________________________
 from updated: 04/25
 skills updated: Python
+deadline updated: Interview Round 1 (05/02/25)
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -178,7 +188,7 @@ Company: Venti
 Duration: 04/25 to 08/25
 Skills: Python 
 Deadlines:
-	Interview Round 1: 03/02/25
+	Interview Round 1: 05/02/25
 __________________________________________________
 __________________________________________________
 ```
