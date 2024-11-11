@@ -39,6 +39,6 @@ class AddFitnessGoalTest {
         assertThrows(IllegalArgumentException.class, () -> {
             addFitnessGoal = new AddFitnessGoal(null, LocalDateTime.of(2024, 12, 31, 23, 59));
             addFitnessGoal.addGoal(testUser);
-       });
+        });
     }
 }
