@@ -114,7 +114,7 @@ public class Storage {
      *
      * @return The budget file.
      */
-    public static File getBudgetFile() {
+    public static File getBudgetFile(){
         File file = new File(BUDGET_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
@@ -355,7 +355,12 @@ public class Storage {
             } catch (Exception e) {
                 logger.log(LogLevels.WARNING, "Budget format invalid, the budget won't be set.");
                 logger.log(LogLevels.WARNING, e.getMessage());
-                failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
+                File file = getBudgetFile();
+                if (file.length() == 0) {
+                    failedLoadingBudgetMsg = "No budget loaded from file.";
+                }else{
+                    failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
+                }
             }
             scBudget.close();
             loadedBudgetMsg = "Budget loaded from file.";
