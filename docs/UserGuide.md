@@ -324,9 +324,11 @@ Deletes the transaction at index 5 in the financial list.
 ### List Transactions
 
 Lists out transactions in your financial list in ascending order of date for your perusal. Transactions can be 
-filtered by type (income/expense) or restricted to a stipulated period. The app will display the total
-cashflow/expenditure/income during the stipulated period depending on the transaction type selected to be listed,
-as well as the category with the highest total expenditure/income.
+filtered by type (income/expense) or restricted to a stipulated period. The app will display the total number of 
+transactions listed, total cashflow/expenditure/income during the stipulated period depending on the transaction type
+selected to be listed, as well as the category with the highest total expenditure/income.
+Beside each listed transaction, the transaction's index in the financial list is shown for quick reference should
+you wish to edit/delete the transaction.
 
 **Format:** `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
