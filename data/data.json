@@ -61,9 +61,6 @@
           }
         ]
       },
-      "mealList": {
-        "meals": []
-      },
       "water": {
         "waterList": [
           500.3
