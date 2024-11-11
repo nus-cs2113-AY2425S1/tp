@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FitnessGoalTest {
 
-    private final String goalDescription = "Run 5km in under 30 minutes";
+    private final String goalDescription = "Run 5km in under 30 minutes with deadline: 2024-12-22T23:45:44";
     private final LocalDateTime testDeadline = LocalDateTime.parse("2024-12-22T23:45:44");
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private User testUser; // Declare testUser here
