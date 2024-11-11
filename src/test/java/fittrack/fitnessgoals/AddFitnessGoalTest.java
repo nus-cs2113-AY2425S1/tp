@@ -4,7 +4,8 @@ import fittrack.fitnessgoal.AddFitnessGoal;
 import fittrack.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.time.LocalDateTime;
 
 class AddFitnessGoalTest {
