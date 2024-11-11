@@ -523,15 +523,15 @@ The diagram shows the interactions among different classes and objects during th
 
 #### Sequence Diagram for "Delete Water" Command 
 
-![Delete Meal Sequence Diagram](images/deleteWaterSequenceDiagram.png)
+![Delete Water Sequence Diagram](images/deleteWaterSequenceDiagram.png)
 
 #### Sequence Diagram for "View Water" Command
 
-![View Meal Sequence Diagram](images/viewWaterSequenceDiagram.png)
+![View Water Sequence Diagram](images/viewWaterSequenceDiagram.png)
 
 #### Activity Diagram for "Add Water" Feature
 
-![Add Meal Activity Diagram](images/addWaterActivitydiagram.png)
+![Add Water Activity Diagram](images/addWaterActivitydiagram.png)
 
 #### Summary of Feature
 
