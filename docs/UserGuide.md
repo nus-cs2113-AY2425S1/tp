@@ -38,13 +38,13 @@ For Windows:
 ```
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 
 chcp 65001 
-java "-Dfile.encoding=UTF-8" -jar tp.jar
+java "-Dfile.encoding=UTF-8" -jar manager.jar
 ```
 
-For macOS:
+For macOS and Linux:
 
 ```
-java "-Dfile.encoding=UTF-8" -jar tp.jar
+java "-Dfile.encoding=UTF-8" -jar manager.jar
 ```
 
 The following message would be printed:
