@@ -178,7 +178,7 @@ public class TrainingSessionTest {
                 "Walk and Run Station | Time: NA | 0 points" + System.lineSeparator() +
                 "Total points: " + 0 + System.lineSeparator() +
                 "Overall Award: No Award" + System.lineSeparator(),
-        outContent.toString());
+                outContent.toString());
     }
 
     @Test
@@ -228,7 +228,7 @@ public class TrainingSessionTest {
                 "Walk and Run Station | Time: 13:41 | 2 points" + System.lineSeparator() +
                 "Total points: " + 15 + System.lineSeparator() +
                 "Overall Award: Silver" + System.lineSeparator(),
-        outContent.toString());
+                outContent.toString());
     }
 
     @Test
@@ -253,6 +253,6 @@ public class TrainingSessionTest {
                 "Walk and Run Station | Time: 12:31 | 3 points" + System.lineSeparator() +
                 "Total points: " + 23 + System.lineSeparator() +
                 "Overall Award: Gold" + System.lineSeparator(),
-        outContent.toString());
+                outContent.toString());
     }
 }
