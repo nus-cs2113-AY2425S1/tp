@@ -107,6 +107,8 @@ Format: `Format: add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]`
 
 Adds a new recipe to YMFC's cookbook.
 
+* The orders of parameters are crucial, changing order could result in an invalid command.
+  * Example: `t/TIME` before `c/CUISINE`, `sn/STEPn` before `i/INGREDIENTS`,... will all be considered invalid.
 * The `c/CUISINE` and `t/TIME` parameters are optional
 * The `t/TIME` parameter should be a positive integer
 * The `n` in `sn/STEP` is the step number. 

@@ -227,7 +227,7 @@ public final class Parser {
                         // Match optional cuisine: c/ or C/ followed by any characters except '/'
                         + "(\\s+(?<cuisine>[cC]/[^/]+))?"
                         // Match optional time taken: t/ or T/ followed by digits
-                        + "(\\s+(?<time>[tT]/\\s*[0-9]+))?");
+                        + "(\\s+(?<time>[tT]/[^/]+))?");
 
         String input = args.trim();
         Matcher m = addRecipeCommandFormat.matcher(input);
@@ -285,6 +285,7 @@ public final class Parser {
     }
 
     private static Integer getTimeTakenInteger(Matcher m) throws InvalidArgumentException {
+        final int timeLimit = 1 << 16 - 1;
         String timeTakenString = m.group("time");
 
         Integer timeTaken = null;
@@ -292,11 +293,13 @@ public final class Parser {
         if (timeTakenString != null) {
             try {
                 timeTaken = Integer.parseInt(timeTakenString.trim().substring(2).trim());
-                if (timeTaken <= 0) {
-                    throw new InvalidArgumentException("Invalid time: " + timeTakenString);
+                if ((timeTaken <= 0) || (timeTaken > timeLimit)) {
+                    throw new InvalidArgumentException("Invalid time: " + timeTakenString + "\n" +
+                            "Time should be a positive integer less than 65536.");
                 }
             } catch (NumberFormatException exception) {
-                throw new InvalidArgumentException("Invalid time: " + timeTakenString);
+                throw new InvalidArgumentException("Invalid time: " + timeTakenString + "\n" +
+                        "Time should be a positive integer less than 65536.");
             }
         }
         return timeTaken;
@@ -372,7 +375,7 @@ public final class Parser {
                         + "(\\s+(?<cuisine>[cC]/[^/]*))?"
                         // Match optional time taken: t/ or T/ followed by digits
                         // Accepts empty field after t/ T/ to indicate no time
-                        + "(\\s+(?<time>[tT]/\\s*[0-9]*))?");
+                        + "(\\s+(?<time>[tT]/[^/]*))?");
 
         String input = args.trim();
         Matcher m = editCommandFormat.matcher(input);
