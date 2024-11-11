@@ -15,7 +15,14 @@ public class InputParser {
     public static final String ARGUMENT = "argument";
 
     // Predefined valid arguments
-    private static final Set<String> VALID_ARGUMENTS = Set.of("/des", "/a", "/d", "/c", "/from", "/to");
+    private static final Set<String> VALID_ARGUMENTS = Set.of(
+            Commons.FLAG_DESCRIPTION,
+            Commons.FLAG_AMOUNT,
+            Commons.FLAG_DATE,
+            Commons.FLAG_CATEGORY,
+            Commons.FLAG_START_POINT,
+            Commons.FLAG_END_POINT
+    );
 
     /**
      * Parses the user's input into a command and associated arguments.

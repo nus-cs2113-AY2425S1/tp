@@ -15,6 +15,7 @@ import java.util.Map;
 public class FinancialList {
     private static final Double AMOUNTZERO = 0.0;
     private static final int DEFAULT_LAST_AMENDED_INDEX = -1;
+    public static final int ZERO_TO_ONE_BASED_INDEX = 1;
     private ArrayList<FinancialEntry> entries;
     private Map<Expense.Category, Double> totalExpenseByCategory = new HashMap<>();
     private Map<Income.Category, Double> totalIncomeByCategory = new HashMap<>();
@@ -126,7 +127,8 @@ public class FinancialList {
         try {
             return entries.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX);
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX +
+                    (index + ZERO_TO_ONE_BASED_INDEX));
         }
     }
 

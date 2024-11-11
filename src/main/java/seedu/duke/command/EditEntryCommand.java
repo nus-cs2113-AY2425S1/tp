@@ -73,7 +73,7 @@ public class EditEntryCommand extends Command {
             throw e;
         }
 
-        assert description !=null && !description.isEmpty() : "Description should not be empty";
+        assert description != null && !description.isEmpty() : "Description should not be empty";
     }
 
     /**
