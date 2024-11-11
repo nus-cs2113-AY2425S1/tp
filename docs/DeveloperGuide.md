@@ -723,7 +723,7 @@ The logic for the saving of `Item`s is similar to that for `Participant`s.
 
 <div style="page-break-after: always;"></div>
 
-Reading and writing from and to the `.csv` storage files is done through operations from the **OpenCSV** library, namely:
+Reading and writing from and to `data.txt` is done through operations from the **OpenCSV** library, namely:
 
 * `CSVReader#readAll()`, which is invoked by `FileParser` when loading data, to convert the file into a list of arrays of `String` to be parsed.
 * `CSVWriter#writeNext()`, which is invoked when saving data, to save the fields for an `Event`, `Participant`, or `Item` into the file.
