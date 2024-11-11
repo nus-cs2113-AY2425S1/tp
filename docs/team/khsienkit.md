@@ -33,8 +33,6 @@ Given below are my contributions to the project.
         * Created RecurringExpense and RecurringExpenseList section, including Class and Sequence diagram. [#81](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/81)
         * Add test instructions for recurring expenses
 
-<div style="page-break-after: always;"></div>
-
 * **Project Management**
     * Maintained issues and reviewed PRs
 
