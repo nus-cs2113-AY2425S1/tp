@@ -34,10 +34,10 @@ public class ListSchoolCommandTest {
 
         String result = outputStreamCaptor.toString().trim();
 
-        assertTrue(result.contains("The University of Melbourne"));
-        assertTrue(result.contains("The Australian National University"));
-        assertTrue(result.contains("Victoria University of Wellington"));
-        assertTrue(result.contains("The University of Western Australia"));
+        assertTrue(result.contains("The University of Melbourne (unimelb)"));
+        assertTrue(result.contains("The Australian National University (anu)"));
+        assertTrue(result.contains("Victoria University of Wellington (wgtn)"));
+        assertTrue(result.contains("The University of Western Australia (uwa)"));
     }
 
     @Test
@@ -50,10 +50,10 @@ public class ListSchoolCommandTest {
 
         String result = outputStreamCaptor.toString().trim();
 
-        assertTrue(result.contains("The University of Melbourne"));
-        assertTrue(result.contains("The Australian National University"));
-        assertTrue(result.contains("Victoria University of Wellington"));
-        assertTrue(result.contains("The University of Western Australia"));
+        assertTrue(result.contains("The University of Melbourne (unimelb)"));
+        assertTrue(result.contains("The Australian National University (anu)"));
+        assertTrue(result.contains("Victoria University of Wellington (wgtn)"));
+        assertTrue(result.contains("The University of Western Australia (uwa)"));
     }
 
     @Test

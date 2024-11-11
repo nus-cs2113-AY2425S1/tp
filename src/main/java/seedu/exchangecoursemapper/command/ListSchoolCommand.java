@@ -28,7 +28,7 @@ import static seedu.exchangecoursemapper.constants.Regex.OPEN_BRACKET;
 import static seedu.exchangecoursemapper.constants.Regex.CLOSE_BRACKET;
 
 public class ListSchoolCommand extends CheckInformationCommand {
-    private static final String[] SHORT_HAND = new String[]
+    private static final String[] SHORT_HAND_SCHOOL_NAME = new String[]
             {THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION,
             THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION,
             VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION,
@@ -110,7 +110,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
             } else {
                 logger.log(Level.INFO, LIST_SCHOOLS_NAMES);
                 ui.printUniversityList
-                        (universityName + OPEN_BRACKET +  SHORT_HAND[index] + CLOSE_BRACKET);
+                        (universityName + OPEN_BRACKET +  SHORT_HAND_SCHOOL_NAME[index] + CLOSE_BRACKET);
             }
             index++;
         }
