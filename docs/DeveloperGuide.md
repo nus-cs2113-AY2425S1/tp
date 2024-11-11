@@ -10,7 +10,7 @@
   * [Command component](#command-component)
   * [Event component](#event-component)
 * [Implementation](#implementation)
-  * [Command parsing](#command-parsing-)
+  * [Command parsing](#command-parsing)
   * [List feature](#list-feature)
   * [Add feature](#add-feature)
   * [Remove feature](#remove-feature)
@@ -156,7 +156,7 @@ The `Parser` instance is no longer referenced. The current state is as shown in 
 
 The interactions between `Parser` and the other components in the above procedure is shown in the sequence diagram in the [Command component](#command-component) section.
 
-Further details regarding command parsing can be found in the [Command parsing](#command-parsing-) section.
+Further details regarding command parsing can be found in the [Command parsing](#command-parsing) section.
 
 ### Command component
 
@@ -206,7 +206,7 @@ The component and its dependencies are shown in the below **Component Diagram**:
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Command parsing ###
+### Command parsing
 
 The user command input for the program is in the following format:
 
@@ -781,6 +781,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 * _Command_ - an action that is carried out in the program as a result of user input.
 * _List_ - a container class that stores multiple instances of an object. 
 * _Parameter_ - a value in the user command input that is used for the parsing of a command.
+<div style="page-break-after: always;"></div>
 
 ## Appendix E: Instructions for manual testing
 
@@ -823,7 +824,6 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    4. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u top`  
       Expected: No `Event` is added. An error message is shown.
-   <div style="page-break-after: always;"></div>
 
 2. Adding a duplicate `Event` to the `Event` list
 
@@ -832,6 +832,8 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u HIGH`  
       Expected: A `Event` with name `Event 1(1)` is added. A success message is shown.
+   
+<div style="page-break-after: always;"></div>
 
 ### Adding a participant
 
