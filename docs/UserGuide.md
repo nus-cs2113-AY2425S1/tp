@@ -6,7 +6,7 @@
 2. [Quick Start](#quick-start)
 3. [Terminology](#terminology)
 4. [Data Storage Information](#data-storage-information)
-5[To Note](#to-note)
+5. [To Note](#to-note)
 6. [Features](#features)
    - [1. Add New Programme](#1-add-new-programme)
    - [2. Set Programme as Active](#2-set-programme-as-active)
