@@ -1,52 +1,56 @@
 @startuml
-participant "Main" as Main
-participant "Category" as Category
-activate Main
 
-Main -> Category: new Category("ExampleName")
-activate Category
-Category --> Main: Category instance with name "ExampleName"
-deactivate Category
-@enduml
-
-@startuml
-participant "Main" as Main
-participant "Category" as Category
-activate Main
-
-Main -> Category: getName()
-activate Category
-Category --> Main: "ExampleName"
-deactivate Category
-@enduml
-
-@startuml
-participant "Main" as Main
+box "Constructor/GetName" #LightBlue
+participant "Main" as Main1
 participant "Category" as Category1
+end box
+
+box "Equals" #LightGreen
+participant "Main" as Main2
 participant "Category" as Category2
-activate Main
+end box
 
-Main -> Category1: equals(Category2)
+box "HashCode/ToString" #LightPink
+participant "Main" as Main3
+participant "Category" as Category3
+end box
+
+== Constructor ==
+Main1 -> Category1: Category("ExampleName")
 activate Category1
-alt Same object
-    Category1 --> Main: true
-else Null or different class
-    Category1 --> Main: false
-else Same name
-    Category1 --> Main: true
-else Different name
-    Category1 --> Main: false
-end
+Category1 --> Main1: Category instance
 deactivate Category1
-@enduml
 
-@startuml
-participant "Main" as Main
-participant "Category" as Category
-activate Main
+== getName() ==
+Main1 -> Category1: getName()
+activate Category1
+Category1 --> Main1: "ExampleName"
+deactivate Category1
 
-Main -> Category: toString()
-activate Category
-Category --> Main: "Category: ExampleName"
-deactivate Category
+== equals() ==
+Main2 -> Category2: equals(Category2)
+activate Category2
+alt Same object (this == obj)
+    Category2 --> Main2: true
+else Null or different class
+    Category2 --> Main2: false
+else Same name
+    Category2 --> Main2: true
+else Different name
+    Category2 --> Main2: false
+end
+deactivate Category2
+
+== hashCode() ==
+Main3 -> Category3: hashCode()
+activate Category3
+Category3 --> Main3: name.hashCode()
+deactivate Category3
+
+== toString() ==
+Main3 -> Category3: toString()
+activate Category3
+Category3 --> Main3: "Category: " + name
+deactivate Category3
+
 @enduml
