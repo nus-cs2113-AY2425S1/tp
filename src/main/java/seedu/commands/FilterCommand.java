@@ -1,7 +1,7 @@
 package seedu.commands;
 
-import seedu.duke.InternshipList;
-import seedu.duke.Internship;
+import seedu.EasInternship.InternshipList;
+import seedu.EasInternship.Internship;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -13,18 +13,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.function.BiPredicate;
 import java.util.logging.Level;
 
+/**
+ * Filters the list of internships based on the given criteria.
+ * It supports filtering by role, company, favourite status, and date range.
+ */
 public class FilterCommand extends Command {
-    public boolean functionComplete = false; // For testing purposes
-
+    // Boolean variable is used for unit testing purposes
+    public boolean functionComplete = false;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     private final Map<String, InternshipFieldGetter> fieldGetters = new HashMap<>();
-    
-    private ArrayList<Internship> internshipList;
-    private ArrayList<Internship> favouriteInternshipList;
-    private InternshipList filteredInternships;
+    private ArrayList<Internship> internships;
+    private ArrayList<Internship> favouriteInternships;
+    private InternshipList filteredInternshipsList;
 
+    /**
+     * Constructs a {@code FilterCommand} object
+     * and populates the {@code fieldGetters} attribute with all the flags
+     * and their respective lambda functions
+     */
     public FilterCommand() {
-        // Map flags to getter methods using lambdas
         fieldGetters.put("role", Internship::getRole);
         fieldGetters.put("company", Internship::getCompany);
         fieldGetters.put("from", Internship::getStartDate);
@@ -33,15 +40,15 @@ public class FilterCommand extends Command {
     }
 
     public InternshipList getFilteredInternships() {
-        return filteredInternships;
+        return filteredInternshipsList;
     }
 
     @Override
     public void execute(ArrayList<String> args) {
-        assert internships != null : "Internship list should always be set before a command can be executed";
-        internshipList = new ArrayList<>(internships.getAllInternships());
-        favouriteInternshipList = new ArrayList<>(internships.favouriteInternships);
-        filteredInternships = new InternshipList(internshipList);
+        assert internshipsList != null : "Internship list should always be set before a command can be executed";
+        internships = new ArrayList<>(internshipsList.getAllInternships());
+        favouriteInternships = new ArrayList<>(internshipsList.favouriteInternships);
+        filteredInternshipsList = new InternshipList(internships);
 
         if (args.isEmpty()) {
             uiCommand.showInsufficientArguments();
@@ -58,12 +65,21 @@ public class FilterCommand extends Command {
         }
 
         functionComplete = true;
-        filteredInternships.listAllInternships();
+        filteredInternshipsList.listAllInternships();
 
         LOGGER.log(Level.INFO, "FilterCommand Executed");
     }
 
-    private void executeFilterByOneFlag(String[] words) {
+    /**
+     * Extracts the flag, its corresponding getter method and the search term
+     * from the parsed arguments
+     * and then filters by the respective flag
+     *
+     * @param words The parsed arguments; must have a length of exactly 2
+     * @throws IllegalArgumentException If the arguments have an unknown flag, repeated flags or an empty field
+     *                                  and in the case of an invalid favourite status or date field input by the user
+     */
+    private void executeFilterByOneFlag(String[] words) throws IllegalArgumentException {
         String flag = words[INDEX_FIELD];
         // Retrieve the corresponding getter method based on the flag
         InternshipFieldGetter getter = fieldGetters.get(flag);
@@ -86,10 +102,21 @@ public class FilterCommand extends Command {
         }
 
         fieldGetters.put(flag, null);
-
         String searchTerm = words[INDEX_DATA];
-        BiPredicate<YearMonth, YearMonth> dateComparator = null;
+        filterByRespectiveFlag(flag, getter, searchTerm);
+    }
 
+    /**
+     * Parses the flag argument to then filter by the appropriate method for the
+     * given flag
+     *
+     * @param flag       The field type to filter by
+     * @param getter     The lambda method for fetching the respective field based on the flag
+     * @param searchTerm The field value input by the user
+     * @throws IllegalArgumentException If an invalid favourite status or date field is input by the user
+     */
+    private void filterByRespectiveFlag(String flag, InternshipFieldGetter getter, String searchTerm)
+            throws IllegalArgumentException {
         switch (flag) {
         case "role":
         case "company":
@@ -101,76 +128,88 @@ public class FilterCommand extends Command {
             return;
 
         case "from":
-            dateComparator = YearMonth::isBefore;
+            filterByDate(getter, searchTerm, YearMonth::isBefore);
             break;
 
         case "to":
-            dateComparator = YearMonth::isAfter;
+            filterByDate(getter, searchTerm, YearMonth::isAfter);
             break;
 
         default:
             assert false : "Should never be able to reach this statement if all flags are accounted for";
         }
-
-        filterByDate(getter, searchTerm, dateComparator);
     }
 
-    private void filterByRoleAndCompany(InternshipFieldGetter getter, String searchTerm) {
-        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
+    /**
+     * Retains any internships whose role/company field is equal to the field entered
+     * by the user (case-insensitive) and discards the rest.
+     *
+     * @param getter     The lambda method for fetching the role/company field
+     * @param inputValue The field value input by the user
+     */
+    private void filterByRoleAndCompany(InternshipFieldGetter getter, String inputValue) {
+        ArrayList<Internship> internshipListIterator = new ArrayList<>(internships);
         // Iterate over the internships and apply the getter for comparison
         for (Internship internship : internshipListIterator) {
             String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(),
             // etc.
-            boolean isEqualToSearchTerm = fieldValue.equalsIgnoreCase(searchTerm);
-            if (!isEqualToSearchTerm) {
-                internshipList.remove(internship);
+            boolean isEqualToSearchTerm = fieldValue.equalsIgnoreCase(inputValue);
+            if (isEqualToSearchTerm) {
+                continue;
             }
+            internships.remove(internship);
         }
     }
 
-    private void filterByFavouriteInternships(String searchTerm) {
+    /**
+     * Retains any internships whose favourite status is equal to the status entered
+     * by the user (case-insensitive) and discards the rest.
+     *
+     * @param inputFavouriteStatus The favourite status value input by the user
+     * @throws IllegalArgumentException If the {@code inputFavouriteStatus} is invalid; neither true nor false
+     */
+    private void filterByFavouriteInternships(String inputFavouriteStatus) throws IllegalArgumentException {
         // Iterate over the internships and retrieve favourites
-        switch (searchTerm) {
-        case "true":
-        case "True":
-            filteredInternships.internships.retainAll(favouriteInternshipList);
-            break;
-        case "false":
-        case "False":
-            filteredInternships.internships.removeAll(favouriteInternshipList);
-            break;
-        default:
-            uiCommand.showOutput("Please only input 'true'/'false' following the -fav flag");
+        if (inputFavouriteStatus.equalsIgnoreCase("true")) {
+            filteredInternshipsList.internships.retainAll(favouriteInternships);
+        } else if (inputFavouriteStatus.equalsIgnoreCase("false")) {
+            filteredInternshipsList.internships.removeAll(favouriteInternships);
+        } else {
+            uiCommand.showOutput("Please only input 'true'/'false' following the -favourite flag");
             throw new IllegalArgumentException();
         }
     }
 
-    private void filterByDate(InternshipFieldGetter getter, String searchTerm,
-                              BiPredicate<YearMonth, YearMonth> dateComparator) {
-        assert dateComparator != null : "dateComparator should not be null in filterByDate method";
-
-        ArrayList<Internship> internshipListIterator = new ArrayList<>(internshipList);
+    /**
+     * Removes any internships whose date is before the {@code -from} date entered by the user
+     * and if the date is after the {@code -to} date entered by the user. It retains the rest of the
+     * internships.
+     *
+     * @param getter         The lambda method for fetching the date field
+     * @param inputDate      The date value input by the user
+     * @param dateComparator The lambda method for comparing the dates
+     * @throws IllegalArgumentException If the {@code inputDate} is an invalid date
+     */
+    private void filterByDate(InternshipFieldGetter getter, String inputDate,
+                              BiPredicate<YearMonth, YearMonth> dateComparator) throws IllegalArgumentException {
+        ArrayList<Internship> internshipListIterator = new ArrayList<>(internships);
         for (Internship internship : internshipListIterator) {
-            String fieldValue = getter.getField(internship); // Dynamically calls getRole(), getCompany(), etc.
-            YearMonth fieldDate = parseDate(fieldValue);
-            assert fieldDate != null : "fieldValue should always be a valid date";
-            YearMonth searchDate = parseDate(searchTerm);
-            if (searchDate == null) {
-                String outputString = searchTerm + " is not a valid date\n" + "Please enter a date in the MM/yy format";
-                uiCommand.showOutput(outputString);
-                throw new IllegalArgumentException();
-            }
+            String fieldTerm = getter.getField(internship); // Dynamically calls getRole(), getCompany(), etc.
+            YearMonth fieldDate = parseDate(fieldTerm);
+            YearMonth searchDate = parseDate(inputDate);
             if (dateComparator.test(fieldDate, searchDate)) {
-                internshipList.remove(internship);
+                internships.remove(internship);
             }
         }
     }
 
-    private YearMonth parseDate(String stringDate) {
+    private YearMonth parseDate(String stringDate) throws IllegalArgumentException {
         try {
             return YearMonth.parse(stringDate, formatter);
         } catch (DateTimeParseException e) {
-            return null;
+            String outputString = stringDate + " is not a valid date\n" + "Please enter a date in the MM/yy format";
+            uiCommand.showOutput(outputString);
+            throw new IllegalArgumentException();
         }
     }
 
