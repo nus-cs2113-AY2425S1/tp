@@ -149,7 +149,7 @@ public class Logic {
         Enum<?> category = getCategoryFromInput(commandArguments, entry);
 
         if (hasNoChange(amount, description, date, category, entry)){
-            throw new FinanceBuddyException("All fields of this entry are still the same...");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NO_CHANGES_DETECTED);
         }
 
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);

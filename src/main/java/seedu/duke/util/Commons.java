@@ -12,11 +12,11 @@ public class Commons {
     public static final String ERROR_MESSAGE_AMOUNT_TOO_LARGE = "Invalid amount. Amount must be $9999999.00 or less.";
     public static final String ERROR_MESSAGE_DATE_TOO_LATE = "Entered date cannot be after current date.";
     public static final String ERROR_MESSAGE_BLANK_DESCRIPTION = "Description cannot be blank.";
-    public static final String ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX = "There is no entry at that index :(";
+    public static final String ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX = "There is no entry at index: ";
     public static final String ERROR_MESSAGE_INVALID_ARGUMENT = "Invalid argument. Please provide a valid argument.";
     public static final String ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED
             = "Maximum number of transactions reached. Please delete some transactions before adding more.";
-
+    public static final String ERROR_MESSAGE_NO_CHANGES_DETECTED = "All fields of this entry are still the same...";
     /**
      * Prints a message enclosed in line separators.
      * Primarily used for error messages.
