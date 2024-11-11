@@ -37,7 +37,7 @@ add -m ITEM -e EVENT
 
 ------------------------
 Enter a command: Event added successfully:
-Event name: dinner party / Event time: 2026-10-10T12:34 / Event venue: Alice's House / Event priority: HIGH
+Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event priority: HIGH
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
 1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
@@ -52,7 +52,7 @@ Enter a command: There is 1 event in your list! Here is your scheduled event:
 Enter a command: Event not found!
 ------------------------
 Enter a command: The event has been updated to:
-Event name: dinner party / Event time: 2026-10-10T15:00 / Event venue: Bob's House / Event priority: LOW
+Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event priority: LOW
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
 1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
@@ -78,7 +78,7 @@ Enter a command: There is 1 participant in dinner party! Here is your participan
 
 ------------------------
 Enter a command: Event added successfully:
-Event name: anniversary celebration / Event time: 2026-10-23T12:34 / Event venue: hotel / Event priority: MEDIUM
+Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event priority: MEDIUM
 ------------------------
 Enter a command: Events successfully sorted by name!
 1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
