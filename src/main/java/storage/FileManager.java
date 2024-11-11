@@ -97,7 +97,6 @@ public class FileManager {
             JsonElement element = JsonParser.parseReader(reader);
             if(element == null || element.isJsonNull()) {
                 logger.info("No data found");
-                System.out.println("First Time here, empty data initialised.");
                 return new JsonObject();
             }
             logger.info("Data successfully loaded from file");

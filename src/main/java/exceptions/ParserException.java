@@ -22,7 +22,7 @@ public class ParserException extends BuffBuddyException {
      * @param no The invalid float value.
      * @return A {@code ParserExceptions} with a message indicating that the provided float is invalid.
      */
-    public static ParserException invalidFloat(String no) {
+    public static ParserException invalidFloat(float no) {
         return new ParserException("Float is not a valid, it should be more than 0");
     }
 
@@ -32,7 +32,7 @@ public class ParserException extends BuffBuddyException {
      * @param no The invalid integer value.
      * @return A {@code ParserExceptions} with a message indicating that the provided integer is invalid.
      */
-    public static ParserException invalidInt(String no) {
+    public static ParserException invalidInt(int no) {
         return new ParserException("Index is not a valid, it should be more than 0");
     }
 
@@ -64,18 +64,7 @@ public class ParserException extends BuffBuddyException {
         return new ParserException("Missing Arguments, please refer to User Guide");
     }
 
-    /**
-     * Returns a ParserExceptions indicating that the specified index is out of bounds.
-     *
-     * @param indexString The out-of-bounds index.
-     * @return A {@code ParserExceptions} with a message indicating that the provided index is
-     *         out of bounds.
-     */
-    public static ParserException indexOutOfBounds(String indexString) {
-        return new ParserException("Index is not a valid, it should be more than 0");
-    }
-
-    public static ParserException infinityFloat(String trimmedFloatString) {
+    public static ParserException infinityFloat(float number) {
         return new ParserException("Float is too large, please key in a smaller number.");
     }
 

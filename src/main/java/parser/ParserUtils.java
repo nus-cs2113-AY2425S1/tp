@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import static common.Utils.DATE_FORMAT;
 import static common.Utils.NULL_INTEGER;
 import static common.Utils.NULL_FLOAT;
+import static common.Utils.validate;
+
 
 /**
  * The {@code ParserUtils} class is a utility class containing common methods used across all parsing functions.
@@ -75,7 +77,7 @@ public class ParserUtils {
         }
 
         String trimmedIntString = trimInput(intString);
-        int result;
+        int result = -1;
 
         if (trimmedIntString.length() > 10) { // 10 digits is the maximum for Integer.MAX_VALUE (2,147,483,647)
             throw ParserException.infinityInt(trimmedIntString);
@@ -86,14 +88,15 @@ public class ParserUtils {
             logger.log(Level.INFO, "Successfully parsed integer: {0}", result);
         } catch (NumberFormatException e){
             logger.log(Level.WARNING, "Failed to parse integer from string: {0}", intString);
-            throw ParserException.invalidInt(trimmedIntString);
+            throw ParserException.invalidInt(result);
         }
 
-        if (result < 0){
-            throw ParserException.invalidInt(trimmedIntString);
+        if (validate(result))
+        {
+            return result;
         }
 
-        return result;
+        throw ParserException.invalidInt(result);
     }
 
     /**
@@ -110,25 +113,21 @@ public class ParserUtils {
         }
 
         String trimmedFloatString = trimInput(floatString);
-        float result;
+        float result = -1;
 
         try {
             result = Float.parseFloat(trimmedFloatString);
             logger.log(Level.INFO, "Successfully parsed float: {0}", result);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Failed to parse float from string: {0}", floatString);
-            throw ParserException.invalidFloat(trimmedFloatString);
+            throw ParserException.invalidFloat(result);
         }
 
-        if (result == Double.POSITIVE_INFINITY) {
-            throw ParserException.infinityFloat(trimmedFloatString);
+        if (validate(result)) {
+            return result;
         }
 
-        if (result < 0){
-            throw ParserException.invalidFloat(trimmedFloatString);
-        }
-
-        return result;
+        throw ParserException.invalidFloat(result);
     }
 
     /**
@@ -145,13 +144,12 @@ public class ParserUtils {
         }
 
         int index = parseInteger(indexString) - 1;
-        if (index < 0){
-            logger.log(Level.WARNING, "Invalid index: {0}. Index must be non-negative.", indexString);
-            throw ParserException.indexOutOfBounds(indexString);
+        if(validate(index)) {
+            logger.log(Level.INFO, "Successfully parsed index: {0}", index);
+            return index;
         }
 
-        logger.log(Level.INFO, "Successfully parsed index: {0}", index);
-        return index;
+        throw ParserException.invalidInt(index);
     }
 
     /**
