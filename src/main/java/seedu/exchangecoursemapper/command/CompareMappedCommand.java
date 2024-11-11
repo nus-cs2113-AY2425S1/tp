@@ -61,6 +61,7 @@ public class CompareMappedCommand extends CheckInformationCommand {
     public CompareMappedCommand(Storage storage) {
         assert storage != null : NULL_STORAGE;
         this.storage = storage;
+        logger.setLevel(Level.SEVERE);
         logger.log(Level.INFO, INIT_STORAGE_COMPARE_MAPPED);
     }
 

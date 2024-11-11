@@ -10,7 +10,7 @@ public class Storage {
 
     private final CourseRepository courseRepository;
 
-    /** Storage constructor without filepath*/
+    /** Storage constructor without filepath. */
     public Storage() {
         this.courseRepository = new CourseRepository();
     }

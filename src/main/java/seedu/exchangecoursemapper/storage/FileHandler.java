@@ -29,6 +29,10 @@ public class FileHandler {
     private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
     private final String filePath;
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
+
     /**
      * FileHandler constructor.
      *
