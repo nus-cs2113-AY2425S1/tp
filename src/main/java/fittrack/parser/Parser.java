@@ -161,10 +161,20 @@ public class Parser {
         case MODIFY_SESSION_DATETIME_COMMAND:
             try {
                 String[] userInput = validModifySessionDateTime(description, sessionList.size());
-                int sessionIndex = stringToValidInteger(userInput[0]) -1;
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                int sessionIndex = stringToValidInteger(userInput[0]) - 1;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                 LocalDateTime newDateTime = LocalDateTime.parse(userInput[1], formatter);
                 sessionList.get(sessionIndex).setSessionDateTime(newDateTime);
+
+                // Removing the modifiedSession, and reinserting it into the list so that it is in order by datetime
+                TrainingSession modifiedSession = sessionList.remove(sessionIndex);
+                int insertIndex = 0;
+                while (insertIndex < sessionList.size() &&
+                        LocalDateTime.parse(sessionList.get(insertIndex).getSessionDatetime(), formatter).
+                                isBefore(newDateTime)) {
+                    insertIndex++;
+                }
+                sessionList.add(insertIndex, modifiedSession);
                 printModifiedSession(sessionList,sessionIndex + 1);
             }
             catch (Exception e) {

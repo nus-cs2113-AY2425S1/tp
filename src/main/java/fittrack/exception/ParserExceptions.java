@@ -89,7 +89,7 @@ public class ParserExceptions extends RuntimeException {
         }
 
         int sessionIndex = stringToValidInteger(modifyDetails[0]) -1;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
             LocalDateTime.parse(modifyDetails[1], formatter);
         }
