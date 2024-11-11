@@ -1,5 +1,38 @@
 # User Guide
 
+## Table of Contents
+1. [Introduction](#introduction)
+2. [Quick Start](#quick-start)
+3. [Terminology](#terminology)
+4. [To Note](#to-note)
+5. [Features](#features)
+  - [1. Add New Programme](#1-add-new-programme)
+  - [2. Set Programme as Active](#2-set-programme-as-active)
+  - [3. List All Programmes](#3-list-all-programmes)
+  - [4. View Programme](#4-view-programme)
+  - [5. Delete Programme](#5-delete-programme)
+  - [6. Add Day to Programme](#6-add-day-to-programme)
+  - [7. Delete Day from Programme](#7-delete-day-from-programme)
+  - [8. Add Exercise in Programme](#8-add-exercise-in-programme)
+  - [9. Delete Exercise from Programme](#9-delete-exercise-from-programme)
+  - [10. Update Exercise in Programme](#10-update-exercise-in-programme)
+  - [11. Log Workout](#11-log-workout)
+  - [12. Add New Meal](#12-add-new-meal)
+  - [13. View Meals](#13-view-meals)
+  - [14. Delete Meal](#14-delete-meal)
+  - [15. Add New Water Log](#15-add-new-water-log)
+  - [16. View Water Logs](#16-view-water-logs)
+  - [17. Delete Water Log](#17-delete-water-log)
+  - [18. View History](#18-view-history)
+  - [19. View Specific Record](#19-view-specific-record)
+  - [20. View Weekly Summary](#20-view-weekly-summary)
+  - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
+  - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises)
+  - [23. Delete Record](#23-delete-record)
+  - [Exiting BuffBuddy](#24-exit-buffbuddy)
+6. [Alias Table](#alias-table)
+7. [Command Summary](#command-summary)
+
 ## Introduction
 
 BuffBuddy is your all-in-one fitness tracking companion, designed to help you streamline and organize your workout routines.
@@ -203,13 +236,13 @@ _Note_: Advanced users can directly add multiple days with multiple exercises to
 
 **Command**: `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
 
-**Example**: `prog edit /p 1 /ad Cardio /e /n Jumping_Jacks /w 0 /r 15 /s 10 /c 50 /e /n High_Knees /w 0 /r 15 /s 10 /c 50`
+**Example**: `prog edit /p 1 /ad Cardio /e /n Dumbbell_squat /w 10 /r 15 /s 10 /c 100 /e /n Kettlebell_swing /w 10 /r 15 /s 10 /c 100`
 
 ```
 ==================================================
 Created new day: Cardio
-1. Jumping_Jacks: 10 sets of 15 at 0kg | Burnt 50 cals
-2. High_Knees: 10 sets of 15 at 0kg | Burnt 50 cals
+1. Dumbbell_squat: 10 sets of 15 at 10kg | Burnt 100 cals
+2. Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 cals
 ==================================================
 ```
 
@@ -266,7 +299,7 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 ```
 ==================================================
 Deleted exercise 1: 
-High_Knees: 10 sets of 15 at 0kg | Burnt 50 cals
+Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 cals
 ==================================================
 ```
 
@@ -611,7 +644,7 @@ Caloric Balance: 300 kcal
 ==================================================
 ```
 
-### Exit BuffBuddy
+### 24. Exit BuffBuddy
 
 This feature exits and closes the programme.
 
