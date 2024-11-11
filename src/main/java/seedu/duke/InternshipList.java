@@ -14,6 +14,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author jadenlimjc
+/**
+ * The InternshipList class is responsible for managing a list of internships.
+ * It supports operations such as adding, removing, sorting, and managing a favourites list of internships.
+ * The class also allows for sorting internships by various attributes like role, company, status, etc.
+ * Additionally, it maintains a history of actions taken with the internships using a Logger.
+ */
 public class InternshipList {
     private static final UiInternshipList ui = new UiInternshipList();
     private static final Logger LOGGER = Logger.getLogger("EasInternship");
@@ -31,6 +37,12 @@ public class InternshipList {
         favouriteInternships = new ArrayList<>();
     }
 
+    /**
+    * Adds an internship to the list of internships.
+    * Ensures there are no duplicates before adding.
+    *
+    * @param internship The internship to be added.
+    */
     public void addInternship(Internship internship) {
 
         assert internship != null : "Internship object cannot be null";
@@ -56,9 +68,14 @@ public class InternshipList {
         return true;
     }
 
-    // Method to remove an internship by index (0-based)
 
     //@@author jadenlimjc
+    /**
+    * Removes an internship from the list of internships by its index.
+    *
+    * @param index The index of the internship to be removed.
+    * @throws IndexOutOfBoundsException If the index is out of bounds.
+    */
     public void removeInternship(int index) throws InvalidIndex {
         if (!isWithinBounds(index)) {
             throw new InvalidIndex(index);
@@ -153,7 +170,10 @@ public class InternshipList {
     }
 
     //@@author jadenlimjc
-    // Method to list all internships
+    /**
+    * Displays all internships in the list.
+    * The internships will be displayed in the current sorted order.
+    */
     public void listAllInternships() {
         ui.showInternships(internships, "list");
     }
