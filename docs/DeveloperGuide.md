@@ -2,32 +2,39 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+Formatting of this Developer's Guide was done with reference to [AddressBook-Level3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
+
 
 ## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
-### EasInternship (main class)
-
-1. [Design](#design)
-   1. [Architecture](#architecture)
-   2. [UI Component](#ui-component)
-   3. [Logic Component](#logic-component)
-   4. [Model Component](#model-component)
-   5. [Storage Component](#storage-component)
-2. [Implementation](#implementation)
-   1. [Parsing Input](#parsing-input)
-   2. [Command Execution](#command-execution)
-   3. [Task Management](#task-management) 
-   4. [AddCommand Implementation](#addcommand-implementation)
-   5. [DeleteCommand Implementation](#deletecommand-implementation)
-   6. [SortCommand Implementation](#sortcommand-implementation)
-   7. [UpdateCommand Implementation](#updatecommand-implementation)
-   8. [RemoveCommand Implementation](#)
-
+1. [Design](#1-design)
+    1. [Architecture](#11-Architecture)
+    2. [UI Component](#12-UI-component)
+    3. [Logic Component](#13-logic-component)
+    4. [Model Component](#14-model-component)
+    5. [Storage Component](#15-storage-component)
+2. [Implementation](#2-implementation)
+    1. [Parsing Input](#21-parsing-input)
+    2. [Command Execution](#22-command-execution)
+    3. [Task Management](#23-task-management)
+    4. [AddCommand Implementation](#addcommand-implementation)
+    5. [DeleteCommand Implementation](#deletecommand-implementation)
+    6. [SortCommand Implementation](#sortcommand-implementation)
+    7. [UpdateCommand Implementation](#updatecommand-implementation)
+    8. [RemoveCommand Implementation](#removeCommand-implementation)
+    9. [CalendarCommand Implementation](#calendarcommand-implementation)
 ---
 
+## About the Product
+1. [Product Scope](#product-scope)
+   1. [Target User Profile](#target-user-profile)
+   2. [Value Proposition](#value-proposition)
+2. [User Stories](#user-stories)
+3. [Non-Functional Requirements](#non-functional-requirements)
+4. [Glossary](#glossary)
+5. [Instructions for Manual Testing](#instructions-for-manual-testing)
+
+---
 ## 1. Design
 
 ### 1.1 Architecture
@@ -38,11 +45,30 @@ The architecture of EasInternship is designed to follow the MVC (Model-View-Cont
 - **Model (InternshipList)**: Manages the state of the application, including the list of internships and tasks.
 - **Storage**: Responsible for loading and saving data from and to the disk.
 
+#### Overview
+
+The `EasInternship` class serves as the entry point of the application. It manages the application's main loop, where the user is continually prompted for input, and commands are processed in response. The class is responsible for initializing the UI, loading saved data, and handling user input until the user chooses to exit the program.
+
+#### Key Responsibilities
+
+- **Initialization**: Initializes the necessary components for the application, such as the `Ui`, `InternshipList`, and `Parser` classes. It also loads any saved data from the storage into the `InternshipList`.
+- **Main Loop**: Continuously prompts the user for input. The input is parsed by the `Parser`, and the corresponding `Command` is executed. If the user enters the exit command, the loop terminates.
+- **Command Processing**: After parsing the user input, the corresponding `Command` object is executed. The application catches and displays any errors that occur during command execution.
+- **Saving State**: Upon exiting, the current state of the `InternshipList` is saved to a file to ensure persistence across sessions.
+
 ---
 
 ### 1.2 UI Component
 
 The UI component is responsible for displaying information to the user and reading input. It interacts with the user by printing messages and prompts, and retrieves commands for the rest of the application to process.
+
+This component comprises the following classes:
+- `Ui`: Parent class with methods expect of all `Ui` subclasses.
+- `UiCommand`: Has specific methods related to displaying output of commands.
+- `UiInternshipList`: Handles outputs by methods in `InternshipList` class.
+
+This is represented with the class diagram below:
+![](UML/Ui_Component.png)
 
 ### 1.3 Logic Component
 
@@ -50,7 +76,7 @@ The logic component is handled by the `Parser` and `Command` classes. The `Parse
 
 ### 1.4 Model Component
 
-The model component includes the `Internship`, `InternshipList`, `Deadline` and `DeadlineList` classes.
+The model component includes the `Internship`, `InternshipList` and `Deadline` classes.
 
 `Internship`: Represents the individual internship entries.
 
@@ -92,16 +118,6 @@ The `InternshipList` class handles adding, removing, and retrieving internships 
 
 ---
 
-### Overview
-
-The `EasInternship` class serves as the entry point of the application. It manages the application's main loop, where the user is continually prompted for input, and commands are processed in response. The class is responsible for initializing the UI, loading saved data, and handling user input until the user chooses to exit the program.
-
-### Key Responsibilities
-
-- **Initialization**: Initializes the necessary components for the application, such as the `Ui`, `InternshipList`, and `Parser` classes. It also loads any saved data from the storage into the `InternshipList`.
-- **Main Loop**: Continuously prompts the user for input. The input is parsed by the `Parser`, and the corresponding `Command` is executed. If the user enters the exit command, the loop terminates.
-- **Command Processing**: After parsing the user input, the corresponding `Command` object is executed. The application catches and displays any errors that occur during command execution.
-- **Saving State**: Upon exiting, the current state of the `InternshipList` is saved to a file to ensure persistence across sessions.
 
 ### Flow of Execution
 
@@ -177,7 +193,7 @@ The following sequence diagram shows how the `DeleteCommand` is executed:
 ### SortCommand Implementation
 
 #### Overview:
-The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework.
+The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework. It can only sort by exactly one field in each time.
 
 #### Design:
 - The `SortCommand` class processes user input to determine which sorting method to apply (e.g., role or deadline).
@@ -185,31 +201,41 @@ The `SortCommand` class is responsible for sorting the internship listings based
 
 #### Key Methods:
 - **`execute(ArrayList<String> args)`**: Handles sorting logic based on the first argument provided. The valid sort options include:
-   - `"alphabet"`: Sorts internships by role alphabetically.
+   - `"role"`: Sorts internships by role alphabetically.
    - `"duration"`: Sorts internships by duration (start and end dates).
    - `"deadline"`: Sorts internships by deadline.
    - `"skills"`: Sorts internships by the first skill in the skills list alphabetically.
-   - `"status"`: Sorts internships by status alphabetically.
+   - `"status"`: Sort internships by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
+   - `"company"`: Sorts internships by company alphabetically.
+   - `"role in favourite"`: Sorts internships in favourite by role alphabetically.
+   - `"duration in favourite"`: Sorts internships in favourite by duration (start and end dates).
+   - `"deadline in favourite"`: Sorts internships in favourite by deadline.
+   - `"skills in favourite"`: Sorts internships in favourite by the first skill in the skills list alphabetically.
+   - `"status in favourite"`: Sort internships in favourite by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
+   - `"company in favourite"`: Sorts internships in favourite by company alphabetically.
 - If the user provides an invalid sort option, the command returns an error and defaults to listing internships by ID.
 - **`getUsage()`**: Returns a string showing the correct usage of the `sort` command, including valid options like "alphabet", "deadline", "duration", "skills", and "status".
 
 #### Example Usage Scenario:
-1. The user enters `sort alphabet`, and the `execute` method sorts the internships by role.
-2. The user enters `sort deadline`, and the internships are sorted by their start and end dates.
-3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
-4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
-5. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
+1. The user enters `sort -role`, and the `execute` method sorts the internships by role alphabetically.
+2. The user enters `sort -duration`, and the internships are sorted by their start and end dates.
+3. The user enters `sort -skills`, and the internships are sorted by the first skill alphabetically.
+4. The user enters `sort -status`, and the internships are sorted by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
+5. The user enters `sort -deadline`, and the internships are sorted by each of their earliest deadline.
+6. The user enters `sort -company`, and the internships are sorted by their company alphabetically.
+7. The user enters `sort -role in favourite`, and the `execute` method sorts the internships in favourite by role.
+8. The user enters `sort -duration  in favourite`, and the internships in favourite are sorted by their start and end dates.
+9. The user enters `sort -skills in favourite`, and the internships in favourite are sorted by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
+10. The user enters `sort -status in favourite`, and the internships in favourite are sorted by their status alphabetically.
+11. The user enters `sort -deadline in favourite`, and the internships in favourite are sorted by each of their earliest deadline.
+12. The user enters `sort -company in favourite`, and the internships in favourite are sorted by their company alphabetically.
+13. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:
 The following sequence diagram shows how the `SortCommand` is executed:
-![](UML/loadFromFile.png)
+![](UML/SortCommand_Sequence_Diagram.png)
 
-```plaintext
-User -> System: sort alphabet
-System -> SortCommand: execute("alphabet")
-SortCommand -> InternshipList: listInternshipsSortedByRole()
-InternshipList -> UI: showSortedInternshipsByRole()
-```
+
 ### Filter Command Implementation
 
 #### Overview:
@@ -274,7 +300,7 @@ The `UpdateCommand` class is responsible for updating the fields of an internshi
   - `deadlines`: Updates the deadlines of the internship
 - `isValidValue(String[] words)`: Checks if there was a new value provided for the selected field.
 - `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to update the field.
-- `getUsage()`: Returns a string showing the correct usage of the `update` command.
+- `getUsage()`: Returns a `String` showing the correct usage of the `update` command.
 
 #### Example Usage Scenario:
 - The user enters `update 2 -status Application Completed`, and the `execute` method finds the internship with ID `2` and updates its `status` to `Application Completed`.
@@ -284,6 +310,9 @@ The `UpdateCommand` class is responsible for updating the fields of an internshi
 
 #### Sequence Diagram
 The following sequence diagram shows how the `UpdateCommand` is executed:
+
+>Some functions that have a `void` return value have their return lines omitted.
+
 ![](UML/UpdateCommand_Sequence_Diagram.png)
 
 
@@ -293,7 +322,7 @@ The following sequence diagram shows how the `UpdateCommand` is executed:
 The `RemoveCommand` class is responsible for removing the values within fields of an internship entry. It extends the `UpdateCommand` class, providing a removing functionality to the execution framework.
 
 #### Design
-- The `RemoveCommand` class process the user input to determine which internship and which field to empty.
+- The `RemoveCommand` class processes the user input to determine which internship and which field to empty.
 - If the internship ID is not valid, it will print a message accordingly.
 - If the field is not valid, it will print a message indicating the erroneous field, including fields that cannot be emptied.
 - If the valid provided does not exist in the field, it will also print a message indicating the erroneous value
@@ -304,7 +333,7 @@ The `RemoveCommand` class is responsible for removing the values within fields o
   - `deadline`: Removes the specified deadline from the internship.
 - `isValidValue(String[] words)`: Checks if there is a value provided to search and remove from the selected field.
 - `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to remove the value from the field.
-- `getUsage()`: Returns a string showing the correct usage of the `remove` command.
+- `getUsage()`: Returns a `String` showing the correct usage of the `remove` command.
 
 #### Example Usage Scenario:
 - The user enters `remove 2 -skills Python`, the `execute` method finds the internship with ID `2` and removes `Python` from its list of `skills`.
@@ -316,30 +345,148 @@ The `RemoveCommand` class is responsible for removing the values within fields o
 The following sequence diagram shows how the `RemoveCommand` is executed:
 ![](UML/RemoveCommand_Sequence_Diagram.png)
 
-### Product scope
-### Target user profile
 
-{Describe the target user profile}
+### CalendarCommand Implementation
 
-### Value proposition
+#### Overview
 
-{Describe the value proposition: what problem does it solve?}
+The `CalendarCommand` class is responsible for sorting and displaying all deadlines in chronological order. It extends the `Command` class, providing a calendar functionality in the execution framework.
+
+#### Design
+- The `CalendarCommand` class does not process any input data and will execute the same method when called.
+
+#### Key Methods
+- `execute(ArrayList<String> args)`: Handles invoking methods to compile deadline data and display the data.
+- `getDeadlines()`: Returns all the deadlines of all `Internship` entries, compiled into a single `ArrayList`.
+- `sortDeadlines(ArrayList<Deadline> deadlines)`: Returns the deadlines sorted in ascending order chronologically.
+- `getCompanies(ArrayList<Deadline> sortedDeadlins)`: Returns an `ArrayList` of the companies associated to each deadline after sorting. It is meant to ensure the methods called in `UiCommand` do not have to reference `InternshipList` to find the appropriate data.
+- `getUsage()`: Returns a `String` showing the correct usage of the `Calendar` command.
+
+#### Example Usage Scenario:
+- The user enters `calendar`, the `execute` method will sort the deadlines and display them to the user.
+
+#### Sequence Diagram
+
+The following sequence diagram shows how the `CalendarCommand` is executed:
+![](UML/CalendarCommand_Sequence_Diagram.png)
+
+## Product Scope
+### Target User Profile
+
+The target user profile for EasInternship includes:
+    
+- Students or Internship Applicants who want to track and organize their internship applications across multiple companies
+- Users comfortable with Command Line Interface
+- Internship Applicants who want to keep track of their application deadlines
+- Students who want a lightweight, distraction-free way to manage their internship application process.
+- Applicants seeking to track the status of each application, from submission to interview stages.
+
+For example, John is a Computer Engineering Junior with the following characteristics
+- Command Line Expertise: With a few years of command line usage under his belt throughout his years as a student, John is well-equipped with the technical skills necessary to use EasInternship.
+- Applying for summer internships: John is regularly applying for internships in the coming summer and believes in the importance of ensuring he is on track with all his applications.
+- Juggling Tight Schedule: As someone with many different tasks on hand, John needs his information readily available.
+
+These traits make John a suitable candidate to use EasInternship.
+
+### Value Proposition
+
+This product helps users streamline the process of tracking and managing their internship applications by allowing them to:
+
+- **Store Important Internship Information**: Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes regarding each internship.
+
+- **Track Application Status**: Users can keep track of the current status of their applications (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
+
+- **Edit and Manage Internships**: Users can edit saved internships, modify application statuses, update deadlines, or remove outdated internships from their list.
+
+- **Filter Internships by Key Criteria**: Users can filter tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them find specific applications.
+
+- **Sort Internships by Key Criteria**: Users can sort tracked internships by relevant criteria such as required skills, application status, or upcoming deadlines, helping them prioritize applications.
+
+- **Monitor Deadlines Easily**: Users can stay on top of their internship deadlines by sorting or flagging applications with approaching deadlines, ensuring that no important opportunity is missed.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ...             | I want to ...                                  | So that I can ...                                      |
+|---------|----------------------|------------------------------------------------|--------------------------------------------------------|
+| v1.0    | new user              | see usage instructions                         | refer to them when I forget how to use the application  |
+| v1.0    | user                  | add an internship with all relevant details    | store information about the internships I’m applying to |
+| v1.0    | user                  | edit the details of an internship              | update information when I receive new details           |
+| v1.0    | user                  | delete an internship                           | remove outdated or irrelevant internships from my list  |
+| v1.0    | user                  | track the status of an internship              | know what stage my application is in                   |
+| v1.0    | user                  | sort internships by duration                   | focus on internships where I need to take action        |
+| v1.0    | user                  | sort internships by deadlines                  | prioritize internships with approaching deadlines       |
+| v1.0    | user                  | update the status of my internship application | keep track of my progress in the application process    |
+| v2.0    | user                  | receive alerts about upcoming deadlines        | ensure I don't miss important deadlines                 |
+| v2.0    | user                  | sort internships by required skills            | focus on internships that match my skill set            |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. Usability: The command-line interface should be intuitive and easy to use, even for non-technical users.
+2. Reliability: The application should not lose any user data during normal operation or unexpected shutdowns.
+3. Compatibility: The application should run on common operating systems (Windows, macOS, Linux).
+4. Maintainability: The code should be well-documented and follow clean code principles for easy future enhancements.
+5. Portability: User data should be easily exportable and importable for backup purposes or switching devices.
+6. Performance: The application should respond to all user commands without negatively noticable delay.
+7. Scalability: The application should handle an extensive number of internship entries (e.g., 100+ entries) without a noticeable decrease in performance.
+8. Data Persistence: All data should be automatically saved to a file, allowing users to resume their progress upon reopening the application.
+
 
 ## Glossary
 
-* *glossary item* - Definition
+* *Internship* - The position of a student or trainee who works in an organisation, with associated role, company, duration and deadline information.
+*  *InternshipList* - A collection of Internships added by the user.
+*  *Deadline* - The date which an event is scheduled for.
+*  *Parser* - The component responsible for interpreting user commands and executing the appropriate actions.
+*  *Storage* - The component responsible for saving and loading the user's data to and from a file. 
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+1. **Installation and Setup:**
+   - Ensure Java Runtime Environment (JRE) is installed on your system.
+   - Ensure Java Version 17.0. Run `java -version` in a terminal to verify.
+   - Download the EasInternship application JAR file.
+   - Open a terminal or command prompt and navigate to the directory containing the JAR file.
+
+
+2. **Running the Application:**
+   - Execute the command: java -jar EasInternship.jar
+   - Verify that the application starts and displays a welcome message.
+
+
+3. **Testing Basic Commands:**
+   - Enter the `help` command and verify that usage instructions are displayed.
+   - Test the `exit` command to ensure the application exits properly.
+
+
+4. **Adding an Internship:**
+   - Enter the command `add -role {role name} -company {company name}` eg. `add -role Software Engineer Intern -company Google`
+   - Verify that the internship has been added successfully.
+
+   
+5. **Updating an Internship:**
+  - Enter the command `update {ID} {-field} {updated information}` eg. `update 1 -skills python`.
+  - Verify that the internship has been updated successfully.
+
+// rahul fill up pls
+6. **Adding an Internship to favourites:**
+    - Enter the command `mark {ID}` eg 
+
+
+7. **Displaying InternshipList**
+   - Enter the command `list` to show the most updated `InternshipList`.
+
+
+8. **Sorting the InternshipList**
+   - Enter the command `sort {-field}` eg. `sort deadline`.
+   - Verify that the list displayed is sorted according to the entered field.
+
+
+9. **Filtering the InternshipList**
+   - Enter the command `filter {-field} {field data}` eg. `filter -company Google`.
+   - Verify that the filtered list all contain the specified field data.
+
+
+10. Removing an Internship
+   - Enter the command `delete {ID}` eg. `delete 1`
+   - Verify that the internship has been deleted successfully.
+   - Enter `list` to verify the `Internship` is no longer in the `InternshipList`.

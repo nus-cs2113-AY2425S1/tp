@@ -1,6 +1,5 @@
 package seedu.commands;
 
-import seedu.exceptions.InvalidIndex;
 import seedu.exceptions.MissingValue;
 
 //@@author Ridiculouswifi
@@ -9,16 +8,17 @@ import seedu.exceptions.MissingValue;
  */
 public class RemoveCommand extends UpdateCommand {
     @Override
-    protected void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+    protected void updateOneField(String[] words, int internshipIndex) {
         String field = words[INDEX_FIELD];
         try {
             switch (field) {
             case "skills":
+            case "deadline":
                 if (!isValidValue(words)) {
                     return;
                 }
                 String value = words[INDEX_DATA].trim();
-                internships.removeField(internshipIndex, field, value);
+                internshipsList.removeField(internshipIndex, field, value);
                 uiCommand.addUpdatedField(field, value, "remove");
                 break;
             case "status":
@@ -44,6 +44,7 @@ public class RemoveCommand extends UpdateCommand {
                 Usage: remove {ID} -{field} {value}
                 
                 List of fields:
-                - skills""";
+                - skills
+                - deadline: {description}""";
     }
 }

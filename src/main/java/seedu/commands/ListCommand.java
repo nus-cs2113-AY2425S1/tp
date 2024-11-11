@@ -1,6 +1,7 @@
 package seedu.commands;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author Toby-Yu
 /**
@@ -9,7 +10,9 @@ import java.util.ArrayList;
 public class ListCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
-        internships.listAllInternships();
+        internshipsList.listAllInternships();
+
+        LOGGER.log(Level.INFO, "ListCommand Executed");
     }
 
     @Override

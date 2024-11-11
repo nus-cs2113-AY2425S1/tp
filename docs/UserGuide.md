@@ -1,423 +1,987 @@
 # User Guide
 
+## Outline
+- [Product Description](#product-description)
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Add Command: `add`](#add-command-add)
+  - [Update Command: `update`](#update-command-update)
+  - [Remove Command: `remove`](#remove-command-remove)
+  - [List Command: `list`](#list-command-list)
+  - [Favourite Command: `favourite`](#favourite-command-favourite)
+  - [Filter Command: `filter`](#filter-command-filter)
+  - [Sort Command: `sort`](#sort-command-sort)
+  - [Delete Command: `delete`](#delete-command-delete)
+  - [Calendar Command: `calendar`](#calendar-command-calendar)
+  - [Help Command: `help`](#help-command-help)
+  - [Exit Command: `exit`](#exit-command-exit)
+  - [Invalid Inputs](#invalid-inputs)
+- [FAQ](#faq)
+- [Command Summary](#command-summary)
+
 ## Product Description
-This product aims to streamline the tracking of internship applications for the user, where the user is able to store key details of the internship as well as save and edit the status of the application.
+This product aims to streamline the tracking of internship applications for the user, where the user is able to store key details of the internship as well as edit, filter and save the internships.
 
 **By using this tool, the user can:**
 
-**Store Important seedu.duke.Internship Information:** Users can input and store key details such as the role, company, duration, required skills, application deadlines, and any additional notes.
+**Store Important Information:** Users can input and store key details such as the role, company, internship duration, required skills and application deadlines.
 
-**Track Application Status:** Users can save the current status of their application (e.g., not applied, applied, interview scheduled, offer received) and update it as the application progresses.
+**Edit and Manage Internships:** Users have the ability to edit any fields (eg: role, company name) of the saved internships, change deadlines, mark some internships as favourite or higher priority and remove outdated internships from the list.
 
-**Edit and Manage Internships:** Users have the ability to edit saved internships as needed, modify statuses, update deadlines, or remove outdated internships from the list.
+**Filter Internships by Key Criteria:** The user can filter the tracked internships by the relevant fields and/or whether the internship has been marked as favourite or not, allowing for a better overview of all the internships available in your list that matches your chosen criteria. 
 
-**Filter Internships by Key Criteria:** The user can filter the tracked internships by relevant skills, application status, or upcoming deadlines, allowing for better organization and prioritization.
+**Track Application Status:** Users can save the current status of their application (application pending, application completed, accepted or rejected) and update it as the application progresses.
 
-**Monitor Deadlines Easily:** The tool helps ensure users stay on top of their internship deadlines by flagging or sorting applications with approaching deadlines.
+**Monitor Deadlines Easily:** This tool helps ensure users stay on top of their internship deadlines by getting a quick overview of the current date and all the deadlines which have passed and which are to follow, in a calendar-like view.
 
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Down the latest version of `.jar` file from [here]().
+3. Copy the file to the home folder of your Internship Tracker.
+4. Open the terminal, `cd` into the folder with the `.jar` file and use `java -jar easInternship.jar` 
+   command to run the application.
+5. Type the command to the CLI and press `Enter` to execute it.
+6. Refer to the [Features](#features) section below for details of each command.
 
 # Features
 
-## Add Command
-`add`
+## Add Command: `add`
 
-Adds internship to the list of internships currently being tracked by the user. The information added is automatically saved to a .txt file. Each internship you add is assigned a unique ID for editing purposes, which is generated based on the order in which these internships were created and stored.
+Adds a new internship entry to the list of internships currently being tracked by the user. 
+Each internship is assigned a unique ID, serving as the reference for functions that call specific Internship entries
+(e.g. `update`, `delete`).
 
 
-This function can be expanded upon to add different features to each internship.
 
-**Format:**
+**Format:** `add -role {Role name} -company {Company name} -from {date} -to {date}`
 
-`add -name {Role name} -company {Company name} // default param`
-`-duration /from {start date} /to {end date} // additional params`
+- `role` and `company` are compulsory flags.
+- `from` and `to` are optional and will be replaced with `01/01` when left empty. The format for date is MM/yy.
 
 **Example Input 1:**
-`add -name Software Engineer Intern -company Google`
+`add -role Software Engineer Intern -company Google`
 
 **Example Output 1:**
 ```
-ID: 01
+__________________________________________________
+__________________________________________________
+Internship added:
+ID: 1	Status: Application Pending
 Role: Software Engineer Intern
 Company: Google
-Duration: Not Stated
-Skills: Not Stated 
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+	No deadlines set.
+__________________________________________________
+__________________________________________________  
 ```
 
 **Example Input 2:**
-`add -name Embedded Software Engineer Intern -company Continental -duration /from 05/25 /to 08/25`
+`add -role Embedded Software Engineer Intern -company Continental -from 05/25 -to 08/25`
 
 **Example Output 2:**
 ```
-ID: 02
+__________________________________________________
+__________________________________________________
+Internship added:
+ID: 2	Status: Application Pending
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
-## Update Command
-`update`
+**Example Erroneous Input 1:**
+`add Software Engineer Intern Google`
 
-This feature allows you to update any field of an internship application. For example, when updating the status of an internship application, you can mark the status as ‘application pending’, ‘application completed’, ‘accepted’, ‘rejected’ etc.
+**Example Erroneous Output 1:**
+```
+__________________________________________________
+__________________________________________________
+Role not specified.
+Company not specified.
+__________________________________________________
+__________________________________________________
+```
 
-The default status for any internship that is stored in the database is ‘application pending’.
+**Example Erroneous Input 1:**
+`add -role Software Engineer Intern -company Google -from 35/10`
 
+**Example Erroneous Output 1:**
+```
+__________________________________________________
+__________________________________________________
+35/10 is not a valid date
+Please enter a date in the MM/yy format
+__________________________________________________
+__________________________________________________
+
+```
+
+## Update Command: `update`
+
+Updates any field of an Internship entry.
+
+Valid Fields:<br>
+- `role`: Provide the new role
+- `company`: Provide the new company
+- `status`: Provide the new status, according to the list below
+- `from`: Provide the new start date in `MM/yy` format
+- `to`: Provide the new end date in `MM/yy` format
+- `skills`: Provide a new skill
+  - Skills already listed will be omitted (case-sensitive)
+  - Example: When `Python` is listed as a skill, future updates with `Python` will be omitted, 
+  however `python` will be accepted as a new skill
+- `deadline`: Provide the description (case-insensitive) followed 
+deadline (in `dd/MM/yy` format) with a whitespace between them
+  - Inputs after the deadline (till the next field) will be discarded
+
+> For fields with dates, the program only checks for the validity of dates (i.e. whether it exists).<br>
+> Logic checking (e.g. `from` cannot be after `to` etc) is not available, coming in v2.2.<br>
+> Please check your dates and deadlines to ensure they are correct.
+
+Valid Statuses for `status` flag:<br>
+- Application Pending (Default Status)
+- Application Completed
+- Accepted
+- Rejected
+
+> For multiple uses of flags that are not `skills` or `deadline` only the last occurrence of the flag is used.
 
 **Format:**
-`update {ID} {-field} {updated information}`
+`update {ID} -{field} {updated information}`
 
-**Example:**
+**Examples:**
 
 `update 02 -status application completed`
 
 ```
-ID: 02								 **Status**
-Role: Embedded Software Engineer Intern    		application completed
+__________________________________________________
+__________________________________________________
+status updated: application completed
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
-`Update 02 -status interview scheduled`
+`update 02 -company Venti -deadline Interview Round 1 03/02/25`
 
 ```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-Deadlines:
-No deadlines set.
-```
-
-`Update 02 -company Venti`
-
-```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
+__________________________________________________
+__________________________________________________
+company updated: Venti
+deadline updated: Interview Round 1 (03/02/25)
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
 Company: Venti
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: No Skills Entered 
 Deadlines:
-No deadlines set.
+	Interview Round 1: 03/02/25
+__________________________________________________
+__________________________________________________
 ```
 
-`Update 02 -duration /from 04/25`
+`update 02 -from 04/25 -skills Python -deadline Interview Round 1 05/02/25`
 
 ```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
+__________________________________________________
+__________________________________________________
+from updated: 04/25
+skills updated: Python
+deadline updated: Interview Round 1 (05/02/25)
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
 Company: Venti
 Duration: 04/25 to 08/25
-Skills: Not Stated
+Skills: Python 
 Deadlines:
-No deadlines set.
+	Interview Round 1: 05/02/25
+__________________________________________________
+__________________________________________________
 ```
 
-`update 02 -skills Python SQL`
+## Remove Command: `remove`
 
-```
-ID: 02								 Status
-Role: Embedded Software Engineer Intern    		interview scheduled
-Company: Venti
-Duration: 04/25 to 08/25
-Skills: Python, SQL
-Deadlines:
-No deadlines set.
-```
-## Sort Command
-`sort`
+Removes specific values from fields of an Internship entry.
 
-This feature allows you to sort and list all the internships saved in your database. The default display format is in increasing order of their ID’s (based on time of creation)
-
-Users can specify a flag to display them in alphabetical order (regardless of uppercase or lowercase) of their role, skills and status or by deadline.
+Valid Fields:
+- `skills`: Provide a skill listed in `skills` (case-sensitive)
+- `deadline`: Provide the description of the deadline to be removed (case-insensitive)
 
 **Format:**
+`remove {ID} -{field} {value}`
+
+**Examples:**
+
+`remove 02 -skills Python`
+
+```
+__________________________________________________
+__________________________________________________
+skills removed: Python
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
+Company: Venti
+Duration: 04/25 to 08/25
+Skills: No Skills Entered 
+Deadlines:
+	Interview Round 1: 03/02/25
+__________________________________________________
+__________________________________________________
+```
+
+`remove 02 -deadline Interview Round 1 -deadline Interview Round 2`
+
+```
+__________________________________________________
+__________________________________________________
+deadline: Interview Round 2 is not found
+__________________________________________________
+deadline removed: Interview Round 1
+__________________________________________________
+Internship updated:
+ID: 2	Status: Application Completed
+Role: Embedded Software Engineer Intern
+Company: Venti
+Duration: 04/25 to 08/25
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 
 
-`sort {field}`
+## List Command: `list`
+
+Lists out all the Internships in the order of IDs.
+
+**Format:** `list`
+
+Example Output:
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+## Favourite Command: `favourite`
+
+This feature allows the user to mark certain internships as a Favourite. The user can input any number of ID's in a single command to mark them all as favourites.
+
+The functionality to remove a command's favourite status will be implemented in v2.1.
+
+**Format:** `favourite {Internship ID}`
+
+**Example:**
+
+`list`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`favourite 1`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+The list of favourite internships have been displayed above
+__________________________________________________
+__________________________________________________
+```
+
+`favourite 2, 3`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+The list of favourite internships have been displayed above
+__________________________________________________
+__________________________________________________
+
+```
+
+## Filter command: `filter`
+
+This feature allows the user to specify certain values for any of the role name, company name, internship duration parameters and/or favourite status based on which only the relevant internships are shown. 
+
+This feature allows users to filter by multiple flags simultaneously.
+
+The role and company name parameters are case-insensitive. 
+
+For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user. If the start and/or end dates with which to filter, are not explicitly specified by the user, they take on the default values of 01/01 and 12/99 respectively.
+
+For the favourite parameter, the user has to enter a boolean `true` or `false` (case-insensitive) to specify if they only want internships which have been marked as a favourite or if they only want internships which have not been marked as a favourite. In the default scenario where no `-favourite` flag is given, all internships are considered regardless of their favourite status.
+
+Users will be able to filter the internships by application statuses and deadlines as well in v2.1.
+
+**Format:** `filter -{field} {value}`
+
+Valid fields:
+- `role`: Provide the role name
+- `company`: Provide the company name
+- `from`: Provide the start date of the internship
+- `to`: Provide the end date of the internship
+- `favourite`: Provide the favourite status of the internship
+
+**Examples:**
+
+`list`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+`filter -role software engineer`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -company Meta`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -from 10/23 -to 07/24`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -role Data Scientist -to 06/24`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -favourite true`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: Software Engineer
+Company: Meta
+Duration: 01/24 to 09/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 3	Status: Application Pending
+Role: Data Scientist
+Company: Google
+Duration: 04/24 to 07/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+`filter -favourite false`
+
+```
+__________________________________________________
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: Data Scientist
+Company: Meta
+Duration: 09/23 to 05/24
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
+
+## Sort Command: `sort`
+
+Lists out all the Internships / Internships in favourite, sorted by a specified field.
+The default list in increasing order of their IDs and it can only sort by exactly one field in each time.
+
+Valid Fields:
+- `role`
+- `duration`
+- `skills`
+- `status`
+- `deadline`
+- `role in favourite`
+- `duration in favourite`
+- `skills in favourite`
+- `status in favourite`
+- `deadline in favourite`
+
+The fields are not case-sensitive.
+
+**Format:** `sort -{field}`
 
 **Example:**
 
 `sort -duration`
 
 ```
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: 05/23 to 08/25
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+Sorted internships by start date (year first), then end date.
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
 Deadlines:
-online assessment: 11/11/24
-
-ID: 01
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/24 to 08/24
-Skills: Not Stated
-Deadlines:
-interview: 25/11/24
-```
-`sort -role`
-
-```
-ID: 01
+	certificate submit: 15/04/24
+_________________________________________________
+ID: 1	Status: Rejected
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: Not Stated
+Skills: C++ 
 Deadlines:
-interview: 25/11/24
-
-
-ID: 02
-Role: Software Engineer Intern
+	online interview: 12/06/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
 Company: Google
-Duration: Not Stated
-Skills: Not Stated
+Duration: 05/25 to 09/25
+Skills: Python SQL 
 Deadlines:
-online assessment: 11/11/24
+	interview reply: 12/04/24
+__________________________________________________
+__________________________________________________
+```
+
+`sort -role`
+
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by role alphabetically (case-insensitive).
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+__________________________________________________
 ```
 
 `sort -deadline`
 
 ```
-ID: 02
-Role: Software Engineer Intern
+__________________________________________________
+__________________________________________________
+Sorted internships by deadline.
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
 Company: Google
-Duration: 05/23 to 08/25
-Skills: Not Stated
+Duration: 05/25 to 09/25
+Skills: Python SQL 
 Deadlines:
-online assessment: 11/11/24
-
-ID: 01
+	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+ID: 1	Status: Rejected
 Role: Embedded Software Engineer Intern
 Company: Continental
-Duration: 05/24 to 08/24
-Skills: Not Stated
+Duration: 05/25 to 08/25
+Skills: C++ 
 Deadlines:
-interview: 25/11/24
-
+	online interview: 12/06/24
+__________________________________________________
+__________________________________________________
 ```
+
 `sort -skills`
 
 ```
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Completed
-Role: Embedded Software Engineer Intern
-Company: Google
-Duration: 02/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-interview: 25/11/24
-
+Sorted internships by skills.
 __________________________________________________
-ID: 2	Status: Accepted
-Role: Marketing sales
-Company: Castify
-Duration: 05/23 to 05/24
-Skills: No Skills Entered 
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
 Deadlines:
-online assessment: 11/11/24
-
+	online interview: 12/06/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
 __________________________________________________
 __________________________________________________
 ```
+
 `sort -status`
 
 ```
 __________________________________________________
 __________________________________________________
-ID: 2	Status: Accepted
-Role: Marketing sales
-Company: Castify
-Duration: 05/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-online assessment: 11/11/24
-
+Sorted internships by status.
 __________________________________________________
-ID: 1	Status: Application Completed
-Role: Embedded Software Engineer Intern
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
 Company: Google
-Duration: 02/23 to 05/24
-Skills: No Skills Entered 
+Duration: 05/25 to 09/25
+Skills: Python SQL 
 Deadlines:
-interview: 25/11/24
-
+	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
 __________________________________________________
 __________________________________________________
 ```
 
-## Filter command: 
-`filter`
+`sort -company`
 
-This feature is an extension of the previous list feature. It allows the user to specify certain values for any of the role name, company name or duration parameters based on which only the relevant internships are shown. 
+```
+__________________________________________________
+__________________________________________________
+Sorted internships by company.
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
+__________________________________________________
+__________________________________________________
+```
 
-The role and company name parameters are case-insensitive, For the duration parameter, this feature displays all relevant internships whose start dates and end dates are within the duration timeline specified by the user.  For the MVP version of the product, user can only sort by 1 field at a time.
+`sort -role in favourite`
 
-**Format:**
+```
+__________________________________________________
+__________________________________________________
+Sorted internships in favourite by role in favourite.
+__________________________________________________
+ID: 2	Status: Application Completed
+Role: Customer Service Intern
+Company: Google
+Duration: 05/25 to 09/25
+Skills: Python SQL 
+Deadlines:
+	interview reply: 12/04/24
+__________________________________________________
+ID: 1	Status: Rejected
+Role: Embedded Software Engineer Intern
+Company: Continental
+Duration: 05/25 to 08/25
+Skills: C++ 
+Deadlines:
+	online interview: 12/06/24
+=======
+ID: 1	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 
-`filter -role {Role name} -`
+## Delete Command: `delete`
 
-`filter -company {Company name}`
+This feature removes an entire listing from the tracker and updates all remaining IDs.
 
-`filter -duration /from {start date} /to {end date}`
-
-`filter -skills {skill}`
-
-`filter -deadline /by {date}`
+**Format:** `delete {ID}`
 
 **Example:**
 
 `list`
 
 ```
-ID: 01
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
-
-ID: 02
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-```
-`filter -company Google`
-
-```
-ID: 01
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
-```
-
-`filter -duration /from 04/25 /to 09/25`
-
-```
-ID: 02
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: engineer
+Company: ABS
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+ID: 2	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
 
-## Delete Command: 
-`del`
+`delete 01`
 
-This feature removes an entire listing from the tracker.
-
-**Format:** `del {ID}`
-
-**Example:**
-
+```
+__________________________________________________
+__________________________________________________
+Internship deleted: 1
+__________________________________________________
+__________________________________________________
+```
 `list`
 
 ```
-ID: 01
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
 ```
+## Calendar Command: `calendar`
 
-`del {01}`
+Lists out all deadlines along with the current date (according to local machine date)
 
-```
-You have deleted this listing:
+**Format:** `calendar`
 
-ID: 01
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: Not Stated
-```
-
-`list`
+Example Output:
 
 ```
-ID: 02
-Role: Software Engineer Intern
-Company: Google
-Duration: Not Stated
-Skills: Not Stated
+__________________________________________________
+__________________________________________________
+Deadlines:
+
+10/10/24 
+	1 (ABS): interview round 1
+
+02/11/24 --> Today
+	2 (XYZ): application deadline
+
+05/11/24 
+	1 (ABS): interview round 2
+__________________________________________________
+__________________________________________________
 ```
 
-## Help Command: 
-`help`
+## Help Command: `help`
 
-Shows the commands available for the user.
-Describes the available functions and inputs that are needed
-Other basic commands.
+Shows the commands available for the user and the inputs required.
 
-**Format:** `/help`
-
-**Example Output**
-
-```
-    add -name {Role name} -company {Company name}: Adds internship to the list of internships currently being tracked by the user.
+**Format:** `help`
 
 
-    update {ID} {-field} {updated information}: Adds information to the field of the entry tagged to the ID.
-    Eg. update 02 -status application completed
-```
-
-
-## Exit Command
+## Exit Command: `exit`
 
 Terminates the program.
 
-**Format:** `/exit`
+**Format:** `exit`
 
 
 
 ## Invalid Inputs
 Shows whenever an incomplete or invalid search call is performed. Output also shows what corrective action can be taken.
 
-Example Output:
-Please include a duration if you are using the -duration flag!
-Eg. Update 02 -duration /from 04/25
+Examples:
 
-Please include specific skills if you are using the -skills flag!
+`add -company`
 
-I do not understand what flag you are using, type /help to get a list of valid commands.
-
-
-
+```
+__________________________________________________
+__________________________________________________
+Company not specified.
+Role not specified.
+__________________________________________________
+__________________________________________________
+```
 
 
 
 ## FAQ
 
+**Q**: Can I use "-" in my fields?
+
+**A**: No. Unknown flag will be thrown.
+
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: Locate the `/data/` directory, in the same directory as your `.jar` file. Copy this `/data/` directory to the second computer and store it in the same directory as the `.jar` file.
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
+| Command           | Format                                                                  |
+|-------------------|-------------------------------------------------------------------------|
+| Add Internship    | `add -role {Role name} -company {Company name} -from {date} -to {date}` |
+| Update Fields     | `update {ID} -{field} {updated information}`                            |
+| Remove Fields     | `remove {ID} -{field} {value}`                                          |
+| List              | `list`                                                                  |
+| Sort              | `sort -{field}`                                                         |
+| Filter            | `filter -{field} {value}`                                               |
+| Delete Internship | `delete {ID}`                                                           |
+| Calendar          | `calendar`                                                              |
+| Help              | `help`                                                                  |
+| Exit              | `exit`                                                                  |
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`

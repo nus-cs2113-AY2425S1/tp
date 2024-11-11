@@ -1,13 +1,15 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 
 //@@author jadenlimjc
 public class Deadline {
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/uu")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private int internshipID;
     private String description;
@@ -36,6 +38,7 @@ public class Deadline {
     }
 
     public void setDate(String date) throws DateTimeParseException {
+        assert date != null;
         this.date = LocalDate.parse(date, DATE_FORMATTER);
     }
 
@@ -43,8 +46,16 @@ public class Deadline {
         return date.format(DATE_FORMATTER);
     }
 
+    public LocalDate getUnformattedDate() {
+        return this.date;
+    }
+
     @Override
     public String toString() {
         return description + ": " + getDate();
+    }
+
+    public String toStringMessage() {
+        return description + " (" + getDate() + ")";
     }
 }

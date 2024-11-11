@@ -1,9 +1,14 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.commands.Command;
 import seedu.ui.Ui;
 
 import java.util.ArrayList;
+
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 
 //@@author Toby-Yu
 /**
@@ -19,6 +24,11 @@ public class EasInternship {
      * @param args Command-line arguments (not used in this application)
      */
     public static void main(String[] args) {
+        setUpLogger();
+        Logger logger = Logger.getLogger("EasInternship");
+
+        logger.log(Level.INFO, "Starting Program");
+
         Ui ui = new Ui();
         InternshipList internshipList = new InternshipList();
         Storage.loadFromFile(internshipList);
@@ -40,13 +50,14 @@ public class EasInternship {
                 continue;
             }
 
+            logger.log(Level.INFO, "Handling Command");
             Command command = parser.parseCommand(input);
 
             if (command == null) {
                 continue;
             }
 
-            command.setInternshipList(internshipList);
+            command.setInternshipsList(internshipList);
             ArrayList<String> commandArgs = parser.parseData(command, input);
 
             if (commandArgs == null) {
@@ -58,6 +69,22 @@ public class EasInternship {
             } catch (Exception e) {
                 ui.showErrorCommand(e.getMessage());
             }
+        }
+
+        logger.log(Level.INFO, "Ending Program");
+    }
+
+    //@@author Ridiculouswifi
+    private static void setUpLogger() {
+        Logger logger = Logger.getLogger("EasInternship");
+        logger.setUseParentHandlers(false);
+
+        try {
+            FileHandler fileHandler = new FileHandler("./data/EasInternshipLogs.txt");
+            fileHandler.setFormatter(new SimpleFormatter());
+            logger.addHandler(fileHandler);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 }

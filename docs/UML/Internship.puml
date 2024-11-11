@@ -1,34 +1,25 @@
 @startuml
 
 Title Model Component
+skinparam classAttributeIconSize 0
+hide circle
 class Internship {
-    - int id
-    - String role
-    - String company
-    - YearMonth startDate
-    - YearMonth endDate
-    - List<Deadline> deadlines
-    - ArrayList<String> skills
-    - String status
+    - id: int
+    - role: String
+    - company: String
+    - startDate: YearMonth
+    - endDate: YearMonth
+    - deadlines: List<Deadline>
+    - skills: ArrayList<String>
+    - status: String
 
-    + Internship(String role, String company, String start, String end)
-    + void updateStatus(String userStatus) throws InvalidStatus
-    + int getId()
-    + String getRole()
-    + String getCompany()
-    + String getStartDate()
-    + String getEndDate()
-    + String getStatus()
-    + void setStartDate(String start) throws DateTimeParseException
-    + void setEndDate(String end) throws DateTimeParseException
-    + void addDeadline(String description, String date) throws DateTimeParseException
-    + List<Deadline> getDeadlines()
-    + void removeDeadline(String description)
-    + void clearDeadlines()
-    + String getSkills()
-    + void setSkills(String skills)
-    + void removeSkill(String skill) throws MissingValue
-    + String toString()
+    + updateStatus(String userStatus): void
+    + setStartDate(String start): void
+    + setEndDate(String end): void
+    + addDeadline(String description, String date): void
+    + removeDeadline(String description): void
+    + setSkills(String skills): void
+    + removeSkill(String skill): void
 }
 
 
@@ -37,16 +28,10 @@ class InternshipList {
         - internships : ArrayList<Internship>
         - ui : UiInternshipList
 
-        + InternshipList()
-        + addInternship(internship : Internship) : void
-        + isWithinBounds(index : int) : boolean
-        + removeInternship(index : int) : void
-        + getInternship(index : int) : Internship
-        + updateField(index : int, field : String, value : String) : void
-        + listAllInternships() : void
-        + getAllInternships() : List<Internship>
-        + getSize() : int
-        - updateIds() : void
+        + addInternship(internship : Internship): void
+        + removeInternship(index : int): void
+        + updateField(index : int, field : String, value : String): void
+        + listAllInternships(): void
     }
 
 class Deadline {
@@ -54,14 +39,9 @@ class Deadline {
         - description : String
         - date : LocalDate
 
-        + Deadline(internshipID : int, description : String, date : String)
-        + getInternshipId() : int
         + setInternshipId(internshipId : int) : void
-        + getDescription() : String
         + setDescription(description : String) : void
         + setDate(date : String) : void
-        + getDate() : String
-        + toString() : String
     }
 
 InternshipList "1" --> "*" Internship

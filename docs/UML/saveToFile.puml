@@ -1,36 +1,32 @@
 @startuml
 Title saveToFile
+hide footbox
+participant ":User"
+participant ":EasInternship"
+participant ":Storage"
+participant ":InternshipList"
+participant ":Internship"
 
-participant User
-participant EasInternship
-participant Storage
-participant InternshipList
-participant Internship
-participant FileWriter
+":User" -> ":EasInternship": exit program
+activate ":EasInternship" #green
+":EasInternship" -> ":Storage" : saveToFile(internshipList)
+activate ":Storage" #orange
+":Storage" -> ":InternshipList" : getAllInternships()
+activate ":InternshipList" #aquamarine
+":InternshipList" --> ":Storage" : List<":Internship">
+deactivate ":InternshipList"
 
-User -> EasInternship: exit program
-activate EasInternship #green
-EasInternship -> Storage : saveToFile(internshipList)
-activate Storage #orange
-Storage -> InternshipList : getAllInternships()
-activate InternshipList #aquamarine
-InternshipList -> Storage : List<Internship>
-deactivate InternshipList
-
-loop for each Internship
-Storage-> Internship : get each attribute
-activate Internship #blue
-Internship -> Storage : List<Deadline>
-deactivate Internship
+loop for each ":Internship"
+":Storage"-> ":Internship" : get each attribute
+activate ":Internship" #blue
+":Internship" --> ":Storage" : List<Deadline>
+deactivate ":Internship"
     loop for each Deadline
-        Storage -> Deadline : get each attribute
+        ":Storage" -> Deadline : get each attribute
         activate Deadline  #teal
         deactivate Deadline
     end
 end
 
-Storage -> FileWriter : write(internship data)
-activate FileWriter #red
-deactivate FileWriter
-deactivate Storage
+deactivate ":Storage"
 @enduml
