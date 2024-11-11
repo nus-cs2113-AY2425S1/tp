@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class UpdateCommand extends Command {
 
-    private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_\\- .;:'\"&()<>{}%@*$#=~]+$";
+    private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_\\- .;:'\"&()<!>{}%@*$#=~]+$";
 
     public UpdateCommand(Inventory inventory, Ui ui, Csv csv) {
         super(inventory, ui, csv);
@@ -75,7 +75,7 @@ public class UpdateCommand extends Command {
 
         if (!newFieldName.matches(VALID_NAME_REGEX)) {
             throw new InventraInvalidTypeException("New field name", newFieldName,
-                    "alphanumeric or limited symbols _ - .;:'\"&()<>{}%@*$#=~$");
+                    "alphanumeric or limited symbols _ - .;:'\"&()<!>{}%@*$#=~$");
         }
         if (oldFieldName.isEmpty() || newFieldName.isEmpty()) {
             throw new InventraInvalidTypeException("Field names", "cannot be empty", "provide valid field names");
@@ -174,7 +174,7 @@ public class UpdateCommand extends Command {
 
         if (!newValue.matches(VALID_NAME_REGEX) ) {
             throw new InventraInvalidTypeException("New Value", newValue, "alphanumeric or " +
-                    "limited symbols _ - .;:'\"&()<>{}%@*$#=~$");
+                    "limited symbols _ - .;:'\"&()<!>{}%@*$#=~$");
         }
 
         if (indexNumberString.isEmpty() || fieldName.isEmpty() || newValue.isEmpty()) {
