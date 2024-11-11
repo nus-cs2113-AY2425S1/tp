@@ -757,5 +757,5 @@ ___
    meals, helping you monitor your energy intake and expenditure.
 
 5. **What happens if I input invalid values for commands?**
-   - BuffBuddy performs basic validation for parameters. Negative values or missing required parameters will prompt an error, 
+   - BuffBuddy performs basic validation for parameters. Negative values, zero or missing required parameters will prompt an error, 
    and the command won’t be executed. Ensure all required fields are filled correctly.
