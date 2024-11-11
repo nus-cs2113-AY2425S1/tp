@@ -571,31 +571,31 @@ The fields are not case-sensitive.
 ```
 __________________________________________________
 __________________________________________________
-Sorted internships by start date (year first), then end date.
+Sorted internships by duration with start date (year first), then end date.
 __________________________________________________
-ID: 3	Status: Accepted
+ID: 3   Status: Accepted
 Role: IT support Intern
 Company: Microsoft
 Duration: 03/24 to 08/24
-Skills: Java 
+Skills: Java
 Deadlines:
-	certificate submit: 15/04/24
-_________________________________________________
-ID: 1	Status: Rejected
+        certificate submit: 15/04/24
+__________________________________________________
+ID: 1   Status: Rejected
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: C++ 
+Skills: C++
 Deadlines:
-	online interview: 12/06/24
+        online interview: 12/06/24
 __________________________________________________
-ID: 2	Status: Application Completed
+ID: 2   Status: Application Completed
 Role: Customer Service Intern
 Company: Google
 Duration: 05/25 to 09/25
-Skills: Python SQL 
+Skills: Python SQL
 Deadlines:
-	interview reply: 12/04/24
+        interview reply: 12/04/24
 __________________________________________________
 __________________________________________________
 ```
@@ -630,40 +630,6 @@ Duration: 03/24 to 08/24
 Skills: Java 
 Deadlines:
 	certificate submit: 15/04/24
-__________________________________________________
-__________________________________________________
-```
-
-`sort -deadline`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by deadline.
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
 __________________________________________________
 __________________________________________________
 ```
@@ -736,81 +702,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`sort -company`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by company.
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
-__________________________________________________
-```
-
-`sort -role in favourite`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships in favourite by role in favourite.
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
-=======
-ID: 1	Status: Application Pending
-Role: engineer
-Company: ABS
-Duration: 01/01 to 01/01
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: accountant
-Company: XYZ
-Duration: 01/01 to 01/01
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
 
 ## Delete Command: `delete`
 
