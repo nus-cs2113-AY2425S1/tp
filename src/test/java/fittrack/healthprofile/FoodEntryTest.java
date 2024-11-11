@@ -4,10 +4,6 @@ import java.time.temporal.ChronoUnit;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import fittrack.healthprofile.FoodEntry;
-import fittrack.healthprofile.WaterEntry;
-import fittrack.healthprofile.FoodWaterIntake;
 
 public class FoodEntryTest {
 
