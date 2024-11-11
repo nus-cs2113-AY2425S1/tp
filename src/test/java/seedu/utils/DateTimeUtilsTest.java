@@ -94,7 +94,7 @@ class DateTimeUtilsTest {
                 LocalDateTime.of(2024, 10, 12, 16, 11);
 
         // Expected string
-        String expectedDateTimeString = "Saturday, 2024-10-12 04.11 PM";
+        String expectedDateTimeString = "Saturday, 2024-10-12 04.11 pm";
 
         // Actual string
         String actualDateTimeString = DateTimeUtils.getDateTimeString(inputDateTime);
