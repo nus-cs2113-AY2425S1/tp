@@ -1,6 +1,7 @@
 package seedu.command;
 
 import seedu.datastorage.Storage;
+import seedu.exceptions.FutureTransactionException;
 import seedu.exceptions.InvalidAmountFormatException;
 import seedu.exceptions.InvalidDateFormatException;
 import seedu.exceptions.InvalidDescriptionFormatException;
@@ -52,10 +53,8 @@ public class AddIncomeCommand extends AddTransactionCommand {
         String dateString;
         try {
             dateString = parseDate(arguments.get(COMMAND_EXTRA_KEYWORDS[0]));
-        } catch (InvalidDateFormatException e) {
+        } catch (InvalidDateFormatException | FutureTransactionException e) {
             return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
-        } catch (Exception e) {
-            return List.of(ErrorMessages.UNEXPECTED_ERROR_MESSAGE + e.getMessage());
         }
 
         try {

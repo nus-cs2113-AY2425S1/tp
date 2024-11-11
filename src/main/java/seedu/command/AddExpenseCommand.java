@@ -3,6 +3,7 @@ package seedu.command;
 import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
+import seedu.exceptions.FutureTransactionException;
 import seedu.exceptions.InvalidAmountFormatException;
 import seedu.exceptions.InvalidCategoryNameException;
 import seedu.exceptions.InvalidDateFormatException;
@@ -60,7 +61,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
         String dateString;
         try {
             dateString = parseDate(arguments.get(COMMAND_EXTRA_KEYWORDS[0]));
-        } catch (InvalidDateFormatException e) {
+        } catch (InvalidDateFormatException | FutureTransactionException e) {
             return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
 
@@ -129,6 +130,7 @@ public class AddExpenseCommand extends AddTransactionCommand {
             if (response.equalsIgnoreCase("yes") && temp!=null) {
                 try {
                     categoryList.addCategory(temp);
+                    Storage.saveCategory(categoryList.getCategories());
                 } catch (InvalidDescriptionFormatException e) {
                     ui.printMessage(CommandResultMessages.ADD_CATEGORY_FAIL + e.getMessage());
                     ui.printMessage(ErrorMessages.INVALID_DESCRIPTION_GUIDE);
