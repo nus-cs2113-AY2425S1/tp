@@ -17,10 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+//@@author jadenlimjc
 /**
  * Class to store the relevant information for an internship.
+ * This includes the internship's role, company, start and end dates, status, skills, and deadlines.
  */
-//@@author jadenlimjc
 public class Internship {
     private static final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
     private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
