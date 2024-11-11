@@ -2,7 +2,6 @@ package seedu.exchangecoursemapper.storage;
 
 import seedu.exchangecoursemapper.courses.Course;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * The Storage class contains all the methods related to storing course mappings.
