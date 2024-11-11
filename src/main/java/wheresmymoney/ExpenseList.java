@@ -91,6 +91,7 @@ public class ExpenseList {
         Logging.log(Level.INFO,
                 String.format("Adding expense with parameters: %f, %s, %s, %s",
                         price, description, category, dateAdded));
+        
         Expense expense = new Expense(price, description, category, dateAdded);
         assert (expense != null);
         expenses.add(expense);
@@ -181,10 +182,8 @@ public class ExpenseList {
                 Float price = CsvUtils.parseFloat(line[2]);
                 String dateAdded = line[3];
                 addExpense(price, description, category, dateAdded);
-                // makes it slightly less cohesive, but to do so a refactor of the program state might be better.
-                if (categoryFacade != null) {
-                    categoryFacade.addCategory(category, price);
-                }
+            } catch (WheresMyMoneyException e) {
+                throw new WheresMyMoneyException(e.getMessage());
             } catch (Exception e) {
                 throw new StorageException("An expense's price, description, category and/or date added is missing");
             }

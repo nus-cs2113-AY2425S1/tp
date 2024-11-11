@@ -1,20 +1,20 @@
 package wheresmymoney.command;
 
+import wheresmymoney.utils.ArgumentsMap;
 import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
-import wheresmymoney.Parser;
+import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpense;
 import wheresmymoney.RecurringExpenseList;
 import wheresmymoney.Ui;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ListCommand extends Command {
     private boolean isFiltered = true;
-    public ListCommand(HashMap<String, String> argumentsMap) {
+    public ListCommand(ArgumentsMap argumentsMap) {
         super(argumentsMap);
     }
 

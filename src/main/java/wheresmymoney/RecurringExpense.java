@@ -1,6 +1,9 @@
 package wheresmymoney;
 
+import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
+
+//@@author
 
 public class RecurringExpense extends Expense {
     protected String frequency;
@@ -30,18 +33,18 @@ public class RecurringExpense extends Expense {
 
     public void setLastAddedDate(String date) throws WheresMyMoneyException {
         if (date == null) {
-            throw new WheresMyMoneyException("Date should not be null");
+            throw new InvalidInputException("Date should not be null");
         } else if (!DateUtils.isInDateFormat(date)) {
-            throw new WheresMyMoneyException("Invalid date format" + DateUtils.DATE_FORMAT);
+            throw new InvalidInputException("Invalid date format " + DateUtils.DATE_FORMAT);
         }
         this.lastDateAdded = date;
     }
 
     public void setFrequency(String frequency) throws WheresMyMoneyException {
         if (frequency == null || frequency.isEmpty()) {
-            throw new WheresMyMoneyException("Frequency should not be null");
+            throw new InvalidInputException("Frequency should not be empty/ null");
         } else if (!frequency.equals("daily") && !frequency.equals("weekly") && !frequency.equals("monthly")) {
-            throw new WheresMyMoneyException("Frequency inputted is not \"daily\", \"weekly\" or \"monthly\"");
+            throw new InvalidInputException("Frequency inputted is not \"daily\", \"weekly\" or \"monthly\"");
         }
         this.frequency = frequency;
     }
