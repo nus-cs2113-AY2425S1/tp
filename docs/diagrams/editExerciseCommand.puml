@@ -1,35 +1,42 @@
 @startuml
-participant ":EditExerciseCommand" as AddExerciseCommand #cc88cc
-participant ":ProgrammeList" as ProgrammeList #ffbb77
-participant ":Programme" as Programme #ffbb77
-participant ":Day" as Day #ffbb77
-participant ":Exercise" as Exercise #ffbb77
+participant ":EditExerciseCommand" as EditExerciseCommand
+participant ":ProgrammeList" as ProgrammeList
+participant ":Programme" as Programme
+participant ":Day" as Day
+participant ":Exercise" as Exercise
 
+-> EditExerciseCommand : execute()
+activate EditExerciseCommand
 
-
--> AddExerciseCommand : execute()
-activate AddExerciseCommand
-
-AddExerciseCommand -> ProgrammeList : getProgramme(programmeIndex)
+EditExerciseCommand -> ProgrammeList : getProgramme(programmeIndex)
 activate ProgrammeList
-ProgrammeList --> AddExerciseCommand : selected Programme
-deactivate ProgrammeList
 
-AddExerciseCommand -> Programme : getDay(dayIndex)
-activate Programme
-Programme --> AddExerciseCommand : selected Day
-deactivate Programme
+opt Programme exists
+    ProgrammeList --> EditExerciseCommand : selected Programme
+    deactivate ProgrammeList
 
-AddExerciseCommand -> Day: getExercise(exerciseIndex)
-activate Day
-Day --> AddExerciseCommand: selected Exercise
-deactivate Day
+    EditExerciseCommand -> Programme : getDay(dayIndex)
+    activate Programme
 
-AddExerciseCommand -> Exercise: updateExercise(update)
-activate Exercise
-AddExerciseCommand <-- Exercise: updated Exercise
-deactivate Exercise
+    opt Day exists
+        Programme --> EditExerciseCommand : selected Day
+        deactivate Programme
 
-<-- AddExerciseCommand
-deactivate AddExerciseCommand
+        EditExerciseCommand -> Day: getExercise(exerciseIndex)
+        activate Day
+
+        opt Exercise exists
+            Day --> EditExerciseCommand: selected Exercise
+            deactivate Day
+
+            EditExerciseCommand -> Exercise: updateExercise(update)
+            activate Exercise
+            Exercise --> EditExerciseCommand: updated Exercise
+            deactivate Exercise
+        end
+    end
+end
+
+<-- EditExerciseCommand
+deactivate EditExerciseCommand
 @enduml
