@@ -175,7 +175,8 @@ public class Logic {
     }
 
     private boolean isEmptyArgument(HashMap<String, String> commandArguments) {
-        return commandArguments.get(Commons.KEY_FIRST_ARGUMENT) == null || commandArguments.get(Commons.KEY_FIRST_ARGUMENT).isBlank();
+        return commandArguments.get(Commons.KEY_FIRST_ARGUMENT) == null
+                || commandArguments.get(Commons.KEY_FIRST_ARGUMENT).isBlank();
     }
 
     /**
