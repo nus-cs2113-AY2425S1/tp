@@ -3,13 +3,11 @@ actor User
 participant "UI" as UI
 participant "BuffBuddy" as BB
 participant "Parser" as Parser
-participant "AddMealCommand" as AddCmd
+participant "AddWaterCommand" as AddCmd
 participant "History" as History
 participant "DailyRecord" as DailyRec
-participant "MealList" as MealList
-participant "Meal" as Meal
 
-User -> UI: "meal add /n [mealName] /c [calories]"
+User -> UI: "water add /v WATER_VOLUME /t Date"
 activate UI
 BB -> UI: readCommand()
 activate BB
@@ -17,14 +15,19 @@ UI --> BB: command object
 BB -> Parser: parse(command)
 activate Parser
 
-create Meal
-Parser -> Meal: new Meal(mealname, calories)
-activate Meal
-Meal --> Parser: meal object
-deactivate Meal
-
-Parser --> AddCmd: AddMealCommand(meal, date)
+Parser -> Parser : Validate inputs
+activate Parser
+opt inputs are not valid
+    Parser --> BB : throw ParserException
+    end
 deactivate Parser
+
+Parser -> Parser : Parse inputs
+activate Parser
+deactivate Parser
+Parser --> AddCmd: AddWaterCommand(waterToAdd, date)
+deactivate Parser
+
 activate AddCmd
 
 AddCmd -> History: getRecordByDate(date)
@@ -33,7 +36,6 @@ activate History
 alt DailyRecord exists
   History --> AddCmd: DailyRecord object
 else No DailyRecord exists
-create DailyRec
   History -> DailyRec: new DailyRecord()
   activate DailyRec
   DailyRec --> History
@@ -42,17 +44,14 @@ create DailyRec
 end
 deactivate History
 
-AddCmd -> DailyRec:
+AddCmd -> DailyRec: addWaterToRecord(waterToAdd)
 activate DailyRec
 
-DailyRec -> MealList: addMealToRecord(meal)
-activate MealList
-MealList -> MealList: addMeal(meal)
-activate MealList
+DailyRec -> Water : addWater(waterVolume)
+activate Water
 
-deactivate MealList
-MealList --> DailyRec
-deactivate MealList
+Water --> DailyRec
+deactivate Water
 
 
 DailyRec --> AddCmd
