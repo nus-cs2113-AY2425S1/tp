@@ -7,8 +7,8 @@ Formatting of this Developer's Guide was done with reference to [AddressBook-Lev
 ## Design & implementation
 
 1. [Design](#1-design)
-    1. [Architecture](#11-Architecture)
-    2. [UI Component](#12-UI-component)
+    1. [Architecture](#11-architecture)
+    2. [UI Component](#12-ui-component)
     3. [Logic Component](#13-logic-component)
     4. [Model Component](#14-model-component)
     5. [Storage Component](#15-storage-component)
@@ -668,7 +668,7 @@ to:
     - Verify that the filtered list all contain the specified field data.
 
 
-10. Removing an Internship
+10. **Removing an Internship**
 
     - Enter the command `delete {ID}` eg. `delete 1`
     - Verify that the internship has been deleted successfully.
