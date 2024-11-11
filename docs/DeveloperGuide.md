@@ -159,12 +159,12 @@ split the `Parser` class diagram into the two parts respectively to increase rea
 This class diagram represents the parsing of commands in Check Information. The multiplicities dependencies of the 
 command are 0 or 1 because the dependency is only formed when the command is called, else, it will be zero.
 
-![Class diagram for CheckInformationParser](images/CheckInformationParserClass.png)
+![Class diagram for CheckInformationParser](images/CheckInformationParserClass.jpg)
 
 This class diagram represents the parsing of commands in Personal Tracker. The `Parser` class has associations with the
 `UI` class and `Storage` class and dependencies with the commands in Personal Tracker.
 
-![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.png)
+![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.jpg)
 
 #### CourseValidator Class Diagram: 
 
