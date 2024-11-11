@@ -5,7 +5,6 @@ import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.Expense;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.RecurringExpenseList;
-import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class DeleteCommand extends Command {

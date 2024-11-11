@@ -5,7 +5,6 @@ import wheresmymoney.category.CategoryFacade;
 import wheresmymoney.ExpenseList;
 import wheresmymoney.utils.Parser;
 import wheresmymoney.RecurringExpenseList;
-import wheresmymoney.exception.InvalidInputException;
 import wheresmymoney.exception.WheresMyMoneyException;
 
 public class SetCommand extends Command {
