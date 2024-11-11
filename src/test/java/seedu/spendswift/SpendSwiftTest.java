@@ -423,7 +423,7 @@ class BudgetManagerTest {
         assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     
-}
+    }
 }
 
 
