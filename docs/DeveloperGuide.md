@@ -117,25 +117,6 @@ Manages expenses, including adding, deleting, and viewing expenses categorized b
 ##### Relationship
 - Dependency: Accesses TrackerData to add, delete, and view expenses categorized by spending areas.
 
-### Command Parsing and Input Handling
-![ParserManagement](diagrams/ParserManagement.png)
-#### Parser
-The Parser class interprets user input commands, delegating them to appropriate manager classes for processing.
-
-##### Operations
-- `parseCommand(String)`: Parses the command and creates a Command object based on the input.
-
-##### Relationship
-- Composition: Uses InputParser for handling command-specific parsing.
-- Dependency: Delegates tasks to CategoryManager, BudgetManager, and ExpenseManager.
-
-#### InputParser
-InputParser processes specific components within commands (such as names, amounts, categories) 
-and breaks down inputs for more manageable handling.
-
-##### Operations
-- `parseComponent(String)`: Breaks down input components into a map for easy retrieval.
-
 ### Expense, Category, and Budget Entities
 ![Entities](diagrams/Entities.png)
 
