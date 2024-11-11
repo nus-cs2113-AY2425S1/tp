@@ -114,6 +114,13 @@ For simplification, the UI package is not included.
 
 **Implementation**
 ### 2. delete-expense
+**Overview**
+
+The sequence diagram represents the flow for deleting an existing expense in SpendSwift when the user inputs an `delete-expense` command.
+
+![delete-expense](sequencediagrams/DeleteExpense.png)
+
+**Implementation**
 ### 3. add-category
 **Overview**
 

@@ -9,7 +9,8 @@ participant ErrorMessage
 participant SuccessMessage
 participant Expense
 
-User -> SpendSwift : input("delete-expense 2")
+User -> SpendSwift : input("delete-expense e/2")
+activate SpendSwift
 SpendSwift -> Parser : parseCommand(input, trackerData)
 
 activate Parser
@@ -17,34 +18,50 @@ Parser -> ExpenseManager : deleteExpenseRequest(input, expenseManager, trackerDa
 
 activate ExpenseManager
 ExpenseManager -> InputParser : parseIndex(input)
-InputParser --> ExpenseManager : Return expenseIndex
+activate InputParser
+InputParser --> ExpenseManager : return expenseIndex: int
+deactivate InputParser
 
-alt Invalid Index
+opt Invalid Index
     ExpenseManager -> ErrorMessage : printInvalidIndex()
-    deactivate ExpenseManager
-    deactivate Parser
-else Valid Index
-    ExpenseManager -> TrackerData : getExpenses()
-    TrackerData --> ExpenseManager : Return list of expenses
-
-    alt Index Out of Bounds
-        ExpenseManager -> ErrorMessage : printOutOfBoundsIndex()
-        deactivate ExpenseManager
-        deactivate Parser
-    else Valid Index in Range
-        ExpenseManager -> ExpenseManager : deleteExpense(trackerData, expenseIndex)
-
-        activate ExpenseManager
-        ExpenseManager -> TrackerData : getExpenses()
-        TrackerData --> ExpenseManager : Return list of expenses
-
-        ExpenseManager -> Expense : Remove expense at expenseIndex
-        Expense --> ExpenseManager : Return removedExpense
-
-        ExpenseManager -> SuccessMessage : printDeleteExpense(removedExpense)
-        deactivate ExpenseManager
-    end
+    activate ErrorMessage
+    ErrorMessage --> ExpenseManager : return
+    deactivate ErrorMessage
+    ExpenseManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
 end
+
+ExpenseManager -> ExpenseManager : deleteExpense(trackerData, expenseIndex)
+
+activate ExpenseManager
+ExpenseManager -> TrackerData : getExpenses()
+activate TrackerData
+TrackerData --> ExpenseManager : return expenses: List<Expense>
+deactivate TrackerData
+
+ExpenseManager -> Expense : remove expense at expenseIndex
+activate Expense
+Expense --> ExpenseManager : return
+deactivate Expense
+
+ExpenseManager -> SuccessMessage : printDeleteExpense(removedExpense)
+activate SuccessMessage
+SuccessMessage --> ExpenseManager : return
+deactivate SuccessMessage
+
+opt Index Out of Bounds
+    ExpenseManager -> ErrorMessage : printOutOfBoundsIndex()
+    activate ErrorMessage
+    ErrorMessage --> ExpenseManager : return
+    deactivate ErrorMessage
+end
+
+ExpenseManager --> Parser : return
 deactivate ExpenseManager
+Parser --> SpendSwift : return
 deactivate Parser
+SpendSwift --> User : return
+deactivate SpendSwift
+
 @enduml
