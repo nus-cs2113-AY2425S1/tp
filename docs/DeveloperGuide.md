@@ -103,39 +103,6 @@ Each manager is responsible for a distinct aspect of the application — expense
 functionality within modules. As a result, adjustments to categories, expenses, or budgets can be made independently 
 without disrupting other parts of the system, supporting a scalable and well-organized financial tracking solution.
 
-### Expense, Category, and Budget Entities
-![Entities](diagrams/Entities.png)
-
-#### Expense
-##### Purpose
-Represents an expense with its name, amount, and associated category.
-
-##### Operations
-- `getName()`, `getAmount()`: Retrieve the expense's name and amount.
-- `getCategory()`, `setCategory(Category)`: Manage the expense's category association.
-- `formatAmount()`: Formats the expense amount for display.
-
-#### Category
-##### Purpose
-Represents a category, allowing expenses and budgets to be organized under specific areas.
-
-##### Operations
-- `getName()`: Returns the category name.
-- `toString()`: Provides the string representation of the category.
-
-Attributes:
-- String name: The name of the category.
-
-#### Budget
-##### Purpose
-Represents a budget limit associated with a category, enabling users to track and manage spending.
-
-##### Operations
-- `setLimit(double)`: Ensures limits are non-negative.
-- `formatLimit(double)`: Formats the budget limit for display.
-
-- Each Expense is linked to exactly one Category, while each Budget is also associated with one Category.
-
 ---
 
 ## Sequence Diagrams
