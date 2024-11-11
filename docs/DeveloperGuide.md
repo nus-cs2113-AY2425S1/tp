@@ -360,7 +360,7 @@ which have not been marked as favourite by the user
 
 #### Sequence Diagram
 
-The following sequence diagram shows how the `FilterCommand` is executed:
+The following sequence diagram shows how the `FilterCommand` is executed:                               
 ![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
 
 <div style="page-break-after: always;"></div>
