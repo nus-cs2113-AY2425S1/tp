@@ -13,6 +13,7 @@ import java.time.LocalDate;
 
 import static parser.FlagDefinitions.VOLUME_FLAG;
 import static parser.FlagDefinitions.WATER_INDEX;
+import static parser.FlagDefinitions.DATE_FLAG;
 import static parser.ParserUtils.parseDate;
 import static parser.ParserUtils.splitArguments;
 
@@ -63,7 +64,7 @@ public class WaterCommandFactory {
             throw WaterExceptions.volumeOutOfBounds();
         }
 
-        LocalDate date = flagParser.getDateByFlag("/t");
+        LocalDate date = flagParser.getDateByFlag(DATE_FLAG);
 
         return new AddWaterCommand(water, date);
     }
@@ -81,7 +82,7 @@ public class WaterCommandFactory {
         flagParser.validateRequiredFlags(WATER_INDEX);
 
         int waterIndexToDelete = flagParser.getIndexByFlag(WATER_INDEX);
-        LocalDate date = flagParser.getDateByFlag("/t");
+        LocalDate date = flagParser.getDateByFlag(DATE_FLAG);
 
         return new DeleteWaterCommand(waterIndexToDelete, date);
     }

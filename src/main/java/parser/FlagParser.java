@@ -13,6 +13,24 @@ import java.util.logging.Logger;
 
 import static common.Utils.isNull;
 
+import static parser.FlagDefinitions.DAY_FLAG;
+import static parser.FlagDefinitions.DATE_FLAG;
+import static parser.FlagDefinitions.EXERCISE_FLAG;
+import static parser.FlagDefinitions.NAME_FLAG;
+import static parser.FlagDefinitions.CALORIES_FLAG;
+import static parser.FlagDefinitions.REPS_FLAG;
+import static parser.FlagDefinitions.SETS_FLAG;
+import static parser.FlagDefinitions.WEIGHT_FLAG;
+import static parser.FlagDefinitions.PROGRAMME_FLAG;
+import static parser.FlagDefinitions.UPDATE_EXERCISE_FLAG;
+import static parser.FlagDefinitions.ADD_DAY_FLAG;
+import static parser.FlagDefinitions.ADD_EXERCISE_FLAG;
+import static parser.FlagDefinitions.REMOVE_DAY_FLAG;
+import static parser.FlagDefinitions.REMOVE_EXERCISE_FLAG;
+import static parser.FlagDefinitions.MEAL_INDEX;
+import static parser.FlagDefinitions.WATER_INDEX;
+import static parser.FlagDefinitions.VOLUME_FLAG;
+
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
@@ -90,35 +108,34 @@ public class FlagParser {
      * Sets up flag aliases to allow flexible parsing by recognizing alternative names for flags.
      */
     private void initializeAliasMap() {
-        aliasMap.put("/p", "/p");
-        aliasMap.put("/programme", "/p");
-        aliasMap.put("/prog", "/p");
+        aliasMap.put("/programme", PROGRAMME_FLAG);
+        aliasMap.put("/prog", PROGRAMME_FLAG);
 
-        aliasMap.put("/day", "/d");
-        aliasMap.put("/date", "/t");
+        aliasMap.put("/day", DAY_FLAG);
+        aliasMap.put("/date", DATE_FLAG);
 
-        aliasMap.put("/name", "/n");
+        aliasMap.put("/name", NAME_FLAG);
 
-        aliasMap.put("/exercise", "/e");
-        aliasMap.put("/set", "/s");
-        aliasMap.put("/sets", "/s");
-        aliasMap.put("/rep", "/r");
-        aliasMap.put("/reps", "/r");
-        aliasMap.put("/weight", "/w");
-        aliasMap.put("/calories", "/c");
+        aliasMap.put("/exercise", EXERCISE_FLAG);
+        aliasMap.put("/set", SETS_FLAG);
+        aliasMap.put("/sets", SETS_FLAG);
+        aliasMap.put("/rep", REPS_FLAG);
+        aliasMap.put("/reps", REPS_FLAG);
+        aliasMap.put("/weight", WEIGHT_FLAG);
+        aliasMap.put("/calories", CALORIES_FLAG);
 
-        aliasMap.put("/addEx", "/ae");
-        aliasMap.put("/updateEx", "/ue");
-        aliasMap.put("/removeEx", "/xe");
+        aliasMap.put("/addEx", ADD_EXERCISE_FLAG);
+        aliasMap.put("/updateEx", UPDATE_EXERCISE_FLAG);
+        aliasMap.put("/removeEx", REMOVE_EXERCISE_FLAG);
 
-        aliasMap.put("/addDay", "/ad");
-        aliasMap.put("/removeDay", "/xd");
+        aliasMap.put("/addDay", ADD_DAY_FLAG);
+        aliasMap.put("/removeDay", REMOVE_DAY_FLAG);
 
-        aliasMap.put("/meal", "/m");
+        aliasMap.put("/meal", MEAL_INDEX);
 
-        aliasMap.put("/water", "/w");
-        aliasMap.put("/volume", "/v");
-        aliasMap.put("/vol", "/v");
+        aliasMap.put("/water", WATER_INDEX);
+        aliasMap.put("/volume", VOLUME_FLAG);
+        aliasMap.put("/vol", VOLUME_FLAG);
     }
 
     /**
@@ -141,6 +158,10 @@ public class FlagParser {
 
             if (hasFlag(flag)) {
                 throw FlagExceptions.duplicateFlag(flag);
+            }
+
+            if (!FlagDefinitions.VALID_FLAGS.contains(flag)) {
+                throw FlagExceptions.invalidFlag(flag);
             }
 
             logger.log(Level.INFO, "Successfully parsed flag: {0} with value: {1}", new Object[]{flag, value});
@@ -199,7 +220,7 @@ public class FlagParser {
 
             if (isNull(value)) {
                 logger.log(Level.WARNING, "Required flag has null value: {0}", flag);
-                throw FlagExceptions.missingFlag(flag);
+                throw FlagExceptions.missingRequiredArguments(flag);
             }
         }
     }
@@ -215,11 +236,7 @@ public class FlagParser {
             }
         }
 
-        if (count == 0){
-            throw FlagExceptions.missingArguments();
-        }
-
-        if (count > 1){
+        if (count > 1) {
             throw FlagExceptions.nonUniqueFlag(seenFlags.toString());
         }
     }

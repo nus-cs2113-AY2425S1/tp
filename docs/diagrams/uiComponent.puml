@@ -1,14 +1,11 @@
 @startuml
+skinparam classAttributeIconSize 0
+
 title Ui Class Diagram
 
 !define CLASS(x) class x
 
 class Ui {
-    - <u>ERROR_HEADER: String
-    - <u>GREETING: String
-    - <u>LOGO: String
-    - <u>PROMPT: String
-    - <u>FAREWELL: String
     - in: Scanner
     - out: PrintStream
 

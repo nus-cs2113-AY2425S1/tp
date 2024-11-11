@@ -8,6 +8,7 @@ import parser.Parser;
 import ui.Ui;
 import programme.ProgrammeList;
 
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,7 +52,11 @@ public class BuffBuddy {
                     return;
                 }
                 storage.saveData(programmes,history);
-            } catch (Exception e) {
+            }  catch (Exception e) {
+                // NoSuchElementException occurs on CTRL + C exit of BuffBuddy, and thus should not be printed
+                if (e instanceof NoSuchElementException) {
+                    continue;
+                }
                 ui.showMessage(e);
             }
         }

@@ -1,5 +1,5 @@
 @startuml
-
+skinparam classAttributeIconSize 0
 class Storage {
     - createJson(programmeList : ProgrammeList, history : History) : JsonObject
     - programmeListToJson(programmeList : ProgrammeList) : JsonObject

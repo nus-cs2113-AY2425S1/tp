@@ -21,11 +21,11 @@ public class ExerciseUpdate {
      * Constructs an ExerciseUpdate with specified fields. Each non-null parameter
      * represents a field intended to be updated in the target Exercise.
      *
-     * @param sets     the updated number of sets, or null if not updating
-     * @param reps     the updated number of reps, or null if not updating
-     * @param weight   the updated weight, or null if not updating
-     * @param calories the updated calorie count, or null if not updating
-     * @param name     the updated name, or null if not updating
+     * @param sets     the updated number of sets, or NULL_INTEGER if not updating
+     * @param reps     the updated number of reps, or NULL_INTEGER if not updating
+     * @param weight   the updated weight, or NULL_INTEGER if not updating
+     * @param calories the updated calorie count, or NULL_INTEGER if not updating
+     * @param name     the updated name, or NULL_STRING if not updating
      */
     public ExerciseUpdate(int sets, int reps, int weight, int calories, String name) {
         this.sets = sets;

@@ -46,7 +46,6 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 3. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar BuffBuddy.jar` command to run the application.
 
 ## Terminology:
-
 - **Exercise**: An exercise defined by a name, number of reps and sets, weight and average calories burned.
 - **Day**: A ‘workout day’ is a collection of exercises to be done together.
 - **Programme**: A programme is a collection of workout days.

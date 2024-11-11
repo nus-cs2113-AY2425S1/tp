@@ -27,13 +27,23 @@ public class FlagExceptions extends BuffBuddyExceptions {
     }
 
     /**
-     * Returns a FlagExceptions indicating that arguments are missing after a flag.
+     * Returns a FlagExceptions indicating that arguments are missing
      *
      * @return A {@code FlagExceptions} with a message indicating that arguments are missing
      *         after the flag.
      */
     public static FlagExceptions missingArguments() {
-        return new FlagExceptions("Missing arguments after flag, please refer to User Guide");
+        return new FlagExceptions("Missing arguments.");
+    }
+
+    /**
+     * Returns a FlagExceptions indicating that arguments are missing after a flag.
+     *
+     * @return A {@code FlagExceptions} with a message indicating that arguments are missing
+     *         after the flag.
+     */
+    public static FlagExceptions missingRequiredArguments(String flag) {
+        return new FlagExceptions("Missing required arguments after flag: " + flag + ".");
     }
 
     /**
@@ -44,6 +54,16 @@ public class FlagExceptions extends BuffBuddyExceptions {
 
     public static FlagExceptions duplicateFlag(String flag) {
         return new FlagExceptions("Flag " + flag + " was provided more than once.");
+    }
+
+    /**
+     * Returns a FlagException indicating that a specific flag has been provided more than once
+     * @param flag The name of the duplicate flag.
+     * @return A {@code FlagExceptions} with a message indicating that the specified flag has been duplicated.
+     */
+
+    public static FlagExceptions invalidFlag(String flag) {
+        return new FlagExceptions("Flag " + flag + " is not recognized.");
     }
 
     /**

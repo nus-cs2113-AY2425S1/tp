@@ -43,18 +43,6 @@ public class ProgrammeExceptions extends BuffBuddyExceptions {
         return new ProgrammeExceptions("Program " + (index + 1) + " has already been started");
     }
 
-
-    /**
-     * Returns a ProgrammeExceptions indicating that the programme edit command
-     * is missing required flags.
-     *
-     * @return A {@code ProgrammeExceptions} with a message indicating missing flags.
-     */
-    public static ProgrammeExceptions programmeEditMissingFlags() {
-        return new ProgrammeExceptions("Programme edit command is missing required flags. " +
-                "Please refer to the user guide for details.");
-    }
-
     /**
      * Returns a ProgrammeExceptions indicating that a day name is missing.
      *
