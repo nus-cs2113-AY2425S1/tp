@@ -108,8 +108,8 @@ The budget amount and balance will also be viewable by the user under the list c
 
 **Example Usage**:
 
+Example 1: Initial budget setting option
 ```
-// Initial budget setting option
 Would you like to set a budget? (yes/no)
 --------------------------------------------
 yes
@@ -122,8 +122,10 @@ Your budget has successfully been set to: $ 1000.00
 Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
+
+
+Example 2: Setting budget using the budget command
 ```
-// Setting budget using the budget command
 budget 1000
 --------------------------------------------
 Your budget has successfully been set to: $ 1000.00
