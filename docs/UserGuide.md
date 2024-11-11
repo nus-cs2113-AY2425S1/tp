@@ -98,6 +98,7 @@ General format: add [FLAG] [VALID INPUT]
 * Command: `add -d VALUE1, VALUE2, ...`
     * Note:
         - The order of values should match fields defined using `add -h`.
+        - No need to provide value for ID field when create records.
         - **Supported date formats:** `DD/MM/YYYY` or `DD/MM/YY`.
     * Example:
     ``` 
