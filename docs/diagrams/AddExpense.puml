@@ -6,7 +6,6 @@ participant ExpenseManager
 participant TrackerData
 participant Category
 participant Expense
-participant adi
 
 User -> SpendSwift : input("add-expense n/<name> a/<amount> c/<category>")
 SpendSwift -> Parser : parseCommand(input, trackerData)

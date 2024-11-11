@@ -1,49 +1,63 @@
 @startuml
-
 actor User
-participant Duke
-participant ExpenseTracker
+participant SpendSwift
+participant Parser
+participant ExpenseManager
+participant TrackerData
+participant InputParser
+participant ErrorMessage
+participant SuccessMessage
+participant Format
 participant Category
 participant Expense
 
-User -> Duke : input("tag-expense e/<index> c/<category>")
-activate Duke
+User -> SpendSwift : input("tag-expense 1 /category Food")
+SpendSwift -> Parser : parseCommand(input, trackerData)
 
-Duke -> ExpenseTracker : tagExpense(input)
-activate ExpenseTracker
+activate Parser
+Parser -> ExpenseManager : tagExpense(trackerData, input)
 
-ExpenseTracker -> ExpenseTracker : Parse expenseIndex and category from input
+activate ExpenseManager
+ExpenseManager -> InputParser : parseIndex(input)
+InputParser --> ExpenseManager : Return expenseIndex
 
-alt Invalid Input (Missing/Incorrect Index or Category)
-    ExpenseTracker -> User : Display "Invalid input! Please provide an expense index and category."
-else Valid Input
-    ExpenseTracker -> ExpenseTracker : Check if expenseIndex is within bounds
+alt Invalid Index
+    ExpenseManager -> ErrorMessage : printInvalidIndex()
+    deactivate ExpenseManager
+    deactivate Parser
+else Valid Index
+    ExpenseManager -> InputParser : parseCategory(input)
+    InputParser --> ExpenseManager : Return categoryName
 
-    alt Index Out of Bounds
-        ExpenseTracker -> User : Display "Invalid index"
-    else Valid Index
-        ExpenseTracker -> ExpenseTracker : formatInput(categoryName)
+    alt Invalid or Empty Category
+        ExpenseManager -> ErrorMessage : printExpensesManagerEmptyCategory()
+        deactivate ExpenseManager
+        deactivate Parser
+    else Valid Category
+        ExpenseManager -> ExpenseManager : tagExpenseHelper(trackerData, expenseIndex, categoryName)
 
-        loop Search for Category
-            ExpenseTracker -> Category : Check if category matches formattedCategoryName
-            activate Category
-            Category --> ExpenseTracker : Return category name
-            deactivate Category
+        activate ExpenseManager
+        ExpenseManager -> TrackerData : getExpenses()
+        TrackerData --> ExpenseManager : Return list of expenses
+
+        ExpenseManager -> TrackerData : getCategories()
+        TrackerData --> ExpenseManager : Return list of categories
+
+        ExpenseManager -> Format : formatInput(categoryName)
+        Format --> ExpenseManager : Return formattedCategoryName
+
+        loop Check each category
+            ExpenseManager -> Category : Check if name matches formattedCategoryName
         end
 
-        alt Category Exists
-            ExpenseTracker -> Expense : Retrieve expense at expenseIndex
-            activate Expense
-            Expense -> Expense : setCategory(category)
-            Expense --> ExpenseTracker : Return updated expense details
-            deactivate Expense
-            ExpenseTracker -> User : Display "Tagged expense: <expense details>"
-        else Category Does Not Exist
-            ExpenseTracker -> User : Display "Category '<formattedCategoryName>' does not exist."
+        alt Matching Category Found
+            ExpenseManager -> Expense : setCategory(matchingCategory)
+            ExpenseManager -> SuccessMessage : printTaggedExpense(expense)
+        else No Matching Category
+            ExpenseManager -> SuccessMessage : printMissingCategory(formattedCategoryName)
         end
+        deactivate ExpenseManager
     end
 end
-deactivate ExpenseTracker
-deactivate Duke
-
+deactivate Parser
 @enduml

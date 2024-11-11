@@ -1,39 +1,50 @@
 @startuml
-
 actor User
-participant Duke
-participant ExpenseTracker
+participant SpendSwift
+participant Parser
+participant ExpenseManager
+participant TrackerData
+participant InputParser
+participant ErrorMessage
+participant SuccessMessage
 participant Expense
 
-User -> Duke : input("delete-expense e/<index>")
-activate Duke
+User -> SpendSwift : input("delete-expense 2")
+SpendSwift -> Parser : parseCommand(input, trackerData)
 
-Duke -> Duke : deleteExpenseRequest(input, expenseTracker)
+activate Parser
+Parser -> ExpenseManager : deleteExpenseRequest(input, expenseManager, trackerData)
 
-alt Invalid Input (Missing/Incorrect Index)
-    Duke -> User : Print "Invalid input! Please provide an expense index to delete."
-else Valid Input
-    Duke -> Duke : Parse expenseIndex from input
+activate ExpenseManager
+ExpenseManager -> InputParser : parseIndex(input)
+InputParser --> ExpenseManager : Return expenseIndex
 
-    alt Parsing Error (Non-numeric index)
-        Duke -> User : Print "Error parsing the expense index. Please use correct format."
-    else Parsing Successful
-        Duke -> ExpenseTracker : deleteExpense(expenseIndex)
-        activate ExpenseTracker
+alt Invalid Index
+    ExpenseManager -> ErrorMessage : printInvalidIndex()
+    deactivate ExpenseManager
+    deactivate Parser
+else Valid Index
+    ExpenseManager -> TrackerData : getExpenses()
+    TrackerData --> ExpenseManager : Return list of expenses
 
-        alt Invalid Expense Index (Out of bounds)
-            ExpenseTracker -> User : Print "Invalid index. Unable to delete expense."
-        else Valid Expense Index
-            ExpenseTracker -> ExpenseTracker : Remove expense from list
-            ExpenseTracker -> Expense : Retrieve removed expense
-            activate Expense
-            Expense --> ExpenseTracker : Return deleted expense details
-            deactivate Expense
-            ExpenseTracker -> User : Print "Deleted expense: <expense details>"
-        end
-        deactivate ExpenseTracker
+    alt Index Out of Bounds
+        ExpenseManager -> ErrorMessage : printOutOfBoundsIndex()
+        deactivate ExpenseManager
+        deactivate Parser
+    else Valid Index in Range
+        ExpenseManager -> ExpenseManager : deleteExpense(trackerData, expenseIndex)
+
+        activate ExpenseManager
+        ExpenseManager -> TrackerData : getExpenses()
+        TrackerData --> ExpenseManager : Return list of expenses
+
+        ExpenseManager -> Expense : Remove expense at expenseIndex
+        Expense --> ExpenseManager : Return removedExpense
+
+        ExpenseManager -> SuccessMessage : printDeleteExpense(removedExpense)
+        deactivate ExpenseManager
     end
 end
-deactivate Duke
-
+deactivate ExpenseManager
+deactivate Parser
 @enduml
