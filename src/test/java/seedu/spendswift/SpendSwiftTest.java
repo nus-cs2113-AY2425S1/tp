@@ -679,6 +679,7 @@ class TrackerDataTest {
         assertEquals(1, trackerData.getBudgets().size());
         assertEquals(newBudget, trackerData.getBudgets().get(newCategory));
     }
+}
 
 
 
