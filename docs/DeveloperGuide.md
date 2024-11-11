@@ -201,10 +201,10 @@ The other `AddExpenseCommand` has the similar logic, instead of one more checkin
 1. **execute()**
     - **Returns**: `List<String>`
     - **Process**:
-        1. Validates the input arguments.
-        2. Parses `amount` and `date` fields.
-        3. Instantiates a new `Income` transaction and adds it to `TransactionList`.
-        4. Calls `Storage.saveTransaction()` to persist data.
+        - Validates the input arguments.
+        - Parses `amount` and `date` fields.
+        - Instantiates a new `Income` transaction and adds it to `TransactionList`.
+        - Calls `Storage.saveTransaction()` to persist data.
 
     ![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
 
@@ -233,17 +233,17 @@ The other `ViewExpenseCommand` and `ViewIncomeCommand` has the similar logic.
 1. **execute()**
     - **Returns**: `List<String>`
     - **Process**: As the arguments are optional, the command do a step-by-step filter for each criteria if it found the corresponding arguments
-        1. Create a copy `ArrayList<Transaction> temp` from `transactions` for filtering
-        2. Check the availability of the start date
+        - Create a copy `ArrayList<Transaction> temp` from `transactions` for filtering
+        - Check the availability of the start date
            - If available: `temp` = `temp` filtered by start date
 
-        3. Check the availability of the end date
+        - Check the availability of the end date
            - If available: `temp` = `temp` filtered by end date
 
-        4. Check if the start date is after the end date
+        - Check if the start date is after the end date
            - If yes: throw new exception (as the start date should be before the end date)
 
-        5. Return a list of stringified filtered-transactions
+        - Return a list of stringified filtered-transactions
 
     ![execute](./diagrams/ViewHistoryDiagram/viewhistory-flow-diagram.png)
    
