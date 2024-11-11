@@ -20,36 +20,42 @@
 	This is all the things you can do with me:
 		0. help                              -  Lists out all the available commands and their usage
 	__________________________________________________________________________________
-	The following commands is for working with your recipes list
-		1. list                             -  Lists out all the existing recipes
-		2. add n/name i/ingredients s1/step c/cuisine t/time     -  Adds a new recipe.
+	The following commands is for working with your COOKBOOK
+		1. list                              -  Lists out all the existing recipes
+		2. add n/NAME i/INGREDIENTS... sn/STEPn... [c/CUISINE] [t/TIME]              -  Adds a new recipe.
 			 the cuisine and time parameters are optional
 			 add more ingredients using more i/ tags
 			 add more steps using more sx/ tags, where x starts from 1 and increases one by one
 		3. sort s/name                       -  Sorts the recipes alphabetically by name
 		4. sort s/time                       -  Sorts the recipes by time, in ascending order
-		5. find KEYWORDS                     -  Looks for the keyword in recipes' 
-			 find name             = name
+			 the s/name and s/time MUST be in lowercase
+		5. find [OPTIONS/]KEYWORDS           -  Looks for the keyword in recipes' 
+			 The options is any permutation of n, i and s. Some examples include:
+			 find name             = name (leaving the options blank will default look for the name)
 			 find i/keyword        = ingredients
 			 find ns/keyword       = name or steps
 			 find nis/keyword      = name or ingredients or steps
-		6. edit e/name i/ingredients s1/step c/cuisine t/time    -  Edit an existing recipe
-			 the cuisine and time parameters are optional
-			 add more ingredients using more i/ tags
-			 add more steps using more sx/ tags, where x starts from 1 and increases one by one
-		7. delete n/name                     -  Deletes the recipe of that name
+		6. edit e/NAME [n/NAME] [i/INGREDIENTS...] [sn/STEPn...] [c/CUISINE] [t/TIME]  -  Edit an existing recipe
+			 All parameters are optional. Any parameter you exclude will not be edited (remain unchanged)
+			 The format for adding multiple ingredients and steps are the same as the add command
+			 For ingredients and steps, the entire group of ingredients and steps will be overwritten
+			 You cannot choose specific ingredients or steps to edit! They will be overwritten as a whole.
+			 For cuisine and time, if you write c/ or t/ respectively and leave the CUISINE and TIME empty,
+			 then the current cuisine and/or time parameter(s) will be deleted
+		7. delete n/NAME                     -  Deletes the recipe of that name
 		8. recommend                         -  Ranks recipes based on how many ingredients are available
 		9. random                            -  Picks a recipe at random and shows it to you
 		10. bye                              -  Ends the program
 	__________________________________________________________________________________
-	The following commands is for working with your ingredients list
-		1. new n/name                        -  Add a new ingredient to your list
+	The following commands is for working with your INVENTORY
+		1. new n/INGREDIENT                  -  Add a new ingredient to your inventory
 		2. listI                             -  Lists out all your current ingredients
-		3. findI name                        -  Looks for your ingredient in your ingredients list
-		4. deleteI n/name                    -  Deletes the ingredient of that name
+		3. findI INGREDIENT                  -  Looks for your ingredient in your inventory
+		4. deleteI n/INGREDIENT              -  Deletes the ingredient of that name
 		5. sortI                             -  Sorts your ingredients alphabetically by name
 	__________________________________________________________________________________
 	Got it? Let's get back to cooking.
+	 If you still need more details, go read the User Guide!
 
 	__________________________________________________________________________________
 	__________________________________________________________________________________
