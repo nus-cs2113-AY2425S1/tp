@@ -133,8 +133,10 @@ public class HelpCommandTest {
         String userInput = "help filter";
         helpCommand.execute(userInput);
         String expectedOutput = """
-                The filter function allows users to input a NUS course that they
-                want to map and get a list of the mappable courses from PUs.
+                The filter function allows users to input a NUS course that they want to map
+                and get a list of the mappable courses that includes NUS courses in the format of:
+                Partner University: [PU_NAME]
+                Partner University Course Code: [PU_COURSE_CODE]
                 The format to use this feature is shown below:
                 filter [NUS_COURSE_CODE]
                 For example, filter cs2040
