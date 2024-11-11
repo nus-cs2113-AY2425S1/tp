@@ -27,6 +27,9 @@ public class DataIntegrityChecker extends Command {
     private static final UI ui = new UI();
     private final CourseValidator courseValidator;
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
 
     /** DataIntegrityChecker constructor.*/
     public DataIntegrityChecker() {
