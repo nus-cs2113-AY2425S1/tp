@@ -154,7 +154,7 @@ public class Parser {
         }
 
         // Switch-case structure to handle each command type
-        switch (command) {
+        switch (command.toLowerCase()) {
         case HELP_COMMAND:
             printHelp();
             break;
