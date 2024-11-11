@@ -102,4 +102,8 @@ public class Ui {
     public void showFarewell() {
         out.println(FAREWELL);
     }
+
+    public void showFirstTime(){
+        out.println("First time here, lets get started!");
+    }
 }

@@ -2,7 +2,7 @@
 
 package programme;
 
-import exceptions.ProgrammeExceptions;
+import exceptions.ProgrammeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -82,7 +82,7 @@ public class ProgrammeListTest {
 
     @Test
     void testDeleteProgrammeInvalidIndex() {
-        assertThrows(ProgrammeExceptions.class, () -> programmeList.deleteProgram(5));
+        assertThrows(ProgrammeException.class, () -> programmeList.deleteProgram(5));
 
         assertEquals(2, programmeList.getProgrammeListSize());
     }
@@ -113,7 +113,7 @@ public class ProgrammeListTest {
 
     @Test
     void testGetProgrammeInvalidIndex() {
-        assertThrows(ProgrammeExceptions.class, () -> programmeList.getProgramme(5));
+        assertThrows(ProgrammeException.class, () -> programmeList.getProgramme(5));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class ProgrammeListTest {
 
     @Test
     void testStartProgrammeInvalidIndex() {
-        assertThrows(ProgrammeExceptions.class, () -> programmeList.startProgramme(5));
+        assertThrows(ProgrammeException.class, () -> programmeList.startProgramme(5));
     }
 
     @Test

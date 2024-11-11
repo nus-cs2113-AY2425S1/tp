@@ -51,7 +51,7 @@ public class DeleteExerciseProgrammeCommand extends EditProgrammeCommand {
 
         logger.log(Level.INFO, "DeleteExerciseCommand executed successfully.");
 
-        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseIndex, deletedExercise);
+        String result = String.format(SUCCESS_MESSAGE_FORMAT, exerciseIndex + 1, deletedExercise);
         return new CommandResult(result);
     }
 }

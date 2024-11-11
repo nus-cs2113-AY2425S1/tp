@@ -1,7 +1,7 @@
 // @@author Atulteja
 package water;
 
-import exceptions.WaterExceptions;
+import exceptions.WaterException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,7 +54,7 @@ public class Water {
     public float deleteWater(int index) {
         if (index < 0 || index >= waterList.size()) {
             logger.log(Level.WARNING, "Invalid index for deletion: {0}", index);
-            throw WaterExceptions.doesNotExist();
+            throw WaterException.doesNotExist();
         }
 
         float waterToBeDeleted = waterList.get(index);

@@ -5,7 +5,7 @@ package exceptions;
 /**
  * Represents exceptions related to meal operations in the application.
  */
-public class MealException extends BuffBuddyExceptions {
+public class MealException extends BuffBuddyException {
 
     /**
      * Constructs a new MealException with the specified detail message.
