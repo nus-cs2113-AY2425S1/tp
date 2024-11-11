@@ -228,19 +228,14 @@ public class Logic {
      * @throws FinanceBuddyException If indices are invalid, out of range, or missing.
      */
     public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        String start = commandArguments.get("argument");
         String end = commandArguments.get("/to");
 
-        if (start == null || start.isBlank()) {
-            throw new FinanceBuddyException("Missing index. Please provide a valid index.");
-        }
-
-        if ("all".equalsIgnoreCase(start)) {
+        if ("all".equalsIgnoreCase(commandArguments.get("argument"))) {
             handleDeleteAll();
             return;
         }
+        int startIndex = processIndexToAmend(commandArguments);
 
-        int startIndex = parseIndex(start);
         if (end == null || end.isBlank()) {
             deleteSingleEntry(startIndex);
         } else {
