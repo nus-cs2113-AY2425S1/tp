@@ -104,7 +104,7 @@ public class ArgumentsMap extends HashMap<String, String> {
     /**
      * Gets a required limit and throws an exception if that limit is not provided/ invalid.
      *
-     * @return Price
+     * @return Limit
      * @throws InvalidInputException If limit is not given or is invalid
      */
     public Float getRequiredLimit() throws InvalidInputException {

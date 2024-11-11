@@ -94,8 +94,9 @@ The `ArgumentMap` class extends the `HashMap<String, String>` class with the fol
 | `isRecur`          | Checks if the arguments passed shows that the user wants to access the Recurring Expense List |
 | `getRequired`      | Gets a required argument and throws an exception if that argument is not provided.            |
 | `getRequiredIndex` | Gets a required index and throws an exception if that index is not provided.                  |
-| `getPrice`        | Gets a price and throws an exception if that price is invalid.                                |
+| `getPrice`         | Gets a price and throws an exception if that price is invalid.                                |
 | `getRequiredPrice` | Gets a required price and throws an exception if that price is not provided/ invalid.         |
+| `getRequiredLimit` | Gets a required limit and throws an exception if that limit is not provided/ invalid.         |
 
 
 <u>Design Considerations</u>
