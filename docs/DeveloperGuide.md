@@ -406,14 +406,14 @@ that NUS course is suitable to be mapped overseas in Oceania.
 
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
-Additionally, each course mapping is checked against the current course mapping found in
-our data source file, which contains the university data, to ensure that the course mapping is accurate and is limited 
+Additionally, each course mapping is checked against the current course mappings found in
+our database, to ensure that the course mapping is accurate and is limited 
 to universities in Oceania. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:
 * The `AddCoursesCommand` class extends `Command` class where it overrides the `execute` method for
   custom behaviour.
-* The command first reads a JSON file to obtain the course mapping database via `createJsonObject()` method from the
+* The command first reads a JSON file to obtain the course mapping database via the `createJsonObject()` method from the
   superclass.
 * The `trimString` method then removes the `add` command and checks whether the user gave any input after the command.
   The method would return the trimmed user's input without the `add` command.
@@ -434,7 +434,7 @@ to universities in Oceania. This command hence helps the users to keep track of 
 
 #### Why is it implemented this way
 - The code is separated into distinct methods that addresses a separate concern, achieving Separation of Concerns 
-  principle (SoC). This help achieve better modularity and readability. 
+  principle (SoC). This helps to achieve better modularity and readability. 
 - Each method includes numerous exception handlers to cover as many potential errors and edge cases as possible. 
 - The methods used in course validation is extracted out and placed in the `CourseValidator` class to enhance OOP 
   and improve readability.
@@ -449,7 +449,8 @@ to universities in Oceania. This command hence helps the users to keep track of 
 
 #### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
-Sequence Diagram for AddCourseCommand
+
+Sequence Diagram of AddCourseCommand
 
 ![Course Validator Sequence Diagram](images/CourseValidator.png)
 
