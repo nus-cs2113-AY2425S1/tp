@@ -56,10 +56,12 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 
 ### Contributions to the Developer Guide (Extracts)
 * Added diagrams for Command Parser
-  ![register_command](../diagrams/parser/register-command-sequence.png)
-  ![parse_command](../diagrams/parser/parse-command-sequence.png)
-  ![extract_arguments](../diagrams/parser/extract-arguments-sequence.png)
-  ![getArguments](../diagrams/parser/parse-arguments-activity.png)
+
+    ![register_command](../diagrams/parser/register-command-sequence.png)
+    ![parse_command](../diagrams/parser/parse-command-sequence.png)
+    ![extract_arguments](../diagrams/parser/extract-arguments-sequence.png)
+    ![getArguments](../diagrams/parser/parse-arguments-activity.png)
 
 * Added diagrams for ViewHistoryCommand
-  ![execute](../diagrams/ViewHistoryDiagram/viewhistory-flow-diagram.png)
+
+    ![execute](../diagrams/ViewHistoryDiagram/viewhistory-flow-diagram.png)
