@@ -1,6 +1,7 @@
 package seedu.exchangecoursemapper.storage;
 
 import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.ui.UI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,9 @@ import static seedu.exchangecoursemapper.constants.Messages.INDEX_OUT_OF_BOUNDS;
  */
 public class CourseRepository {
 
+
     public static final String MYLIST_FILE_PATH = "./data/myList.json";
+    private static final UI ui = new UI();
     private static final Logger logger = Logger.getLogger(CourseRepository.class.getName());
 
     static {
@@ -58,13 +61,8 @@ public class CourseRepository {
         return dataIntegrityChecker.validateFileIntegrity(lines);
     }
 
-    /**
-     * Returns whether duplicates course mappings are found in the `myList.json` file.
-     *
-     * @return true if duplicates course mappings are found and removed,otherwise false.
-     */
-    public boolean hasDuplicateEntries() {
-        return dataIntegrityChecker.checkForDuplicateCourses(loadAllCourses(), new Storage());
+    public void removeDuplicateEntries() {
+        dataIntegrityChecker.removeDuplicateCourses(loadAllCourses(), new Storage());
     }
 
     /**
@@ -89,8 +87,21 @@ public class CourseRepository {
      * @param course to be added for storage, represented by a Course object.
      */
     public void addCourse(Course course) {
+        // Load all existing courses
+        List<Course> existingCourses = loadAllCourses();
+
+        // Check if the course already exists
+        for (Course existingCourse : existingCourses) {
+            if (existingCourse.equals(course)) {
+                ui.printDuplicateCourseNotAdded();
+                return; // Exit the method if a duplicate is found
+            }
+        }
+
+        // If no duplicate is found, add the new course
         String courseEntry = course.formatOutput();
         fileHandler.appendLine(courseEntry);
+        ui.printAddMessage(courseEntry);
         logger.log(Level.INFO, COURSE_ENTRY, courseEntry);
     }
 

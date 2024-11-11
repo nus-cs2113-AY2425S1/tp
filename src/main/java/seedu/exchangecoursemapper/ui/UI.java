@@ -47,6 +47,7 @@ import static seedu.exchangecoursemapper.constants.Messages.NOT_RECOGNIZED;
 import static seedu.exchangecoursemapper.constants.Messages.DUPLICATE_FOUND;
 import static seedu.exchangecoursemapper.constants.Messages.DUPLICATE_REMOVED;
 import static seedu.exchangecoursemapper.constants.Messages.ACCEPTED_FORMAT;
+import static seedu.exchangecoursemapper.constants.Messages.ADD_DUPLICATE;
 import static seedu.exchangecoursemapper.constants.Regex.COLON;
 
 public class UI {
@@ -123,8 +124,8 @@ public class UI {
      *
      * @param course a Course object that user successfully adds to storage.
      */
-    public void printAddMessage(Course course) {
-        System.out.println("You have successfully added the course: " + course.formatOutput());
+    public void printAddMessage(String course) {
+        System.out.println("You have successfully added the course: " + course);
     }
 
 
@@ -294,6 +295,9 @@ public class UI {
         System.out.println(CHECK_SPELLING);
         System.out.println(LINE_SEPARATOR);    }
 
+    public void printDuplicateCourseNotAdded(){
+        System.out.println(ADD_DUPLICATE);
+    }
 
     public void printLineSeparator() {
         System.out.println(LINE_SEPARATOR);
