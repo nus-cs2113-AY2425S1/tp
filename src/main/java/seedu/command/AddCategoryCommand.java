@@ -50,6 +50,10 @@ public class AddCategoryCommand extends Command {
         }
 
         String categoryName = arguments.get("");
+        if (categoryName == "yes" || categoryName == "no") {
+            return List.of(CommandResultMessages.ADD_CATEGORY_FAIL + ErrorMessages.INVALID_CATEGORY_NAME);
+        }
+
         Category category = new Category(categoryName);
         Category temp = categoryList.addCategory(category);
 
