@@ -2,24 +2,29 @@
 
 ## Table of Contents
 1. [Acknowledgements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#acknowledgements)
-2. [Design & Implementation](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#design--implementation)
+2. [Notes](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#notes)
+3. [Design & Implementation](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#design--implementation)
     - [Category](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#category)
+    - [Transaction - Expense - Income](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionexpenseincome)
     - [TransactionList](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionlist)
     - [Command](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command)
     - [AddIncomeCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#addincomecommand)
+    - [ViewHistoryCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#viewhistorycommand)
     - [Command Parser](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command-parser)
-3. [Product Scope](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#product-scope)
+4. [Product Scope](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#product-scope)
     - [Target User Profile](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#target-user-profile)
     - [Value Proposition](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#value-proposition)
-4. [User Stories](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#user-stories)
-5. [Non-Functional Requirements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#non-functional-requirements)
-6. [Glossary](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#glossary)
-7. [Instructions for Manual Testing](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#instructions-for-manual-testing)
+5. [User Stories](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#user-stories)
+6. [Non-Functional Requirements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#non-functional-requirements)
+7. [Glossary](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#glossary)
+8. [Instructions for Manual Testing](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#instructions-for-manual-testing)
 
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
 - The `Storage` uses external library Gson by Google from [Gson](https://github.com/google/gson.git), with changes to get on well with the current project
 
+## Notes
+- The Developer guide doesn't contain all the classes implemented in the final product, however, it contains the basic and important components, and some demonstration classes for providing an insight of how the product works.
 ## Design & implementation
 ### Category
 The `Category` class encapsulates the name of a category and provides functionality for equality checks, hash code generation, and string representation. It serves as the foundational representation of a category.
@@ -59,6 +64,39 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Returns**: The formatted description of the category
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
+### Transaction - Expense - Income
+The `Transaction` class is an abstract class to provide the similar behavior for Income and Expense class. It serves as the foundational representation of a transaction.
+
+The `Expense` class stores the data of an expense and gives string presentation function. It serves as the representation of an expense.
+
+The `Income` class stores the data of an income and gives string presentation function. It serves as the representation of an income.
+
+#### Class attributes
+1. **description**: String
+   - Description: Represents the transaction description.
+
+2. **dateTimeString**: String
+   - Description: Represents the date and time for the transaction. As we use Gsom library for parsing JSON data, we store this attribute as a String.
+
+3. **amount**: Double
+   - Description: Represents the amount of a transaction.
+
+4. **category**: Category
+   - Description: Private attribute for `Expense` class, to show the category of that expense.
+   
+#### Class main Methods
+1. **public LocalDateTime getDate()**
+   - **Returns**: The parsed LocalDateTime of the Transaction as date time is primarily stored as a String
+
+2. **public String toString()**
+   - **Returns**: The formatted description of the transaction
+   - **Process**: Generates a string representation of the `Transaction` object. This method is overridden by inherited classes to get their representation string.
+
+3. **public String getTransactionType()**
+   - **Returns**: The type the transaction
+   - **Process**: This method is overridden by inherited classes to get their own type string. Used by the Storage to parse specific inherited classes into JSON file
+   
+    ![Transaction](./diagrams/transactionclass/expense-income-class.png)
 
 
 ### TransactionList
@@ -74,9 +112,9 @@ operations that enable user to add, delete, search by (date/ category/ keywords)
 3. **Search Transactions**: Search `Transaction` in the `TransactionList` based on multiple keywords, date range or `category` of `Transaction`.
 
 #### Class attributes
-1. **transactions: `ArrayList<Transaction>**
+1. **transactions: `ArrayList&lt;Transaction&gt;**
     - Description: A List of `Transaction` objects stored that supports List operations.
-2. **InvertedIndex: `Map<String, List<Transaction>>**
+2. **InvertedIndex: `Map&lt;String, List&lt;Transaction&gt;&gt;**
     - Description: An inverted index implemented as a map that associates each unique keyword from transaction descriptions with a list of Transaction objects containing that keyword in their descriptions.
 
 #### Class main methods
@@ -146,6 +184,7 @@ The `Command` class is an abstract class that provide a common behavior that oth
       
 ### AddIncomeCommand
 The `AddIncomeCommand` class inherits Command class, handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
+The other `AddExpenseCommand` has the similar logic, instead of one more checking step for category.
 
 ![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
 
@@ -164,10 +203,10 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
 1. **execute()**
     - **Returns**: `List<String>`
     - **Process**:
-        1. Validates the input arguments.
-        2. Parses `amount` and `date` fields.
-        3. Instantiates a new `Income` transaction and adds it to `TransactionList`.
-        4. Calls `Storage.saveTransaction()` to persist data.
+        - Validates the input arguments.
+        - Parses `amount` and `date` fields.
+        - Instantiates a new `Income` transaction and adds it to `TransactionList`.
+        - Calls `Storage.saveTransaction()` to persist data.
 
     ![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
 
@@ -178,6 +217,38 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
         - `date`: Date when the income was received.
     - **Returns**: A new `Income` instance.
 
+### ViewHistoryCommand
+The `ViewHistoryCommand` class inherits Command class, handles the logic for viewing the current `TransactionList` by parsing input arguments and display to the user accordingly.
+The other `ViewExpenseCommand` and `ViewIncomeCommand` has the similar logic.
+
+#### Class responsibilities
+
+1. **Filtering transaction list**: The command filter the transaction list and find the transaction that meets the criteria
+3. **Return filtered string list**: The command return the filtered list of transactions in string format for displaying.
+
+#### Class attributes
+1. **transactions**: `TransactionList`
+    - Description: Stores the current list of all transactions.
+
+#### Class main methods
+
+1. **execute()**
+    - **Returns**: `List<String>`
+    - **Process**: As the arguments are optional, the command do a step-by-step filter for each criteria if it found the corresponding arguments
+        - Create a copy `ArrayList<Transaction> temp` from `transactions` for filtering
+        - Check the availability of the start date
+           - If available: `temp` = `temp` filtered by start date
+
+        - Check the availability of the end date
+           - If available: `temp` = `temp` filtered by end date
+
+        - Check if the start date is after the end date
+           - If yes: throw new exception (as the start date should be before the end date)
+
+        - Return a list of stringified filtered-transactions
+
+    ![execute](./diagrams/ViewHistoryDiagram/viewhistory-flow-diagram.png)
+   
 ### Command Parser
 The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic. There is only one Command Parser living through a session.
 
@@ -637,7 +708,7 @@ java -jar uNivUSaver.jar # Start the program.
 **Expected output:**  
 - The system displays the progress towards the budget for 2024-11.
 
-#### Test case 2: With no input
+#### Test case 2: With no month
 
 **Prerequisites:** The system should have some budget
 
