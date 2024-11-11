@@ -808,6 +808,8 @@ The user is able to organise and manage his events more quickly and efficiently 
       
       Expected: The terminal will print a welcome message and prompt for user input.
 
+   <div style="page-break-after: always;"></div>
+
 ### Adding an event
 
 1. Adding an `Event` to the `Event` list
@@ -823,7 +825,6 @@ The user is able to organise and manage his events more quickly and efficiently 
 
    4. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u top`  
       Expected: No `Event` is added. An error message is shown.
-   <div style="page-break-after: always;"></div>
 
 2. Adding a duplicate `Event` to the `Event` list
 
