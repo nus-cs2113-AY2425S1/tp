@@ -471,7 +471,7 @@ cs2040 | the university of western australia | cits2200
 | **Commands**     | `commands`                                                                       |
 | **Help**         | `help [COMMAND]`                                                                 |
 | **List Schools** | `list schools`                                                                   |
-| **list courses** | `list courses [PARTNER_UNIVERISTY_NAME]`                                         |
+| **List courses** | `list courses [PARTNER_UNIVERISTY_NAME]`                                         |
 | **Obtain**       | `obtain [PARTNER_UNIVERSITY_NAME] /[CONTACT_TYPE]`                               |
 | **Filter**       | `filter [NUS_COURSE_CODE]`                                                       |
 | **Add**          | `add [NUS_COURSE_CODE] /pu [PARTNER_UNIVERSITY_NAME] /coursepu [PU_COURSE_CODE]` |
