@@ -66,9 +66,11 @@ public class CompareMappedCommand extends CheckInformationCommand {
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE_COMPARE_MAPPED);
 
-        if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
+        if(!courseRepository.isFileValid()){
             return;
         }
+
+        courseRepository.removeDuplicateEntries();
 
         String[] inputs = userInput.split("pu/");
         if (inputs.length != 3) {

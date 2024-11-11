@@ -75,16 +75,7 @@ public class DataIntegrityChecker extends Command {
         return isValid;
     }
 
-    /**
-     * Returns whether duplicate entries are found in the provided List of courses mappings.
-     * If any duplicates are found, the duplicated course mapping is printed out
-     * and is subsequently removed from the `myList.json` file.
-     *
-     * @param courses the list of courses mappings to check for duplicates.
-     * @param storage the Storage instance used to save the updated list of non-duplicate courses.
-     * @return true if duplicates course mappings are found and removed,otherwise false.
-     */
-    public boolean checkForDuplicateCourses(List<Course> courses, Storage storage) {
+    public void removeDuplicateCourses(List<Course> courses, Storage storage) {
         Set<String> uniqueCourses = new HashSet<>();
         List<Course> nonDuplicateCourses = new ArrayList<>();
         List<String> removedDuplicates = new ArrayList<>();
@@ -108,9 +99,6 @@ public class DataIntegrityChecker extends Command {
             // Save the non-duplicate courses back to the file
             storage.saveCourses(nonDuplicateCourses);
             ui.printRemovedConfirmation();
-            return true;
-        } else {
-            return false;
         }
     }
 
