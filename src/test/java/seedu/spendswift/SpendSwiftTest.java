@@ -334,8 +334,6 @@ class ExpenseManagerTest {
 class BudgetManagerTest {
 
 
-    BudgetManager budgetManager = new BudgetManager();
-    TrackerData trackerData = new TrackerData();
 
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
