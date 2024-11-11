@@ -19,6 +19,7 @@ import static fittrack.logger.FitTrackLogger.setupLogger;
 import static fittrack.messages.Messages.EXIT_COMMAND;
 import static fittrack.storage.Storage.initialiseSaveFile;
 import static fittrack.storage.Storage.loadSaveFile;
+import static fittrack.storage.Storage.updateSaveFile;
 import static fittrack.ui.Ui.printExitMessage;
 import static fittrack.ui.Ui.printGreeting;
 import static fittrack.ui.Ui.printHelp;
@@ -85,6 +86,7 @@ public class FitTrack {
                 validUser(userInfo[0], userInfo[1]);
                 user = new User(userInfo[0], userInfo[1]);
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
+                updateSaveFile(user, sessionList, goalList, reminderList,  foodWaterList);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
