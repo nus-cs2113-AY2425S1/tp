@@ -23,6 +23,10 @@ public class Storage {
         courseRepository.deleteCourse(index);
     }
 
+    public void saveCourses(List <Course> courses) {
+        courseRepository.saveCourses(courses);
+    }
+
     public Course getCourse(int index) {
         return courseRepository.getCourse(index);
     }

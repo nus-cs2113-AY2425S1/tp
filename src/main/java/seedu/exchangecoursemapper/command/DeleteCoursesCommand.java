@@ -47,7 +47,7 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
-            if(!courseRepository.isFileValid()){
+            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
                 return;
             }
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);

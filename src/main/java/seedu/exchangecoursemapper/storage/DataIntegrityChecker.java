@@ -7,7 +7,10 @@ import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +23,7 @@ public class DataIntegrityChecker extends Command {
     private static final Logger logger = Logger.getLogger(DataIntegrityChecker.class.getName());
     private static final UI ui = new UI();
     private final CourseValidator courseValidator;
+
 
     public DataIntegrityChecker() {
         this.courseValidator = new CourseValidator();
@@ -56,6 +60,35 @@ public class DataIntegrityChecker extends Command {
             }
         }
         return isValid;
+    }
+
+    public boolean checkForDuplicateCourses(List<Course> courses, Storage storage) {
+        Set<String> uniqueCourses = new HashSet<>();
+        List<Course> nonDuplicateCourses = new ArrayList<>();
+        List<String> removedDuplicates = new ArrayList<>();
+
+        for (Course course : courses) {
+            String courseEntry = course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | " + course.getPuCourseCode();
+            if (uniqueCourses.add(courseEntry)) {
+                nonDuplicateCourses.add(course);
+            } else {
+                removedDuplicates.add(courseEntry);
+            }
+        }
+
+        if (!removedDuplicates.isEmpty()) {
+            ui.printDuplicateFoundAndRemoved();
+            for (String duplicate : removedDuplicates) {
+                System.out.println(duplicate);
+            }
+
+            // Save the non-duplicate courses back to the file
+            storage.saveCourses(nonDuplicateCourses);
+            ui.printRemovedConfirmation();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
