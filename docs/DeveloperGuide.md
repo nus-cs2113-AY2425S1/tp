@@ -103,8 +103,7 @@ without disrupting other parts of the system, supporting a scalable and well-org
 
 ---
 
-## Sequence Diagrams
-### 1. add-expense
+## add-expense
 **Overview**
 
 The sequence diagram represents the flow for adding a new expense in SpendSwift when the user inputs an `add-expense` command. 
@@ -119,18 +118,16 @@ For simplification, the UI package is not included.
 - `ExpenseManager` uses `InputParser` to extract and validate each component (name, amount, category).
 
 2. Validation
-
 - If any component is missing, non-numeric, or invalid (like a negative amount), `ExpenseManager` stops and returns early.
 
 3. Formatting and Category Management
-
 - If the components are valid, `ExpenseManager` formats the `category` name using `Format`.
 - Then, it searches for an existing category in `TrackerData`. If the category exists, it retrieves it; otherwise, it creates a new `Category`.
 
 4. Expense Creation
-
 - `ExpenseManager` creates an `Expense` instance with the validated name, amount, and category, then updates `TrackerData` with the new lists of expenses and categories.
-### 2. delete-expense
+
+## delete-expense
 **Overview**
 
 The sequence diagram represents the flow for deleting an existing expense in SpendSwift when the user inputs an `delete-expense` command.
@@ -154,7 +151,7 @@ The sequence diagram represents the flow for deleting an existing expense in Spe
 - If `expenseIndex` is out of bounds (e.g., index larger than the list size), `ErrorMessage` informs the user, and the process stops.
 - If the index is within bounds, `ExpenseManager` removes the expense at `expenseIndex` and calls `SuccessMessage` to confirm the deletion to the user.
 
-### 3. add-category
+## add-category
 **Overview**
 
 The sequence diagram represents the flow for adding a new category in SpendSwift when the user inputs an `add-category` command.
@@ -179,7 +176,7 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
    - This new category is added to the categories list, which is then saved back to `TrackerData`.
    - A success message is displayed indicating that the category was added successfully.
 
-### 4. delete-category
+## delete-category
 **Overview**
 
 The sequence diagram represents the flow for deleting a category with no expense tagged to it in SpendSwift when the user inputs an `delete-category` command.
@@ -209,7 +206,7 @@ The sequence diagram represents the flow for deleting a category with no expense
 6. Deletion Execution
 If no expenses are tagged with the category, `CategoryManager` updates `TrackerData` by removing the category and calls `SuccessMessage` to confirm the deletion to the user.
 
-### 5. tag-expense
+## tag-expense
 **Overview**
 
 The sequence diagram represents the flow for tagging an expense to an existing category in SpendSwift when the user inputs an `tag-expense` command.
@@ -239,7 +236,7 @@ The sequence diagram represents the flow for tagging an expense to an existing c
 - After tagging, `ExpenseManager` updates the expenses list in `TrackerData` to save the changes.
 - A success or error message is displayed to the user, depending on the result of the tagging operation.
 
-### 6. set-budget
+## set-budget
 **Overview**
 
 The sequence diagram represents the flow for setting a budget limit on an existing category in SpendSwift when the user inputs an `set-budget` command.
@@ -264,7 +261,7 @@ The sequence diagram represents the flow for setting a budget limit on an existi
   - If the category already has a budget, `BudgetManager` updates the budget with the new limit.
   - Otherwise, `BudgetManager` creates a new budget instance and adds it to the budgets map in `TrackerData`.
 - `SuccessMessage` displays either an update or new budget message, depending on whether the budget was modified or newly created.
-### 7. view-expenses
+## view-expenses
 **Overview**
 
 The sequence diagram represents the flow for printing all the expenses by categories in SpendSwift when the user inputs an `view-expenses` command.
@@ -288,7 +285,7 @@ The sequence diagram represents the flow for printing all the expenses by catego
 - For each category:
   - If it has expenses, they are printed in a structured format.
   - If it has no expenses, a "No expense" message is printed for that category.
-### 8. view-category
+## view-category
 **Overview**
 
 The sequence diagram represents the flow for printing all the categories in SpendSwift when the user inputs an `view-category` command.
@@ -311,7 +308,7 @@ The sequence diagram represents the flow for printing all the categories in Spen
 
 4. Return Flow
 - `CategoryManager` completes its task and returns control back through `Parser` to `SpendSwift`, which then completes the process.
-### 9. view-budget
+## view-budget
 **Overview**
 
 The sequence diagram represents the flow for printing all the budgets in SpendSwift when the user inputs an `view-budget` command.
@@ -337,7 +334,7 @@ The sequence diagram represents the flow for printing all the budgets in SpendSw
 5. Checking Categories Without Budgets
 - Finally, `BudgetManager` checks if there are categories with expenses but no budget set. For each such category, it displays a message using `SuccessMessage` indicating that no budget is set.
 
-### 10. help
+## help
 **Overview**
 
 The sequence diagram represents the flow for printing all the help messages in SpendSwift when the user inputs an `help` command.
