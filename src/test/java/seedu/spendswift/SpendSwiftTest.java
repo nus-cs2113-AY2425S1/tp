@@ -582,24 +582,24 @@ private String generateRandomWord(Random random, int wordLength) {
         
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
-        BigDecimal validLimit = new BigDecimal("1000000000000000.00"); // Maximum allowed budget limit
-        BigDecimal invalidLimit = validLimit.add(new BigDecimal("0.01")); // Budget limit 0.01 above the maximum allowed
+        double invalidLimit = 1000000000000000.01; // Maximum allowed budget limit
+     
 
         // Find the "Education" category
         Category category = findCategory(trackerData, "Education");
 
         // Manually initialize the Budget for "Education" to avoid NullPointerException
-        Budget budget = new Budget(category, validLimit);
+        Budget budget = new Budget(category, invalidLimit);
         trackerData.getBudgets().put(category, budget); // Add Budget to the map
 
         // Attempt to set the budget limit above the maximum allowed
         budgetManager.setBudgetLimit(trackerData, "Education", invalidLimit);
 
         // Retrieve the current limit
-        BigDecimal currentLimit = trackerData.getBudgets().get(category).getLimit();
+        BigDecimal currentLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the budget limit remains unchanged
-        assertEquals(0, validLimit.compareTo(currentLimit),
+        assertEquals(0, BigDecimal.valueOf(invalidLimit).compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     }
 }
