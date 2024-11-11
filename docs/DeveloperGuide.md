@@ -26,6 +26,69 @@
 ## Notes
 - The Developer guide doesn't contain all the classes implemented in the final product, however, it contains the basic and important components, and some demonstration classes for providing an insight of how the product works.
 
+## High-level Architecture
+![Architecture](./diagrams/highArchitecture/high_level_architecture.png)
+
+### **User interaction:**
+
+- **User - UI**:
+    - The user interacts with the **UI** component via the CLI. This is where commands are input by the user.
+    - The **UI** displays the results of the commands processed by the system to the user.
+
+### **UI Layer:**
+
+- **Main - UI**:
+    - The **Main** class calls the **UI** layer to get user input and display messages. It's a central point that manages the flow of execution.
+    - **UI** receives the user input and then sends it to the **Main** class for further processing.
+
+### **Command handling layer:**
+- **Main - Parser**:
+    - The **Main** class sends the user input (command) to the **Parser**, which is responsible for parsing the string to get correct command object and extract arguments.
+
+- **Parser - Command**:
+    - The **Parser** identifies the appropriate **Command** class based on the input, returning a specific command object (e.g., `AddExpenseCommand`, `ViewTotalCommand`, etc.).
+
+- **Main - Command**:
+    - **Main** then invokes the `execute()` method on the appropriate **Command**. The **Command** is responsible for processing the business logic related to the user request.
+
+### **Data layer:**
+
+- **Command - TransactionList**:
+    - **TransactionList** stores and manages all transactions (expenses and incomes). **Commands** interact with **TransactionList** to retrieve or modify transactions as needed (e.g., adding an expense, viewing a transaction).
+
+- **TransactionList - Transaction**:
+    - **TransactionList** contains individual **Transaction** objects. Each transaction represents a financial action (e.g., an expense or income), with details such as amount, description, date, or category. TransactionList provides methods to modify the list.
+
+- **Command - CategoryList**:
+    - **CategoryList** stores the categories used by transactions. **Commands** may interact with **CategoryList** to retrieve categories or modify them based on user input.
+
+- **CategoryList - Category**:
+    - **CategoryList** contains **Category** objects. Each category represents a classification for transactions, such as "Food," "Entertainment," etc. CategoryList provides methods to modify the list.
+  
+- **Command - BudgetTracker**:
+    - **BudgetTracker** handles the budgeting logic, ensuring that the user’s spending is within their defined budget. **Commands** can query **BudgetTracker** to get the current budget status or modify it.
+
+- **Command - Storage**:
+    - The **Command** interacts with **Storage** after execution to save data. For example, if a command requires adding a new transaction, the **Command** will use **Storage** to save that transaction to the file system.
+
+- **Main - Storage**:
+    - The **Main** class utilizes **Storage** to read the data on initialization.
+
+- **Storage - TransactionList, CategoryList, BudgetTracker**:
+    - **Storage** is responsible for reading and saving data to and from persistent storage (files). It manages interactions with the `transactions.json`, `categories.json`, and `budgets.json` files.
+    - **Storage** interacts with **TransactionList**, **CategoryList**, and **BudgetTracker** to load and save the relevant data.
+
+### **Persistent storage (Editable .json files):**
+
+- **transactions.json - Storage**:
+    - **transactions.json** is the file where all transaction data is stored. **Storage** interacts with this file to read and save transactions data.
+
+- **budgets.json - Storage**:
+    - **budgets.json** is the file where all user's budget data is stored. **Storage** interacts with this file to read and save budgets data.
+
+- **categories.json - Storage**:
+    - **categories.json** is the file contains the list of categories used to classify expenses (a subclass of transaction). **Storage** interacts with this file to load and save categories data.
+
 ## Design & implementation
 ### Category
 The `Category` class encapsulates the name of a category and provides functionality for equality checks, hash code generation, and string representation. It serves as the foundational representation of a category.
