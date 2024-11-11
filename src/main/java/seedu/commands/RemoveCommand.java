@@ -18,7 +18,7 @@ public class RemoveCommand extends UpdateCommand {
                     return;
                 }
                 String value = words[INDEX_DATA].trim();
-                String removedValue = internships.removeField(internshipIndex, field, value);
+                String removedValue = internshipsList.removeField(internshipIndex, field, value);
                 uiCommand.addUpdatedField(field, removedValue, "remove");
                 break;
             case "status":
