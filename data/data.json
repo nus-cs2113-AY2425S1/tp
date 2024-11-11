@@ -4,62 +4,27 @@
     "programmeList": []
   },
   "history": {
-    "12-12-2024": {
-      "day": {
-        "name": "ONE",
-        "exercises": [
-          {
-            "sets": 3,
-            "reps": 12,
-            "weight": 30,
-            "calories": 200,
-            "name": "Bench_Press"
-          },
-          {
-            "sets": 3,
-            "reps": 12,
-            "weight": 50,
-            "calories": 200,
-            "name": "Squat"
-          }
-        ]
-      },
+    "12-01-2025": {
       "mealList": {
         "meals": [
           {
-            "calories": 560,
-            "name": "pasta"
+            "calories": 500,
+            "name": "test"
           }
         ]
       },
       "water": {
-        "waterList": [
-          300.0
-        ]
+        "waterList": []
       }
     },
-    "06-11-2024": {
-      "day": {
-        "name": "ONE",
-        "exercises": [
+    "11-11-2024": {
+      "mealList": {
+        "meals": [
           {
-            "sets": 3,
-            "reps": 12,
-            "weight": 30,
-            "calories": 200,
-            "name": "Bench_Press"
-          },
-          {
-            "sets": 3,
-            "reps": 12,
-            "weight": 50,
-            "calories": 200,
-            "name": "Squat"
+            "calories": 500,
+            "name": "test"
           }
         ]
-      },
-      "mealList": {
-        "meals": []
       },
       "water": {
         "waterList": []
