@@ -3,7 +3,6 @@
 ## Acknowledgements
 
 Formatting of this Developer's Guide was done with reference to [AddressBook-Level3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html).
->>>>>>> 89c56bd64009a0c4a0c500a024d4ac10e9811766
 
 ## Design & implementation
 
