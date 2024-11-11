@@ -31,6 +31,10 @@ public class TopicManager {
         this.cli = cli;
     }
 
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
     /**
      * Retrieves an existing topic by name or creates a new one if it doesn't exist.
      * @param topicName The name of the topic to retrieve or create.

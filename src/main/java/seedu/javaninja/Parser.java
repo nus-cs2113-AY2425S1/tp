@@ -37,12 +37,9 @@ public class Parser {
             cli.printEnclosure();
             break;
         case "select":
-            String[] parts = input.split(" ", 2);
-            if (parts.length > 1) {
-                quizManager.selectQuizToAttempt(parts[1].trim());
-            } else {
-                cli.printMessage("Please provide a topic to select.");
-            }
+            cli.printEnclosure();
+            quizManager.handleQuizSelection(input);
+            cli.printEnclosure();
             break;
         case "review":
             cli.printEnclosure();

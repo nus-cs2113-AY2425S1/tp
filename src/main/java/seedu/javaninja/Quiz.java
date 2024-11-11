@@ -18,6 +18,7 @@ public class Quiz {
     private QuizTimer quizTimer;          // Timer to track the quiz's time limit
     private Cli cli;                      // CLI instance for user interaction
     private int questionLimit;            // Limit on the number of questions in the quiz
+    private boolean isTimed;
 
     /**
      * Constructs a new `Quiz` instance with the specified topic and CLI instance.
@@ -35,6 +36,7 @@ public class Quiz {
         this.currentQuestionIndex = 0;
         this.correctAnswers = 0;
         questionLimit = 0;
+        this.isTimed = false;
     }
 
     /**
@@ -48,7 +50,10 @@ public class Quiz {
     public void start(int timeLimitInSeconds, int questionLimit) {
         this.questionLimit = questionLimit;
         List<Question> questions = topic.getRandomQuestions(questionLimit);
-        quizTimer.startTimer(timeLimitInSeconds);
+        if (timeLimitInSeconds > 0) {
+            quizTimer.startTimer(timeLimitInSeconds);
+            isTimed = true;
+        }
 
         if (questions.isEmpty()) {
             throw new IllegalStateException("Cannot start a quiz with no questions.");
@@ -81,7 +86,9 @@ public class Quiz {
             currentQuestionIndex++;
         }
 
-        quizTimer.cancelTimer();
+        if (timeLimitInSeconds > 0) {
+            quizTimer.cancelTimer();
+        }
         cli.printMessage("Quiz finished. Your score is: " + getScore() + "%");
     }
 
@@ -97,7 +104,7 @@ public class Quiz {
             cli.printMessage("Enter your answer: ");
             String answer = cli.readInput();
 
-            if (quizTimer.isTimeUp()) {
+            if (isTimed && quizTimer.isTimeUp()) {
                 break;
             }
 

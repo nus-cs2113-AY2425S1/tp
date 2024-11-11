@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  */
 public class QuizManager {
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
-    private QuizSession quizSession;       // Manages each quiz session
+    private QuizGenerator quizSession;       // Manages each quiz session
     private QuizResults quizResults;       // Stores and retrieves quiz results
     private TopicManager topicManager;     // Manages topics and flashcards
     private Cli cli;                       // CLI instance for user interaction
@@ -24,6 +24,7 @@ public class QuizManager {
         this.cli = cli;
         topicManager = new TopicManager(cli);
         quizResults = new QuizResults();
+        quizSession = new QuizGenerator(topicManager, cli);
 
         loadDataFromFile(); // Load questions, flashcards, and previous results from files
     }
@@ -33,23 +34,56 @@ public class QuizManager {
      *
      * @param topicName The name of the topic for the quiz session.
      */
-    public void selectQuizToAttempt(String topicName) {
-        if (topicName == null || topicName.trim().isEmpty()) {
-            logger.warning("Invalid input. Please provide a topic name.");
+    public void handleQuizSelection(String input) {
+        QuizType quizType = QuizType.UNTIMED; // Default to untimed
+        String topic = null;
+
+        String[] parts = input.split(" ");
+        for (int i = 1; i < parts.length; i++) {
+            switch (parts[i]) {
+            case "/d":
+                if (i + 1 < parts.length && QuizType.isValidType(parts[i + 1].toLowerCase())) {
+                    quizType = QuizType.valueOf(parts[i + 1].toUpperCase());
+                    i++; // Skip next part as it's already read
+                } else {
+                    cli.printMessage("Please specify 'timed' or 'untimed' after /d.");
+                    return;
+                }
+                break;
+            case "/t":
+                if (i + 1 < parts.length) {
+                    topic = parts[i + 1].trim().equalsIgnoreCase("random") ? "random" : parts[i + 1].trim();
+                    i++;
+                } else {
+                    cli.printMessage("Please specify a topic after /t.");
+                    return;
+                }
+                break;
+            }
+        }
+
+        if (topic == null) {
+            cli.printMessage("Please provide a topic name using /t.");
             return;
         }
-        Topic selectedTopic = topicManager.getTopic(topicName);
 
-        if (selectedTopic == null) {
-            logger.warning("No such topic: " + topicName);
-            return;
+        if (topic.equalsIgnoreCase("random")) {
+            quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
+        } else {
+            if (quizType == QuizType.TIMED) {
+                quizSession.selectTimedQuiz(topic);
+            } else {
+                quizSession.selectUntimedQuiz(topic);
+            }
         }
+    }
 
-        quizSession = new QuizSession(cli);
-        quizSession.startQuiz(selectedTopic);
+    private enum QuizType {
+        TIMED, UNTIMED;
 
-        // After the quiz session is completed, add results and display the score
-        addResultsAndPrintScore();
+        public static boolean isValidType(String type) {
+            return type.equalsIgnoreCase("timed") || type.equalsIgnoreCase("untimed");
+        }
     }
 
     /**
@@ -126,9 +160,9 @@ public class QuizManager {
      *
      * @return The active or newly created `QuizSession` instance.
      */
-    public QuizSession getQuizSession() {
+    public QuizGenerator getQuizSession() {
         if (this.quizSession == null) {
-            this.quizSession = new QuizSession(cli);
+            this.quizSession = new QuizGenerator(topicManager, cli);
         }
         return this.quizSession;
     }
