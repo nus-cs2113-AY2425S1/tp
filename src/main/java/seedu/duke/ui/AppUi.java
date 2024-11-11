@@ -63,10 +63,9 @@ public class AppUi {
      * Displays the modify budget message when user keys in the budget command.
      * Asks if user would like to modify their existing budget
      */
-    public void displayModifyBudgetMessage(double amount) {
+    public void displayBudgetResetMessage() {
         System.out.println(Commons.LINE_SEPARATOR);
-        System.out.println("Your current budget is: " + String.format("$ %.2f", amount));
-        System.out.println("Would you like to modify your budget? (yes/no)");
+        System.out.println("Budget has been deleted.");
         System.out.println(Commons.LINE_SEPARATOR);
     }
 
@@ -83,6 +82,18 @@ public class AppUi {
      */
     public void displayBudgetBalanceExceededMessage(double amount) {
         System.out.println("You have exceeded your monthly budget of: " + String.format("$ %.2f", amount) +"!");
+    }
+
+    /**
+     * Displays a message indicating the budget has been successfully set.
+     */
+    public void displayBudgetSetMessage(double budget, double balance) {
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("Your budget has successfully been set to: " +
+                String.format("$ %.2f", budget));
+        System.out.println("Your current monthly balance is: " +
+                String.format("$ %.2f", balance));
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 
     /**
