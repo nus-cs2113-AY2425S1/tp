@@ -147,6 +147,13 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
    - A success message is displayed indicating that the category was added successfully.
 
 ### 4. delete-category
+**Overview**
+
+The sequence diagram represents the flow for deleting a category with no expense tagged to it in SpendSwift when the user inputs an `delete-category` command.
+
+![delete-category](sequencediagrams/DeleteCategory.png)
+
+**Implementation**
 ### 5. tag-expense
 **Overview**
 
