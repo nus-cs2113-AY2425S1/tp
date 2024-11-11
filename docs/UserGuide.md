@@ -119,6 +119,22 @@ Example:
 
 ![add-category](userguidepictures/add-category.png)
 
+### Delete a Category: delete-category
+Delete an existing category, with no expenses tagged to it.
+
+Format:
+`delete-category c/CATEGORY`
+
+- `CATEGORY`
+    - The name of the existing category.
+    - This parameter is required.
+    - The category is case-insensitive. It can be typed in any combination of upper or lower case.
+    - The category must not have any expenses tagged to it when it is deleted.
+
+Example:
+
+![add-category](userguidepictures/add-category.png)
+
 ### Tag an Expense to a Category: tag-expense
 Assign or change the category of an existing expense.
 
