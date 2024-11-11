@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidStatus;
@@ -23,14 +23,14 @@ import java.util.logging.Logger;
  * This includes the internship's role, company, start and end dates, status, skills, and deadlines.
  */
 public class Internship {
-    private static final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
-    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
+    private final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
+    private final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
             .withResolverStyle(ResolverStyle.LENIENT);
 
-    private static final List<String> STATUSES = Arrays.asList(
+    private final List<String> STATUSES = Arrays.asList(
             "Application Pending", "Application Completed", "Accepted", "Rejected");
 
-    private static final Logger LOGGER = Logger.getLogger("EasInternship");
+    private final Logger LOGGER = Logger.getLogger("EasInternship");
 
     private int id = -1;
     private String role;

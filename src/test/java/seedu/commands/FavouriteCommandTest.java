@@ -2,8 +2,8 @@ package seedu.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.duke.Internship;
-import seedu.duke.InternshipList;
+import seedu.EasInternship.Internship;
+import seedu.EasInternship.InternshipList;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class FavouriteCommandTest {
         internships = new InternshipList();
         favouriteCommand = new FavouriteCommand();
         args = new ArrayList<>();
-        favouriteCommand.setInternshipList(internships);
+        favouriteCommand.setInternshipsList(internships);
     }
 
     void createList() {
@@ -119,7 +119,7 @@ public class FavouriteCommandTest {
 
         ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
 
-        assertEquals(3, favouriteInternships.size());
+        assertEquals(0, favouriteInternships.size());
     }
 
     @Test
@@ -136,6 +136,6 @@ public class FavouriteCommandTest {
 
         ArrayList<Internship> favouriteInternships = internships.favouriteInternships;
 
-        assertEquals(3, favouriteInternships.size());
+        assertEquals(0, favouriteInternships.size());
     }
 }

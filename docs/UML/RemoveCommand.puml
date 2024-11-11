@@ -1,78 +1,81 @@
 @startuml
 title RemoveCommand Sequence Diagram
+hide footbox
 
 participant User
 participant RemoveCommand
-participant uiCommand
-participant Internship
+participant UiCommand
 participant InternshipList
 participant UiInternshipList
 
-activate InternshipList #orange
-activate UiInternshipList #yellow
-activate Internship #lightblue
-
 User -> RemoveCommand:execute(args)
 activate RemoveCommand #red
-activate uiCommand #green
 
 RemoveCommand -> InternshipList:isWithinBounds(index)
+activate InternshipList #orange
+
 break Not in Bounds
     InternshipList -> UiInternshipList:showInvalidIndex()
+    activate UiInternshipList #yellow
     UiInternshipList --> User:show invalid index message
-    InternshipList --> RemoveCommand: false
+    deactivate UiInternshipList
 end
 
-InternshipList --> RemoveCommand: true
+deactivate InternshipList
 
-RemoveCommand -> uiCommand:clearInvalidFlags()
-RemoveCommand -> uiCommand:clearUpdatedFields()
-RemoveCommand -> uiCommand:clearInvalidFields()
+RemoveCommand -> UiCommand:clearInvalidFlags()
+activate UiCommand #green
+deactivate UiCommand
 
-loop for arg in (args)
+RemoveCommand -> UiCommand:clearUpdatedFields()
+activate UiCommand #green
+deactivate UiCommand
+
+RemoveCommand -> UiCommand:clearInvalidFields()
+activate UiCommand #green
+deactivate UiCommand
+
+loop for arg in args
     RemoveCommand -> RemoveCommand:updateOneField(words, internshipIndex)
     activate RemoveCommand #red
     alt skills || deadline
-        RemoveCommand -> RemoveCommand:isValidValue(words)
+        RemoveCommand -> RemoveCommand:isValidWords()
         activate RemoveCommand #red
-        RemoveCommand --> RemoveCommand
-        deactivate RemoveCommand
 
-        RemoveCommand -> InternshipList:removeField(index, field, value)
-        alt skills
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:removeSkill(value)
-        else deadline
-            InternshipList -> Internship:get(index)
-            Internship -> Internship:removeDeadline(value)
-        else default
+        alt field is empty
+            RemoveCommand -> UiCommand:addInvalidField(field, message)
+            activate UiCommand #green
+            deactivate UiCommand
         end
 
-        RemoveCommand -> uiCommand:addUpdatedField(field, value, type)
+        RemoveCommand --> RemoveCommand: :boolean
+        deactivate RemoveCommand
+
+        RemoveCommand -> InternshipList:removeField(internshipIndex, field, value)
+        activate InternshipList #orange
+        InternshipList --> RemoveCommand:removedValue: String
+        deactivate InternshipList
+
+        RemoveCommand -> UiCommand:addUpdatedField(field, value, type)
+        activate UiCommand #green
+        deactivate UiCommand
 
     else default
-        RemoveCommand -> uiCommand:addInvalidFlag(field)
+        RemoveCommand -> UiCommand:addInvalidFlag(field)
+        activate UiCommand #green
+        deactivate UiCommand
     end
 
     RemoveCommand --> RemoveCommand
     deactivate RemoveCommand
 end
 
-RemoveCommand -> uiCommand:showEditedInternships(internship, action)
+RemoveCommand -> UiCommand:showEditedInternships(internship, action)
+activate UiCommand #green
+UiCommand --> User:print output
+deactivate UiCommand
 
-uiCommand -> uiCommand:getInvalidFlags();
-uiCommand -> uiCommand:getInvalidFields();
-
-alt add
-
-else word
- uiCommand -> uiCommand:getUpdatedFields()
-
-else default
-
-end
-
-uiCommand -> uiCommand:showOutput(message)
-uiCommand --> User:print output
+RemoveCommand --> User
+deactivate RemoveCommand
 
 @enduml

@@ -1,7 +1,7 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
@@ -21,10 +21,10 @@ import java.util.logging.Logger;
  * Additionally, it maintains a history of actions taken with the internships using a Logger.
  */
 public class InternshipList {
-    private static final UiInternshipList ui = new UiInternshipList();
-    private static final Logger LOGGER = Logger.getLogger("EasInternship");
     public ArrayList<Internship> internships;
     public ArrayList<Internship> favouriteInternships;
+    private final UiInternshipList ui = new UiInternshipList();
+    private final Logger LOGGER = Logger.getLogger("EasInternship");
 
     // Constructor
     public InternshipList() {
@@ -76,9 +76,9 @@ public class InternshipList {
     * @param index The index of the internship to be removed.
     * @throws IndexOutOfBoundsException If the index is out of bounds.
     */
-    public void removeInternship(int index) throws InvalidIndex {
+    public void removeInternship(int index) throws InvalidID {
         if (!isWithinBounds(index)) {
-            throw new InvalidIndex(index);
+            throw new InvalidID(index);
         }
         Internship internship = internships.remove(index);
         assert internship != null : "Removed internship should not be null";
@@ -102,15 +102,10 @@ public class InternshipList {
 
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        try {
-            if (!isWithinBounds(index)) {
-                throw new InvalidIndex(index);
-            }
-            return internships.get(index);
-        } catch (InvalidIndex ie) {
-            ui.showOutput(ie.getMessage());
+        if (!isWithinBounds(index)) {
             return null;
         }
+        return internships.get(index);
     }
 
     //@@author Ridiculouswifi
@@ -273,6 +268,7 @@ public class InternshipList {
         });
     }
 
+    //@@author Toby-Yu
     /**
      * Lists internships sorted by the first skill alphabetically (case-insensitive).
      */

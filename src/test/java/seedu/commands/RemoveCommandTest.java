@@ -1,8 +1,8 @@
 package seedu.commands;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.Internship;
-import seedu.duke.InternshipList;
+import seedu.EasInternship.Internship;
+import seedu.EasInternship.InternshipList;
 import seedu.exceptions.InvalidDeadline;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ class RemoveCommandTest {
             internships.addInternship(internship);
 
             removeCommand = new RemoveCommand();
-            removeCommand.setInternshipList(internships);
+            removeCommand.setInternshipsList(internships);
         } catch (InvalidDeadline e) {
             System.out.println(e.getMessage());
         }

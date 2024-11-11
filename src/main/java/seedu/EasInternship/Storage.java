@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.exceptions.InvalidStatus;
 
