@@ -1,8 +1,8 @@
 package seedu.spendswift.ui;
 
-import seedu.spendswift.format.Format;
-import seedu.spendswift.model.Category;
-import seedu.spendswift.model.Expense;
+import seedu.spendswift.command.Format;
+import seedu.spendswift.command.Category;
+import seedu.spendswift.command.Expense;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

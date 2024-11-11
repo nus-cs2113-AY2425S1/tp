@@ -1,7 +1,7 @@
 package seedu.spendswift.storage;
 
-import seedu.spendswift.model.Category;
-import seedu.spendswift.model.TrackerData;
+import seedu.spendswift.command.Category;
+import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.ui.UI;
 
 import java.io.IOException;

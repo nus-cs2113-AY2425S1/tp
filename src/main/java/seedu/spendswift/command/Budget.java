@@ -1,6 +1,4 @@
-package seedu.spendswift.model;
-
-import seedu.spendswift.format.Format;
+package seedu.spendswift.command;
 
 //@@author MayFairMI6
 public class Budget {
