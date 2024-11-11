@@ -4,37 +4,36 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
-3. [Terminology](#terminology)
-4. [Data Storage Information](#data-storage-information)
-5. [To Note](#to-note)
-6. [Features](#features)
-   - [1. Add New Programme](#1-add-new-programme)
-   - [2. Set Programme as Active](#2-set-programme-as-active)
-   - [3. List All Programmes](#3-list-all-programmes)
-   - [4. View Programme](#4-view-programme)
-   - [5. Delete Programme](#5-delete-programme)
-   - [6. Add Day to Programme](#6-add-day-to-programme)
-   - [7. Delete Day from Programme](#7-delete-day-from-programme)
-   - [8. Add Exercise in Programme](#8-add-exercise-in-programme)
-   - [9. Delete Exercise from Programme](#9-delete-exercise-from-programme)
-   - [10. Update Exercise in Programme](#10-update-exercise-in-programme)
-   - [11. Log Workout](#11-log-workout)
-   - [12. Add New Meal](#12-add-new-meal)
-   - [13. View Meals](#13-view-meals)
-   - [14. Delete Meal](#14-delete-meal)
-   - [15. Add New Water Log](#15-add-new-water-log)
-   - [16. View Water Logs](#16-view-water-logs)
-   - [17. Delete Water Log](#17-delete-water-log)
-   - [18. View History](#18-view-history)
-   - [19. View Specific Record](#19-view-specific-record)
-   - [20. View Weekly Summary](#20-view-weekly-summary)
-   - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
-   - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises-)
-   - [23. Delete Record](#23-delete-record-)
-   - [24. Exiting BuffBuddy](#24-exit-buffbuddy)
-7. [Alias Table](#alias-table)
-8. [Command Summary](#command-summary)
-9. [FAQ](#FAQ)
+3. [Features](#features)
+    - [1. Add New Programme](#1-add-new-programme)
+    - [2. Set Programme as Active](#2-set-programme-as-active)
+    - [3. List All Programmes](#3-list-all-programmes)
+    - [4. View Programme](#4-view-programme)
+    - [5. Delete Programme](#5-delete-programme)
+    - [6. Add Day to Programme](#6-add-day-to-programme)
+    - [7. Delete Day from Programme](#7-delete-day-from-programme)
+    - [8. Add Exercise in Programme](#8-add-exercise-in-programme)
+    - [9. Delete Exercise from Programme](#9-delete-exercise-from-programme)
+    - [10. Update Exercise in Programme](#10-update-exercise-in-programme)
+    - [11. Log Workout](#11-log-workout)
+    - [12. Add New Meal](#12-add-new-meal)
+    - [13. View Meals](#13-view-meals)
+    - [14. Delete Meal](#14-delete-meal)
+    - [15. Add New Water Log](#15-add-new-water-log)
+    - [16. View Water Logs](#16-view-water-logs)
+    - [17. Delete Water Log](#17-delete-water-log)
+    - [18. View History](#18-view-history)
+    - [19. View Specific Record](#19-view-specific-record)
+    - [20. View Weekly Summary](#20-view-weekly-summary)
+    - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
+    - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises-)
+    - [23. Delete Record](#23-delete-record-)
+    - [24. Exiting BuffBuddy](#24-exit-buffbuddy)
+4. [Data Storage](#data-storage)
+5. [FAQ](#FAQ)
+6. [Alias Table](#alias-table)
+7. [Command Summary](#command-summary)
+
 
 ## Introduction
 
@@ -46,52 +45,38 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest version of `BuffBuddy` from [here](https://github.com/AY2425S1-CS2113-W10-3/tp/releases/tag/v1.0).
-3. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar BuffBuddy.jar` command to run the application.
+3. Open a command terminal
+4. Navigate into the folder you put the jar file in
+5. Use the `java -jar BuffBuddy.jar` command to run the application.
 
-## Terminology:
 
-- **Exercise**: An exercise is defined by a name, number of reps and sets, weight and average calories burned.
-- **Day**: A ‘workout day’ is a collection of exercises to be done together.
-- **Programme**: A programme is a collection of workout days.
-- **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
+> ### Notes on Command format
+>
+>Text written in `SCREAMING_SNAKE_CASE` are command parameters to be supplied by the user.
+>
+>Text preceded with a `/` will be read as flags. `/` is a reserved character and is not to be used as part of a parameter. e.g. `meal add /n Choc/Pie /c 200` will throw an invalid flag error.
+>
+>Square brackets `[...]` indicate optional parameters. e.g. `history view` and `history view 11-11-2024` are both valid.
+>
+> Flagged parameters can be supplied in any order. e.g. `meal add /n Pie /c 200` is equivalent to `meal add /c 200 /n Pie`
+>
+> Parameters can include spaces. e.g. `meal add /n Chicken Rice /c 200` is a valid command.
+>
+> Extra parameters/ flags that are not required in a command will be ignored. e.g. for `bye /d 45`, `/d 45` will be ignored.
+>
+> All flags have aliases. Refer to the [alias table](#Alias-Table) to see the alternative options available for each flag.
 
-<!-- @@author Bev-low -->
-## Data Storage Information:
-- The application uses a JSON file to store user data, ensuring persistence across sessions.
-- All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
-- The JSON format is human-readable, allowing users to view their stored data easily if needed.
-- The system automatically creates the file if it does not exist.
-- If the structure of the JSON file has been tampered with (e.g., removing the "programmeList" key or using {} as the entire content), the program will handle this scenario by treating the user as a first-time user and initializing a fresh start.
-- If any data values within the JSON file are found to be invalid (e.g., negative numbers where only positive values are allowed), the specific section containing corrupted data (either the `ProgrammeList` or `History`) will be re-initialized to be empty.
 
----
+> ### Terminology
+>
+> **Exercise**: A weighted exercise defined by a name, number of reps and sets, weight and average calories burned.
+>
+> **Day**: A ‘workout day’ is a collection of exercises to be done together.
+>
+> **Programme**: A programme is a collection of workout days.
+>
+> **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
 
-<!-- @@author nirala-ts -->
-## To Note
-
-- BuffBuddy is designed specifically for programmes with **weighted exercises**. All exercises must include a weight value. Exercises such as 
-  jumping jacks, which do not have an associated weight, cannot be created as an exercise in a programme.
-
-- Parameters that the user needs to provide are in `UPPER_CASE`, while commands that the user must follow exactly are in `lowercase`.
-  For example in `prog create PROG_NAME`, `PROG_NAME` should be replaced by the user's own input while `prog create` should be followed exactly.
-  So an example of a valid command would look like this: `prog create Starter_Programme`
-
-- Items in square brackets are optional inputs.
-  For example for `prog delete [PROG_INDEX]`, PROG_INDEX is optional. 
-  So examples of a valid command would look like this: `prog delete`, `prog delete 1`
-
-- Extra parameters/ flags that are not required in a command will be ignored.
-  For example in case of the `bye` command, any parameter given after "bye" will be ignored. 
-  So, `bye /d 45` will simply be interpreted as `bye`, and the programme will exit itself.
-
-- The **/** sequence is a reserved character. If entering `/name sitUps/Crunches`, it will be interpreted as "sitUps" only.
-
-- The `DATE` parameter expects the date in `dd-MM-yyyy` format. `WATER_VOLUME` is expected to be in litres and `CALORIES` is expected
-  to be in kCal.
-
-- Flags have aliases. Refer to the [alias table](#Alias-Table) to see the alternative options available for each flag.
-
-- All flags must have valid values. Negative values or zero are not accepted.
 
 ## Features
 
@@ -110,27 +95,27 @@ Starter
 ========================================
 ```
 
-_Note_: Advanced users can create a detailed programme with multiple days and exercises in one step by using the following command structure. 
-        This allows users to add specific exercises with sets, reps, weight, and calorie details for each day:
+_Note_: Advanced users can create a detailed programme with multiple days and exercises in one step by using the following command structure.
+This allows users to add specific exercises with sets, reps, weight, and calorie details for each day:
 
 **Command**: `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
 
 **Example**: `prog create Advanced Starter /d Monday /e /n Bench_Press /s 3 /r 15 /w 30 /c 200 /e /n Squat /s 3 /r 15 /w 50 /c 200 /d Wednesday /e /n Bicep_Curl /s 3 /r 10 /w 10 /c 100`
- 
+
 ```
 ==================================================
 New programme created: 
 Advanced Starter
 
 Day 1: Monday
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 
 Day 2: Wednesday
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 ==================================================
 ```
-_Note_: If the programme list was empty, the new programme added would be set to active by default. 
+_Note_: If the programme list was empty, the new programme added would be set to active by default.
 
 ---
 
@@ -150,11 +135,11 @@ Started programme:
 Advanced Starter
 
 Day 1: Monday
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 
 Day 2: Wednesday
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -180,7 +165,7 @@ Listing programmes:
 
 ### 4. View Programme
 
-This feature displays the detailed workout routine for the specified programme, organized by day. 
+This feature displays the detailed workout routine for the specified programme, organized by day.
 Each exercise entry includes its name, number of sets and reps, weight, and estimated calorie burn.
 
 **Command**: `prog view [PROG_INDEX]`
@@ -196,11 +181,11 @@ Viewing programme:
 Advanced Starter
 
 Day 1: Monday
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 
 Day 2: Wednesday
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -224,11 +209,11 @@ Deleted:
 Advanced Starter
 
 Day 1: Monday
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 
 Day 2: Wednesday
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -260,8 +245,8 @@ _Note_: Advanced users can directly add multiple days with multiple exercises to
 ```
 ==================================================
 Created new day: Cardio
-1. Dumbbell_squat: 10 sets of 15 at 10kg | Burnt 100 cals
-2. Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 cals
+1. Dumbbell_squat: 10 sets of 15 at 10kg | Burnt 100 kcal
+2. Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -299,7 +284,7 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 ```
 ==================================================
 Created new exercise: 
-Lateral_Pulldown: 3 sets of 15 at 30kg | Burnt 100 cals
+Lateral_Pulldown: 3 sets of 15 at 30kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -318,7 +303,7 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 ```
 ==================================================
 Deleted exercise 1: 
-Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 cals
+Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -333,17 +318,17 @@ This feature updates the specified exercise in the specified existing day of the
 If `PROG_INDEX` is not specified, the command defaults to editing the current active programme.
 
 - `[args]` must have at least 1 of the arguments below.
-  - **`/w WEIGHT`**: Sets the weight for the exercise on update.
-  - **`/r REPS`**: Sets the repetitions for the exercise on update.
-  - **`/s SETS`**: Sets the number of sets for the exercise on update.
-  - **`/n NAME`**: Sets the name of the exercise on update.
-  - **`/c CALORIES`**: Sets the calories of the exercise on update.
-    
+    - **`/w WEIGHT`**: Sets the weight for the exercise on update.
+    - **`/r REPS`**: Sets the repetitions for the exercise on update.
+    - **`/s SETS`**: Sets the number of sets for the exercise on update.
+    - **`/n NAME`**: Sets the name of the exercise on update.
+    - **`/c CALORIES`**: Sets the calories of the exercise on update.
+
 **Example**: `prog edit /p 1 /d 2 /ue 1 /w 8 /r 15`
 
 ```
 ==================================================
-Updated exercise: Bicep_Curl: 3 sets of 15 at 8kg | Burnt 100 cals
+Updated exercise: Bicep_Curl: 3 sets of 15 at 8kg | Burnt 100 kcal
 ==================================================
 ```
 ---
@@ -364,8 +349,8 @@ If `DATE` is not specified, the command defaults to the current date at the time
 ==================================================
 Congrats! You've successfully completed:
 Monday
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 ==================================================
 ```
 
@@ -428,7 +413,7 @@ Chicken_Breast | 250kcal has been deleted
 ```
 
 ---
- 
+
 <!-- @@author Bev-low -->
 ### 15. Add New Water Log
 
@@ -501,8 +486,8 @@ Completed On: 07-11-2024
 
 Day: 
 Monday
-1. Bench_Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench_Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 
 Total Calories burnt: 400 kcal
 
@@ -521,7 +506,7 @@ Completed On: 11-11-2024
 
 Day: 
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 
 Total Calories burnt: 100 kcal
 
@@ -548,13 +533,13 @@ This feature displays the recorded information for the specified day.
 
 If `DATE` is not specified, the command defaults to the current date at the time of viewing.
 
-**Example**: `history view 11-11-2024` 
+**Example**: `history view 11-11-2024`
 
 ```
 ==================================================
 Day: 
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 
 Total Calories burnt: 100 kcal
 
@@ -585,12 +570,12 @@ This feature displays a summary of workouts, meals, and water intake for the pas
 ==================================================
 Your weekly workout summary: 
 Monday
-1. Bench_Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
+1. Bench_Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
 Completed On: 07-11-2024
 
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 Completed On: 11-11-2024
 ==================================================
 ```
@@ -615,7 +600,7 @@ Personal best for bench_press: 3 sets of 15 at 30kg
 
 ---
 
-### 22. View PBs for All Exercises 
+### 22. View PBs for All Exercises
 
 This feature displays personal bests for all the exercises.
 
@@ -634,7 +619,7 @@ Bicep_Curl: 3 sets of 10 at 10kg
 
 ---
 
-### 23. Delete Record 
+### 23. Delete Record
 
 This feature deletes the record at the specified date.
 
@@ -649,7 +634,7 @@ If `DATE` is not specified, the command defaults to the current date at the time
 Deleted record: 
 Day: 
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 
 Total Calories burnt: 100 kcal
 
@@ -682,6 +667,52 @@ Exiting BuffBuddy...
 Bye. Hope to see you again soon!
 ```
 ___
+
+<!-- @@author Bev-low -->
+## Data Storage
+
+BuffBuddy uses a JSON file to store user data, ensuring persistence across sessions.
+
+### Saving your data
+- Saving is done automatically after each user command. It does not need to be manually triggered by a command.
+- All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
+- The JSON format is human-readable, allowing users to view their stored data easily if needed.
+
+### Loading your data
+- Loading happens automatically when BuffBuddy initializes.
+- If the structure of the JSON file has been tampered with (e.g., removing the "programmeList" key or using {} as the entire content), the program will handle this scenario by treating the user as a first-time user and initializing a fresh data file.
+- If any data values within the JSON file are found to be invalid (e.g., negative numbers where only positive values are allowed), the specific section containing corrupted data (either the `ProgrammeList` or `History`) will be re-initialized to be empty.
+
+### Editing the data file
+- Users can directly edit the data file to easily change their records or import data from another file
+- Users should note that they need to first exit BuffBuddy before making their changes. If the data file is edited while actively entering commands into BuffBuddy, the contents of the file will be overwritten.
+<!-- @@author nirala-ts -->
+
+---
+
+<!-- @@author nirala-ts -->
+## FAQ
+
+1. **How can I back up my data?**
+    - BuffBuddy saves data in a JSON file located at `./data/data.json`. You can create a backup by copying this file to
+      another location.
+
+2. **What happens if I accidentally delete or corrupt the data file?**
+    - If the data file is deleted or corrupted, BuffBuddy will reset your program list and history to prevent data issues.
+      However, restoring a backup of the JSON file (if you have one) can also recover your data.
+
+3. **Can I add exercises that don’t involve weights?**
+    - BuffBuddy currently only supports weighted exercises. Exercises like jumping jacks or other body weight exercises cannot
+      be added without a weight parameter.
+
+4. **What is the caloric balance in the history view?**
+    - The caloric balance shows the difference between the calories burned through exercise and the calories consumed through
+      meals, helping you monitor your energy intake and expenditure.
+
+5. **What happens if I input invalid values for commands?**
+    - BuffBuddy performs basic validation for parameters. Negative values or missing required parameters will prompt an error,
+      and the command won’t be executed. Ensure all required fields are filled correctly.
+---
 
 ## Alias Table
 
@@ -737,26 +768,3 @@ ___
 | **Delete Record**                         | `history delete [DATE]`                                                                             | `history delete 30-10-2024`                                               |
 | **Exit BuffBuddy**                        | `bye`                                                                                               | `bye`                                                                     |
 
-___
-
-## FAQ
-
-1. **How can I back up my data?**
-   - BuffBuddy saves data in a JSON file located at `./data/data.json`. You can create a backup by copying this file to 
-   another location.
-
-2. **What happens if I accidentally delete or corrupt the data file?**
-   - If the data file is deleted or corrupted, BuffBuddy will reset your program list and history to prevent data issues. 
-   However, restoring a backup of the JSON file (if you have one) can also recover your data.
-
-3. **Can I add exercises that don’t involve weights?**
-   - BuffBuddy currently only supports weighted exercises. Exercises like jumping jacks or other body weight exercises cannot 
-   be added without a weight parameter.
-
-4. **What is the caloric balance in the history view?**
-   - The caloric balance shows the difference between the calories burned through exercise and the calories consumed through 
-   meals, helping you monitor your energy intake and expenditure.
-
-5. **What happens if I input invalid values for commands?**
-   - BuffBuddy performs basic validation for parameters. Negative values, zero or missing required parameters will prompt an error, 
-   and the command won’t be executed. Ensure all required fields are filled correctly.

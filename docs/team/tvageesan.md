@@ -14,15 +14,15 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 ### Enhancements Implemented
 
 - Implemented the `BuffBuddy` class which serves as the main entry point for the application. This class initializes the UI, parser, storage, programme list, and history, and contains the main application loop.
-- Implemented the `Edit Programme` epic feature, which allows the user to edit the details of a programme.
-- Implemented all `ProgrammeCommand` classes, which allows the user to add, delete and view programmes.
-- Implemented the `Delete Workout Log` feature, which allows the user to delete a workout log.
+- Implemented the `Edit Programme` epic feature as well as its associated features `Edit Exercise`, `Create Exercise`, `Delete Exercise`, `Create Day`, `Delete Day` which allows the user to edit the details of a programme.
+- Designed and implemented initial version of `ProgrammeCommand` classes, which allows the user to add, delete and view programmes.
+- Implemented the `Delete Workout Log` feature, which allows the user to delete a logged workout from `History`.
 
 ### Contributions to the User Guide (UG)
 
 - Added/edited the following sections:
-  - **Added documentation for water related features**: Description of the section or feature.
-  - **Section 2**: Another section contributed to, with any additional context if needed.
+  - **Added documentation for edit programme related features**: Description of the section or feature.
+  - 
 
 ### Contributions to the Developer Guide (DG)
 
@@ -35,6 +35,7 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 
 - Participated in team meetings.
 - Assisted with planning of milestone features and adjusting issues according to time constraints.
+- Helped design overall class structure and maintain a consistent vision for the project as the project developed
 
 ### Review/Mentoring Contributions
 
@@ -51,3 +52,4 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 - Suggested & helped plan larger refactors such as the creation of `FlagParser` or `FileManager` classes
 
 ### Contributions Beyond the Project Team
+Reported 11 bugs for the WheresMyMoney team during PE Dry run: https://github.com/TVageesan/ped/issues
