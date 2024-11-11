@@ -363,6 +363,7 @@ The following sequence diagram shows how the `FilterCommand` is executed:
 ![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
 
 <div style="page-break-after: always;"></div>
+
 ### FavouriteCommand Implementation
 
 #### Overview
@@ -382,28 +383,28 @@ The FavouriteCommand class allows users to add internships to their list of favo
 
 #### Example Usage Scenario:
 
-1. Adding Single Internship to Favourites: The user enters favourite 2
+1. Adding Single Internship to Favourites: The user enters `favourite 2`
    - Execution:
        The execute method is called with args containing "2".
        getInputInternships() retrieves the internship with ID 2.
        The internship is added to the favourites list.
        A message confirming the addition is displayed to the user.
 
-2. Adding Multiple Internships to Favourites: favourite 1,3,5
+2. Adding Multiple Internships to Favourites: The user enters `favourite 1,3,5`
    - Execution:
        The execute method is called with args containing "1", "3", "5".
        getInputInternships retrieves internships with IDs 1, 3, and 5.
        Each internship is checked for duplication and added to the favourites list.
        Messages confirming the additions are displayed to the user.
 
-3. Attempting to Add an Invalid Internship ID: favourite 10
+3. Attempting to Add an Invalid Internship ID: The user enters `favourite 10`
    - Execution:
        The execute method is called with args containing "10".
        getInputInternships attempts to retrieve an internship with ID 10.
        An InvalidIndex exception is thrown as there is no internship with ID 10.
        The exception message is displayed to the user.
    
-4. Adding an Internship Already in Favourites: favourite 2
+4. Adding an Internship Already in Favourites: The user enters `favourite 2`
    - Execution:
    The execute method is called with args containing "2".
    getInputInternships retrieves the internship with ID 2.
@@ -413,7 +414,7 @@ The FavouriteCommand class allows users to add internships to their list of favo
 #### Sequence Diagram
 
 The following sequence diagram shows how the `FavouriteCommand` is executed:
-![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
+![FavouriteCommandSequenceDiagram](UML/FavouriteCommand_execute_method.png)
 <div style="page-break-after: always;"></div>
 
 ### UpdateCommand Implementation
