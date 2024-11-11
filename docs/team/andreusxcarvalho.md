@@ -35,6 +35,7 @@ BuffBuddy is a CLI-based fitness tracker that helps users manage workout routine
 
 - **Sequence Diagrams**:
   - **WeeklySummaryCommand Sequence Diagram**: Designed a complete sequence diagram for the `WeeklySummaryCommand` feature, representing its flow and interactions.
+  - **LogProgrammeCommand Sequence Diagram**: Developed a sequence diagram for the `LogProgrammeCommand` feature, illustrating the interactions between components during the logging process.
 
 ### Contributions to Team-Based Tasks
 - Participated in team meetings and code reviews.
