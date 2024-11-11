@@ -88,5 +88,17 @@ CategoryManager -> SuccessMessage : printDeleteCategory(categoryName)
 activate SuccessMessage
 SuccessMessage --> CategoryManager : return
 deactivate SuccessMessage
+end
 
+CategoryManager --> CategoryManager : return
+deactivate CategoryManager
+
+CategoryManager --> Parser : return
+deactivate CategoryManager
+
+Parser --> SpendSwift : return
+deactivate Parser
+
+SpendSwift --> User : return
+deactivate SpendSwift
 @enduml

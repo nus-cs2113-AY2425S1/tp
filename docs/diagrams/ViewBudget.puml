@@ -84,10 +84,10 @@ end
         SuccessMessage --> BudgetManager : return
         deactivate SuccessMessage
     end
-BudgetManager --> Parser
+BudgetManager --> Parser : return
 deactivate BudgetManager
-Parser --> SpendSwift
+Parser --> SpendSwift : return
 deactivate Parser
-SpendSwift --> User
+SpendSwift --> User : return
 deactivate SpendSwift
 @enduml

@@ -108,6 +108,18 @@ end
         deactivate SuccessMessage
     end
 
+    BudgetManager --> BudgetManager : return
+    deactivate BudgetManager
+
+    BudgetManager --> Parser : return
+    deactivate BudgetManager
+
+    Parser --> SpendSwift : return
+    deactivate Parser
+
+    SpendSwift --> User : return
+    deactivate SpendSwift
+
 end
 
 @enduml
