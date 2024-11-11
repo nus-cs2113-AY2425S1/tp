@@ -533,6 +533,8 @@ private String generateRandomWord(Random random, int wordLength) {
     Category category = findCategory(trackerData, "Education");
     BigDecimal setLimit = trackerData.getBudgets().containskey(category).getLimit();
     assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit));
+    }
+        
     @Test
     void testSetBudgetLimitAtMaximum() {
         BudgetManager budgetManager = new BudgetManager();
