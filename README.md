@@ -1,4 +1,4 @@
-# WheresMyMoney project template
+# WheresMyMoney
 
 WheresMyMoney allows you to keep track of your spending habits and trends with various supporting tools and functionalities.
 

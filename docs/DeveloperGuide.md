@@ -66,9 +66,11 @@ This architecture consist of:
 
 <u>Overview</u>
 
-The Ui class handles I/O operations such as displaying messages and reading user input.
-The Parser parses user input and returns the relevant Command Object. 
-Both these classes are important for allowing the User to interact with the application.
+The `Ui` class handles I/O operations such as displaying messages and reading user input.
+The `Parser` parses user input and returns the relevant Command Object.
+An `ArgumentMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
+These classes are important for allowing the User to interact with the application.
+
 
 <u>Methods</u>
 
@@ -85,6 +87,16 @@ The Parser class has the following key method:
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
+The `ArgumentMap` class extends the `HashMap<String, String>` class with the following methods
+
+| Method             | Description                                                                                   |
+|--------------------|-----------------------------------------------------------------------------------------------|
+| `isRecur`          | Checks if the arguments passed shows that the user wants to access the Recurring Expense List |
+| `getRequired`      | Gets a required argument and throws an exception if that argument is not provided.            |
+| `getRequiredIndex` | Gets a required index and throws an exception if that index is not provided.                  |
+| `getPrice`        | Gets a price and throws an exception if that price is invalid.                                |
+| `getRequiredPrice` | Gets a required price and throws an exception if that price is not provided/ invalid.         |
+
 
 <u>Design Considerations</u>
 
@@ -96,7 +108,7 @@ Ui class is used as part of exception handling for displaying of error messages 
 The Parser also has some considerations such as
 1. Restricted arguments which should not be used by other developers in their commands. These include
     1. `/command` -> used for the main command keyword
-    2. `/main` -> used for the main text argument right after the command keyword
+    2. `/index` -> used for the main text argument (the index of the expense to edit/ delete) right after the command keyword
 3. Any duplicate arguments will throw an InvalidInputException
 4. All `/` in the argument values should be escaped
     1. Examples
@@ -109,6 +121,8 @@ The Parser also has some considerations such as
            1. It is discouraged to do so, but the option is left for potential expandability
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
+
+An ArgumentMap class is created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
 ### Commands
 
@@ -123,7 +137,6 @@ The following diagram is a class diagram for Command and its children classes.
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
-
 
 The following diagram is a sequence diagram for execution of Command.
 
