@@ -1,0 +1,18 @@
+@startuml
+participant "TransactionList" as TL
+participant "Stream<Transaction>" as Stream
+participant "List<Transaction>" as List
+
+TL -> Stream: transactions.stream()
+activate Stream
+
+Stream -> Stream: filter(transaction instanceof Expense)
+Stream -> Stream: map(transaction -> (Expense) transaction)
+Stream -> Stream: filter(expense.getCategory().equals(category))
+Stream -> List: collect(Collectors.toList())
+activate List
+
+List --> TL: List<Expense> (result)
+deactivate List
+deactivate Stream
+@enduml
