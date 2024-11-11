@@ -10,7 +10,7 @@ and manage a personal tracker that saves potential course mappings the user woul
 ## 2. Summary of Contributions
 
 ### Code contributed:
-This is a link to the code I have contributed: [TP dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=chiang-huixin&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=test-code&tabOpen=true&tabType=authorship&tabAuthor=Chiang-HuiXin&tabRepo=AY2425S1-CS2113-W10-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
+This is a link to the code I have contributed: [TP dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=Chiang-HuiXin&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=Chiang-HuiXin&tabRepo=AY2425S1-CS2113-W10-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 ### Enhancement Implemented:
 #### Database ####
@@ -20,12 +20,12 @@ This is a link to the code I have contributed: [TP dashboard](https://nus-cs2113
 - Implemented JUnit test for the classes mentioned above.
 - Implemented assertions, loggings and exceptions for error handling.
 - Implemented Javadoc for documentation.
-  1. #### ListUniCoursesCommand ####
-     - Implemented the `ListUniCoursesCommand` class to allow user to list out the courses available for a specific school
-  2. #### HelpCommand #####
-     - Implemented the `HelpCommand` class to allow users to ask for help when in doubt of the features.
-  3. #### FindCoursesCommand ####
-     - Implemented the `FindCoursesCommand` class to allow users to search for specific NUS courses in their Personalised
+  1. `ListUniCoursesCommand`: Implemented the `ListUniCoursesCommand` class to allow user to list out the 
+  courses available for a specific school
+
+  2. `HelpCommand`: Implemented the `HelpCommand` class to allow users to ask for help when in doubt of the features.
+  
+  3. `FindCoursesCommand`: Implemented the `FindCoursesCommand` class to allow users to search for specific NUS courses in their Personalised
        Tracker.
 
 ## 3. Contributions to UG:
