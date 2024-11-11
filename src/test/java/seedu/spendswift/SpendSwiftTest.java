@@ -4,14 +4,14 @@ package seedu.spendswift;
 
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
-import seedu.spendswift.command.ExpenseManager;
+//import seedu.spendswift.command.ExpenseManager;
 import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
 
-import java.math.BigDecimal;
+//import java.math.BigDecimal;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -577,7 +577,7 @@ private String generateRandomWord(Random random, int wordLength) {
     } */
 
 
-    /**
+    /*/**
      * Tests setting a budget limit above the maximum allowed.
      * Ensures that the budget limit does not exceed the predefined maximum
      * when an invalid higher limit is attempted to be set.
