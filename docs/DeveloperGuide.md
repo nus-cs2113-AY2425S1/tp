@@ -179,7 +179,7 @@ The parameters of the `XYZCommand` instance are parsed from fields given in the 
 4. `XYZCommand` is executed with the invocation of the `execute()` method. 
 5. The `Ui` gets `XYZCommand`'s output message, and shows it to the user. 
 
-The interactions between `Command` and other components in the system for the above set of operations is shown in the following _Sequence Diagram_:
+The interactions between `Command` and other components in the system for the above set of operations is shown in the following **Sequence Diagram**:
 
 <img src = "images/CommandSequenceDiagram.png">
 <div style="page-break-after: always;"></div>
