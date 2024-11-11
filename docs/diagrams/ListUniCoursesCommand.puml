@@ -9,46 +9,44 @@ actor CEG_Student
 participant ":ListUniCoursesCommand" as ListUniCoursesCommand
 participant ":Command" as Command
 participant ":UI" as UI
+participant ":Parser" as Parser
 
-CEG_Student -> ListUniCoursesCommand : execute(userInput: String)
+CEG_Student -> ListUniCoursesCommand: execute(userInput: String)
 activate ListUniCoursesCommand
 
-ListUniCoursesCommand -> Command : createJsonObject()
+ListUniCoursesCommand -> Command: createJsonObject()
 activate Command
 
-Command --> ListUniCoursesCommand: jsonObject : JsonObject
+Command --> ListUniCoursesCommand: jsonObject: JsonObject
 deactivate Command
 
-ListUniCoursesCommand -> ListUniCoursesCommand : getPuName(userInput: String)
+ListUniCoursesCommand -> ListUniCoursesCommand: getPuName(userInput: String)
 activate ListUniCoursesCommand
 
-return puName : String
+return puName: String
 
-ListUniCoursesCommand -> ListUniCoursesCommand : getUniCourses(...)
+ListUniCoursesCommand -> ListUniCoursesCommand: getUniCourses(...)
 activate ListUniCoursesCommand
 
-ListUniCoursesCommand -> ListUniCoursesCommand : findUniversityName(...)
+ListUniCoursesCommand -> Parser: parsePUAbbreviations(puName: String)
+activate Parser
+return convertedPuName: String
+
+ListUniCoursesCommand -> ListUniCoursesCommand: findUniversityName(...)
 activate ListUniCoursesCommand
 loop for each universityName in universityNames
-    opt universityName.toLowerCase().equals(lowerCasePuName)
+    opt if universityName equals to convertedPuName
     return universityName : String
     end
 end
 
-alt universityName == null
-    ListUniCoursesCommand -> ListUniCoursesCommand : handleUnknownUniversity(...)
-    activate ListUniCoursesCommand
-    return
-        else else
-        ListUniCoursesCommand -> ListUniCoursesCommand : listCourses(...)
-        activate ListUniCoursesCommand
-            loop for courseArray.size()
-            ListUniCoursesCommand -> UI : printListUniCoursesCommand(...)
-            activate UI
-            return print course details
-            end
-        return
-    end
+alt universityName not null
+        loop for courseArray.size()
+        ListUniCoursesCommand -> UI: printListUniCoursesCommand(...)
+        activate UI
+        return print course details
+        end
+end
 return
 
 ListUniCoursesCommand --> CEG_Student

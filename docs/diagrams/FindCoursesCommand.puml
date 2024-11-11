@@ -33,11 +33,10 @@ end
 FindCoursesCommand -> FindCoursesCommand: matchKeyword(...)
 activate FindCoursesCommand
 loop For all course in mappedCourses
-FindCoursesCommand -> FindCoursesCommand: getMappedCode(course:Course)
-activate FindCoursesCommand
+
 FindCoursesCommand -> Course: getNusCourseCode()
 activate Course
-return nusCourseCode: String
+
 return nusCourseCode: String
 
 opt nusCourseCode equals to keyword
