@@ -278,7 +278,7 @@ Got it. I've edited this expense:
 
 <br>
 
-Example 5: Edits the description, amount, and date of the 4th entry to be `breakfast`, `5` and 12/09/2024 respectively.
+Example 5: Edits the description, amount, and date of the 4th entry to be `breakfast`, `5` and `12/09/2024` respectively.
 ```
 edit 4 /des breakfast /a 5 /d 12/09/24
 --------------------------------------------
