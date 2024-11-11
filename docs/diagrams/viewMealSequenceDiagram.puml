@@ -1,0 +1,14 @@
+@startuml
+actor User
+participant "ViewMealCommand" as ViewCmd
+participant "DailyRecord" as DailyRec
+
+ViewCmd -> DailyRec: getMealListFromRecord()
+activate ViewCmd
+activate DailyRec
+DailyRec --> ViewCmd: MealList object
+deactivate DailyRec
+
+deactivate ViewCmd
+@enduml
+

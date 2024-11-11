@@ -1,0 +1,26 @@
+@startuml
+actor User
+participant "DeleteMealCommand" as DeleteCmd
+participant "DailyRecord" as DailyRec
+participant "MealList" as MealList
+participant "Meal" as Meal
+
+activate DeleteCmd
+DeleteCmd -> DailyRec:
+activate DailyRec
+
+DailyRec -> MealList: DeleteMealFromRecord(index)
+activate MealList
+MealList -> MealList: deleteMeal(index)
+activate MealList
+
+deactivate MealList
+MealList --> DailyRec: meal object
+deactivate MealList
+
+
+DailyRec --> DeleteCmd: meal object
+deactivate DailyRec
+
+deactivate DeleteCmd
+@enduml

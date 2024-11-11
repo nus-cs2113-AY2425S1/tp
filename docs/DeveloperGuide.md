@@ -557,13 +557,13 @@ Given below is an example usage scenario for adding a meal and how the add meal 
 
 meal add /n [mealName] /c [calories]
 
-- The command is parsed and translated into an `AddMealCommand` object, which contains the necessary details.
+- The command is parsed and translated into an `AddMealCommand` object, which contains the meal object that is created as a wrapper for the name and calories.
 
 **Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `getRecordByDate()`. If no record exists, a new one is created.
 
-**Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. If the mealList already exists, it updates the existing mealList instead.
+**Step 3**: The `AddMealCommand` adds the meal to the `MealList` of the `DailyRecord`. The `MealList` is then updated with the new list.
 
-**Step 4**: The newly added `Meal` object is returned to the `AddMealCommand` to display as part of the `CommandResult`.
+**Step 4**: The newly added `Meal` object is displayed as part of the `CommandResult`.
 
 The overall design that enables this functionality is described generically by the following sequence diagram.
 
@@ -572,6 +572,14 @@ The overall design that enables this functionality is described generically by t
 ![Add Meal Sequence Diagram](images/addMealSequenceDiagram.png)
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
+
+#### Sequence Diagram for "Delete Meal" Command
+
+![Delete Meal Sequence Diagram](images/deleteMealSequenceDiagram.png)
+
+#### Sequence Diagram for "View Meal" Command
+
+![View Meal Sequence Diagram](images/viewMealSequenceDiagram.png)
 
 #### Activity Diagram for "Add Meal" Feature
 
