@@ -123,7 +123,7 @@ public class Parser {
      *
      * @param inputData the input data string containing flags
      * @return an {@code ArrayList<String>} of parsed flags and their corresponding data, or {@code null} if there is an
-     * empty flag
+     *     empty flag
      */
     private ArrayList<String> parseFlagData(String inputData) {
         ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split("-")));
@@ -153,7 +153,7 @@ public class Parser {
      *
      * @param inputData the input data string containing the internship ID and flags
      * @return an {@code ArrayList<String>} containing the internship ID followed by parsed flags and their
-     * corresponding data. or {@code null} if there are no/empty flags.
+     *     corresponding data. or {@code null} if there are no/empty flags.
      */
     private ArrayList<String> parseUpdateCommandData(String inputData) {
         String[] splitArray = inputData.trim().split(" ", 2);
@@ -176,7 +176,7 @@ public class Parser {
      *
      * @param inputData the input data string containing internship IDs separated by commas; must not be empty.
      * @return an {@code ArrayList<String>} containing the internship IDs, or {@code null} if the {@code inputData}
-     * is empty.
+     *     is empty.
      */
     private ArrayList<String> parseFavouriteCommandData(String inputData) {
         if (inputData.trim().isEmpty()) {
