@@ -30,8 +30,6 @@ activate UI
 return
 end
 
-FindCoursesCommand -> FindCoursesCommand: matchKeyword(...)
-activate FindCoursesCommand
 loop For all course in mappedCourses
 
 FindCoursesCommand -> Course: getNusCourseCode()
@@ -43,7 +41,6 @@ opt nusCourseCode equals to keyword
 FindCoursesCommand -> FindCoursesCommand: add course to foundCourses:List<Course>
 end
 end
-return
 
 FindCoursesCommand -> FindCoursesCommand: printFindCommand(foundCourses: List<Course>)
 activate FindCoursesCommand
