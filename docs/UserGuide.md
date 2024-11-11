@@ -415,6 +415,7 @@ Expected output:
 cs2040 | the university of western australia | cits2200
 -----------------------------------------------------
 ```
+* Please note that you will only get this output if you have this mapping in your personalised tracker.
 
 ## FAQ
 
