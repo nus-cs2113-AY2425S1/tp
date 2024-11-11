@@ -18,7 +18,7 @@ Given below are my contributions to the project.
     - **What it does**: The Parser class interprets and routes different command inputs, creating and executing the appropriate command objects based on user input. It enables the application to handle commands like adding tasks, marking, unmarking, deleting, finding, and listing tasks and patients.
     - **Justification**: A centralized parser is essential for user interactions, allowing diverse commands to be processed and executed in a structured and manageable way. This improves the application’s ability to expand with additional commands.
     - **Highlights**: The Parser class supports error handling and logs specific errors for each command, enabling easier debugging and better user feedback for incorrect inputs.
-- **New Feature:`AddTodoParser`, `AddDeadlineParser`, `AddRepeatParser`, and `AddParser` for handling specific add commands. **
+- **New Feature**:`AddTodoParser`, `AddDeadlineParser`, `AddRepeatParser`, and `AddParser` for handling specific add commands.
     - **What it does**: These classes interpret and create command objects to add "todo," "deadline," "repeat" tasks, or new patients. They extract specific parameters such as task name, deadline, recurrence period, and tags.
     - **Justification**: Modular parsers for different add commands allow customization and extensibility in the handling of unique input patterns, facilitating complex task management.
     - **Highlights**: Each parser includes error handling for empty inputs, supports tag extraction, and uses a flexible design to parse optional parameters like tags or deadlines based on user input.
