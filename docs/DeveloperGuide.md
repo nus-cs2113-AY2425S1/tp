@@ -809,6 +809,8 @@ The user is able to organise and manage his events more quickly and efficiently 
       
       Expected: The terminal will print a welcome message and prompt for user input.
 
+<div style="page-break-after: always;"></div>
+
 ### Adding an event
 
 1. Adding an `Event` to the `Event` list
