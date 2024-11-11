@@ -53,9 +53,10 @@ public class DeleteCoursesCommand extends PersonalTrackerCommand {
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, EXECUTING_COMMAND);
         try {
-            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
+            if(!courseRepository.isFileValid()){
                 return;
             }
+            courseRepository.removeDuplicateEntries();
             logger.log(Level.INFO, PARSE_DELETE_COMMAND);
             String[] inputDetails = parseDeleteCommand(userInput);
             assert inputDetails.length == DELETE_COURSES_MAX_ARGS : MISSING_FIELDS;

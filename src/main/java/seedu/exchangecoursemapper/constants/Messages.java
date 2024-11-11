@@ -83,7 +83,10 @@ public class Messages {
 
     public static final String DUPLICATE_FOUND = "The following duplicate courses were found and removed from your " +
             "Personal Tracker:";
-    public static final String DUPLICATE_REMOVED = "Duplicates have been removed, and the data file has been updated.";
+    public static final String DUPLICATE_REMOVED = "Duplicates have been removed, and the data file has " +
+            "been updated.";
     public static final String ACCEPTED_FORMAT = "Valid format: <NUS_COURSE_CODE> | <FULL_NAME_OF_PU> | " +
             "<PU_COURSE_CODE> \nAll entries are in lowercase";
+    public static final String ADD_DUPLICATE = "Course already exists in you Personal Tracker. " +
+            "Duplicates will not be added.";
 }
