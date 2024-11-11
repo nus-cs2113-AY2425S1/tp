@@ -38,9 +38,9 @@ public class HelpCommand extends Command{
                 "    - If no INDEX is specified, last last amended transaction will be deleted by default\n" +
                 "    - If /to flag is included: Deletes transactions INDEX to END_INDEX inclusive\n" +
                 "    - Bonus: delete all - deletes all transactions\n" +
-                "6. budget BUDGET\n" +
+                "6. budget AMOUNT\n" +
                 "   - Set/modify your monthly budget\n" +
-                "   - Delete set budget by setting BUDGET to 0\n" +
+                "   - Delete set budget by setting AMOUNT to 0\n" +
                 "7. exit\n" +
                 "   - Exits the program\n" +
                 "8. help\n" +
