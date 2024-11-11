@@ -64,7 +64,7 @@ by ensuring each storage class focuses exclusively on managing one type of data.
 - `CategoryManager`: Provide methods when an category-related command is issued
 - `BudgetManager`: Provide methods when an budget-related command is issued
 
-By centralizing control, `Parser` simplifies input handling, efficiently routing and processing commands through the 
+By centralising control, `Parser` simplifies input handling, efficiently routing and processing commands through the 
 appropriate subsystems. This design fosters modularity and separation of concerns, with each class surrounding `Parser` 
 dedicated to a specific role within the system. This enhances control flow and minimise direct dependencies among 
 components.
@@ -72,6 +72,22 @@ components.
 Each class serves a distinct purpose and this clear division of responsibilities promotes modularity, 
 making the system more adaptable and maintainable.
 
+### TrackerData
+
+![TrackerData Class Diagram](developerguidepictures/TrackerData.drawio.png)
+
+`TrackerData` serves as the main data structure, consolidating and managing `Category`, `Expense`, and `Budget` data for efficient tracking and processing within the program.
+- `Category`: Defines and organises each category by name, providing a streamlined structure for grouping expenses and budgets.
+- `Expense`: Represents individual expenses, with attributes for the name, amount, and category, allowing categorisation of expenses and easy budget monitoring.
+- `Budget`: Tracks spending limits for specific categories.
+
+By centralising all data in TrackerData, this structure provides a cohesive view of categories, expenses, and budgets, 
+simplifying data access and updates across SpendSwift’s functions. This modular design ensures separation of concerns, 
+where each class handles specific responsibilities (such as categorizing expenses or setting budget limits).
+
+This clear division of roles enhances system flexibility and maintainability. 
+Adjustments to categories, expenses, or budgets can be easily implemented without disrupting the overall system, 
+supporting a well-organized and scalable financial tracking solution.
 
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
