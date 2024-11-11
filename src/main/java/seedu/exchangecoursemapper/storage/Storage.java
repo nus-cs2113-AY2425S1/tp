@@ -44,9 +44,9 @@ public class Storage {
     }
 
     /**
-     * Updates and save all courses in a Course List.
+     * Updates and save all courses in a Course List, and subsequently in the `myList.json` file.
      *
-     * @param courses a List containing all the course mappings stored in the previous sessions.
+     * @param courses a List containing all the course mappings, as represented in a Course object.
      */
     public void saveCourses(List <Course> courses) {
         courseRepository.saveCourses(courses);
@@ -56,7 +56,7 @@ public class Storage {
      * Gets a course from the storage by indicating its index.
      *
      * @param index of course that the user refers to.
-     * @return the course specified by the index.
+     * @return the course specified by the index as a Course object.
      */
     public Course getCourse(int index) {
         return courseRepository.getCourse(index);
