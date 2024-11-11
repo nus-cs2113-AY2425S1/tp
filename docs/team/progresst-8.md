@@ -17,8 +17,13 @@ Given below are my contributions to the project.
 - **Documentation**
   - User Guide 
     - Created section about setting spending limits for a category 
+    - Add FAQs about:
+      - CRUD operations for spending limits
+      - Total expense resetting every month
+      - Floats used as the type for prices
   - Developer Guide
-    - Created Expense and ExpenseList section
+    - Created `Expense` and `ExpenseList` section
     - Created category package section
-      - Includes details about classes `CategoryTracker`, `CategoryData`, `CategoryFilter` and `CategoryFacade`
+      - Includes details about classes `CategoryTracker`, `CategoryData`, `CategoryFilter`, `CategoryFacade` and `CategoryStorage`
+    - Created `DateUtils` section
 - **Review & Mentoring Contributions:** Provide suggestions for designing various components of the software.
