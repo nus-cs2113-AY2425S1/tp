@@ -14,8 +14,8 @@ public class Exception extends Throwable {
     }
 
     public static String noInputAfterAdd() {
-        return "Please provide the nus course code, " +
-                "name of partner university (PU) and the PU course code.";
+        return "Please provide a nus course code, " +
+                "name of partner university (PU) and a PU course code.";
     }
 
     public static String missingKeyword() {

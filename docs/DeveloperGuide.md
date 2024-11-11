@@ -407,8 +407,8 @@ that NUS course is suitable to be mapped overseas in Oceania.
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
 Additionally, each course mapping is checked against the current course mapping found in
-our data source file which contains university data, ensuring that the course mapping is accurate and is limited to Oceania
-universities. This command hence helps the users to keep track of their course mapping process.
+our data source file, which contains the university data, to ensure that the course mapping is accurate and is limited 
+to universities in Oceania. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:
 * The `AddCoursesCommand` class extends `Command` class where it overrides the `execute` method for
@@ -416,29 +416,36 @@ universities. This command hence helps the users to keep track of their course m
 * The command first reads a JSON file to obtain the course mapping database via `createJsonObject()` method from the
   superclass.
 * The `trimString` method then removes the `add` command and checks whether the user gave any input after the command.
-  The method would return the trimmed user's input without the command.
+  The method would return the trimmed user's input without the `add` command.
 * This input is then passed into the `parseAddCommand()` method to obtain the relevant information: NUS course code,
   name of partner university and partner university course code.
-* Specifically, the `pu` variable is passed into the `getUniversityAbbreviations()` method found in the `Parser` class to convert any partner university abbreviations to their full form.
+* Specifically, the name of partner university is passed into the `getUniversityAbbreviations()` method found in the 
+  `Parser` class to convert any partner university abbreviations to their full form.
 * Along with the JSON Object created from the `createJSONObject()` method, the information extracted from the
   `parseAddCommand()` method would be passed to the `isValidInput()` method to verify the user's course mapping. 
-* This initiates the course validation process using the methods found in the `CourseValidator` class.
-* Firstly, the `getPUCourseList()` method is called to verify the user's partner university is
-  included in the dataset. An exception is thrown if the university is not found in the dataset.
-* Afterward, the `isValidCourseMapping()` method checks whether the NUS course code and PU course code are compatible for
-  course mapping against the database.
+* This initiates the course validation process by using the methods found in the `CourseValidator` class.
+* Firstly, the `getPUCourseList()` method is called to verify if the user's partner university is
+  included in the database. An exception is thrown if the university is not found in the database.
+* Afterward, the `isValidCourseMapping()` method checks whether the NUS course code and PU course code are compatible 
+  for course mapping against the database.
 * If both checks above are passed, the course mapping would be added to the `myList.json` file.
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Why is it implemented this way
-- The code is separated into distinct methods that addresses a separate concern, achieving Separation of concerns principle (SoC). This help achieve better modularity and readability. 
+- The code is separated into distinct methods that addresses a separate concern, achieving Separation of Concerns 
+  principle (SoC). This help achieve better modularity and readability. 
 - Each method includes numerous exception handlers to cover as many potential errors and edge cases as possible. 
-- Methods used in course validation is extracted out and placed in the `CourseValidator` class to achieve more OOP and greater readability.
+- The methods used in course validation is extracted out and placed in the `CourseValidator` class to enhance OOP 
+  and improve readability.
 
 #### Alternatives Considered
-- Initially, one way to validate a course mapping is by adding all course mappings to a hashmap. This allows indexing to locate the relevant course mapping. However, this approach may lead to unnecessary repetition since each course mapping is already stored in the JSON file.
-- At first, each course mapping is stored as a formatted string. However, this format makes it challenging to check course mappings and implement methods that require accessing course mappings from storage.
+- Initially, one way to validate a course mapping is by adding all course mappings to a hashmap. 
+  This allows indexing to locate the relevant course mapping. However, this approach may lead to unnecessary repetition 
+  since each course mapping is already stored in the JSON file.
+- Initially, each course mapping is stored as a formatted string. 
+  However, this format makes it challenging to verify course mappings and implement methods that need to access course 
+  mappings from storage.
 
 #### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
