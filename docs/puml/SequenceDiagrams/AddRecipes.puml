@@ -14,7 +14,7 @@ box Adding Recipes COLOR_PALE_PINK
 participant "YMFC" as YMFC <<class>>
 participant "Parser" as Parser <<class>>
 participant ":AddCommand" as AddRecipeCommand
-participant ":Recipe" as Recipe
+participant "recipe:Recipe" as Recipe
 participant ":Storage" as Storage
 participant ":RecipeList" as RecipeList
 participant ":Storage" as Storage
