@@ -62,7 +62,7 @@ public class DataIntegrityChecker extends Command {
         return isValid;
     }
 
-    public boolean checkForDuplicateCourses(List<Course> courses, Storage storage) {
+    public void removeDuplicateCourses(List<Course> courses, Storage storage) {
         Set<String> uniqueCourses = new HashSet<>();
         List<Course> nonDuplicateCourses = new ArrayList<>();
         List<String> removedDuplicates = new ArrayList<>();
@@ -86,9 +86,6 @@ public class DataIntegrityChecker extends Command {
             // Save the non-duplicate courses back to the file
             storage.saveCourses(nonDuplicateCourses);
             ui.printRemovedConfirmation();
-            return true;
-        } else {
-            return false;
         }
     }
 

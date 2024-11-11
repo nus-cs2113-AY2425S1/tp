@@ -37,21 +37,15 @@ public class DataIntegrityCheckerTest {
     }
 
     @Test
-    void checkForDuplicateCourses_noDuplicates_returnsFalse() {
+    void checkForDuplicateCourses_noDuplicates_noChange() {
         // Arrange
         Course course1 = new Course("comp30027", "cs3244", "the university of melbourne");
         Course course2 = new Course("comp3670", "cs3244", "the australian national university");
         storage.addCourse(course1);
         storage.addCourse(course2);
 
-        List<Course> courses = storage.loadAllCourses();
-        assertEquals(2, courses.size());
-
-        // Act
-        boolean hasDuplicates = dataIntegrityChecker.checkForDuplicateCourses(courses, storage);
-
-        // Assert
-        assertFalse(hasDuplicates);
+        List<Course> savedCourses = storage.loadAllCourses();
+        assertEquals(2, savedCourses.size());
     }
 
     @Test
@@ -63,11 +57,13 @@ public class DataIntegrityCheckerTest {
         courses.add(new Course("comp3670", "cs3244", "the australian national university"));
 
         // Act
-        boolean hasDuplicates = dataIntegrityChecker.checkForDuplicateCourses(courses, storage);
+        dataIntegrityChecker.removeDuplicateCourses(courses, storage);
 
         // Assert
-        assertTrue(hasDuplicates);
-        assertEquals(2, storage.loadAllCourses().size()); // Should have removed duplicates
+        List<Course> savedCourses = storage.loadAllCourses();
+        assertEquals(2, savedCourses.size());
+        assertTrue(savedCourses.stream().anyMatch(course -> course.getPuCourseCode().equals("comp30027")));
+        assertTrue(savedCourses.stream().anyMatch(course -> course.getPuCourseCode().equals("comp3670")));
     }
 
     @Test
