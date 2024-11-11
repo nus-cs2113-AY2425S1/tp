@@ -26,10 +26,12 @@ Given below are my contributions to the project.
 * **Code Contributed**: [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=khsienkit&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=KHsienKit&tabRepo=AY2425S1-CS2113-W12-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 * **Documentation**
-    <!-- * User Guide
-        * Updated commands to match v1.0. [#56](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/56) -->
+    * User Guide
+        * Added `edit` command section
+        * Added recurring expenses section
     * Developer Guide
         * Created RecurringExpense and RecurringExpenseList section, including Class and Sequence diagram. [#81](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/81)
+        * Add test instructions for recurring expenses
 
 <div style="page-break-after: always;"></div>
 
@@ -37,4 +39,4 @@ Given below are my contributions to the project.
     * Maintained issues and reviewed PRs
 
 * **Community**
-    * PRs reviewed (with non-trivial review comments): [#81](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/81)
+    * PRs reviewed (with non-trivial review comments): [#40](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/40), [#65](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/65), [#68](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/68), [#81](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/81), [#119](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/119), [#172](https://github.com/AY2425S1-CS2113-W12-3/tp/pull/172), 
