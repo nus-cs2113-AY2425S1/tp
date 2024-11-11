@@ -192,6 +192,10 @@ class ExpenseListTest {
                 () -> expenseList.deleteExpense(1));
     }
 
+    //@@author shyaamald
+    /**
+     * Test the listing of expenses
+     */
     @Test
     public void listByCategory_validListByCategory_success() {
         ExpenseList expenseList = new ExpenseList();
@@ -206,12 +210,20 @@ class ExpenseListTest {
             fail("Exception thrown when Expenses' parameters are valid.");
         }
     }
+
+    /**
+     * Tests the listing of expenses from an empty expense list.
+     */
     @Test
     public void listByCategory_emptyListByCategory_success() {
         ExpenseList expenseList = new ExpenseList();
         ArrayList<Expense> testArrayList = new ArrayList<>();
         assertEquals(testArrayList, expenseList.listByCategory("cat"));
     }
+
+    /**
+     * Tests the listing of expenses from an expense list where no match for specified category is found.
+     */
     @Test
     public void listByCategory_noMatchForCategory_success() {
         ExpenseList expenseList = new ExpenseList();
