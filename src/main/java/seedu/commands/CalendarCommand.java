@@ -2,8 +2,8 @@ package seedu.commands;
 
 //@@author Ridiculouswifi
 
-import seedu.EasInternship.Deadline;
-import seedu.EasInternship.Internship;
+import seedu.easinternship.Deadline;
+import seedu.easinternship.Internship;
 
 import java.util.ArrayList;
 import java.util.Comparator;

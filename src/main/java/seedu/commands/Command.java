@@ -1,6 +1,6 @@
 package seedu.commands;
 
-import seedu.EasInternship.InternshipList;
+import seedu.easinternship.InternshipList;
 import seedu.ui.UiCommand;
 
 import java.util.ArrayList;

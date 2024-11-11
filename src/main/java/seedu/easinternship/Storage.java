@@ -1,4 +1,4 @@
-package seedu.EasInternship;
+package seedu.easinternship;
 
 import seedu.exceptions.InvalidStatus;
 
@@ -200,6 +200,19 @@ public class Storage {
         );
     }
 
+    /**
+    * Parses a string containing deadline information and creates a list of Deadline objects.
+    *
+    * <p>This method takes in a string where each deadline is described in the format:
+    * "Description -date dd/MM/yy". It splits the string by " - " and parses each part to extract
+    * the description and date, adding a Deadline object to the list. If no deadlines are set,
+    * an empty list is returned.</p>
+    *
+    * @param deadlineString A string containing deadlines in a specific format.
+    * @param internshipId The ID of the internship to associate with each deadline.
+    * @return A list of Deadline objects representing the parsed deadlines.
+    */
+
 
     private static List<Deadline> parseDeadlines(String deadlineString, int internshipId) {
         List<Deadline> deadlines = new ArrayList<>();
@@ -230,6 +243,16 @@ public class Storage {
         return deadlines;
     }
 
+    /**
+    * Loads and sets the status of an Internship object from a given status string.
+    *
+    * <p>This method attempts to update the internship's status using the provided string.
+    * If the status is invalid (i.e., it does not match any predefined statuses), the
+    * internship's status is set to "Application Pending" and a message is displayed.</p>
+    *
+    * @param internship The Internship object to update.
+    * @param status The status string to set for the internship.
+    */
     private static void loadStatus(Internship internship, String status) {
         try {
             internship.updateStatus(status);
