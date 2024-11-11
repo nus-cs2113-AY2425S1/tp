@@ -38,7 +38,7 @@ This product aims to streamline the tracking of internship applications for the 
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `.jar` file from [here]().
+2. Download the latest version of `.jar` file from [here](https://github.com/AY2425S1-CS2113-T10-1/tp/releases/tag/v2.1).
 3. Copy the file to the home folder of your Internship Tracker.
 4. Open the terminal, `cd` into the folder with the `.jar` file and use `java -jar easInternship.jar` 
    command to run the application.
