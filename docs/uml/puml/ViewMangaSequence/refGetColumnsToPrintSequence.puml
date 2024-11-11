@@ -1,0 +1,45 @@
+@startuml
+!include ../.PlantUMLSequence.config
+skinparam wrapWidth 0
+skinparam maxMessageSize 200
+
+title <size:30>View Manga:Add Required Columns to List Sequence Diagram
+
+participant "MangaList" as ml <<class>>
+participant "row number" as row
+participant "manga name" as name
+participant "deadline" as dl
+participant "unit price" as price
+participant "units sold" as qty
+participant "total revenue" as rev
+note over row,rev : All classes below this note are of type <size:20>:PrintColumn<Manga>
+
+ml ++
+group sd Add required columns to list
+    ml -> row ** : add new PrintColumn to columns
+    row ++
+    return
+    ml -> name ** : add new PrintColumn to columns
+    name ++
+    return
+
+    opt deadline flag is set
+    ml -> dl ** : add new PrintColumn to columns
+    dl ++
+    return
+    end
+
+    opt sales data flag set
+    ml -> price ** : add new PrintColumn to columns
+    price ++
+    return
+    ml -> qty ** : add new PrintColumn to columns
+    qty ++
+    return
+    ml -> rev ** : add new PrintColumn to columns
+    rev ++
+    return
+    end
+end
+
+@enduml

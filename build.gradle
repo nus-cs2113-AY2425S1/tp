@@ -11,7 +11,9 @@ repositories {
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
 }
 
 test {
@@ -29,11 +31,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Main")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("tantou")
     archiveClassifier.set("")
 }
 
@@ -41,6 +43,18 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
+    enableAssertions = true
+}
+
+// Custom 'nolog' task
+tasks.register('nolog', JavaExec) {
+    group = 'application'
+    description = 'Run the application with logging disabled'
+    mainClass = application.mainClass.get()
+    classpath = sourceSets.main.runtimeClasspath
+    args = ["nolog"]  // Add any required arguments here
+    standardInput = System.in
+    enableAssertions = true
 }
