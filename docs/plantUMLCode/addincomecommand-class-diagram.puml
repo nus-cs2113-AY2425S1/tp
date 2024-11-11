@@ -57,19 +57,19 @@ activate AddIncomeCmd
 alt Invalid arguments
     AddIncomeCmd --> User: "Error: Missing or invalid arguments"
 else Valid arguments
-    participant "Income" as IncomeClass
+    participant ":Income" as IncomeClass
     AddIncomeCmd -> IncomeClass: createTransaction(amount, description, date)
     activate IncomeClass
     IncomeClass --> AddIncomeCmd: Income instance
     deactivate IncomeClass
 
-    participant "TransactionList" as TransList
+    participant ":TransactionList" as TransList
     AddIncomeCmd -> TransList: addTransaction(Income)
     activate TransList
     TransList --> AddIncomeCmd: success
     deactivate TransList
 
-    participant "Storage" as Storage
+    participant "<<class>>\nStorage" as Storage
     AddIncomeCmd -> Storage: saveTransaction(TransactionList.getTransactions())
     activate Storage
     Storage --> AddIncomeCmd: confirmation
