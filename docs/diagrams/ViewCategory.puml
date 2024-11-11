@@ -1,0 +1,44 @@
+@startuml
+actor User
+participant SpendSwift
+participant Parser
+participant CategoryManager
+participant TrackerData
+participant SuccessMessage
+
+User -> SpendSwift : input("view-category")
+SpendSwift -> Parser : parseCommand(input, trackerData)
+
+activate Parser
+Parser -> CategoryManager : viewAllCategories(trackerData)
+
+activate CategoryManager
+CategoryManager -> TrackerData : getCategories()
+
+activate TrackerData
+TrackerData --> CategoryManager : categories: List<Category>
+deactivate TrackerData
+
+alt No categories
+CategoryManager -> SuccessMessage : printNoCategory()
+activate SuccessMessage
+SuccessMessage --> CategoryManager : return
+deactivate SuccessMessage
+
+else Categories present
+CategoryManager -> SuccessMessage : printAllCategories(categories)
+activate SuccessMessage
+SuccessMessage --> CategoryManager : return
+deactivate SuccessMessage
+end
+
+CategoryManager --> Parser : return
+deactivate CategoryManager
+
+Parser --> SpendSwift : return
+deactivate Parser
+
+SpendSwift --> User : return
+deactivate SpendSwift
+
+@enduml
