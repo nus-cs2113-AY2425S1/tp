@@ -258,7 +258,7 @@ public class Internship {
     //@@author jadenlimjc
     public Deadline getEarliestDeadline() {
         return getDeadlines().stream()
-                .min(Comparator.comparing(Deadline::getDate)).orElse(null);
+                .min(Comparator.comparing(Deadline::getUnformattedDate)).orElse(null);
     }
 
     //@@author jadenlimjc
