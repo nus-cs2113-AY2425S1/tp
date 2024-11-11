@@ -15,6 +15,7 @@
     - [Instructions for Testing](#instructions-for-testing)
         - [Manual Testing](#manual-testing)
         - [JUnit Testing](#junit-testing)
+        - [Text UI Testing](#text-ui-testing)
 
 <div style="page-break-after: always;"></div>
 
@@ -526,3 +527,19 @@ load
 ## JUnit Testing
 
 JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.
+
+## Text UI Testing
+
+Files relating to Text UI Testing can be found in the directory text-ui-test.
+
+When running tests on a Windows system, run the following command from the specified directory:
+
+```
+./runtest.bat
+```
+
+When running tests on a UNIX-based system, run the following command from the specified directory:
+
+```
+./runtest.sh
+```
