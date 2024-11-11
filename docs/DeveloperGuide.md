@@ -462,7 +462,6 @@ This is done in the same way as described in [Add feature](#add-feature);
 The interactions between components of `EditEventCommand#execute()` are shown in the **Sequence Diagram** below:
 
 <img src="images/EditEventCommandSequenceDiagram.png">
-<div style="page-break-after: always;"></div>
 
 The interactions between components of `EditParticipantCommand#execute()` are shown in the **Sequence Diagram** below:
 
@@ -630,7 +629,7 @@ Given below is an example usage scenario and the behaviour of the `filter` featu
 <div style="page-break-after: always;"></div>
 The interactions between components of `FilterCommand#execute` are shown in the **Sequence Diagram** below:
 
-<img src="images/FilterCommandSequenceDiagram.png" width="550">
+<img src="images/FilterCommandSequenceDiagram.png" width="500">
 <div style="page-break-after: always;"></div>
 
 ### Find feature
