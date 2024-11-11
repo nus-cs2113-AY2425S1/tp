@@ -19,7 +19,8 @@ import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
 import seedu.command.ViewTotalCommand;
-import seedu.command.TrackProgressCommand;
+import seedu.command.ViewBudgetCommand;
+import seedu.command.DeleteBudgetCommand;
 import seedu.datastorage.Storage;
 
 import seedu.transaction.TransactionList;
@@ -164,6 +165,7 @@ public class Main {
 
         parser.registerCommands(new DeleteTransactionCommand(transactions));
         parser.registerCommands(new DeleteCategoryCommand(categories, transactions));
+        parser.registerCommands(new DeleteBudgetCommand(budgetTracker));
 
         parser.registerCommands(new UpdateCategoryCommand(transactions, categories));
 
@@ -175,7 +177,7 @@ public class Main {
         parser.registerCommands(new ViewTotalCommand(transactions));
 
         parser.registerCommands(new KeywordsSearchCommand(transactions));
-        parser.registerCommands(new TrackProgressCommand(budgetTracker));
+        parser.registerCommands(new ViewBudgetCommand(budgetTracker));
 
         parser.registerCommands(new ByeCommand());
 

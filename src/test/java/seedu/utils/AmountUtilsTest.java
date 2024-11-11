@@ -22,8 +22,8 @@ class AmountUtilsTest {
         try {
             AmountUtils.parseAmount("-1");
         } catch (IllegalArgumentException e) {
-            assertEquals(ErrorMessages.INVALID_AMOUNT_FORMAT + "-1"
-                    + ErrorMessages.INVALID_AMOUNT_GUIDE , e.getMessage());
+            assertEquals(ErrorMessages.NEGATIVE_AMOUNT
+                            + ": " + "-1", e.getMessage());
         }
     }
 
