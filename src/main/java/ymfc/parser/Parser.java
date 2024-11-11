@@ -397,6 +397,23 @@ public final class Parser {
         String ingredString = m.group("ingreds");
         ArrayList<Ingredient> ingreds = null;
         if (ingredString != null) {
+            //@@author gskang-22
+            // Collect ingredients
+            List<String> ingredientList = Arrays.stream(ingredString.split("\\s+[iI]/"))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toList();
+
+            // Check for duplicates
+            HashSet<String> ingredientSet = new HashSet<>();
+            for (String ingredient : ingredientList) {
+                if (!ingredientSet.add(ingredient.toLowerCase())) {
+                    throw new InvalidArgumentException("Duplicate ingredient found: " + ingredient
+                            + ".\nThis is not allowed!");
+                }
+            }
+            //@@author
+
             ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
                     .map(String::trim)
                     .filter(s -> !s.isEmpty())
@@ -408,7 +425,7 @@ public final class Parser {
         String stepString = m.group("steps");
         ArrayList<String> steps = null;
         if (stepString != null) {
-            //@@author gskang
+            //@@author gskang-22
             // Extract step identifiers (s1, s2, ...) and validate for duplicates or missing numbers
             List<String> stepIdentifiers = Arrays.stream(stepString.split("\\s+"))
                     .filter(step -> step.matches("[sS][0-9]+/.*")) // Ensure the string matches the step format
@@ -428,8 +445,6 @@ public final class Parser {
         String cuisineInput = m.group("cuisine");
         String cuisine = null;
         if (cuisineInput != null) {
-            // Trim all leading whitespaces from cuisineInput
-            // String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
             cuisine = cuisineInput.trim().substring(2).trim();
         }
 

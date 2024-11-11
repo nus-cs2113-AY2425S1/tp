@@ -13,12 +13,10 @@ skinparam {
 box Editing Recipes COLOR_PALE_PINK
 participant "YMFC" as YMFC <<class>>
 participant "Parser" as Parser <<class>>
-participant ":EditCommand" as EditCommand
-participant ":Storage" as Storage
-participant ":RecipeList" as RecipeList
-participant ":Storage" as Storage
-participant ":UI" as UI
-participant ":Recipe" as Recipe
+participant "command:EditCommand" as EditCommand
+participant "recipeList:RecipeList" as RecipeList
+participant "storage:Storage" as Storage
+participant "ui:Ui" as Ui
 end box
 
 YMFC -> Parser : parseCommand(...)
@@ -26,12 +24,6 @@ activate Parser
 
 Parser -> Parser : getEditCommand(args)
 activate Parser
-
-create Recipe
-Parser -> Recipe : Recipe(name, ingreds, steps, cuisine, timeTaken)
-activate Recipe
-Recipe --> Parser : recipe:Recipe
-deactivate Recipe
 
 create EditCommand
 Parser -> EditCommand : EditCommand(...)
@@ -45,20 +37,36 @@ deactivate Parser
 Parser --> YMFC : command:EditCommand
 deactivate Parser
 
-YMFC -> EditCommand : execute(recipeList, ingredientList, ui, storage)
+YMFC -> EditCommand : execute(...)
 activate EditCommand
-EditCommand -> Recipe : getName()
-activate Recipe
-Recipe -> EditCommand : recipeName:String
-deactivate Recipe
 
-EditCommand -> RecipeList : editRecipe(recipeName, :Recipe)
+EditCommand -> RecipeList : getIndexByName(...)
 activate RecipeList
 ref over RecipeList
-    Find recipe going by name recipeName
-    Edit recipe found with :Recipe
+    Find the recipe that the user wants to edit
+    Return the index of that recipe
 end ref
-RecipeList --> EditCommand
+RecipeList --> EditCommand : toEditRecipeIndex:int
+deactivate RecipeList
+
+EditCommand -> EditCommand : craftEditedRecipe(toEditRecipeIndex:int)
+activate EditCommand
+ref over EditCommand
+    Create a modified recipe based on
+    user argument inputted previously
+    and the recipe that the user is referencing
+    to be edited
+end ref
+EditCommand --> EditCommand : EditedRecipe:Recipe
+deactivate EditCommand
+
+EditCommand -> RecipeList : updateRecipe(toEditRecipeIndex:int, EditedRecipe:Recipe)
+activate RecipeList
+ref over RecipeList
+    Update the modified recipe
+    to the user list of recipes
+end ref
+RecipeList --> EditCommand :
 deactivate RecipeList
 
 EditCommand -> Storage : saveRecipes(:RecipeList)
@@ -71,15 +79,15 @@ end ref
 Storage --> EditCommand
 deactivate Storage
 
-EditCommand -> UI : printEditedRecipe(recipeName, :Recipes)
-activate UI
-ref over UI
+EditCommand -> Ui : printEditedRecipe(originalName:String, editedRecipe:Recipes)
+activate Ui
+ref over Ui
     Print to the CLI
     that a recipe
     has been edited
 end ref
-UI --> EditCommand
-deactivate UI
+Ui --> EditCommand
+deactivate Ui
 
 
 deactivate EditCommand

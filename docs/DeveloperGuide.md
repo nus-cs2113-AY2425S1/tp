@@ -52,6 +52,8 @@ Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
 [Sanjith](http://github.com/KSanjith/ip) : Referenced to develop the working mechanisms of YMFC's storage class
 
+[Luyang](http://github.com/3CCLY/ip) : Referenced to develop the working mechanisms of YMFC's storage class
+
 [Sze Kang](https://github.com/gskang-22/ip) : Referenced to develop the working mechanisms of YMFC's command classes
 <div style="page-break-after: always;"></div>
 
@@ -87,6 +89,7 @@ The sequence diagram below shows how the components interact with each other whe
 ![ApplicationStartUp.png](img/SequenceDiagrams/ApplicationStartUp.png)
 
 <div style="page-break-after: always;"></div>
+<!-- @@author 3CCLY -->
 
 ### Ui Class
 The Ui class deals with taking in inputs from an input stream (in this case, the user input through `System.in`), 
@@ -119,6 +122,8 @@ a list of RecommendedRecipe objects, they are sorted in descending order based o
 ### RecipeList Class
 The RecipeList class represents a list of recipes. 
 This class handles the addition, deletion and editing of recipes.
+
+<!-- @@author -->
 
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/recipesClassDiagram.png)
@@ -230,6 +235,7 @@ to finally printing the "recipe added" message to the User on the CLI:
 ![AddCommand.png](img/SequenceDiagrams/AddRecipesSequenceDiagram.png)
 
 <div style="page-break-after: always;"></div>
+<!-- @@author 3CCLY -->
 
 #### 2. `EditCommand` Class
 
@@ -241,6 +247,7 @@ starting from parsing the user input to finding the exiting recipe in the Recipe
 to finally modifying and saving the recipe in the RecipeList:
 ![EditCommand.png](img/SequenceDiagrams/EditRecipesSequenceDiagram.png)
 
+<!-- @@author -->
 <div style="page-break-after: always;"></div>
 
 #### 3. `AddIngredientCommand` Class
@@ -289,6 +296,8 @@ on how to use them
 `IngredientList`
 - When executed, it retrieves the list of ingredients and displays them to the user through the UI
 
+<!-- @@author 3CCLY -->
+
 #### 12. `RandomCommand` Class
 - The `RandomCommand` class is designed to show the user a randomly selected recipe from their recipeList
 - When executed, it retrieves the list of recipes, pick a random valid index for the list, and display that recipe 
@@ -301,6 +310,8 @@ as the missing ingredients are also determined
 - When executed, it retrieves the list of ingredients, and search through the list of recipes for those that meet the 
 criteria. These recipes are then displayed through `Ui` with their accompanying statistics, listed by descending order 
 of their percentage match
+
+<!-- @@author -->
 
 #### 14. `SortCommand` Class
 - The `SortCommand`class is designed to sort all the existing recipes in the `RecipeList`

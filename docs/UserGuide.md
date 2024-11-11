@@ -63,6 +63,7 @@ be automatically added to the ingredients inventory!
   * Because the ingredients within recipes and ingredients within the inventory refer to 2 completely different things!
   * The only way to add ingredients to your inventory is through the `new` command, which will be described later
 
+<!-- @@author 3CCLY -->
 
 ### Save-Load System
 * YMFC keeps 2 separate databases, stored locally in 2 text files.
@@ -72,6 +73,8 @@ be automatically added to the ingredients inventory!
 * If the databases don't yet exist, YMFC will create them automatically upon launch of the app
 * Your recipes and ingredients are saved automatically every time they are added, edited, removed or modified in any way
   * i.e. There is no manual way nor need to initiate this save process, as it is taken care of by YMFC itself.
+
+<!-- @@author -->
 
 ### Input Formatting Guide
 * If the command format is in `UPPER_CASE`, then it means it is to be substituted for the user's desired phrase
@@ -225,6 +228,8 @@ Total: 1 recipes found!
 __________________________________________________________________________________
 ````
 
+<!-- @@author 3CCLY -->
+
 ### Editing an existing Recipe
 
 Format: `edit e/NAME [n/NAME] [i/INGREDIENTS...] [sn/STEPn...] [c/CUISINE] [t/TIME]`
@@ -276,6 +281,8 @@ Recipe: Grilled Cheese Sandwhich
 __________________________________________________________________________________
 
 ````
+
+<!-- @@author -->
 
 ### Deleting an existing Recipe
 
@@ -333,6 +340,8 @@ Format: `findI INGREDIENT`
 
 Search through your inventory list based on the ingredient name given
 
+<!-- @@author 3CCLY -->
+
 ### Deleting an Existing Ingredient
 
 Format: `deleteI n/INGREDIENT`
@@ -364,6 +373,8 @@ Format: `recommend`
 Find recipes that share common ingredients with what is in your ingredients inventory. 
 Recipes are then recommended from having the highest percentage of shared common ingredients 
 to the least.
+
+<!-- @@author -->
 
 ## FAQ
 
