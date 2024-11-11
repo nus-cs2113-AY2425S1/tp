@@ -235,6 +235,7 @@ Edits an existing transaction in your financial list.
 
 **Example Usages**:
 Example 1: Edits the description of the 1st entry to be `breakfast`.
+
 ```
 edit 1 /des breakfast
 --------------------------------------------
@@ -246,6 +247,7 @@ Got it. I've edited this expense:
 <br>
 
 Example 2: Edits the amount of the 1st entry to be `5.99`.
+
 ```
 edit 1 /a 5.99
 --------------------------------------------
@@ -257,6 +259,7 @@ Got it. I've edited this expense:
 <br>
 
 Example 3: Edits the description and amount of the 2nd entry to be `lunch` and `20` respectively.
+
 ```
 edit 2 /des lunch /a 20
 --------------------------------------------
@@ -268,6 +271,7 @@ Got it. I've edited this expense:
 <br>
 
 Example 4: Edits the description and date of the 3rd entry to be `dinner` and `11/09/2024` respectively.
+
 ```
 edit 3 /des dinner /d 11/09/24
 --------------------------------------------
@@ -279,6 +283,7 @@ Got it. I've edited this expense:
 <br>
 
 Example 5: Edits the description, amount, and date of the 4th entry to be `breakfast`, `5` and `12/09/2024` respectively.
+
 ```
 edit 4 /des breakfast /a 5 /d 12/09/24
 --------------------------------------------
@@ -290,6 +295,7 @@ Got it. I've edited this expense:
 <br>
 
 Example 6: Edits the category of the 5th entry to be `FOOD`.
+
 ```
 edit 5 /c FOOD
 --------------------------------------------
@@ -301,6 +307,7 @@ Got it. I've edited this expense:
 <br>
 
 Example 7: Edits the amount of the last amended entry to be `11`.
+
 ```
 edit /a 11
 --------------------------------------------
