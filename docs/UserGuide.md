@@ -64,9 +64,9 @@ add -m ITEM -e EVENT: Adds an item to an event.
 remove -e EVENT: Removes an event from the event list.
 remove -p PARTICIPANT -e EVENT: Removes a participant from an event.
 remove -m ITEM -e EVENT: Removes an item from an event.
-edit -e OLD_EVENT -name NEW_EVENT -t TIME -v VENUE -u PRIORITY: Edits an event's info.
-edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT: Edits a participant's info.
-edit -m OLD_ITEM > NEW_ITEM -e EVENT: Edits an item's info.
+edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edits an event's info.
+edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT: Edits a participant's info.
+edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT: Edits an item's info.
 view -e EVENT -y TYPE: Displays the list of participants or items of an event.
 mark -e EVENT -s STATUS: Marks an event as done or not done.
 mark -p PARTICIPANT -e EVENT -s STATUS: Marks a participant as present or absent.
@@ -342,7 +342,7 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * Remove participant from an event: `remove -p PARTICIPANT -e EVENT`
 * Remove item from an event: `remove -m ITEM -e EVENT`
 * Edit event: `edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY`
-* Edit participant of an event: `edit -p OLD_PARTICIPANT -name NEW_PARTICIPANT -email EMAIL -e EVENT`
+* Edit participant of an event: `edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT`
 * Edit item of an event: `edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT`
 * View all participants or items for an event: `view -e EVENT -y TYPE`
 * Mark an event as done: `mark -e EVENT -s STATUS`
@@ -350,6 +350,6 @@ If the above format or parameter constraints are not followed, the `Event`, `Par
 * Mark an item as accounted for: `mark -m ITEM -e EVENT -s STATUS`
 * Copy participant list: `copy FROM_EVENT > TO_EVENT`
 * Sort events: `sort -by KEYWORD`
-* Filter events: `filter -e/-t/-u FILTER_DESCRIPTION`
+* Filter events: `filter -e/-d/-t/-x/-u FILTER_DESCRIPTION`
 * Find participants: `find -e EVENT -p NAME`
 * Exit program: `exit`

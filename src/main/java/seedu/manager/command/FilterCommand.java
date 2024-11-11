@@ -3,11 +3,11 @@ package seedu.manager.command;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
 
-import java.time.DateTimeException;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.time.ZoneId;
 
 //@@author LTK-1606
 /**
@@ -27,7 +27,14 @@ public class FilterCommand extends Command {
 
     private static final String INVALID_DATE_FORMAT_MESSAGE = """
             Invalid date format!
-            Please use a valid date in the following format: YYYY-MM-DD
+            Please enter the event time in the following format:
+            YYYY-MM-DD
+            
+            Ensure the following general guidelines:
+            - The year (YYYY) is from 0001 onwards.
+            - The date (MM-DD) is between 01-01 and 12-31.
+          
+            Please also take into account leap years!
             """;
     private static final String INVALID_TIME_FORMAT_MESSAGE = """
             Invalid time format!
@@ -35,7 +42,15 @@ public class FilterCommand extends Command {
             """;
     private static final String INVALID_DATE_TIME_FORMAT_MESSAGE = """
             Invalid date-time format!
-            Please use a valid date-time in the following format: YYYY-MM-DD HH:mm
+            Please enter the event time in the following format:
+            YYYY-MM-DD HH:mm
+            
+            Ensure the following general guidelines:
+            - The year (YYYY) is from 0001 onwards.
+            - The date (MM-DD) is between 01-01 and 12-31.
+            - The time (HH:mm) is between 00:00 and 23:59.
+            
+            Please also take into account leap years!
             """;
     private static final String INVALID_PRIORITY_FORMAT_MESSAGE = """
             Invalid priority format!
@@ -120,14 +135,16 @@ public class FilterCommand extends Command {
      */
     private String filterEventsByDate() {
         try {
-            LocalDate eventDate = LocalDate.parse(filterWord,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            filteredEvents = eventList.filterByDate(eventDate);
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(filterWord);
+            LocalDateTime eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
+            filteredEvents = eventList.filterByDate(eventTime.toLocalDate());
             if (filteredEvents.getListSize() == 0) {
                 return FILTER_RESULT_EMPTY_MESSAGE;
             }
             return FILTER_BY_DATE_MESSAGE + "\n";
-        } catch (DateTimeException exception) {
+        } catch (ParseException exception) {
             isValidFields = false;
             return INVALID_DATE_FORMAT_MESSAGE;
         }
@@ -140,14 +157,16 @@ public class FilterCommand extends Command {
      */
     private String filterEventsByTime() {
         try {
-            LocalTime eventTime = LocalTime.parse(filterWord,
-                    DateTimeFormatter.ofPattern("HH:mm"));
-            filteredEvents = eventList.filterByTime(eventTime);
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("HH:mm");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(filterWord);
+            LocalDateTime eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
+            filteredEvents = eventList.filterByTime(eventTime.toLocalTime());
             if (filteredEvents.getListSize() == 0) {
                 return FILTER_RESULT_EMPTY_MESSAGE;
             }
             return FILTER_BY_TIME_MESSAGE + "\n";
-        } catch (DateTimeException exception) {
+        } catch (ParseException exception) {
             isValidFields = false;
             return INVALID_TIME_FORMAT_MESSAGE;
         }
@@ -160,14 +179,16 @@ public class FilterCommand extends Command {
      */
     private String filterEventsByDateTime() {
         try {
-            LocalDateTime eventDateTime = LocalDateTime.parse(filterWord,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            filteredEvents = eventList.filterByDateTime(eventDateTime);
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(filterWord);
+            LocalDateTime eventTime = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
+            filteredEvents = eventList.filterByDateTime(eventTime);
             if (filteredEvents.getListSize() == 0) {
                 return FILTER_RESULT_EMPTY_MESSAGE;
             }
             return FILTER_BY_DATE_TIME_MESSAGE + "\n";
-        } catch (DateTimeException exception) {
+        } catch (ParseException exception) {
             isValidFields = false;
             return INVALID_DATE_TIME_FORMAT_MESSAGE;
         }
