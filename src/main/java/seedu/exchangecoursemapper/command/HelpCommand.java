@@ -41,8 +41,7 @@ public class HelpCommand extends CheckInformationCommand {
             logger.log(Level.INFO, Logs.COMMAND_PARSED);
             printHelp(command);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, Logs.INVALID_COMMAND);
-            System.out.println(e.getMessage());
+            handleIllegalArgumentError(e);
         } catch (java.lang.Exception e) {
             logger.log(Level.SEVERE, Logs.EXECUTION_FAILED, e);
             throw new RuntimeException(e);
@@ -130,6 +129,12 @@ public class HelpCommand extends CheckInformationCommand {
             logger.log(Level.SEVERE, Logs.INVALID_COMMAND + command);
             throw new IllegalArgumentException(Exception.invalidCommand());
         }
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleIllegalArgumentError(IllegalArgumentException e) {
+        logger.log(Level.WARNING, Logs.INVALID_COMMAND);
+        System.out.println(e.getMessage());
         System.out.println(LINE_SEPARATOR);
     }
 }

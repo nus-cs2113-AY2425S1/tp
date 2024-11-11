@@ -33,25 +33,32 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
     public void execute(String userInput) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
-            JsonObject jsonObject = super.createJsonObject();
-            logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
-            assert jsonObject != null : Assertions.NULL_JSON_FILE;
-            assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+            JsonObject jsonObject = fetchData();
             String puName = getPuName(userInput);
             getUniCourses(jsonObject, puName);
         } catch (IOException e) {
-            logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
-            System.err.println(Exception.fileReadError());
-            System.out.println(LINE_SEPARATOR);
+            handleFileReadError();
         } catch (UnknownUniversityException e) {
-            logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
-            System.err.println(e.getMessage());
-            System.out.println(LINE_SEPARATOR);
+            handleUnknownUniversityError(e);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, Logs.NULL_UNIVERSITY);
-            System.err.println(e.getMessage());
-            System.out.println(LINE_SEPARATOR);
+            handleIllegalArgumentError(e);
         }
+    }
+
+    /**
+     * Fetches data by creating and returning a JsonObject instance.
+     * Logs the success of reading the JSON file and performs assertions to check that
+     * the JSON object is not null or empty.
+     *
+     * @return A JsonObject containing the data from the JSON file.
+     * @throws IOException if an I/O error occurs while creating the JsonObject.
+     */
+    private JsonObject fetchData() throws IOException {
+        JsonObject jsonObject = super.createJsonObject();
+        logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
+        assert jsonObject != null : Assertions.NULL_JSON_FILE;
+        assert !jsonObject.isEmpty() : Assertions.EMPTY_JSON_FILE;
+        return jsonObject;
     }
 
     /**
@@ -191,4 +198,21 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
         ui.printTheEnd();
     }
 
+    private static void handleIllegalArgumentError(IllegalArgumentException e) {
+        logger.log(Level.WARNING, Logs.NULL_UNIVERSITY);
+        System.err.println(e.getMessage());
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleUnknownUniversityError(UnknownUniversityException e) {
+        logger.log(Level.WARNING, Logs.UNKNOWN_UNIVERSITY, e.getMessage());
+        System.err.println(e.getMessage());
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleFileReadError() {
+        logger.log(Level.WARNING, Logs.FAILURE_READ_JSON_FILE);
+        System.err.println(Exception.fileReadError());
+        System.out.println(LINE_SEPARATOR);
+    }
 }
