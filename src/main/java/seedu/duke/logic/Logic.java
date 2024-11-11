@@ -382,6 +382,7 @@ public class Logic {
             break;
         case "delete":
             deleteEntry(commandArguments);
+            storage.update(financialList, budgetLogic);
             break;
         case "budget":
             setBudget(commandArguments);
