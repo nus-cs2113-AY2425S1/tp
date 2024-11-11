@@ -66,6 +66,7 @@ public class SuccessMessage {
                 }
             }
         }
+        System.out.println(UI.SEPARATOR);
     }
 
     public static void printTaggedExpense(Expense expense) {
@@ -92,17 +93,58 @@ public class SuccessMessage {
         System.out.println(UI.SEPARATOR);
     }
 
+
+    public static void printDeleteCategory(String categoryName) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Category \"" + categoryName + "\" has been deleted successfully.");
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printCategoryHasExpense(String categoryName) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Category \"" + categoryName +
+                "\" cannot be deleted because some expenses are tagged to it.");
+        System.out.println("Please delete those expenses or re-tag them " +
+                "to another category before deleting this category.");
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printCategoryDoesNotExist(String categoryName) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Category \"" + categoryName + "\" does not exist.");
+        System.out.println(UI.SEPARATOR);
+    }
+
+
+    public static void printAllCategories(List<Category> categories) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Categories:");
+        int index = 1;
+        for (Category category : categories) {
+            System.out.println(index + ". " + category.getName());
+            index++;
+        }
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printNoCategory() {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("No categories available.");
+        System.out.println(UI.SEPARATOR);
+    }
+
+
     public static void printExistingLimit(Category existingCategory, BigDecimal preciseLimit) {
         System.out.println(UI.SEPARATOR);
         System.out.println("Updated budget for category '" + existingCategory.getName() +
-                "' to " + preciseLimit.toPlainString());
+                "' to " + Format.formatAmount(preciseLimit.doubleValue()));
         System.out.println(UI.SEPARATOR);
     }
 
     public static void printNewLimit(Category existingCategory, BigDecimal preciseLimit) {
         System.out.println(UI.SEPARATOR);
         System.out.println("Set budget for category '"
-                + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
+                + existingCategory.getName() + "' to " + Format.formatAmount(preciseLimit.doubleValue()));
         System.out.println(UI.SEPARATOR);
     }
 

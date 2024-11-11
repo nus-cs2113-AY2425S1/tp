@@ -49,14 +49,9 @@ public class CategoryManager {
     public static void viewAllCategories(TrackerData trackerData) {
         List<Category> categories = trackerData.getCategories();
         if (categories.isEmpty()) {
-            System.out.println("No categories available.");
+            SuccessMessage.printNoCategory();
         } else {
-            System.out.println("Categories:");
-            int index = 1;
-            for (Category category : categories) {
-                System.out.println(index + ". " + category.getName());
-                index++;
-            }
+            SuccessMessage.printAllCategories(categories);
         }
     }
 
@@ -74,7 +69,7 @@ public class CategoryManager {
         }
 
         if (categoryToDelete == null) {
-            System.out.println("Category \"" + categoryName + "\" does not exist.");
+            SuccessMessage.printCategoryDoesNotExist(categoryName);
             return;
         }
 
@@ -86,17 +81,13 @@ public class CategoryManager {
         }
 
         if (hasTaggedExpenses) {
-            System.out.println("Category \"" + categoryName +
-                    "\" cannot be deleted because some expenses are tagged to it.");
-            System.out.println("Please delete those expenses or re-tag them " +
-                    "to another category before deleting this category.");
+            SuccessMessage.printCategoryHasExpense(categoryName);
         } else {
             categories.remove(categoryToDelete);
             trackerData.setCategories(categories);
-            System.out.println("Category \"" + categoryName + "\" has been deleted successfully.");
+            SuccessMessage.printDeleteCategory(categoryName);
         }
     }
-
 
     public static void deleteCategory(String input, TrackerData trackerData) {
         InputParser parser = new InputParser();
