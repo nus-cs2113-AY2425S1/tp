@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
-    private static final String ADD_EVENT_MESSAGE = "Event added successfully";
-    private static final String ADD_PARTICIPANT_MESSAGE = "Participant added successfully";
-    private static final String ADD_ITEM_MESSAGE = "Item added successfully";
+    private static final String ADD_EVENT_MESSAGE = "Event added successfully:\n";
+    private static final String ADD_PARTICIPANT_MESSAGE = "Participant added successfully:\n";
+    private static final String ADD_ITEM_MESSAGE = "Item added successfully:\n";
     private static final String ADD_FAILURE_MESSAGE = "Event not found!";
 
     protected String eventName;
@@ -89,18 +89,57 @@ public class AddCommand extends Command {
     @Override
     public void execute() {
         if (participantName != null) {
-            boolean isAdded = eventList.addParticipantToEvent(
-                    participantName,
-                    participantEmail,
-                    eventName
-            );
-            message = (isAdded) ? ADD_PARTICIPANT_MESSAGE : ADD_FAILURE_MESSAGE;
+            addParticipant();
         } else if (itemName != null) {
-            boolean isAdded = eventList.addItemToEvent(itemName, eventName);
-            message = (isAdded) ? ADD_ITEM_MESSAGE : ADD_FAILURE_MESSAGE;
+            addItem();
         } else {
-            eventList.addEvent(eventName, time, venue, priority);
-            message = ADD_EVENT_MESSAGE;
+            addEvent();
         }
+    }
+
+    /**
+     * Adds a participant to an event.
+     */
+    private void addParticipant() {
+        String addedName = eventList.addParticipantToEvent(participantName, participantEmail, eventName);
+        if (addedName.equalsIgnoreCase("")) {
+            message = ADD_FAILURE_MESSAGE;
+        } else {
+            StringBuilder outputMessage = new StringBuilder();
+            outputMessage.append(ADD_PARTICIPANT_MESSAGE);
+            outputMessage.append(String.format("Participant name: %s / Participant email: %s / Event name: %s",
+                    addedName, participantEmail, eventName));
+            message = outputMessage.toString();
+        }
+    }
+
+    /**
+     * Adds an item to an event.
+     */
+    private void addItem() {
+        String addedName = eventList.addItemToEvent(itemName, eventName);
+        if (addedName.equalsIgnoreCase("")) {
+            message = ADD_FAILURE_MESSAGE;
+        } else {
+            StringBuilder outputMessage = new StringBuilder();
+            outputMessage.append(ADD_ITEM_MESSAGE);
+            outputMessage.append(String.format("Item name: %s / Event name: %s",
+                    addedName, eventName));
+            message = outputMessage.toString();
+        }
+    }
+
+    /**
+     * Adds an event to the event list.
+     */
+    private void addEvent() {
+        String nameToShow = eventList.addEvent(eventName, time, venue, priority);
+
+        StringBuilder outputMessage = new StringBuilder();
+        outputMessage.append(ADD_EVENT_MESSAGE);
+        String dateTimeString = time.toString();
+        outputMessage.append(String.format("Event name: %s / Event time: %s / Event venue: %s / Event priority: %s",
+                nameToShow, dateTimeString, venue, priority));
+        message = outputMessage.toString();
     }
 }

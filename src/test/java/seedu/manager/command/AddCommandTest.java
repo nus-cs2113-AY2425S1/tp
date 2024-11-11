@@ -124,7 +124,9 @@ public class AddCommandTest {
 
     @Test
     public void add_oneItem_success() {
-        String expectedMessage = "Item added successfully";
+        String expectedMessage = """
+        Item added successfully:
+        Item name: Foolscap paper / Event name: Event 1""";
         eventList.addEvent("Event 1", LocalDateTime.parse("2024-10-25 16:00", formatter),
                 "Venue 1", Priority.MEDIUM);
 

@@ -172,24 +172,28 @@ public class Event {
      *
      * @param participantName the name of the participant to be added to the list.
      * @param isPresent {@code true} if the participant is to be present, {@code false} otherwise.
+     * @return the name of the added participant.
      */
-    public void addParticipant(String participantName, String participantEmail,
+    public String addParticipant(String participantName, String participantEmail,
             boolean isPresent) {
         String name = getDuplicateParticipantName(participantName);
         Participant participant = new Participant(name, participantEmail, isPresent);
         this.participantList.add(participant);
+        return name;
     }
 
     //@@author jemehgoh
     /**
-     * Adds an item with a given name to the event's item list.
+     * Returns the name of an item added to the event's item list, with a given name.
      *
      * @param itemName the name of the item to be added.
+     * @return the name of the item added.
      */
-    public void addItem(String itemName, boolean isPresent) {
+    public String addItem(String itemName, boolean isPresent) {
         String name = getDuplicateItemName(itemName);
         Item item = new Item(name, isPresent);
         itemList.add(item);
+        return name;
     }
 
     //@@author LTK-1606

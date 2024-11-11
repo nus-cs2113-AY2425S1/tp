@@ -66,8 +66,8 @@ public class EditEventCommand extends Command{
         String dateTimeString = time.toString();
         StringBuilder outputMessage = new StringBuilder();
         outputMessage.append(EDIT_EVENT_MESSAGE);
-        String formattedString = String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s",
-                name, dateTimeString, venue, priority);
+        String formattedString = String.format("Event name: %s / Event time: %s / Event venue: %s / " +
+                "Event priority: %s", name, dateTimeString, venue, priority);
         outputMessage.append(formattedString);
         return outputMessage.toString();
     }
