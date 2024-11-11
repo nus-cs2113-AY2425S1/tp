@@ -127,6 +127,16 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
   delete-category FnB
   ```
+
+#### Delete a budget: `delete-budget`
+- Delete a budget from the budget list.
+- **Format:** `delete-budget m/ MONTH`
+- **Tips:**
+    - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
+- **Example:**
+  ```
+  delete-budget m/ 2024-11
+  ```
   
 ---
 ### Updating
@@ -187,16 +197,16 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   search k/ school fee ABC
   ```
   
-### Tracking: `track`
-- Track the progress towards budget for a certain month to make sure you are within the budget
-- **Format:** `track m/ MONTH`
+### Viewing of budget: `view-budget`
+- View the list of budgets, or view the budget progress of a certain month
+- **Format:** `view-budget [m/ MONTH]`
 - **Tips:**
   - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
   - Tracking of progress is only available for current or past months.
 - **Example:**
   ```
-  track m/ 2024-11
-  track m/ 2020-10
+  view-budget 
+  view-budget m/ 2024-11
   ```
 
 ### Leave the app: `bye`
@@ -213,18 +223,19 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 | `help`               |                            `help`                             |                       `help`                        |
 | `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |    `add-expense Food a/ 17 d/ 2024-07-09 c/ FnB`    |
 | `add-income`         |        `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`         | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
-| `add-category`       |                    `add-category CATEGORY_NAME`               |                `add-category FnB`                   |
+| `add-category`       |                 `add-category CATEGORY_NAME`                  |                 `add-category FnB`                  |
 | `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
 | `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
-| `delete-category`    |             `delete-category CATEGORY_NAME`                   |               `delete-category FnB`                 |
-| `categorize`         |              `categorize i/ INDEX c/ CATEGORY`                |              `categorize i/ 6 c/ Food`              |
+| `delete-category`    |                `delete-category CATEGORY_NAME`                |                `delete-category FnB`                |
+| `delete-budget`      |                   `delete-budget m/ MONTH`                    |             `delete-budget m/ 2024-11`              |
+| `categorize`         |               `categorize i/ INDEX c/ CATEGORY`               |              `categorize i/ 6 c/ Food`              |
 | `view-category`      |                        `view-category`                        |                   `view-category`                   |
-| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |   `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`|
+| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        | `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`  |
 | `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
 | `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
 | `view-total`         |                         `view-total`                          |                    `view-total`                     |
-| `search`             |     `search k/ [keyword_1] [keyword_2] ... [keyword_n]`       |                 `search k/ school fee ABC`          |
-| `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |
-| `bye`                |                            `bye`                              |                       `bye`                         |
+| `search`             |      `search k/ [keyword_1] [keyword_2] ... [keyword_n]`      |             `search k/ school fee ABC`              |
+| `view-budget`        |                   `view-budget [m/ MONTH]`                    |       `view-budget` `view-budget m/ 2024-11`        |
+| `bye`                |                             `bye`                             |                        `bye`                        |
            
 
