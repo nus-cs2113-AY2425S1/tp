@@ -129,30 +129,9 @@ Represents a budget limit associated with a category, enabling users to track an
 
 ---
 
-### Sequence Diagrams
-#### add-expense
-![Add Expense Sequence Diagram](diagrams/AddExpense.png)
+## Sequence Diagrams
 
-#### add-category
-![Add Category Sequence Diagram](diagrams/AddCategory.png)
-
-#### delete-expense
-![Delete Expense Sequence Diagram](diagrams/DeleteExpense.png)
-
-#### tag-expense
-![Tag Expense Sequence Diagram](diagrams/TagExpense.png)
-
-#### set-budget
-![Set Budget Sequence Diagram](diagrams/SetBudget.png)
-
-#### view-budget
-![View Budget Sequence Diagram](diagrams/ViewBudget.png)
-
-#### view-expenses
-![View Expenses Sequence Diagram](diagrams/ViewExpenses.png)
-
-#### toggle-reset
-![Toggle Auto Reset Sequence Diagram](diagrams/ToggleAutoReset.png)
+---
 
 ## Product Scope
 <!-- @@author glenda-1506 -->
