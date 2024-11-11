@@ -19,6 +19,6 @@ group sd Add participant
         ref over eventList : Add participant to event
     end
 
-    return :boolean
+    return :String
 end
 @enduml

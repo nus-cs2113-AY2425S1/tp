@@ -322,7 +322,7 @@ The `EventList#addParticipantToEvent()` operation works as follows:
 The indexed suffix added for duplicate `Participant` names takes the form `NAME (INDEX)`. For each duplicate added, the index is increased.
 For example, three participants with the name `John Tan` will be stored as `John Tan`, `John Tan (1)` and `John Tan (2)`.
 
-If an `Event` with a name matching `eventName` is not found, the operation returns `false` to indicate that the operation was unsuccessful. Otherwise, the operation returns `true`.
+If an `Event` with a name matching `eventName` is not found, the operation returns am empty string to indicate that the operation was unsuccessful. Otherwise, the operation returns the added `Participant` name.
 <div style="page-break-after: always;"></div>
 
 The interactions between components during the execution of the `EventList#addParticipantToEvent()` operation are show in the **Sequence Diagram** below:
@@ -340,6 +340,7 @@ The interactions between components during the execution of the `EventList#addEv
 <img src = "images/AddEventSequenceDiagram.png">
 
 Upon the execution of the above operations, the output message is set based on the operation's return value, to indicate if the removal was successful.
+If the removal was successful, the details of the added `Event`, `Participant`, or `Item` are shown to the user.
 
 The `Parser` assigns the values of the parameters directly to their respective members, depending on the first command flag in the user input, as follows:
 
@@ -453,7 +454,7 @@ Given below is an example usage scenario and the behaviour of the `edit` feature
    It looks for the event and the specified participant, and then modifies the information and returns true if the participant is found. Otherwise, it returns false.
 4. If the flag is `-m`, `EditItemCommand` calls `EditItemCommand#execute()`, which calls `EventList#editItem()` to edit the item.
    It looks for the event and the specified item, modifies the item and returns true if the item is found. Otherwise, it returns false.
-5. After editing, a message `outputMessage` will be printed.
+5. After editing, a message `outputMessage` will be shown to the user. If the edit operation was successful, this message will contain the updated details of the event/participant/item updated.
 
 If the new name of the `Event`, `Participant`, or `Item` is a duplicate of that of an existing `Event`, `Participant`, or `Item`, an indexed suffix will be added to the name.
 This is done in the same way as described in [Add feature](#add-feature);

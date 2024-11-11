@@ -29,7 +29,7 @@ group sd Add event
 
     return
 
-    return
+    return name:String
 
 end
 

@@ -26,6 +26,6 @@ group sd Add participant to event
     activate participantList
     return
 
-    return
+    return name:String
 end
 @enduml

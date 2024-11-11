@@ -172,24 +172,28 @@ public class Event {
      *
      * @param participantName the name of the participant to be added to the list.
      * @param isPresent {@code true} if the participant is to be present, {@code false} otherwise.
+     * @return the name of the added participant.
      */
-    public void addParticipant(String participantName, String participantEmail,
+    public String addParticipant(String participantName, String participantEmail,
             boolean isPresent) {
         String name = getDuplicateParticipantName(participantName);
         Participant participant = new Participant(name, participantEmail, isPresent);
         this.participantList.add(participant);
+        return name;
     }
 
     //@@author jemehgoh
     /**
-     * Adds an item with a given name to the event's item list.
+     * Returns the name of an item added to the event's item list, with a given name.
      *
      * @param itemName the name of the item to be added.
+     * @return the name of the item added.
      */
-    public void addItem(String itemName, boolean isPresent) {
+    public String addItem(String itemName, boolean isPresent) {
         String name = getDuplicateItemName(itemName);
         Item item = new Item(name, isPresent);
         itemList.add(item);
+        return name;
     }
 
     //@@author LTK-1606
@@ -246,37 +250,38 @@ public class Event {
      *
      * @param participantName the name of the participant to be updated.
      * @param newEmail       the new email address of the participant.
-     * @return {@code true} if the participant was successfully updated;
-     *         {@code false} if the participant was not found.
+     * @return the updated participant name if the details were updated. Otherwise, returns an empty string.
      */
-    public boolean updateParticipant(String participantName, String newName, String newEmail) {
+    public String updateParticipant(String participantName, String newName, String newEmail) {
         for (Participant participant : this.participantList) {
             if (participant.getName().equalsIgnoreCase(participantName)) {
-                String nameToSet = getUpdatedParticipantName(newName, participantName);
+                String nameToSet = getUpdatedParticipantName(newName, participant);
                 participant.setName(nameToSet);
                 participant.setEmail(newEmail);
-                return true;
+                return nameToSet;
             }
         }
-        return false;
+        return "";
     }
 
     //@@author MatchaRRR
     /**
-     * Updates the details of an event.
+     * Updates the details of an item.
      *
      * @param itemName The name of original item.
      * @param itemNewName The name of the new item.
+     * @return the updated name of the item if the details were updated; an empty string otherwise.
      */
-    public boolean updateItem(String itemName, String itemNewName) {
+    public String updateItem(String itemName, String itemNewName) {
         for (Item item : this.itemList) {
             if (item.getName().equalsIgnoreCase(itemName)) {
-                item.setName(getUpdatedItemName(itemNewName, itemName));
+                String updatedName = getUpdatedItemName(itemNewName, item);
+                item.setName(updatedName);
                 item.setPresent(false);
-                return true;
+                return updatedName;
             }
         }
-        return false;
+        return "";
     }
 
     //@@author jemehgoh
@@ -336,7 +341,7 @@ public class Event {
      * @param itemName the name of the item.
      * @param isPresent true if the item is to be marked present, false if it is to be marked absent.
      * @return {@code true} if the item with itemName has been marked present or absent,
-     *         @code false} otherwise.
+     *         {@code false} otherwise.
      */
     public boolean markItemByName(String itemName, boolean isPresent) {
         Optional<Item> item = getItemByName(itemName);
@@ -464,27 +469,38 @@ public class Event {
      * Returns an updated participant name for editing participant details.
      *
      * @param name the given new participant name.
+     * @param participant the participant to be edited.
      * @return the updated version of name.
      */
-    private String getUpdatedParticipantName(String name, String participantName) {
-        if (name.equalsIgnoreCase(participantName)) {
-            return name;
-        } else {
-            return getDuplicateParticipantName(name);
+    private String getUpdatedParticipantName(String name, Participant participant) {
+        int index = 1;
+        String updatedName = name;
+
+        while (getParticipantByName(updatedName).isPresent() &&
+                !updatedName.equalsIgnoreCase(participant.getName())) {
+            updatedName = String.format("%s(%d)", name, index);
+            index++;
         }
+
+        return updatedName;
     }
 
     /**
      * Returns an updated item name for editing item details.
      *
      * @param name the given new item name.
+     * @param item the item to be edited.
      * @return the updated version of name.
      */
-    private String getUpdatedItemName(String name, String itemName) {
-        if (name.equalsIgnoreCase(itemName)) {
-            return name;
-        } else {
-            return getDuplicateItemName(name);
+    private String getUpdatedItemName(String name, Item item) {
+        int index = 1;
+        String updatedName = name;
+
+        while (getItemByName(updatedName).isPresent() && !updatedName.equalsIgnoreCase(item.getName())) {
+            updatedName = String.format("%s(%d)", name, index);
+            index++;
         }
+
+        return updatedName;
     }
 }

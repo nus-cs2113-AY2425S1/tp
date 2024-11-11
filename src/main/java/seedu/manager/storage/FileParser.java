@@ -130,7 +130,7 @@ public class FileParser {
             String email = fields[2].trim();
             String eventName = fields[3].trim();
             boolean isPresent = getIsMarked(fields[4].trim());
-            boolean isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
+            String isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logWarning("File line cannot be parsed, participant not loaded");
@@ -150,7 +150,7 @@ public class FileParser {
             String itemName = fields[1].trim();
             String eventName = fields[2].trim();
             boolean isPresent = getIsMarked(fields[3].trim());
-            boolean isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
+            String isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
         } catch (IndexOutOfBoundsException | NullPointerException exception) {
             logWarning("File line cannot be parsed, item not loaded");
@@ -181,8 +181,8 @@ public class FileParser {
      * @param isLoaded Indicates whether the loading was successful.
      * @throws IOException if the log file cannot be written to.
      */
-    private void eventUnsuccessfulLoad(boolean isLoaded) throws IOException {
-        if (!isLoaded) {
+    private void eventUnsuccessfulLoad(String isLoaded) throws IOException {
+        if (isLoaded.equalsIgnoreCase("")) {
             logWarning("Associated event not found, entry not loaded");
         }
     }

@@ -6,7 +6,7 @@ package seedu.manager.command;
  */
 public class EditItemCommand extends Command {
     public static final String COMMAND_WORD = "edit";
-    private static final String EDIT_ITEM_MESSAGE = "Item successfully updated";
+    private static final String EDIT_ITEM_MESSAGE = "The following item has been updated:\n";
     private static final String EDIT_FAILURE_MESSAGE = "Event/Item not found!";
     protected String itemName;
     protected String itemNewName;
@@ -29,7 +29,26 @@ public class EditItemCommand extends Command {
 
     @Override
     public void execute() {
-        boolean isEdited = this.eventList.editItem(itemName, itemNewName, eventName);
-        this.message = (isEdited) ? EDIT_ITEM_MESSAGE : EDIT_FAILURE_MESSAGE;
+        String updatedName = eventList.editItem(itemName, itemNewName, eventName);
+
+        if (updatedName.equalsIgnoreCase("")) {
+            message = EDIT_FAILURE_MESSAGE;
+        } else {
+            message = getOutputMessage(updatedName);
+        }
+    }
+
+    /**
+     * Returns a success output message with the given item details.
+     *
+     * @param name the updated item name.
+     * @return an output message with name and the event name.
+     */
+    private String getOutputMessage(String name) {
+        StringBuilder outputMessage = new StringBuilder();
+        outputMessage.append(EDIT_ITEM_MESSAGE);
+        String formattedString = String.format("Item name: %s / Event name: %s", name, eventName);
+        outputMessage.append(formattedString);
+        return outputMessage.toString();
     }
 }
