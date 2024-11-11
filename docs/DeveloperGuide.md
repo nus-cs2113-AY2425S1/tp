@@ -1,5 +1,51 @@
 # Developer Guide
 
+# Developer Guide
+
+----------------------------------
+## Table of Contents
+1. [Acknowledgements](#acknowledgements)
+2. [Design & Implementation](#design--implementation)
+    - [Architecture](#architecture)
+      - [Main Components of the Architecture](#main-components-of-the-architecture)
+      - [How the Architecture Components Interact](#how-the-architecture-components-interact-with-each-other)
+    - [Ui Class](#ui-class)
+    - [Recipe Class](#recipe-class)
+    - [RecommendedRecipe Class](#recommendedrecipe-class)
+      - [SortByPercentMatch Class](#sortbypercentmatch-class)
+    - [RecipeList Class](#recipelist-class)
+    - [Ingredient Class](#ingredient-class)
+    - [IngredientList Class](#ingredientlist-class)
+    - [Command Classes](#command-classes)
+        - [Command Base Class](#1-the-command-base-class)
+        - [Command Flow](#2-command-flow-using-command-classes)
+        - [Adding New Command Classes](#3-adding-new-command-classes)
+        - [Command Child Classes](#command-child-classes)
+            - [AddCommand](#1-addcommand-class)
+            - [EditCommand](#2-editcommand-class)
+            - [AddIngredientCommand](#3-addingredientcommand-class)
+            - [ByeCommand](#4-byecommand-class)
+            - [DeleteCommand](#5-deletecommand)
+            - [DeleteIngredientCommand](#6-deleteingredientcommand-class)
+            - [FindCommand](#7-findcommand-class)
+            - [FindIngredientCommand](#8-findingredientcommand-class)
+            - [HelpCommand](#9-helpcommand-class)
+            - [ListCommand](#10-listcommand-class)
+            - [ListIngredientCommand](#11-listingredientcommand-class)
+            - [RandomCommand](#12-randomcommand-class)
+            - [RecommendCommand](#13-recommendcommand-class)
+            - [SortCommand](#14-sortcommand-class)
+            - [SortIngredientCommand](#15-sortingredientcommand-class)
+    - [Parser Class](#parser-class)
+    - [Storage Class](#storage-class)
+3. [Appendix: Requirements](#appendix-requirements)
+    - [Product Scope](#product-scope)
+    - [User Stories](#user-stories)
+    - [Non-Functional Requirements](#non-functional-requirements)
+    - [Glossary](#glossary)
+4. [Appendix: Instructions for manual testing](#instructions-for-manual-testing)
+----------------------------------
+
 ## Acknowledgements
 
 Certain aspects of YMFC's code was inspired from the following member(s) IPs:
@@ -35,7 +81,7 @@ turning them into `Command` objects that are executed by the app.
 
 <div style="page-break-after: always;"></div>
 
-### How the architecture components interact with each other
+#### How the architecture components interact with each other
 The sequence diagram below shows how the components interact with each other when the application is first launched.
 
 ![ApplicationStartUp.png](img/SequenceDiagrams/ApplicationStartUp.png)
@@ -308,13 +354,14 @@ The mechanisms with which it does so is highly similar to the 2 sequence diagram
 
 <div style="page-break-after: always;"></div>
 
-## Product scope
-### Target user profile
+## Appendix: Requirements
 
+### Product scope
+
+#### Target user profile:
 Cooks who want to quickly search up recipes or get recipe suggestions based on their available ingredients
 
-### Value proposition
-
+#### Value proposition:
 Cooks these days have more recipes than they know how to handle, and our product will help them store, retrieve and
 search through their recipes with ease. Users can also store their available inventory of ingredients. 
 Prompts, tags and ingredients can be used to search a curated database, and even recommend recipes that contain 
@@ -322,7 +369,7 @@ whatever ingredients the user has on hand.
 
 <div style="page-break-after: always;"></div>
 
-## User Stories
+### User Stories
 
 | Version | As a ...              | I want to ...                                              | So that I can ...                                                 |
 |---------|-----------------------|------------------------------------------------------------|-------------------------------------------------------------------|
@@ -342,7 +389,7 @@ whatever ingredients the user has on hand.
 
 <div style="page-break-after: always;"></div>
 
-## Non-Functional Requirements
+### Non-Functional Requirements
 
 1. Should work on any Windows, MacOS or Linux computers as long as Java 17 is installed
 2. Should be easy to move data between different devices
@@ -351,7 +398,7 @@ whatever ingredients the user has on hand.
    - There is the extensive ability to search for matching recipes by name, ingredients or steps
    - There is also the ability to sort recipes by name or by time taken
 
-## Glossary
+### Glossary
 
 * *Recipe* - A plan on cooking a meal that contains various attributes such as name, ingredients needed,
 steps to take, cuisine and time taken to cook
@@ -359,7 +406,7 @@ steps to take, cuisine and time taken to cook
 * *Ingredient* - A specific cooking item that the user currently has in their inventory
 * *IngredientList* - The collection of Ingredients available to the user
 
-## Instructions for manual testing
+## Appendix: Instructions for manual testing
 
 **Here is a sample list of inputs that can be used to test the available features:**
 
