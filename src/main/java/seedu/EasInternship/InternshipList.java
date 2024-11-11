@@ -267,7 +267,8 @@ public class InternshipList {
             return compareYearMonth(earliestDeadline1.getDate(), earliestDeadline2.getDate());
         });
     }
-    
+
+    //@@author Toby-Yu
     /**
      * Lists internships sorted by the first skill alphabetically (case-insensitive).
      */
