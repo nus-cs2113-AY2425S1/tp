@@ -42,7 +42,7 @@ class BudgetTrackerTest {
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> budgetTracker.setBudget(monthStr, budgetAmount));
-        assertEquals(ErrorMessages.NEGATIVE_BUDGET_AMOUNT, exception.getMessage());
+        assertEquals(ErrorMessages.NEGATIVE_AMOUNT, exception.getMessage());
     }
 
     @Test

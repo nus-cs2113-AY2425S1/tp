@@ -49,10 +49,6 @@ public class BudgetTracker {
     public void setBudget(String monthStr, double budgetAmount) throws IllegalArgumentException {
         YearMonth month;
 
-        if (budgetAmount < 0) {
-            throw new IllegalArgumentException(ErrorMessages.NEGATIVE_BUDGET_AMOUNT);
-        }
-
         try {
             month = DateTimeUtils.parseYearMonth(monthStr);
         } catch (InvalidDateFormatException e) {
