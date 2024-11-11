@@ -111,7 +111,7 @@ public class UpdateCommand extends Command {
                 - company
                 - start (in MM/yy format)
                 - end (in MM/yy format)
-                - deadline ({description} {date (in dd/MM/yy format)}
+                - deadline: {description} {date (in dd/MM/yy format)}
                 
                 Choose from the following statuses:
                 - Application Pending
