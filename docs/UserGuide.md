@@ -55,7 +55,7 @@ COMMAND                                                          EXAMPLE
 help                                                             help
 set (gender) (age)                                               set male 12
 add (session name)                                               add session1
-modify (session index) (new datetime)                            modify 1 1986-04-08 12:30
+modify (session index) (new datetime)                            modify 1 04/08/1986 12:30
 list                                                             list
 view (session index)                                             view 1
 edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1
@@ -96,13 +96,16 @@ There are 1 sessions in the list.
 ____________________________________________________________________________________________________
 ```
 
+> **Note**: The session datetime of the training added training session will be the current system datetime of the 
+> system.
+
 ### 4. Modify the DateTime of a Training Session: `modify`
 **Purpose**: Modifies the recorded date and time of an Existing Training Session.
 
 **Format**: `modify [session index] [new datetime]`
 - `session index` and `new datetime` fields must be non-empty.
 
-**Format**: `modify 1 1986-04-08 12:30`
+**Example**: `modify 1 10/11/2024 12:56`
 
 **Example Output**:
 ```
@@ -111,6 +114,9 @@ Session 1 has been modified:
 New Date/Time: 10/11/2024 12:56
 ____________________________________________________________________________________________________
 ```
+
+> **Note**: This could cause the modified session to have a different index in the training session list, as
+> as the list is sorted in a chronological order.
 
 ### 5. List all Training Sessions: `list`
 **Purpose**: Displays all Training Sessions the user has added.
@@ -126,6 +132,8 @@ Here are your training sessions:
 There are 2 sessions in the list.
 ____________________________________________________________________________________________________
 ```
+
+> **Note**: The training sessions are listed in their chronological datetime order.
 
 ### 6. View a Training Session: `view`
 **Purpose**: View the details of a Training Session, including session name, datetime, exercise data, points and awards.
@@ -560,6 +568,7 @@ ________________________________________________________________________________
 | **set**             | `set GENDER AGE`                                               | `set male 12`                      |
 | **help**            | `help`                                                         | `help`                             |
 | **add**             | `add SESSION_NAME`                                             | `add session1`                     |
+| **modify**          | `modify SESSION_INDEX DATETIME`                                | `modify 1 10/11/2024 12:30`        |
 | **list**            | `list`                                                         | `list`                             |
 | **view**            | `view SESSION_INDEX`                                           | `view 1`                           |
 | **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
