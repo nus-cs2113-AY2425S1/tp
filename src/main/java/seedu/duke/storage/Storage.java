@@ -1,11 +1,13 @@
 package seedu.duke.storage;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import seedu.duke.budget.Budget;
@@ -114,7 +116,7 @@ public class Storage {
      *
      * @return The budget file.
      */
-    public static File getBudgetFile() {
+    public static File getBudgetFile(){
         File file = new File(BUDGET_FILE_PATH);
         // check if the file exists
         if (!file.exists()) {
@@ -355,7 +357,12 @@ public class Storage {
             } catch (Exception e) {
                 logger.log(LogLevels.WARNING, "Budget format invalid, the budget won't be set.");
                 logger.log(LogLevels.WARNING, e.getMessage());
-                failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
+                File file = getBudgetFile();
+                if (file.length() == 0) {
+                    failedLoadingBudgetMsg = "No Budget loaded from file.";
+                }else{
+                    failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
+                }
             }
             scBudget.close();
             loadedBudgetMsg = "Budget loaded from file.";
