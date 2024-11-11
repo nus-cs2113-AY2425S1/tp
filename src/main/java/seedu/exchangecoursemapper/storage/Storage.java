@@ -3,6 +3,10 @@ package seedu.exchangecoursemapper.storage;
 import seedu.exchangecoursemapper.courses.Course;
 import java.util.List;
 
+/**
+ * The Storage class contains all the methods related to storing course mappings
+ * and detecting corrupted storage files.
+ */
 public class Storage {
 
     private final CourseRepository courseRepository;
