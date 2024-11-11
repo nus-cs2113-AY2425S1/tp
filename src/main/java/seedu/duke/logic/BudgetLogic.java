@@ -42,6 +42,36 @@ public class BudgetLogic {
     }
 
     /**
+     * Retrieves the current budget.
+     *
+     * @return the current budget
+     */
+    public Budget getBudget() {
+        return budget;
+    }
+
+    /**
+     * Prompts the user to set a budget if it is not already set, or it was set in a previous month.
+     * Recalculates the budget balance based on current month data.
+     *
+     * @param financialList the list of financial entries to consider.
+     * @throws FinanceBuddyException if an error occurs during the budget setting process.
+     */
+    public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
+        if (!budget.isBudgetSet()) {
+            handleSetBudget(financialList);
+            return;
+        }
+        LocalDate budgetSetDate = budget.getBudgetSetDate();
+        if (!isCurrentMonth(budgetSetDate)) {
+            System.out.println("Your budget was set in a previous month.");
+            handleSetBudget(financialList);
+            return;
+        }
+        recalculateBalance(financialList);
+    }
+
+    /**
      * Sets the budget if it has not been set. If the budget is already set,
      * prompts the user to confirm whether they want to modify it.
      */
@@ -61,15 +91,6 @@ public class BudgetLogic {
 
             handleSetBudget(financialList, budgetAmount);
         }
-    }
-
-    /**
-     * Retrieves the current budget.
-     *
-     * @return the current budget
-     */
-    public Budget getBudget() {
-        return budget;
     }
 
     /**
@@ -110,7 +131,7 @@ public class BudgetLogic {
      */
     private double getValidBudgetAmountFromUser() {
         while (true) {
-            Commons.printSingleLineWithBars("Please set your budget amount:");
+            Commons.printSingleLineWithBars("Please set your budget amount:");t
             try {
                 String amountInput = ui.getUserInput();
                 double amount = Double.parseDouble(amountInput);
@@ -157,17 +178,21 @@ public class BudgetLogic {
      * Displays the current budget and balance, if the budget is set.
      * Otherwise, notifies the user that the budget is not set.
      */
-    public void getBudgetAndBalance() {
+    public void printBudgetAndBalance() {
         if (!budget.isBudgetSet()) {
             System.out.println("No budget has been set.");
             System.out.println("--------------------------------------------");
             return;
         }
-        String budgetAmount = String.format("$ %.2f", budget.getBudgetAmount());
-        String balanceAmount = String.format("$ %.2f", budget.getBalance());
-        System.out.println("Your current budget is: " + budgetAmount);
-        System.out.println("Your current monthly balance is: " + balanceAmount);
-        System.out.println("--------------------------------------------");
+        System.out.println("Your current budget is: " + budget.getBudgetAmountString());
+        printBalanceAmount();
+    }
+
+    /**
+     * Prints the current balance amount to the user interface.
+     */
+    public void printBalanceAmount() {
+        ui.displayBudgetBalanceMessage(budget.getBalance());
     }
 
     /**
@@ -235,8 +260,7 @@ public class BudgetLogic {
                 ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
                 logger.log(LogLevels.INFO, "Budget has been exceeded.");
             }
-            ui.displayBudgetBalanceMessage(budget.getBalance());
-            logger.log(LogLevels.INFO, "Balance updated to " + String.format("$ %.2f", budget.getBalance()) + ".");
+            logger.log(LogLevels.INFO, "Balance updated to " + budget.getBalanceString() + ".");
         }
 
     }
@@ -259,8 +283,7 @@ public class BudgetLogic {
                 ui.displayBudgetBalanceExceededMessage(budget.getBudgetAmount());
                 logger.log(LogLevels.INFO, "Budget has been exceeded.");
             }
-            ui.displayBudgetBalanceMessage(budget.getBalance());
-            logger.log(LogLevels.INFO, "Balance updated to " + String.format("$ %.2f", budget.getBalance()) + ".");
+            logger.log(LogLevels.INFO, "Balance updated to " + budget.getBalanceString() + ".");
         }
     }
 

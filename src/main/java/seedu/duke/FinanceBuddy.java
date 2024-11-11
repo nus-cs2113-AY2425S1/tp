@@ -41,7 +41,7 @@ public class FinanceBuddy {
         storage.printLoadingResult();
 
         try {
-            budgetLogic.setBudget(financialList);
+            budgetLogic.promptUserToSetBudget(financialList);
             storage.update(financialList, budgetLogic);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());
