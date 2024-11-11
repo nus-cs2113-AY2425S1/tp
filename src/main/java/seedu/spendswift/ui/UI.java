@@ -2,7 +2,7 @@
 package seedu.spendswift.ui;
 
 public class UI {
-    public static final String SEPARATOR = "_".repeat(50);
+    public static final String SEPARATOR = "_".repeat(120);
     private static final String WELCOME_MESSAGE = "Hiya! How can I assist?";
     private static final String EXIT_MESSAGE = "Goodbye! :> Hope to see you again soon!";
     private static final String EXPENSE_FILE_NOT_FOUND = "Expense data file not found.";
