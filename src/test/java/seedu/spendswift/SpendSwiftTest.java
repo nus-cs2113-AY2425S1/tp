@@ -15,7 +15,7 @@ import seedu.spendswift.parser;
 
 import org.junit.jupiter.api.BeforeEach;
 import java.util.Arrays;
-import java,util.HashMap;
+import java.util.HashMap;
 
 import java.math.BigDecimal;
 //import java.util.Random;
