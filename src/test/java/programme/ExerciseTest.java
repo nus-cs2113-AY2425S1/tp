@@ -125,3 +125,4 @@ class ExerciseTest {
     @Test
     void testGetWeight() { assertEquals(3, exercise.getWeight()); }
 }
+
