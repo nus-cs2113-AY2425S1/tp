@@ -80,8 +80,7 @@ class DeleteCategoryCommandTest {
                 "2024-10-10 2359", new Category("NewCategory")).toString());
 
         List<String> actualTransactions = new ArrayList<>();
-        for (Transaction transaction:transactionList.getTransactions())
-        {
+        for (Transaction transaction:transactionList.getTransactions()) {
             actualTransactions.add(transaction.toString());
         }
         // Assert
@@ -112,8 +111,7 @@ class DeleteCategoryCommandTest {
 
         // Assert
         List<String> actualTransactions = new ArrayList<>();
-        for (Transaction transaction:transactionList.getTransactions())
-        {
+        for (Transaction transaction:transactionList.getTransactions()) {
             actualTransactions.add(transaction.toString());
         }
         // Assert
@@ -144,8 +142,7 @@ class DeleteCategoryCommandTest {
 
         // Assert
         List<String> actualTransactions = new ArrayList<>();
-        for (Transaction transaction:transactionList.getTransactions())
-        {
+        for (Transaction transaction:transactionList.getTransactions()) {
             actualTransactions.add(transaction.toString());
         }
         // Assert
