@@ -452,7 +452,7 @@ public final class Parser {
         return new EditCommand(matchName, newName, ingreds, steps, cuisine, timeTaken);
     }
 
-    private static Command getFindCommand(String args) throws InvalidArgumentException {
+    private static FindCommand getFindCommand(String args) throws InvalidArgumentException {
         final Pattern findCommandPattern =
                 // Options to feed into findCommand, could be null
                 // Length of 1 to 3, consist of only "nNiIsS", must ends with /
