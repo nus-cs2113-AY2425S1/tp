@@ -1,10 +1,11 @@
 package seedu.exchangecoursemapper.constants;
 
 public class HelpMessages {
-    public static final String COMMAND_SET = "The set function allows users to key in the partner university(PU)\n" +
-            "they are interested in and it will return NUS courses and the mappable PU courses.\n" +
+    public static final String COMMAND_LIST_COURSES = "The list courses function allows users to key in the " +
+            "partner university (PU)\nthey are interested in and it will return NUS courses and the " +
+            "mappable PU courses.\n" +
             "The format to use this function is shown below:\n" +
-            "set [PU_NAME]\n" +
+            "list courses [PU_NAME]\n" +
             "For example, set the university of western australia";
     public static final String COMMAND_FILTER = "The filter function allows users to input a NUS course that they " +
             "want to map\nand get a list of the mappable courses that includes NUS courses in the format of:\n" +

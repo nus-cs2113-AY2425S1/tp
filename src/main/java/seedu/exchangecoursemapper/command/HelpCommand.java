@@ -7,7 +7,7 @@ import seedu.exchangecoursemapper.constants.Logs;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_SET;
+import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_LIST_COURSES;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_FILTER;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_LIST_SCHOOLS;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_COMMANDS;
@@ -62,7 +62,7 @@ public class HelpCommand extends CheckInformationCommand {
         String command = input.replaceFirst("help", "").trim().toLowerCase();
 
         switch (command) {
-        case "set":
+        case "list courses":
         case "filter":
         case "list schools":
         case "add":
@@ -92,8 +92,8 @@ public class HelpCommand extends CheckInformationCommand {
         assert command != null: Assertions.NULL_INPUT;
 
         switch (command) {
-        case "set":
-            System.out.println(COMMAND_SET);
+        case "list courses":
+            System.out.println(COMMAND_LIST_COURSES);
             break;
         case "filter":
             System.out.println(COMMAND_FILTER);
