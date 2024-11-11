@@ -1107,7 +1107,7 @@ public class Parser {
      */
     private void checkForDuplicateFlags(String input, String flagRegex) throws InvalidCommandException {
         Pattern flagPattern = Pattern.compile(flagRegex);
-        Matcher flagMatcher = flagPattern.matcher(input);
+        Matcher flagMatcher = flagPattern.matcher(input + " ");
 
         Set<String> seenFlags = new HashSet<>();
 
