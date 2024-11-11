@@ -42,7 +42,7 @@ public class CalendarCommand extends Command {
         ArrayList<String> companies = new ArrayList<>();
         for (Deadline deadline : deadlines) {
             int internshipIndex = deadline.getInternshipId() - 1;
-            companies.add(internships.getInternship(internshipIndex).getCompany());
+            companies.add(internshipsList.getInternship(internshipIndex).getCompany());
         }
         return companies;
     }
