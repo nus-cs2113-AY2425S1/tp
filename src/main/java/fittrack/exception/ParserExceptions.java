@@ -31,6 +31,7 @@ import static fittrack.messages.Messages.INVALID_WALK_AND_RUN_TIMING_MESSAGE;
 import static fittrack.messages.Messages.MALE_GENDER;
 
 public class ParserExceptions extends RuntimeException {
+
     public static String[] parseUserInfo(String userInput) {
         if (!userInput.contains(" ")) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
@@ -42,14 +43,13 @@ public class ParserExceptions extends RuntimeException {
         return userInfo;
     }
 
-    public static User validUser(String gender, String age) {
+    public static void validUser(String gender, String age) {
         if (!(gender.equals(MALE_GENDER) || gender.equals(FEMALE_GENDER))) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
         }
         if (stringToValidInteger(age) < 12 || stringToValidInteger(age) > 24) {
             throw new IllegalArgumentException(INVALID_USER_INFO_MESSAGE);
         }
-        return new User(gender, age);
     }
 
     public static TrainingSession validSession(String description, User user) {
@@ -92,8 +92,7 @@ public class ParserExceptions extends RuntimeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         try {
             LocalDateTime.parse(modifyDetails[1], formatter);
-        }
-        catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(INVALID_MODIFY_DETAILS_MESSAGE);
         }
 

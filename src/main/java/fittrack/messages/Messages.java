@@ -52,8 +52,9 @@ public class Messages {
             + System.lineSeparator() + "delete (session index)                                           delete 1"
             + System.lineSeparator() + "edit-mood (session index) (mood description)                     "
             + "edit-mood 1 Sad"
-            + System.lineSeparator() + "remind (Event / Task) (deadline)                                 remind " +
-            "NAPFA DD/MM/YYYY"
+            + System.lineSeparator() + "delete (session index)                                           delete 1"
+            + System.lineSeparator() + "remind (Event / Task) // (deadline)                              remind " +
+            "NAPFA // DD/MM/YYYY"
             + System.lineSeparator() + "list-remind                                                      list-remind "
             + System.lineSeparator() + "delete-remind (reminder index)                                   delete-remind"
             + "1"
@@ -109,6 +110,16 @@ public class Messages {
     public static final String INVALID_SESSION_INDEX_MESSAGE = "Please provide a valid session index.";
     public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
             "Please provide a valid session index, station and reps.";
+
+    public static final String INVALID_DATETIME_MESSAGE = "Invalid date/time. Please enter a valid date/time using " +
+            "the [DD/MM/YYYY] or [DD/MM/YYYY HH:mm] format.";
+    public static final String DATE_OUT_OF_RANGE = "Date out of valid range. Please use a date between " +
+            "01/01/1900 and 31/12/2100.";
+    public static final String INVALID_INDEX_NON_NUMERIC_MESSAGE = "Non-numeric index provided. Please enter a " +
+            "positive number corresponding to the item you want to edit/delete";
+    public static final String INDEX_OUT_OF_BOUNDS_MESSAGE = "Invalid index provided. Please enter a positive number " +
+            "corresponding to the existing item you want to edit/delete";
+
     public static final String INVALID_MODIFY_DETAILS_MESSAGE =
             "Please provide a valid session index and DateTime (e.g. 12/03/2007 10:15).";
     public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";

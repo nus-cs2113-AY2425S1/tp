@@ -14,14 +14,14 @@ import static fittrack.messages.Messages.INVALID_INPUT_MESSAGE;
 import static fittrack.messages.Messages.LIST_SESSION_EMPTY_MESSAGE;
 import static fittrack.messages.Messages.LIST_SESSION_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
+import static fittrack.ui.Ui.printUser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static fittrack.ui.Ui.printUser;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UiTest {
 
@@ -54,7 +54,7 @@ public class UiTest {
         ArrayList<TrainingSession> sessions = new ArrayList<>();
         TrainingSession session = new TrainingSession(LocalDateTime.now(), "test1", user);
         sessions.add(session);
-        Ui.printAddedSession(sessions, sessions.size()-1);
+        Ui.printAddedSession(sessions, sessions.size() - 1);
         assertEquals(SEPARATOR + System.lineSeparator() + ADD_SESSION_MESSAGE + System.lineSeparator()
                 + sessions.size() + ". " + session.getSessionDescription() + " | " + session.getSessionDatetime()
                 + System.lineSeparator() + "There are 1 sessions in the list." + System.lineSeparator()

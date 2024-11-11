@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 // Import enums, exceptions, and message constants for input parsing and validation
 import static fittrack.enums.Exercise.fromUserInput;
@@ -47,7 +46,9 @@ import static fittrack.messages.Messages.EDIT_MOOD_COMMAND;
 import static fittrack.messages.Messages.GRAPH_PERFORMANCE_COMMAND;
 import static fittrack.messages.Messages.GRAPH_POINTS_COMMAND;
 import static fittrack.messages.Messages.HELP_COMMAND;
-import static fittrack.messages.Messages.INVALID_DATE_FORMAT_MESSAGE;
+import static fittrack.messages.Messages.INDEX_OUT_OF_BOUNDS_MESSAGE;
+import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
+import static fittrack.messages.Messages.INVALID_INDEX_NON_NUMERIC_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
 import static fittrack.messages.Messages.LIST_FOOD_COMMAND;
 import static fittrack.messages.Messages.LIST_GOAL_COMMAND;
@@ -60,6 +61,7 @@ import static fittrack.messages.Messages.MODIFY_SESSION_DATETIME_COMMAND;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
+import static fittrack.parser.ParserHelpers.parseDeadline;
 import static fittrack.storage.Storage.updateSaveFile;
 import static fittrack.ui.Ui.printAddedReminder;
 import static fittrack.ui.Ui.printAddedSession;
@@ -83,7 +85,7 @@ public class Parser {
 
     // Method to print all goals in the goal list or notify if empty
     private static void printGoalList(ArrayList<String> goalList) {
-        if (goalList.isEmpty()){
+        if (goalList.isEmpty()) {
             System.out.println("Your goals list is currently empty.");
         } else {
             System.out.println("Your goals:");
@@ -153,14 +155,21 @@ public class Parser {
         case SET_USER_COMMAND:
             try {
                 // Parse user information and validate user attributes
+                // Check if details are appropriate
                 String[] userInfo = parseUserInfo(description);
-                user = validUser(userInfo[0], userInfo[1]);
-                assert user.getAge() > 0 : "User age must be greater than 0";
-                assert user.getGender() != null : "User gender must not be null";
+                validUser(userInfo[0], userInfo[1]);
+
+                user.setGender(userInfo[0]);
+                user.setAge(userInfo[1]);
+
+                // Report updated user details to user
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
+
+
             break;
         case ADD_SESSION_COMMAND:
             try {
@@ -195,8 +204,7 @@ public class Parser {
                 }
                 sessionList.add(insertIndex, modifiedSession);
                 printModifiedSession(sessionList,sessionIndex + 1);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // Handle any exceptions and print error message.
                 System.out.println(e.getMessage());
             }
@@ -281,47 +289,76 @@ public class Parser {
 
         case ADD_REMINDER_COMMAND:
             try {
-                // Split the input into description and deadline for the reminder.
-                sentence = description.split(" ", 2);
+                String[] remindInfo = description.split("//", 2);
 
-                String inputDeadline = sentence[1];
-                description = sentence[0];
+                // Check if sentence contains both description and deadline
+                if (remindInfo.length < 2) {
+                    throw new IllegalArgumentException("Input must contain a non-blank description and a deadline," +
+                            " with '//' between them");
+                }
 
-                // Validate reminder description and deadline.
-                assert !description.isEmpty() : "Reminder description must not be empty";
-                assert !Objects.equals(inputDeadline, "") : "Reminder deadline must not be empty";
-                LocalDateTime deadline = parseDeadline(inputDeadline);
+                String inputDeadline = remindInfo[1].trim();
+                String inputDescription = remindInfo[0].trim();
 
-                // Add the reminder to the reminder list and print the updated reminder list.
-                reminderList.add(new Reminder(description, deadline, user));
+                if (inputDeadline.isEmpty() || inputDescription.isEmpty()) {
+                    throw new IllegalArgumentException("Input must contain a non-blank description and a deadline, " +
+                            "with '//' between them");
+                }
+
+                // Parse the deadline, handle any parsing errors
+                LocalDateTime deadline;
+                try {
+                    deadline = parseDeadline(inputDeadline);
+                } catch (DateTimeParseException e) {
+                    throw new IllegalArgumentException(INVALID_DATETIME_MESSAGE, e);
+                }
+
+                // Proceed with adding the reminder if no exceptions were thrown
+                reminderList.add(new Reminder(inputDescription, deadline, user));
                 printAddedReminder(reminderList);
-
-                // Save the updated data.
                 updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
 
-            } catch (DateTimeParseException e) {
-                // Handle date format error and prompt the correct format.
-                System.out.println("Invalid date format. Please use 'dd/MM/yyyy HH:mm'.");
             } catch (IllegalArgumentException e) {
-                // Handle other errors like empty descriptions.
                 System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.err.println("An unexpected error occurred: " + e.getMessage());
             }
             break;
+
         case DELETE_REMINDER_COMMAND:
-            // Validate the reminder index and remove the reminder from the list.
-            int reminderIndexToDelete = Integer.parseInt(description) - 1;
-            assert reminderIndexToDelete >= 0 && reminderIndexToDelete < reminderList.size(): "Delete reminder index "
-                    + "out of bounds";
-            Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
-            reminderList.remove(reminderIndexToDelete);
-            printDeletedReminder(reminderList, reminderToDelete);
-            // Save the updated reminder list.
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            try {
+                int reminderIndexToDelete;
+
+                // Try parsing the index; handle invalid number formats
+                try {
+                    reminderIndexToDelete = Integer.parseInt(description) - 1;
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException(INVALID_INDEX_NON_NUMERIC_MESSAGE);
+                }
+
+                // Check if the index is within bounds
+                if (reminderIndexToDelete < 0 || reminderIndexToDelete >= reminderList.size()) {
+                    throw new IndexOutOfBoundsException(INDEX_OUT_OF_BOUNDS_MESSAGE);
+                }
+
+                // Retrieve and delete the reminder if the index is valid
+                Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
+                reminderList.remove(reminderIndexToDelete);
+                printDeletedReminder(reminderList, reminderToDelete);
+                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+
+            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("An unexpected error occurred: " + e.getMessage());
+            }
             break;
+
         case LIST_REMINDER_COMMAND:
             // Print the list of all reminders.
             printReminderList(reminderList);
             break;
+
         case LIST_UPCOMING_REMINDER_COMMAND:
             // Print the list of upcoming reminders.
             printUpcomingReminders(reminderList);
@@ -532,37 +569,4 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses user input indicating the deadline of an object.
-     * Throws an exception if user-input String is inappropriate or ill-formatted.
-     *
-     * @param inputDeadline A string input by the user. Intended format is DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.
-     * @return A {@code LocalDateTime} object indicating reminder deadline
-     * @throws IllegalArgumentException Thrown if an incorrectly formatted deadline is provided.
-     */
-    static LocalDateTime parseDeadline(String inputDeadline) throws IllegalArgumentException {
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
-            // Try to parse with time (dd/MM/yyyy HH:mm:ss)
-            try {
-                return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
-            } catch (DateTimeParseException e) {
-                // If failed, try to parse without time (HH:mm:ss)
-                LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
-                return date.atStartOfDay();
-            }
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(INVALID_DATE_FORMAT_MESSAGE
-                    + "Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
-        }
-    }
-
-
-    private static LocalDateTime parseMoodTimestamp(String date, String time) {
-        String dateTimeString = date + " " + time;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        return LocalDateTime.parse(dateTimeString, formatter);
-    }
 }
