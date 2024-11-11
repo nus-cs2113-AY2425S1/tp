@@ -105,12 +105,7 @@ public class ParserExceptions extends RuntimeException {
             }
             break;
         case "SR":
-            if (!exerciseData.contains(".")) {
-                throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData
-                        + System.lineSeparator() + EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT);
-            }
-            exerciseData = exerciseData.replace(".", "");
-            if (stringToValidInteger(exerciseData) == -1) {
+            if(!exerciseData.matches("\\d+\\.\\d")){
                 throw new IllegalArgumentException(INVALID_SHUTTLE_RUN_TIMING_MESSAGE + exerciseData
                         + System.lineSeparator() + EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT);
             }
@@ -134,16 +129,9 @@ public class ParserExceptions extends RuntimeException {
             }
             break;
         case "WAR":
-            if (!exerciseData.contains(":")) {
+            if(!exerciseData.matches("\\d+:[0-5]\\d")){
                 throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData
                         + System.lineSeparator() + EXAMPLE_WALK_AND_RUN_TIMING_FORMAT);
-            }
-            String[] warTime = exerciseData.split(":");
-            if (warTime.length != 2) {
-                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
-            }
-            if (stringToValidInteger(warTime[0]) == -1 || stringToValidInteger(warTime[1]) == -1) {
-                throw new IllegalArgumentException(INVALID_WALK_AND_RUN_TIMING_MESSAGE + exerciseData);
             }
             break;
         default:
