@@ -16,7 +16,7 @@ public class AmountUtils {
     public static boolean isValidAmount(String amountString) {
         try {
             double amount = Double.parseDouble(amountString);
-            return (amount > 0 && amount <= 99999999999999999999.99);
+            return (amount > 0 && amount <= 1000000000);
         } catch (NumberFormatException e) {
             return false;
         }
@@ -32,7 +32,7 @@ public class AmountUtils {
     public static double parseAmount(String amountString) throws IllegalArgumentException {
         if (!isValidAmount(amountString)) {
             throw new IllegalArgumentException(ErrorMessages.INVALID_AMOUNT_FORMAT + amountString
-                    + "\n    " + ErrorMessages.INVALID_AMOUNT_GUIDE);
+                    + ErrorMessages.INVALID_AMOUNT_GUIDE);
         }
         return Double.parseDouble(amountString);
     }
