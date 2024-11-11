@@ -130,7 +130,7 @@ public class HelpCommand extends Command {
      */
     private static void saveHelp() {
         Ui.displayMessage("Use the save command to save data to files.");
-        Ui.displayMessage("Format:  save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH]" +
+        Ui.displayMessage("Format:  save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] " +
                 "[/recurringExpenseList RECUR_FILE_PATH]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - If nothing at all is specified, it loads from the default paths:");
@@ -148,7 +148,7 @@ public class HelpCommand extends Command {
      */
     private static void loadHelp() {
         Ui.displayMessage("Use the load command to load data from files.");
-        Ui.displayMessage("Format:  load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH]" +
+        Ui.displayMessage("Format:  load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] " +
                 "[/recurringExpenseList RECUR_FILE_PATH]");
         Ui.displayMessage("Notes:");
         Ui.displayMessage("    - If nothing at all is specified, it loads from the default paths:");

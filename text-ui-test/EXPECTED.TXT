@@ -1,3 +1,63 @@
 WheresMyMoney
 What can I do for you?
+> Required argument not given: price
+The price is keyed in as such: <command> [index] /price value ...remaining arguments
+> Price given "a0" is invalid. Please make sure it is a number.
+> Price cannot take on a value that is less than or equal to 0.
+> Required argument not given: category
+The category is keyed in as such: <command> [index] /category value ...remaining arguments
+> > 1. CATEGORY: food, DESCRIPTION: chicken rice, PRICE: 4.50, DATE ADDED: 01-01-2024
+> Required argument not given: category
+The category is keyed in as such: <command> [index] /category value ...remaining arguments
+> Required argument not given: limit
+The limit is keyed in as such: <command> [index] /limit value ...remaining arguments
+> Required argument not given: category
+The category is keyed in as such: <command> [index] /category value ...remaining arguments
+> Required argument not given: category
+The category is keyed in as such: <command> [index] /category value ...remaining arguments
+> > Warning! You are close to the spending limit of 5.00 for the category of food, with a total expenditure of 4.50. 
+> Warning! You are close to the spending limit of 4.50 for the category of food, with a total expenditure of 4.50. 
+> Alert! You have exceeded the spending limit of 4.00 for the category of food, with a total expenditure of 4.50. 
+> Limit given "two hundred" is invalid. Please make sure it is a number.
+> Limit cannot take on a value that is less than or equal to 0.
+> Index given "" is invalid. Check if it is a number.
+> No related arguments were given to update the expense.
+> Index given "first" is invalid. Check if it is a number.
+> > 1. CATEGORY: food, DESCRIPTION: steamed chicken rice, PRICE: 5.50, DATE ADDED: 09-11-2001
+> Alert! You have exceeded the spending limit of 100.00 for the category of food, with a total expenditure of 120.00. 
+> 1. CATEGORY: food, DESCRIPTION: steamed chicken rice, PRICE: 120.00, DATE ADDED: 09-11-2001
+> Alert! You have exceeded the spending limit of 100.00 for the category of food, with a total expenditure of 120.00. 
+> 1. CATEGORY: food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 09-11-2001
+> Alert! You have exceeded the spending limit of 100.00 for the category of expensive food, with a total expenditure of 120.00. 
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 09-11-2001
+> Alert! You have exceeded the spending limit of 100.00 for the category of expensive food, with a total expenditure of 120.00. 
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 31-12-2019
+> Price given "3 SGD" is invalid. Please make sure it is a number.
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 31-12-2019
+> Price given "" is invalid. Please make sure it is a number.
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 31-12-2019
+> Expense's description shouldn't be blank.
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 31-12-2019
+> Expense's category shouldn't be blank.
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 31-12-2019
+> Alert! You have exceeded the spending limit of 100.00 for the category of expensive food, with a total expenditure of 120.00. 
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
+> Invalid date format, please follow dd-MM-yyyy
+> No valid command given!
+> HIGHEST EXPENSE:120.0
+1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
+LOWEST EXPENSE:120.0
+1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
+TOTAL EXPENSES: 120.0
+AVERAGE PRICE: 120.0
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
+> No matching expenses were found!
+> No valid command given!
+> Index given "" is invalid. Check if it is a number.
+> Index is out of bounds.
+> Index given "a" is invalid. Check if it is a number.
+> Index is out of bounds.
+> 1. CATEGORY: expensive food, DESCRIPTION: roasted chicken rice, PRICE: 120.00, DATE ADDED: 11-09-2001
+> > No expenses were found!
 > Bye. Hope to see you again soon!

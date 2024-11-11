@@ -35,7 +35,7 @@ public class RecurringExpense extends Expense {
         if (date == null) {
             throw new InvalidInputException("Date should not be null");
         } else if (!DateUtils.isInDateFormat(date)) {
-            throw new InvalidInputException("Invalid date format " + DateUtils.DATE_FORMAT);
+            throw new InvalidInputException("Invalid date format, please follow " + DateUtils.DATE_FORMAT);
         }
         this.lastDateAdded = date;
     }
