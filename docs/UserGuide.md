@@ -5,8 +5,8 @@
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
 3. [Terminology](#terminology)
-4. [To Note](#to-note)
-5. [Data Storage](#data-storage)
+4. [Data Storage Information](#data-storage-information)
+5. [To Note](#to-note)
 6. [Features](#features)
    - [1. Add New Programme](#1-add-new-programme)
    - [2. Set Programme as Active](#2-set-programme-as-active)
@@ -29,8 +29,8 @@
    - [19. View Specific Record](#19-view-specific-record)
    - [20. View Weekly Summary](#20-view-weekly-summary)
    - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
-   - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises)
-   - [23. Delete Record](#23-delete-record)
+   - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises-)
+   - [23. Delete Record](#23-delete-record-)
    - [24. Exiting BuffBuddy](#24-exit-buffbuddy)
 7. [Alias Table](#alias-table)
 8. [Command Summary](#command-summary)
@@ -55,6 +55,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - **Programme**: A programme is a collection of workout days.
 - **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
 
+<!-- @@author Bev-low -->
 ## Data Storage Information:
 - The application uses a JSON file to store user data, ensuring persistence across sessions.
 - All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
@@ -62,7 +63,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - The system automatically creates the file if it does not exist.
 - If the structure of the JSON file has been tampered with (e.g., removing the "programmeList" key or using {} as the entire content), the program will handle this scenario by treating the user as a first-time user and initializing a fresh start.
 - If any data values within the JSON file are found to be invalid (e.g., negative numbers where only positive values are allowed), the specific section containing corrupted data (either the `ProgrammeList` or `History`) will be re-initialized to be empty.
-
+<!-- @@author nirala-ts -->
 ---
 
 ## To Note
@@ -90,15 +91,6 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - Flags have aliases. Refer to the [alias table](#Alias-Table) to see the alternative options available for each flag.
 
 - All flags must have valid values. Negative values or zero are not accepted.
-
-
-## Data Storage
-
-- The application stores user data in a JSON file, ensuring persistence across sessions.
-- All records, including logged workouts, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
-- The JSON format is human-readable, allowing users to easily view their stored data if needed.
-- The system automatically creates the file if it does not exist.
-- If the file is altered or corrupted, the program will reset the list of programs and history to prevent data issues.
 
 ## Features
 
@@ -494,7 +486,6 @@ If `DATE` is not specified, the command defaults to the current date at the time
 
 ---
 
-<!-- @@author andreusxcarvalho -->
 ### 18. View History
 
 This feature displays a comprehensive record of workouts, meals, and water intake for each logged day.
@@ -547,7 +538,7 @@ Caloric Balance: 300 kcal
 ```
 
 ---
-
+<!-- @@author andreusxcarvalho -->
 ### 19. View Specific Record
 
 This feature displays the recorded information for the specified day.
