@@ -565,6 +565,7 @@ ________________________________________________________________________________
 | **list**            | `list`                                                         | `list`                             |
 | **view**            | `view SESSION_INDEX`                                           | `view 1`                           |
 | **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
+| **modify**          | `modify SESSION_INDEX NEW_DATETIME`                            | `modify 1 12/12/2024 14:00:00`     |  
 | **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                        |
 | **exit**            | `exit`                                                         | `exit`                             |
 | **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`            |
