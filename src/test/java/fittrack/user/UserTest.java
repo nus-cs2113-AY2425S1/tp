@@ -1,13 +1,12 @@
-package fittrack;
+package fittrack.user;
 
 import fittrack.enums.Gender;
-import fittrack.user.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FitTrackTest {
+class UserTest {
 
     private User user;
 
