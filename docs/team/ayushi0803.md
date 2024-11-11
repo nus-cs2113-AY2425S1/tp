@@ -18,6 +18,8 @@ I contributed to multiple core packages in the FitTrackCLI system, collaborating
   with Avjay, enabling users to track their nutrition and hydration.
 - Mood Logs: Added mood tracking functionality to the TrainingSession class, allowing users to
   log their emotional and physical states during training sessions.
+- Unit Testing: Wrote unit tests for the HealthProfile and FitnessGoals components to ensure 
+- the reliability and accuracy of the system.
 - Code Quality: Enhanced code readability and maintainability by adding comments to several key
   modules, including:
   - Fitness Goal package (AddFitnessGoal, DeleteFitnessGoal, Goal)
