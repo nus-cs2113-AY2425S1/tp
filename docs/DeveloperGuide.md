@@ -410,6 +410,8 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
+<!-- @@author TVageesan -->
+
 ### Edit Programme
 
 #### Overview
@@ -482,6 +484,8 @@ To summarize, the following activity diagram describes how the overall operation
 
 ![Edit Command Diagram](images/editCommandActivityDiagram.png)
 
+<!-- @@author Atulteja -->
+
 ### Add Meal
 
 #### Feature Implementation
@@ -522,7 +526,7 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
-The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram. 
+The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram.
 
 #### Sequence Diagram for "Delete Meal" Command
 
@@ -723,7 +727,7 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## Non-Functional Requirements
 
-- Java 11 or above installed
+- Java 17 or above installed
 - Program built to support only single user
 
 ## Glossary
@@ -734,4 +738,5 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+1. Complete the [quick start](UserGuide.md) guide.
+2.
