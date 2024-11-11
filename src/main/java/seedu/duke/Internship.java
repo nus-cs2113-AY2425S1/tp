@@ -296,7 +296,9 @@ public class Internship {
         }
         String[] skillArray = skills.split(",");
         for (String skill: skillArray) {
-            this.skills.add(skill.trim());
+            if (!this.skills.contains(skill.trim())) {
+                this.skills.add(skill.trim());
+            }
         }
     }
 
