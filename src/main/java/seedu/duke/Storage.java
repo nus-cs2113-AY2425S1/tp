@@ -15,6 +15,8 @@ import java.util.logging.Logger;
  * Handles the saving and loading of internships from a file.
  * The tasks are saved in a specified format and can be restored upon loading from the file.
  */
+
+//@@author jadenlimjc
 public class Storage {
     //define filepath
     private static final String FILE_PATH = "./data/EasInternship.txt";
