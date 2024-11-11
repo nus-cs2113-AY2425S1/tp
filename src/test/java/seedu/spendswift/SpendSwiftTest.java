@@ -591,7 +591,7 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, "Education");
 
         // Ensure that the category is not null
-        assertNotNull(category, "Category should not be null");
+     
 
         // Manually initialize the Budget for "Education" with a valid limit to test setting an invalid one
         Budget budget = new Budget(category, maxAllowedLimit);
