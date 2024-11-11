@@ -1,9 +1,12 @@
 package fittrack.fitnessgoal;
+import static fittrack.logger.FitTrackLogger.LOGGER;
+
 import fittrack.storage.Saveable;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
 
 public class Goal extends Saveable {
 
@@ -74,12 +77,15 @@ public class Goal extends Saveable {
             try {
                 goalDeadline = LocalDateTime.parse(stringData[2], DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid save string format for Goal (Deadline): " + saveString);
+                // Log or handle the error more explicitly
+                LOGGER.log(
+                    Level.WARNING, "Invalid deadline format for goal: " + goalDescription + " | " + saveString, e);
             }
         }
 
         // Return the Goal object, with null deadline if not present
         return new Goal(goalDescription, goalDeadline);
     }
+
 
 }

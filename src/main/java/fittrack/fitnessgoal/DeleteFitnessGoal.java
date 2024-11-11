@@ -1,9 +1,12 @@
 package fittrack.fitnessgoal;
 
 import fittrack.user.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DeleteFitnessGoal {
 
+    private static final Logger LOGGER = Logger.getLogger(DeleteFitnessGoal.class.getName());
     private final String goalDescription;
 
     public DeleteFitnessGoal(String goalDescription) {
@@ -11,12 +14,17 @@ public class DeleteFitnessGoal {
     }
 
     public void deleteGoal(User user) {
-        boolean deleted = user.deleteGoal(
-            goalDescription); // Assume this method is updated in User to find and delete by description
+        if (user == null) {
+            LOGGER.log(Level.WARNING, "User object is null. Goal deletion cannot proceed.");
+            return;
+        }
+
+        boolean deleted = user.deleteGoal(goalDescription);
+
         if (deleted) {
-            System.out.println("Deleted goal: " + goalDescription);
+            LOGGER.log(Level.INFO, "Successfully deleted goal: " + goalDescription);
         } else {
-            System.out.println("Goal not found: " + goalDescription);
+            LOGGER.log(Level.INFO, "Goal not found: " + goalDescription);
         }
     }
 }
