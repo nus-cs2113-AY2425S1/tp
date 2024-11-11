@@ -544,31 +544,43 @@ ________________________________________________________________________________
 ```
 
 ## FitTrackCLI's Command Summary
+| Command             | Format                                                         | Example                            |
+|---------------------|----------------------------------------------------------------|------------------------------------|
+| **set**             | `set GENDER AGE`                                               | `set male 12`                      |
+| **help**            | `help`                                                         | `help`                             |
+| **add**             | `add SESSION_NAME`                                             | `add session1`                     |
+| **list**            | `list`                                                         | `list`                             |
+| **view**            | `view SESSION_INDEX`                                           | `view 1`                           |
+| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM REPETITION/TIME_DURATION` | `edit 1 PU 45`                     |
+| **delete**          | `delete SESSION_INDEX `                                        | `delete 1 `                        |
+| **exit**            | `exit`                                                         | `exit`                             |
+| **remind**          | `remind REMINDER_NAME DEADLINE`                                | `remind run 12/12/2024`            |
+| **list-remind**     | `list-goal`                                                    | `list-remind`                      |
+| **upcoming-remind** | `upcoming-remind`                                              | `upcoming-remind`                  |
+| **delete-remind**   | `delete-remind REMINDER_INDEX`                                 | `delete-remind 1`                  |
+| **add-goal**        | `add-goal GOAL_NAME DEADLINE`                                  | `add-goal run 12/12/2024 14:00:00` |
+| **delete-goal**     | `delete-goal GOAL_INDEX`                                       | `delete-goal 1`                    |
+| **list-goal**       | `list-goal`                                                    | `list-goal`                        |
+| **gpoints**         | `gpoints` / `gpoints EXERCISE_ACRONYM`                         | `gpoints` / `gpoints PU`           |
+| **gperformance**    | `gpeformance EXERCISE_ACRONYM`                                 | `gperformance PU`                  |
+| **add-water**       | `add-water`                                                    | `add-water 500`                    |
+| **delete-water**    | `delete-water`                                                 | `delete-water 1`                   |
+| **list-water**      | `list-water`                                                   | `list-water`                       |
+| **add-food**        | `add-food`                                                     | `add-food apple 100`               |
+| **delete-food**     | `delete-food`                                                  | `delete-food 1`                    |
+| **list-food**       | `list-food`                                                    | `list-food`                        |
+| **list-intake**     | `list-intake`                                                  | `list-intake`                      |
 
-| Command             | Format                                      | Example                            |
-|---------------------|---------------------------------------------|------------------------------------|
-| **set**             | `set GENDER AGE`                            | `set male 12`                      |
-| **help**            | `help`                                      | `help`                             |
-| **add**             | `add SESSION_NAME`                          | `add session1`                     |
-| **modify**          | `modify SESSION_INDEX NEW_DATETIME`         | `modify 1 12/12/2024 14:00:00`     |
-| **list**            | `list`                                      | `list`                             |
-| **view**            | `view SESSION_INDEX`                        | `view 1`                           |
-| **edit**            | `edit SESSION_INDEX EXERCISE_ACRONYM VALUE` | `edit 1 PU 45`                     |
-| **delete**          | `delete SESSION_INDEX `                     | `delete 1 `                        |
-| **exit**            | `exit`                                      | `exit`                             |
-| **remind**          | `remind REMINDER_NAME DEADLINE`             | `remind run 12/12/2024`            |
-| **list-remind**     | `list-goal`                                 | `list-remind`                      |
-| **upcoming-remind** | `upcoming-remind`                           | `upcoming-remind`                  |
-| **delete-remind**   | `delete-remind REMINDER_INDEX`              | `delete-remind 1`                  |
-| **add-goal**        | `add-goal GOAL_NAME DEADLINE`               | `add-goal run 12/12/2024 14:00:00` |
-| **delete-goal**     | `delete-goal GOAL_INDEX`                    | `delete-goal 1`                    |
-| **list-goal**       | `list-goal`                                 | `list-goal`                        |
-| **gpoints**         | `gpoints` / `gpoints EXERCISE_ACRONYM`      | `gpoints` / `gpoints PU`           |
-| **gperformance**    | `gpeformance EXERCISE_ACRONYM`              | `gperformance PU`                  |
-| **add-water**       | `add-water`                                 | `add-water 500`                    |
-| **delete-water**    | `delete-water`                              | `delete-water 1`                   |
-| **list-water**      | `list-water`                                | `list-water`                       |
-| **add-food**        | `add-food`                                  | `add-food apple 100`               |
-| **delete-food**     | `delete-food`                               | `delete-food 1`                    |
-| **list-food**       | `list-food`                                 | `list-food`                        |
-| **list-intake**     | `list-intake`                               | `list-intake`                      |
+
+## FAQ
+
+**Q**:
+I was an 18-year-old male up until yesterday and have been using FitTrackCLI to track my results over the past 
+few months. Now that I’ve just turned 19, if I re-enter the program with my updated age and attempt to edit 
+past sessions created when I was 18, will my points still be calculated correctly?
+
+- Each session you create is linked to your age and gender at the time of creation. If you edit past session data 
+  that was created when you were 18 years old and male, the points will be calculated based on that age and gender. 
+  Therefore, editing past session data from when you were younger will reflect calculations based on your age 
+  at that time. 
+- Now that you are 19, any new session will have points calculated based on your current age of 19 and male.
