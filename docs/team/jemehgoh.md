@@ -26,7 +26,8 @@ EventManagerCLI is a desktop CLI application meant for managing small-scale even
 
 * **Code contributed**: [RepoSense link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=jemehgoh&tabRepo=AY2425S1-CS2113-W13-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 * **Project management**:
-  * Managed release `v1.0` (1 release) on GitHub
+  * Managed releases `v1.0` and `v2.0` (2 releases) on GitHub
+  * Set up project issue tracker
 
 * **Enhancements to existing features**:
   * Added error handling for the `view` command (Pull request [#61](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/61))
