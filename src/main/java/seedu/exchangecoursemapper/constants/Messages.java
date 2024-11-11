@@ -65,6 +65,8 @@ public class Messages {
     //Obtain contacts messages
     public static final String EMAIL_TAG = "Email for ";
     public static final String NUMBER_TAG = "Phone number for ";
+    public static final String UNKNOWN_UNIVERSITY_TAG = "Unknown university - ";
+
     public static final String INDEX_OUT_OF_BOUNDS = "Course index out of bounds";
 
     public static final String CORRUPT_HELP = "Please fix the course entry or remove the line completely before " +
