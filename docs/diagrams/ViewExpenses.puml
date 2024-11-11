@@ -52,7 +52,14 @@ else Expenses or Categories exist
     end
     deactivate SuccessMessage
 end
-deactivate ExpenseManager
-deactivate Parser
+
+    ExpenseManager --> Parser : return
+    deactivate ExpenseManager
+
+    Parser --> SpendSwift : return
+    deactivate Parser
+
+    SpendSwift --> User : return
+    deactivate SpendSwift
 
 @enduml

@@ -57,6 +57,9 @@ opt Index Out of Bounds
     deactivate ErrorMessage
 end
 
+ExpenseManager --> ExpenseManager : return
+deactivate ExpenseManager
+
 ExpenseManager --> Parser : return
 deactivate ExpenseManager
 Parser --> SpendSwift : return
