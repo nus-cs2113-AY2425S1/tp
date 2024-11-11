@@ -221,37 +221,37 @@
       {
         "pu_course_code": "ENGN3226",
         "pu_course_name": "Digital Communications",
-        "nus_course_code": "EE3131C ",
+        "nus_course_code": "EE3131C",
         "nus_course_name": "Communication Systems"
       },
       {
         "pu_course_code": "ENGN4536",
-        "pu_course_name": "Wireless Communications ",
-        "nus_course_code": "EE3131C ",
+        "pu_course_name": "Wireless Communications",
+        "nus_course_code": "EE3131C",
         "nus_course_name": "Communication Systems"
       },
       {
-        "pu_course_code": "ENGN3223 ",
-        "pu_course_name": "Control System ",
-        "nus_course_code": "EE3131C ",
+        "pu_course_code": "ENGN3223",
+        "pu_course_name": "Control System",
+        "nus_course_code": "EE3131C",
         "nus_course_name": "Communication Systems"
       },
       {
-        "pu_course_code": "ENGN3334 ",
-        "pu_course_name": "Semiconductors ",
-        "nus_course_code": "EE3431C ",
-        "nus_course_name": "Microelectronics Materials & Devices "
+        "pu_course_code": "ENGN3334",
+        "pu_course_name": "Semiconductors",
+        "nus_course_code": "EE3431C",
+        "nus_course_name": "Microelectronics Materials & Devices"
       },
       {
         "pu_course_code": "ENGN3226",
         "pu_course_name": "Digital Communications",
-        "nus_course_code": "EE4113 ",
+        "nus_course_code": "EE4113",
         "nus_course_name": "Digital Communications and Coding"
       },
       {
-        "pu_course_code": "ENGN4528 ",
-        "pu_course_name": "Computer Vision ",
-        "nus_course_code": "EE4212  ",
+        "pu_course_code": "ENGN4528",
+        "pu_course_name": "Computer Vision",
+        "nus_course_code": "EE4212",
         "nus_course_name": "Computer Vision"
       }
     ],
