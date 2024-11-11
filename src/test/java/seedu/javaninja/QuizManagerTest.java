@@ -24,7 +24,7 @@ class QuizManagerTest {
 
         // Initialize Cli with ByteArrayInputStream for simulated input
         cli = new Cli(inputStream);
-        quizManager = new QuizManager(cli); // Pass this Cli instance to QuizManager
+        quizManager = new QuizManager(cli, false); // Pass this Cli instance to QuizManager
     }
 
     @Test
@@ -35,8 +35,10 @@ class QuizManagerTest {
             List.of("a) A programming language", "b) A type of coffee", "c) A car brand")));
         quizManager.getTopicManager().addTopic(topic);
 
+        String nameOfTopic = topic.getName();
+
         // Select quiz and verify result is added
-        quizManager.getQuizSession().startQuiz(topic);
+        quizManager.getQuizSession().selectTimedQuiz(nameOfTopic);
 
         quizManager.addResultsAndPrintScore();
 
@@ -51,7 +53,7 @@ class QuizManagerTest {
     public void selectQuizToAttempt_invalidTopic_logsWarning() {
         quizManager = new QuizManager(cli);
         // Select a topic that doesn't exist
-        quizManager.selectQuizToAttempt("NonExistentTopic");
+        quizManager.handleQuizSelection("NonExistentTopic");
 
         // Check if past results remain empty
         assertTrue(true,"No such topic: NonExistentTopic");

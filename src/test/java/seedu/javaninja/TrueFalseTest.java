@@ -9,7 +9,11 @@ import seedu.javaninja.question.TrueFalse;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TrueFalseTest {
 
@@ -29,7 +33,8 @@ class TrueFalseTest {
     @Test
     public void constructor_initializesQuestionCorrectly() {
         assertNotNull(trueFalseQuestion, "TrueFalse question should be initialized.");
-        assertEquals("Java supports multiple inheritance.", trueFalseQuestion.getText(), "Question text should match the initialized text.");
+        assertEquals("Java supports multiple inheritance.",
+            trueFalseQuestion.getText(), "Question text should match the initialized text.");
     }
 
     /**
@@ -37,7 +42,8 @@ class TrueFalseTest {
      */
     @Test
     public void checkAnswer_correctAnswer_returnsTrue() {
-        assertTrue(trueFalseQuestion.checkAnswer("false"), "Expected checkAnswer to return true for the correct answer.");
+        assertTrue(trueFalseQuestion.checkAnswer("false"),
+            "Expected checkAnswer to return true for the correct answer.");
     }
 
     /**
@@ -45,7 +51,8 @@ class TrueFalseTest {
      */
     @Test
     public void checkAnswer_incorrectAnswer_returnsFalse() {
-        assertFalse(trueFalseQuestion.checkAnswer("true"), "Expected checkAnswer to return false for the incorrect answer.");
+        assertFalse(trueFalseQuestion.checkAnswer("true"),
+            "Expected checkAnswer to return false for the incorrect answer.");
     }
 
     /**
@@ -53,18 +60,21 @@ class TrueFalseTest {
      */
     @Test
     public void checkAnswer_caseInsensitive_returnsTrue() {
-        assertTrue(trueFalseQuestion.checkAnswer("FALSE"), "Expected checkAnswer to handle case insensitivity and return true.");
+        assertTrue(trueFalseQuestion.checkAnswer("FALSE"),
+            "Expected checkAnswer to handle case insensitivity and return true.");
     }
 
     /**
-     * Tests the {@link TrueFalse#checkAnswer(String)} method with invalid input and verifies that it throws an exception.
+     * Tests the {@link TrueFalse#checkAnswer(String)}
+     * method with invalid input and verifies that it throws an exception.
      */
     @Test
     public void checkAnswer_invalidInput_throwsException() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             trueFalseQuestion.checkAnswer("maybe");
         }, "Expected checkAnswer to throw an IllegalArgumentException for invalid input.");
-        assertEquals("Invalid input! Please enter 'true' or 'false'.", exception.getMessage(), "Expected exception message to match.");
+        assertEquals("Invalid input! Please enter 'true' or 'false'.",
+            exception.getMessage(), "Expected exception message to match.");
     }
 
     /**
@@ -84,6 +94,7 @@ class TrueFalseTest {
     @Test
     public void toString_returnsFormattedQuestion() {
         String expectedString = "Java supports multiple inheritance. (True/False)";
-        assertEquals(expectedString, trueFalseQuestion.toString(), "Expected toString to return the correctly formatted question.");
+        assertEquals(expectedString, trueFalseQuestion.toString(),
+            "Expected toString to return the correctly formatted question.");
     }
 }

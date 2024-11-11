@@ -28,11 +28,11 @@ public class QuizGenerator {
      * Starts a timed quiz on a specific topic.
      * @param topicName The name of the topic.
      */
-    public void selectTimedQuiz(String topicName) {
+    public boolean selectTimedQuiz(String topicName) {
         topic = topicManager.getTopic(topicName);
         if (topic == null) {
             cli.printMessage("Topic not found: " + topicName);
-            return;
+            return false;
         }
 
         currentQuiz = new Quiz(topic, cli);
@@ -42,43 +42,49 @@ public class QuizGenerator {
 
 
         currentQuiz.start(timeLimitInSeconds, questionLimit);
+        return true;
     }
 
     /**
      * Starts an untimed quiz on a specific topic.
      * @param topicName The name of the topic.
      */
-    public void selectUntimedQuiz(String topicName) {
+    public boolean selectUntimedQuiz(String topicName) {
         topic = topicManager.getTopic(topicName);
         if (topic == null) {
             cli.printMessage("Topic not found: " + topicName);
-            return;
+            return false;
         }
+
+        timeLimitInSeconds = -1;
 
         questionLimit = getQuestionLimitFromUser(topic);
         currentQuiz = new Quiz(topic, cli);
 
-        currentQuiz.start(-1, questionLimit); // -1 for no time limit
+        currentQuiz.start(timeLimitInSeconds, questionLimit);// -1 for no time limit
+        return true;
     }
 
     /**
      * Starts a quiz with random topics, either timed or untimed.
      * @param isTimed Determines if the quiz should be timed.
      */
-    public void selectRandomTopicsQuiz(boolean isTimed) {
+    public boolean selectRandomTopicsQuiz(boolean isTimed) {
         int numTopics = getNumTopicsFromUser();
         int numQuestions = getNumQuestionsFromUser();
         questionLimit = numQuestions * numTopics;
 
-        Topic randomQuizTopic = generateRandomQuiz(numTopics, numQuestions);
-        currentQuiz = new Quiz(randomQuizTopic, cli);
+        topic = generateRandomQuiz(numTopics, numQuestions);
+        currentQuiz = new Quiz(topic, cli);
 
         if (isTimed) {
-            int timeLimitInSeconds = getTimeLimitInSecondsFromUser();
+            timeLimitInSeconds = getTimeLimitInSecondsFromUser();
             currentQuiz.start(timeLimitInSeconds, questionLimit);
         } else {
-            currentQuiz.start(-1, questionLimit); // -1 for no time limit
+            timeLimitInSeconds = -1;
+            currentQuiz.start(timeLimitInSeconds, questionLimit); // -1 for no time limit
         }
+        return true;
     }
 
     /**
@@ -89,19 +95,28 @@ public class QuizGenerator {
      */
     private Topic generateRandomQuiz(int numTopics, int numQuestions) {
         List<Topic> allTopics = topicManager.getTopics();
-        Collections.shuffle(allTopics);
 
+        // Ensure that we do not attempt to select more topics than available
+        if (numTopics > allTopics.size()) {
+            numTopics = allTopics.size();
+        }
+
+        Collections.shuffle(allTopics);
         List<Topic> selectedTopics = allTopics.stream()
             .limit(numTopics)
-            .collect(Collectors.toList());
+            .toList();
 
         List<Question> randomQuestions = selectedTopics.stream()
             .flatMap(topic -> topic.getQuestions().stream())
             .collect(Collectors.toList());
 
         Collections.shuffle(randomQuestions);
+        List<Question> limitedQuestions = randomQuestions.stream()
+            .limit(numQuestions)
+            .toList();
+
         Topic randomQuiz = new Topic("Random Quiz");
-        for (Question question : randomQuestions) {
+        for (Question question : limitedQuestions) {
             randomQuiz.addQuestion(question);
         }
 
@@ -133,7 +148,7 @@ public class QuizGenerator {
      * Prompts the user for a time limit for timed quizzes.
      * @return Time limit in seconds.
      */
-    private int getTimeLimitInSecondsFromUser() {
+    public int getTimeLimitInSecondsFromUser() {
         while (true) {
             cli.printMessage("Enter the number of minutes for the quiz (or 0 for seconds): ");
             try {
@@ -142,7 +157,9 @@ public class QuizGenerator {
                     if (minutes == 0) {
                         cli.printMessage("Enter the number of seconds: ");
                         int seconds = Integer.parseInt(cli.readInput().trim());
-                        if (seconds > 0) return seconds;
+                        if (seconds > 0) {
+                            return seconds;
+                        }
                     } else {
                         return minutes * 60;
                     }
@@ -163,7 +180,9 @@ public class QuizGenerator {
             cli.printMessage("Enter the number of topics to include in the random quiz: ");
             try {
                 int numTopics = Integer.parseInt(cli.readInput().trim());
-                if (numTopics > 0) return numTopics;
+                if (numTopics > 0) {
+                    return numTopics;
+                }
                 cli.printMessage("Invalid input. Number of topics must be greater than zero.");
             } catch (NumberFormatException e) {
                 cli.printMessage("Invalid input. Please enter a valid number.");
@@ -180,7 +199,9 @@ public class QuizGenerator {
             cli.printMessage("Enter the number of questions per topic for the random quiz: ");
             try {
                 int numQuestions = Integer.parseInt(cli.readInput().trim());
-                if (numQuestions > 0) return numQuestions;
+                if (numQuestions > 0) {
+                    return numQuestions;
+                }
                 cli.printMessage("Invalid input. Number of questions must be greater than zero.");
             } catch (NumberFormatException e) {
                 cli.printMessage("Invalid input. Please enter a valid number.");

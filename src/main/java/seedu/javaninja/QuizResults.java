@@ -60,14 +60,16 @@ public class QuizResults {
      * @param timeLimitInSeconds  The time limit for the quiz in seconds.
      */
     public void addResult(String topicName, int score, int questionsAttempted, String comment, int timeLimitInSeconds) {
+        String timeLimit = (timeLimitInSeconds <= 0) ?
+            "untimed" : (String.valueOf(timeLimitInSeconds) + " seconds");
         String resultEntry = String.format("{" +
                         "\n Topic: %s," +
                         "\n Score: %d%%," +
-                        "\n Time Limit: %d seconds," +
+                        "\n Time Limit: %s, " +
                         "\n Questions Attempted: %d," +
                         "\n Comment: %s" +
                         "\n}",
-                topicName, score, timeLimitInSeconds, questionsAttempted, comment);
+                topicName, score, timeLimit, questionsAttempted, comment);
         pastResults.add(resultEntry);
     }
 
