@@ -13,10 +13,6 @@ import java.util.logging.Logger;
 
 import static common.Utils.isNull;
 
-
-import static parser.FlagDefinitions.MEAL_INDEX;
-import static parser.FlagDefinitions.WATER_INDEX;
-import static parser.FlagDefinitions.VOLUME_FLAG;
 import static parser.ParserUtils.parseInteger;
 import static parser.ParserUtils.parseIndex;
 import static parser.ParserUtils.parseFloat;
@@ -96,28 +92,33 @@ public class FlagParser {
     private void initializeAliasMap() {
         aliasMap.put("/p", "/p");
         aliasMap.put("/programme", "/p");
+        aliasMap.put("/prog", "/p");
 
         aliasMap.put("/day", "/d");
         aliasMap.put("/date", "/t");
 
         aliasMap.put("/name", "/n");
+
         aliasMap.put("/exercise", "/e");
         aliasMap.put("/set", "/s");
+        aliasMap.put("/sets", "/s");
         aliasMap.put("/rep", "/r");
-        aliasMap.put("/weight", WATER_INDEX);
+        aliasMap.put("/reps", "/r");
+        aliasMap.put("/weight", "/w");
         aliasMap.put("/calories", "/c");
 
-        aliasMap.put("/createEx", "/a");
-        aliasMap.put("/updateEx", "/u");
-        aliasMap.put("/removeEx", "/x");
+        aliasMap.put("/addEx", "/ae");
+        aliasMap.put("/updateEx", "/ue");
+        aliasMap.put("/removeEx", "/xe");
 
-        aliasMap.put("/createDay", "/ad");
+        aliasMap.put("/addDay", "/ad");
         aliasMap.put("/removeDay", "/xd");
 
-        aliasMap.put("/meal", MEAL_INDEX);
+        aliasMap.put("/meal", "/m");
 
-        aliasMap.put("/volume", VOLUME_FLAG);
-        aliasMap.put("/water", WATER_INDEX);
+        aliasMap.put("/water", "/w");
+        aliasMap.put("/volume", "/v");
+        aliasMap.put("/vol", "/v");
     }
 
     /**

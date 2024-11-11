@@ -29,10 +29,29 @@
             "exercises": [
               {
                 "sets": 3,
-                "reps": 10,
-                "weight": 10,
+                "reps": 15,
+                "weight": 8,
                 "calories": 100,
                 "name": "Bicep_Curl"
+              },
+              {
+                "sets": 3,
+                "reps": 15,
+                "weight": 30,
+                "calories": 100,
+                "name": "Lateral_pulldown"
+              }
+            ]
+          },
+          {
+            "name": "Cardio",
+            "exercises": [
+              {
+                "sets": 10,
+                "reps": 15,
+                "weight": 0,
+                "calories": 50,
+                "name": "Jumping_Jacks"
               }
             ]
           }
