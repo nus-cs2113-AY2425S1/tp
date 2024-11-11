@@ -2,6 +2,7 @@ package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Logs;
 import seedu.exchangecoursemapper.courses.Course;
+import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.storage.Storage;
 import seedu.exchangecoursemapper.ui.UI;
 import seedu.exchangecoursemapper.exception.Exception;
@@ -18,6 +19,7 @@ import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
 public class FindCoursesCommand extends PersonalTrackerCommand{
 
     private static final UI ui = new UI();
+    private static final CourseRepository courseRepository = new CourseRepository();
     private static final Logger logger = Logger.getLogger(FindCoursesCommand.class.getName());
     private final Storage storage;
 
@@ -40,6 +42,10 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
+            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
+                return;
+            }
+
             String keyword = getKeyword(userInput);
             logger.log(Level.INFO, Logs.EXECUTE_FIND_COMMAND);
             findCommand(keyword);

@@ -11,6 +11,7 @@ import static seedu.exchangecoursemapper.constants.Logs.COURSE_SIZE;
 import static seedu.exchangecoursemapper.constants.Logs.COURSE_ENTRY;
 import static seedu.exchangecoursemapper.constants.Logs.INVALID_DELETE_INDEX;
 import static seedu.exchangecoursemapper.constants.Logs.DELETE_INDEX;
+import static seedu.exchangecoursemapper.constants.Logs.SAVE_LINE_SIZE;
 import static seedu.exchangecoursemapper.constants.Messages.INDEX_OUT_OF_BOUNDS;
 
 public class CourseRepository {
@@ -38,6 +39,10 @@ public class CourseRepository {
     public boolean isFileValid() {
         List<String> lines = fileHandler.readAllLines();
         return dataIntegrityChecker.validateFileIntegrity(lines);
+    }
+
+    public boolean hasDuplicateEntries() {
+        return dataIntegrityChecker.checkForDuplicateCourses(loadAllCourses(), new Storage());
     }
 
     public List<Course> loadAllCourses() {
@@ -68,6 +73,15 @@ public class CourseRepository {
         logger.log(Level.INFO, DELETE_INDEX, index);
     }
 
+    public void saveCourses(List<Course> courses) {
+        List<String> courseLines = new ArrayList<>();
+        for (Course course : courses) {
+            courseLines.add(course.formatOutput());
+        }
+        fileHandler.writeAllLines(courseLines);
+        logger.log(Level.INFO, SAVE_LINE_SIZE, courses.size());
+    }
+
     public Course getCourse(int index) {
         List<String> allCourses = fileHandler.readAllLines();
         if (index < 0 || index >= allCourses.size()) {
@@ -76,6 +90,7 @@ public class CourseRepository {
         String courseLine = allCourses.get(index);
         return Course.parseCourseEntry(courseLine);
     }
+
 }
 
 

@@ -47,7 +47,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     public void execute(String userInput, Storage storage) {
 
         try {
-            if(!courseRepository.isFileValid()){
+            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
                 return;
             }
 

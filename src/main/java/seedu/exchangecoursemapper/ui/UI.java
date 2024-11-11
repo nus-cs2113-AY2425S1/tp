@@ -44,6 +44,9 @@ import static seedu.exchangecoursemapper.constants.Messages.MYLIST_JSON;
 import static seedu.exchangecoursemapper.constants.Messages.CHECK_SPELLING;
 import static seedu.exchangecoursemapper.constants.Messages.UNKNOWN_UNI;
 import static seedu.exchangecoursemapper.constants.Messages.NOT_RECOGNIZED;
+import static seedu.exchangecoursemapper.constants.Messages.DUPLICATE_FOUND;
+import static seedu.exchangecoursemapper.constants.Messages.DUPLICATE_REMOVED;
+import static seedu.exchangecoursemapper.constants.Messages.ACCEPTED_FORMAT;
 import static seedu.exchangecoursemapper.constants.Regex.COLON;
 
 public class UI {
@@ -237,13 +240,23 @@ public class UI {
     public void printInvalidCourseEntry(int lineNumber, String entry) {
         System.out.println(ERROR_COURSE_ENTRY + lineNumber + MYLIST_JSON);
         System.out.println(COURSE_NOT_FOUND + entry);
+        System.out.println(ACCEPTED_FORMAT);
         System.out.println(CORRUPT_HELP);
     }
 
     public void printInvalidEntryFormat(int lineNumber, String entry) {
         System.out.println(ERROR_ENTRY_FORMAT + lineNumber + MYLIST_JSON);
         System.out.println(INVALID_FORMAT + entry);
+        System.out.println(ACCEPTED_FORMAT);
         System.out.println(CORRUPT_HELP);
+    }
+
+    public void printDuplicateFoundAndRemoved(){
+        System.out.println(DUPLICATE_FOUND);
+    }
+
+    public void printRemovedConfirmation(){
+        System.out.println(DUPLICATE_REMOVED);
     }
 
     /**

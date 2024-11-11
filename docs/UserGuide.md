@@ -306,7 +306,6 @@ It lists common and unique mappings between the two universities.
 - `UNIVERSITY_1` and `UNIVERSITY_2` must be the full names of universities listed in `myList.json`.
 - Ensure that both universities have course mappings saved; otherwise, the output will indicate an empty list.
 
-
 **Example of usage**:
 
 ```

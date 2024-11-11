@@ -35,7 +35,7 @@ public class ListPersonalTrackerCommand extends CheckInformationCommand {
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE);
         try {
-            if(!courseRepository.isFileValid()){
+            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
                 return;
             }
 
