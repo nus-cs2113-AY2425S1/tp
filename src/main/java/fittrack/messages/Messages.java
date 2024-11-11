@@ -7,6 +7,7 @@ public class Messages {
     public static final String SET_USER_COMMAND = "set";
     public static final String HELP_COMMAND = "help";
     public static final String ADD_SESSION_COMMAND = "add";
+    public static final String MODIFY_SESSION_DATETIME_COMMAND = "modify";
     public static final String LIST_SESSIONS_COMMAND = "list";
     public static final String VIEW_SESSION_COMMAND = "view";
     public static final String EDIT_EXERCISE_COMMAND = "edit";
@@ -43,14 +44,17 @@ public class Messages {
             + System.lineSeparator() + "help                                                             help"
             + System.lineSeparator() + "set (gender) (age)                                               set male 12"
             + System.lineSeparator() + "add (session name)                                               add session1"
+            + System.lineSeparator() + "modify (session index) (new datetime)                            " +
+            "modify 1 1986-04-08 12:30"
             + System.lineSeparator() + "list                                                             list"
             + System.lineSeparator() + "view (session index)                                             view 1"
             + System.lineSeparator() + "edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1"
-            + System.lineSeparator() + " Pull Ups : PU           Shuttle Run: SR                 Sit And Reach: SAR"
-            + System.lineSeparator() + " Sit Ups: SU             Standing Broad Jump: SBJ        Walk And Run: WAR"
+            + System.lineSeparator() + "Exercise Acronyms:"
+            + System.lineSeparator() + "Pull Ups : PU               Shuttle Run: SR                 Sit And Reach: SAR"
+            + System.lineSeparator() + "Sit Ups: SU                 Standing Broad Jump: SBJ        Walk And Run: WAR"
+            + System.lineSeparator() + "delete (session index)                                           delete 1"
             + System.lineSeparator() + "edit-mood (session index) (mood description)                     "
             + "edit-mood 1 Sad"
-            + System.lineSeparator() + "delete (session index)                                           delete 1"
             + System.lineSeparator() + "remind (Event / Task) (deadline)                                 remind " +
             "NAPFA DD/MM/YYYY"
             + System.lineSeparator() + "list-remind                                                      list-remind "
@@ -105,6 +109,8 @@ public class Messages {
     public static final String INVALID_SESSION_INDEX_MESSAGE = "Please provide a valid session index.";
     public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
             "Please provide a valid session index, station and reps.";
+    public static final String INVALID_MODIFY_DETAILS_MESSAGE =
+            "Please provide a valid session index and DateTime (e.g. 2007-12-03 10:15:30).";
     public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
     public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
     public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";
