@@ -11,7 +11,7 @@ and manage a personal tracker that saves potential course mappings the user woul
 ### Code contributed:
 Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=chewycj&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false)!
 
-### Enhancements Implemented
+### Enhancements Implemented:
 #### PersonalTrackerCommand
 Abstract parent class to allow child classes for the Personal Tracker features to be implemented through 
 over-riding methods
@@ -36,33 +36,33 @@ The list index input from the user will be further checked to ensure it is a val
 * Refactored code over the course of the project to follow SLAP.
 * Created the `constants` package, with the `Messages`, `Commands`, `JsonKey` and `Regex` files to store named constants.
 
-## 3. User Guide
+### User Guide
 * Documented Filter Courses and Delete Courses Functions
 
-## 4. Developer Guide
-### Design and Implementation Section
+### Developer Guide
+#### 1. Design and Implementation Section
 * Made config files for UML diagrams to follow standard notations, and
   class diagrams of `Commands` structure: `Command` class inheritance, `CheckInformationCommand` and
   `PersonalTrackerCommand`, and sequence diagrams for FilterCourses and DeleteCourses commands.
 * Documented the implementation of FilterCourses and DeleteCourses commands.
 
-### Instructions for manual testing Section
+#### 2. Instructions for manual testing Section
 * Documented test cases for testers to follow for the commands inheriting from `CheckInformationCommands`
 * Included notes for testers that could guide them through the testing
 
-## 5. Contributions to team-based tasks
+### Contributions to team-based tasks
 * Set up the GitHub team organisation, tP repository, and issue tracker.
 * Provided the idea of a CLI application to help with Student Exchange Programme planning.
 * Added the database as a resource to Java in order to package it with the JAR.
 * Creation of the `constants` package, for the use of named constants in our team code.
 * Actively participates in weekly meetings.
 
-## 6. Review/mentoring contributions
+### Review/mentoring contributions
 * GitHub code reviews for multiple PRs, learning together with the team: 
   Sequence diagrams: [#72](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/72),
   JUnit tests: [#109](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/109),
   SLAP: [#125](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/125)
 * Guided team members through checkstyle errors during the CI process.
 
-## 7. Contributions beyond the project team:
+### Contributions beyond the project team:
 [Peer-reviewed](https://github.com/nus-cs2113-AY2425S1/tp/pull/9#pullrequestreview-2403433893) the DG done by team CS2113-T10-3 for their application MangaTantou.
