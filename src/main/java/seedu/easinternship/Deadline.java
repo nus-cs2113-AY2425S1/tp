@@ -1,4 +1,4 @@
-package seedu.EasInternship;
+package seedu.easinternship;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

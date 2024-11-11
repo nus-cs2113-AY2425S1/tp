@@ -2,8 +2,8 @@ package seedu.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.EasInternship.Internship;
-import seedu.EasInternship.InternshipList;
+import seedu.easinternship.Internship;
+import seedu.easinternship.InternshipList;
 
 import java.util.ArrayList;
 import java.util.List;

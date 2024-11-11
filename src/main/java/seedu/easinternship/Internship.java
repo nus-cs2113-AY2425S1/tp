@@ -1,4 +1,4 @@
-package seedu.EasInternship;
+package seedu.easinternship;
 
 import seedu.exceptions.InvalidDeadline;
 import seedu.exceptions.InvalidStatus;
