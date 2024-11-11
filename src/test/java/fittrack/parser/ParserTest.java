@@ -98,10 +98,22 @@ public class ParserTest {
 
     @Test
     public void testModifySessionDateTimeReorder() throws IOException {
+
+        LocalDateTime startDateTime = LocalDateTime.parse("11/11/2024 10:00",
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+
+        // Create 5 sessions with chronologically increasing datetime values
+        for (int i = 0; i < 5; i++) {
+            LocalDateTime sessionDateTime = startDateTime.plusHours(i);  // Increment by 1 hour for each session
+            TrainingSession session =
+                    new TrainingSession(sessionDateTime, "Test Session " + (i + 1), user);
+            sessionList.add(session);
+        }
+
         // Modify the datetime of a session to make it fall earlier (to trigger reordering)
         String input = "modify 3 10/11/2024 10:00";
 
-        Parser.parse(user, input, sessionList, new ArrayList<>(), new ArrayList<>(), new FoodWaterIntake());
+        Parser.parse(user, input, sessionList, reminderList, goalList, foodWaterList);
 
         // Verify the order of session datetime after modification
         String expectedFirstSessionDatetime = "10/11/2024 10:00";
@@ -113,12 +125,6 @@ public class ParserTest {
 
     @Test
     void testAddSessionCommandValidInput() {
-        // Verify the order of session datetime after modification
-        String expectedFirstSessionDatetime = "10/11/2024 10:00";
-        String expectedSecondSessionDatetime = "11/11/2024 10:00";
-
-        assertEquals(expectedFirstSessionDatetime, sessionList.get(0).getSessionDatetime());
-        assertEquals(expectedSecondSessionDatetime, sessionList.get(1).getSessionDatetime());
     }
 
     @Test
