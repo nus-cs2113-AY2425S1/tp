@@ -1,9 +1,10 @@
 ----------------------
 Welcome to Java Ninja!
+List of available commands:
 'view' to view topics
-'select [topic]' to select a topic
+'select /d timed|untimed /t [topic]|random' to select a topic or random topics
 'review' to review past results
-'help' for a list of commands
+'help' for this list of commands
 'quit' to exit the program
 'exit' to exit the quiz, activate only while doing the quiz
 'add Flashcards /q <DESCRIPTION> /a <ANSWER>' to input for your own revision as well!
