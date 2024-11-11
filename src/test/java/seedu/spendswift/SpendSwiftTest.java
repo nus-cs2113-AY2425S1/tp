@@ -503,6 +503,15 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, categoryName);
         assertFalse(trackerData.getBudgets().containsKey(category));
     }
+
+    @Test
+    void testSetBudgetLimitAtMaximum() {
+    // Assuming the max limit is explicitly known here as "1000000000000000"
+    double maxLimit = 1000000000000000.0; // This should be the same value as used in your BudgetManager
+    budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
+    BigDecimal setLimit = trackerData.getBudgetForCategory("Education").getLimit();
+    assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), "The budget limit should be exactly set to the maximum allowed");
+}
 }
 
 
