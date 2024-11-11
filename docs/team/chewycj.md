@@ -4,8 +4,8 @@ By: Chiew Chun Jia (@chewycj)
 
 ## 1. Overview
 ExchangeCourseMapper is a convenient CLI tool that aids users in their Student Exchange Programme (SEP) planning.
-It has two main features: One for users to check information on the partner universities and their courses, 
-the second to manage a personal tracker that saves potential course mappings the user would like to consider.
+It has features for users to check information on the partner universities and their courses, 
+and manage a personal tracker that saves potential course mappings the user would like to consider.
 
 ## 2. Summary of Contributions
 ### Code contributed:
