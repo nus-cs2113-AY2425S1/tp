@@ -125,7 +125,7 @@ public class BudgetTracker {
 
         if (expense > budget) {
             return String.format(BudgetMessages.BUDGET_EXCEEDED_PAST,
-                    expense, budget);
+                    expense, budget, month);
         }
 
         return String.format(BudgetMessages.WELL_DONE_WITHIN_BUDGET,

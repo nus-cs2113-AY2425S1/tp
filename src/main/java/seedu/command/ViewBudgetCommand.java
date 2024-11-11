@@ -8,16 +8,16 @@ import java.time.YearMonth;
 import java.util.List;
 import static seedu.utils.DateTimeUtils.parseYearMonth;
 
-public class TrackProgressCommand extends Command {
-    public static final String COMMAND_WORD = "track";
-    public static final String COMMAND_GUIDE = "track m/ MONTH: " +
+public class ViewBudgetCommand extends Command {
+    public static final String COMMAND_WORD = "view-budget";
+    public static final String COMMAND_GUIDE = "view-budget m/ MONTH: " +
             "Track your progress towards your budget for a certain month";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"m/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {};
 
     private final BudgetTracker budgetTracker;
 
-    public TrackProgressCommand(BudgetTracker budgetTracker) {
+    public ViewBudgetCommand(BudgetTracker budgetTracker) {
         this.budgetTracker = budgetTracker;
     }
 
