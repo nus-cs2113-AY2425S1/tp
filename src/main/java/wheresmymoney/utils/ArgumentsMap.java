@@ -1,5 +1,6 @@
 package wheresmymoney.utils;
 
+import wheresmymoney.Ui;
 import wheresmymoney.exception.InvalidInputException;
 
 import java.util.HashMap;
@@ -65,6 +66,10 @@ public class ArgumentsMap extends HashMap<String, String> {
         if (price <= 0) {
             throw new InvalidInputException(argumentDisplayName +
                     " cannot take on a value that is less than or equal to 0.");
+        }
+        if (price >= 9999.99) {
+            Ui.displayMessage("Warning: \""+priceString+"\" input is equal to or exceeds 9999.99, "+
+                    "which may not be well supported by the program.");
         }
         return price;
     }

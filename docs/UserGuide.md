@@ -40,8 +40,10 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
   - e.g. `<command> main value` -> `main`: `main value` (The main argument is the value following the command, such as `INDEX` in `delete INDEX`)
 - When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`.
   - e.g. `<command> /argument \/value` -> `argument`: `/value`
-- Numeric values are only guaranteed to be roughly accurate till 9999.99 and to 2 decimal places. 
-  - Inaccuracies may occur due to the implementation of floating point numbers used 
+- The program only officially supports values till 9999.99 (excluding), and to 2 decimal places. 
+  - Inaccuracies may occur due to the implementation of floating point numbers used.
+  - However, we allow the usage of numbers above the range for advanced users. 
+  - We will give a warning on user input, and no warning on csv load/ other operations
 - Commands default to no output on successful completion unless
   - The command produces an output by its nature (eg. `list`) or
   - There is an error in the command.
