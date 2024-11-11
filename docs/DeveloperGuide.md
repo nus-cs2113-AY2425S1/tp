@@ -572,6 +572,45 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ![Sequence Diagram for WeeklySummary feature](./images/weeklysummarySequenceDiagram.png)
 
+<!-- @@author andreusxcarvalho -->
+
+### Log Programme Feature
+
+The Log Programme feature allows users to log a specific day of a workout programme into the history on a specified date. This feature is implemented using components like `LogProgrammeCommand`, `Parser`, `ProgCommandFactory`, and `History`. Users can activate this feature by entering the `prog log` command in the UI. The implementation follows the command pattern, alongside a factory pattern for creating commands.
+
+### Overview
+
+The following component is crucial to the Log Programme feature:
+
+1. **LogProgrammeCommand Component**  
+   The `LogProgrammeCommand` is responsible for logging a workout day from a programme into the history and provides:
+
+    - Extends the abstract `Command` class.
+    - Uses the command word `"log"`.
+    - Executes by retrieving the specified day from the `ProgrammeList` and logging it to the `History`.
+    - Returns a `CommandResult` containing a success message or relevant feedback.
+
+### Example Usage
+
+The following example illustrates the usage scenario and behavior of the Log Programme feature:
+
+1. **Step 1**: The user enters the `prog log /p [PROG_INDEX] /d [DAY_INDEX] /t [DATE]` command in the UI. The UI reads this command and passes it to the `Parser`.
+2. **Step 2**: The `Parser` breaks down the command `prog log` into:
+    - Main command: `prog`
+    - Subcommand: `log`
+3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a programme command and delegates to `ProgCommandFactory`.
+4. **Step 4**: `ProgCommandFactory` identifies `log` as the `LogProgrammeCommand` trigger and creates a new `LogProgrammeCommand` instance with the specified parameters.
+5. **Step 5**: The `LogProgrammeCommand` is passed back through the chain to the UI, which then calls its `execute` method.
+6. **Step 6**: During execution:
+    - `LogProgrammeCommand` retrieves the programme and day specified by the user from `ProgrammeList`.
+    - It then logs the day to the `History` object using `History`'s `getRecordByDate()` and `logRecord()` methods.
+    - The result is formatted in a `CommandResult`.
+    - The UI displays the result to the user.
+
+### Sequence Diagram
+
+![Sequence Diagram for Log Programme feature](./images/logProgrammeSequenceDiagram.png)
+
 
 <!-- @@author Bev-low -->
 ### Save/Load Feature
