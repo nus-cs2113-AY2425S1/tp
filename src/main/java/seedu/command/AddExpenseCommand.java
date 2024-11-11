@@ -39,7 +39,10 @@ public class AddExpenseCommand extends AddTransactionCommand {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
 
         String expenseName = null;

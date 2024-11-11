@@ -7,6 +7,7 @@ import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
 import seedu.utils.AmountUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddBudgetCommand extends Command {
@@ -24,7 +25,10 @@ public class AddBudgetCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
 
         String amountStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);

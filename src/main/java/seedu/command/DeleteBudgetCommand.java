@@ -8,6 +8,7 @@ import seedu.message.ErrorMessages;
 import seedu.utils.DateTimeUtils;
 
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteBudgetCommand extends Command {
@@ -25,7 +26,10 @@ public class DeleteBudgetCommand extends Command {
     @Override
     public List<String> execute() {
         if (!isArgumentsValid()) {
-            return List.of(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            List<String> messages = new ArrayList<>();
+            messages.add(ErrorMessages.LACK_ARGUMENTS_ERROR_MESSAGE);
+            messages.add(COMMAND_GUIDE);
+            return messages;
         }
 
         String monthStr = arguments.get(COMMAND_MANDATORY_KEYWORDS[0]);
