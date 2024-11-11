@@ -110,7 +110,7 @@ public class Messages {
     public static final String INVALID_EXERCISE_DETAILS_MESSAGE =
             "Please provide a valid session index, station and reps.";
     public static final String INVALID_MODIFY_DETAILS_MESSAGE =
-            "Please provide a valid session index and DateTime (e.g. 2007-12-03 10:15:30).";
+            "Please provide a valid session index and DateTime (e.g. 12/03/2007 10:15).";
     public static final String INVALID_EXERCISE_ACRONYM_MESSAGE = "Invalid exercise acronym: ";
     public static final String INVALID_PULL_UP_REPETITIONS_MESSAGE = "Invalid Pull Up repetitions: ";
     public static final String INVALID_SHUTTLE_RUN_TIMING_MESSAGE = "Invalid Shuttle Run timing: ";
