@@ -19,9 +19,11 @@ Formatting of this Developer's Guide was done with reference to [AddressBook-Lev
     4. [AddCommand Implementation](#addcommand-implementation)
     5. [DeleteCommand Implementation](#deletecommand-implementation)
     6. [SortCommand Implementation](#sortcommand-implementation)
-    7. [UpdateCommand Implementation](#updatecommand-implementation)
-    8. [RemoveCommand Implementation](#removecommand-implementation)
-    9. [CalendarCommand Implementation](#calendarcommand-implementation)
+    7. [FilterCommand Implementation](#filtercommand-implementation)
+    8. [FavouriteCommand Implementation](#favouritecommand-implementation)
+    9. [UpdateCommand Implementation](#updatecommand-implementation)
+    10. [RemoveCommand Implementation](#removecommand-implementation)
+    11. [CalendarCommand Implementation](#calendarcommand-implementation)
 
 ---
 ## About the Product
@@ -303,7 +305,7 @@ The following sequence diagram shows how the `SortCommand` is executed:
 
 <div style="page-break-after: always;"></div>
 
-### Filter Command Implementation
+### FilterCommand Implementation
 
 #### Overview:
 
@@ -358,7 +360,7 @@ which have not been marked as favourite by the user
 
 #### Sequence Diagram
 
-The following sequence diagram shows how the `FilterCommand` is executed:
+The following sequence diagram shows how the `FilterCommand` is executed:                               
 ![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
 
 <div style="page-break-after: always;"></div>
@@ -644,11 +646,12 @@ to:
 
 5. **Updating an Internship:**
 
-- Enter the command `update {ID} {-field} {updated information}` eg. `update 1 -skills python`.
-- Verify that the internship has been updated successfully.
+   - Enter the command `update {ID} {-field} {updated information}` eg. `update 1 -skills python`.
+   - Verify that the internship has been updated successfully.
 
 6. **Adding an Internship to favourites:**
-    - Enter the command `favourite {ID}` eg
+    - Enter the command `favourite {ID}` eg. `favourite 2`
+    - Verify that the favourite internships displayed contains the internship ID you input
 
 
 7. **Displaying InternshipList**
@@ -667,6 +670,6 @@ to:
 
 10. Removing an Internship
 
-- Enter the command `delete {ID}` eg. `delete 1`
-- Verify that the internship has been deleted successfully.
-- Enter `list` to verify the `Internship` is no longer in the `InternshipList`.
+    - Enter the command `delete {ID}` eg. `delete 1`
+    - Verify that the internship has been deleted successfully.
+    - Enter `list` to verify the `Internship` is no longer in the `InternshipList`.
