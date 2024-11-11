@@ -165,7 +165,7 @@ Valid Statuses for `status` flag:<br>
 ```
 __________________________________________________
 __________________________________________________
-status updated: application completed
+status updated: Application Completed
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -247,7 +247,7 @@ Company: Venti
 Duration: 04/25 to 08/25
 Skills: No Skills Entered 
 Deadlines:
-	Interview Round 1: 03/02/25
+	Interview Round 1: 05/02/25
 __________________________________________________
 __________________________________________________
 ```
@@ -259,7 +259,7 @@ __________________________________________________
 __________________________________________________
 deadline: Interview Round 2 is not found
 __________________________________________________
-deadline removed: Interview Round 1
+deadline removed: Interview Round 1 (05/02/25)
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -349,20 +349,20 @@ __________________________________________________
 ```
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Pending
+The favourite internships are listed below
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+ID: 1   Status: Application Pending
 Role: Software Engineer
 Company: Meta
 Duration: 01/24 to 09/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
+        No deadlines set.
 __________________________________________________
 __________________________________________________
 ```
@@ -370,38 +370,39 @@ __________________________________________________
 `favourite 2, 3`
 
 ```
+Enter command: favourite 2, 3
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Pending
+The favourite internships are listed below
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+ID: 1   Status: Application Pending
 Role: Software Engineer
 Company: Meta
 Duration: 01/24 to 09/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
+        No deadlines set.
 __________________________________________________
-ID: 2	Status: Application Pending
+ID: 2   Status: Application Pending
 Role: Data Scientist
 Company: Meta
 Duration: 09/23 to 05/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
+        No deadlines set.
 __________________________________________________
-ID: 3	Status: Application Pending
+ID: 3   Status: Application Pending
 Role: Data Scientist
 Company: Google
 Duration: 04/24 to 07/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
+        No deadlines set.
 __________________________________________________
 __________________________________________________
 
@@ -517,22 +518,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`filter -role Data Scientist -to 06/24`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
 `filter -favourite true`
 
 ```
@@ -557,21 +542,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`filter -favourite false`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
 
 ## Sort Command: `sort`
 
