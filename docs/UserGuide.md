@@ -24,7 +24,7 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 1. Ensure you have Java 17 or above installed in your computer.
 2. Download the latest .jar file from the Github Repository, under releases.
 3. Copy the file to the folder you want to use as the home folder for your expenses.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar [CS2113-W12-3][WheresMyMoney].jar` command to run the application.
 
 ---
 
