@@ -2,8 +2,10 @@ package seedu.duke.util;
 
 public class Commons {
     public static final String LINE_SEPARATOR = "--------------------------------------------";
+
+    //Error messages
     public static final String ERROR_MESSAGE_INVALID_INDEX
-            = "Invalid index. Please provide a valid integer less than or equal to 2147483647.";
+            = "Invalid index. Please provide a valid integer less than or equal to 5000.";
     public static final String ERROR_MESSAGE_NON_NUMBER_AMOUNT = "Invalid amount. Please use a number (e.g. 13.00).";
     public static final String ERROR_MESSAGE_EMPTY_AMOUNT
             = "Invalid argument. Please do not leave compulsory arguments blank.";
@@ -19,6 +21,16 @@ public class Commons {
     public static final String ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED
             = "Maximum number of transactions reached. Please delete some transactions before adding more.";
     public static final String ERROR_MESSAGE_NO_CHANGES_DETECTED = "All fields of this entry are still the same...";
+
+    //Keys/flags for command arguments
+    public static final String KEY_FIRST_ARGUMENT = "argument";
+    public static final String FLAG_DESCRIPTION = "/des";
+    public static final String FLAG_DATE = "/d";
+    public static final String FLAG_AMOUNT = "/a";
+    public static final String FLAG_START_POINT = "/from";
+    public static final String FLAG_END_POINT = "/to";
+    public static final String FLAG_CATEGORY = "/c";
+
     /**
      * Prints a message enclosed in line separators.
      * Primarily used for error messages.
