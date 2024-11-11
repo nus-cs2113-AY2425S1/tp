@@ -13,9 +13,10 @@ without the complexity of traditional tools.
 3. Copy the file to the folder you want to use as the home folder for your Task Manager.
 4. Open a command terminal, cd into the folder where you placed the jar file,
    and run the following command to start the application: `java -jar "CS2113-T10-4.SpendSwift.jar".`
-5. The application will start, and any existing tasks will be loaded from the folder spendswift with 2 text files in it,
-   expense.txt and category.txt. If this file doesn't exist, it will be created automatically when tasks are saved
-   after exiting the program properly.
+5. The application will start, and any existing expenses, categories and budgets will be loaded from the folder
+   spendswift with 2 text files in it, expense.txt and category.txt.
+   - If this file doesn't exist, it will be created automatically when expenses, categories and budgets are saved
+     after exiting the program properly.
 
 Your command terminal should look similar to the one below.
 
