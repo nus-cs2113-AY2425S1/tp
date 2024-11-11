@@ -14,7 +14,8 @@ import seedu.spendswift.command.BudgetManager;
 import seedu.spendswift.parser;
 
 import org.junit.jupiter.api.BeforeEach;
-
+import java.util.Arrays;
+import java,util.HashMap;
 
 import java.math.BigDecimal;
 //import java.util.Random;
@@ -677,7 +678,78 @@ class InputParserTest {
 }
 
 
+class TrackerDataTest {
+    private TrackerData trackerData;
+    private Category testCategory;
+    private Expense testExpense;
+    private Budget testBudget;
 
+    @BeforeEach
+    void setUp() {
+        trackerData = new TrackerData();
+        testCategory = new Category("Food");
+        testExpense = new Expense("Lunch", 10.0, testCategory);
+        testBudget = new Budget(testCategory, 100.0);
+
+        // Initializing categories, expenses, and budgets for some tests
+        trackerData.setCategories(Arrays.asList(testCategory));
+        trackerData.setExpenses(Arrays.asList(testExpense));
+        HashMap<Category, Budget> budgets = new HashMap<>();
+        budgets.put(testCategory, testBudget);
+        trackerData.setBudgets(budgets);
+    }
+
+    @Test
+    void testInitialization() {
+        assertNotNull(trackerData.getCategories());
+        assertNotNull(trackerData.getExpenses());
+        assertNotNull(trackerData.getBudgets());
+        assertTrue(trackerData.getCategories().isEmpty());
+        assertTrue(trackerData.getExpenses().isEmpty());
+        assertTrue(trackerData.getBudgets().isEmpty());
+    }
+
+    @Test
+    void testGetCategories() {
+        assertEquals(Arrays.asList(testCategory), trackerData.getCategories());
+    }
+
+    @Test
+    void testGetExpenses() {
+        assertEquals(Arrays.asList(testExpense), trackerData.getExpenses());
+    }
+
+    @Test
+    void testGetBudgets() {
+        assertEquals(1, trackerData.getBudgets().size());
+        assertEquals(testBudget, trackerData.getBudgets().get(testCategory));
+    }
+
+    @Test
+    void testSetCategories() {
+        Category newCategory = new Category("Entertainment");
+        trackerData.setCategories(Arrays.asList(newCategory));
+        assertEquals(Arrays.asList(newCategory), trackerData.getCategories());
+    }
+
+    @Test
+    void testSetExpenses() {
+        Expense newExpense = new Expense("Movie", 15.0, new Category("Entertainment"));
+        trackerData.setExpenses(Arrays.asList(newExpense));
+        assertEquals(Arrays.asList(newExpense), trackerData.getExpenses());
+    }
+
+    @Test
+    void testSetBudgets() {
+        Category newCategory = new Category("Travel");
+        Budget newBudget = new Budget(newCategory, 300.0);
+        HashMap<Category, Budget> newBudgets = new HashMap<>();
+        newBudgets.put(newCategory, newBudget);
+        trackerData.setBudgets(newBudgets);
+        assertEquals(1, trackerData.getBudgets().size());
+        assertEquals(newBudget, trackerData.getBudgets().get(newCategory));
+    }
+}
 
 
 
