@@ -43,7 +43,7 @@ public class FitTrack {
         initialiseSaveFile();
         loadSaveFile(saveableList);
 
-        // Initialize separate Goal/Reminder/Training Session lists for easier access if needed
+        // Initialize separate Goal/Reminder/Training Session lists for easier access
         ArrayList<TrainingSession> sessionList = new ArrayList<>();
         ArrayList<Reminder> reminderList = new ArrayList<>();
         ArrayList<Goal> goalList = new ArrayList<>();
@@ -51,9 +51,14 @@ public class FitTrack {
         // Initialise Food/Water lists
         FoodWaterIntake foodWaterList = new FoodWaterIntake();
 
-        // Separate saveable items into specific lists based on their type
+        // Set user gender and age
+        User user = null;
+
+        // Separate saveable items into specific lists based on their type / set user if data is found detected
         for (Saveable item : saveableList) {
-            if (item instanceof TrainingSession) {
+            if (item instanceof User) {
+                user = (User) item;
+            } else if (item instanceof TrainingSession) {
                 sessionList.add((TrainingSession) item);
             } else if (item instanceof Reminder) {
                 reminderList.add((Reminder) item);
@@ -66,11 +71,10 @@ public class FitTrack {
             }
         }
 
-        printGreeting();
 
-        // Set user gender and age
-        User user = null;
+        // If no user data detected, prompt user for user information
         while(user == null) {
+            printGreeting();
             try {
                 String userInput = scan.nextLine();
                 if(userInput.trim().equals(EXIT_COMMAND)) {

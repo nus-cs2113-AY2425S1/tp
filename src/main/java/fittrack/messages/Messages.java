@@ -132,6 +132,8 @@ public class Messages {
     public static final String INVALID_DATE_FORMAT_MESSAGE = "Invalid date format.";
     public static final String INVALID_LIST_COMMAND_MESSAGE = "Invalid List Command: Please input '"
             + LIST_SESSIONS_COMMAND + "' only.";
+    public static final String INVALID_VERTICAL_BAR_INPUT_MESSAGE = "Please try again without including any vertical " +
+            "bar characters ('|').";
 
     public static final String EXAMPLE_PULL_UP_REPETITIONS_FORMAT = "Example format: 1 PU 30";
     public static final String EXAMPLE_SHUTTLE_RUN_TIMING_FORMAT = "Example format: 1 SR 10.0";

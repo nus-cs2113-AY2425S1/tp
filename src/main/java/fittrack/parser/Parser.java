@@ -50,6 +50,7 @@ import static fittrack.messages.Messages.INDEX_OUT_OF_BOUNDS_MESSAGE;
 import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
 import static fittrack.messages.Messages.INVALID_INDEX_NON_NUMERIC_MESSAGE;
 import static fittrack.messages.Messages.INVALID_SESSION_INDEX_MESSAGE;
+import static fittrack.messages.Messages.INVALID_VERTICAL_BAR_INPUT_MESSAGE;
 import static fittrack.messages.Messages.LIST_FOOD_COMMAND;
 import static fittrack.messages.Messages.LIST_GOAL_COMMAND;
 import static fittrack.messages.Messages.LIST_DAILY_INTAKE_COMMAND;
@@ -140,6 +141,11 @@ public class Parser {
         LocalDateTime timeNow = LocalDateTime.now();
         String formattedTimeNow = timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
+        // Throw exception if user inputs a vertical bar '|'
+        if (input.contains("|")){
+            throw new IOException(INVALID_VERTICAL_BAR_INPUT_MESSAGE);
+        }
+
         // Split the input into command and description if applicable
         if (input.contains(" ")) {
             sentence = input.split(" ", 2);
@@ -162,14 +168,13 @@ public class Parser {
                 user.setGender(userInfo[0]);
                 user.setAge(userInfo[1]);
 
-                // Report updated user details to user
+                // Report updated user details to user and update save file
                 printUser(user.getAge(), user.getGender().toString().toLowerCase());
+                updateSaveFile(user, sessionList, goalList, reminderList,  foodWaterList);
 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-
-
             break;
         case ADD_SESSION_COMMAND:
             try {
@@ -178,7 +183,7 @@ public class Parser {
                 int sessionIndex = sessionList.size() - 1;
                 printAddedSession(sessionList, sessionIndex);
                 // Update the saved data with the new session.
-                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
                 // Handle any exceptions during session addition and display error message.
                 System.out.println(e.getMessage());
@@ -220,7 +225,7 @@ public class Parser {
                 sessionList.get(sessionIndex).editExercise(fromUserInput(exerciseAcronym), exerciseData);
                 printSessionView(sessionList, sessionIndex);
                 // Save the updated session data.
-                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
                 // Handle any exceptions and print error message.
                 System.out.println(e.getMessage());
@@ -254,7 +259,7 @@ public class Parser {
                 sessionList.remove(indexToDelete);
                 printDeletedSession(sessionList, sessionToDelete, sessionDescription);
                 // Save the updated session data.
-                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             } catch (Exception e) {
                 // Handle any exceptions and print error message.
                 System.out.println(e.getMessage());
@@ -316,7 +321,7 @@ public class Parser {
                 // Proceed with adding the reminder if no exceptions were thrown
                 reminderList.add(new Reminder(inputDescription, deadline, user));
                 printAddedReminder(reminderList);
-                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
 
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -345,7 +350,7 @@ public class Parser {
                 Reminder reminderToDelete = reminderList.get(reminderIndexToDelete);
                 reminderList.remove(reminderIndexToDelete);
                 printDeletedReminder(reminderList, reminderToDelete);
-                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
 
             } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
@@ -387,7 +392,7 @@ public class Parser {
                 } else {
                     System.out.println("Please specify a goal to add.");
                 }
-                updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             } catch (DateTimeParseException e) {
                 // Handle invalid date format for the goal deadline.
                 System.out.println("Invalid date format for goal deadline. "
@@ -412,7 +417,7 @@ public class Parser {
                 // Handle invalid format when parsing the goal index.
                 System.out.println("Invalid format: Please specify a valid index to delete.");
             }
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_GOAL_COMMAND:
@@ -442,7 +447,7 @@ public class Parser {
             System.out.println("Got it. I've added " + waterAmount + "ml of water at " +
                 formattedTimeNow + ".");
             System.out.println(SEPARATOR);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case DELETE_WATER_COMMAND:
@@ -454,7 +459,7 @@ public class Parser {
 
             int waterIndex = Integer.parseInt(description) - 1;
             foodWaterList.deleteWater(waterIndex);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_WATER_COMMAND:
@@ -476,7 +481,7 @@ public class Parser {
                     System.out.println("Got it. I've added food item: " + foodName
                             + " (" + calories + " calories) at " + formattedTimeNow + ").");
                     System.out.println(SEPARATOR);
-                    updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+                    updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid water format: Please use 'add-food' + (food item) "
                         + "+ (calories)");
@@ -496,7 +501,7 @@ public class Parser {
 
             int foodIndex = Integer.parseInt(description) - 1;
             foodWaterList.deleteFood(foodIndex);
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_FOOD_COMMAND:
@@ -531,7 +536,7 @@ public class Parser {
             } catch (Exception e) {
                 System.out.println("An error occurred: " + e.getMessage());
             }
-            updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
+            updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList);
             break;
 
         case LIST_DAILY_INTAKE_COMMAND:
