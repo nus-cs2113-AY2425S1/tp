@@ -297,13 +297,14 @@ class EditEntryCommandTest {
     @Test
     void execute_addExpenseToFullList_expectErrorMessage() throws FinanceBuddyException {
         for (int i = 1; i <= 4999; i++) {
-            financialList.addEntry(new Expense(100.0, "Test " + i, LocalDate.now(), Expense.Category.UNCATEGORIZED));
+            financialList.addEntry(new Expense(100.0, "Test " + i, LocalDate.now(),
+                    Expense.Category.UNCATEGORIZED));
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String DateAsString = LocalDate.now().format(formatter);
+        String dateAsString = LocalDate.now().format(formatter);
 
-        EditEntryCommand command = new EditEntryCommand(5000, 50.0, "Groceries", DateAsString,
+        EditEntryCommand command = new EditEntryCommand(5000, 50.0, "Groceries", dateAsString,
                 Expense.Category.FOOD);
         command.execute(financialList);
 

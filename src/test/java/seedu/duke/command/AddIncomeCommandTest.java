@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
-import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
 import seedu.duke.util.Commons;
