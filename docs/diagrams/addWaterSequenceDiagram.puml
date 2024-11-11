@@ -44,16 +44,12 @@ else No DailyRecord exists
 end
 deactivate History
 
-AddCmd -> DailyRec:
+AddCmd -> DailyRec: addWaterToRecord(waterToAdd)
 activate DailyRec
 
-DailyRec -> DailyRec: addWaterToRecord(waterToAdd)
-activate DailyRec
-DailyRec -> Water
+DailyRec -> Water : addWater(waterVolume)
 activate Water
-Water -> Water: addWater(waterVolume)
-activate Water
-deactivate Water
+
 Water --> DailyRec
 deactivate Water
 
