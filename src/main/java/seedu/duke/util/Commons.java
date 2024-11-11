@@ -31,6 +31,10 @@ public class Commons {
     public static final String FLAG_END_POINT = "/to";
     public static final String FLAG_CATEGORY = "/c";
 
+    //Key Amounts
+    public static final double MIN_AMOUNT = 0.01;
+    public static final double MAX_AMOUNT = 9999999.00;
+    public static final int MAX_NUM_OF_ENTRIES = 5000;
     /**
      * Prints a message enclosed in line separators.
      * Primarily used for error messages.
@@ -41,5 +45,15 @@ public class Commons {
         System.out.println(Commons.LINE_SEPARATOR);
         System.out.println(message);
         System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+    /**
+     * Method to round off a double to 2 decimal places
+     *
+     * @param amount amount to be rounded off.
+     * @return amount rounded off to 2 decimal places.
+     */
+    public static double roundToTwoDP(double amount) {
+        return Math.round(amount * 100.0) / 100.0;
     }
 }

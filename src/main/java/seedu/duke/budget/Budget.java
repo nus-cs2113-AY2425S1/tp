@@ -1,5 +1,7 @@
 package seedu.duke.budget;
 
+import seedu.duke.util.Commons;
+
 import java.time.LocalDate;
 
 /**
@@ -37,7 +39,7 @@ public class Budget {
      * @param newBudgetAmount the new budget amount to be set.
      */
     public void setBudgetAmount(double newBudgetAmount) {
-        this.budgetAmount = Math.round(newBudgetAmount * 100.0) / 100.0;
+        this.budgetAmount = Commons.roundToTwoDP(newBudgetAmount);
         this.balance = newBudgetAmount;
         this.isBudgetSet = true;
         this.budgetSetDate = LocalDate.now();
@@ -86,7 +88,7 @@ public class Budget {
      * @param newBalance the new balance to be updated.
      */
     public void updateBalance(double newBalance) {
-        this.balance = Math.round(newBalance * 100.0) / 100.0;
+        this.balance = Commons.roundToTwoDP(newBalance);
     }
 
     /**
