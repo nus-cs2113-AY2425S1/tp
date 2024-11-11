@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 
 import static seedu.exchangecoursemapper.constants.Commands.COMMANDS;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
-import static seedu.exchangecoursemapper.constants.Commands.SET;
+import static seedu.exchangecoursemapper.constants.Commands.LIST_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
@@ -77,6 +77,7 @@ public class Parser {
         assert inputDetails.length > 0 : EMPTY_INPUT_DETAILS;
 
         String command = inputDetails[COMMAND_WORD_INDEX];
+        String listCoursesCommand = inputDetails.length > 1 ? inputDetails[0] + " " + inputDetails[1] : "";
 
         if (input.equals(LISTING_SCHOOLS)) {
             new ListSchoolCommand().execute(input);
@@ -90,7 +91,7 @@ public class Parser {
             new DeleteCoursesCommand().execute(input, storage);
         } else if (command.equals(ADD_COURSES)) {
             new AddCoursesCommand().execute(input, storage);
-        } else if (command.equals(SET)) {
+        } else if (listCoursesCommand.equals(LIST_COURSES)) {
             new ListUniCoursesCommand().execute(input);
         } else if (command.equals(HELP)) {
             new HelpCommand().execute(input);

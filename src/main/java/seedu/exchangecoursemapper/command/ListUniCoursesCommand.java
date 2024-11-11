@@ -63,7 +63,7 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
     public String getPuName (String userInput) {
         assert userInput != null : Assertions.EMPTY_USER_INPUT;
 
-        String puName = userInput.replaceFirst("set", "").trim();
+        String puName = userInput.replaceFirst("list courses", "").trim();
         logger.log(Level.INFO, Logs.EXTRACT_PU_NAME);
 
         if (puName.isEmpty()) {
