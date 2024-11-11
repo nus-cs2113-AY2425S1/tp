@@ -183,7 +183,7 @@ The following sequence diagram shows how the `DeleteCommand` is executed:
 ### SortCommand Implementation
 
 #### Overview:
-The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework.
+The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework. It can only sort by exactly one field in each time.
 
 #### Design:
 - The `SortCommand` class processes user input to determine which sorting method to apply (e.g., role or deadline).
@@ -207,18 +207,18 @@ The `SortCommand` class is responsible for sorting the internship listings based
 - **`getUsage()`**: Returns a string showing the correct usage of the `sort` command, including valid options like "alphabet", "deadline", "duration", "skills", and "status".
 
 #### Example Usage Scenario:
-1. The user enters `sort role`, and the `execute` method sorts the internships by role alphabetically.
-2. The user enters `sort duration`, and the internships are sorted by their start and end dates.
-3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
-4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
-5. The user enters `sort deadline`, and the internships are sorted by each of their earliest deadline.
-6. The user enters `sort company`, and the internships are sorted by their company alphabetically.
-7. The user enters `sort role in favourite`, and the `execute` method sorts the internships in favourite by role.
-8. The user enters `sort duration  in favourite`, and the internships in favourite are sorted by their start and end dates.
-9. The user enters `sort skills in favourite`, and the internships in favourite are sorted by the first skill alphabetically.
-10. The user enters `sort status in favourite`, and the internships in favourite are sorted by their status alphabetically.
-11. The user enters `sort deadline in favourite`, and the internships in favourite are sorted by each of their earliest deadline.
-12. The user enters `sort company in favourite`, and the internships in favourite are sorted by their company alphabetically.
+1. The user enters `sort -role`, and the `execute` method sorts the internships by role alphabetically.
+2. The user enters `sort -duration`, and the internships are sorted by their start and end dates.
+3. The user enters `sort -skills`, and the internships are sorted by the first skill alphabetically.
+4. The user enters `sort -status`, and the internships are sorted by their status alphabetically.
+5. The user enters `sort -deadline`, and the internships are sorted by each of their earliest deadline.
+6. The user enters `sort -company`, and the internships are sorted by their company alphabetically.
+7. The user enters `sort -role in favourite`, and the `execute` method sorts the internships in favourite by role.
+8. The user enters `sort -duration  in favourite`, and the internships in favourite are sorted by their start and end dates.
+9. The user enters `sort -skills in favourite`, and the internships in favourite are sorted by the first skill alphabetically.
+10. The user enters `sort -status in favourite`, and the internships in favourite are sorted by their status alphabetically.
+11. The user enters `sort -deadline in favourite`, and the internships in favourite are sorted by each of their earliest deadline.
+12. The user enters `sort -company in favourite`, and the internships in favourite are sorted by their company alphabetically.
 13. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:

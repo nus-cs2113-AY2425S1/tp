@@ -57,6 +57,8 @@ public class InternshipList {
     }
 
     // Method to remove an internship by index (0-based)
+
+    //@@author jadenlimjc
     public void removeInternship(int index) throws InvalidIndex {
         if (!isWithinBounds(index)) {
             throw new InvalidIndex(index);
@@ -65,6 +67,7 @@ public class InternshipList {
         assert internship != null : "Removed internship should not be null";
 
         internship.clearDeadlines();
+        favouriteInternships.remove(internship);
         ui.showDeletedInternship(index + 1);
         updateIds(); // Reassign IDs after removal
 
@@ -221,6 +224,7 @@ public class InternshipList {
         return Integer.compare(month1, month2);
     }
 
+    //@@author jadenlimjc
     /**
      * List all internships sorted by the earliest deadline
      */

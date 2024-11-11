@@ -91,9 +91,11 @@ public class SortCommand extends Command {
     public String getUsage() {
         return """
                 sort
-                Usage: sort [role | duration | deadline | skills | status | company
-                            | role in favourite | duration in favourite | deadline in favourite
-                            | skills in favourite | status in favourite | company in favourite ]
+                Usage: sort [-role | -duration | -deadline | -skills | -status | -company
+                            | -role in favourite | -duration in favourite | -deadline in favourite
+                            | -skills in favourite | -status in favourite | -company in favourite ]
+                
+                Only sort by exactly one field in each time
                 
                 role: Sort internships alphabetically by role (case-insensitive).
                 deadline: Sort internships by start date (year first), then end date.
