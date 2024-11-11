@@ -50,13 +50,9 @@ loop for each line in file
         activate ":InternshipList" #aquamarine
         ":InternshipList" --> ":Storage" : favInternship
         deactivate ":InternshipList"
-
-        alt favInternship is found
-            ":Storage" -> ":InternshipList" : add to favouriteInternships
-        else favInternship is not found
-            ":Storage" -> ":Storage" : warning: favInternshipId not found.
-        end
-
+        ":Storage" -> ":InternshipList" : add to favouriteInternships
+        activate ":InternshipList" #aquamarine
+        deactivate ":InternshipList"
     end
 
         deactivate ":Storage"
