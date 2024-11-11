@@ -30,7 +30,7 @@ activate Parser
 create Recipe
 Parser -> Recipe : Recipe(name, ingreds, steps, cuisine, timeTaken)
 activate Recipe
-Recipe -> Parser : recipe:Recipe
+Recipe --> Parser : recipe:Recipe
 deactivate Recipe
 
 create AddRecipeCommand
