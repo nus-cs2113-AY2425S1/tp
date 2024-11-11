@@ -781,6 +781,7 @@ The user is able to organise and manage his events more quickly and efficiently 
 * _Command_ - an action that is carried out in the program as a result of user input.
 * _List_ - a container class that stores multiple instances of an object. 
 * _Parameter_ - a value in the user command input that is used for the parsing of a command.
+<div style="page-break-after: always;"></div>
 
 ## Appendix E: Instructions for manual testing
 
@@ -808,8 +809,6 @@ The user is able to organise and manage his events more quickly and efficiently 
       
       Expected: The terminal will print a welcome message and prompt for user input.
 
-   <div style="page-break-after: always;"></div>
-
 ### Adding an event
 
 1. Adding an `Event` to the `Event` list
@@ -833,6 +832,8 @@ The user is able to organise and manage his events more quickly and efficiently 
    
    2. Test case: `add -e Event 1 -t 2024-10-10 18:00 -v Venue 1 -u HIGH`  
       Expected: A `Event` with name `Event 1(1)` is added. A success message is shown.
+   
+<div style="page-break-after: always;"></div>
 
 ### Adding a participant
 
