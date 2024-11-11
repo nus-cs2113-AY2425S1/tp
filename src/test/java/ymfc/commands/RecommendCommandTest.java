@@ -48,7 +48,7 @@ public class RecommendCommandTest {
         ingredients2.add(new Ingredient("water"));
         recipe2 = new Recipe("abc soup", ingredients2, steps);
         ingredients3.add(new Ingredient("abc"));
-        ingredients3.add(new Ingredient("water"));
+        ingredients3.add(new Ingredient("Water"));
         ingredients3.add(new Ingredient("salt"));
         recipe3 = new Recipe("salted abc soup", ingredients3, steps);
 
@@ -56,7 +56,7 @@ public class RecommendCommandTest {
         recipeList.addRecipe(recipe2);
         recipeList.addRecipe(recipe3);
 
-        ingredientList.addIngredient(new Ingredient("water"));
+        ingredientList.addIngredient(new Ingredient("Water"));
 
         recommendCommand = new RecommendCommand();
     }
