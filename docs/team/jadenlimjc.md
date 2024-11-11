@@ -15,13 +15,13 @@ Given below are my contributions to the project.
 <br><br>
 
 - **New Feature:** Added the ability to add an internship entry.
-  - What it does: Allows the user to add a new internship entry
-  - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications
+  - What it does: Allows the user to add a new internship entry.
+  - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications.
   - Highlights: This functionality is fundamental for managing and tracking multiple internship applications in a single place, which allows for efficient updates and reviews of application statuses.
 <br><br>
 
 - **New Feature:** Added the ability to delete an internship entry.
-  - What it does: Allows the user to delete a new internship entry
+  - What it does: Allows the user to delete a new internship entry.
   - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications by deleting internships that are no longer necessary to be maintained.
   - Highlights: This functionality is fundamental for managing and tracking multiple internship applications in a single place, which allows for efficient updates and reviews of application statuses.
 <br><br>
