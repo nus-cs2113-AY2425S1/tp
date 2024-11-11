@@ -407,13 +407,13 @@ System.out.println(expense.toString());
 <ins>Overview</ins>
 
 The abstract class `Command` has been implemented to introduce an additional layer
-of abstraction between the `CommandHandler` class and command execution,
+of abstraction between the `Logic` class and command execution,
 allowing for separation of handling command keywords and executing commands.
 
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
-<img src="UML/CommandInheritance.png" alt="Command Inheritance Diagram" width="auto" height="200">
+<img src="UML/Command.png" alt="Command Inheritance Diagram" width="auto" height="200">
 
 <ins>Constructor</ins>
 
@@ -439,10 +439,11 @@ The `AddEntryCommand` class has the following attributes:
 - `amount`: `double` An object representing the amount of money in the transaction.
 - `description`: `String` An object representing the description of the transaction.
 - `date`: `LocalDate` An object representing the date on which the transaction occurred.
-- `category`: `Enum<?>` Specifies the category of the entry for income or expense.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes inherit all attributes
-from the `AddEntryCommand` class and have no additional attributes.
+from the `AddEntryCommand` class and have an additional attribute:
+- `category`: `Enum<?>` Specifies the category of the entry. Categories available depend on
+whether the entry is an `Expense` or `Income`.
 
 The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method:
 - `execute` Adds `Expense` or `Income` to the `financialList`
@@ -450,12 +451,12 @@ The `AddExpenseCommand` and `AddIncomeCommand` classes have the following method
 <ins>Implementation</ins>
 
 The user invokes the command to add entries by entering the following commands:
-- `expense [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
-- `income [DESCRIPTION] /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
+- `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an expense
+- `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]` for adding an income
 
-This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
+This is parsed by `InputParser`, returning a HashMap `commandArguments`, containing the
 following arguments:
-- `argument`: Represents the description of the entry. The value can be left blank.
+- `argument`: Represents the description of the entry. This is a compulsory argument.
 - `/a`: Represents the amount of money in the transaction. This is a compulsory argument.
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
@@ -518,12 +519,12 @@ The `EditEntryCommand` class has the following method:
 <ins>Implementation</ins>
 
 The user invokes the command to edit entries by entering the following command:
-`edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
+`edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`.
 
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
 - `argument` Represents the index of the entry in the full financial list.
-  This is a compulsory argument.
+  If no index is provided, the latest entry is edited.
 - `/des` Represents the description of the transaction. This is an optional argument.
 - `/a` Represents the amount of money used in the transaction. This is an optional argument.
 - `/d` Represents the date on which the transaction occurred. This is an optional argument.
@@ -810,6 +811,11 @@ has been greatly simplified to simply show the association between these classes
 
 <img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
 
+The constructor of the `Budget` class
+- Sets `budgetAmount` and `balance` to 0
+- Sets `isBudgetSet` to false
+- Sets `budgetSetDate` to null
+
 <ins>Methods</ins>
 
 The `Budget` class has the following methods:
@@ -818,9 +824,18 @@ The `Budget` class has the following methods:
   - Sets the value of `budgetAmount` and `balance` to the provided value
   - Sets `isBudgetSet` to true
   - Sets `budgetSetDate` to the current date of the machine
+- `resetBudgetAmount()` Similar to the constructor,
+  - Sets `budgetAmount` and `balance` to 0
+  - Sets `isBudgetSet` to false
+  - Sets `budgetSetDate` to null
+- `getBudgetAmountString()`: `String` Returns a `String` format of `budgetAmount`
 - `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
 - `getBalance()`: `double` Returns the value of `balance`
-- `updateBalance(double)` Sets the value of `balance` to the provided value
+- `updateBalance(double)` Sets the value of `balance` to the provided value, rounded to 2 decimal places
+- `getBalanceString()`: `String` Returns a `String` format of `balance`
+- `setBudgetSetDate(LocalDate)` Sets `budgetSetDate` to the date provided,
+specifically for `Storage` class
+- `getBudgetSetDate()`: `LocalDate` Returns `budgetSetDate`
 - `toStorageString`: `String` Converts the budget attributes to a formatted `String`
   specifically for the `Storage` class
 
@@ -847,10 +862,7 @@ then scans through the whole `FinancialList` and deducts the remaining balance a
 
 <ins>Implementation Details</ins>
 
-The constructor of the `Budget` class
-- Sets `budgetAmount` and `balance` to 0
-- Sets `isBudgetSet` to false
-- Sets `budgetSetDate` to null
+
 
 The sequence diagrams below show 3 main methods of `BudgetLogic` class.
 
