@@ -3,14 +3,14 @@ package seedu.spendswift.command;
 import seedu.spendswift.ui.ErrorMessage;
 import seedu.spendswift.format.Format;
 import seedu.spendswift.ui.SuccessMessage;
-import seedu.spendswift.ui.UI;
+//import seedu.spendswift.ui.UI;
 import seedu.spendswift.model.Budget;
 import seedu.spendswift.model.Category;
 import seedu.spendswift.model.Expense;
 import seedu.spendswift.model.TrackerData;
 import seedu.spendswift.parser.InputParser;
 
-import java.util.Calendar;
+//import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,73 +19,73 @@ import java.math.BigDecimal;
 
 //@@author kq2003
 public class BudgetManager {
-    public int lastResetMonth;
-
-    public boolean isAutoResetEnabled = false;  // Default state
-
-    public BudgetManager() {
-        this.lastResetMonth = -1;
-        this.isAutoResetEnabled = false;
-    }
-
-    public boolean getAutoResetStatus() {
-        return this.isAutoResetEnabled;
-    }
-    public void toggleAutoReset() {
-        isAutoResetEnabled = !isAutoResetEnabled;
-        System.out.println(UI.SEPARATOR);
-        System.out.println("Automatic budget reset is now " + (isAutoResetEnabled ? "ON" : "OFF") + ".");
-        System.out.println(UI.SEPARATOR);
-    }
-
-    //@@author AdiMangalam
-    /**
-     * Checks if it is a new month and resets budgets if auto-reset is enabled.
-     *
-     * This method uses the current month to determine if a monthly budget reset
-     * should occur. If auto-reset is enabled and the month has changed since the
-     * last reset, it triggers a reset of all budgets and updates the last reset month.
-     */
-    public void checkAndResetBudgets(TrackerData trackerData) {
-
-        Calendar calendar = Calendar.getInstance();
-        int currentMonth = calendar.get(Calendar.MONTH);
-
-        if (isAutoResetEnabled && currentMonth != lastResetMonth) {
-            resetBudgets(trackerData);
-            lastResetMonth = currentMonth;
-        }
-    }
-
-    /**
-     * Manages the monthly budget reset process.
-     *
-     * This method is intended to be called periodically to ensure budgets are reset
-     * at the start of a new month if necessary. It delegates the actual reset logic
-     * to the checkAndResetBudgets method, which handles auto-reset checks.
-     */
-    public void manageMonthlyReset(TrackerData trackerData) {
-        checkAndResetBudgets(trackerData);
-    }
-
-    /**
-     * Resets the budget limits for all categories.
-     *
-     * This method iterates over all budgets in the tracker and resets each budget's
-     * limit as per the current configuration. By default, it maintains the same limit
-     * for each budget, but the reset logic can be adjusted if needed.
-     */
-    public void resetBudgets(TrackerData trackerData) {
-        Map<Category, Budget> budgets = trackerData.getBudgets();
-
-        for (Budget budget : budgets.values()) {
-            // Resetting the budget logic can be adjusted as needed
-            budget.setLimit(budget.getLimit()); // For now, just maintaining the same limit
-        }
-
-        trackerData.setBudgets(budgets);
-        SuccessMessage.printBudgetReset();
-    }
+    //    public int lastResetMonth;
+    //
+    //    public boolean isAutoResetEnabled = false;  // Default state
+    //
+    //    public BudgetManager() {
+    //        this.lastResetMonth = -1;
+    //        this.isAutoResetEnabled = false;
+    //    }
+    //
+    //    public boolean getAutoResetStatus() {
+    //        return this.isAutoResetEnabled;
+    //    }
+    //    public void toggleAutoReset() {
+    //        isAutoResetEnabled = !isAutoResetEnabled;
+    //        System.out.println(UI.SEPARATOR);
+    //        System.out.println("Automatic budget reset is now " + (isAutoResetEnabled ? "ON" : "OFF") + ".");
+    //        System.out.println(UI.SEPARATOR);
+    //    }
+    //
+    //    //@@author AdiMangalam
+    //    /**
+    //     * Checks if it is a new month and resets budgets if auto-reset is enabled.
+    //     *
+    //     * This method uses the current month to determine if a monthly budget reset
+    //     * should occur. If auto-reset is enabled and the month has changed since the
+    //     * last reset, it triggers a reset of all budgets and updates the last reset month.
+    //     */
+    //    public void checkAndResetBudgets(TrackerData trackerData) {
+    //
+    //        Calendar calendar = Calendar.getInstance();
+    //        int currentMonth = calendar.get(Calendar.MONTH);
+    //
+    //        if (isAutoResetEnabled && currentMonth != lastResetMonth) {
+    //            resetBudgets(trackerData);
+    //            lastResetMonth = currentMonth;
+    //        }
+    //    }
+    //
+    //    /**
+    //     * Manages the monthly budget reset process.
+    //     *
+    //     * This method is intended to be called periodically to ensure budgets are reset
+    //     * at the start of a new month if necessary. It delegates the actual reset logic
+    //     * to the checkAndResetBudgets method, which handles auto-reset checks.
+    //     */
+    //    public void manageMonthlyReset(TrackerData trackerData) {
+    //        checkAndResetBudgets(trackerData);
+    //    }
+    //
+    //    /**
+    //     * Resets the budget limits for all categories.
+    //     *
+    //     * This method iterates over all budgets in the tracker and resets each budget's
+    //     * limit as per the current configuration. By default, it maintains the same limit
+    //     * for each budget, but the reset logic can be adjusted if needed.
+    //     */
+    //    public void resetBudgets(TrackerData trackerData) {
+    //        Map<Category, Budget> budgets = trackerData.getBudgets();
+    //
+    //        for (Budget budget : budgets.values()) {
+    //            // Resetting the budget logic can be adjusted as needed
+    //            budget.setLimit(budget.getLimit()); // For now, just maintaining the same limit
+    //        }
+    //
+    //        trackerData.setBudgets(budgets);
+    //        SuccessMessage.printBudgetReset();
+    //    }
 
 
     //@@author MayFairMI6
@@ -142,10 +142,10 @@ public class BudgetManager {
         trackerData.setBudgets(budgets);
     }
 
-    //@author MayFairMI6
-    public int getLastResetMonth() {
-        return lastResetMonth;
-    }
+    //    //@author MayFairMI6
+    //    public int getLastResetMonth() {
+    //        return lastResetMonth;
+    //    }
 
 
     //@@author kq2003
@@ -174,12 +174,13 @@ public class BudgetManager {
             ErrorMessage.printParsingError();
         }
     }
-
+    //
+    //    //@@author MayFairMI6
+    //    public void simulateMonthChange() {
+    //        Calendar calendar = Calendar.getInstance();
+    //        lastResetMonth = (calendar.get(Calendar.MONTH) + 1) % 12;  // Simulate advancing by one month
+    //    }
     //@@author MayFairMI6
-    public void simulateMonthChange() {
-        Calendar calendar = Calendar.getInstance();
-        lastResetMonth = (calendar.get(Calendar.MONTH) + 1) % 12;  // Simulate advancing by one month
-    }
     /**
      * Displays the current budget status for each category.
      *

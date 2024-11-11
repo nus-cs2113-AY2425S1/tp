@@ -1,6 +1,6 @@
 //@@author glenda-1506
 package seedu.spendswift;
-import java.util.Calendar;
+//import java.util.Calendar;
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+//import static org.junit.jupiter.api.Assertions.assertNotEquals;
 //import static org.junit.jupiter.api.Assertions.assertNull;
 
 
@@ -441,7 +441,7 @@ private String generateRandomWord(Random random, int wordLength) {
                 .sum());
     }*/
 
-    @Test
+    /*@Test
     void testToggleAutoReset() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
