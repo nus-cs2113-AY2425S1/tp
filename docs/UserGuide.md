@@ -14,6 +14,18 @@ This guide will bring you through the various features of FitTrackCLI, and how t
 
 
 ## FitTrackCLI's Features
+Before diving into the details of the features, it’s essential to understand how the exercises are stored in this CLI 
+chatbot. The table below provides a quick reference for the different exercises, their acronyms, valid input formats, 
+units, and examples of invalid entries:
+
+| **Exercise**        | **Acronym** | **Valid Input** | **Units/Format**        | **Invalid Input Examples**          |
+|---------------------|-------------|-----------------|-------------------------|-------------------------------------|
+| Pull Ups            | PU          | 15              | Repetitions (integer)   | -5, "ten"                           |
+| Shuttle Run         | SR          | 11.2            | Seconds (1 decimal)     | 11.25, 11., "11:20"                 |
+| Sit And Reach       | SAR         | 30              | Centimeters (integer)   | -10, "thirty"                       |
+| Sit Ups             | SU          | 20              | Repetitions (integer)   | -3, "twenty"                        |
+| Standing Broad Jump | SBJ         | 200             | Centimeters (integer)   | -50, "two hundred"                  |
+| Walk And Run        | WAR         | 12:45           | Minutes:Seconds (MM:SS) | 13:60, "12:7", "12.45", "twelve:45" |
 
 ### 1. User Configuration: `set`
 
@@ -47,9 +59,6 @@ modify (session index) (new datetime)                            modify 1 1986-0
 list                                                             list
 view (session index)                                             view 1
 edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1
-Exercise Acronyms:
-Pull Ups : PU               Shuttle Run: SR                 Sit And Reach: SAR
-Sit Ups: SU                 Standing Broad Jump: SBJ        Walk And Run: WAR
 delete (session index)                                           delete 1
 edit-mood (session index) (mood description)                     edit-mood 1 Sad
 remind (Event / Task) (deadline)                                 remind NAPFA DD/MM/YYYY
@@ -145,6 +154,8 @@ ________________________________________________________________________________
 **Purpose**: Edit the details of a training session, namely exercise and reps/time.
 
 **Format**: `edit [session index] [exercise acronym] [repetitions/time]`
+> **Note**: The format for exercise acronyms and the corresponding repetitions/timing strictly adheres to the table 
+> provided at the beginning of the features section.
 
 **Example**: `edit 1 PU 45`
 
