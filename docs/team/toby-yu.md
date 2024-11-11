@@ -3,7 +3,8 @@
 ## Project: EasInternship
 ### Overview
 
-**EasInternship** is a desktop application designed to streamline the tracking of internship applications for users. The application allows users to store key details of their internships, manage status updates, and prioritize applications based on deadlines. The user interacts with it using a CLI, and it is written in Java, containing about 8 kLoC.
+EasInternship is a desktop tracking application used for tracking internship applications along the various stages
+of an application. The user interacts with it using a CLI and the application is written in Java.
 
 By using this tool, the user can:
 
