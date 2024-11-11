@@ -16,6 +16,7 @@ import java.util.Map.Entry;
  * Command to print all entries recorded in the financial list.
  */
 public class SeeAllEntriesCommand extends Command {
+    protected static final int ZERO_TO_ONE_BASED_INDEX_OFFSET = 1;
     protected static Log logger = Log.getInstance();
     protected final String entriesListedMessage = "Here's a list of all recorded entries:";
     protected final String noEntriesMessage = "No entries found.";
@@ -123,7 +124,8 @@ public class SeeAllEntriesCommand extends Command {
      * Executes the command to display all recorded entries in the financial list.
      * Iterates through the financial list and collects all entries that are within the date range.
      * If no entries are found, it prints a message indicating no recorded entries.
-     * Otherwise, it prints a list of all recorded entries, and the net cashflow.
+     * Otherwise, it prints a list of all recorded entries (with their index in the financial list),
+     * and the net cashflow.
      *
      * @param list The financial list on which the command will operate.
      */
@@ -145,7 +147,7 @@ public class SeeAllEntriesCommand extends Command {
                 continue;
             }
             entryCount++;
-            entryList += entryCount + ". " + entry + System.lineSeparator();
+            entryList += (i + ZERO_TO_ONE_BASED_INDEX_OFFSET) + ". " + entry + System.lineSeparator();
             if (entry instanceof Income income) {
                 cashflow += entry.getAmount();
                 list.getTotalIncomeByCategory().merge(income.getCategory(), income.getAmount(), Double::sum);
@@ -178,6 +180,8 @@ public class SeeAllEntriesCommand extends Command {
 
         System.out.println(this.getEntriesListedMessage());
         System.out.println(entryList);
+        System.out.println("Total count: " + entryCount);
+        System.out.println();
         String cashflowString = this.getCashflowString(cashflow);
         System.out.println(this.getCashflowHeader() + cashflowString);
         System.out.println();

@@ -2,12 +2,14 @@
 skinparam sequenceMessageAlign center
 skinparam responseMessageBelowArrow true
 
-actor user
+participant ":FinanceBuddy" as fb
 participant "logic:Logic" as app
 participant "commandArguments:HashMap" as map
 participant ":DateParser" as parser
 
-user -> app: listHelper()
+fb -> app: matchCommand("list", commandArguments:HashMap)
+activate app
+app -> app: listHelper
 activate app
 ' Get values from HashMap
 app -> map : get command arguments
@@ -16,7 +18,7 @@ return command arguments
 
 ' Check for blank dates
 opt invalid entries for start/end date
-    user <-- app : throw FinanceBuddyException
+     fb <-- app : throw FinanceBuddyException
 end
 
 ' Parse dates
@@ -40,7 +42,7 @@ alt end date != null
         return
 end
 ref over app : executeListCommand
-
+return
 return
 @enduml
 

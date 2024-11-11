@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.util.Commons;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -55,7 +56,7 @@ class AddIncomeCommandTest {
      */
     @Test
     void execute_addIncome_expectAddedToFinancialList() throws FinanceBuddyException {
-        String specificDate = "14/10/24";
+        String specificDate = "14/10/2024";
         addIncomeCommand = new AddIncomeCommand(500.0, "allowance", specificDate, Income.Category.SALARY);
         addIncomeCommand.execute(financialList);
 
@@ -84,8 +85,8 @@ class AddIncomeCommandTest {
      */
     @Test
     void execute_addMultipleIncome_expectAllAddedToFinancialList() throws FinanceBuddyException {
-        String earlierDate = "21/10/24";
-        String laterDate = "23/10/24";
+        String earlierDate = "21/10/2024";
+        String laterDate = "23/10/2024";
         addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", earlierDate,
                 Income.Category.GIFT);
         addIncomeCommand.execute(financialList);
@@ -128,9 +129,9 @@ class AddIncomeCommandTest {
      */
     @Test
     void execute_addMultipleIncomeNotInDateOrder_expectSortedByDate() throws FinanceBuddyException {
-        String dateOne = "21/10/24";
-        String dateTwo = "23/10/24";
-        String dateThree = "11/09/24";
+        String dateOne = "21/10/2024";
+        String dateTwo = "23/10/2024";
+        String dateThree = "11/09/2024";
 
         addIncomeCommand = new AddIncomeCommand(400, "Cost of Living payment", dateOne,
                 Income.Category.GIFT);
@@ -240,7 +241,7 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncomeWithDateAfterCurrentDate_expectErrorMessage() {
         LocalDate laterDate = LocalDate.now().plusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String laterDateAsString = laterDate.format(formatter);
 
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
@@ -260,7 +261,7 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncomeWithEmptyDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(1, "", "01/11/24", Income.Category.OTHER);
+            addIncomeCommand = new AddIncomeCommand(1, "", "01/11/2024", Income.Category.OTHER);
             addIncomeCommand.execute(financialList);
         });
 
@@ -275,11 +276,37 @@ class AddIncomeCommandTest {
     @Test
     void execute_addIncomeWithBlankDescription_expectErrorMessage() {
         Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            addIncomeCommand = new AddIncomeCommand(1, " ", "01/11/24", Income.Category.OTHER);
+            addIncomeCommand = new AddIncomeCommand(1, " ", "01/11/2024", Income.Category.OTHER);
             addIncomeCommand.execute(financialList);
         });
 
         assertEquals("Description cannot be blank.", exception.getMessage());
         assertEquals(0, financialList.getEntryCount());
+    }
+
+    /**
+     * Tests the execute method of AddIncomeCommand with a financial list with 4999 entries.
+     * Verifies that the 5000th income is added but not the 5001st.
+     *
+     * @throws FinanceBuddyException if any issues occur while adding the incomes.
+     */
+    @Test
+    void execute_addIncomeToFullList_expectErrorMessage() throws FinanceBuddyException {
+        for (int i = 0; i < 4999; i++) {
+            addIncomeCommand = new AddIncomeCommand(1, "test " + i, "01/11/2024", Income.Category.OTHER);
+            addIncomeCommand.execute(financialList);
+        }
+
+        addIncomeCommand = new AddIncomeCommand(1, "test 5000", "01/11/2024", Income.Category.OTHER);
+        addIncomeCommand.execute(financialList);
+        assertEquals(5000, financialList.getEntryCount());
+
+        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
+            addIncomeCommand = new AddIncomeCommand(1, "test 5001", "01/11/2024", Income.Category.OTHER);
+            addIncomeCommand.execute(financialList);
+        });
+
+        assertEquals(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED, exception.getMessage());
+        assertEquals(5000, financialList.getEntryCount());
     }
 }

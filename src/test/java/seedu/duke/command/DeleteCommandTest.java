@@ -27,7 +27,7 @@ class DeleteCommandTest {
     private final PrintStream originalOut = System.out;
     private FinancialList financialList;
     private DeleteCommand deleteCommand;
-    private DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     /**
      * Set up the test environment before each test.

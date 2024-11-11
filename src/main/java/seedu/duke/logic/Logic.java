@@ -14,6 +14,8 @@ import seedu.duke.financial.Expense;
 import seedu.duke.financial.FinancialEntry;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.financial.Income;
+import seedu.duke.log.Log;
+import seedu.duke.log.LogLevels;
 import seedu.duke.parser.DateParser;
 import seedu.duke.storage.Storage;
 import seedu.duke.ui.AppUi;
@@ -29,6 +31,7 @@ import java.time.format.DateTimeFormatter;
  * It uses command objects to execute operations on the financial list.
  */
 public class Logic {
+    private static final Log logger = Log.getInstance();
     public final FinancialList financialList;
     private final Storage storage;
     private final AppUi ui;
@@ -187,7 +190,7 @@ public class Logic {
      * Parses the date or returns the default date if null.
      */
     private String parseDateOrDefault(String dateStr, LocalDate defaultDate) {
-        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yy"));
+        return (dateStr != null) ? dateStr : defaultDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 
     /**
@@ -222,16 +225,99 @@ public class Logic {
 
 
     /**
-     * Deletes an existing entry from the financial list based on the provided command arguments.
-     * <p>
-     * The method extracts the index of the entry to be deleted from the command arguments.
-     * A {@link DeleteCommand} is created and executed to remove the entry from the financial list.
+     * Deletes an existing entry or a range of entries from the financial list based on the command arguments.
      *
-     * @param commandArguments A map of parsed command arguments that contains the index of the entry
-     *                         to be deleted.
+     * @param commandArguments A map of parsed command arguments. Includes:
+     *                         - "argument": The start index (or "all" for deleting all entries).
+     *                         - "/to": The end index for range deletion (optional).
+     * @throws FinanceBuddyException If indices are invalid, out of range, or missing.
      */
     public void deleteEntry(HashMap<String, String> commandArguments) throws FinanceBuddyException {
-        int index = processIndexToAmend(commandArguments);
+        String end = commandArguments.get("/to");
+
+        if ("all".equalsIgnoreCase(commandArguments.get("argument"))) {
+            handleDeleteAll();
+            return;
+        }
+        int startIndex = processIndexToAmend(commandArguments);
+
+        if (end == null || end.isBlank()) {
+            deleteSingleEntry(startIndex);
+        } else {
+            int endIndex = parseIndex(end);
+            deleteRangeByIndex(startIndex, endIndex);
+        }
+
+    }
+
+    /**
+     * Deletes a range of entries in the financial list from the specified start index to the end index.
+     *
+     * @param start The start index (1-based).
+     * @param end   The end index (1-based).
+     * @throws FinanceBuddyException If the range is invalid or out of bounds.
+     */
+    public void deleteRangeByIndex(int start, int end) throws FinanceBuddyException {
+        if (start > end) {
+            throw new FinanceBuddyException("Start index must be less than or equal to end index.");
+        } else if (start < 1 || end > financialList.getEntryCount()) {
+            throw new FinanceBuddyException("Invalid range. Ensure indices are within the list bounds.");
+        }
+
+        // Delete entries in reverse to avoid shifting issues
+        for (int i = end; i >= start; i--) {
+            adjustBalanceAndDelete(i - 1); // Convert to 0-based index
+        }
+
+        Commons.printSingleLineWithBars("Entries from index " + start + " to " + end + " have been deleted.");
+    }
+
+
+    /**
+     * Deletes all entries in the financial list and resets the balance.
+     *
+     * @throws FinanceBuddyException If any issue occurs during the deletion process.
+     */
+    public void handleDeleteAll() throws FinanceBuddyException {
+        int totalEntries = financialList.getEntryCount();
+        if (totalEntries == 0) {
+            ui.displayEmptyListMessage();
+            return;
+        }
+
+        for (FinancialEntry entry : financialList.getEntries()) {
+            double amount = entry.getAmount();
+            budgetLogic.modifyBalance(amount);
+        }
+
+        financialList.clear();
+        ui.displayDeleteAllMessage(totalEntries);
+        financialList.resetLastAmendedIndex();
+    }
+
+    /**
+     * Deletes a single entry from the financial list, adjusts the budget balance, and resets the last amended index.
+     *
+     * @param index The index of the entry to delete (0-based).
+     * @throws FinanceBuddyException If the index is invalid or out of bounds.
+     */
+    private void adjustBalanceAndDelete(int index) throws FinanceBuddyException {
+        FinancialEntry entry = financialList.getEntry(index);
+        if (entry instanceof Expense) {
+            double amount = entry.getAmount();
+            budgetLogic.modifyBalance(amount);
+        }
+        financialList.deleteEntry(financialList.getEntries().indexOf(entry));
+        financialList.resetLastAmendedIndex();
+    }
+
+    /**
+     * Deletes a single entry at the specified index and adjusts the balance.
+     *
+     * @param index The index of the entry to delete (1-based).
+     * @throws FinanceBuddyException If the index is invalid or out of bounds.
+     */
+    private void deleteSingleEntry(int index) throws FinanceBuddyException {
         FinancialEntry entry = financialList.getEntry(index - 1);
 
         DeleteCommand deleteCommand = new DeleteCommand(index);
@@ -240,7 +326,7 @@ public class Logic {
 
         if (entry instanceof Expense) {
             double amount = entry.getAmount();
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yy");
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String date = entry.getDate().format(pattern);
             try {
                 budgetLogic.changeBalanceFromExpenseString(amount, date);
@@ -305,6 +391,45 @@ public class Logic {
     }
 
     /**
+     * Sets the budget amount based on the provided input.
+     *
+     * <p>This method processes a budget amount passed in the {@code commandArguments} map,
+     * validates the input, and updates the budget. If the amount is 0, the budget is reset.
+     * If the amount is invalid or cannot be parsed, an exception is thrown. After setting
+     * a valid budget, the balance is recalculated.</p>
+     *
+     * @param commandArguments a {@code HashMap} containing the budget amount under the key "argument".
+     * @throws FinanceBuddyException if the budget amount is null, empty, not a valid number,
+     *                                or fails validation rules.
+     */
+    public void setBudget(HashMap<String, String> commandArguments) throws FinanceBuddyException {
+        String amountInput = commandArguments.get("argument");
+
+        if (amountInput == null || amountInput.trim().isEmpty()) {
+            logger.log(LogLevels.WARNING, "Null or empty input for budget amount.");
+            throw new FinanceBuddyException("Budget amount cannot be null or empty. Please provide a valid number.");
+        }
+
+        double amount;
+        try {
+            amount = Double.parseDouble(amountInput);
+        } catch (NumberFormatException e) {
+            logger.log(LogLevels.WARNING, "Invalid number entered.");
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
+        }
+
+        if (amount == 0) {
+            budgetLogic.resetBudget();
+            storage.deleteBudgetFromFile();
+        } else if (!budgetLogic.isValidBudgetAmount(amount)) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT);
+        } else {
+            budgetLogic.handleSetBudget(financialList, amount);
+            storage.update(financialList, budgetLogic);
+        }
+    }
+
+    /**
      * Prints help menu when user inputs 'help' command.
      */
     public void printHelpMenu() {
@@ -343,8 +468,7 @@ public class Logic {
             storage.update(financialList, budgetLogic);
             break;
         case "budget":
-            budgetLogic.setBudget(financialList);
-            storage.update(financialList, budgetLogic);
+            setBudget(commandArguments);
             break;
         case "help":
             printHelpMenu();

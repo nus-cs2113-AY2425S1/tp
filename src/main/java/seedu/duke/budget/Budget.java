@@ -44,6 +44,16 @@ public class Budget {
     }
 
     /**
+     * Resets budget to 0 when amount is 0
+     */
+    public void resetBudgetAmount() {
+        this.budgetAmount = 0;
+        this.balance = 0;
+        this.isBudgetSet = false;
+        this.budgetSetDate = null;
+    }
+      
+    /**
      * Returns the budget amount in 2dp String format.
      *
      * @return the budget amount in 2dp String format.

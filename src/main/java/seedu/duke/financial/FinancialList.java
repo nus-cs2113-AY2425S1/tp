@@ -50,11 +50,15 @@ public class FinancialList {
 
     /**
      * Adds a new financial entry to the list in ascending order of date.
+     * Updates last amended index after adding the entry.
      *
      * @param entry The financial entry (income or expense) to be added.
      */
-    public void addEntry(FinancialEntry entry) {
+    public void addEntry(FinancialEntry entry) throws FinanceBuddyException {
         int insertIndex = entries.size();
+        if (insertIndex >= 5000) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
+        }
         while (shouldDecrementIndex(entry, insertIndex)) {
             insertIndex--;
         }
@@ -62,6 +66,21 @@ public class FinancialList {
         entries.add(insertIndex, entry);
         lastAmendedIndex = insertIndex;
         updateCategoryTotal(entry);
+    }
+
+    /**
+     * Adds a new financial entry to the list at a specified index.
+     * Updates last amended index after adding the entry.
+     *
+     * @param entry The financial entry (income or expense) to be added.
+     * @param insertIndex The index at which the new entry should be inserted into the list at.
+     */
+    public void addEntryAtSpecificIndex(FinancialEntry entry, int insertIndex) throws FinanceBuddyException {
+        if (entries.size() >= 5000) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
+        }
+        entries.add(insertIndex, entry);
+        lastAmendedIndex = insertIndex;
     }
 
     /**
@@ -211,4 +230,11 @@ public class FinancialList {
         totalIncomeByCategory.clear();
     }
 
+    public void clear() {
+        entries.clear(); // Assuming `entries` is the internal list of financial transactions
+    }
+
+    public ArrayList<FinancialEntry> getEntries() {
+        return new ArrayList<>(entries); // Return a copy to prevent external modification
+    }
 }

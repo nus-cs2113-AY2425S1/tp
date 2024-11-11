@@ -20,7 +20,7 @@ public abstract class FinancialEntry {
      *
      * @param amount The amount of the transaction.
      * @param description A description of the transaction.
-     * @param date The date of the transaction (dd/mm/yy).
+     * @param date The date of the transaction (dd/MM/yyyy).
      */
     public FinancialEntry(double amount, String description, LocalDate date) throws FinanceBuddyException {
         double roundedAmount = Math.round(amount * 100.0) / 100.0;
