@@ -1,52 +1,17 @@
 @startuml
-participant "Main" as Main
-participant "Category" as Category
-activate Main
+participant ":Main" as Main
+participant ":Category" as Category
 
-Main -> Category: new Category("ExampleName")
+Main -> Category: equals(Category2): boolean
 activate Category
-Category --> Main: Category instance with name "ExampleName"
-deactivate Category
-@enduml
-
-@startuml
-participant "Main" as Main
-participant "Category" as Category
-activate Main
-
-Main -> Category: getName()
-activate Category
-Category --> Main: "ExampleName"
-deactivate Category
-@enduml
-
-@startuml
-participant "Main" as Main
-participant "Category" as Category1
-participant "Category" as Category2
-activate Main
-
-Main -> Category1: equals(Category2)
-activate Category1
-alt Same object
-    Category1 --> Main: true
-else Null or different class
-    Category1 --> Main: false
-else Same name
-    Category1 --> Main: true
+alt Same object (this == obj)
+    Category --> Main: true
+else Null or different class (obj == null || getClass() != obj.getClass())
+    Category --> Main: false
+else Same name (name.equalsIgnoreCase(category.name))
+    Category --> Main: true
 else Different name
-    Category1 --> Main: false
+    Category --> Main: false
 end
-deactivate Category1
-@enduml
-
-@startuml
-participant "Main" as Main
-participant "Category" as Category
-activate Main
-
-Main -> Category: toString()
-activate Category
-Category --> Main: "Category: ExampleName"
 deactivate Category
 @enduml

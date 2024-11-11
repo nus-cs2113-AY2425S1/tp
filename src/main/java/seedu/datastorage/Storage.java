@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import seedu.category.Category;
+import seedu.exceptions.InvalidAmountFormatException;
 import seedu.exceptions.InvalidDateFormatException;
 import seedu.main.UI;
 import seedu.message.ErrorMessages;
@@ -116,7 +117,9 @@ public class Storage {
                 return false;
             }
         }
-        if (!AmountUtils.isValidAmount(String.valueOf(t.getAmount()))) {
+        try {
+            AmountUtils.parseAmount(String.valueOf(t.getAmount()));
+        } catch (InvalidAmountFormatException e) {
             logger.log(Level.WARNING, "Transaction has invalid amount: " + t);
             return false;
         }

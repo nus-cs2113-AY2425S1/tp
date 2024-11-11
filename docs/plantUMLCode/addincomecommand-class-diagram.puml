@@ -45,10 +45,10 @@ TransactionList --> "*" Income : stores >
 
 @startuml
 participant "User" as User
-activate User
+
 
 participant "AddIncomeCommand" as AddIncomeCmd
-User -> AddIncomeCmd: execute()
+User -> AddIncomeCmd: execute
 activate AddIncomeCmd
 
 alt Invalid arguments
@@ -73,6 +73,7 @@ else Valid arguments
     deactivate Storage
 
     AddIncomeCmd --> User: "Income added successfully!"
-end
+
 deactivate AddIncomeCmd
+end
 @enduml

@@ -22,7 +22,8 @@ class AmountUtilsTest {
         try {
             AmountUtils.parseAmount("-1");
         } catch (InvalidAmountFormatException e) {
-            assertEquals(ErrorMessages.INVALID_AMOUNT_FORMAT + "-1", e.getMessage());
+            assertEquals(ErrorMessages.NEGATIVE_AMOUNT
+                            + ": " + "-1", e.getMessage());
         }
     }
 

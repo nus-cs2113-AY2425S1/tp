@@ -132,7 +132,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 ### Updating
 
 #### Update an expense category: `categorize`
-- Update the category field of an expense.
+- Update the category field of an expense (the category must be in the transaction list).
 - **Format:** `categorize i/ INDEX c/ CATEGORY`
 - **Example:**
   ```
