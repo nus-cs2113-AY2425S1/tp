@@ -296,9 +296,9 @@ have clear targets to prepare for the NAPFA test.
 **Format**: `add-goal (goal name) (deadline)`
 
 - `(goal name)` is the description of the goal (e.g., "run", "swim").
-- `[deadline]` is an optional argument. If provided, it should follow the format DD/MM/YYYY HH:MM:SS. 
+- `[deadline]` is an optional argument. If provided, it should follow the format DD/MM/YYYY HH:MM:SS.
 - If no deadline is provided, the time will default to 00:00:00 on the specified date.
-- 
+
 **Example**: `add-goal run 12/12/2024 14:00:00`
 
 **Expected Output**:
@@ -318,22 +318,9 @@ No deadline set.
 ____________________________________________________________________________________________________
 ```
 
-### 16. Delete Goal: `delete-goal`
-User can delete a fitness goal to the the list
-of goals to moderate a fitness goal.
 
-**Format**: `delete-goal (goal index)`
 
-**Example**: `delete-goal 1`
-
-**Expected Output**:
-```
-____________________________________________________________________________________________________
-Goal at index 1 has been removed.
-____________________________________________________________________________________________________
-```
-
-### 17. List of Goals: `list-goal`
+### 16. List of Goals: `list-goal`
 View a list of all fitness goals and deadlines
 to keep track of progress in preparation for the NAPFA test
 
@@ -352,6 +339,21 @@ list-goal
 ____________________________________________________________________________________________________
 Goals:
 1. Goal: run, Deadline: 2024-12-12T14:00
+____________________________________________________________________________________________________
+```
+
+### 17. Delete Goal: `delete-goal`
+User can delete a fitness goal to the the list
+of goals to moderate a fitness goal.
+
+**Format**: `delete-goal (goal index)`
+
+**Example**: `delete-goal 1`
+
+**Expected Output**:
+```
+____________________________________________________________________________________________________
+Goal at index 1 has been removed.
 ____________________________________________________________________________________________________
 ```
 
