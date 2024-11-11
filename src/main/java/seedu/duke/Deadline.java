@@ -39,11 +39,7 @@ public class Deadline {
 
     public void setDate(String date) throws DateTimeParseException {
         assert date != null;
-        try {
-            this.date = LocalDate.parse(date, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            this.date = LocalDate.of(1,1,1);
-        }
+        this.date = LocalDate.parse(date, DATE_FORMATTER);
     }
 
     public String getDate() {

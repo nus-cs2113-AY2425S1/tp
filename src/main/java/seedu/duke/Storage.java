@@ -7,7 +7,10 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -96,8 +99,6 @@ public class Storage {
             return;
         }
         List<Integer> favouriteIds = new ArrayList<>();
-        DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("MM/yy");
-        DateTimeFormatter deadlineFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -123,6 +124,25 @@ public class Storage {
                     String skills = data[5];
                     String status = data[6];
                     String deadlines = data[7];
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+                    YearMonth defaultDate = YearMonth.of(1, 1);
+                    YearMonth start;
+                    YearMonth end;
+
+                    try {
+                        start = YearMonth.parse(startDate, formatter);
+                    } catch (DateTimeParseException e) {
+                        startDate = "01/01";
+                        System.out.println("Incorrect startDate format found. Setting to 01/01");
+                    }
+
+                    try {
+                        end = YearMonth.parse(endDate, formatter);
+                    } catch (DateTimeParseException e) {
+                        endDate = "01/01";
+                        System.out.println("Incorrect endDate format found. Setting to 01/01");
+                    }
 
                     Internship internship = new Internship(role, company, startDate, endDate);
                     internshipList.addInternship(internship);
@@ -175,12 +195,22 @@ public class Storage {
             return deadlines;
         }
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+        LocalDate defaultDate = LocalDate.of(1,1,1);
+
         String[] parts = deadlineString.split(" - ");
         for (String part : parts) {
             String[] deadlineParts = part.split(" -date ");
             if (deadlineParts.length == 2) {
                 String description = deadlineParts[0].trim();
                 String date = deadlineParts[1].trim();
+                LocalDate parsedDate;
+                try {
+                    parsedDate = LocalDate.parse(date, formatter);
+                } catch (DateTimeParseException e) {
+                    date = "01/01/01";
+                    System.out.println("Incorrect deadline format found. Setting to 01/01/01");
+                }
                 deadlines.add(new Deadline(internshipId, description, date));
             }
         }
