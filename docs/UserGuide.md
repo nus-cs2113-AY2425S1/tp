@@ -819,13 +819,23 @@ __________________________________________________
 
 ## FAQ
 
-**Q**: Can I use "-" in my fields?
-
+**Q**: Can I use "-" in my fields?<br>
 **A**: No. Unknown flag will be thrown.
 
-**Q**: How do I transfer my data to another computer? 
-
+**Q**: How do I transfer my data to another computer?<br>
 **A**: Locate the `/data/` directory, in the same directory as your `.jar` file. Copy this `/data/` directory to the second computer and store it in the same directory as the `.jar` file.
+
+**Q**: Does the application ensure my dates are logical?<br>
+**A**: No. The application only checks whether dates exist, logic checking is coming soon.
+
+**Q**: It gives random responses when I click `Enter` quickly.<br>
+**A**: Please give the application time to respond, every time `Enter` is pressed, the application will give a response.
+
+**Q**: Why can't I add `deadline`, `skills` and `status` in the `add` function?<br>
+**A**: The `add` function only covers the crucial information such as `role` and `company`, the fields above are not critical to the internship application's existence and hence can be updated through the `update` function.
+
+**Q**: Can I add multiple entries in the same command?<br>
+**A**: No. The application does not support adding multiple entries at the same time, please input them in separate commands.
 
 ## Command Summary
 
