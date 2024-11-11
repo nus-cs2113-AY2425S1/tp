@@ -29,9 +29,11 @@ import fittrack.fitnessgoal.Goal;
 public class FitTrack {
     /**
      * Main entry-point for the FitTrack CLI application.
+     * Initializes and loads data, sets up the user interface,
+     * and listens for user input to execute commands.
      */
     public static void main(String[] args) throws IOException {
-        setupLogger();
+        setupLogger(); // Set up the logger for tracking application logs
 
         // Initialize scanner and unified saveable-item list
         Scanner scan = new Scanner(System.in);
