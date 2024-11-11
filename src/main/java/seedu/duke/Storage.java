@@ -110,9 +110,19 @@ public class Storage {
                     if (!favouritesString.isEmpty()) {
                         String[] parts = favouritesString.split(" ");
                         for (String id : parts) {
-                            int favInternshipId = Integer.parseInt(id);
-                            int favInternshipIndex = favInternshipId - 1;
-                            favouriteIds.add(favInternshipIndex);
+                            try {
+                                int favInternshipId = Integer.parseInt(id.trim());
+
+                                // Ensure the ID is a positive number
+                                if (favInternshipId > 0) {
+                                    int favInternshipIndex = favInternshipId - 1;
+                                    favouriteIds.add(favInternshipIndex);
+                                } else {
+                                    System.out.println("Invalid ID '" + id + "': ID should be a positive integer.");
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Invalid ID '" + id + "': Not a valid integer.");
+                            }
                         }
                     }
                 } else if (isValidFormat(line)) {
@@ -167,6 +177,8 @@ public class Storage {
                         LOGGER.log(Level.WARNING, "Internship with ID " + favInternshipId + " not found.");
                     }
 
+                } else {
+                    System.out.println("Internship with ID " + favInternshipId + " not found. Not added to Favourites List.");
                 }
             }
             LOGGER.log(Level.INFO, "Data loaded");
