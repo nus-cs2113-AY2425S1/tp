@@ -298,15 +298,360 @@ uNivUSaver offers a practical solution for students who want to take control of 
 * *Budget* - A spending limit that the user set for each month, that the user can use to track if they're overspending.
 
 ## Instructions for manual testing
+### Notes
+* Note that the following instruction is just used for basic testing purpose
+* The Expected output section is not the console output.
+
+### Set up
 * Ensure that you have Java 17 or above installed.
 * Down the latest version of `uNivUSaver` from [here](https://github.com/AY2425S1-CS2113-W10-4/tp/releases).
-* Copy the file to the folder you want the program to stay in, make sure the data files `(*.json)` is in the same folder with the `uNivUSaver.jar` file.
+* Copy the file to the folder you want the program to stay in.
 * Open a command terminal, run the following:
 ```
 cd Path/to/directory # Change directory into the folder you put the jar file in
 java -jar uNivUSaver.jar # Start the program.
 ```
-
-* The data files will be read automatically
 * Type `help` to view the command list and syntax.
 * Refer to [User Guide](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html) for detailed guide on command syntax.
+
+---
+
+### **1. Help command**
+#### Test case:
+
+**Prerequisites:** None
+
+**Input:**  
+- Input: `help`
+
+**Expected output:**  
+- A list of all available commands in the application is displayed, with syntax and description of their functionality.
+
+---
+
+### **2. Add expense command**
+#### Test case 1: Valid input
+
+**Prerequisites:** There is a category named Food in your category list
+
+**Input:**  
+- Input: `add-expense School fee a/ 1 d/ 2024-11-09 c/ Food`
+
+**Expected output:**  
+- The expense is successfully added with the description "School fee", with the amount of 1, the date 2024-11-09 0000, and the category Food.
+
+#### Test case 2: Valid input without a category
+
+**Prerequisites:** None
+
+**Input:**  
+- Input: `add-expense Amusement park a/ 1 d/ 2024-11-09`
+
+**Expected output:**  
+- The user is prompted to input a category since it's missing. After prompted, the expense is successfully added with the description "Amusement park", the amount of 1, the date 2024-11-09 0000, and the final choice of the category field.
+
+#### Test case 3: Valid input without a date
+
+**Prerequisites:** There is a category named Food in your category list
+
+**Input:**  
+- Input: `add-expense JustNow a/ 1 c/ Food`
+
+**Expected output:**  
+- The expense is successfully added with the description "JustNow", the amount of 1, the date is current time. 
+
+---
+
+### **3. Add income command**
+#### Test case 1: Valid input
+
+**Prerequisites:** None
+
+**Input:**  
+- Input: `add-income Monthly allowance a/ 1 d/ 2024-11-09`
+ 
+**Expected output:**  
+- The income is successfully added with the description "Monthly allowance", the amount of 1, and the date 2024-11-09 0000.
+
+#### Test case 2: Valid input without description
+
+**Prerequisites:** None
+
+**Input:**  
+- Input: `add-income a/ 1 d/ 2024-11-11`
+
+**Expected output:**  
+- The income is successfully added with the amount of 1 and the date 2024-11-11 0000. The description is missing but defaulted.
+
+---
+
+### **4. Add category command**
+#### Test case 1: Valid input
+
+**Prerequisites:** No category named 'FnB' is added to the list before
+
+**Input:**  
+- Input: `add-category FnB`
+ 
+**Expected output:**  
+- The category "FnB" is successfully added to the category list.
+
+#### Test case 2: Duplicated category
+
+**Prerequisites:** A category named 'Food' is added to the list before
+
+**Input:**  
+- Input: `add-category Food`
+
+**Expected output:**  
+- An error show that duplicated category found.
+
+---
+
+### **5. Add budget command**
+#### Test case 1: Valid input
+
+**Prerequisites:** None
+
+**Note:** You may replace the month with the current month/ future month.
+
+**Input:**  
+- Input: `add-budget a/ 1000 m/ 2024-11`
+
+**Expected output:**  
+- The budget of 1000 for the month of 2024-11 is successfully set.
+
+#### Test case 2: Past month
+
+**Prerequisites:** None
+
+**Input:**  
+- Input: `add-budget a/ 200 m/ 2023-02`
+
+**Expected output:**  
+- An error message indicates that the budget can not be set for previous months.
+
+---
+
+### **6. Delete transaction command**
+#### Test case 1: Valid input
+
+**Prerequisites:** The list must contain at least 1 transaction.
+
+**Input:**  
+- Input: `delete-transaction i/ 1`
+
+**Expected output:**  
+- The transaction at index 1 is successfully deleted from the history.
+
+---
+
+### **7. Delete category command**
+#### Test case 1: Valid input
+
+**Prerequisites:** The category list must contain the category named 'Food'
+
+**Input:**  
+- Input: `delete-category Food`
+
+**Expected output:**  
+- The user might be prompted to re-categorize some expenses. If the user doesn't choose to cancel the command, category "Food" is successfully removed from the category list.
+
+#### Test case 2: Non-existing category
+
+**Prerequisites:** The category list must not contain the category named 'NonExist'
+
+**Input:**  
+- Input: `delete-category NonExist`
+
+**Expected output:**  
+- An error message show that the category doesn't exists.
+
+---
+
+### **8. Delete budget command**
+#### Test case:
+
+**Prerequisites:** The budget list must contain the budget on 2024-11
+
+**Input:**  
+- Input: `delete-budget m/ 2024-11`
+
+**Expected output:**  
+- The budget for month 2024-11 is deleted successfully
+
+---
+
+### **9. Categorize command**
+#### Test case 1: Valid input
+
+**Prerequisites:** The category list must contain the category named 'Others', and the transaction in index 1 must be an Expense
+
+**Input:**  
+- Input: `categorize i/ 1 c/ Others`
+
+**Expected output:**  
+- The expense at index 1 is successfully updated to the category "Food".
+
+#### Test case 2: Non-existing category
+
+**Prerequisites:** The category list must not contain the category named 'NonExist', and the transaction in index 1 must be an Expense
+
+**Input:**  
+- Input: `categorize i/ 1 c/ NonExist`
+
+**Expected output:**  
+- An error message show that the category doesn't exist.
+
+---
+
+### **10. View category command**
+#### Test case:
+
+**Prerequisites:** None
+
+**Input:**  
+- Input: `view-category`
+ 
+**Expected output:**  
+- The system displays the full list of categories available in the system.
+
+---
+
+### **11. View expense command**
+#### Test case 1: With category
+
+**Prerequisites:** The list should contain some expenses in the category "Others"
+
+**Input:**  
+- Input: `view-expense c/ Others`
+ 
+**Expected output:**  
+- The system displays all expenses in the "Others" category.
+
+#### Test case 2: With date
+
+**Prerequisites:** The list should contain some expenses 
+
+**Input:**  
+- Input: `view-expense f/ 2024-11-10 t/ 2024-11-20`  
+ 
+**Expected output:**  
+- The system displays all expenses from 2024-11-10 to 2024-11-20.
+
+#### Test case 3: Without filter
+
+**Prerequisites:** The list should contain some expenses 
+
+**Input:**  
+- Input: `view-expense`
+
+**Expected output:**  
+- The system displays all expenses.
+
+---
+
+### **12. View income command**
+#### Test case 1: With date
+
+**Prerequisites:** The list should contain some incomes 
+
+**Input:**  
+- Input: `view-income f/ 2024-11-10 t/ 2024-11-20`  
+ 
+**Expected output:**  
+- The system displays all incomes from 2024-11-10 to 2024-11-20.
+
+#### Test case 2: Without filter
+
+**Prerequisites:** The list should contain some incomes 
+
+**Input:**  
+- Input: `view-income`
+
+**Expected output:**  
+- The system displays all incomes.
+
+---
+
+### **13. History command**
+#### Test case 1: With date
+
+**Prerequisites:** The list should contain some expenses and incomes 
+
+**Input:**  
+- Input: `history f/ 2024-11-10 t/ 2024-11-20`  
+ 
+**Expected output:**  
+- The system displays all transactions from 2024-11-10 to 2024-11-20.
+
+#### Test case 2: Without filter
+
+**Prerequisites:** The list should contain some expenses and incomes 
+
+**Input:**  
+- Input: `history`
+
+**Expected output:**  
+- The system displays all transactions.
+
+---
+
+### **14. View total command**
+#### Test case:
+
+**Prerequisites:** The list should contain some expenses and incomes 
+
+**Input:**  
+- Input: `view-total`
+
+**Expected output:**  
+- The system displays the total amount of money currently in the account.
+
+---
+
+### **15. Search command**
+#### Test case:
+
+**Prerequisites:** The list should contain some expenses and incomes with valid descriptions  
+
+**Input:**  
+- Input: `search k/ Month Amuse`
+ 
+**Expected output:**  
+- The system displays all transactions with the keywords partially matching "Month" or "Amuse".
+
+---
+
+### **16. View budget command**
+#### Test case 1: With specific month
+
+**Prerequisites:** The system must contain the budget in "2024-11" and should have some transaction in that period 
+
+**Input:**  
+- Input: `view-budget m/ 2024-11`
+
+**Expected output:**  
+- The system displays the progress towards the budget for 2024-11.
+
+#### Test case 2: With no input
+
+**Prerequisites:** The system should have some budget
+
+**Input:**  
+- Input: `view-budget`
+
+**Expected output:**  
+- The system displays all the budgets.
+
+---
+
+### **17. Bye command**
+#### Test case:
+**Prerequisites:** None
+
+**Input:**  
+- Input: `bye`
+ 
+**Expected output:**  
+- The application exits peacefully.
