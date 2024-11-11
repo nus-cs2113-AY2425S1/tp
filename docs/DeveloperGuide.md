@@ -72,7 +72,7 @@ This architecture consist of:
 1. `Ui`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
 2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
 3. `Storage` class: Stores information between sessions.
-4. Logger and other utility classes: Provide extra functionalities for the software.
+4. `Logging` and other utility classes: Provide extra functionalities for the software.
 
 ### Ui and Parser
 
@@ -93,7 +93,7 @@ The `Ui` class has the following key methods:
 | `displayMessage` | Displays a message (`String`) |
 | `getUserInput`   | Reads User Input              |
 
-The Parser class has the following key method:
+The `Parser` class has the following key method:
 
 | Method                 | Description                                               |
 |------------------------|-----------------------------------------------------------|
@@ -113,16 +113,16 @@ The `ArgumentsMap` class extends the `HashMap<String, String>` class with the fo
 
 <u>Design Considerations</u>
 
-Low-level I/O operations (eg. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
-modifying only the Ui class. This would make it easier to port the application to other platforms if needed.
+Low-level I/O operations (eg. stdio) are consolidated in the `Ui` class such that we can easily switch the I/O methods by 
+modifying only the `Ui` class. This would make it easier to port the application to other platforms if needed.
 
-Ui class is used as part of exception handling for displaying of error messages to the user for feedback.
+`Ui` class is used as part of exception handling for displaying of error messages to the user for feedback.
 
 The Parser also has some considerations such as
 1. Restricted arguments which should not be used by other developers in their commands. These include
     1. `/command` -> used for the main command keyword
     2. `/index` -> used for the main text argument (the index of the expense to edit/ delete) right after the command keyword
-3. Any duplicate arguments will throw an InvalidInputException
+3. Any duplicate arguments will throw an `InvalidInputException`
 4. All `/` in the argument values should be escaped
     1. Examples
        1. `command /argument \/value` -> `argument`: `/value`
@@ -135,23 +135,23 @@ The Parser also has some considerations such as
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
     3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
 
-An ArgumentsMap class was created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
+An `ArgumentsMap` class was created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
 ### Commands
 
 #### Overview
 
-The abstract Command class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
+The abstract `Command` class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
 
 
 <u>Implementation Details</u>
 
-The following diagram is a class diagram for Command and its children classes. 
+The following diagram is a class diagram for `Command` and its children classes. 
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
 
-The following diagram is a sequence diagram for execution of Command.
+The following diagram is a sequence diagram for execution of `Command`.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
 
@@ -166,17 +166,17 @@ Commands interact with `Ui` and `Parser` classes via `Main`, as illustrated in t
 Storage is mostly handled by the different states themselves (`ExpenseList`, `RecurringExpenseList`, `CategoryStorage`).
 This is to keep the storage tightly coupled with the data and ensures that when the data format is updated,
 the storage format is updated accordingly, increasing cohesion.
-The current implementation abstracted out common Csv functions into the CsvUtils class, but this implementation
+The current implementation abstracted out common Csv functions into the `CsvUtils` class, but this implementation
 also allows more flexible file formats between different classes, instead of relying solely on a certain format. 
 This might help for future expandability.
 
 
-However, we also do have a Storage class which handles how these file handling methods interact with one another. 
+However, we also do have a `Storage` class which handles how these file handling methods interact with one another. 
 This is to consolidate the overall file loading and saving logic in the program. 
 This is useful for certain cases, such as standardising default file paths 
 It would be modified when there is a change of interaction between the various loading/ saving methods of the classes.
 
-The LoadCommand and SaveCommand would reference the Storage class, so ideally they would not need to be changed much 
+The `LoadCommand` and `SaveCommand` would reference the Storage class, so ideally they would not need to be changed much 
 for feature changes.
 
 <u>Implementation Details</u>
@@ -460,15 +460,15 @@ The following diagram is a UML class diagram for `CategoryData`, `CategoryTracke
 
 <u>Overview</u>
 
-The program implements Exception handling and Logging with the WheresMyMoneyException and Logging classes.
+The program implements Exception handling and Logging with the `WheresMyMoneyException` and `Logging` classes.
 
 <u>Implementation Details</u>
 
-WheresMyMoneyException has various children classes, such as `StorageException` and `InvalidInputException`. 
+`WheresMyMoneyException` has various children classes, such as `StorageException` and `InvalidInputException`. 
 These children classes are meant to provide more information on the error to the developer (beyond the message) such 
 that exception handling in the program could be better targeted in the future.
 
-The Logging class is implemented as a Singleton for ease of use. 
+The `Logging` class is implemented as a Singleton for ease of use. 
 Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 
 
 ---
