@@ -100,6 +100,7 @@ public class FlagParser {
         aliasMap.put("/name", "/n");
 
         aliasMap.put("/exercise", "/e");
+        aliasMap.put("/ex", "/e");
         aliasMap.put("/set", "/s");
         aliasMap.put("/sets", "/s");
         aliasMap.put("/rep", "/r");
