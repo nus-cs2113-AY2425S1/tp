@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-    /**
-     * Represents a record of water intake with a specific amount and timestamp.
-     */
-    public class WaterEntry extends Saveable {
+/**
+ * Represents a record of water intake with a specific amount and timestamp.
+ */
+public class WaterEntry extends Saveable {
     private final int amount;                // Amount of water intake in milliliters
     private final LocalDateTime dateTime;    // Date and time of the water intake
 
@@ -56,8 +56,8 @@ import java.time.format.DateTimeParseException;
      * @return Formatted date-time string in "dd/MM/yyyy HH:mm" format.
      */
     public String getFormattedDateTime() {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-    return dateTime.format(formatter);  // Format date-time without milliseconds
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return dateTime.format(formatter);  // Format date-time without milliseconds
     }
 
     /**
