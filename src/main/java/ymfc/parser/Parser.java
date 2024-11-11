@@ -394,6 +394,23 @@ public final class Parser {
         String ingredString = m.group("ingreds");
         ArrayList<Ingredient> ingreds = null;
         if (ingredString != null) {
+            //@@author gskang
+            // Collect ingredients
+            List<String> ingredientList = Arrays.stream(ingredString.split("\\s+[iI]/"))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toList();
+
+            // Check for duplicates
+            HashSet<String> ingredientSet = new HashSet<>();
+            for (String ingredient : ingredientList) {
+                if (!ingredientSet.add(ingredient.toLowerCase())) {
+                    throw new InvalidArgumentException("Duplicate ingredient found: " + ingredient
+                            + ".\nThis is not allowed!");
+                }
+            }
+            //@@author
+
             ingreds = Arrays.stream(ingredString.split("\\s+[iI]/"))
                     .map(String::trim)
                     .filter(s -> !s.isEmpty())
