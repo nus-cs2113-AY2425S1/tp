@@ -148,12 +148,30 @@ public class Logic {
 
         Enum<?> category = getCategoryFromInput(commandArguments, entry);
 
+        if (hasNoChange(amount, description, date, category, entry)){
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_NO_CHANGES_DETECTED);
+        }
+
         EditEntryCommand editEntryCommand = new EditEntryCommand(index, amount, description, date, category);
         editEntryCommand.execute(financialList);
 
         if (entry instanceof Expense) {
             updateExpenseBalance((Expense) entry, amount, date);
         }
+    }
+
+    private boolean hasNoChange (double amount, String description, String date, Enum<?> category,
+                                 FinancialEntry entry) {
+        boolean isSameAmount = amount == entry.getAmount();
+        boolean isSameDescription = description.equals(entry.getDescription());
+        boolean isSameDate = date.equals(entry.getDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        boolean isSameCategory;
+        if (entry instanceof Expense) {
+            isSameCategory = category.equals(((Expense) entry).getCategory());
+        } else {
+            isSameCategory = category.equals(((Income) entry).getCategory());
+        }
+        return isSameAmount && isSameDescription && isSameDate && isSameCategory;
     }
 
     private boolean isEmptyArgument(HashMap<String, String> commandArguments) {
