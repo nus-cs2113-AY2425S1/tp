@@ -8,6 +8,7 @@ import seedu.duke.logic.Logic;
 import seedu.duke.parser.InputParser;
 import seedu.duke.financial.FinancialList;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.util.HashMap;
 
@@ -32,11 +33,15 @@ public class FinanceBuddy {
         BudgetLogic budgetLogic = new BudgetLogic(budget, ui);
         FinancialList financialList = storage.loadFromFile(budgetLogic);
         Logic logic = new Logic(financialList, storage, ui, budgetLogic);
+      
+        financialList.resetLastAmendedIndex();
 
         ui.displayWelcomeMessage();
 
+        storage.printLoadingResult();
+
         try {
-            budgetLogic.setBudget(financialList);
+            budgetLogic.promptUserToSetBudget(financialList);
             storage.update(financialList, budgetLogic);
         } catch (FinanceBuddyException e) {
             System.out.println(e.getMessage());
@@ -54,7 +59,7 @@ public class FinanceBuddy {
 
                 isRunning = logic.matchCommand(command, commandArguments);
             } catch (FinanceBuddyException e) {
-                System.out.println(e.getMessage());
+                Commons.printSingleLineWithBars(e.getMessage());
             }
         }
     }

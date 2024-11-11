@@ -63,10 +63,9 @@ public class AppUi {
      * Displays the modify budget message when user keys in the budget command.
      * Asks if user would like to modify their existing budget
      */
-    public void displayModifyBudgetMessage(double amount) {
+    public void displayBudgetResetMessage() {
         System.out.println(Commons.LINE_SEPARATOR);
-        System.out.println("Your current budget is: " + String.format("$ %.2f", amount));
-        System.out.println("Would you like to modify your budget? (yes/no)");
+        System.out.println("Budget has been deleted.");
         System.out.println(Commons.LINE_SEPARATOR);
     }
 
@@ -79,10 +78,45 @@ public class AppUi {
     }
 
     /**
+     * Displays number of entries deleted by using delete all
+     */
+    public void displayDeleteAllMessage(int totalEntries) {
+        System.out.println(Commons.LINE_SEPARATOR);
+        if (totalEntries > 1) {
+            System.out.println("Okay! A total of " + totalEntries + " entries have been deleted.");
+        } else {
+            System.out.println("Okay! 1 entry has been deleted.");
+        }
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+    /**
+     * Displays number of entries deleted by using delete all
+     */
+    public void displayEmptyListMessage() {
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("The list is already empty.");
+        System.out.println(Commons.LINE_SEPARATOR);
+    }
+
+
+    /**
      * Displays warning that budget has been exceeded
      */
     public void displayBudgetBalanceExceededMessage(double amount) {
         System.out.println("You have exceeded your monthly budget of: " + String.format("$ %.2f", amount) +"!");
+    }
+
+    /**
+     * Displays a message indicating the budget has been successfully set.
+     */
+    public void displayBudgetSetMessage(double budget, double balance) {
+        System.out.println(Commons.LINE_SEPARATOR);
+        System.out.println("Your budget has successfully been set to: " +
+                String.format("$ %.2f", budget));
+        System.out.println("Your current monthly balance is: " +
+                String.format("$ %.2f", balance));
+        System.out.println(Commons.LINE_SEPARATOR);
     }
 
     /**
@@ -95,14 +129,5 @@ public class AppUi {
                 "Use the command \"help\" for a list of valid commands\n" +
                 Commons.LINE_SEPARATOR + "\n";
         System.out.println(unrecognizedCommand);
-    }
-
-    /**
-     * Displays an error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
-    public void showErrorMessage(String message) {
-        System.out.println("Error: " + message);
     }
 }
