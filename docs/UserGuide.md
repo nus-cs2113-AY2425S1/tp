@@ -197,8 +197,8 @@ ________________________________________________________________________________
 
 **Format**: `remind [description] [deadline]`
 - `description` and `deadline` fields must be non-empty.
-- `deadline` field must be formatted `dd-MM-yyyy` or `dd-MM-yyyy HH:mm`. 
-- If `deadline` field is given as `dd-MM-yyyy`, `HH:mm` information will default to `00:00` on that date. 
+- `deadline` field must be formatted `dd/MM/yyyy` or `dd/MM/yyyy HH:mm`. 
+- If `deadline` field is given as `dd/MM/yyyy`, `HH:mm` information will default to `00:00` on that date. 
 
 **Example**: `remind NAPFA 31/12/2024`
 
@@ -429,14 +429,14 @@ ________________________________________________________________________________
 **Purpose**: Remove a food item from 
 the daily food intake list.
 
-**Format**: `delete-food (food name)`
+**Format**: `delete-food (food index)`
 
-**Example**: `delete-food apple`
+**Example**: `delete-food 1`
 
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted food item: apple (100 calories) at 06/11/2024 17:30:57
+Got it. I've deleted food item: apple - 219 calories, added on 11/11/2024 07:57
 ____________________________________________________________________________________________________
 ```
 
@@ -462,12 +462,12 @@ to track hydration levels.
 
 **Format**: `add-water (water ml)`
 
-**Example**: `add-water 500`
+**Example**: `add-water 43`
 
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've added 500ml of water at 06/11/2024 17:33:05.
+Got it. I've added 43ml of water at 11/11/2024 07:58.
 ____________________________________________________________________________________________________
 ```
 
@@ -480,9 +480,10 @@ from the daily water intake record.
 **Example**: `delete-water 1`
 
 **Expected Output**:
+
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted 500 ml (06/11/2024 17:30:46).
+Got it. I've deleted water item: 100 ml, added on 07/11/2024 22:34
 ____________________________________________________________________________________________________
 ```
 
@@ -497,8 +498,10 @@ intake recorded for the day.
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Here is your water intake (in ml): 
-1. 500 ml (06/11/2024 17:34:14)
+Water Entries for 2024-11-11:
+1. 43 ml, added on 11/11/2024 07:58
+2. 3443 ml, added on 11/11/2024 07:58
+Total daily water: 3486 ml
 ____________________________________________________________________________________________________
 ```
 
@@ -511,18 +514,18 @@ and water items that have been added for the day.
 **Example**: `list-intake`
 
 **Expected Output**:
+
 ```
-____________________________________________________________________________________________________
 Here is your daily intake summary:
-
-Water Intake:
-Here is your water intake (in ml): 
-1. 500 ml (06/11/2024 17:35:24)
-
-Food Intake:
-Here is your food intake list: 
-1. apple (100 calories) at 06/11/2024 17:35:18
 ____________________________________________________________________________________________________
+Food Entries for 2024-11-11:
+Total daily Calories: 0
+
+Water Entries for 2024-11-11:
+Total daily water: 0 ml
+____________________________________________________________________________________________________
+
+
 ```
 
 ## FitTrackCLI's Command Summary
