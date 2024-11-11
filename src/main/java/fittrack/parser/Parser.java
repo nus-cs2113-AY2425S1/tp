@@ -15,7 +15,6 @@ import fittrack.user.User;
 
 // Import Java standard libraries for date-time and array handling
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -83,19 +82,6 @@ import static fittrack.ui.Ui.printUser;
 
 // Parser class to manage command input for goals, sessions, reminders, water, and food intake
 public class Parser {
-
-    // Method to print all goals in the goal list or notify if empty
-    private static void printGoalList(ArrayList<String> goalList) {
-        if (goalList.isEmpty()) {
-            System.out.println("Your goals list is currently empty.");
-        } else {
-            System.out.println("Your goals:");
-            for (int i = 0; i < goalList.size(); i++) {
-                System.out.println((i + 1) + ". " + goalList.get(i));
-            }
-        }
-    }
-
     // Method to print details of the recently added goal
     private static void printAddedGoal(ArrayList<Goal> goalList) {
         if (goalList.isEmpty()) {
@@ -108,19 +94,6 @@ public class Parser {
                     lastGoal.getDeadline().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
             } else {
                 System.out.println("No deadline set.");
-            }
-        }
-    }
-
-    // Method to display confirmation of deleted goal and remaining goals
-    private static void printDeletedGoal(ArrayList<Goal> goalList, String goalDescription) {
-        System.out.println("Deleted goal: " + goalDescription);
-        if (goalList.isEmpty()) {
-            System.out.println("Your goals list is now empty.");
-        } else {
-            System.out.println("Current goals:");
-            for (int i = 0; i < goalList.size(); i++) {
-                System.out.println((i + 1) + ". " + goalList.get(i).getDescription());
             }
         }
     }
@@ -380,7 +353,7 @@ public class Parser {
                     if (goalParts.length > 1) {
                         String goalDeadlineInput = goalParts[1];
                         try {
-                            goalDeadline = parseGoalDeadline(goalDeadlineInput);
+                            goalDeadline = parseDeadline(goalDeadlineInput);
                         } catch (IllegalArgumentException e) {
                             System.out.println("Invalid date format: " + e.getMessage());
                             return;
@@ -550,28 +523,4 @@ public class Parser {
             break;
         }
     }
-
-    /**
-     * Parses and validates the goal's deadline date in a specific format (dd/MM/yyyy HH:mm).
-     *
-     * @param inputDeadline String input for the goal deadline.
-     * @return LocalDateTime object representing the goal deadline.
-     * @throws DateTimeParseException if the input does not follow the expected date-time format.
-     */
-    private static LocalDateTime parseGoalDeadline(String inputDeadline)
-            throws IllegalArgumentException {
-        try {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-            try {
-                return LocalDateTime.parse(inputDeadline, dateTimeFormatter);
-            } catch (DateTimeParseException e) {
-                LocalDate date = LocalDate.parse(inputDeadline, dateFormatter);
-                return date.atStartOfDay();
-            }
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use DD/MM/YYYY or DD/MM/YYYY HH:mm:ss.");
-        }
-    }
-
 }
