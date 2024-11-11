@@ -4,6 +4,7 @@ import seedu.duke.exception.FinanceBuddyException;
 import seedu.duke.util.Commons;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -50,23 +51,30 @@ public class InputParser {
      *
      * @param tokens           The input split into tokens.
      * @param commandArguments The map to store parsed arguments.
-     * @throws FinanceBuddyException if invalid or missing arguments are detected.
+     * @throws FinanceBuddyException if invalid, duplicate, or missing arguments are detected.
      */
     private static void processArguments(String[] tokens, HashMap<String, String> commandArguments)
             throws FinanceBuddyException {
 
         String currentKey = ARGUMENT;
         StringBuilder currentValue = new StringBuilder();
+        Set<String> usedArguments = new HashSet<>(); // Track used arguments
 
         for (int i = 1; i < tokens.length; i++) {
             String token = tokens[i];
 
-            if (isArgument(token)) {
-                handleNewArgument(commandArguments, currentKey, currentValue);
-                currentKey = validateArgument(token);
-            } else {
+            if (!isArgument(token)) {
                 appendValue(currentValue, token);
+                continue;
             }
+
+            if (usedArguments.contains(token)) {
+                throw new FinanceBuddyException(token + " : " + Commons.ERROR_MESSAGE_DUPLICATE_ARGUMENT);
+            }
+
+            handleNewArgument(commandArguments, currentKey, currentValue);
+            currentKey = validateArgument(token);
+            usedArguments.add(currentKey); // Mark the argument as used
         }
 
         // Add the last argument

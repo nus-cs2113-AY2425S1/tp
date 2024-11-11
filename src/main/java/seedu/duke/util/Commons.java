@@ -21,6 +21,8 @@ public class Commons {
     public static final String ERROR_MESSAGE_BLANK_DESCRIPTION = "Description cannot be blank.";
     public static final String ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX = "There is no entry at index: ";
     public static final String ERROR_MESSAGE_INVALID_ARGUMENT = "Invalid argument. Please provide a valid argument.";
+    public static final String ERROR_MESSAGE_DUPLICATE_ARGUMENT
+            = "Duplicate argument detected. Please provide a valid command input.";
     public static final String ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED
             = "Maximum number of transactions reached. Please delete some transactions before adding more.";
     public static final String ERROR_MESSAGE_NO_CHANGES_DETECTED = "All fields of this entry are still the same...";
