@@ -589,6 +589,8 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Water" command.
 
+The following sequence diagrams (Delete Water, View Water) follow the same structure as the Add Water sequence diagram. In these diagrams, the section where `addWaterToRecord(waterToAdd)` is called is replaced with the respective method for each action.
+
 #### Sequence Diagram for "Delete Water" Command
 
 ![Delete Water Sequence Diagram](images/deleteWaterSequenceDiagram.png)
@@ -599,7 +601,7 @@ The diagram shows the interactions among different classes and objects during th
 
 #### Activity Diagram for "Add Water" Feature
 
-![Add Water Activity Diagram](images/addWaterActivitydiagram.png)
+![Add Water Activity Diagram](images/addWaterActivityDiagram.png)
 
 #### Summary of Feature
 
