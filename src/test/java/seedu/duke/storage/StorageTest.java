@@ -67,6 +67,8 @@ public class StorageTest {
         financialList = new FinancialList();
         budgetLogic = new BudgetLogic(budget,ui);
         System.setOut(new PrintStream(outputStream));
+        Storage.getStorageFileWithoutMsg();
+        Storage.getBudgetFileWithoutMsg();
     }
 
     /**
