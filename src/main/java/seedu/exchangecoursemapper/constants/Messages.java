@@ -69,13 +69,19 @@ public class Messages {
 
     public static final String CORRUPT_HELP = "Please fix the course entry or remove the line completely before " +
             "executing a new file command.";
-    public static final String ERROR_COURSE_ENTRY = "Error: Invalid course entry at line";
-    public static final String ERROR_ENTRY_FORMAT = "Error: Unable to parse course entry at line";
+    public static final String ERROR_COURSE_ENTRY = "Error: Invalid course entry at line ";
+    public static final String ERROR_ENTRY_FORMAT = "Error: Unable to parse course entry at line ";
     public static final String COURSE_NOT_FOUND = "Course not found in database: ";
     public static final String INVALID_FORMAT = "Invalid format: ";
-    public static final String MYLIST_JSON = "in myList.json";
+    public static final String MYLIST_JSON = " in myList.json";
     public static final String CHECK_SPELLING = "Please check the spelling or refer to the list of available " +
             "universities using the 'list schools' command.";
     public static final String UNKNOWN_UNI = "Error: The university \"";
     public static final String NOT_RECOGNIZED = "\" is not recognized.";
+
+    public static final String DUPLICATE_FOUND = "The following duplicate courses were found and removed from your " +
+            "Personal Tracker:";
+    public static final String DUPLICATE_REMOVED = "Duplicates have been removed, and the data file has been updated.";
+    public static final String ACCEPTED_FORMAT = "Valid format: <NUS_COURSE_CODE> | <FULL_NAME_OF_PU> | " +
+            "<PU_COURSE_CODE> \nAll entries are in lowercase";
 }
