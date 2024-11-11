@@ -54,8 +54,11 @@ public class FinancialList {
      *
      * @param entry The financial entry (income or expense) to be added.
      */
-    public void addEntry(FinancialEntry entry) {
+    public void addEntry(FinancialEntry entry) throws FinanceBuddyException {
         int insertIndex = entries.size();
+        if (insertIndex >= 5000) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
+        }
         while (shouldDecrementIndex(entry, insertIndex)) {
             insertIndex--;
         }
@@ -72,7 +75,10 @@ public class FinancialList {
      * @param entry The financial entry (income or expense) to be added.
      * @param insertIndex The index at which the new entry should be inserted into the list at.
      */
-    public void addEntryAtSpecificIndex(FinancialEntry entry, int insertIndex) {
+    public void addEntryAtSpecificIndex(FinancialEntry entry, int insertIndex) throws FinanceBuddyException {
+        if (entries.size() >= 5000) {
+            throw new FinanceBuddyException(Commons.ERROR_MESSAGE_MAX_CAPACITY_EXCEEDED);
+        }
         entries.add(insertIndex, entry);
         lastAmendedIndex = insertIndex;
     }
