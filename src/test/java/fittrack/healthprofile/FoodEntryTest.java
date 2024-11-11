@@ -47,10 +47,10 @@ public class FoodEntryTest {
 
     @Test
     void testFromSaveStringInvalidFormat() {
-      String invalidSaveString = "Invalid|Apple|95|10/11/2024 15:30";
-      assertThrows(IllegalArgumentException.class, () -> {
-        FoodEntry.fromSaveString(invalidSaveString);
-     });
+        String invalidSaveString = "Invalid|Apple|95|10/11/2024 15:30";
+        assertThrows(IllegalArgumentException.class, () -> {
+            FoodEntry.fromSaveString(invalidSaveString);
+        });
     }
 }
 
@@ -92,7 +92,7 @@ class WaterEntryTest {
     void testFromSaveStringInvalidFormat() {
         String invalidSaveString = "Invalid|250|10/11/2024 15:30";
         assertThrows(IllegalArgumentException.class, () -> {
-          WaterEntry.fromSaveString(invalidSaveString);
+            WaterEntry.fromSaveString(invalidSaveString);
         });
     }
 }
