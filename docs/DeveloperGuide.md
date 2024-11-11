@@ -25,6 +25,7 @@
 
 ## Notes
 - The Developer guide doesn't contain all the classes implemented in the final product, however, it contains the basic and important components, and some demonstration classes for providing an insight of how the product works.
+
 ## Design & implementation
 ### Category
 The `Category` class encapsulates the name of a category and provides functionality for equality checks, hash code generation, and string representation. It serves as the foundational representation of a category.
