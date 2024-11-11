@@ -20,7 +20,7 @@ https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sort
 | GraphBase                    | Provides helper functions to both GraphPerformance and GraphPoints classes.                                                                                             |
 | GraphPerformance             | Generates visual representations of exercise performance (timing, reps, distance) across multiple training sessions.                                                    |
 | GraphPoints                  | Visualizes the total points or points for a specific exercise across multiple training sessions.                                                                        |
-| GraphPerformanceRepsDistance | visualize reps or distance over time for rep/distance-based exercises.                                                                                                  |
+| GraphPerformanceRepsDistance | Visualize reps or distance over time for rep/distance-based exercises.                                                                                                  |
 
 
 | Function                                            | Purpose                                                                                                                             |
@@ -29,9 +29,9 @@ https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sort
 | View training session                               | Displays all exercise data for the session, including total points and the overall award achieved.                                  |
 | Get Points for time-based exercise                  | Calculates and returns the points based on the user's time, age, and gender, or returns the default points if no valid time is set. | 
 | Graph total points across training sessions         | Allows users to visualise overall progress in points across different training sessions.                                            |
-| Graph exercise points across training sessions      | Allows users to visualise exercise specific progress in points for a specific exercise over different training sessions.            | 
+| Graph exercise points across training sessions      | Allows users to visualise exercise specific progress in points for a specific exercise across different training sessions.          | 
 | Graph exercise performance across training sessions | Allows users to visualise exercise performance across training sessions.                                                            |
-| Generate Graph for distance/rep exercises           | Allows users to visualize the number of reps or distance in a graph for rep-based or distance-based exercises                       |                                                                                                                            |
+| Generate Graph for distance/rep exercises           | Allows users to visualise the number of reps or distance in a graph for rep-based or distance-based exercises                       |                                                                                                                            |
 
 
 ### Contributions to the UG
