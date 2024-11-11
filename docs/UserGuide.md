@@ -4,7 +4,10 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
-- [Features](#features)
+- [Notes](#notes)
+- [Features - Expenses](#features---expenses)
+- [Features - Recurring Expenses](#features---recurring-expenses)
+- [Features - Storage](#features---storage)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -35,13 +38,15 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
   - e.g. `<command> main value` -> `main`: `main value` (The main argument is the value following the command, such as `INDEX` in `delete INDEX`)
 - When passing in a value with forward slashes (`/`) into an argument, make sure to escape it with `\`.
   - e.g. `<command> /argument \/value` -> `argument`: `/value`
+- Numeric values are only guaranteed to be roughly accurate till 9999.99 and to 2 decimal places. 
+  - Inaccuracies may occur due to the implementation of floating point numbers used 
 - Commands default to no output on successful completion unless
   - The command produces an output by its nature (eg. `list`) or
   - There is an error in the command.
 
 ---
 
-## Features 
+## Features - Expenses
 
 ### Add an expense: `add`
 
@@ -189,9 +194,11 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 
 >
 ```
+<br>
+
 ---
 
-## Recurring Expenses
+## Features - Recurring Expenses
 
 Recurring expenses allow you to automate adding expenses that occur on a regular basis.
 
@@ -275,7 +282,7 @@ Examples: `list /recur /category food /from 02-11-2024 /to 04-11-2024`
 
 ---
 
-## Storage
+## Features - Storage
 
 ### Save data to files: `save`
 
@@ -358,7 +365,7 @@ Examples:
 | Set Spending Limit for a Category | `set /category CATEGORY /limit LIMIT`                                                                                  |
 | View Help                         | `help [/recur] [/method METHOD]`                                                                                       |
 | Save Expenses to a File           | `save [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
-| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
+| Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |
 | Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
 | Edit Recurring Expense            | `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]` |
 | Delete Recurring Expense          | `delete INDEX /recur`                                                                                                  |
