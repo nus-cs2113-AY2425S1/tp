@@ -442,8 +442,6 @@ public final class Parser {
         String cuisineInput = m.group("cuisine");
         String cuisine = null;
         if (cuisineInput != null) {
-            // Trim all leading whitespaces from cuisineInput
-            // String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
             cuisine = cuisineInput.trim().substring(2).trim();
         }
 
