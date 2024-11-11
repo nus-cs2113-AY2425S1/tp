@@ -252,7 +252,7 @@ public class Event {
     public boolean updateParticipant(String participantName, String newName, String newEmail) {
         for (Participant participant : this.participantList) {
             if (participant.getName().equalsIgnoreCase(participantName)) {
-                String nameToSet = getUpdatedParticipantName(newName, participantName);
+                String nameToSet = getUpdatedParticipantName(newName, participant);
                 participant.setName(nameToSet);
                 participant.setEmail(newEmail);
                 return true;
@@ -271,7 +271,7 @@ public class Event {
     public boolean updateItem(String itemName, String itemNewName) {
         for (Item item : this.itemList) {
             if (item.getName().equalsIgnoreCase(itemName)) {
-                item.setName(getUpdatedItemName(itemNewName, itemName));
+                item.setName(getUpdatedItemName(itemNewName, item));
                 item.setPresent(false);
                 return true;
             }
@@ -464,10 +464,11 @@ public class Event {
      * Returns an updated participant name for editing participant details.
      *
      * @param name the given new participant name.
+     * @param participant the participant to be edited.
      * @return the updated version of name.
      */
-    private String getUpdatedParticipantName(String name, String participantName) {
-        if (name.equalsIgnoreCase(participantName)) {
+    private String getUpdatedParticipantName(String name, Participant participant) {
+        if (name.equalsIgnoreCase(participant.getName())) {
             return name;
         } else {
             return getDuplicateParticipantName(name);
@@ -478,10 +479,11 @@ public class Event {
      * Returns an updated item name for editing item details.
      *
      * @param name the given new item name.
+     * @param item the item to be edited.
      * @return the updated version of name.
      */
-    private String getUpdatedItemName(String name, String itemName) {
-        if (name.equalsIgnoreCase(itemName)) {
+    private String getUpdatedItemName(String name, Item item) {
+        if (name.equalsIgnoreCase(item.getName())) {
             return name;
         } else {
             return getDuplicateItemName(name);

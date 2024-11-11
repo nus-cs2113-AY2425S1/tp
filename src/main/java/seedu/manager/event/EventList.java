@@ -260,7 +260,7 @@ public class EventList  {
             Priority eventPriority) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
-                String name = getUpdatedEventName(eventNewName, eventName);
+                String name = getUpdatedEventName(eventNewName, event);
                 event.updateEvent(name, eventTime, eventVenue, eventPriority);
                 return true;
             }
@@ -460,10 +460,11 @@ public class EventList  {
      * Returns an updated event name for editing event details.
      *
      * @param name the given new event name.
+     * @param event the event to be edited.
      * @return the updated version of name.
      */
-    private String getUpdatedEventName(String name, String eventName) {
-        if (name.equalsIgnoreCase(eventName)) {
+    private String getUpdatedEventName(String name, Event event) {
+        if (name.equals(event.getEventName())) {
             return name;
         } else {
             return getDuplicateEventName(name);
