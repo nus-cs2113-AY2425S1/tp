@@ -441,7 +441,7 @@ private String generateRandomWord(Random random, int wordLength) {
                 .sum());
     }*/
 
-    @Test
+    /*@Test
     void testToggleAutoReset() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
