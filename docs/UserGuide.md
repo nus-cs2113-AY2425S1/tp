@@ -132,19 +132,63 @@ Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
 
-### Delete Budget
-User can delete their budget completely by using the budget command.
+### Delete Transaction
 
-**Format**: `budget 0`
+`Deletes Transaction` one or multiple transactions from your financial list.
+
+**Format**: `delete [INDEX] [/to ENDINDEX]`
+
+**Parameter Details**:
+- `INDEX`: The position of the transaction in the financial list, as displayed by the [`list`](#list-transactions) command.
+    - Can be:
+        - **Empty**: Deletes the last amended transaction.
+        - **"all"**: Deletes all transactions in the financial list.
+        - **A specific index**: Deletes the transaction at the specified position.
+- `/to ENDINDEX` (optional): Deletes a range of transactions starting from `INDEX` to `ENDINDEX` (inclusive).
 
 **Example Usage**:
+
+Single Entry Deletion: Deletes the transaction at index `5`
 ```
-// Delete budget by setting amount to 0
-budget 0
+delete 5
 --------------------------------------------
-Budget has been deleted.
+Okay! The following entry has been deleted:
+[Income] - TA Allowance $ 3000.00 (on 09/11/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
+
+Range Deletion: Deletes transaction from index `2` to `4`.
+```
+delete 2 /to 4
+--------------------------------------------
+Entries from index 2 to 4 have been deleted.
+--------------------------------------------
+```
+
+Last Amended Deletion: Deletes last amended transaction from the list
+```
+delete
+--------------------------------------------
+Okay! The following entry has been deleted: 
+[Income] - work $ 1000.00 (on 12/11/2024) [UNCATEGORIZED]
+--------------------------------------------
+```
+
+All Entries Deletion: Delete all transactions from the list
+```
+delete all
+--------------------------------------------
+Okay! A total of 15 entries have been deleted.
+--------------------------------------------
+```
+
+**Notes**:
+- Ensure indices provided are valid; otherwise, an error message will be displayed.
+- Use the `delete` command cautiously, especially when using `delete all`.
+- Balances will automatically adjust after each deletion.
+- Last amended entry is not saved after exiting the app.
+
+
 
 <hr>
 <div style="page-break-after: always;"></div>
@@ -175,43 +219,53 @@ The `Add Transaction` command allows you to add either an income or expense entr
 
 **Examples Usage**:
 
+Example 1: Adds an expense of $10.50 for lunch on October 12, 2024, categorized as FOOD.
 ```
-expense Lunch /a 10.50 /d 12/10/24 /c FOOD
+expense Lunch /a 10.50 /d 12/10/2024 /c FOOD
 --------------------------------------------
 Got it! I've added this expense:
-[Expense] - Lunch $ 10.50 (on 12/10/24) [FOOD]
+[Expense] - Lunch $ 10.50 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Adds an expense of $10.50 for lunch on October 12, 2024, categorized as FOOD.
 
+<br>
+
+Example 2: Adds an income of $500 from freelance work on October 15, 2024, categorized as SALARY.
 ```
-income Freelance Work /a 500 /d 15/10/24 /c SALARY
+income Freelance Work /a 500 /d 15/10/2024 /c SALARY
 --------------------------------------------
 Got it! I've added this income:
-[Income] - Freelance Work $ 500.00 (on 15/10/24) [SALARY]
+[Income] - Freelance Work $ 500.00 (on 15/10/2024) [SALARY]
 --------------------------------------------
 ```
-Adds an income of $500 from freelance work on October 15, 2024, categorized as SALARY.
 
-Examples Without Optional Parameters (Date and Category omitted):<br>
+<br>
 
+Adding transaction without Optional Parameters (Date and Category omitted):<br>
+
+Examples 3: Adds an expense of $8.00 for coffee, using today’s date and the default category UNCATEGORIZED.
 ```
 expense Coffee /a 8.00
 --------------------------------------------
 Got it! I've added this expense:
-[Expense] - Coffee $ 8.00 (on 09/11/24) [UNCATEGORIZED]
+[Expense] - Coffee $ 8.00 (on 09/11/204) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Adds an expense of $8.00 for coffee, using today’s date and the default category UNCATEGORIZED.
 
+<br>
+
+Example 4: Adds an income of $200 from a gift, using today’s date and the default category UNCATEGORIZED.
 ```
 income Gift Money /a 200
 --------------------------------------------
 Got it! I've added this income:
-[Income] - Gift Money $ 200.00 (on 09/11/24) [UNCATEGORIZED]
+[Income] - Gift Money $ 200.00 (on 09/11/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Adds an income of $200 from a gift, using today’s date and the default category UNCATEGORIZED.
+
+**Notes**:
+- There is a restriction of up to 5000 entries in the list
+- 
 
 <hr>
 <div style="page-break-after: always;"></div>
@@ -221,7 +275,7 @@ Edits an existing transaction in your financial list.
 
 **Format**: `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the the specific field(s) of a transaction.
+ - Edits the specific field(s) of a transaction.
  - Should at least modify one field.
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
@@ -328,23 +382,60 @@ Got it. I've edited this expense:
 
 ### Delete Transaction
 
-The `Delete Transaction` command removes a specific entry from your financial list. This command uses the entry’s index to identify and delete it from the list.
+Deletes Transaction one or multiple transactions from your financial list.
 
-**Format**: `delete INDEX`
+**Format**: delete [INDEX] [/to ENDINDEX]
 
 **Parameter Details**:
-- `INDEX`: The position of the transaction in the financial list, as displayed by the [`list`](#list-transactions) command. Using an invalid index will produce an error.
+- INDEX: The position of the transaction in the financial list, as displayed by the [list](#list-transactions) command.
+    - Can be:
+        - **Empty**: Deletes the last amended transaction.
+        - **"all"**: Deletes all transactions in the financial list.
+        - **A specific index**: Deletes the transaction at the specified position.
+- /to ENDINDEX (optional): Deletes a range of transactions starting from INDEX to ENDINDEX (inclusive).
 
-#### Example Usage
+**Example Usage**:
 
+Example 1: Deletes the transaction at index 5
 ```
 delete 5
 --------------------------------------------
 Okay! The following entry has been deleted:
-[Income] - TA Allowance $ 3000.00 (on 09/11/24) [UNCATEGORIZED]
+[Income] - TA Allowance $ 3000.00 (on 09/11/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Deletes the transaction at index 5 in the financial list.
+
+Example 2: Deletes transactions from index 2 to 4.
+```
+delete 2 /to 4
+--------------------------------------------
+Entries from index 2 to 4 have been deleted.
+--------------------------------------------
+```
+
+
+Example 3: Deletes last amended transaction from the list
+```
+delete
+--------------------------------------------
+Okay! The following entry has been deleted:
+[Income] - work $ 1000.00 (on 12/11/2024) [UNCATEGORIZED]
+--------------------------------------------
+```
+
+Example 4: Delete all transaction from the list
+```
+delete all
+--------------------------------------------
+Okay! A total of 15 entries have been deleted.
+--------------------------------------------
+```
+
+**Notes**:
+- Ensure indices provided are valid; otherwise, an error message will be displayed.
+- Use the delete command cautiously, especially when using delete all.
+- Balances will automatically adjust after each deletion.
+- Last amended entry will be lost after exiting the app.
 
 <hr>
 <div style="page-break-after: always;"></div>

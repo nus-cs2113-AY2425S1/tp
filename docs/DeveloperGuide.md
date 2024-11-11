@@ -176,7 +176,7 @@ the `dd/MM/yyyy` format.
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 HashMap<String, String> commandArgs = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
         
 LocalDate parsedDate = DateParser.parse("12/10/2024");
@@ -241,7 +241,7 @@ This sequence diagram illustrates how the `Logic` class works with other classes
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 FinancialList financialList = new FinancialList();  
 AppUi ui = new AppUi();
 Storage storage = new Storage();
@@ -311,7 +311,7 @@ The `FinancialList` component is the primary data structure responsible for mana
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 FinancialList financialList = new FinancialList();
 Income income = new Income(500.00, "Freelance Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
@@ -389,7 +389,7 @@ System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey(
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
 
-``` java
+``` 
 Income income = new Income(500.00, "Freelancåe Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
 Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),
@@ -611,7 +611,7 @@ but only marks `Expense`s and `Income`s respectively as to be included.
 
 <ins>Usage Examples</ins>
 
-``` java
+``` 
 // Listing all entries in the financial list
 SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
 seeAllEntriesCommand.execute(financialList);
@@ -675,7 +675,7 @@ Otherwise, the logging level is set to `INFO`.
 <ins>Example Usage</ins>
 
 Example usage of `FinanceBuddyException`:
-``` java
+``` 
 private double parseAmount(String amountStr) throws FinanceBuddyException {
   try {
     return Double.parseDouble(amountStr);
@@ -688,7 +688,7 @@ private double parseAmount(String amountStr) throws FinanceBuddyException {
 ```
 
 The exception messages from `FinanceBuddyException` can be displayed using the following code example:
-``` java
+``` 
 try {
   ...
 } catch (FinanceBuddyException e) {
@@ -697,12 +697,12 @@ try {
 ```
 
 The `Log` class can be used in other classes using the following code example:
-``` java
+``` 
 private static final Log logger = Log.getInstance();
 ```
 
 Logging can then be done by invoking `logger.log()`. For example:
-``` java
+``` 
 logger.log(LogLevels.INFO, "Expense added successfully.");
 logger.log(LogLevels.WARNING, "Invalid index inputted.");
 logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
@@ -834,7 +834,7 @@ The figure below show how the program load Budget from the files:
 
 <ins>Usage Example</ins>
 
-``` java
+```
 // Instantiate the Storage class and provide the file paths for financial data/budget
 Storage storage = new Storage();
 
