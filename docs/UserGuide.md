@@ -180,8 +180,21 @@ Example output:
 
 ![view-expenses](userguidepictures/view-expenses.png)
 
+### View All Expenses: view-expenses
+Displays all categories.
+
+Format:
+`view-category`
+
+- No parameters are required.
+- Displays a list of all recorded categories.
+
+Example output:
+
+![view-expenses](userguidepictures/view-expenses.png)
+
 ### View Budget for Each Category: view-budget
-View the total expenses for each category in the current month and how much remains before the budget limit is reached.
+View the total expenses for each category and how much remains before the budget limit is reached.
 
 Format:
 `view-budget`
