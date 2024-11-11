@@ -7,7 +7,7 @@ public class ErrorMessages {
     public static final String INVALID_NUMBER_FORMAT = "Your index has invalid number format.";
     public static final String CATEGORY_NOT_FOUND = "Can not find the given category in the category list";
     public static final String BUDGET_NOT_FOUND = "Missing budget for given month";
-    public static final String NEGATIVE_BUDGET_AMOUNT = "Budget amount cannot be negative";
+    public static final String NEGATIVE_AMOUNT = "Amount cannot be negative";
     // Update expense category
     public static final String NOT_AN_EXPENSE = "Your transaction is not an expense.";
 
@@ -47,9 +47,9 @@ public class ErrorMessages {
     // Amount
     public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format: ";
 
+    public static final String INVALID_STRING_FORMAT = "Invalid description format: ";
+    public static final String INVALID_DESCRIPTION_GUIDE = "Description can have at most 40 characters";
+    public static final String INVALID_CATEGORY_NAME = "Category name couldn't be 'yes' or 'no' or 'skip'";
 
-    public static final String INVALID_AMOUNT_GUIDE = "\n    Make sure the amount is positive and is smaller than " +
-            "1000000000";
-    public static final String INVALID_STRING_FORMAT = "\n    Invalid description format";
-    public static final String INVALID_DESCRIPTION_GUIDE = "\n    Description can have at most 40 characters";
+    public static final String FUTURE_TRANSACTION = "You are adding a transaction from the future!";
 }

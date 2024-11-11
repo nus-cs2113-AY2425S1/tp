@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.exceptions.InvalidCategoryNameException;
+import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.message.CommandResultMessages;
 import seedu.message.ErrorMessages;
 import seedu.transaction.Expense;
@@ -25,7 +27,8 @@ class UpdateCategoryCommandTest {
     private UpdateCategoryCommand command;
 
     @BeforeEach
-    void setUp() {
+    void setUp()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         categoryList = new CategoryList();
         transactionList = new TransactionList();
         command = new UpdateCategoryCommand(transactionList, categoryList);

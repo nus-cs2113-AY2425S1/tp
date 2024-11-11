@@ -40,7 +40,8 @@ class StorageTest {
 
     @Test
     void testLoadTransactions() {
-        ArrayList<Transaction> transactions = Storage.loadTransactions();
+        ArrayList<Category> categories = new ArrayList<>();
+        ArrayList<Transaction> transactions = Storage.loadTransactions(categories);
         assertNotNull(transactions, "Transactions list should not be null.");
         assertTrue(transactions.isEmpty(), "Transactions list should be empty if no file exists.");
     }

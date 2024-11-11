@@ -1,5 +1,6 @@
 package seedu.utils;
 
+import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.message.ErrorMessages;
 
 public class DescriptionUtils {
@@ -7,10 +8,9 @@ public class DescriptionUtils {
         return (description == null || description.length() <= 50) ;
     }
 
-    public static String parseDescription(String description) throws IllegalArgumentException {
+    public static String parseDescription(String description) throws InvalidDescriptionFormatException {
         if (!isValidDescription(description)) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_STRING_FORMAT + description
-                    + ErrorMessages.INVALID_DESCRIPTION_GUIDE);
+            throw new InvalidDescriptionFormatException(ErrorMessages.INVALID_STRING_FORMAT + description);
         }
         return description;
     }

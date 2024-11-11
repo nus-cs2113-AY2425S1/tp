@@ -14,8 +14,11 @@ import seedu.utils.DateTimeUtils;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +31,7 @@ import java.util.logging.Logger;
 public class BudgetTracker {
     private static final Logger logger = Logger.getLogger("BudgetTracker");
     private Map<YearMonth, Double> monthlyBudgets;
-    private TransactionList transactionList;
+    private final TransactionList transactionList;
 
     /**
      * Constructs a BudgetTracker with the specified transaction list.
@@ -48,10 +51,6 @@ public class BudgetTracker {
      */
     public void setBudget(String monthStr, double budgetAmount) throws IllegalArgumentException {
         YearMonth month;
-
-        if (budgetAmount < 0) {
-            throw new IllegalArgumentException(ErrorMessages.NEGATIVE_BUDGET_AMOUNT);
-        }
 
         try {
             month = DateTimeUtils.parseYearMonth(monthStr);
@@ -84,6 +83,18 @@ public class BudgetTracker {
 
     public Double getMonthlyBudget(YearMonth month) {
         return monthlyBudgets.get(month);
+    }
+
+    public List<String> getAllBudgets() {
+        Map<YearMonth, Double> sortedBudgets = new TreeMap<>(monthlyBudgets);
+        List<String> budgets = new ArrayList<>();
+
+        int index = 1;
+        for (Map.Entry<YearMonth, Double> entry : sortedBudgets.entrySet()) {
+            budgets.add(String.format("%d. Budget for %s: $%.2f", index++, entry.getKey(), entry.getValue()));
+        }
+
+        return budgets.isEmpty() ? List.of("No budgets set.") : budgets;
     }
 
     /**
@@ -129,7 +140,7 @@ public class BudgetTracker {
 
         if (expense > budget) {
             return String.format(BudgetMessages.BUDGET_EXCEEDED_PAST,
-                    expense, budget);
+                    expense, budget, month);
         }
 
         return String.format(BudgetMessages.WELL_DONE_WITHIN_BUDGET,

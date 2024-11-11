@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.category.Category;
 import seedu.category.CategoryList;
+import seedu.exceptions.InvalidCategoryNameException;
+import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.main.UI;
 import seedu.message.CommandResultMessages;
 import seedu.message.ErrorMessages;
@@ -40,7 +42,8 @@ class DeleteCategoryCommandTest {
         deleteCategoryCommand = new DeleteCategoryCommand(categoryList, transactionList);
     }
     @Test
-    void execute_validArgumentWithNoTransaction_categoryDeleted() {
+    void execute_validArgumentWithNoTransaction_categoryDeleted()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         // Arrange
         categoryList.addCategory(new Category("Sports"));
         deleteCategoryCommand.setArguments(Map.of("", "Sports"));
@@ -57,7 +60,8 @@ class DeleteCategoryCommandTest {
     }
 
     @Test
-    void execute_validArgumentWithTransaction_recategorized() {
+    void execute_validArgumentWithTransaction_recategorized()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         // Arrange
         categoryList.addCategory(new Category("Default"));
         categoryList.addCategory(new Category("NewCategory"));
@@ -88,7 +92,8 @@ class DeleteCategoryCommandTest {
     }
 
     @Test
-    void execute_validArgumentWithTransaction_unCategorize() {
+    void execute_validArgumentWithTransaction_unCategorize()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         // Arrange
         categoryList.addCategory(new Category("Default"));
         deleteCategoryCommand.setArguments(Map.of("", "Default"));
@@ -119,7 +124,8 @@ class DeleteCategoryCommandTest {
     }
 
     @Test
-    void execute_validArgumentWithTransaction_newCategory() {
+    void execute_validArgumentWithTransaction_newCategory()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         // Arrange
         categoryList.addCategory(new Category("Default"));
         deleteCategoryCommand.setArguments(Map.of("", "Default"));
@@ -150,7 +156,8 @@ class DeleteCategoryCommandTest {
     }
 
     @Test
-    void execute_validArgumentWithTransaction_cancel() {
+    void execute_validArgumentWithTransaction_cancel()
+            throws InvalidCategoryNameException, InvalidDescriptionFormatException {
         // Arrange
         categoryList.addCategory(new Category("Default"));
         deleteCategoryCommand.setArguments(Map.of("", "Default"));

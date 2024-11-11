@@ -19,7 +19,8 @@ import seedu.command.ViewCategoryCommand;
 import seedu.command.ViewExpenseCommand;
 import seedu.command.ViewIncomeCommand;
 import seedu.command.ViewTotalCommand;
-import seedu.command.TrackProgressCommand;
+import seedu.command.ViewBudgetCommand;
+import seedu.command.DeleteBudgetCommand;
 import seedu.datastorage.Storage;
 
 import seedu.transaction.TransactionList;
@@ -27,6 +28,7 @@ import seedu.transaction.TransactionList;
 import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -112,7 +114,7 @@ public class Main {
         Storage.saveCategory(categories.getCategories());
 
         transactions = new TransactionList();
-        transactions.setTransactions(Storage.loadTransactions());
+        transactions.setTransactions(Storage.loadTransactions(categories.getCategories()));
 
         budgetTracker = new BudgetTracker(transactions);
         budgetTracker.setMonthlyBudgets(Storage.loadBudgets());
@@ -164,6 +166,7 @@ public class Main {
 
         parser.registerCommands(new DeleteTransactionCommand(transactions));
         parser.registerCommands(new DeleteCategoryCommand(categories, transactions));
+        parser.registerCommands(new DeleteBudgetCommand(budgetTracker));
 
         parser.registerCommands(new UpdateCategoryCommand(transactions, categories));
 
@@ -175,7 +178,7 @@ public class Main {
         parser.registerCommands(new ViewTotalCommand(transactions));
 
         parser.registerCommands(new KeywordsSearchCommand(transactions));
-        parser.registerCommands(new TrackProgressCommand(budgetTracker));
+        parser.registerCommands(new ViewBudgetCommand(budgetTracker));
 
         parser.registerCommands(new ByeCommand());
 
@@ -206,10 +209,15 @@ public class Main {
             if (commandParts.length == 2) {
                 Map<String, String> arguments = parser.extractArguments(command, commandParts[1]);
                 command.setArguments(arguments);
+            } else {
+                command.setArguments(new HashMap<String, String>());
             }
 
             List<String> messages = command.execute();
             ui.showCommandResult(messages);
         }
+        Storage.saveCategory(categories.getCategories());
+        Storage.saveTransaction(transactions.getTransactions());
+        Storage.saveBudgets(budgetTracker.getMonthlyBudgets());
     }
 }
