@@ -1,108 +1,110 @@
 package seedu.javaninja;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
- * The `QuizResults` class is responsible for managing and storing quiz results, including loading,
- * saving, and generating summary comments based on scores.
+ * Manages storage and retrieval of quiz results, including filtering and sorting.
  */
 public class QuizResults {
-    private static final Logger logger = Logger.getLogger(QuizResults.class.getName());
-    private static final String RESULTS_FILE_PATH = "./data/results.txt"; // File path for saving results
-    private List<String> pastResults;      // List to store past quiz results
-    private Storage results;               // Storage instance for handling file operations
+    private List<Result> results;
 
-    /**
-     * Constructs a `QuizResults` instance and initializes storage and past results.
-     */
     public QuizResults() {
-        pastResults = new ArrayList<>();
-        results = new Storage(RESULTS_FILE_PATH);
+        this.results = new ArrayList<>();
     }
 
     /**
-     * Loads past quiz results from a file into the `pastResults` list.
-     * Logs any `IOException` that occurs during the file read operation.
+     * Adds a new result to the list of results with date and time.
+     *
+     * @param topic The topic of the quiz.
+     * @param score The score achieved in the quiz.
+     */
+    public void addResult(String topic, int score) {
+        results.add(new Result(topic, score, new Date()));
+    }
+
+    /**
+     * Loads results from storage or initializes with an empty list.
      */
     public void loadResults() {
-        try {
-            pastResults = results.loadData();
-        } catch (IOException e) {
-            logger.warning(e.getMessage());
+        // This method can be modified to load results from a file or database
+        // For now, it will simply ensure the results list is initialized
+        if (results == null) {
+            results = new ArrayList<>();
         }
     }
 
     /**
-     * Saves the current quiz results to a file.
+     * Gets all stored results.
      *
-     * @return `true` if results were saved successfully; `false` otherwise.
+     * @return A list of all results.
      */
-    public boolean isResultsSaved() {
-        try {
-            results.saveToFile(RESULTS_FILE_PATH, pastResults, false);
-            return true;
-        } catch (IOException e) {
-            logger.warning(e.getMessage());
-            return false;
-        }
+    public List<Result> getAllResults() {
+        return new ArrayList<>(results);
     }
 
     /**
-     * Adds a new result entry to `pastResults` for a completed quiz session.
+     * Filters results by topic.
      *
-     * @param topicName           The topic name of the quiz.
-     * @param score               The score achieved in percentage.
-     * @param questionsAttempted  The number of questions attempted in the quiz.
-     * @param comment             The comment generated based on the score.
-     * @param timeLimitInSeconds  The time limit for the quiz in seconds.
+     * @param topic The topic to filter by.
+     * @return A list of results for the specified topic.
      */
-    public void addResult(String topicName, int score, int questionsAttempted, String comment, int timeLimitInSeconds) {
-        String timeLimit = (timeLimitInSeconds <= 0) ?
-            "untimed" : (String.valueOf(timeLimitInSeconds) + " seconds");
-        String resultEntry = String.format("{" +
-                        "\n Topic: %s," +
-                        "\n Score: %d%%," +
-                        "\n Time Limit: %s, " +
-                        "\n Questions Attempted: %d," +
-                        "\n Comment: %s" +
-                        "\n}",
-                topicName, score, timeLimit, questionsAttempted, comment);
-        pastResults.add(resultEntry);
+    public List<Result> getResultsByTopic(String topic) {
+        return results.stream()
+                .filter(result -> result.getTopic().equalsIgnoreCase(topic))
+                .collect(Collectors.toList());
     }
 
     /**
-     * Generates a summary comment based on the score achieved in the quiz.
+     * Sorts results by date, either newest or oldest.
      *
-     * @param score The score achieved in percentage.
-     * @return A comment that provides feedback on the user's performance.
+     * @param results The list of results to sort.
+     * @param isNewestFirst If true, sort by newest; otherwise, sort by oldest.
+     * @return A sorted list of results.
      */
-    public String generateComment(int score) {
-        if (score >= 90) {
-            return "Excellent!";
-        } else if (score >= 70) {
-            return "Good job!";
-        } else if (score >= 50) {
-            return "Needs improvement.";
-        } else {
-            return "Better luck next time!";
-        }
+    public List<Result> sortByDate(List<Result> results, boolean isNewestFirst) {
+        return results.stream()
+                .sorted(isNewestFirst ? Comparator.comparing(Result::getDate).reversed()
+                        : Comparator.comparing(Result::getDate))
+                .collect(Collectors.toList());
     }
 
     /**
-     * Retrieves a formatted string of all past quiz results.
+     * Sorts results by score in descending order.
      *
-     * @return A string containing all past results, or a message if no results are available.
+     * @param results The list of results to sort.
+     * @return A sorted list of results by highest score.
      */
-    public String getPastResults() {
-        if (pastResults.isEmpty()) {
-            return "No past results available. You haven't completed any quizzes yet.";
+    public List<Result> sortByScore(List<Result> results) {
+        return results.stream()
+                .sorted(Comparator.comparingInt(Result::getScore).reversed())
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Represents a single quiz result with topic, score, and date.
+     */
+    public static class Result {
+        private final String topic;
+        private final int score;
+        private final Date date;
+
+        public Result(String topic, int score, Date date) {
+            this.topic = topic;
+            this.score = score;
+            this.date = date;
         }
 
-        StringBuilder results = new StringBuilder();
-        pastResults.forEach(result -> results.append(result).append("\n"));
-        return results.toString();
+        public String getTopic() { return topic; }
+        public int getScore() { return score; }
+        public Date getDate() { return date; }
+
+        @Override
+        public String toString() {
+            return "Topic: " + topic + ", Score: " + score + ", Date: " + date;
+        }
     }
 }

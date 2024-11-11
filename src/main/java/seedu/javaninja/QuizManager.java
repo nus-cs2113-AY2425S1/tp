@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 public class QuizManager {
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
     private QuizGenerator quizSession;       // Manages each quiz session
-    private QuizResults quizResults;       // Stores and retrieves quiz results
-    private TopicManager topicManager;     // Manages topics and flashcards
-    private Cli cli;                       // CLI instance for user interaction
+    private QuizResults quizResults;         // Stores and retrieves quiz results
+    private TopicManager topicManager;       // Manages topics and flashcards
+    private Cli cli;                         // CLI instance for user interaction
 
     /**
      * Constructs a `QuizManager` instance and initializes the necessary components.
@@ -47,11 +47,10 @@ public class QuizManager {
      * @param input The name of the topic for the quiz session.
      */
     public void handleQuizSelection(String input) {
-        // Default values
-        QuizType quizType = QuizType.UNTIMED;
+        QuizType quizType = QuizType.UNTIMED; // Default quiz type
         String topicName = null;
 
-        // Split input by "/d" and "/t"
+        // Split input by "/d" and "/t" to determine quiz type and topic name
         String[] typeParts = input.split("/d", 2);
 
         if (typeParts.length < 2 || typeParts[1].trim().isEmpty()) {
@@ -60,8 +59,9 @@ public class QuizManager {
         }
 
         String[] topicParts = typeParts[1].split("/t", 2);
-
         String quizTypeStr = topicParts[0].trim().toLowerCase();
+
+        // Validate quiz type input
         if (QuizType.isValidType(quizTypeStr)) {
             quizType = QuizType.valueOf(quizTypeStr.toUpperCase());
         } else {
@@ -69,6 +69,7 @@ public class QuizManager {
             return;
         }
 
+        // Check for topic name
         if (topicParts.length > 1 && !topicParts[1].trim().isEmpty()) {
             topicName = topicParts[1].trim();
         } else {
@@ -76,6 +77,7 @@ public class QuizManager {
             return;
         }
 
+        // Start quiz based on the quiz type and topic
         boolean quizStarted = false;
         if (topicName.equalsIgnoreCase("random")) {
             quizStarted = quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
@@ -85,10 +87,10 @@ public class QuizManager {
             quizStarted = quizSession.selectUntimedQuiz(topicName);
         }
 
+        // If quiz started, add results and print score
         if (quizStarted) {
             addResultsAndPrintScore();
         }
-
     }
 
     private enum QuizType {
@@ -105,10 +107,8 @@ public class QuizManager {
     public void addResultsAndPrintScore() {
         String topicName = quizSession.getTopicName();
         int completedQuizScore = quizSession.getQuizScore();
-        String comment = quizResults.generateComment(completedQuizScore);
-        int questionLimit = quizSession.getQuestionLimit();
-        int timeLimit = quizSession.getTimeLimitInSeconds();
-        quizResults.addResult(topicName, completedQuizScore, questionLimit, comment, timeLimit);
+        quizResults.addResult(topicName, completedQuizScore);
+        cli.printMessage("Quiz finished. Your score is: " + completedQuizScore + "%");
     }
 
     /**
@@ -117,7 +117,7 @@ public class QuizManager {
     private void loadDataFromFile() {
         topicManager.loadQuestions();
         topicManager.loadFlashcards();
-        quizResults.loadResults();
+        quizResults.loadResults(); // Initialize results from any available storage
     }
 
     /**
@@ -130,12 +130,44 @@ public class QuizManager {
     }
 
     /**
-     * Retrieves a summary of past quiz results.
+     * Reviews quiz results for a specific topic, with options to sort by date or score.
      *
-     * @return A formatted string representing past quiz results.
+     * @param topic The topic to filter results by.
+     * @param isNewestFirst Whether to sort by newest date first.
+     * @param sortByScore Whether to sort by highest score.
      */
-    public String getPastResults() {
-        return quizResults.getPastResults();
+    public void reviewResultsByTopic(String topic, boolean isNewestFirst, boolean sortByScore) {
+        List<QuizResults.Result> filteredResults = quizResults.getResultsByTopic(topic);
+
+        if (sortByScore) {
+            filteredResults = quizResults.sortByScore(filteredResults);
+        } else {
+            filteredResults = quizResults.sortByDate(filteredResults, isNewestFirst);
+        }
+
+        for (QuizResults.Result result : filteredResults) {
+            cli.printMessage(result.toString());
+        }
+    }
+
+    /**
+     * Reviews all quiz results, with options to sort by date or score.
+     *
+     * @param isNewestFirst Whether to sort by newest date first.
+     * @param sortByScore Whether to sort by highest score.
+     */
+    public void reviewAllResults(boolean isNewestFirst, boolean sortByScore) {
+        List<QuizResults.Result> allResults = quizResults.getAllResults();
+
+        if (sortByScore) {
+            allResults = quizResults.sortByScore(allResults);
+        } else {
+            allResults = quizResults.sortByDate(allResults, isNewestFirst);
+        }
+
+        for (QuizResults.Result result : allResults) {
+            cli.printMessage(result.toString());
+        }
     }
 
     /**
@@ -155,17 +187,7 @@ public class QuizManager {
      * Saves quiz results and flashcards, displaying feedback to the user regarding the success of the save operations.
      */
     public void saveResults() {
-        if (quizResults.isResultsSaved()) {
-            cli.printMessage("Goodbye! Your quiz results have been successfully saved");
-        } else {
-            cli.printMessage("Your quiz results have not been successfully saved unfortunately");
-        }
-
-        if (topicManager.isFlashcardsSaved()) {
-            cli.printMessage("Flashcards have been successfully saved");
-        } else {
-            cli.printMessage("Flashcards have not been successfully saved unfortunately");
-        }
+        cli.printMessage("Saving functionality is not yet implemented.");
     }
 
     /**
