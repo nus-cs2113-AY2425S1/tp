@@ -4,7 +4,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
-- [Features](#features-)
+- [Features](#features)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
 
@@ -67,7 +67,7 @@ Format: `edit INDEX [/price PRICE] [/description DESCRIPTION] [/category CATEGOR
 
 Notes:
 - `INDEX` is an integer. You can use the `list` command to find the corresponding index.
-- `PRICE` is a decimal number.
+- `PRICE` is a positive decimal number.
 - `DESCRIPTION` and `CATEGORY` are text.
 - `DATE` takes a text format of `DD-MM-YYYY`.
 - All parameters except `INDEX` are optional. You can specify only edited attributes.
@@ -169,16 +169,17 @@ Format: `help [/recur] [/method METHOD]`
 Notes:
 - `METHOD` is text.
 - `METHOD` exists in our app.
+- Use the `/recur` flag to get information on the methods for recurring expenses
 
 Examples:
 - `help`              lists all commands the app has since `METHOD` is not specified.
 - `help /method add` lists format of the “add” command since `METHOD` is specified.
-- `help /recur edit` lists format of the "edit" command since `METHOD` and `/recur` are specified.
+- `help /recur /method edit` lists format of the "edit" command since `/recur` and `METHOD` are specified.
 
 ```
 > help /method add
 Use the add command to add an expense.
-Format:  add /price PRICE /description DESCRIPTION /category CATEGORY /date DATE
+Format:  add /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE]
 Notes:
     - PRICE is a decimal number.
     - DESCRIPTION and CATEGORY are text.
@@ -195,13 +196,22 @@ Examples: add /price 4.50 /description chicken rice /category food /date 01-01-2
 Recurring expenses allow you to automate adding expenses that occur on a regular basis.
 
 Recurring expenses are saved to a separate `recurringExpenseList`. They do not affect calculations and visualizations.
-Only when you run the `load` command will these expenses generate "normal expenses"  and add them to the `expenseList`.
+
+Recurring expenses share some of the same commands as normal expenses. Such as:
+- `add`
+- `edit`
+- `delete`
+- `list`
+
+To use these command for recurring expenses, a `/recur` flag must be added.
+
+Only when you run the `load` command will "normal expenses" added to the expense list.
 
 ### Add a recurring expense: `add`
 
 Adds a recurring expense to the system.
 
-Format:  `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`
+Format:  `add /recur /price PRICE /description DESCRIPTION /category CATEGORY [/date DATE] /frequency FREQUENCY`
 
 Notes:
 - `/recur` is a command flag indicating that the command is for a recurring expense.
@@ -209,6 +219,9 @@ Notes:
 - `DESCRIPTION` and `CATEGORY` are text.
 - `DATE` takes a text format of `DD-MM-YYYY`. If no `DATE` is specified, it will be defaulted to the current date.
 - `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
+- Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+  - The `save` command is needed to register the recurring expense into the system.
+  - The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
 
 Examples: 
 - `add /recur /price 4.50 /description chicken rice /category food /frequency daily`
@@ -228,6 +241,7 @@ Notes:
 - `DATE` takes a text format of `DD-MM-YYYY`. If no `DATE` is specified, it will be defaulted to the current date.
 - `FREQUENCY` takes only 1 of 3 possible inputs: `daily`, `weekly`, or `monthly`. Any other input will throw an error.
 - All parameters except `INDEX` and `/recur` are optional. You can specify which attribute of the expense you want to edit.
+- Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
  
 Examples: 
 - `edit 1 /recur /price 5.50 /description chicken rice /category food`
@@ -237,7 +251,10 @@ Examples:
 
 Deletes a recurring expense. Use `list /recur` to find the corresponding index.
 
-Format:  `delete INDEX /recur `
+Format:  `delete INDEX /recur`
+
+Notes:
+- Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
 Example: `delete 2 /recur`
 
@@ -248,7 +265,7 @@ Use the list command to display recurring expenses according to specified filter
 Format:  `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`
 
 Notes:
-- `/recur` is a command flag indicating that the command is for a recurring expense.
+- `/recur` is a command flag indicating that the command is for recurring expenses.
 - `CATEGORY` is text.
 - `FROM_DATE` and `TO_DATE` are dates in `DD-MM-YYYY` format.
 - Lists all recurring expenses that satisfy the given filter (if any).
@@ -344,5 +361,5 @@ Examples:
 | Load Expenses from a File         | `load [/expenseList EXPENSE_FILE_PATH] [/categoryInfo CATEGORY_FILE_PATH] [/recurringExpenseList RECUR_FILE_PATH]`     |                                                             |
 | Add Recurring Expense             | `add /recur /price PRICE /description DESCRIPTION /category CATEGORY /date DATE /frequency FREQUENCY`                  |
 | Edit Recurring Expense            | `edit INDEX /recur [/price PRICE] [/description DESCRIPTION] [/category CATEGORY] [/date DATE] [/frequency FREQUENCY]` |
-| Delete Recurring Expense          | `delete /recur INDEX`                                                                                                  |
+| Delete Recurring Expense          | `delete INDEX /recur`                                                                                                  |
 | List Recurring Expenses           | `list /recur [/category CATEGORY] [/from FROM_DATE] [/to TO_DATE]`                                                     | 

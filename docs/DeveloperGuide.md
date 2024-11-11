@@ -46,10 +46,10 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
-- Visualizer
-- [Exceptions and Logging](#exceptions-and-logging)
+- [Visualizer](#visualizer)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
+- [Exceptions and Logging](#exceptions-and-logging)
 
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
@@ -315,7 +315,13 @@ The `RecurringExpenseList` class has the following key methods:
 
 Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
 
-To minimise the amount of checks that need to be done, the recurring expenses are only added after the user calls the `load` command.
+Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+- The `save` command is needed to register the recurring expense into the system.
+- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
+
+Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
+
+Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
 <u>Implementation Details</u>
 
@@ -489,7 +495,19 @@ The application can provide summaries and statistical insights to spending habit
 
 ## Manual Testing
 
-View the [User Guide](UserGuide.md) for the full list of UI commands and their related use case and expected outcomes.
+View the [User Guide](UserGuide.md) for the full list of commands and their related use case and expected outcomes.
+
+### Recurring Expenses
+
+Recurring expenses can be tested by setting its date. Below is an example.
+
+```
+add /recur /price 1.00 /category A /description A /date 01-01-2024 /frequency daily
+add /recur /price 10.00 /category B /description B /date 01-01-2024 /frequency weekly
+add /recur /price 100.00 /category C /description C /date 31-01-2024 /frequency monthly
+save
+load
+```
 
 ## JUnit Testing
 
