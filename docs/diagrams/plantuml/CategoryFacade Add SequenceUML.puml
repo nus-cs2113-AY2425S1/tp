@@ -15,7 +15,7 @@ participant ":CategoryTracker" as CT
 
 AC -> CF: call interface's method
 CF -> CT: call relevant method
-CT -> CT: increase category's total in tracker
+CT -> CT: update tracker with new increased total
 CT --> CF: return
 CF --> AC: return
 
