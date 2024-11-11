@@ -47,7 +47,10 @@ import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_MELBOU
 import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION;
 import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON;
 
-
+/**
+ * The Parser class includes all the methods that is used to parse user's input before placing
+ * it into the respective command.
+ */
 public class Parser {
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
@@ -65,6 +68,14 @@ public class Parser {
         return scanner.nextLine();
     }
 
+    /**
+     * Acts as a command handler by determining the command specified and directing it
+     * to the relevant classes for execution. An exception is thrown, followed by an invalid course message if
+     * the command is not recognised in the program. An AssertionError is thrown if the user has no input.
+     *
+     * @param userInput a string that contains the user's CLI input.
+     * @param storage a storage class the stores user's pre-exising course mappings.
+     */
     public void processUserInput(String userInput, Storage storage) {
         logger.setLevel(Level.WARNING);
         assert userInput != null : NULL_INPUT;
@@ -114,7 +125,6 @@ public class Parser {
      * It will return the original string if no match with the formatted abbreviation is found.
      *
      * @param partnerUniversity User's partner university input.
-     *
      * @return the full name of the partner university if it matches a known abbreviation.
      */
     public String parsePUAbbreviations(String partnerUniversity) {

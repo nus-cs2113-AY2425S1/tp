@@ -132,27 +132,37 @@ class ParserTest {
 
 
     @Test
-    void testParsePUAbbreviations_validAbbreviation() {
+    void testParseUwaAbbreviations_validAbbreviation() {
         String abbreviation = "uwa";
         String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
+    }
 
-        abbreviation = "unimelb";
-        expected = "the university of melbourne";
-        result = parser.parsePUAbbreviations(abbreviation);
-        assertEquals(expected, result);
-
-        abbreviation = "anu";
-        expected = "the australian national university";
-        result = parser.parsePUAbbreviations(abbreviation);
-        assertEquals(expected, result);
-
-        abbreviation = "wgtn";
-        expected = "victoria university of wellington";
-        result = parser.parsePUAbbreviations(abbreviation);
+    @Test
+    void testParseUinimelbAbbreviations_validAbbreviation() {
+        String abbreviation = "unimelb";
+        String expected = "the university of melbourne";
+        String result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
+
+    @Test
+    void testParseAnuAbbreviations_validAbbreviation() {
+        String abbreviation = "anu";
+        String expected = "the australian national university";
+        String result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void testParseWgtnAbbreviations_validAbbreviation() {
+        String abbreviation = "wgtn";
+        String expected = "victoria university of wellington";
+        String result = parser.parsePUAbbreviations(abbreviation);
+        assertEquals(expected, result);
+    }
+
 
     @Test
     void testParsePUAbbreviations_invalidAbbreviation() {
@@ -167,11 +177,6 @@ class ParserTest {
         String abbreviation = "UWA";
         String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
-        assertEquals(expected, result);
-
-        abbreviation = "Unimelb";
-        expected = "the university of melbourne";
-        result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
 

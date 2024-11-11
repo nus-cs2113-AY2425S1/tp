@@ -35,10 +35,10 @@ public class ListPersonalTrackerCommand extends CheckInformationCommand {
     public void execute(String userInput) {
         logger.log(Level.INFO, EXECUTE);
         try {
-            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
+            if(!courseRepository.isFileValid()){
                 return;
             }
-
+            courseRepository.removeDuplicateEntries();
             List<Course> mappedModules = storage.loadAllCourses();
             assert mappedModules != null : NULL_LIST;
 

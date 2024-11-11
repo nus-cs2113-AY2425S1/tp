@@ -47,9 +47,11 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     public void execute(String userInput, Storage storage) {
 
         try {
-            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
+            if(!courseRepository.isFileValid()){
                 return;
             }
+
+            courseRepository.removeDuplicateEntries();
 
             JsonObject jsonObject = super.createJsonObject();
             logger.log(Level.INFO, Logs.SUCCESS_READ_JSON_FILE);
@@ -75,7 +77,6 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
                 logger.log(Level.INFO, Logs.ADD_APPROVED_MAPPING);
                 Course courseToStore = new Course(puCourse, nusCourse, pu);
                 storage.addCourse(courseToStore);
-                ui.printAddMessage(courseToStore);
             } else {
                 System.out.println(Logs.ADD_NEW_COURSE_MAPPING);
             }
