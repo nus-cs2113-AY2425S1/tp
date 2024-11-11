@@ -52,9 +52,6 @@ public class Parser {
             storage.saveData(trackerData);
         } else if (input.startsWith("view-expenses")) {
             expenseManager.viewExpensesByCategory(trackerData);
-        } else if (input.startsWith("toggle-reset")) {
-            budgetManager.toggleAutoReset();
-            storage.saveData(trackerData);
         } else if (input.startsWith("help")) {
             ui.printHelpMessage();
         } else if (input.startsWith("bye")) {
