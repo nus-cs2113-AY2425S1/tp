@@ -98,6 +98,7 @@ General format: add [FLAG] [VALID INPUT]
 * Command: `add -d VALUE1, VALUE2, ...`
     * Note:
         - The order of values should match fields defined using `add -h`.
+        - No need to provide value for ID field when create records.
         - **Supported date formats:** `DD/MM/YYYY` or `DD/MM/YY`.
     * Example:
     ``` 
@@ -232,32 +233,5 @@ Ensure that the file remains in the same directory as `inventra.jar` file when r
 |                          | Example: `delete -r 1-5`                       |
 | **Exit Program**         | `exit`                                         |
 |                          | Example: `exit`                                |
-| Action                   | Format & Example                                        |
-|--------------------------|---------------------------------------------------------|
-| **Get Help**             | `help` / `help [COMMAND]`                               |
-|                          | Example: `help` / `help delete`                         |
-| **Add Field**            | `add -h TYPE/FIELD1, TYPE/FIELD2,...`                   |
-|                          | Example: `add -h s/name, i/quantity, f/price, d/expiry` |
-| **Add Record**           | `add -d VALUE1, VALUE2,...`                             |
-|                          | Example: `add -d Apple, 100, 1.50, 01/10/2024`          |
-| **View All Records**     | `view -a`                                               |
-|                          | Example: `view -a`                                      |
-| **View Specific Record** | `view RECORD_ID`                                        |
-|                          | Example: `view 1`                                       |
-| **Update Field**         | `update -h OLDFIELD, NEWFIELD`                          |
-|                          | Example: `update -h name, product_name`                 |
-| **Update Record**        | `update -d RECORD_ID, FIELD, NEWVALUE`                  |
-|                          | Example: `update -d 1, price, 1.50`                     |
-| **Delete All Fields**    | `delete -e`                                             |
-|                          | Example: `delete -e`                                    |
-| **Delete All Records**   | `delete -a`                                             |
-|                          | Example: `delete -a`                                    |
-| **Delete Field**         | `delete -h FIELD_NAME`                                  |
-|                          | Example: `delete -h quantity`                           |
-| **Delete Specific Record**| `delete RECORD_ID`                                      |
-|                          | Example: `delete 1`                                     |
-| **Delete Range of Records**| `delete -r STARTID-ENDID`                               |
-|                          | Example: `delete -r 1-5`                                |
-| **Exit Program**         | `exit`                                                  |
-|                          | Example: `exit`                                         |
+
 

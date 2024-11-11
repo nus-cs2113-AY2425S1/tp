@@ -3,10 +3,7 @@ package seedu.command;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.exceptions.InventraExcessArgsException;
-import seedu.exceptions.InventraInvalidNumberException;
-import seedu.exceptions.InventraMissingArgsException;
-import seedu.exceptions.InventraOutOfBoundsException;
+import seedu.exceptions.*;
 import seedu.model.Inventory;
 import seedu.storage.Csv;
 import seedu.ui.Ui;
@@ -121,11 +118,15 @@ public class ViewCommandTest {
     public void execute_viewByNumericID_success() {
         // Assuming the valid numeric ID is "123" and
         // the expected behavior is that the command executes without throwing any exceptions.
-        String[] args = {"view", "2"};
+        String[] args_1 = {"view", "1"};
+        String[] args_2 = {"view", "2"};
+        String[] args_3 = {"view", "3"};
 
         // You can mock or setup any necessary dependencies, e.g., 'inventory' and 'ui', if needed.
 
-        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args));
+        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args_1));
+        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args_2));
+        assertDoesNotThrow(() -> new ViewCommand(inventory, ui).execute(args_3));
     }
 
 
@@ -146,6 +147,28 @@ public class ViewCommandTest {
         assertThrows(InventraMissingArgsException.class, ()
                 -> viewCommand.execute(argsWithWhitespaceKeyword));
     }
+
+    //Test for valid string
+    @Test
+    public void execute_viewWithKeyword_throwExcessInputException() {
+        String[] argsWithLongKeyword = {"view", "-f", "AAAAAAAAAAAAAAAAAAAAAAA"};
+        ViewCommand viewCommand = new ViewCommand(inventory, ui);
+
+        // Test valid keyword (successful execution)
+        assertThrows(InventraExcessInputException.class, ()
+                -> viewCommand.execute(argsWithLongKeyword));
+    }
+
+    //Test for valid string
+    @Test
+    public void execute_viewWithKeyword_successfulExecution() {
+        String[] argsWithValidKeyword = {"view", "-f", "A"};
+        ViewCommand viewCommand = new ViewCommand(inventory, ui);
+
+        // Test valid keyword (successful execution)
+        assertDoesNotThrow(() -> viewCommand.execute(argsWithValidKeyword));
+    }
+
 
     @AfterEach
     public void tearDown() {
