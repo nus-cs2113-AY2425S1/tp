@@ -162,7 +162,7 @@ public class FlagParser {
             }
 
             if (!FlagDefinitions.VALID_FLAGS.contains(flag)) {
-                throw FlagExceptions.invalidFlag(flag);
+                throw FlagException.invalidFlag(flag);
             }
 
             logger.log(Level.INFO, "Successfully parsed flag: {0} with value: {1}", new Object[]{flag, value});

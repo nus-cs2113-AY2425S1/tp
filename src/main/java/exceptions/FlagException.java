@@ -33,23 +33,23 @@ public class FlagException extends BuffBuddyException {
      *         after the flag.
      */
     public static FlagException missingArguments() {
-        return new FlagExceptions("Missing arguments.");
+        return new FlagException("Missing arguments.");
     }
 
     /**
-     * Returns a FlagExceptions indicating that arguments are missing after a flag.
+     * Returns a FlagException indicating that arguments are missing after a flag.
      *
-     * @return A {@code FlagExceptions} with a message indicating that arguments are missing
+     * @return A {@code FlagException} with a message indicating that arguments are missing
      *         after the flag.
      */
-    public static FlagExceptions missingRequiredArguments(String flag) {
-        return new FlagExceptions("Missing required arguments after flag: " + flag + ".");
+    public static FlagException missingRequiredArguments(String flag) {
+        return new FlagException("Missing required arguments after flag: " + flag + ".");
     }
 
     /**
      * Returns a FlagException indicating that a specific flag has been provided more than once
      * @param flag The name of the duplicate flag.
-     * @return A {@code FlagExceptions} with a message indicating that the specified flag has been duplicated.
+     * @return A {@code FlagException} with a message indicating that the specified flag has been duplicated.
      */
 
     public static FlagException duplicateFlag(String flag) {
@@ -59,17 +59,17 @@ public class FlagException extends BuffBuddyException {
     /**
      * Returns a FlagException indicating that a specific flag has been provided more than once
      * @param flag The name of the duplicate flag.
-     * @return A {@code FlagExceptions} with a message indicating that the specified flag has been duplicated.
+     * @return A {@code FlagException} with a message indicating that the specified flag has been duplicated.
      */
 
-    public static FlagExceptions invalidFlag(String flag) {
-        return new FlagExceptions("Flag " + flag + " is not recognized.");
+    public static FlagException invalidFlag(String flag) {
+        return new FlagException("Flag " + flag + " is not recognized.");
     }
 
     /**
      * Returns a FlagException indicating that more than one unique flag was provided
      * @param flags The list of clashing unique flags.
-     * @return A {@code FlagExceptions} with a message indicating that more than one unique flag was provided.
+     * @return A {@code FlagException} with a message indicating that more than one unique flag was provided.
      */
     public static FlagException nonUniqueFlag(String flags) {
         return new FlagException("Flags " + flags + "cannot be provided in the same command.");

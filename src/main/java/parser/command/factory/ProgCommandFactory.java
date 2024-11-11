@@ -254,7 +254,7 @@ public class ProgCommandFactory {
         }
 
         // If none of the command flags are present, throw exception
-        throw FlagExceptions.missingArguments();
+        throw FlagException.missingArguments();
     }
 
     /**
