@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 //import static org.junit.jupiter.api.Assertions.assertNotEquals;
 //import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -552,7 +551,7 @@ private String generateRandomWord(Random random, int wordLength) {
     }
 
    @Test
-    void testSetValidBudgetLimit() {
+     void testSetValidBudgetLimit() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
         double validLimit = 9999999999999999.99; // within typical range
@@ -568,7 +567,7 @@ private String generateRandomWord(Random random, int wordLength) {
             "The set limit should match the input limit");
 }
 
-}
+    }
 
 
 
