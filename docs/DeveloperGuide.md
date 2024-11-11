@@ -1070,3 +1070,14 @@ View the [User Guide](UserGuide.md) for the list of UI commands and their relate
 ### JUnit Testing
 
 JUnit tests are written in the subdirectory `test` and serve to test the key methods part of the application.
+
+## Future Enhancements
+
+The following are features we intend to include in future iterations of this application.
+
+1. Allow methods for undo-ing previous commands.
+2. Implement feature to advise students on how to manage their money based on their income and financial goals.
+3. Implement gamification to encourage users to consistently log their finances and keep within their set budget
+4. Implement automatic categorization of transactions according to their description
+5. Allow automatic deletion of entries a certian duration (e.g. 5 months) after their recorded date according 
+to the user's preference
