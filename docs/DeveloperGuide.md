@@ -1,7 +1,5 @@
 # Developer Guide for SpendSwift
 
-<!-- ## Acknoledgements -->
-
 ## Design & Implementation
 ### Architecture
 A high-level overview of the system is shown in the Architecture Diagram below.
@@ -145,10 +143,6 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | 4   | Customizability     | Users should be able to easily add and modify expense categories.                          | Allows users to tailor the system to their specific needs.                                  |
 | 5   | Automated Tasks     | Support automated budget resets at the start of each month.                                | Minimizes user effort in maintaining accurate monthly tracking.                             |
 | 6   | Accessibility       | The chat interface should be simple and intuitive.                                         | Ensures that all users can effectively interact with the system without extensive training. |
-
-<!-- ## Glossary
-- **glossary item**: Definition
--->
 
 ## Instructions for Manual Testing
 ### 1. Start SpendSwift
