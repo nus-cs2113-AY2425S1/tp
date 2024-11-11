@@ -2,10 +2,15 @@ package seedu.commands;
 
 import seedu.duke.Internship;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author jadenlimjc
 public class AddCommand extends Command {
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
     @Override
     public void execute(ArrayList<String> args) {
         String role = "";
@@ -16,6 +21,8 @@ public class AddCommand extends Command {
         boolean hasCompany = false;
 
         uiCommand.clearInvalidFlags();
+        uiCommand.clearUpdatedFields();
+        uiCommand.clearInvalidFields();
         for (String arg : args) {
             String[] words = arg.split(" ", 2);
             String flag = words[0];
@@ -37,17 +44,29 @@ public class AddCommand extends Command {
                 }
                 break;
             case "from":
-                if (words.length > 1) {
-                    startDate = words[INDEX_DATA];
-                } else {
+                if (words.length == 1) {
                     uiCommand.addInvalidFlag(flag);
+                    break;
+                }
+                startDate = words[INDEX_DATA];
+                try {
+                    YearMonth.parse(startDate, formatter);
+                } catch (DateTimeParseException ex) {
+                    uiCommand.showOutput(startDate + " is not a valid date\nPlease enter a date in the MM/yy format");
+                    return;
                 }
                 break;
             case "to":
-                if (words.length > 1) {
-                    endDate = words[INDEX_DATA];
-                } else {
+                if (words.length == 1) {
                     uiCommand.addInvalidFlag(flag);
+                    break;
+                }
+                endDate = words[INDEX_DATA];
+                try {
+                    YearMonth.parse(endDate, formatter);
+                } catch (DateTimeParseException ex) {
+                    uiCommand.showOutput(endDate + " is not a valid date\nPlease enter a date in the MM/yy format");
+                    return;
                 }
                 break;
             default:
@@ -72,6 +91,8 @@ public class AddCommand extends Command {
         Internship newInternship = new Internship(role, company, startDate, endDate);
         internships.addInternship(newInternship);
         uiCommand.showEditedInternship(newInternship, "add");
+
+        logger.log(Level.INFO, "AddCommand Executed");
     }
 
     @Override
