@@ -23,9 +23,6 @@ public class Budget {
     }
 
     public void setLimit(double limit) {
-        if (limit < 0) {
-            throw new IllegalArgumentException("Budget limit cannot be negative.");
-        }
         this.limit = limit;
     }
 

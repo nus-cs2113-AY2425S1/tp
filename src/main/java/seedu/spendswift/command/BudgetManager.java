@@ -111,13 +111,9 @@ public class BudgetManager {
         List<Category> categories = trackerData.getCategories();
         Map<Category, Budget> budgets = trackerData.getBudgets();
         String formattedCategoryName = Format.formatInput(categoryName.trim());
-        if (preciseLimit.compareTo(BigDecimal.ZERO) < 0) {
-            System.out.println("Invalid input! Please provide a positive amount!");
-            return;
-        }
 
         if (preciseLimit.compareTo(maxLimit) > 0) {
-            System.out.println("Budget limit exceeds the maximum allowed amount of " + maxLimit.toPlainString());
+            ErrorMessage.printExceedMax(maxLimit);
             return;
         }
         Category existingCategory = null;
@@ -135,16 +131,12 @@ public class BudgetManager {
 
         if (budgets.containsKey(existingCategory)) {
             budgets.get(existingCategory).setLimit(preciseLimit.doubleValue());
-            System.out.println("Updated budget for category '" + existingCategory.getName() +
-                "' to " + preciseLimit.toPlainString());
+            SuccessMessage.printExistingLimit(existingCategory, preciseLimit);
             budgets.get(existingCategory).setLimit(limit);
-            SuccessMessage.printExistingBudget(limit, existingCategory);
         } else {
             Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
             budgets.put(existingCategory, newBudget);
-            System.out.println("Set budget for category '"
-                + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
-            SuccessMessage.printNewBudget(limit, existingCategory);
+            SuccessMessage.printNewLimit(existingCategory, preciseLimit);
         }
 
         trackerData.setBudgets(budgets);

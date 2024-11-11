@@ -2,6 +2,7 @@ package seedu.spendswift.storage;
 
 import seedu.spendswift.model.Category;
 import seedu.spendswift.model.TrackerData;
+import seedu.spendswift.ui.UI;
 
 import java.io.IOException;
 import java.util.Set;
@@ -9,10 +10,12 @@ import java.util.Set;
 public class Storage {
     private final CategoryStorage categoryStorage;
     private final ExpenseStorage expenseStorage;
+    private final UI ui;
 
-    public Storage(String expenseFilePath, String categoryFilePath) {
-        this.categoryStorage = new CategoryStorage(categoryFilePath);
-        this.expenseStorage = new ExpenseStorage(expenseFilePath);
+    public Storage(String expenseFilePath, String categoryFilePath, UI ui) {
+        this.ui = ui;
+        this.categoryStorage = new CategoryStorage(categoryFilePath, ui);
+        this.expenseStorage = new ExpenseStorage(expenseFilePath, ui);
     }
 
     public void saveData(TrackerData trackerData) throws IOException {

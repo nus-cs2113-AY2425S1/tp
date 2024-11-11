@@ -1,5 +1,7 @@
 package seedu.spendswift.ui;
 
+import java.math.BigDecimal;
+
 public class ErrorMessage {
     private static final String UNEXPECTED_ERROR = "Unexpected error: ";
     private static final String INVALID_LIMIT = "Invalid limit format. Please enter a valid number after 'l/'.";
@@ -67,6 +69,12 @@ public class ErrorMessage {
     public static void printNegativeLimit(){
         System.out.println(UI.SEPARATOR);
         System.out.println(NEGATIVE_LIMIT);
+        System.out.println(UI.SEPARATOR);
+    }
+
+    public static void printExceedMax(BigDecimal maxLimit) {
+        System.out.println(UI.SEPARATOR);
+        System.out.println("Budget limit exceeds the maximum allowed amount of " + maxLimit.toPlainString());
         System.out.println(UI.SEPARATOR);
     }
 

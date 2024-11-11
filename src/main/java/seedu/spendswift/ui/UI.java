@@ -5,7 +5,8 @@ public class UI {
     public static final String SEPARATOR = "_".repeat(50);
     private static final String WELCOME_MESSAGE = "Hiya! How can I assist?";
     private static final String EXIT_MESSAGE = "Goodbye! :> Hope to see you again soon!";
-    private static final String FILE_NOT_FOUND = "Data file not found.";
+    private static final String EXPENSE_FILE_NOT_FOUND = "Expense data file not found.";
+    private static final String CATEGORY_FILE_NOT_FOUND = "Category data file not found.";
     private static final String DATA_LOADED_MESSAGE = "Data loaded successfully";
     private static final String DATA_SAVED_MESSAGE = "Data has been saved!";
     private static final String ERROR_LOADING_DATA_MESSAGE = "Error loading data: ";
@@ -23,6 +24,7 @@ public class UI {
     private static final String HELP_EXIT = "Exit: bye";
 
     public void printWelcomeMessage() {
+        System.out.println(SEPARATOR);
         System.out.println(WELCOME_MESSAGE);
         System.out.println(SEPARATOR);
     }
@@ -61,9 +63,30 @@ public class UI {
         System.out.println(SEPARATOR);
     }
 
-    public void printFileNotFound() {
+    public void printExpenseFileNotFound() {
         System.out.println(SEPARATOR);
-        System.out.println(FILE_NOT_FOUND);
+        System.out.println(EXPENSE_FILE_NOT_FOUND);
+    }
+
+    public void printCategoryFileNotFound() {
+        System.out.println(SEPARATOR);
+        System.out.println(CATEGORY_FILE_NOT_FOUND);
+    }
+
+    public void printInvalidExpenseLineLoad(String line) {
+        System.out.println(SEPARATOR);
+        System.out.println("Invalid expense format, skipping line: " + line);
+    }
+
+    public  void printInvalidCategoryLineLoad(String line) {
+        System.out.println(SEPARATOR);
+        System.out.println("Invalid budget format in category file, skipping line: " + line);
+    }
+
+    public void printUndefinedCategory(String categoryName) {
+        System.out.println(SEPARATOR);
+        System.out.println("Warning: Expense has an undefined category. Adding category: " +
+                categoryName);
     }
 
     public void printHelpMessage() {

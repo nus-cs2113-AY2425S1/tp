@@ -3,6 +3,7 @@ package seedu.spendswift.storage;
 import seedu.spendswift.model.Budget;
 import seedu.spendswift.model.Category;
 import seedu.spendswift.model.TrackerData;
+import seedu.spendswift.ui.UI;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,9 +16,11 @@ import java.io.IOException;
 
 public class CategoryStorage {
     private final String categoryFilePath;
+    private final UI ui;
 
-    public CategoryStorage(String categoryFilePath) {
+    public CategoryStorage(String categoryFilePath, UI ui) {
         this.categoryFilePath = categoryFilePath;
+        this.ui = ui;
     }
 
     public void saveCategories(TrackerData trackerData) throws IOException {
@@ -38,7 +41,7 @@ public class CategoryStorage {
         File categoryFile = new File(categoryFilePath);
 
         if (!categoryFile.exists()) {
-            System.out.println("Category file not found.");
+            ui.printCategoryFileNotFound();
             return validCategories;
         }
 
@@ -60,7 +63,7 @@ public class CategoryStorage {
                         double limit = Double.parseDouble(parts[1].trim());
                         trackerData.getBudgets().put(category, new Budget(category, limit));
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid budget format in category file, skipping line: " + line);
+                        ui.printInvalidCategoryLineLoad(line);
                     }
                 }
             }

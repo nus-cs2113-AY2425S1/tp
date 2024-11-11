@@ -4,6 +4,7 @@ import seedu.spendswift.format.Format;
 import seedu.spendswift.model.Category;
 import seedu.spendswift.model.Expense;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,16 +92,17 @@ public class SuccessMessage {
         System.out.println(UI.SEPARATOR);
     }
 
-    public static void printNewBudget(double limit, Category category) {
+    public static void printExistingLimit(Category existingCategory, BigDecimal preciseLimit) {
         System.out.println(UI.SEPARATOR);
-        System.out.println("Set budget for category '" + category + "' to " + Format.formatAmount(limit));
+        System.out.println("Updated budget for category '" + existingCategory.getName() +
+                "' to " + preciseLimit.toPlainString());
         System.out.println(UI.SEPARATOR);
     }
 
-    public static void printExistingBudget(double limit, Category category) {
+    public static void printNewLimit(Category existingCategory, BigDecimal preciseLimit) {
         System.out.println(UI.SEPARATOR);
-        System.out.println("Updated budget for category '" + category + "' to "
-                + Format.formatAmount(limit));
+        System.out.println("Set budget for category '"
+                + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
         System.out.println(UI.SEPARATOR);
     }
 

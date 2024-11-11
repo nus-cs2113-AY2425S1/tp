@@ -26,9 +26,9 @@ public class SpendSwift {
         createFileIfNotExists(expenseFilePath);
         createFileIfNotExists(categoryFilePath);
 
-        Storage storage = new Storage(expenseFilePath, categoryFilePath);
         TrackerData trackerData = new TrackerData();
         UI ui = new UI();
+        Storage storage = new Storage(expenseFilePath, categoryFilePath, ui);
 
         try {
             storage.loadData(trackerData);

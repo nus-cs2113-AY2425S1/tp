@@ -3,6 +3,7 @@ package seedu.spendswift.storage;
 import seedu.spendswift.model.Category;
 import seedu.spendswift.model.Expense;
 import seedu.spendswift.model.TrackerData;
+import seedu.spendswift.ui.UI;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,9 +15,11 @@ import java.io.IOException;
 
 public class ExpenseStorage {
     private final String expenseFilePath;
+    private final UI ui;
 
-    public ExpenseStorage(String expenseFilePath) {
+    public ExpenseStorage(String expenseFilePath, UI ui) {
         this.expenseFilePath = expenseFilePath;
+        this.ui = ui;
     }
 
     public void saveExpenses(TrackerData trackerData) throws IOException {
@@ -32,7 +35,7 @@ public class ExpenseStorage {
         File expenseFile = new File(expenseFilePath);
 
         if (!expenseFile.exists()) {
-            System.out.println("Expense file not found.");
+            ui.printExpenseFileNotFound();
             return;
         }
 
@@ -46,7 +49,7 @@ public class ExpenseStorage {
 
                 String[] parts = line.split(" \\| ");
                 if (parts.length != 3) {
-                    System.out.println("Invalid expense format, skipping line: " + line);
+                    ui.printInvalidExpenseLineLoad(line);
                     continue;
                 }
 
@@ -57,15 +60,14 @@ public class ExpenseStorage {
 
                     Category category = Storage.loadOrCreateCategory(trackerData, categoryName);
                     if (!validCategories.contains(categoryName)) {
-                        System.out.println("Warning: Expense has an undefined category. Adding category: " +
-                                categoryName);
+                        ui.printUndefinedCategory(categoryName);
                         validCategories.add(categoryName);
                     }
 
                     Expense expense = new Expense(expenseName, amount, category);
                     trackerData.getExpenses().add(expense);
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid expense amount format, skipping line: " + line);
+                    ui.printInvalidExpenseLineLoad(line);
                 }
             }
         }
