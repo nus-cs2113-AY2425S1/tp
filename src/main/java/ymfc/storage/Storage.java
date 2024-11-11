@@ -19,8 +19,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 
 public class Storage {
-    private static final String saveRecipeFilePath = "./data/recipes.txt";
-    private static final String saveIngredientFilePath = "./data/ingredients.txt";
+    private static final String saveRecipeFilePath = "./data/cookbook.txt";
+    private static final String saveIngredientFilePath = "./data/inventory.txt";
 
     public Storage() {
         File dir = new File("./data");
@@ -49,7 +49,7 @@ public class Storage {
     }
 
     /**
-     * Add the entire list of recipes to the recipes.txt save file.
+     * Add the entire list of recipes to the cookbook.txt save file.
      *
      * @param recipes Object containing the ArrayList of recipes to be saved.
      * @throws IOException If the save file cannot be properly accessed.
@@ -76,7 +76,7 @@ public class Storage {
     }
 
     /**
-     * Add the entire list of ingredients to the ingredients.txt save file.
+     * Add the entire list of ingredients to the inventory.txt save file.
      *
      * @param ingredients Object containing the ArrayList of ingredients to be saved.
      * @throws IOException If the save file cannot be properly accessed.
@@ -103,7 +103,7 @@ public class Storage {
     }
 
     /**
-     * Load in all the previously saved recipes from the recipes.txt save file to the RecipeList object.
+     * Load in all the previously saved recipes from the cookbook.txt save file to the RecipeList object.
      * Saves the properly added recipes back to the save file again (to deal with faulty save lines).
      *
      * @param recipes Object containing the ArrayList of recipes to be saved.
@@ -148,7 +148,7 @@ public class Storage {
     }
 
     /**
-     * Load in all the previously saved ingredients from the ingredients.txt save file to the IngredientList object.
+     * Load in all the previously saved ingredients from the inventory.txt save file to the IngredientList object.
      *
      * @param recipes Object for user's recipes.
      * @param ingredients Object containing the ArrayList of ingredients to be saved.

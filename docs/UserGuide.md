@@ -66,8 +66,8 @@ be automatically added to the ingredients inventory!
 
 ### Save-Load System
 * YMFC keeps 2 separate databases, stored locally in 2 text files.
-  * The cookbook database stores your Recipes, located at `[JAR File Location]/data/recipes.txt`.
-  * The inventory database stores your available Ingredients, located at `[JAR File Location]/data/ingredients.txt`.
+  * The cookbook database stores your Recipes, located at `[JAR File Location]/data/cookbook.txt`.
+  * The inventory database stores your available Ingredients, located at `[JAR File Location]/data/inventory.txt`.
 * YMFC automatically loads your recipes and ingredients from these 2 databases when launched
 * If the databases don't yet exist, YMFC will create them automatically upon launch of the app
 * Your recipes and ingredients are saved automatically every time they are added, edited, removed or modified in any way
@@ -387,12 +387,13 @@ to the least.
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Copy the data folder containing recipes.txt and ingredients.txt,
+**A**: Copy the data folder containing cookbook.txt and inventory.txt,
 and paste it in your other computer in the same directory where YMFC.jar is located
 
 **Q**: Can I edit the .txt files directly?
 
 **A**: Yes, but you must ensure that the format of how recipes and ingredients are saved is followed.
+If there are irregular lines in the save files, YMFC will discard them upon launch.
 
 <div style="page-break-after: always;"></div>
 
