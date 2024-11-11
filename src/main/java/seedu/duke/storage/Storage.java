@@ -357,7 +357,7 @@ public class Storage {
                 logger.log(LogLevels.WARNING, e.getMessage());
                 File file = getBudgetFile();
                 if (file.length() == 0) {
-                    failedLoadingBudgetMsg = "No Budget loaded from file.";
+                    failedLoadingBudgetMsg = "No budget loaded from file.";
                 }else{
                     failedLoadingBudgetMsg = "Budget format in file is invalid, the budget won't be set.";
                 }
