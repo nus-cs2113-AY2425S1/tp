@@ -530,12 +530,14 @@ void testSetBudgetLimitAtMaximum() {
     BudgetManager budgetManager = new BudgetManager();
     TrackerData trackerData = new TrackerData();
     double maxLimit = 1000000000000000.00; // The maximum budget limit as per requirements
-
-    // Ensure category "Education" has a Budget initialized
-    Category category = findCategory(trackerData, "Education");
-    trackerData.getBudgets().putIfAbsent(category, new Budget(category)); // Initialize if missing
-
+    
+    // Invoke setBudgetLimit, which should create the Budget entry if it doesn't exist
     budgetManager.setBudgetLimit(trackerData, "Education", maxLimit);
+
+    Category category = findCategory(trackerData, "Education");
+
+    // Check that the budget was created as expected
+    assertNotNull(trackerData.getBudgets().get(category), "Budget for category 'Education' should not be null");
     
     BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
     assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), 
@@ -548,11 +550,13 @@ void testSetValidBudgetLimit() {
     TrackerData trackerData = new TrackerData();
     double validLimit = 9999999999999999.99; // within typical range
     
-    // Ensure category "Education" has a Budget initialized
-    Category category = findCategory(trackerData, "Education");
-    trackerData.getBudgets().putIfAbsent(category, new Budget(category)); // Initialize if missing
-
+    // Invoke setBudgetLimit, which should create the Budget entry if it doesn't exist
     budgetManager.setBudgetLimit(trackerData, "Education", validLimit);
+
+    Category category = findCategory(trackerData, "Education");
+
+    // Check that the budget was created as expected
+    assertNotNull(trackerData.getBudgets().get(category), "Budget for category 'Education' should not be null");
     
     BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
     assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
