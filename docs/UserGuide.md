@@ -91,20 +91,20 @@ A few line breaks have been added to allow the sample output to fit within the b
 
 ### Set/Edit Budget
 
-User can set a monthly budget when app is initialized and budget is not set, or by using the budget command.
-If the user has already set a budget, the app will prompt the user to ask if they would like to modify their budget at start up.
+User can set a monthly budget when app is initialized and budget is not set, or by using the budget command. 
+The application will also prompt the user when budget has not been set for the current month. 
 
-Budget command can be used to set budget if `no` is keyed in for the initial prompt.
-The command can also be used to edit budget after initial budget is set.
+The budget command can also be used to modify the current month's budget amount.
 
 After budget is set by user, adding, deleting or editing expenses will show the budget and remaining balance for the month.
 The budget amount and balance will also be viewable by the user under the list command.
 
-**Format**: `budget`
+**Format**: `budget AMOUNT`
 
 **Example Usage**:
 
 ```
+// Initial budget setting option
 Would you like to set a budget? (yes/no)
 --------------------------------------------
 yes
@@ -117,27 +117,28 @@ Your budget has successfully been set to: $ 1000.00
 Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
-Initial budget setting option.
-
-<br>
-
 ```
-budget
+// Setting budget using the budget command
+budget 1000
 --------------------------------------------
-Your current budget is: $ 1000.00
-Would you like to modify your budget? (yes/no)
---------------------------------------------
-yes
---------------------------------------------
-Please set your budget amount:
---------------------------------------------
-2000
---------------------------------------------
-Your budget has successfully been set to: $ 2000.00
-Your current monthly balance is: $ 2000.00
+Your budget has successfully been set to: $ 1000.00
+Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
-Budget modification option to change budget amount.
+
+### Delete Budget
+User can delete their budget completely by using the budget command.
+
+**Format**: `budget 0`
+
+**Example Usage**:
+```
+// Delete budget by setting amount to 0
+budget 0
+--------------------------------------------
+Budget has been deleted.
+--------------------------------------------
+```
 
 <hr>
 <div style="page-break-after: always;"></div>
@@ -468,36 +469,22 @@ Please do not modify these files manually, otherwise the transactions or the bud
 <div style="page-break-after: always;"></div>
 
 ## Command Summary
-
-| **Command**                   | **Usage**                                                                                  |
-|-------------------------------|---------------------------------------------------------------------------------------------|
-| **Help**                      | `help`                                                                                     |
-| **List All Transactions**     | `list`                                                                                      |
-| **List Income Transactions**  | `list income`                                                                               |
-| **List Expense Transactions** | `list expense`                                                                              |
-| **List Transactions by Date** | `list [/from START_DATE] [/to END_DATE]`                                                    |
-| **Add Expense**               | `expense DESCRIPTION /a AMOUNT`                                                             |
-| **Add Expense with Date**     | `expense DESCRIPTION /a AMOUNT /d DATE`                                                     |
-| **Add Expense with Category** | `expense DESCRIPTION /a AMOUNT /c CATEGORY`                                                 |
-| **Add Expense with Date and Category** | `expense DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                |
-| **Add Income**                | `income DESCRIPTION /a AMOUNT`                                                              |
-| **Add Income with Date**      | `income DESCRIPTION /a AMOUNT /d DATE`                                                      |
-| **Add Income with Category**  | `income DESCRIPTION /a AMOUNT /c CATEGORY`                                                  |
-| **Add Income with Date and Category**  | `income DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
-| **Edit Entry**                | `edit INDEX`                                                                               |
-| **Edit Entry Description**    | `edit INDEX /des DESCRIPTION`                                                               |
-| **Edit Entry Amount**         | `edit INDEX /a AMOUNT`                                                                      |
-| **Edit Entry Date**           | `edit INDEX /d DATE`                                                                       |
-| **Edit Entry Category**       | `edit INDEX /c CATEGORY`                                                                    |
-| **Edit Entry with All Fields**| `edit INDEX /des DESCRIPTION /a AMOUNT /d DATE /c CATEGORY`                                 |
-| **Delete Entry**              | `delete INDEX`                                                                             |
-| **Set Budget**                | `budget`                                                                                   |
-| **Exit Program**              | `exit`                                                                                     |
+| **Command**                                                      | **Description**                                                                            |
+|------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| `list [income \| expense] [/from START_DATE] [/to END_DATE]`     | Shows logged transactions, highlights categories, monthly budget, and balance              |
+| `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`           | Logs a new expense with optional date and category.                                        |
+| `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`          | Logs a new income with optional date and category.                                         |
+| `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]` | Edits the specified transaction. Defaults to last amended transaction if INDEX is omitted. |
+| `delete [INDEX] [/to END_INDEX]`                                | Deletes the specified transaction(s). Defaults to last amended if INDEX is omitted.        | 
+| `budget AMOUNT`                                                 | Sets or modifies the monthly budget                                                        |
+| `budget 0`                                                      | Deletes budget                                                                             |
+| `exit`                                                           | Exits the program.                                                                         |
+| `help`                                                         | Displays a list of all valid commands.                                                     |
 
 **Defined Categories**:
 
-| **Category Type**  | **Categories**                                  |
-|--------------------|-------------------------------------------------|
+| **Category Type**  | **Categories**                                                  |
+|--------------------|-----------------------------------------------------------------|
 | **Expense**        | FOOD, TRANSPORT, ENTERTAINMENT, UTILITIES, OTHER, UNCATEGORIZED |
-| **Income**         | SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED  |
+| **Income**         | SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED                  |
 
