@@ -1,56 +1,17 @@
 @startuml
+participant ":Main" as Main
+participant ":Category" as Category
 
-box "Constructor/GetName" #LightBlue
-participant "Main" as Main1
-participant "Category" as Category1
-end box
-
-box "Equals" #LightGreen
-participant "Main" as Main2
-participant "Category" as Category2
-end box
-
-box "HashCode/ToString" #LightPink
-participant "Main" as Main3
-participant "Category" as Category3
-end box
-
-== Constructor ==
-Main1 -> Category1: Category("ExampleName")
-activate Category1
-Category1 --> Main1: Category instance
-deactivate Category1
-
-== getName() ==
-Main1 -> Category1: getName()
-activate Category1
-Category1 --> Main1: "ExampleName"
-deactivate Category1
-
-== equals() ==
-Main2 -> Category2: equals(Category2)
-activate Category2
+Main -> Category: equals(Category2): boolean
+activate Category
 alt Same object (this == obj)
-    Category2 --> Main2: true
-else Null or different class
-    Category2 --> Main2: false
-else Same name
-    Category2 --> Main2: true
+    Category --> Main: true
+else Null or different class (obj == null || getClass() != obj.getClass())
+    Category --> Main: false
+else Same name (name.equalsIgnoreCase(category.name))
+    Category --> Main: true
 else Different name
-    Category2 --> Main2: false
+    Category --> Main: false
 end
-deactivate Category2
-
-== hashCode() ==
-Main3 -> Category3: hashCode()
-activate Category3
-Category3 --> Main3: name.hashCode()
-deactivate Category3
-
-== toString() ==
-Main3 -> Category3: toString()
-activate Category3
-Category3 --> Main3: "Category: " + name
-deactivate Category3
-
+deactivate Category
 @enduml
