@@ -16,6 +16,7 @@ public class Commons {
     public static final String ERROR_MESSAGE_BLANK_DESCRIPTION = "Description cannot be blank.";
     public static final String ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX = "There is no entry at that index :(";
     public static final String ERROR_MESSAGE_INVALID_ARGUMENT = "Invalid argument. Please provide a valid argument.";
+    public static final String ERROR_MESSAGE_DUPLICATE_ARGUMENT = "Duplicate argument detected. Please provide a valid command input.";
 
     /**
      * Prints a message enclosed in line separators.
