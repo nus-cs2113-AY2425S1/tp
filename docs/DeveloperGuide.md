@@ -115,6 +115,8 @@ SpendSwift is designed for budget-conscious individuals who prefer a simple, eff
 ### Value Proposition
 SpendSwift provides a fast, text-based solution for managing finances, eliminating the complexity of traditional budgeting tools.
 
+---
+
 ## User Stories
 <!-- @@author glenda-1506 -->  
 
@@ -131,6 +133,7 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | v2.1    | Frequent user         | Delete a category entry                      | remove what is not in use                                |
 | v2.1    | Frequent user         | View all categories                          | see what categories I have been spending on              |
 
+---
 
 ## Non-Functional Requirements
 <!-- @@author mayfairmi6 -->  
@@ -143,6 +146,8 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | 4   | Customizability     | Users should be able to easily add and modify expense categories.                          | Allows users to tailor the system to their specific needs.                                  |
 | 5   | Automated Tasks     | Support automated budget resets at the start of each month.                                | Minimizes user effort in maintaining accurate monthly tracking.                             |
 | 6   | Accessibility       | The chat interface should be simple and intuitive.                                         | Ensures that all users can effectively interact with the system without extensive training. |
+
+---
 
 ## Instructions for Manual Testing
 ### 1. Start SpendSwift
