@@ -1,57 +1,60 @@
 {
   "programmeList": {
-    "currentActiveProgramme": 1,
-    "programmeList": []
-  },
-  "history": {
-    "12-12-2024": {
-      "day": {
-        "name": "ONE",
-        "exercises": [
+    "currentActiveProgramme": 0,
+    "programmeList": [
+      {
+        "programmeName": "Advanced Starter",
+        "dayList": [
           {
-            "sets": 3,
-            "reps": 12,
-            "weight": 30,
-            "calories": 200,
-            "name": "Bench_Press"
+            "name": "Monday",
+            "exercises": [
+              {
+                "sets": 3,
+                "reps": 15,
+                "weight": 30,
+                "calories": 200,
+                "name": "Bench_Press"
+              },
+              {
+                "sets": 3,
+                "reps": 15,
+                "weight": 50,
+                "calories": 200,
+                "name": "Squat"
+              }
+            ]
           },
           {
-            "sets": 3,
-            "reps": 12,
-            "weight": 50,
-            "calories": 200,
-            "name": "Squat"
+            "name": "Wednesday",
+            "exercises": [
+              {
+                "sets": 3,
+                "reps": 10,
+                "weight": 10,
+                "calories": 100,
+                "name": "Bicep_Curl"
+              }
+            ]
           }
-        ]
-      },
-      "mealList": {
-        "meals": [
-          {
-            "calories": 560,
-            "name": "pasta"
-          }
-        ]
-      },
-      "water": {
-        "waterList": [
-          300.0
         ]
       }
-    },
-    "06-11-2024": {
+    ]
+  },
+  "history": {
+    "07-11-2024": {
       "day": {
-        "name": "ONE",
+        "name": "Monday",
         "exercises": [
           {
             "sets": 3,
-            "reps": 12,
+            "reps": 15,
             "weight": 30,
             "calories": 200,
             "name": "Bench_Press"
           },
           {
             "sets": 3,
-            "reps": 12,
+            "reps": 15,
             "weight": 50,
             "calories": 200,
             "name": "Squat"
@@ -62,7 +65,9 @@
         "meals": []
       },
       "water": {
-        "waterList": []
+        "waterList": [
+          500.3
+        ]
       }
     }
   }

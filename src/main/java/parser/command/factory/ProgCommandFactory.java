@@ -352,6 +352,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author nirala-ts
     /**
      * Parses a string of day related arguments and returns a Day object.
      *
@@ -380,6 +381,7 @@ public class ProgCommandFactory {
         return day;
     }
 
+    // @@author nirala-ts
     /**
      * Parses an exercise string to create an {@link Exercise} object with required attributes.
      *
@@ -404,6 +406,7 @@ public class ProgCommandFactory {
         );
     }
 
+    // @@author TVageesan
     /**
      * Parses an exercise string to create an {@link ExerciseUpdate} object with required attributes.
      *
