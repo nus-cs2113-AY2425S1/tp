@@ -1,0 +1,43 @@
+@startuml
+actor User
+
+User -> Ui : "prog log /p [PROG_INDEX] /d [DAY_INDEX] /t [DATE]"
+Ui -> ProgCommandFactory : parse("log", arguments)
+ProgCommandFactory -> LogProgrammeCommand : new LogProgrammeCommand([PROG_INDEX], [DAY_INDEX], [DATE])
+
+activate LogProgrammeCommand
+LogProgrammeCommand -> ProgrammeList : getProgramme([PROG_INDEX])
+activate ProgrammeList
+ProgrammeList -> Programme : getDay([DAY_INDEX])
+activate Programme
+Programme --> ProgrammeList : Day instance
+deactivate Programme
+ProgrammeList --> LogProgrammeCommand : Programme instance
+deactivate ProgrammeList
+
+LogProgrammeCommand -> History : getRecordByDate([DATE])
+activate History
+alt DailyRecord does not exist
+    History -> DailyRecord : new DailyRecord
+end
+History --> LogProgrammeCommand : DailyRecord instance
+deactivate History
+
+LogProgrammeCommand -> DailyRecord : logDayToRecord(Day)
+activate DailyRecord
+DailyRecord --> LogProgrammeCommand : void
+deactivate DailyRecord
+destroy DailyRecord
+
+LogProgrammeCommand -> History : logRecord([DATE], DailyRecord)
+activate History
+History --> LogProgrammeCommand : void
+deactivate History
+
+LogProgrammeCommand --> Ui : CommandResult("Congrats! You've successfully completed: [Day details]")
+deactivate LogProgrammeCommand
+destroy LogProgrammeCommand
+
+Ui -> User : Display success message
+@enduml
+

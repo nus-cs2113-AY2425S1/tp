@@ -17,7 +17,6 @@ BuffBuddy is a CLI-based fitness tracker that helps users manage workout routine
     - **WeeklySummaryCommand**: Provides a summary of weekly workout activity.
     - **ListHistoryCommand**: Lists workout history records.
     - **ViewHistoryCommand**: Displays specific details of a selected history entry.
-    - **DeleteHistoryCommand**: Allows deletion of a specific history entry.
 
     - **Justification**: These commands provide users with flexible options to review, track, and manage workout progress, enhancing motivation and tracking accuracy.
     - **Highlights**: Commands support error handling and validation, ensuring smooth user interaction and accurate data tracking.
@@ -26,18 +25,18 @@ BuffBuddy is a CLI-based fitness tracker that helps users manage workout routine
 - Documented sections for each history-related command, explaining usage and expected outcomes.
 
 ### Contributions to the Developer Guide (DG)
+
 - **Sections Contributed**: Documented the entire History feature, covering all commands and their interactions.
 - **History Component Overview**: Provided an overview of the History component and its role within BuffBuddy.
-- **Class Diagram**: Created a comprehensive UML class diagram illustrating the structure of the History component and its interactions with other components.
-- **UML Diagrams**:
-    - **WeeklySummaryCommand Sequence Diagram**: Designed a complete sequence diagram for the `WeeklySummaryCommand` feature.
-    - **UML Class Diagram** for the History commands, detailing the structure and relationships of all the History-related classes.
+
+- **Class Diagrams**:
+  - **Comprehensive History Class Diagram**: Created a detailed UML class diagram illustrating the structure of the History component and its interactions with other components.
+  - **History Commands Class Diagram**: Designed a class diagram that details the structure and relationships of all the History-related command classes.
+
+- **Sequence Diagrams**:
+  - **WeeklySummaryCommand Sequence Diagram**: Designed a complete sequence diagram for the `WeeklySummaryCommand` feature, representing its flow and interactions.
 
 ### Contributions to Team-Based Tasks
 - Participated in team meetings and code reviews.
 - Assisted with integrating commands into the main BuffBuddy structure.
 
-### Review/Mentoring Contributions
-- **Pull Request Reviews**
-
-### Contributions Beyond the Project Team

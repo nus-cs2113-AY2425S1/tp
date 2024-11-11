@@ -40,13 +40,17 @@ else DailyRecords with workout data
             History -> WeeklySummaryCommand: Ignore DailyRecord
         end
         deactivate DailyRecord
+        destroy DailyRecord
     end
     WeeklySummaryCommand -> History: formatted weekly summary string
 end
 deactivate History
+destroy History
 
 WeeklySummaryCommand -> BuffBuddy: CommandResult with weekly summary
 deactivate WeeklySummaryCommand
+destroy WeeklySummaryCommand
+
 BuffBuddy -> UI: Show CommandResult (weekly summary or no history message)
 deactivate BuffBuddy
 UI -> User: Display weekly summary or "No workout history available for the past week."
