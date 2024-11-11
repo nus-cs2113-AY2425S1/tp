@@ -29,53 +29,66 @@ public class QuizManager {
         loadDataFromFile(); // Load questions, flashcards, and previous results from files
     }
 
+    /* For testing */
+    public QuizManager(Cli cli, boolean loadFromStorage) {
+        this.cli = cli;
+        topicManager = new TopicManager(cli);
+        quizResults = new QuizResults();
+        quizSession = new QuizGenerator(topicManager, cli);
+
+        if (loadFromStorage) {
+            loadDataFromFile();
+        }
+    }
+
     /**
      * Initiates a quiz session on the specified topic.
      *
-     * @param topicName The name of the topic for the quiz session.
+     * @param input The name of the topic for the quiz session.
      */
     public void handleQuizSelection(String input) {
-        QuizType quizType = QuizType.UNTIMED; // Default to untimed
-        String topic = null;
+        // Default values
+        QuizType quizType = QuizType.UNTIMED;
+        String topicName = null;
 
-        String[] parts = input.split(" ");
-        for (int i = 1; i < parts.length; i++) {
-            switch (parts[i]) {
-            case "/d":
-                if (i + 1 < parts.length && QuizType.isValidType(parts[i + 1].toLowerCase())) {
-                    quizType = QuizType.valueOf(parts[i + 1].toUpperCase());
-                    i++; // Skip next part as it's already read
-                } else {
-                    cli.printMessage("Please specify 'timed' or 'untimed' after /d.");
-                    return;
-                }
-                break;
-            case "/t":
-                if (i + 1 < parts.length) {
-                    topic = parts[i + 1].trim().equalsIgnoreCase("random") ? "random" : parts[i + 1].trim();
-                    i++;
-                } else {
-                    cli.printMessage("Please specify a topic after /t.");
-                    return;
-                }
-                break;
-            }
-        }
+        // Split input by "/d" and "/t"
+        String[] typeParts = input.split("/d", 2);
 
-        if (topic == null) {
-            cli.printMessage("Please provide a topic name using /t.");
+        if (typeParts.length < 2 || typeParts[1].trim().isEmpty()) {
+            cli.printMessage("Please specify '/d timed' or '/d untimed' for quiz type.");
             return;
         }
 
-        if (topic.equalsIgnoreCase("random")) {
-            quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
+        String[] topicParts = typeParts[1].split("/t", 2);
+
+        String quizTypeStr = topicParts[0].trim().toLowerCase();
+        if (QuizType.isValidType(quizTypeStr)) {
+            quizType = QuizType.valueOf(quizTypeStr.toUpperCase());
         } else {
-            if (quizType == QuizType.TIMED) {
-                quizSession.selectTimedQuiz(topic);
-            } else {
-                quizSession.selectUntimedQuiz(topic);
-            }
+            cli.printMessage("Invalid quiz type. Use '/d timed' or '/d untimed'.");
+            return;
         }
+
+        if (topicParts.length > 1 && !topicParts[1].trim().isEmpty()) {
+            topicName = topicParts[1].trim();
+        } else {
+            cli.printMessage("Please provide a topic name after '/t'.");
+            return;
+        }
+
+        boolean quizStarted = false;
+        if (topicName.equalsIgnoreCase("random")) {
+            quizStarted = quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
+        } else if (quizType == QuizType.TIMED) {
+            quizStarted = quizSession.selectTimedQuiz(topicName);
+        } else {
+            quizStarted = quizSession.selectUntimedQuiz(topicName);
+        }
+
+        if (quizStarted) {
+            addResultsAndPrintScore();
+        }
+
     }
 
     private enum QuizType {

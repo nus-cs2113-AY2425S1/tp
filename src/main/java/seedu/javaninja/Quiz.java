@@ -53,6 +53,8 @@ public class Quiz {
         if (timeLimitInSeconds > 0) {
             quizTimer.startTimer(timeLimitInSeconds);
             isTimed = true;
+        } else {
+            isTimed = false;
         }
 
         if (questions.isEmpty()) {
@@ -60,7 +62,7 @@ public class Quiz {
         }
 
         while (currentQuestionIndex < questions.size() && currentQuestionIndex < questionLimit) {
-            if (quizTimer.isTimeUp()) {
+            if (isTimed && quizTimer.isTimeUp()) {
                 break;
             }
             Question currentQuestion = questions.get(currentQuestionIndex);

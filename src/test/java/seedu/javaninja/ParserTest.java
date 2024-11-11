@@ -50,26 +50,13 @@ class ParserTest {
     }
 
     @Test
-    public void determineCommand_selectCommandWithTopic_verifiesQuizExecution() throws IOException {
-        quizManager.getTopicManager().addTopic(new Topic("Java Basics"));
-
-        // Simulate "select Java Basics" command
-        parser.determineCommand("select Java Basics");
-
-        // Check printed output for any indication of quiz execution, such as a prompt or message
-        String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("Set a time limit for the quiz."),
-                "Output should indicate the start of quiz interaction (e.g., prompting for time limit).");
-    }
-
-    @Test
     public void determineCommand_selectCommandWithoutTopic_printsErrorMessage() throws IOException {
         // Simulate "select" command without a topic
         parser.determineCommand("select");
 
         // Check printed output contains an error message
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("Please provide a topic to select."),
+        assertTrue(printedOutput.contains("Please specify '/d timed' or '/d untimed' for quiz type."),
                 "Output should indicate missing topic.");
     }
 

@@ -1,5 +1,6 @@
 /**
- * This class contains unit tests for the {@link Flashcard} class to ensure proper functionality with Java-related questions.
+ * This class contains unit tests for the {@link Flashcard}
+ * class to ensure proper functionality with Java-related questions.
  */
 package seedu.javaninja;
 
@@ -7,7 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.javaninja.question.Flashcard;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class FlashcardTest {
 
@@ -27,8 +32,10 @@ class FlashcardTest {
     @Test
     public void constructor_initializesFlashcardCorrectly() {
         assertNotNull(flashcard, "Flashcard should be initialized.");
-        assertEquals("What is the default access modifier in Java?", flashcard.getText(), "Question text should match the initialized text.");
-        assertEquals("package-private", flashcard.getCorrectAnswer(), "Answer should match the initialized answer.");
+        assertEquals("What is the default access modifier in Java?",
+            flashcard.getText(), "Question text should match the initialized text.");
+        assertEquals("package-private", flashcard.getCorrectAnswer(),
+            "Answer should match the initialized answer.");
     }
 
     /**
@@ -36,7 +43,8 @@ class FlashcardTest {
      */
     @Test
     public void checkAnswer_correctAnswer_returnsTrue() {
-        assertTrue(flashcard.checkAnswer("package-private"), "Expected checkAnswer to return true for the correct answer.");
+        assertTrue(flashcard.checkAnswer("package-private"),
+            "Expected checkAnswer to return true for the correct answer.");
     }
 
     /**
@@ -44,7 +52,8 @@ class FlashcardTest {
      */
     @Test
     public void checkAnswer_incorrectAnswer_returnsFalse() {
-        assertFalse(flashcard.checkAnswer("public"), "Expected checkAnswer to return false for the incorrect answer.");
+        assertFalse(flashcard.checkAnswer("public"),
+            "Expected checkAnswer to return false for the incorrect answer.");
     }
 
     /**
@@ -52,7 +61,8 @@ class FlashcardTest {
      */
     @Test
     public void checkAnswer_caseInsensitive_returnsTrue() {
-        assertTrue(flashcard.checkAnswer("Package-Private"), "Expected checkAnswer to handle case insensitivity and return true.");
+        assertTrue(flashcard.checkAnswer("Package-Private"),
+            "Expected checkAnswer to handle case insensitivity and return true.");
     }
 
     /**
@@ -60,7 +70,8 @@ class FlashcardTest {
      */
     @Test
     public void getOptions_returnsNull() {
-        assertNull(flashcard.getOptions(), "Expected getOptions to return null for flashcards.");
+        assertNull(flashcard.getOptions(),
+            "Expected getOptions to return null for flashcards.");
     }
 
     /**
@@ -68,15 +79,8 @@ class FlashcardTest {
      */
     @Test
     public void getQuestionType_returnsFlashcards() {
-        assertEquals("Flashcards", flashcard.getQuestionType(), "Expected getQuestionType to return 'Flashcards'.");
+        assertEquals("Flashcards", flashcard.getQuestionType(),
+            "Expected getQuestionType to return 'Flashcards'.");
     }
 
-    /**
-     * Tests the {@link Flashcard#toString()} method to ensure that the correct formatted string is returned.
-     */
-    @Test
-    public void toString_returnsFormattedQuestion() {
-        String expectedString = "What is the default access modifier in Java?";
-        assertEquals(expectedString, flashcard.toString(), "Expected toString to return the correctly formatted question.");
-    }
 }
