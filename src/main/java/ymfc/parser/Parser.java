@@ -27,7 +27,10 @@ import ymfc.list.IngredientList;
 import ymfc.list.RecipeList;
 import ymfc.recipe.Recipe;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -245,7 +248,7 @@ public final class Parser {
                 .toList();
 
         // Check for duplicates
-        Set<String> ingredientSet = new HashSet<>();
+        HashSet<String> ingredientSet = new HashSet<>();
         for (String ingredient : ingredientList) {
             if (!ingredientSet.add(ingredient.toLowerCase())) {
                 throw new InvalidArgumentException("Duplicate ingredient found: " + ingredient
@@ -424,7 +427,7 @@ public final class Parser {
         String cuisine = null;
         if (cuisineInput != null) {
             // Trim all leading whitespaces from cuisineInput
-            String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
+//            String trimmedCuisineInput = cuisineInput.replaceAll("^\\s+", "");
             cuisine = cuisineInput.trim().substring(2).trim();
         }
 
