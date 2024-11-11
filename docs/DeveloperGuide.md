@@ -290,7 +290,7 @@ The `UpdateCommand` class is responsible for updating the fields of an internshi
   - `deadlines`: Updates the deadlines of the internship
 - `isValidValue(String[] words)`: Checks if there was a new value provided for the selected field.
 - `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to update the field.
-- `getUsage()`: Returns a string showing the correct usage of the `update` command.
+- `getUsage()`: Returns a `String` showing the correct usage of the `update` command.
 
 #### Example Usage Scenario:
 - The user enters `update 2 -status Application Completed`, and the `execute` method finds the internship with ID `2` and updates its `status` to `Application Completed`.
@@ -312,7 +312,7 @@ The following sequence diagram shows how the `UpdateCommand` is executed:
 The `RemoveCommand` class is responsible for removing the values within fields of an internship entry. It extends the `UpdateCommand` class, providing a removing functionality to the execution framework.
 
 #### Design
-- The `RemoveCommand` class process the user input to determine which internship and which field to empty.
+- The `RemoveCommand` class processes the user input to determine which internship and which field to empty.
 - If the internship ID is not valid, it will print a message accordingly.
 - If the field is not valid, it will print a message indicating the erroneous field, including fields that cannot be emptied.
 - If the valid provided does not exist in the field, it will also print a message indicating the erroneous value
@@ -323,7 +323,7 @@ The `RemoveCommand` class is responsible for removing the values within fields o
   - `deadline`: Removes the specified deadline from the internship.
 - `isValidValue(String[] words)`: Checks if there is a value provided to search and remove from the selected field.
 - `updateOneField(String[] words, int internshipIndex)`: Called within `execute(args)` to invoke the appropriate method to remove the value from the field.
-- `getUsage()`: Returns a string showing the correct usage of the `remove` command.
+- `getUsage()`: Returns a `String` showing the correct usage of the `remove` command.
 
 #### Example Usage Scenario:
 - The user enters `remove 2 -skills Python`, the `execute` method finds the internship with ID `2` and removes `Python` from its list of `skills`.
@@ -334,6 +334,31 @@ The `RemoveCommand` class is responsible for removing the values within fields o
 #### Sequence Diagram
 The following sequence diagram shows how the `RemoveCommand` is executed:
 ![](UML/RemoveCommand_Sequence_Diagram.png)
+
+
+### CalendarCommand Implementation
+
+#### Overview
+
+The `CalendarCommand` class is responsible for sorting and displaying all deadlines in chronological order. It extends the `Command` class, providing a calendar functionality in the execution framework.
+
+#### Design
+- The `CalendarCommand` class does not process any input data and will execute the same method when called.
+
+#### Key Methods
+- `execute(ArrayList<String> args)`: Handles invoking methods to compile deadline data and display the data.
+- `getDeadlines()`: Returns all the deadlines of all `Internship` entries, compiled into a single `ArrayList`.
+- `sortDeadlines(ArrayList<Deadline> deadlines)`: Returns the deadlines sorted in ascending order chronologically.
+- `getCompanies(ArrayList<Deadline> sortedDeadlins)`: Returns an `ArrayList` of the companies associated to each deadline after sorting. It is meant to ensure the methods called in `UiCommand` do not have to reference `InternshipList` to find the appropriate data.
+- `getUsage()`: Returns a `String` showing the correct usage of the `Calendar` command.
+
+#### Example Usage Scenario:
+- The user enters `calendar`, the `execute` method will sort the deadlines and display them to the user.
+
+#### Sequence Diagram
+
+The following sequence diagram shows how the `CalendarCommand` is executed:
+![](UML/CalendarCommand_Sequence_Diagram.png)
 
 ## Product Scope
 ### Target User Profile
