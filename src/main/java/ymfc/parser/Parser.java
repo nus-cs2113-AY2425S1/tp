@@ -375,7 +375,7 @@ public final class Parser {
                         + "(\\s+(?<cuisine>[cC]/[^/]*))?"
                         // Match optional time taken: t/ or T/ followed by digits
                         // Accepts empty field after t/ T/ to indicate no time
-                        + "(\\s+(?<time>[tT]/\\s*[0-9]*))?");
+                        + "(\\s+(?<time>[tT]/[^/]*))?");
 
         String input = args.trim();
         Matcher m = editCommandFormat.matcher(input);
