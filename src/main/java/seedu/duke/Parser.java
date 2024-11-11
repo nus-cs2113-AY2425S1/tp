@@ -9,6 +9,8 @@ import seedu.commands.FilterCommand;
 import seedu.commands.ListCommand;
 import seedu.commands.HelpCommand;
 import seedu.commands.RemoveCommand;
+import seedu.commands.FavouriteCommand;
+import seedu.commands.CalendarCommand;
 
 import seedu.ui.Ui;
 
@@ -17,9 +19,13 @@ import java.util.HashMap;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Parser {
     private static final Ui ui = new Ui();
+    private static final Logger logger = Logger.getLogger("EasInternship");
+
     private final Map<String, Supplier<Command>> commands = new HashMap<>();
 
     public Parser() {
@@ -37,6 +43,8 @@ public class Parser {
         commands.put("list", ListCommand::new);
         commands.put("help", HelpCommand::new);
         commands.put("remove", RemoveCommand::new);
+        commands.put("favourite", FavouriteCommand::new);
+        commands.put("calendar", CalendarCommand::new);
     }
 
     public Command parseCommand(String input) {
@@ -52,15 +60,17 @@ public class Parser {
 
         if (!commands.containsKey(inputCommand)) {
             ui.showUnknownCommand(inputCommand);
+            logger.log(Level.WARNING, "Invalid Command: " + inputCommand);
             return null;
         }
 
         Supplier<Command> commandSupplier = commands.get(inputCommand);
+        logger.log(Level.INFO, "Command Parsed: " + inputCommand);
         return commandSupplier.get();
     }
 
     public ArrayList<String> parseData(Command command, String input) {
-        if (command instanceof ListCommand || command instanceof HelpCommand) {
+        if (command instanceof ListCommand || command instanceof HelpCommand || command instanceof CalendarCommand) {
             return new ArrayList<>();
         }
 
@@ -69,6 +79,7 @@ public class Parser {
         if (inputArgs.length < 2) {
             if (!(command instanceof SortCommand)) {
                 ui.showOutput("Please input some ID or flag following the command");
+                logger.log(Level.WARNING, "Invalid Command: " + input);
                 return null;
             }
             return new ArrayList<>();
@@ -91,7 +102,9 @@ public class Parser {
         if (command instanceof FilterCommand) {
             return parseFilterCommandData(inputData);
         }
-
+        if (command instanceof FavouriteCommand) {
+            return parseFavouriteCommandData(inputData);
+        }
         assert false : "Should never be able to reach this statement if all commands are accounted for";
         return null;
     }
@@ -124,9 +137,6 @@ public class Parser {
         String id = splitArray[0].trim();
         try {
             String fields = splitArray[1].trim();
-            if (fields.isBlank()) {
-                throw new ArrayIndexOutOfBoundsException();
-            }
 
             ArrayList<String> commandArgs = parseFlagData(fields);
             if (commandArgs == null) {
@@ -138,9 +148,6 @@ public class Parser {
         } catch (ArrayIndexOutOfBoundsException e) {
             ui.showEmptyFlags();
             return null;
-        } catch (NumberFormatException e) {
-            ui.showOutput("Please input some ID for the command");
-            return null;
         }
     }
 
@@ -150,6 +157,15 @@ public class Parser {
 
     private ArrayList<String> parseFilterCommandData(String inputData) {
         return parseFlagData(inputData);
+    }
+
+    private ArrayList<String> parseFavouriteCommandData(String inputData) {
+        if (inputData.trim().isEmpty()) {
+            return null;
+        }
+        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(inputData.trim().split(",")));
+        commandArgs.replaceAll(String::trim);
+        return commandArgs;
     }
 
 }

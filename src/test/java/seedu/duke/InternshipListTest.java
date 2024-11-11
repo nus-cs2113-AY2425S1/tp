@@ -33,15 +33,6 @@ class InternshipListTest {
 
     //@@author Ridiculouswifi
     @Test
-    void updateField_outOfBoundsIndex_expectThrow() {
-        initialiseInternshipList();
-
-        assertThrows(InvalidIndex.class,
-                () -> internshipList.updateField(1, "status", "Application Completed"));
-    }
-
-    //@@author Ridiculouswifi
-    @Test
     void updateField_invalidStartDate_expectThrow() {
         initialiseInternshipList();
 
@@ -90,10 +81,13 @@ class InternshipListTest {
 
     //@@author Ridiculouswifi
     @Test
-    void removeField_outOfBoundsIndex_expectThrow() {
+    void removeField_validDeadline_expectUpdated() throws InvalidIndex, InvalidStatus, MissingValue, InvalidDeadline {
         initialiseInternshipList();
+        internshipList.updateField(0, "deadline", "Interview Deadline 11/11/25");
 
-        assertThrows(InvalidIndex.class,
-                () -> internshipList.removeField(1, "skills", "Java"));
+        internshipList.removeField(0, "deadline", "    Interview Deadline   ");
+
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> internshipList.getInternship(0).getDeadlines().get(0));
     }
 }

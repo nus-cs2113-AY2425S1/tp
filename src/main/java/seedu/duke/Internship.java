@@ -27,6 +27,7 @@ public class Internship {
     private String company;
     private YearMonth startDate;
     private YearMonth endDate;
+    private String favourite = "false";
     private String status;
 
     private ArrayList<Deadline> deadlines;
@@ -63,6 +64,8 @@ public class Internship {
      * @param userStatus user-inputted status.
      */
     public void updateStatus(String userStatus) throws InvalidStatus {
+        assert !userStatus.isEmpty() : "Status cannot be empty";
+
         List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
         for (String status : statuses) {
             if (status.equalsIgnoreCase(userStatus)) {
@@ -95,6 +98,7 @@ public class Internship {
     }
 
     public void setRole(String role) {
+        assert role != null;
         this.role = role;
     }
 
@@ -103,6 +107,7 @@ public class Internship {
     }
 
     public void setCompany(String company) {
+        assert company != null;
         this.company = company;
     }
     public String getStartDate() {
@@ -110,6 +115,7 @@ public class Internship {
     }
 
     public void setStartDate(String start) throws DateTimeParseException {
+        assert start != null;
         this.startDate = YearMonth.parse(start, FORMATTER_MONTH_YEAR);
     }
 
@@ -118,7 +124,16 @@ public class Internship {
     }
 
     public void setEndDate(String end) throws DateTimeParseException {
+        assert end != null;
         this.endDate = YearMonth.parse(end, FORMATTER_MONTH_YEAR);
+    }
+
+    public String getFavourite() {
+        return favourite;
+    }
+
+    public void setFavourite(String favourite) {
+        this.favourite = favourite;
     }
 
 
@@ -129,22 +144,30 @@ public class Internship {
      * @param date        deadline date in MM/yy format.
      */
     public void addDeadline(String description, String date) throws DateTimeParseException{
+        assert description != null && !description.isEmpty() : "Deadline cannot be null or empty";
+
         deadlines.add(new Deadline(getId(), description, date));
     }
 
+    //@@ jadenlimjc
     /**
      * Removes a deadline by its description.
      *
-     * @param description description of the deadline to remove.
+     * @param description   description of the deadline to remove.
+     * @throws MissingValue No deadline in the list of deadlines is
      */
-    public void removeDeadline(String description){
-        deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(description));
+    public void removeDeadline(String description) throws MissingValue {
+        String trimmedDescription = description.trim();
+        if(!deadlines.removeIf(deadline -> deadline.getDescription().equalsIgnoreCase(trimmedDescription))) {
+            throw new MissingValue();
+        }
     }
 
     /**
      * Clears all deadlines when the internship is deleted.
      */
     public void clearDeadlines() {
+
         deadlines.clear();
     }
 
@@ -160,13 +183,11 @@ public class Internship {
         String[] words = value.split(" ");
         String description = "";
         String date = "";
-        boolean hasFoundDate = false;
 
         for (String word : words) {
             String trimmedWord = word.trim();
             if (isValidDate(trimmedWord)) {
                 date = trimmedWord;
-                hasFoundDate = true;
             } else {
                 description += trimmedWord + " ";
             }
@@ -232,7 +253,6 @@ public class Internship {
     /**
      * Returns all skills stored in <code>skills</code> field as a combined String.
      */
-
     public String getSkills() {
         String skillList = "";
         if (this.skills.isEmpty()) {

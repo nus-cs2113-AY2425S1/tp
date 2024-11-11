@@ -1,8 +1,11 @@
 package seedu.ui;
 
 import seedu.commands.Command;
+import seedu.duke.Deadline;
 import seedu.duke.Internship;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 //@@author Ridiculouswifi
@@ -10,6 +13,8 @@ import java.util.ArrayList;
  * Subclass of <code>Ui</code> to print outputs from <code>Command</code> subclasses
  */
 public class UiCommand extends Ui {
+    private static final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
+
     private String invalidFlags;
     private String updatedFields;
     private String invalidFields;
@@ -151,45 +156,6 @@ public class UiCommand extends Ui {
         showOutput("Insufficient arguments! Please include a flag to filter by.");
     }
 
-    //@@author Toby-Yu
-    /**
-     * Prints message indicating how internships are sorted.
-     *
-     * @param field Criteria that internships are sorted by.
-     */
-    public void showSortedInternships(String field) {
-        printHeadDivider();
-        switch (field) {
-        case "none":
-            System.out.println("No sorting option provided. Listing internships by ID.");
-            break;
-        case "alphabet":
-            System.out.println("Sorted internships by role alphabetically (case-insensitive).");
-            break;
-        case "duration":
-            System.out.println("Sorted internships by start date (year first), then end date.");
-            break;
-        case "deadline":
-            System.out.println("Sorted internships by deadline.");
-            break;
-        default:
-            // Handling invalid sorting options
-            System.out.println("Error: Unknown or invalid sorting option: \"" + field + "\".");
-            System.out.println(getSortUsageMessage());
-            break;
-        }
-        printTailDivider();
-    }
-
-    /**
-     * Prints the correct usage message for the sort command.
-     */
-    public String getSortUsageMessage() {
-        return "Usage: sort [alphabet | deadline]\n" +
-                "alphabet: Sort internships alphabetically by role (case-insensitive).\n" +
-                "deadline: Sort internships by start date (year first), then end date.";
-    }
-
     //@@author Ridiculouswifi
     public void showCommands(ArrayList<Command> commands) {
         printHeadDivider();
@@ -200,6 +166,48 @@ public class UiCommand extends Ui {
         System.out.println("""
                 exit
                 Usage: exit""");
+        printTailDivider();
+    }
+
+    //@@author Ridiculouswifi
+    /**
+     * Prints out the deadlines in order of date.
+     * @param deadlines     Sorted list of deadlines.
+     */
+    public void showCalendar(ArrayList<Deadline> deadlines) {
+        printHeadDivider();
+        LocalDate present = LocalDate.now();
+        String pointerToNow = "--> Today";
+        boolean isPresentPrinted = false;
+
+        LocalDate currentDate = LocalDate.parse("01/01/00", FORMATTER_DATE);
+        if (deadlines.isEmpty()) {
+            System.out.println("No deadlines listed");
+            printTailDivider();
+            return;
+        }
+
+        System.out.println("Deadlines:");
+
+        for (Deadline deadline : deadlines) {
+            LocalDate date = deadline.getUnformattedDate();
+            if (!isPresentPrinted && date.isAfter(present)) {
+                isPresentPrinted = true;
+                System.out.println();
+                System.out.println(present.format(FORMATTER_DATE) + " " + pointerToNow);
+            }
+            String pointer = "";
+            if (!isPresentPrinted && date.isEqual(present)) {
+                isPresentPrinted = true;
+                pointer = pointerToNow;
+            }
+            if (!date.isEqual(currentDate)) {
+                currentDate = date;
+                System.out.println();
+                System.out.println(date.format(FORMATTER_DATE) + " " + pointer);
+            }
+            System.out.println("\t" + deadline.getInternshipId() + ": " + deadline.getDescription());
+        }
         printTailDivider();
     }
 

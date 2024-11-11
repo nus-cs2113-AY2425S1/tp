@@ -43,6 +43,10 @@ public class Deadline {
         return date.format(DATE_FORMATTER);
     }
 
+    public LocalDate getUnformattedDate() {
+        return this.date;
+    }
+
     @Override
     public String toString() {
         return description + ": " + getDate();

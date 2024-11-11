@@ -6,6 +6,7 @@ import seedu.exceptions.InvalidStatus;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 //@@author Ridiculouswifi
 /**
@@ -15,10 +16,12 @@ public class UpdateCommand extends Command {
     @Override
     public void execute(ArrayList<String> args) {
         try {
+            assert !args.get(0).startsWith("update") : "Parser should have removed the command";
+
             int internshipId = Integer.parseInt(args.get(0));
             int internshipIndex = internshipId - 1;
             if (!internships.isWithinBounds(internshipIndex)) {
-                throw new InvalidIndex();
+                throw new InvalidIndex(internshipIndex);
             }
             args.remove(0);
 
@@ -27,31 +30,18 @@ public class UpdateCommand extends Command {
             uiCommand.clearUpdatedFields();
             uiCommand.clearInvalidFields();
 
-            /*
-            if (args.get(0).startsWith("deadline")) {
-                String trimmedDescription = args.get(0).substring(args.get(0).indexOf(" ") + 1).trim();
-                String trimmedDate = args.size() > 1 ? args.get(1).substring(args.get(1).indexOf(" ") + 1) : "";
-                if (isValidDeadline(trimmedDescription,trimmedDate)) {
-                    updateDeadline(internshipIndex, trimmedDescription,trimmedDate);
-                }
-
-            } else {
-                for (String arg : args) {
-                    String[] words = arg.split(" ", 2);
-                    updateOneField(words, internshipIndex);
-                }
-            }
-            */
             for (String arg : args) {
                 String[] words = arg.split(" ", 2);
                 updateOneField(words, internshipIndex);
             }
 
             uiCommand.showEditedInternship(internships.getInternship(internshipIndex), "update");
+
+            logger.log(Level.INFO, "UpdateCommand Executed");
         } catch (NumberFormatException e) {
             uiCommand.showOutput("Invalid integer, please provide a valid internship ID");
-        } catch (InvalidIndex e) {
-            // Exception message is already handled in InternshipList class
+        } catch (InvalidIndex ie) {
+            uiCommand.showOutput(ie.getMessage());
         }
     }
 
@@ -68,7 +58,7 @@ public class UpdateCommand extends Command {
         }
     }
 
-    protected void updateOneField(String[] words, int internshipIndex) throws InvalidIndex {
+    protected void updateOneField(String[] words, int internshipIndex) {
         String field = words[INDEX_FIELD];
         try {
             switch (field) {
@@ -105,48 +95,6 @@ public class UpdateCommand extends Command {
             uiCommand.addInvalidField(field, message);
         }
     }
-    //@@author jadenlimjc
-    /*
-    private boolean isValidDeadline(String description, String date) throws DateTimeParseException {
-        if (description.isEmpty()) {
-            uiCommand.addInvalidFlag("deadline");
-            return false;
-        }
-        if (date.isEmpty()) {
-            uiCommand.addInvalidFlag("date");
-            return false;
-        }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
-            formatter.parse(date);
-        } catch (DateTimeParseException e) {
-            uiCommand.addInvalidField("date", "Invalid date format. use dd/MM/yy");
-            return false;
-        }
-        return true;
-    }
-
-    private void updateDeadline(int internshipIndex, String description, String date) throws InvalidIndex {
-        Internship internship = internships.getInternship(internshipIndex);
-
-        boolean deadlineFound = false;
-
-        for (Deadline deadline : internship.getDeadlines()) {
-            if (deadline.getDescription().equalsIgnoreCase(description)) {
-                deadline.setDate(date);
-                deadlineFound = true;
-                //uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate());
-                uiCommand.addUpdatedField(deadline.getDescription(), deadline.getDate(), "update");
-                break;
-            }
-        }
-
-        if (!deadlineFound) {
-            internship.addDeadline(description, date);
-            uiCommand.addCreatedField("Deadline", description);
-        }
-    }
-     */
 
     public String getUsage() {
         return """
