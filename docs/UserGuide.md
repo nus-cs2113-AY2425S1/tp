@@ -100,17 +100,17 @@ For example, filter cs2040
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out the **full name** of each school users could possibly go for their SEP.
+List out the name of each school users could possibly go for their SEP.
 
 Format: `list schools`
 
 Expected Output:
 ```
 -----------------------------------------------------
-The University of Melbourne
-The Australian National University
-Victoria University of Wellington
-The University of Western Australia
+The University of Melbourne (unimelb)
+The Australian National University (anu)
+Victoria University of Wellington (wgtn)
+The University of Western Australia (uwa)
 -----------------------------------------------------
 ```
 

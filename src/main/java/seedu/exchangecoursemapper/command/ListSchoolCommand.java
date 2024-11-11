@@ -5,6 +5,8 @@ import seedu.exchangecoursemapper.ui.UI;
 
 import javax.json.JsonObject;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +21,13 @@ import static seedu.exchangecoursemapper.constants.Logs.SUCCESS_READ_JSON_FILE;
 import static seedu.exchangecoursemapper.constants.Logs.JSON_FILE_CONTAINS_DATA;
 import static seedu.exchangecoursemapper.constants.Logs.POSSIBLE_NULL_JSON_KEY;
 import static seedu.exchangecoursemapper.constants.Logs.LIST_SCHOOLS_NAMES;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION;
+import static seedu.exchangecoursemapper.constants.Logs.THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION;
 import static seedu.exchangecoursemapper.constants.Messages.LINE_SEPARATOR;
+import static seedu.exchangecoursemapper.constants.Regex.OPEN_BRACKET;
+import static seedu.exchangecoursemapper.constants.Regex.CLOSE_BRACKET;
 
 public class ListSchoolCommand extends CheckInformationCommand {
     private static final Logger logger = Logger.getLogger(ListSchoolCommand.class.getName());
@@ -88,16 +96,25 @@ public class ListSchoolCommand extends CheckInformationCommand {
     public static void displaySchoolList(JsonObject jsonObject) {
         Set<String> universityNames = jsonObject.keySet();
 
-        System.out.println(LINE_SEPARATOR);
+        String[] shortHand =
+                        {THE_UNIVERSITY_OF_MELBOURNE_ABBREVIATION,
+                        THE_AUSTRALIAN_NATIONAL_UNIVERSITY_ABBREVIATION,
+                        VICTORIA_UNIVERSITY_OF_WELLINGTON_ABBREVIATION,
+                        THE_UNIVERSITY_OF_WESTERN_AUSTRALIA_ABBREVIATION};
 
+        int index = 0;
+
+        System.out.println(LINE_SEPARATOR);
         for (String universityName : universityNames) {
             if (universityName.isEmpty()) {
                 logger.log(Level.WARNING, POSSIBLE_NULL_JSON_KEY);
                 System.out.println(POSSIBLE_NULL_JSON_KEY);
             } else {
                 logger.log(Level.INFO, LIST_SCHOOLS_NAMES);
-                ui.printUniversityList(universityName);
+                ui.printUniversityList
+                        (universityName + OPEN_BRACKET +  shortHand[index] + CLOSE_BRACKET);
             }
+            index++;
         }
         System.out.println(LINE_SEPARATOR);
     }
