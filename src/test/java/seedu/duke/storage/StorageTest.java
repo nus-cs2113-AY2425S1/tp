@@ -263,7 +263,7 @@ public class StorageTest {
         storage.printLoadingResult();
         String output = outputStream.toString();
         String expection = "No transactions loaded from file." + System.lineSeparator() +
-                            "Budget format in file is invalid, the budget won't be set." + System.lineSeparator();
+                            "No budget loaded from file." + System.lineSeparator();
         assertEquals(expection, output);
     }
 
