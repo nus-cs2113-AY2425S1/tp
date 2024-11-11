@@ -5,7 +5,6 @@ participant Parser
 participant ExpenseManager
 participant TrackerData
 participant SuccessMessage
-participant Category
 
 User -> SpendSwift : input("view-expenses")
 SpendSwift -> Parser : parseCommand(input, trackerData)
@@ -15,23 +14,41 @@ Parser -> ExpenseManager : viewExpensesByCategory(trackerData)
 
 activate ExpenseManager
 ExpenseManager -> TrackerData : getExpenses()
-TrackerData --> ExpenseManager : Return list of expenses
-
+activate TrackerData
+TrackerData --> ExpenseManager : return expenses: List<Expense>
+deactivate TrackerData
 ExpenseManager -> TrackerData : getCategories()
-TrackerData --> ExpenseManager : Return list of categories
+activate TrackerData
+TrackerData --> ExpenseManager : return categories: List<Category>
+deactivate TrackerData
 
-alt No Expenses or Categories
+alt No Expenses and Categories
     ExpenseManager -> SuccessMessage : printNoExpense()
-else Expenses exist
+    activate SuccessMessage
+    SuccessMessage --> ExpenseManager : return
+    deactivate SuccessMessage
+else Expenses or Categories exist
     ExpenseManager -> SuccessMessage : printExpensesByCategory(expenses, categories)
 
     activate SuccessMessage
     SuccessMessage -> SuccessMessage : Group expenses by category
+    activate SuccessMessage
+        SuccessMessage --> SuccessMessage : return
+        deactivate SuccessMessage
     SuccessMessage -> SuccessMessage : Iterate through categories
+    activate SuccessMessage
+        SuccessMessage --> SuccessMessage : return
+        deactivate SuccessMessage
     alt Category has expenses
         SuccessMessage -> SuccessMessage : Print expenses for category
+        activate SuccessMessage
+        SuccessMessage --> SuccessMessage : return
+        deactivate SuccessMessage
     else Category has no expenses
         SuccessMessage -> SuccessMessage : Print "No expense" for category
+        activate SuccessMessage
+        SuccessMessage --> SuccessMessage : return
+        deactivate SuccessMessage
     end
     deactivate SuccessMessage
 end

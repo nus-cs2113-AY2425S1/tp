@@ -8,6 +8,7 @@ participant Category
 participant Expense
 participant Budget
 participant TrackerData
+participant SuccessMessage
 
 User -> SpendSwift : input("view-budget")
 SpendSwift -> Parser : parseCommand(input, trackerData)
@@ -16,13 +17,25 @@ activate Parser
 Parser -> BudgetManager : viewBudget(trackerData)
 activate BudgetManager
 
-alt No Budgets Set
-    BudgetManager -> User : Print "No budgets set for any category."
-else Budgets Exist
-    BudgetManager -> TrackerData : getExpenses()
-    TrackerData --> BudgetManager : Return list of expenses
+opt No Budgets Set
+    BudgetManager -> SuccessMessage : printNoBudgetForAll()
+    activate SuccessMessage
+    SuccessMessage --> BudgetManager : return
+    deactivate SuccessMessage
+    BudgetManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
+end
 
-    BudgetManager -> BudgetManager : Initialize totalExpensesToCategory map
+    BudgetManager -> TrackerData : Initialize totalExpensesToCategory map
+    activate TrackerData
+    TrackerData --> BudgetManager : return budgets Map<Category, Budget>
+    deactivate TrackerData
+
+    BudgetManager -> TrackerData : getExpenses()
+    activate TrackerData
+    TrackerData --> BudgetManager : return expenses: List<Expense>
+    deactivate TrackerData
 
     loop Calculate Total Expenses Per Category
         BudgetManager -> Expense : Get category and amount for each expense
@@ -31,6 +44,9 @@ else Budgets Exist
         deactivate Expense
 
         BudgetManager -> BudgetManager : Update total expense in totalExpensesToCategory map
+        activate BudgetManager
+            BudgetManager --> BudgetManager : return
+        deactivate BudgetManager
     end
 
     loop Calculate Remaining Budget for Each Category
@@ -40,11 +56,20 @@ else Budgets Exist
         deactivate Budget
 
         BudgetManager -> BudgetManager : Calculate remaining budget (limit - totalExpense)
+        activate BudgetManager
+        BudgetManager --> BudgetManager : return
+        deactivate BudgetManager
 
         alt Remaining Budget >= 0
-            BudgetManager -> User : Print "<Category>: <totalExpense> spent, <remainingBudget> remaining"
+            BudgetManager -> SuccessMessage : printWithinBudget(category, totalExpense, remainingBudget)
+            activate SuccessMessage
+            SuccessMessage --> BudgetManager : return
+            deactivate SuccessMessage
         else Over Budget
-            BudgetManager -> User : Print "<Category>: <totalExpense> spent, Over budget by <overBudgetAmount>"
+            BudgetManager -> SuccessMessage : printOverBudget(category, totalExpense, positive)
+            activate SuccessMessage
+            SuccessMessage --> BudgetManager : return
+            deactivate SuccessMessage
         end
     end
 
@@ -54,10 +79,15 @@ else Budgets Exist
         Category --> BudgetManager : Return category name if no budget set
         deactivate Category
 
-        BudgetManager -> User : Print "<Category>: No budget set"
+        BudgetManager -> SuccessMessage : printNoBudget(category)
+        activate SuccessMessage
+        SuccessMessage --> BudgetManager : return
+        deactivate SuccessMessage
     end
-end
+BudgetManager --> Parser
 deactivate BudgetManager
+Parser --> SpendSwift
 deactivate Parser
-
+SpendSwift --> User
+deactivate SpendSwift
 @enduml
