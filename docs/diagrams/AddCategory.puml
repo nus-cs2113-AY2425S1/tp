@@ -1,31 +1,42 @@
 @startuml
+
 actor User
-participant Duke
-participant ExpenseTracker
+participant SpendSwift
+participant Parser
+participant CategoryManager
 participant Category
+participant TrackerData
 
-User -> Duke: input ("add-category <categoryName>")
-Duke -> ExpenseTracker: addCategory(input)
+User -> SpendSwift : input("add-category <categoryName>")
+SpendSwift -> Parser : parseCommand(input, trackerData)
 
-activate ExpenseTracker
-ExpenseTracker -> ExpenseTracker: trim and format input\ncategoryName = formatInput(trimmedCategoryName)
+activate Parser
+Parser -> CategoryManager : addCategory(input, trackerData)
 
-ExpenseTracker -> ExpenseTracker: check if categoryName is empty
+activate CategoryManager
+CategoryManager -> CategoryManager : parseCategory(input)
+CategoryManager -> CategoryManager : trim and format input
+CategoryManager -> CategoryManager : check if categoryName is empty
+
 alt categoryName is empty
-    ExpenseTracker -> User: print "Category name is empty!"
+    CategoryManager -> Parser : "Category name is empty!"
 else categoryName is not empty
-    ExpenseTracker -> ExpenseTracker: iterate over categories\nand compare formattedCategoryName
+    CategoryManager -> TrackerData : getCategories()
+    CategoryManager -> CategoryManager : check if categoryName exists in categories
 
     alt category already exists
-        ExpenseTracker -> User: print "Category '<categoryName>' already exists!"
+        CategoryManager -> Parser : "Category '<categoryName>' already exists!"
     else category does not exist
-        ExpenseTracker -> Category: new Category(formattedCategoryName)
+        CategoryManager -> Category : new Category(formattedCategoryName)
         activate Category
-        Category -> ExpenseTracker: return new Category instance
+        Category --> CategoryManager : return new Category instance
         deactivate Category
 
-        ExpenseTracker -> ExpenseTracker: add new Category to categories list
-        ExpenseTracker -> User: print "Category '<categoryName>' added successfully."
+        CategoryManager -> TrackerData : Add new Category to categories
+        CategoryManager -> Parser : "Category '<categoryName>' added successfully."
     end
 end
+
+deactivate CategoryManager
+deactivate Parser
 @enduml

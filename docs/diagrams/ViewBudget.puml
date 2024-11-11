@@ -1,57 +1,63 @@
 @startuml
 
 actor User
-participant Duke
-participant ExpenseTracker
+participant SpendSwift
+participant Parser
+participant BudgetManager
 participant Category
 participant Expense
 participant Budget
+participant TrackerData
 
-User -> Duke : input("view-budget")
-activate Duke
+User -> SpendSwift : input("view-budget")
+SpendSwift -> Parser : parseCommand(input, trackerData)
 
-Duke -> ExpenseTracker : viewBudget()
-activate ExpenseTracker
+activate Parser
+Parser -> BudgetManager : viewBudget(trackerData)
+activate BudgetManager
 
 alt No Budgets Set
-    ExpenseTracker -> User : Print "No budgets set for any category."
+    BudgetManager -> User : Print "No budgets set for any category."
 else Budgets Exist
-    ExpenseTracker -> ExpenseTracker : Initialize totalExpensesToCategory Map
+    BudgetManager -> TrackerData : getExpenses()
+    TrackerData --> BudgetManager : Return list of expenses
+
+    BudgetManager -> BudgetManager : Initialize totalExpensesToCategory map
 
     loop Calculate Total Expenses Per Category
-        ExpenseTracker -> Expense : Get category and amount for each expense
+        BudgetManager -> Expense : Get category and amount for each expense
         activate Expense
-        Expense --> ExpenseTracker : Return category and amount
+        Expense --> BudgetManager : Return category and amount
         deactivate Expense
 
-        ExpenseTracker -> ExpenseTracker : Update total expense in totalExpensesToCategory map
+        BudgetManager -> BudgetManager : Update total expense in totalExpensesToCategory map
     end
 
     loop Calculate Remaining Budget for Each Category
-        ExpenseTracker -> Budget : Get budget for each category with a set budget
+        BudgetManager -> Budget : Get budget for each category with a set budget
         activate Budget
-        Budget --> ExpenseTracker : Return budget limit
+        Budget --> BudgetManager : Return budget limit
         deactivate Budget
 
-        ExpenseTracker -> ExpenseTracker : Calculate remaining budget (limit - totalExpense)
+        BudgetManager -> BudgetManager : Calculate remaining budget (limit - totalExpense)
 
         alt Remaining Budget >= 0
-            ExpenseTracker -> User : Print "<Category>: <totalExpense> spent, <remainingBudget> remaining"
+            BudgetManager -> User : Print "<Category>: <totalExpense> spent, <remainingBudget> remaining"
         else Over Budget
-            ExpenseTracker -> User : Print "<Category>: <totalExpense> spent, Over budget by <overBudgetAmount>"
+            BudgetManager -> User : Print "<Category>: <totalExpense> spent, Over budget by <overBudgetAmount>"
         end
     end
 
     loop Check Categories Without Budgets
-        ExpenseTracker -> Category : Check if each category in totalExpensesToCategory has a budget
+        BudgetManager -> Category : Check if each category in totalExpensesToCategory has a budget
         activate Category
-        Category --> ExpenseTracker : Return category name if no budget set
+        Category --> BudgetManager : Return category name if no budget set
         deactivate Category
 
-        ExpenseTracker -> User : Print "<Category>: No budget set"
+        BudgetManager -> User : Print "<Category>: No budget set"
     end
 end
-deactivate ExpenseTracker
-deactivate Duke
+deactivate BudgetManager
+deactivate Parser
 
 @enduml

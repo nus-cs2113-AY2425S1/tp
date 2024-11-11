@@ -32,11 +32,13 @@ public class TrackerData {
 
     // Setters
     public void setCategories(List<Category> categories) {
+        assert categories != null : "Categories list should not be null";
         this.categories = categories;
     }
 
     public void setExpenses(List<Expense> expenses) {
         this.expenses = expenses;
+        assert expenses != null : "Expenses list should not be null";
     }
 
     public void setBudgets(Map<Category, Budget> budgets) {
