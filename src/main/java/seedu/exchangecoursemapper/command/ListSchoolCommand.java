@@ -35,7 +35,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
 
     /**
      * Executes the command to list schools by fetching them from the JSON file.
-     * Adds additional logging for debugging and error handling.
+     *
      *
      * @param userInput A string containing the user's input.
      */
@@ -91,7 +91,7 @@ public class ListSchoolCommand extends CheckInformationCommand {
         System.out.println(LINE_SEPARATOR);
 
         for (String universityName : universityNames) {
-            if (universityName == null || universityName.isEmpty()) {
+            if (universityName.isEmpty()) {
                 logger.log(Level.WARNING, POSSIBLE_NULL_JSON_KEY);
                 System.out.println(POSSIBLE_NULL_JSON_KEY);
             } else {

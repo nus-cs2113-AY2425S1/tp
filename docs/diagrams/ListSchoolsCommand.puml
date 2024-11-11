@@ -31,7 +31,7 @@ deactivate ListSchoolCommand
 ListSchoolCommand -> ListSchoolCommand: displaySchoolList (jsonObject:JsonObject)
 activate ListSchoolCommand
 
-alt no valid names or null names
+alt no university name
     ListSchoolCommand --> CEG_Student: Displays exception message
 else else
     loop for each PU Name in PU Names

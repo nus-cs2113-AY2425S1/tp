@@ -596,11 +596,11 @@ to check and plan course mappings for that specified course.
 
 | Version | As a ...    | I want to ...                                           | So that I can ...                                              |
 |---------|-------------|---------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in those regions                   |
+| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in that region                     |
 | v1.0    | CEG student | search for NUS courses to map                           | search for related courses in PUs                              |
 | v1.0    | CEG student | key in the school I want to go for exchange             | view the available course offered by the school                |
 | v1.0    | CEG student | want to see a list of commands                          | know what to do to go to access the features                   |
-| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any queries                        |
+| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any non-urgent queries             |
 | v2.0    | CEG student | obtain the contact number of the partner universities   | call the number should I have any urgent queries               |
 | v2.0    | CEG student | add a course mapping plan for a PU                      | keep track of my courses for a specific PU                     |
 | v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |

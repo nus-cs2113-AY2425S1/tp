@@ -72,7 +72,7 @@ public class ListSchoolCommandTest {
     @Test
     public void testDisplaySchoolListWithEmptyKey() {
         JsonObject jsonObject = Json.createObjectBuilder()
-                .add("", "Some University") // Empty key
+                .add("", "Fake Data") // Empty key
                 .build();
 
         ListSchoolCommand.displaySchoolList(jsonObject);
