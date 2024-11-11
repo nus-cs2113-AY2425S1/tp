@@ -42,6 +42,7 @@ img
       - [Use Case: Add Income](#use-case-add-income)
       - [Use Case: Set a Budget](#use-case-set-a-budget)
       - [Use Case: Delete Multiple Transactions](#use-case-delete-multiple-transactions)
+      - [Use Case: View Transactions within a Specific Date Range](#use-case-view-transactions-within-a-specific-date-range)
   - [Non-Functional Requirements](#non-functional-requirements)
   - [Glossary](#glossary)
   - [Instructions for manual testing](#instructions-for-manual-testing)
@@ -1068,6 +1069,30 @@ faster than a typical mouse/GUI driven app
 - 1c. User types `delete all`.
     - 1c1. FinanceBuddy delete all entries.
     - **Use case ends.**
+
+#### Use Case: View Transactions within a Specific Date Range
+
+**MSS**
+
+1. User requests to view a list of transactions within a specific date range by specifying a start date and an end date.
+2. FinanceBuddy displays the list of transactions that fall within the specified date range, including each transaction’s details.
+3. FinanceBuddy additionally displays summary information, such as the category with the highest income and expenditure, the current monthly budget, and balance.
+
+**Use case ends.**
+
+**Extensions**
+
+- 1a. User omits either the start date or end date.
+    - 1a1. FinanceBuddy lists transactions up to the specified end date (if only start date is omitted) or from the specified start date onward (if only end date is omitted).
+    - **Use case resumes at step 2.**
+
+- 1b. User provides an invalid date format.
+    - 1b1. FinanceBuddy displays an error message indicating the invalid date format and prompts the user to re-enter a valid date.
+    - **Use case resumes at step 1.**
+
+- 2a. No transactions are found within the specified date range.
+    - 2a1. FinanceBuddy displays a message indicating that no transactions were found in the specified range.
+    - **Use case ends.** 
 
 ## Non-Functional Requirements
 
