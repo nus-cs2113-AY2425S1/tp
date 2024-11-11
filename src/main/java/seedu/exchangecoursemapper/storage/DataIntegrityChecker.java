@@ -68,7 +68,8 @@ public class DataIntegrityChecker extends Command {
         List<String> removedDuplicates = new ArrayList<>();
 
         for (Course course : courses) {
-            String courseEntry = course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | " + course.getPuCourseCode();
+            String courseEntry = course.getNusCourseCode() + " | " + course.getPartnerUniversity() + " | "
+                    + course.getPuCourseCode();
             if (uniqueCourses.add(courseEntry)) {
                 nonDuplicateCourses.add(course);
             } else {
