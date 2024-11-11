@@ -45,6 +45,7 @@ img
   - [Instructions for manual testing](#instructions-for-manual-testing)
     - [Manual Testing](#manual-testing)
     - [JUnit Testing](#junit-testing)
+  - [Future Enhancements](#future-enhancements)
 
 ## Acknowledgements
 
