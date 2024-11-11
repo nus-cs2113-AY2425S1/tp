@@ -33,7 +33,7 @@ JavaNinja uses the following tools for development:
 3. `QuizManager` - Manages quiz-related functions such as selecting quizzes, executing quiz sessions, and saving quiz results.
 
 Here is the class diagram highlighting the structure of the `JavaNinja` class:
-![JavaNinja](https://github.com/user-attachments/assets/2cfd1337-2e2e-4a64-8fd0-60aaaf04fb14)
+![JavaNinjaClassDiagram](https://github.com/user-attachments/assets/ffd64b2d-4324-4bd3-8e67-ee007169c737)
 
 #### How `JavaNinja` works:
 1. **Application Initialization**:
@@ -52,7 +52,7 @@ Here is the class diagram highlighting the structure of the `JavaNinja` class:
 The `JavaNinja` class acts as a controller that organizes interactions between `Cli`, `Parser`, and `QuizManager`, ensuring a modular and maintainable structure where each component has distinct responsibilities.
 
 Here is a simple sequence diagram that describes how the components interact with each other:
-![image](https://github.com/user-attachments/assets/3a70c3ef-2627-462b-a102-9b2ddca4bb3d)
+![JavaNinjaSequenceDiagram](https://github.com/user-attachments/assets/54ca9d63-c5eb-45ec-872c-a6ccb830ef26)
 
 ### `Cli` class: 
 The `Cli` class is responsible for managing user interactions in the command-line interface.
@@ -99,7 +99,7 @@ It processes input strings from the command-line interface and routes these comm
 
 
 The sequence diagram below demonstrates the interactions within the `Parser` component when a user inputs the command `select Loops`:
-![ParserSequenceDiagram](https://github.com/user-attachments/assets/0abce220-17ed-4df6-b64f-411afe3f5bb6)
+![ParserSequenceDiagram](https://github.com/user-attachments/assets/4a863dd8-641f-4991-86d3-e45e6e7b1061)
 
 ### `QuizManager` class: 
 The `QuizManager` class serves as the primary controller for quiz functionalities within the application. 
@@ -109,11 +109,13 @@ Below is the class diagram for the `QuizManager` class, illustrating its attribu
 
 #### Firstly, the overarching class diagram:
 
-![QuizManagerArchitecture](https://github.com/user-attachments/assets/28efc5ae-9258-48d0-890b-2ee61498dbc0)
+![QuizManagerClassHighLevel](https://github.com/user-attachments/assets/54ebd425-bcfd-43c8-897e-056b131093c0)
 
 #### Additional details about its methods and attributes:
 
-![QuizManager](https://github.com/user-attachments/assets/acf8bd44-f2fd-4f3d-b424-af77bd1e394f)
+> NOTE: Not all methods are represented in the class diagram, the other methods within the classes are represented with a ...
+
+![QuizManagerClassDiagram](https://github.com/user-attachments/assets/afc262f5-bd98-4cb2-8fe1-e7d18733db40)
 
 ####  How `QuizManager` Works
 - Manage Topic and Questions:
@@ -128,8 +130,8 @@ Below is the class diagram for the `QuizManager` class, illustrating its attribu
 - Review Past Results:
   - Allows users to review their scores and feedback from previous quiz attempts, offering insights into their progress and areas for improvement.
 
-Over here is a continuation of `Select Loops` as a sequence diagram in a more detailed level:
-![QuizManagerSequenceDiagram](https://github.com/user-attachments/assets/8e41e10c-527a-45f3-87fc-0de21c506075)
+Over here is a continuation of `Select Loops` as a sequence diagram to represent the interactions between quizManager and it's respective composites:
+![QuizManagerSequenceDiagram](https://github.com/user-attachments/assets/bd11533e-098c-4a47-9759-64f1c2bb2723)
 
 ### `TopicManager` class:
 The `TopicManager` class is responsible for managing various topics within the application. It provides methods to add, retrieve, and organize topics, as well as handle loading and saving of question data. By interacting with `TopicManager`, users can create new topics, add questions to them, and persistently save or retrieve questions from an external storage file.
@@ -157,8 +159,7 @@ It interacts with the user through the `Cli` class to set up quiz parameters (ti
 The class maintains the current quiz, selected topic, and session limits for each session.
 
 #### `QuizGenerator` class diagram:
-![QuizSessionClassDiagram](https://github.com/user-attachments/assets/d51e24bb-bf10-4242-bce7-d114b66a6d67)
-
+![QuizSessionClassDiagram](https://github.com/user-attachments/assets/78c4cc05-7fd0-4def-958f-3564fbb5a2bc)
 
 #### How `QuizGenerator` works:
 - `QuizGenerator(Cli cli)`: Constructor that initializes `QuizGenerator` with a `Cli` instance for user interaction.
@@ -171,8 +172,8 @@ The class maintains the current quiz, selected topic, and session limits for eac
 - `getTopicName()`: Returns the name of the selected topic for display purposes.
 - `getCurrentQuiz(Topic topic, Cli cli)`: For testing purposes; returns the current `Quiz` instance or creates one if it doesn’t exist.
 
-#### `QuizGenerator` sequence diagram with `select loops`: 
-![QuizSessionSequenceDiagram](https://github.com/user-attachments/assets/15b4b889-7335-4443-a554-7afc122b3831)
+#### `QuizGenerator` sequence diagram with `select /d timed /t loops`: 
+![QuizGeneratorSequenceDiagram](https://github.com/user-attachments/assets/894ad6c8-a199-401f-9e91-dd7ba53453f5)
 
 ## Product scope
 ### Target user profile
@@ -188,17 +189,15 @@ This tool offers an interactive learning experience through a series of tasks an
 | Version | As a ...              | I want to ...                                      | So that I can ...                                         | Notes                              |
 |---------|-----------------------|----------------------------------------------------|-----------------------------------------------------------|-------------------------------------|
 | v1.0    | user                  | see usage instructions                             | learn how to use the app                                  | can be displayed on app open       |
+| v1.0    | user                  | submit quiz                                        | complete the assessment                                   |                                     |
 | v1.1    | user                  | take quizzes on Java fundamentals                  | test my knowledge and practice programming concepts       |                                     |
 | v1.2    | user                  | see my quiz score at the end of the quiz           | track my progress and improve                             |                                     |
 | v2.0    | user                  | receive feedback after each quiz question          | understand the correct answer and learn from my mistakes  |                                     |
-| v2.1    | user                  | access a review mode after completing a quiz       | go through all the questions again with detailed explanations |                         |
 | v2.0    | user                  | practice different CS topics individually (e.g., OOP, data structures, algorithms) | focus on weak areas and strengthen my knowledge |               |
 | v2.0    | user                  | keep track of my quiz history                      | monitor my improvement over time and revisit past mistakes |                                     |
 | v2.0    | user                  | attempt timed quizzes                              | simulate real exam conditions and manage my time efficiently |                                |
 | v2.0    | user                  | exit the quiz at any point                         | take a break or do something else                         |                                     |
-| v2.1    | busy user on the move | save the progress of my quiz                       | revisit the quiz once more                                |                                     |
 | v2.0    | user                  | see the correct answer to quiz questions           | learn and improve                                         |                                     |
-| v1.0    | user                  | submit quiz                                        | complete the assessment                                   |                                     |
 | v2.0    | user                  | take quizzes in MCQ or true/false format           | get used to typing out answers                            |                                     |
 | v2.0    | user                  | take quizzes in FITB format                        | be exposed to multiple formats of assessment              |                                     |
 
@@ -240,13 +239,18 @@ This tool offers an interactive learning experience through a series of tasks an
 #### 2.2 Select a Quiz Topic and Start Quiz
 * **2.2.1 Start Quiz with Valid Topic**
     * **Prerequisites**: None
-    * **Test Case**: `select loops`
+    * **Test Case**: `select /d timed /t loops`
     * **Expected**: Prompts the user to enter a time limit and number of questions for the quiz.
 
 * **2.2.2 Start Quiz with Invalid Topic**
     * **Prerequisites**: None
-    * **Test Case**: `select invalidtopic`
+    * **Test Case**: `select /d timed /t invalidtopic`
     * **Expected**: Error message indicating that the specified topic is not available.
+
+* **2.2.3 Start Quiz with invalid time format**
+  * **Prerequisites**: None
+  * **Test Case**: `select /d invalidtime /t Loops`
+  * **Expected**: Error message indicating that it can only accept timed or untimed.
 
 ---
 
@@ -271,13 +275,13 @@ This tool offers an interactive learning experience through a series of tasks an
 #### 2.4 Add a Custom Question
 * **2.4.1 Add Valid Flashcard Question**
     * **Prerequisites**: None
-    * **Test Case**: `add Flashcard /q What is the Java keyword to define a class? /a class`
+    * **Test Case**: `add Flashcards /q What is the Java keyword to define a class? /a class`
     * **Expected**: Confirmation message indicating that the flashcard was added successfully.
 
 * **2.4.2 Add Flashcard Question with Invalid Format**
     * **Prerequisites**: None
-    * **Test Case 1**: `add Flashcard /q Invalid format`
-    * **Test Case 2**: `add Flashcard`
+    * **Test Case 1**: `add Flashcards /q Invalid format`
+    * **Test Case 2**: `add Flashcards`
     * **Expected**: Error message indicating that the correct format is required.
 
 ---
@@ -301,17 +305,12 @@ This tool offers an interactive learning experience through a series of tasks an
     * **Test Case**: `help`
     * **Expected**: Displays descriptions of all available commands.
 
-* **2.6.2 View Help for Specific Command**
-    * **Prerequisites**: None
-    * **Test Case**: `help select`
-    * **Expected**: Displays detailed information about the `select` command.
-
 ---
 
 #### 2.7 Exiting the Application
 * **2.7.1 Exit the Application Mid-Session**
     * **Prerequisites**: None
-    * **Test Case**: `quit`
+    * **Test Case**: `exit`
     * **Expected**: Program terminates with a goodbye message.
 
 * **2.7.2 Exit Application During Quiz**

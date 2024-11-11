@@ -16,9 +16,6 @@ skinparam class {
 circle Person
 
 class JavaNinja {
-    - Cli cli
-    - Parser parser
-    - QuizManager quizManager
     + JavaNinja()
     + run(): void
 }

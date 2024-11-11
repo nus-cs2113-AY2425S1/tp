@@ -1,11 +1,9 @@
 package seedu.javaninja;
 
-import seedu.javaninja.question.FillInTheBlank;
-import seedu.javaninja.question.Mcq;
-import seedu.javaninja.question.Question;
-import seedu.javaninja.question.TrueFalse;
+import seedu.javaninja.question.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The `Quiz` class represents a single quiz session for a specified topic.
@@ -50,8 +48,10 @@ public class Quiz {
     public void start(int timeLimitInSeconds, int questionLimit) {
         this.questionLimit = questionLimit;
         List<Question> questions = topic.getRandomQuestions(questionLimit);
+
+        AtomicBoolean timeUp = null;
         if (timeLimitInSeconds > 0) {
-            quizTimer.startTimer(timeLimitInSeconds);
+            timeUp = quizTimer.startTimer(timeLimitInSeconds);
             isTimed = true;
         } else {
             isTimed = false;
@@ -62,7 +62,7 @@ public class Quiz {
         }
 
         while (currentQuestionIndex < questions.size() && currentQuestionIndex < questionLimit) {
-            if (isTimed && quizTimer.isTimeUp()) {
+            if (isTimed && timeUp.get()) {
                 break;
             }
             Question currentQuestion = questions.get(currentQuestionIndex);
@@ -78,8 +78,15 @@ public class Quiz {
                 cli.printMessage("Please answer with 'true' or 'false'.");
             } else if (currentQuestion instanceof FillInTheBlank) {
                 cli.printMessage("Please fill in the blank with the correct answer.");
+            } else if (currentQuestion instanceof Flashcard) {
+                cli.printMessage("Please answer with your flashcard anser.");
             }
             cli.printEnclosure();
+
+            if (isTimed && timeUp.get()) {
+                cli.printMessage("Time's up! The quiz will end now");
+                break;
+            }
 
             if (!shouldContinueQuiz(currentQuestion)) {
                 break;
@@ -112,6 +119,13 @@ public class Quiz {
 
             // Check if the user wants to exit the quiz
             if (answer.equalsIgnoreCase("exit")) {
+                Flashcard flashcard = (Flashcard) currentQuestion;
+                if (flashcard.getCorrectAnswer().equalsIgnoreCase("exit")) {
+                    // Treat "exit" as the correct answer rather than an exit command
+                    answerQuestion(answer, currentQuestion);
+                    validInput = true;
+                    continue;
+                }
                 cli.printMessage("Exiting the quiz. Returning to main menu...");
                 return false;
             }

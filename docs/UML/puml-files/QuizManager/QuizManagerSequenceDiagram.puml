@@ -3,67 +3,41 @@
 actor User
 
 participant ":QuizManager" as QM
-participant ":QuizSession" as QS
-participant ":Quiz"
-participant ":QuizTimer" as QT
+participant ":QuizGenerator" as QG
+participant ":Quiz" as Quiz
 participant ":QuizResults" as QR
 
-User -> QM : selectQuizToAttempt("Loops")
+User -> QM : select /d timed /t Loops
 activate QM
 
 alt Topic not found
     QM -> QM : logger.warning("No such topic")
     deactivate QM
 else Topic found
-    QM -> QS : new QuizSession()
-    activate QS
-    QM -> QS : startQuiz(selectedTopic)
+    QM -> QG : selectTimedQuiz("Loops")
+    activate QG
 
-    QS -> Quiz : new Quiz(topic)
+    QG --> User : getTimeLimitFromUser()
+    QG --> User : getQuestionLimitFromUser()
+    User -> QG : return timeLimitInSeconds, questionLimit
+    QG -> Quiz : new Quiz(topic)
     activate Quiz
+    QG -> Quiz : startQuiz(timeLimitInSeconds, questionLimit
+    deactivate QG
 
-    QS -> User : "Enter time limit in seconds"
-    User --> QS : timeLimitInSeconds
-
-    QS -> User : "Enter question limit"
-    User --> QS : questionLimit
-
-    QS -> Quiz : start(timeLimitInSeconds, questionLimit)
-
-    Quiz -> QT : new QuizTimer()
-    activate QT
-    Quiz -> QT : startTimer(timeLimitInSeconds)
-end
-
-alt questions available
     loop for each question
-        Quiz -> Quiz : retrieve next question
-        Quiz -> QT : isTimeUp()
-        alt time not up
-            Quiz -> User : display question and options
-            User -> Quiz : answer question
-            Quiz -> Quiz : handleQuestionInput()
-        else time up
-            break
-        end
+        Quiz -> User : display question and options
+        User --> Quiz : submit answer
+        Quiz -> Quiz : processAnswer()
     end
-else no questions
-    Quiz -> Quiz : throw IllegalStateException("No questions.")
 end
 
-Quiz -> QT : cancelTimer()
-deactivate QT
-Quiz -> User : display score
+
+Quiz -> QM : quiz completed
 deactivate Quiz
-
-QS --> QM : quiz completed
-QM -> QM : addResultsAndPrintScore()
-QM -> QS : getQuizScore()
-QS --> QM : return score
-QM -> QR : generateComment(score)
-QR -> QR : addResult(score, comment)
-deactivate QS
-
+activate QM
+deactivate Quiz
+QM --> QR : addResultsAndPrintScore()
 deactivate QM
 
 @enduml

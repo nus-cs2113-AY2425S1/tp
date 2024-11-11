@@ -13,10 +13,8 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `JavaNinja` from [here](http://link.to/duke).
+2. Download the latest version of `JavaNinja` from [here](http://link.to/duke).
 3. Copy the file to the folder you want to use as the home folder for JavaNinja.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
    ```shell
@@ -26,7 +24,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
    Some example commands you can try:
    - `help`: Lists all basic commands.
    - `view`: Displays available topics.
-   - `select [topic]`: Selects a specified topic (e.g., `select loops`) to start the quiz.
+   - `select /d timed|untimed /t [topic]`: Selects a specified topic (e.g., `select /d timed /t loops`) to start the quiz.
    - `review`: Displays a summary of quiz results.
    - `exit`: Exits the quiz, activate only while doing the quiz.
    - `quit`: Exits the program.
@@ -37,7 +35,6 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 
 ## Features 
 
-{Give detailed description of each feature}
 ### 1. View Topics: `view`
 Displays a list of all available quiz topics that you can attempt, such as loops, conditionals, and data types.
 
@@ -49,39 +46,44 @@ Displays a list of all available quiz topics that you can attempt, such as loops
    ```
 
 ### 2. Select Topic and Start Quiz: `select`
-Selects a specific topic and initiates a quiz. Before the quiz starts, you will be prompted to enter:
-- A time limit for the quiz (in seconds or minutes).
+This command allows you to select a specific topic or a random selection of topics to initiate a quiz. Before starting, you will be prompted to enter:
+- A time limit for the quiz (in seconds or minutes) if the quiz is timed.
 - The number of questions you wish to attempt.
+- /d: Specifies whether the quiz should be timed or untimed
+- /t: Specifies the topic for the quiz. You can provide a specific topic name or use random to select a mix of questions from multiple topics.
+  - If random is chosen, you will be prompted to specify how many topics you'd like to be tested on, and how many questions per topic.
 
-**Format**: `select [TOPIC_NAME]`
+**Format**: `select /d timed|untimed /t TOPIC|Random`
 
 **Example**: 
    ```shell
-   select loops
+    select /d timed /t loops
+    OR
+    select /d untimed /t random
    ```
 
 ### 3. Taking a Quiz
 Once a topic is selected, the quiz begins with a series of questions in multiple-choice, True/False, or fill-in-the-blank formats.
 
+> Note: The question types are randomised, so you may not be able to see all the question formats displayed in a single quiz session!
+
 * **Exit Quiz**: Type `exit` anytime during the quiz to end it early.
 * **Automatic Termination**: The quiz ends automatically if the time limit expires or the specified number of questions is completed.
-* **Display Time Left**: During the quiz, Java Ninja provides reminders on the remaining time to help users manage their pace. When the remaining time reaches certain milestones, a message is displayed:
-   - **1 minute left**: Reminder to finish soon.
-   - **30 seconds left**: Urgent reminder to wrap up answers.
-   - **10 seconds left**: Final countdown warning.
 
 This countdown feature ensures that users are aware of time constraints, enhancing the user experience and preventing unexpected quiz terminations.
 
 **Example**:
    ```shell
    Set a time limit for the quiz.
-   Enter the number of minutes (or 0 if you want to set seconds): 0
+   Enter the number of questions you want to attempt (Max 15): 10
+   Enter the number of minutes for the quiz (or 0 for seconds): 
    Enter the number of seconds: 10
-   Enter the number of questions you want to attempt: 10
    ```
 
-### 4. Adding a Custom Question: `add Flashcards`
-Allows users to add their own quiz questions.
+### 4. Adding a Flashcard: `add Flashcards`
+Allows users to add their own quiz questions. Useful for your own revision in the future!
+
+> Note: You're not allowed to add in any other custom topics other than flashcards!
 
 Format: `add Flashcards /q [QUESTION] /a [ANSWER]`
 
@@ -151,17 +153,15 @@ quit
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
-
-| Command               | Description                                        |
-|-----------------------|----------------------------------------------------|
-| `view`                | View all available quiz topics.                    |
-| `select [TOPIC_NAME]` | Select a topic and start the quiz for that topic.  |
-| `add Flashcard`       | Add a custom flashcard question.                   |
-| `review`              | View results of quizzes taken during this session. |
-| `help`                | List all commands with descriptions.               |
-| `exit`                | Exit the quiz.                                     |
-| `quit`                | Exit the program.                                  |
+| Command                                      | Description                                                        |
+|----------------------------------------------|--------------------------------------------------------------------|
+| `view`                                       | View all available quiz topics.                                    |
+| `select /d timed OR untimed /t [TOPIC_NAME]` | Select a timed or untimed topic and start the quiz for that topic. |
+| `add Flashcards`                             | Add a custom flashcard question.                                   |
+| `review`                                     | View results of quizzes taken during this session.                 |
+| `help`                                       | List all commands with descriptions.                               |
+| `exit`                                       | Exit the quiz.                                                     |
+| `quit`                                       | Exit the program.                                                  |
 
 
 ## Troubleshooting
