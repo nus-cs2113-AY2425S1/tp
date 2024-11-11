@@ -364,9 +364,7 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 #### Sequence Diagram
 
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
-
-
-
+<!-- @@author TVageesan -->
 ### Edit Programme
 
 #### Overview
@@ -391,6 +389,9 @@ The overall design that enables this functionality is described generically by t
 The 'Model' class in the above diagram is a generalization of the various data models that are being interacted with
 to perform each specific edit command. For each edit command, the following sequence diagrams
 further break down how this interaction works.
+
+In each diagram, error handling has been simplified to keep the diagram brief.
+Generally, if a conditional check fails (i.e. if the selected Programme does not exist), a ProgrammeException will be thrown and interrupt the command exeuction. BuffBuddy will print the appropiate error message based on the Exception and then wait for the next command.
 
 ##### Add day
 
@@ -427,9 +428,7 @@ Step 7. The deleted Exercise object is then returned to the `DeleteExerciseComma
 To summarize, the following activity diagram describes how the overall operation occurs.
 
 ![Edit Command Diagram](images/editCommandActivityDiagram.png)
-
-
-
+<!-- @@author Atulteja -->
 ### Add Meal
 
 #### Feature Implementation
@@ -666,7 +665,7 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## Non-Functional Requirements
 
-- Java 11 or above installed
+- Java 17 or above installed
 - Program built to support only single user
 
 ## Glossary
@@ -677,6 +676,5 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-
-
+1. Complete the [quick start](UserGuide.md) guide.
+2. 
