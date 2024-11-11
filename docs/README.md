@@ -8,5 +8,5 @@ Useful links:
 * [About Us](AboutUs.md)
 * [jadenlim-PPP](team/jadenlim.md)
 * [rahul-PPP](team/rahul.md)
-* [tantinghui-PPP](team/tantinghui.md)
+* [tantinghui-PPP](team/ridiculouswifi)
 * [Toby Yu-PPP](team/toby-yu.md)
