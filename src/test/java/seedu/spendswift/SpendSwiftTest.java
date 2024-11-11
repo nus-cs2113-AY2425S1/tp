@@ -536,7 +536,7 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, "Education");
 
         // Manually initialize the Budget for "Education" to avoid NullPointerException
-        Budget budget = new Budget(category,maxLimit);
+        Budget budget = new Budget(category, maxLimit);
         trackerData.getBudgets().put(category, budget); // Add Budget to the map
 
         // Now set the budget limit
@@ -546,13 +546,12 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the set limit matches the maximum limit
-        assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit),
-            "The budget limit should be exactly set to the maximum allowed");
+        assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit), "The budget limit should be exactly set to the maximum allowed");
     }
 
-   @Test
-     void testSetValidBudgetLimit() {
-         
+    @Test
+    void testSetValidBudgetLimit() {
+
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
         double validLimit = 9999999999999999.99; // The maximum budget limit as per your requirements
@@ -561,7 +560,7 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, "Education");
 
         // Manually initialize the Budget for "Education" to avoid NullPointerException
-        Budget budget = new Budget(category,validLimit);
+        Budget budget = new Budget(category, validLimit);
         trackerData.getBudgets().put(category, budget); // Add Budget to the map
 
         // Now set the budget limit
@@ -571,19 +570,18 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the set limit matches the maximum limit
-        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit),
-            "The budget limit is set below  the maximum allowed");
+        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), "The budget limit is set below  the maximum allowed");
 
-}
+    }
 
 
     @Test
     void testSetInvalidBudgetLimitAboveMaximum() {
-        
+
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
         double invalidLimit = 1000000000000000.01; // Maximum allowed budget limit
-     
+
 
         // Find the "Education" category
         Category category = findCategory(trackerData, "Education");
@@ -599,10 +597,17 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal currentLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the budget limit remains unchanged
-        assertEquals(0, BigDecimal.valueOf(invalidLimit).compareTo(currentLimit),
-            "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
+        assertEquals(0, BigDecimal.valueOf(invalidLimit).compareTo(currentLimit), "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     }
 }
+
+
+
+
+
+
+
+
 
 
 
