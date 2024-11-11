@@ -36,7 +36,7 @@ The app is optimised for quick, command-based interactions, ideal for users who 
 * **Enhancements to existing features**:
     * Fixed input formats of email and phone number of participants (PR [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
     * Implemented feature to parse other characters outside of ASCII (PR [#235](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/235))
-    * Fixed bugs from PE ([#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150), [#249](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/249), [#252](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/252))
+    * Fixed bugs from PE (PR [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150), [#249](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/249), [#252](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/252))
   
 * **Documentation**
     * User Guide
