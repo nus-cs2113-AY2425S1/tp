@@ -338,8 +338,12 @@ exchange opportunities.
 * The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested
   university name and contact type (email or phone number).
 * After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
-* The `handleContactType()` method retrieves and prints the requested contact information based on the input,
-  displaying either the university’s email address or phone number.
+* During this time, the `isSchoolValid()` method inside the `SchoolContactValidator` class is used to check if the school 
+  name exists.
+* If school exists, the `checkValidContact()` method checks the validity of the contact type through a 
+  handler `isValidContactType()` in `SchoolContactValidator` class.
+* The `contactTypeIdentifier()` method then checks retrieves the contact type and displays the contact information via the 
+  `printContactInformation()` in the `UI` class.
 * There are also assertions and logging in place for error handling.
 
 #### Why it is implemented that way:
