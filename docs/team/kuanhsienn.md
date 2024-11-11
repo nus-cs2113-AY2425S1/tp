@@ -24,17 +24,17 @@ The app is optimised for quick, command-based interactions, ideal for users who 
   It includes validation checks to ensure data integrity, and if any data entry is corrupted or unreadable, a warning is logged without crashing the application.
   At the same time, it is able to save a wider range of characters due to adoption of UTF-8 encoding.
 
-* **New feature**: Added feature to edit participant's contact info.
-    * What it does: Allows the user to update the contact details (phone number and email) of participants associated with any event.
-    * Justification:  Contact information can frequently change; this feature allows users to keep participant details current without needing to re-enter or delete participant records, maintaining data accuracy for effective communication.
-    * Highlights: Provides validation for input formats, such as phone numbers and emails, and gives feedback when inputs are incorrect, ensuring data integrity
+* **New feature**: Added feature to edit participant's info
+    * What it does: Allows the user to update the information of participants associated with any event.
+    * Justification:  Contact information can frequently change or there may be typos in the initial adding; this feature allows users to keep participant details current without needing to re-enter or delete participant records, maintaining data accuracy for effective communication.
+    * Highlights: Provides validation for input formats, such as emails and gives feedback when inputs are incorrect, ensuring data integrity
 
 * **Code contributed**: [RepoSense link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=KuanHsienn&tabRepo=AY2425S1-CS2113-W13-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 * **Project management**:
     * Managed release `v1.0` (1 release) on GitHub
 
 * **Enhancements to existing features**:
-    * Fixed input formats of email and phone number of participants (PR [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
+    * Fixed input formats of email of participants (PR [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150))
     * Implemented feature to parse other characters outside of ASCII (PR [#235](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/235))
     * Fixed bugs from PE (PR [#150](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/150), [#249](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/249), [#252](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/252))
   
