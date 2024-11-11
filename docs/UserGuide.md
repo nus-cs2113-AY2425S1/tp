@@ -38,7 +38,7 @@ This product aims to streamline the tracking of internship applications for the 
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Down the latest version of `.jar` file from [here]().
+2. Download the latest version of `.jar` file from [here](https://github.com/AY2425S1-CS2113-T10-1/tp/releases/tag/v2.1).
 3. Copy the file to the home folder of your Internship Tracker.
 4. Open the terminal, `cd` into the folder with the `.jar` file and use `java -jar easInternship.jar` 
    command to run the application.
@@ -165,7 +165,7 @@ Valid Statuses for `status` flag:<br>
 ```
 __________________________________________________
 __________________________________________________
-status updated: application completed
+status updated: Application Completed
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -247,7 +247,7 @@ Company: Venti
 Duration: 04/25 to 08/25
 Skills: No Skills Entered 
 Deadlines:
-	Interview Round 1: 03/02/25
+	Interview Round 1: 05/02/25
 __________________________________________________
 __________________________________________________
 ```
@@ -259,7 +259,7 @@ __________________________________________________
 __________________________________________________
 deadline: Interview Round 2 is not found
 __________________________________________________
-deadline removed: Interview Round 1
+deadline removed: Interview Round 1 (05/02/25)
 __________________________________________________
 Internship updated:
 ID: 2	Status: Application Completed
@@ -349,20 +349,20 @@ __________________________________________________
 ```
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Pending
+The favourite internships are listed below
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+ID: 1   Status: Application Pending
 Role: Software Engineer
 Company: Meta
 Duration: 01/24 to 09/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
+        No deadlines set.
 __________________________________________________
 __________________________________________________
 ```
@@ -370,38 +370,39 @@ __________________________________________________
 `favourite 2, 3`
 
 ```
+Enter command: favourite 2, 3
 __________________________________________________
 __________________________________________________
-ID: 1	Status: Application Pending
+The favourite internships are listed below
+__________________________________________________
+__________________________________________________
+
+
+__________________________________________________
+__________________________________________________
+ID: 1   Status: Application Pending
 Role: Software Engineer
 Company: Meta
 Duration: 01/24 to 09/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
+        No deadlines set.
 __________________________________________________
-ID: 2	Status: Application Pending
+ID: 2   Status: Application Pending
 Role: Data Scientist
 Company: Meta
 Duration: 09/23 to 05/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
+        No deadlines set.
 __________________________________________________
-ID: 3	Status: Application Pending
+ID: 3   Status: Application Pending
 Role: Data Scientist
 Company: Google
 Duration: 04/24 to 07/24
-Skills: No Skills Entered 
+Skills: No Skills Entered
 Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-
-
-__________________________________________________
-__________________________________________________
-The list of favourite internships have been displayed above
+        No deadlines set.
 __________________________________________________
 __________________________________________________
 
@@ -517,22 +518,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`filter -role Data Scientist -to 06/24`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 3	Status: Application Pending
-Role: Data Scientist
-Company: Google
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
-
 `filter -favourite true`
 
 ```
@@ -557,21 +542,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`filter -favourite false`
-
-```
-__________________________________________________
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: Data Scientist
-Company: Meta
-Duration: 09/23 to 05/24
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
 
 ## Sort Command: `sort`
 
@@ -601,31 +571,31 @@ The fields are not case-sensitive.
 ```
 __________________________________________________
 __________________________________________________
-Sorted internships by start date (year first), then end date.
+Sorted internships by duration with start date (year first), then end date.
 __________________________________________________
-ID: 3	Status: Accepted
+ID: 3   Status: Accepted
 Role: IT support Intern
 Company: Microsoft
 Duration: 03/24 to 08/24
-Skills: Java 
+Skills: Java
 Deadlines:
-	certificate submit: 15/04/24
-_________________________________________________
-ID: 1	Status: Rejected
+        certificate submit: 15/04/24
+__________________________________________________
+ID: 1   Status: Rejected
 Role: Embedded Software Engineer Intern
 Company: Continental
 Duration: 05/25 to 08/25
-Skills: C++ 
+Skills: C++
 Deadlines:
-	online interview: 12/06/24
+        online interview: 12/06/24
 __________________________________________________
-ID: 2	Status: Application Completed
+ID: 2   Status: Application Completed
 Role: Customer Service Intern
 Company: Google
 Duration: 05/25 to 09/25
-Skills: Python SQL 
+Skills: Python SQL
 Deadlines:
-	interview reply: 12/04/24
+        interview reply: 12/04/24
 __________________________________________________
 __________________________________________________
 ```
@@ -660,40 +630,6 @@ Duration: 03/24 to 08/24
 Skills: Java 
 Deadlines:
 	certificate submit: 15/04/24
-__________________________________________________
-__________________________________________________
-```
-
-`sort -deadline`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by deadline.
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
 __________________________________________________
 __________________________________________________
 ```
@@ -766,81 +702,6 @@ __________________________________________________
 __________________________________________________
 ```
 
-`sort -company`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships by company.
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
-__________________________________________________
-```
-
-`sort -role in favourite`
-
-```
-__________________________________________________
-__________________________________________________
-Sorted internships in favourite by role in favourite.
-__________________________________________________
-ID: 2	Status: Application Completed
-Role: Customer Service Intern
-Company: Google
-Duration: 05/25 to 09/25
-Skills: Python SQL 
-Deadlines:
-	interview reply: 12/04/24
-__________________________________________________
-ID: 1	Status: Rejected
-Role: Embedded Software Engineer Intern
-Company: Continental
-Duration: 05/25 to 08/25
-Skills: C++ 
-Deadlines:
-	online interview: 12/06/24
-=======
-ID: 1	Status: Application Pending
-Role: engineer
-Company: ABS
-Duration: 01/01 to 01/01
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-ID: 2	Status: Application Pending
-Role: accountant
-Company: XYZ
-Duration: 01/01 to 01/01
-Skills: No Skills Entered 
-Deadlines:
-	No deadlines set.
-__________________________________________________
-__________________________________________________
-```
 
 ## Delete Command: `delete`
 
