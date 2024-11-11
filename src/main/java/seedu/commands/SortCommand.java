@@ -67,13 +67,14 @@ public class SortCommand extends Command {
             internshipsList.listFavouriteInternshipsSortedByRole(); // Sort by role in favourite alphabetically
             break;                                              // (case-insensitive)
         case "duration in favourite":
-            internshipsList.listFavouriteInternshipsSortedByDuration();  // Sort by duration in favourite with start date,
+            internshipsList.listFavouriteInternshipsSortedByDuration();// Sort by duration in favourite with start date
             break;                                                   // then end date (year first)
         case "deadline in favourite":
             internshipsList.listFavouriteInternshipsSortedByDeadline();  // Sort by the earliest deadline in favourite
             break;
         case "skills in favourite":
-            internshipsList.listFavouriteInternshipsSortedByFirstSkill(); // Sort by first skill in favourite alphabetically
+            internshipsList.listFavouriteInternshipsSortedByFirstSkill();// Sort by first skill in favourite
+                                                                    // (alphabetical order)
             break;
         case "status in favourite":
             internshipsList.listFavouriteInternshipsSortedByStatus();  // Sort by status in favourite  alphabetically
