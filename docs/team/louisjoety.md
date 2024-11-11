@@ -16,7 +16,7 @@ support usability and team collaboration. Check out my contributions on the [TP 
 ## 3. Enhancements implemented:
 
 ### a. Command | Check Information Command | Personal Tracker Command
-* Abstract parent classes to allow child classes to be implemented through over-riding methods
+* Abstract parent classes to allow child classes to be implemented through over-riding
 * This is essential for ease of debugging and task allocation
 
 ### b. Obtain Contacts Command | School Contact Validator 
