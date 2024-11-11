@@ -8,10 +8,13 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -20,7 +23,13 @@ import java.util.Comparator;
 //@@author jadenlimjc
 public class Internship {
     private final DateTimeFormatter FORMATTER_MONTH_YEAR = DateTimeFormatter.ofPattern("MM/yy");
-    private final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy");
+    private final DateTimeFormatter FORMATTER_DATE = DateTimeFormatter.ofPattern("dd/MM/yy")
+            .withResolverStyle(ResolverStyle.LENIENT);
+
+    private static final List<String> STATUSES = Arrays.asList(
+            "Application Pending", "Application Completed", "Accepted", "Rejected");
+
+    private static final Logger LOGGER = Logger.getLogger("EasInternship");
 
     private int id = -1;
     private String role;
@@ -62,15 +71,16 @@ public class Internship {
      * Does not update with invalid statuses and will prompt for a valid status.
      *
      * @param userStatus user-inputted status.
+     *
+     * @return Updated status as reflected in the entry.
      */
-    public void updateStatus(String userStatus) throws InvalidStatus {
+    public String updateStatus(String userStatus) throws InvalidStatus {
         assert !userStatus.isEmpty() : "Status cannot be empty";
 
-        List<String> statuses = Arrays.asList("Application Pending", "Application Completed", "Accepted", "Rejected");
-        for (String status : statuses) {
+        for (String status : STATUSES) {
             if (status.equalsIgnoreCase(userStatus)) {
                 this.status = status;
-                return;
+                return status;
             }
         }
         throw new InvalidStatus();
@@ -177,23 +187,29 @@ public class Internship {
      * If no deadline has the same description, a new deadline entry is created.
      *
      * @param value             <code>String</code> with description and deadline.
+     * @return                  Updated deadline as reflected in <code>Internship</code> entry.
      * @throws InvalidDeadline  Either description is empty or there is no parsable date.
      */
-    public void updateDeadline(String value) throws InvalidDeadline {
+    public String updateDeadline(String value) throws InvalidDeadline {
         String[] words = value.split(" ");
         String description = "";
         String date = "";
+        boolean hasFoundDate = false;
 
-        for (String word : words) {
-            String trimmedWord = word.trim();
+        int wordsIndex = 0;
+        while (!hasFoundDate && wordsIndex < words.length) {
+            String trimmedWord = words[wordsIndex].trim();
             if (isValidDate(trimmedWord)) {
                 date = trimmedWord;
+                hasFoundDate = true;
             } else {
                 description += trimmedWord + " ";
             }
+            wordsIndex++;
         }
 
         if (description.trim().isEmpty() || date.trim().isEmpty()) {
+            LOGGER.log(Level.WARNING, "Deadline is invalid");
             throw new InvalidDeadline();
         }
 
@@ -201,9 +217,11 @@ public class Internship {
         assert deadlineIndex >= -1 : "The index must be -1 minimally";
         if (deadlineIndex != -1) {
             deadlines.get(deadlineIndex).setDate(date);
-        } else {
-            deadlines.add(new Deadline(getId(), description.trim(), date));
+            return deadlines.get(deadlineIndex).toStringMessage();
         }
+        Deadline newDeadline = new Deadline(getId(), description.trim(), date);
+        deadlines.add(newDeadline);
+        return newDeadline.toStringMessage();
     }
 
     //@@author Ridiculouswifi
@@ -212,6 +230,7 @@ public class Internship {
             LocalDate.parse(date, FORMATTER_DATE);
             return true;
         } catch (DateTimeParseException e) {
+            LOGGER.log(Level.WARNING, e.getMessage(), e);
             return false;
         }
     }
@@ -277,7 +296,9 @@ public class Internship {
         }
         String[] skillArray = skills.split(",");
         for (String skill: skillArray) {
-            this.skills.add(skill.trim());
+            if (!this.skills.contains(skill.trim())) {
+                this.skills.add(skill.trim());
+            }
         }
     }
 

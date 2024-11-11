@@ -92,7 +92,7 @@ public class AddCommand extends Command {
         internshipsList.addInternship(newInternship);
         uiCommand.showEditedInternship(newInternship, "add");
 
-        logger.log(Level.INFO, "AddCommand Executed");
+        LOGGER.log(Level.INFO, "AddCommand Executed");
     }
 
     @Override

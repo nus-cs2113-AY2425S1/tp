@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public abstract class Command {
     protected final int INDEX_FIELD = 0;
     protected final int INDEX_DATA = 1;
-    protected final Logger logger = Logger.getLogger("EasInternship");
+    protected final Logger LOGGER = Logger.getLogger("EasInternship");
     protected UiCommand uiCommand = new UiCommand();
     protected InternshipList internshipsList;
 

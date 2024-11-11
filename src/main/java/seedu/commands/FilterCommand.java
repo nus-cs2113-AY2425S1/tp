@@ -69,7 +69,7 @@ public class FilterCommand extends Command {
         functionComplete = true;
         filteredInternshipsList.listAllInternships();
 
-        logger.log(Level.INFO, "FilterCommand Executed");
+        LOGGER.log(Level.INFO, "FilterCommand Executed");
     }
 
     /**

@@ -7,7 +7,7 @@
 ## Design & implementation
 
 1. [Design](#1-design)
-    1. [Architecture](#11-architecture)
+    1. [Architecture](#11-Architecture)
     2. [UI Component](#12-UI-component)
     3. [Logic Component](#13-logic-component)
     4. [Model Component](#14-model-component)
@@ -20,12 +20,12 @@
     5. [DeleteCommand Implementation](#deletecommand-implementation)
     6. [SortCommand Implementation](#sortcommand-implementation)
     7. [UpdateCommand Implementation](#updatecommand-implementation)
-    8. [RemoveCommand Implementation](#removecommand-implementation)
+    8. [RemoveCommand Implementation](#RemoveCommand-implementation)
 ---
 
 ## About the Product
 1. [Product Scope](#Product-Scope)
-   1. [Target User Profile](#Target-user-profile)
+   1. [Target User Profile](#Target-User-Profile)
    2. [Value Proposition](#Value-proposition)
 2. [User Stories](#User-Stories)
 3. [Non-Functional Requirements](#Non-Functional-Requirements)
@@ -183,7 +183,7 @@ The following sequence diagram shows how the `DeleteCommand` is executed:
 ### SortCommand Implementation
 
 #### Overview:
-The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework.
+The `SortCommand` class is responsible for sorting the internship listings based on different criteria such as the internship role, skills and status (alphabetically) , the application deadline (by start and end dates). It extends the `Command` class, providing the sorting functionality as part of the command execution framework. It can only sort by exactly one field in each time.
 
 #### Design:
 - The `SortCommand` class processes user input to determine which sorting method to apply (e.g., role or deadline).
@@ -195,30 +195,30 @@ The `SortCommand` class is responsible for sorting the internship listings based
    - `"duration"`: Sorts internships by duration (start and end dates).
    - `"deadline"`: Sorts internships by deadline.
    - `"skills"`: Sorts internships by the first skill in the skills list alphabetically.
-   - `"status"`: Sorts internships by status alphabetically.
+   - `"status"`: Sort internships by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
    - `"company"`: Sorts internships by company alphabetically.
    - `"role in favourite"`: Sorts internships in favourite by role alphabetically.
    - `"duration in favourite"`: Sorts internships in favourite by duration (start and end dates).
    - `"deadline in favourite"`: Sorts internships in favourite by deadline.
    - `"skills in favourite"`: Sorts internships in favourite by the first skill in the skills list alphabetically.
-   - `"status in favourite"`: Sorts internships in favourite by status alphabetically.
+   - `"status in favourite"`: Sort internships in favourite by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
    - `"company in favourite"`: Sorts internships in favourite by company alphabetically.
 - If the user provides an invalid sort option, the command returns an error and defaults to listing internships by ID.
 - **`getUsage()`**: Returns a string showing the correct usage of the `sort` command, including valid options like "alphabet", "deadline", "duration", "skills", and "status".
 
 #### Example Usage Scenario:
-1. The user enters `sort role`, and the `execute` method sorts the internships by role alphabetically.
-2. The user enters `sort duration`, and the internships are sorted by their start and end dates.
-3. The user enters `sort skills`, and the internships are sorted by the first skill alphabetically.
-4. The user enters `sort status`, and the internships are sorted by their status alphabetically.
-5. The user enters `sort deadline`, and the internships are sorted by each of their earliest deadline.
-6. The user enters `sort company`, and the internships are sorted by their company alphabetically.
-7. The user enters `sort role in favourite`, and the `execute` method sorts the internships in favourite by role.
-8. The user enters `sort duration  in favourite`, and the internships in favourite are sorted by their start and end dates.
-9. The user enters `sort skills in favourite`, and the internships in favourite are sorted by the first skill alphabetically.
-10. The user enters `sort status in favourite`, and the internships in favourite are sorted by their status alphabetically.
-11. The user enters `sort deadline in favourite`, and the internships in favourite are sorted by each of their earliest deadline.
-12. The user enters `sort company in favourite`, and the internships in favourite are sorted by their company alphabetically.
+1. The user enters `sort -role`, and the `execute` method sorts the internships by role alphabetically.
+2. The user enters `sort -duration`, and the internships are sorted by their start and end dates.
+3. The user enters `sort -skills`, and the internships are sorted by the first skill alphabetically.
+4. The user enters `sort -status`, and the internships are sorted by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
+5. The user enters `sort -deadline`, and the internships are sorted by each of their earliest deadline.
+6. The user enters `sort -company`, and the internships are sorted by their company alphabetically.
+7. The user enters `sort -role in favourite`, and the `execute` method sorts the internships in favourite by role.
+8. The user enters `sort -duration  in favourite`, and the internships in favourite are sorted by their start and end dates.
+9. The user enters `sort -skills in favourite`, and the internships in favourite are sorted by status, (application pending, application completed, accepted, rejected) with this ascending order. Within the same status, the order is sorted by role.
+10. The user enters `sort -status in favourite`, and the internships in favourite are sorted by their status alphabetically.
+11. The user enters `sort -deadline in favourite`, and the internships in favourite are sorted by each of their earliest deadline.
+12. The user enters `sort -company in favourite`, and the internships in favourite are sorted by their company alphabetically.
 13. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
 #### Sequence Diagram:
@@ -332,8 +332,8 @@ The `RemoveCommand` class is responsible for removing the values within fields o
 The following sequence diagram shows how the `RemoveCommand` is executed:
 ![](UML/RemoveCommand_Sequence_Diagram.png)
 
-## Product scope
-### Target user profile
+## Product Scope
+### Target User Profile
 
 The target user profile for EasInternship includes:
     
@@ -350,7 +350,7 @@ For example, John is a Computer Engineering Junior with the following characteri
 
 These traits make John a suitable candidate to use EasInternship.
 
-### Value proposition
+### Value Proposition
 
 This product helps users streamline the process of tracking and managing their internship applications by allowing them to:
 
