@@ -120,7 +120,7 @@ Below is the class diagram for the `QuizManager` class, illustrating its attribu
   - Manages quiz topics through TopicManager, enabling easy addition, retrieval, and organization of topics and questions.
   - Loads questions and topics from a file at startup, ensuring data availability when the application begins.
 - Quiz Execution:
-  - Starts a quiz session on a specific topic selected by the user via QuizSession.
+  - Starts a quiz session on a specific topic selected by the user via QuizGenerator.
   - Tracks the quiz’s progress and calculates the score, providing feedback upon quiz completion through QuizResults.
 - Persistence of Quiz Data:
   - Loads previously saved quiz data from files when the application starts, making past results and quiz content readily accessible.
@@ -151,17 +151,17 @@ When `loadQuestions()` reads each line from the storage file, `parseTopic()` is 
 The following sequence diagram shows the interactions within `TopicManager` during topic initialisation from the storage file.
 ![TopicInstantiationSequenceDiagram](https://github.com/user-attachments/assets/562bffb0-c24e-422f-a16b-dadd988e8291)
 
-### `QuizSession` class: 
-The `QuizSession` class is responsible for managing a single quiz session.
+### `QuizGenerator` class: 
+The `QuizGenerator` class is responsible for managing a single quiz session.
 It interacts with the user through the `Cli` class to set up quiz parameters (time limit and question limit), initializes and starts the `Quiz`, and retrieves the final score.
 The class maintains the current quiz, selected topic, and session limits for each session.
 
-#### `QuizSession` class diagram:
+#### `QuizGenerator` class diagram:
 ![QuizSessionClassDiagram](https://github.com/user-attachments/assets/d51e24bb-bf10-4242-bce7-d114b66a6d67)
 
 
-#### How `QuizSession` works:
-- `QuizSession(Cli cli)`: Constructor that initializes `QuizSession` with a `Cli` instance for user interaction.
+#### How `QuizGenerator` works:
+- `QuizGenerator(Cli cli)`: Constructor that initializes `QuizGenerator` with a `Cli` instance for user interaction.
 - `startQuiz(Topic topic)`: Starts a quiz for the specified `Topic`, initializes `Quiz`, and prompts the user for time and question limits before starting the quiz.
 - `getQuizScore()`: Returns the final score from the current quiz.
 - `getTimeLimitInSecondsFromUser()`: Prompts the user to set the quiz time limit, either in minutes or seconds. Validates input to ensure it’s positive and non-zero.
@@ -171,7 +171,7 @@ The class maintains the current quiz, selected topic, and session limits for eac
 - `getTopicName()`: Returns the name of the selected topic for display purposes.
 - `getCurrentQuiz(Topic topic, Cli cli)`: For testing purposes; returns the current `Quiz` instance or creates one if it doesn’t exist.
 
-#### `QuizSession` sequence diagram with `select loops`: 
+#### `QuizGenerator` sequence diagram with `select loops`: 
 ![QuizSessionSequenceDiagram](https://github.com/user-attachments/assets/15b4b889-7335-4443-a554-7afc122b3831)
 
 ## Product scope
@@ -372,8 +372,8 @@ Tests the `QuizManager` class, which manages quiz operations.
   - **`getQuizzesAvailable`**: Tests retrieval of available topics.
   - **`addInput`**: Verifies the functionality of adding flashcards.
 
-#### `QuizSessionTest`
-Tests the `QuizSession` class, which manages a single quiz session.
+#### `QuizGeneratorTest`
+Tests the `QuizGenerator` class, which manages a single quiz session.
 - **Test Contents**:
   - **`getTimeLimitInSeconds`**: Confirms correct retrieval of the time limit from user input.
   - **`startQuiz_withValidTopic`**: Verifies quiz initialization with a valid topic.
