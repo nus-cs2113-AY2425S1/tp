@@ -1,10 +1,10 @@
 @startuml
 actor User
-participant SpendSwift
-participant Parser
-participant CategoryManager
-participant TrackerData
-participant SuccessMessage
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":CategoryManager" as CategoryManager
+participant ":TrackerData" as TrackerData
+participant ":SuccessMessage" as SuccessMessage
 
 User -> SpendSwift : input("view-category")
 SpendSwift -> Parser : parseCommand(input, trackerData)

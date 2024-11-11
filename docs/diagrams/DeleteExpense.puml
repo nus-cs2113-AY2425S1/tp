@@ -1,13 +1,13 @@
 @startuml
 actor User
-participant SpendSwift
-participant Parser
-participant ExpenseManager
-participant TrackerData
-participant InputParser
-participant ErrorMessage
-participant SuccessMessage
-participant Expense
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":ExpenseManager" as ExpenseManager
+participant ":TrackerData" as TrackerData
+participant ":InputParser" as InputParser
+participant ":ErrorMessage" as ErrorMessage
+participant ":SuccessMessage" as SuccessMessage
+participant ":Expense" as Expense
 
 User -> SpendSwift : input("delete-expense e/2")
 activate SpendSwift
