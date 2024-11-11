@@ -73,15 +73,7 @@ class BudgetLogicTest {
                 "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
-                "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount." +
-                System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
                 "Please set your budget amount:" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator() +
-                "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount." +
-                System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Please set your budget amount:" + System.lineSeparator() +

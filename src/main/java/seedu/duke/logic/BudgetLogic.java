@@ -146,9 +146,7 @@ public class BudgetLogic {
         if (amount >= 0.01 && amount <= 9999999.00) {
             return true;
         } else {
-            Commons.printSingleLineWithBars(
-                    "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount.");
-            logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
+            logger.log(LogLevels.WARNING, "Amount less than $0.01 and more than $9999999.00 entered.");
             return false;
         }
     }
