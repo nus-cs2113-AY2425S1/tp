@@ -36,36 +36,6 @@
 6. [Alias Table](#alias-table)
 7. [Command Summary](#command-summary)
 
-8. [Features](#features)
-   - [1. Add New Programme](#1-add-new-programme)
-   - [2. Set Programme as Active](#2-set-programme-as-active)
-   - [3. List All Programmes](#3-list-all-programmes)
-   - [4. View Programme](#4-view-programme)
-   - [5. Delete Programme](#5-delete-programme)
-   - [6. Add Day to Programme](#6-add-day-to-programme)
-   - [7. Delete Day from Programme](#7-delete-day-from-programme)
-   - [8. Add Exercise in Programme](#8-add-exercise-in-programme)
-   - [9. Delete Exercise from Programme](#9-delete-exercise-from-programme)
-   - [10. Update Exercise in Programme](#10-update-exercise-in-programme)
-   - [11. Log Workout](#11-log-workout)
-   - [12. Add New Meal](#12-add-new-meal)
-   - [13. View Meals](#13-view-meals)
-   - [14. Delete Meal](#14-delete-meal)
-   - [15. Add New Water Log](#15-add-new-water-log)
-   - [16. View Water Logs](#16-view-water-logs)
-   - [17. Delete Water Log](#17-delete-water-log)
-   - [18. View History](#18-view-history)
-   - [19. View Specific Record](#19-view-specific-record)
-   - [20. View Weekly Summary](#20-view-weekly-summary)
-   - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
-   - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises-)
-   - [23. Delete Record](#23-delete-record-)
-   - [24. Exiting BuffBuddy](#24-exit-buffbuddy)
-9. [Data Storage](#data-storage)
-10. [FAQ](#FAQ)
-11. [Alias Table](#alias-table)
-12. [Command Summary](#command-summary)
-
 ## Introduction
 
 BuffBuddy is your all-in-one fitness tracking companion, designed to help you streamline and organize your workout routines.
@@ -101,30 +71,6 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 > All flags have aliases. Refer to the [alias table](#Alias-Table) to see the alternative options available for each flag.
 >
 > For date parameters, dates should be supplied in the `dd-MM-yyyy` format. e.g. `11-11-2024`
-
-> ### Terminology
->
-> **Exercise**: A weighted exercise defined by a name, number of reps and sets, weight and average calories burned.
->
-> **Day**: A ‘workout day’ is a collection of exercises to be done together.
->
-> **Programme**: A programme is a collection of workout days.
->
-> **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
-
-> ### Notes on Command format
->
-> Text written in `SCREAMING_SNAKE_CASE` are command parameters to be supplied by the user.
->
-> Text preceded with a `/` will be read as flags. `/` is a reserved character and is not to be used as part of a parameter. e.g. `meal add /n Choc/Pie /c 200` will throw an invalid flag error.
->
-> Square brackets `[...]` indicate optional parameters. e.g. `history view` and `history view 11-11-2024` are both valid.
->
-> Flagged parameters can be supplied in any order. e.g. `meal add /n Pie /c 200` is equivalent to `meal add /c 200 /n Pie`
->
-> Parameters can include spaces. e.g. `meal add /n Chicken Rice /c 200` is a valid command.
->
-> All flags have aliases. Refer to the [alias table](#Alias-Table) to see the alternative options available for each flag.
 
 > ### Terminology
 >
@@ -748,58 +694,6 @@ Bye. Hope to see you again soon!
 ```
 
 ---
-
-<!-- @@author Bev-low -->
-
-## Data Storage
-
-BuffBuddy uses a JSON file to store user data, ensuring persistence across sessions.
-
-### Saving your data
-
-- Saving is done automatically after each user command. It does not need to be manually triggered by a command.
-- All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
-- The JSON format is human-readable, allowing users to view their stored data easily if needed.
-
-### Loading your data
-
-- Loading happens automatically when BuffBuddy initializes.
-- If the structure of the JSON file has been tampered with (e.g., removing the "programmeList" key or using {} as the entire content), the program will handle this scenario by treating the user as a first-time user and initializing a fresh data file.
-- If any data values within the JSON file are found to be invalid (e.g., negative numbers where only positive values are allowed), the specific section containing corrupted data (either the `ProgrammeList` or `History`) will be re-initialized to be empty.
-
-### Editing the data file
-
-- Users can directly edit the data file to easily change their records or import data from another file
-- Users should note that they need to first exit BuffBuddy before making their changes. If the data file is edited while actively entering commands into BuffBuddy, the contents of the file will be overwritten.
-<!-- @@author nirala-ts -->
-
----
-
-## FAQ
-
-1. **How can I back up my data?**
-
-   - BuffBuddy saves data in a JSON file located at `./data/data.json`. You can create a backup by copying this file to
-     another location.
-
-2. **What happens if I accidentally delete or corrupt the data file?**
-
-   - If the data file is deleted or corrupted, BuffBuddy will reset your program list and history to prevent data issues.
-     However, restoring a backup of the JSON file (if you have one) can also recover your data.
-
-3. **Can I add exercises that don’t involve weights?**
-
-   - BuffBuddy currently only supports weighted exercises. Exercises like jumping jacks or other body weight exercises cannot
-     be added without a weight parameter.
-
-4. **What is the caloric balance in the history view?**
-
-   - The caloric balance shows the difference between the calories burned through exercise and the calories consumed through
-     meals, helping you monitor your energy intake and expenditure.
-
-5. **What happens if I input invalid values for commands?**
-   - BuffBuddy performs basic validation for parameters. Negative values or missing required parameters will prompt an error,
-     and the command won’t be executed. Ensure all required fields are filled correctly.
 
 <!-- @@author Bev-low -->
 
