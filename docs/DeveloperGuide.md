@@ -59,6 +59,8 @@ Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
 ## Design & implementation
 
+<!-- @@author seanngja -->
+
 ### Architecture
 ![ArchitectureDiagram.png](img/ClassDiagrams/ArchitectureDiagram.png)
 
@@ -277,10 +279,14 @@ the user about the deletion
 `printFind()` method from the `Ui` class
 - If no matching recipe is found, method `printEmptyFind()` will be used instead
 
+<!-- @@author seanngja -->
+
 #### 8. `FindIngredientCommand` Class
 - The `FindIngredientCommand` attempts to find an existing `Ingredient` in `IngredientList` by name
 - When executed, it calls the `printFindIngred()` method of the `Ui` to display the matching ingredients found
 - If no matching ingredient is found, the `printEmptyFindIngred()` of `Ui` method is called instead
+
+<!-- @@author -->
 
 #### 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 

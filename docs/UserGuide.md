@@ -334,6 +334,8 @@ Format: `listI`
 
 Lists out all of your available ingredients in your inventory
 
+<!-- @@author seanngja -->
+
 ### Finding Ingredients 
 
 Format: `findI INGREDIENT`
