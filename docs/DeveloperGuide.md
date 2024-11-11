@@ -1,7 +1,9 @@
 # Developer Guide
 
 ## Acknowledgements
-Formatting of this Developer's Guide was done with reference to [AddressBook-Level3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
+
+Formatting of this Developer's Guide was done with reference to [AddressBook-Level3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html).
+>>>>>>> 89c56bd64009a0c4a0c500a024d4ac10e9811766
 
 ## Design & implementation
 
@@ -19,10 +21,10 @@ Formatting of this Developer's Guide was done with reference to [AddressBook-Lev
     5. [DeleteCommand Implementation](#deletecommand-implementation)
     6. [SortCommand Implementation](#sortcommand-implementation)
     7. [UpdateCommand Implementation](#updatecommand-implementation)
-    8. [RemoveCommand Implementation](#removeCommand-implementation)
+    8. [RemoveCommand Implementation](#removecommand-implementation)
     9. [CalendarCommand Implementation](#calendarcommand-implementation)
----
 
+---
 ## About the Product
 1. [Product Scope](#product-scope)
    1. [Target User Profile](#target-user-profile)
@@ -33,6 +35,7 @@ Formatting of this Developer's Guide was done with reference to [AddressBook-Lev
 5. [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 ---
+<div style="page-break-after: always;"></div>
 
 ## 1. Design
 
@@ -114,6 +117,8 @@ The following sequence diagrams depict how the Storage Functions work.
 ![](UML/loadFromFile.png)
 ![](UML/saveToFile.png)
 
+<div style="page-break-after: always;"></div>
+
 ## 2. Implementation
 
 ### 2.1 Parsing Input
@@ -154,6 +159,7 @@ If the user inputs an unknown command or a command fails during execution, the `
 message. This ensures that the application can continue running despite errors in user input.
 
 ---
+<div style="page-break-after: always;"></div>
 
 ### AddCommand Implementation
 
@@ -194,6 +200,8 @@ class, providing the add functionality as part of the command execution framewor
 The following sequence diagram shows how the `AddCommand` is executed:
 ![AddCommandSequenceDiagram](UML/AddCommand_Sequence_Diagram.png)
 
+<div style="page-break-after: always;"></div>
+
 ### DeleteCommand Implementation
 
 #### Overview:
@@ -227,6 +235,8 @@ The `DeleteCommand` class is responsible for deleting internship listings from t
 
 The following sequence diagram shows how the `DeleteCommand` is executed:
 ![DeleteCommandSequenceDiagram](UML/DeleteCommand_Sequence_Diagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### SortCommand Implementation
 
@@ -292,6 +302,8 @@ exactly one field in each time.
 The following sequence diagram shows how the `SortCommand` is executed:
 ![](UML/SortCommand_Sequence_Diagram.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Filter Command Implementation
 
 #### Overview:
@@ -350,6 +362,7 @@ which have not been marked as favourite by the user
 The following sequence diagram shows how the `FilterCommand` is executed:
 ![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
 
+<div style="page-break-after: always;"></div>
 ### FavouriteCommand Implementation
 
 #### Overview
@@ -401,6 +414,7 @@ The FavouriteCommand class allows users to add internships to their list of favo
 
 The following sequence diagram shows how the `FavouriteCommand` is executed:
 ![FilterCommandSequenceDiagram](UML/FilterCommand_Execute_Method.png)
+<div style="page-break-after: always;"></div>
 
 ### UpdateCommand Implementation
 
@@ -450,6 +464,8 @@ The following sequence diagram shows how the `UpdateCommand` is executed:
 
 ![](UML/UpdateCommand_Sequence_Diagram.png)
 
+<div style="page-break-after: always;"></div>
+
 ### RemoveCommand Implementation
 
 #### Overview
@@ -490,6 +506,7 @@ The `RemoveCommand` class is responsible for removing the values within fields o
 The following sequence diagram shows how the `RemoveCommand` is executed:
 ![](UML/RemoveCommand_Sequence_Diagram.png)
 
+<div style="page-break-after: always;"></div>
 
 ### CalendarCommand Implementation
 
@@ -514,6 +531,8 @@ The `CalendarCommand` class is responsible for sorting and displaying all deadli
 
 The following sequence diagram shows how the `CalendarCommand` is executed:
 ![](UML/CalendarCommand_Sequence_Diagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ## Product Scope
 

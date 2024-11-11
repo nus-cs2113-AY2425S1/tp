@@ -8,7 +8,7 @@ Useful links:
 * [About Us](AboutUs.md)
 <br><br>
 * Personal Portfolio Pages
-  * [Jaden (jadenlimlc)](team/jadenlimjc.md)
+  * [Jaden (jadenlimjc)](team/jadenlimjc.md)
   * [Rahul (rahuljai-05)](team/rahul.md)
   * [Ting Hui (ridiculouswifi)](team/ridiculouswifi.md)
   * [Toby (toby-yu)](team/toby-yu.md)
