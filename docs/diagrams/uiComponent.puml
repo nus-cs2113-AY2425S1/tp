@@ -1,9 +1,11 @@
 @startuml
 skinparam classAttributeIconSize 0
-
-!define CLASS(x) class x
+hide circle
 
 class Ui {
+    - in: Scanner
+    - out: PrintStream
+
     + readCommand(): String
     + showLine(): void
     + showMessage(String msg): void
@@ -20,8 +22,6 @@ class CommandResult {
   + getMessage(): String
 }
 
-Ui ..> Scanner : "  uses"
-Ui ..> PrintStream : "  uses"
-Ui ..> CommandResult : "  uses"
+Ui ..> CommandResult
 
 @enduml

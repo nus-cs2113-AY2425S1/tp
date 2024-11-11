@@ -1,19 +1,16 @@
 @startuml
 skinparam classAttributeIconSize 0
+hide circle
 
 class ParserUtils {
-  + <u>splitArguments(String argumentString): String[]
+  + <u> splitArguments(String argumentString): String[]
   + <u>parseInteger(String intString): int
   + <u>parseFloat(String floatString): float
   + <u>parseIndex(String indexString): int
   + <u>parseDate(String dateString): LocalDate
 }
 
-Parser ..> ParserUtils : uses
-ProgCommandFactory ..> ParserUtils : uses
-WaterCommandFactory  ..>  ParserUtils : uses
-FlagParser ..>  ParserUtils : uses
-HistoryCommandFactory ..>  ParserUtils : uses
-MealCommandFactory ..> ParserUtils : uses
+ParserUtils ..> ParserException
+ParserUtils ..> Utils
 
 @enduml

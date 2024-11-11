@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class CommandFactory {
+  - ProgCommandFactory progFactory
+  - MealCommandFactory mealFactory
+  - WaterCommandFactory waterFactory
+  - HistoryCommandFactory historyFactory
+
+  + createCommand(String commandString, String argumentString): Command
+}
+
+class Parser {
+  + parse(String fullCommand): Command
+}
+
+Parser "1" --> "1" CommandFactory : uses
+Parser ..> ParserException
+Parser ..> ParserUtils
+
+CommandFactory ..> ExitCommand
+CommandFactory ..> InvalidCommand
+
+@enduml

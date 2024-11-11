@@ -1,0 +1,14 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class Utils {
+  + <u> validate(int integer): void
+  + <u> validate(float number): void
+  + <u> validate(String string): void
+  + <u> formatDate(LocalDate date): String
+}
+
+Utils ..> ParserException
+
+@enduml

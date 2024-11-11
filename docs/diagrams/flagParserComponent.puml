@@ -1,5 +1,6 @@
 @startuml
 skinparam classAttributeIconSize 0
+hide circle
 
 class FlagParser {
   - parsedFlags: HashMap
@@ -18,8 +19,9 @@ class FlagParser {
   + getDateByFlag(String flag): LocalDate
 }
 
-ProgCommandFactory ..>  FlagParser : "  uses"
-WaterCommandFactory ..>  FlagParser : "  uses"
-MealCommandFactory ..>  FlagParser : "  uses"
+FlagParser ..> ParserUtils
+FlagParser ..> FlagDefinitions
+FlagParser ..> FlagException
+FlagParser ..> Utils
 
 @enduml
