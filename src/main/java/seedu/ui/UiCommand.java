@@ -194,8 +194,7 @@ public class UiCommand extends Ui {
             LocalDate date = deadlines.get(i).getUnformattedDate();
             if (!isPresentPrinted && date.isAfter(present)) {
                 isPresentPrinted = true;
-                System.out.println();
-                System.out.println(present.format(FORMATTER_DATE) + " " + POINTER_TO_NOW);
+                printDate(present, POINTER_TO_NOW);
             }
             String pointer = "";
             if (!isPresentPrinted && date.isEqual(present)) {
@@ -204,19 +203,22 @@ public class UiCommand extends Ui {
             }
             if (!date.isEqual(currentDate)) {
                 currentDate = date;
-                System.out.println();
-                System.out.println(date.format(FORMATTER_DATE) + " " + pointer);
+                printDate(date, pointer);
             }
             System.out.println("\t" + deadlines.get(i).getInternshipId()
                     + " (" + companies.get(i) + "): " + deadlines.get(i).getDescription());
         }
 
         if (!isPresentPrinted) {
-            System.out.println();
-            System.out.println(present.format(FORMATTER_DATE) + " " + POINTER_TO_NOW);
+            printDate(present, POINTER_TO_NOW);
         }
 
         printTailDivider();
+    }
+
+    private void printDate(LocalDate date, String pointer) {
+        System.out.println();
+        System.out.println(date.format(FORMATTER_DATE) + " " + pointer);
     }
 
     public String getInvalidFlags() {
