@@ -99,7 +99,7 @@ The `Parser` class has the following key method:
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
-The `ArgumentsMap` class extends the `HashMap<String, String>` class with the following methods
+The `ArgumentsMap` class extends the `HashMap<String, String>` class with the following methods:
 
 | Method             | Description                                                                                   |
 |--------------------|-----------------------------------------------------------------------------------------------|
