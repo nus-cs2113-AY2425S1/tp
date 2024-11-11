@@ -116,13 +116,27 @@ public class DeleteCoursesCommandTest {
     }
 
     @Test
-    public void execute_inputWithInvalidIndex_expectErrorMessgae() {
+    public void execute_inputWithInvalidIndex_expectErrorMessage() {
         String userInput = "delete 1000";
         deleteCoursesCommand.execute(userInput, storage);
         String expectedOutput = """
                 -----------------------------------------------------
                 Please provide a valid index of the course plan you would like to delete.
                 Type `list mapped` to check your current list of saved plans!
+                -----------------------------------------------------
+                """;
+        String actualOutput = outputStreamCaptor.toString();
+        assertEquals(normalizeLineEndings(expectedOutput),
+                normalizeLineEndings(actualOutput));
+    }
+
+    @Test
+    public void execute_inputWithNonIntegerIndex_expectErrorMessage() {
+        String userInput = "delete one";
+        deleteCoursesCommand.execute(userInput, storage);
+        String expectedOutput = """
+                -----------------------------------------------------
+                Please provide a valid numeric index of the course plan you would like to delete.
                 -----------------------------------------------------
                 """;
         String actualOutput = outputStreamCaptor.toString();
