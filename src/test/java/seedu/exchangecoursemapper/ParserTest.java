@@ -175,7 +175,7 @@ class ParserTest {
     @Test
     void testParsePUAbbreviation_UWA_capitalised() {
         String abbreviation = "UWA";
-        String expected = "the unversity of western australia";
+        String expected = "the university of western australia";
         String result = parser.parsePUAbbreviations(abbreviation);
         assertEquals(expected, result);
     }
