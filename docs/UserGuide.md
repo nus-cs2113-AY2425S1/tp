@@ -28,6 +28,8 @@ WheresMyMoney allows you to keep track of your spending habits and trends with v
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Notes
 
 - Text written in `SCREAMING_SNAKE_CASE` are user input fields.
