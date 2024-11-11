@@ -16,13 +16,11 @@ class Cli {
     + printGoodByeMessage(): void
 }
 
-class QuizSession {
+class QuizGenerator {
     - static Logger logger
-    - Cli cli
-    - Quiz currentQuiz
     - int questionLimit
+    - Cli cli
     - int timeLimitInSeconds
-    - Topic topic
 
     + QuizSession(cli: Cli)
     + startQuiz(topic: Topic): void
@@ -46,8 +44,8 @@ class Topic {
     + getQuestions(): List<Question>
 }
 
-QuizSession "1" *-- "1" Quiz : manages
-QuizSession "1" --> "1" Cli : uses
-QuizSession "1" o-- "1" Topic : accesses
+QuizGenerator *--> "1" Quiz : manages
+QuizGenerator --> "1" Cli : uses
+QuizGenerator o--> "1" Topic : accesses
 
 @enduml

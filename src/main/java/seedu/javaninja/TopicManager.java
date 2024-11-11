@@ -99,25 +99,40 @@ public class TopicManager {
      * @param input The input string containing the flashcard command and details.
      */
     public void addFlashcardByUser(String input) {
+        // Validate the command starts correctly and contains the necessary flags
         if (!input.startsWith("add Flashcards") || !input.contains("/q") || !input.contains("/a")) {
             cli.printMessage("Invalid command format. Use: add Flashcards /q [question] /a [answer]");
             return;
         }
 
-        // Split first by "/q" to separate the command from the question and answer
-        String[] questionSplit = input.split("/q", 2);
-        String[] answerSplit = questionSplit[1].split("/a", 2);
+        // Check for unexpected text or extra flags
+        String commandPart = input.substring(0, input.indexOf("/q")).trim();
+        if (!commandPart.equals("add Flashcards")) {
+            cli.printMessage("Invalid command format. Use only 'add Flashcards /q [question] /a [answer]'.");
+            return;
+        }
 
-        if (answerSplit.length < 2) {
+        String[] questionSplit = input.split("/q", 2);
+        if (questionSplit.length < 2 || questionSplit[1].isEmpty()) {
+            cli.printMessage("Invalid command format. Please provide a question after '/q'.");
+            return;
+        }
+
+        String[] answerSplit = questionSplit[1].split("/a", 2);
+        if (answerSplit.length < 2 || answerSplit[0].trim().isEmpty() || answerSplit[1].trim().isEmpty()) {
             cli.printMessage("Invalid command format. Please provide both question and answer.");
             return;
         }
 
-        // Extract the question and answer text, and trim to remove extra whitespace
         String questionText = answerSplit[0].trim();
         String correctAnswer = answerSplit[1].trim();
 
-        // Add the Flashcard to the "Flashcards" topic
+        if (questionText.contains("/") || correctAnswer.contains("/")) {
+            cli.printMessage("Invalid command format. Unexpected flag detected in question or answer.");
+            return;
+        }
+
+        // Add the flashcard to the "Flashcards" topic
         Topic topic = getOrCreateTopic("Flashcards");
         topic.addQuestion(new Flashcard(questionText, correctAnswer));
 

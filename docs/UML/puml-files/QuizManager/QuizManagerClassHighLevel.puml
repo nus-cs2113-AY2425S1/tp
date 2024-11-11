@@ -11,7 +11,7 @@ skinparam rectangle {
 }
 
 rectangle QuizManager as QM
-rectangle QuizSession as QS
+rectangle QuizGenerator as QS
 rectangle TopicManager as TM
 rectangle QuizResults as QR
 
@@ -24,11 +24,11 @@ rectangle Topic as T
 rectangle QuizTimer as QTi
 
 QS *-down-> "1" Q : generates
-TM *--down-> "0..*" T : loads
+TM *--down-> "*" T : loads
 Q *-down-> "0..1" QTi : when starts
 
 rectangle Question as Ques
-T *-down-> "0..*" Ques : contains
+T *-down-> "*" Ques : contains
 
 rectangle FillInTheBlank as FITB
 rectangle Flashcard as FC
