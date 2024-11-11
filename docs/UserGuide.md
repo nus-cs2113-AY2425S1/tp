@@ -14,7 +14,7 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
     - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
-    - [List courses provided by the partner university: `set`](#list-courses-provided-by-the-partner-university-set)
+    - [List courses provided by the partner university: `list courses`](#list-courses-provided-by-the-partner-university-list-courses)
     - [Obtain contacts from the list of universities: `obtain`](#obtain-contacts-from-the-list-of-universities-obtain)
     - [Filter possible mappings: `filter`](#filtering-possible-mappings-filter)
     - [Add a course mapping: `add`](#adding-a-course-mapping-add)
@@ -86,13 +86,17 @@ Format:
 
 Example of usage:
 * help filter
-* help set
 
 Expected outcome:
 ```
-Detail explanation
-Format to use the feature
-Example
+The filter function allows users to input a NUS course that they want to map
+and get a list of the mappable courses that includes NUS courses in the format of:
+Partner University: [PU_NAME]
+Partner University Course Code: [PU_COURSE_CODE]
+The format to use this feature is shown below:
+filter [NUS_COURSE_CODE]
+For example, filter cs2040
+-----------------------------------------------------
 ```
 
 ### List out all the possible schools from the options: `list schools`
@@ -111,7 +115,7 @@ The University of Western Australia
 ```
 
 
-### List courses provided by the partner university: `set`
+### List courses provided by the partner university: `list courses`
 This feature allows users to list out the available mappable course that are provided by a specific partner university.
 
 The information that would be listed out are:
@@ -119,24 +123,63 @@ The information that would be listed out are:
 - NUS course code and NUS course name
 
 Format:
-`set [PARTNER_UNIVERISTY_NAME]`
+`list courses [PARTNER_UNIVERISTY_NAME]`
 
 The available partner universities are:
-* The University of Western Australia
-* The University of Melbourne
-* The Australian National University
-* Victoria University of Wellington
+* The University of Western Australia (uwa)
+* The University of Melbourne (unimelb)
+* The Australian National University (anu)
+* Victoria University of Wellington (wgtn)
+Abbreviation of the universities name can be used.
 
 Example of usage:
-* set the university of western australia
-* set victoria university of wellington
+* list courses victoria university of wellington
+* list courses wgtn
 
 Expected output:
 ```
-PU_COURSE_CODE: PU_COURSE_NAME
-NUS_COURSE_CODE: NUS_COURSE_NAME
+COMP102: Introduction to Computer Program Design
+CS1010J: Programming Methodology
+-----------------------------------------------------
+COMP103: Introduction to Data Structures and Algorithms
+CS2040: Data Structures and Algorithms
+-----------------------------------------------------
+INFO151: Databases
+CS2102: Database Systems
+-----------------------------------------------------
+SWEN221: Software Development
+CS2103: Software Engineering
+-----------------------------------------------------
+NWEN301: Operating Systems Design
+CS2106: Introduction to Operating Systems
+-----------------------------------------------------
+NWEN405: Security Engineering
+CS2107: Introduction to Information Security
+-----------------------------------------------------
+NWEN303: Concurrent Programming
+CS3211: Parallel and Concurrent Programming
+-----------------------------------------------------
+COMP361: Design and Analysis of Algorithms
+CS3230: Design and Analysis of Algorithms
+-----------------------------------------------------
+MATH324: Coding and Cryptography
+CS3236: Introduction to Information Theory
+-----------------------------------------------------
+SWEN303: User Interface Design
+CS3240: Interaction Design
+-----------------------------------------------------
+MDDN241: 3D Modelling and Animation II
+CS3242: 3D Modeling and Animation
+-----------------------------------------------------
+SWEN421: Formal Software Engineering
+CS4211: Formal Methods for Software Engineering
+-----------------------------------------------------
+CYBR371: System and Network Security
+CS5231: Systems Security
+-----------------------------------------------------
+This is the end of the list.
 ```
-* Note that the output would be a list of mappable course of the format above
+* Note that the output would be a list of mappable courses of the format above.
 
 
 ### Obtain contacts from the list of universities `obtain`
@@ -375,7 +418,7 @@ cs2040 | the university of western australia | cits2200
 
 **A**: No, you are only allowed to filter one course at a time. 
 
-**Q**: Can I `set` multiple schools at the same time?
+**Q**: Can I `list courses` multiple schools at the same time?
 
 **A**: No, you are only allowed to list out all available course mappings by one partner university at a time. 
 
@@ -419,7 +462,7 @@ cs2040 | the university of western australia | cits2200
 | **Commands**     | `commands`                                                                       |
 | **Help**         | `help [COMMAND]`                                                                 |
 | **List Schools** | `list schools`                                                                   |
-| **Set**          | `set [PARTNER_UNIVERISTY_NAME]`                                                  |
+| **list courses** | `list courses [PARTNER_UNIVERISTY_NAME]`                                         |
 | **Obtain**       | `obtain [PARTNER_UNIVERSITY_NAME] /[CONTACT_TYPE]`                               |
 | **Filter**       | `filter [NUS_COURSE_CODE]`                                                       |
 | **Add**          | `add [NUS_COURSE_CODE] /pu [PARTNER_UNIVERSITY_NAME] /coursepu [PU_COURSE_CODE]` |

@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.exchangecoursemapper.constants.Commands.COMMANDS;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COURSES;
-import static seedu.exchangecoursemapper.constants.Commands.SET;
+import static seedu.exchangecoursemapper.constants.Commands.LIST_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.ADD_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.DELETE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.BYE;
@@ -100,7 +100,7 @@ class ParserTest {
 
     @Test
     void testProcessUserInput_setCoursesCommand() {
-        assertDoesNotThrow(() -> parser.processUserInput(SET, tempStorage));
+        assertDoesNotThrow(() -> parser.processUserInput(LIST_COURSES, tempStorage));
     }
 
     @Test

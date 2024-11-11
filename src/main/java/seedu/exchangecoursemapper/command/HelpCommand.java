@@ -7,7 +7,7 @@ import seedu.exchangecoursemapper.constants.Logs;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_SET;
+import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_LIST_COURSES;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_FILTER;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_LIST_SCHOOLS;
 import static seedu.exchangecoursemapper.constants.HelpMessages.COMMAND_COMMANDS;
@@ -41,8 +41,7 @@ public class HelpCommand extends CheckInformationCommand {
             logger.log(Level.INFO, Logs.COMMAND_PARSED);
             printHelp(command);
         } catch (IllegalArgumentException e) {
-            logger.log(Level.WARNING, Logs.INVALID_COMMAND);
-            System.out.println(e.getMessage());
+            handleIllegalArgumentError(e);
         } catch (java.lang.Exception e) {
             logger.log(Level.SEVERE, Logs.EXECUTION_FAILED, e);
             throw new RuntimeException(e);
@@ -63,7 +62,7 @@ public class HelpCommand extends CheckInformationCommand {
         String command = input.replaceFirst("help", "").trim().toLowerCase();
 
         switch (command) {
-        case "set":
+        case "list courses":
         case "filter":
         case "list schools":
         case "add":
@@ -93,8 +92,8 @@ public class HelpCommand extends CheckInformationCommand {
         assert command != null: Assertions.NULL_INPUT;
 
         switch (command) {
-        case "set":
-            System.out.println(COMMAND_SET);
+        case "list courses":
+            System.out.println(COMMAND_LIST_COURSES);
             break;
         case "filter":
             System.out.println(COMMAND_FILTER);
@@ -130,6 +129,12 @@ public class HelpCommand extends CheckInformationCommand {
             logger.log(Level.SEVERE, Logs.INVALID_COMMAND + command);
             throw new IllegalArgumentException(Exception.invalidCommand());
         }
+        System.out.println(LINE_SEPARATOR);
+    }
+
+    private static void handleIllegalArgumentError(IllegalArgumentException e) {
+        logger.log(Level.WARNING, Logs.INVALID_COMMAND);
+        System.out.println(e.getMessage());
         System.out.println(LINE_SEPARATOR);
     }
 }

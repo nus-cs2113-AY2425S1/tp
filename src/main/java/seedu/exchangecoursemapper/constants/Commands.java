@@ -5,7 +5,7 @@ public class Commands {
     public static final String COMMANDS = "commands";
     public static final String FILE_PATH = "/database.json";
     public static final String FILTER_COURSES = "filter";
-    public static final String SET = "set";
+    public static final String LIST_COURSES = "list courses";
     public static final String ADD_COURSES = "add";
     public static final String DELETE_COURSES = "delete";
     public static final String BYE = "bye";
