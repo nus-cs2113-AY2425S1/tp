@@ -51,6 +51,7 @@ public class Budget {
         this.balance = 0;
         this.isBudgetSet = false;
         this.budgetSetDate = null;
+    }
       
     /**
      * Returns the budget amount in 2dp String format.

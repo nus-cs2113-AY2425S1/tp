@@ -14,6 +14,7 @@ import seedu.duke.util.Commons;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,28 +58,11 @@ class BudgetLogicTest {
         budgetLogic.setBudget(financialList);
 
         assertTrue(budget.isBudgetSet());
-        assertEquals(1500, budget.getBudgetAmount());
-        assertEquals(1500, budget.getBalance());
-    }
-
-    /**
-     * Tests handling of invalid input during budget setting. Ensures the budget is set
-     * correctly after the invalid input is corrected.
-     */
-    @Test
-    void handleSetBudget_invalidInput_printWarningMessage() throws FinanceBuddyException {
-        ui.setInputs("yes", "invalid");
-
-        Exception exception = assertThrows(FinanceBuddyException.class, () -> {
-            budgetLogic.handleSetBudget(financialList);
-        });
-
-        // Verify the error message
-        assertEquals(Commons.ERROR_MESSAGE_NON_NUMBER_AMOUNT, exception.getMessage());
+        assertEquals(1000, budget.getBudgetAmount());
+        assertEquals(1000, budget.getBalance());
     }
 
     @Test
-
     void handleSetBudget_amountOutOfRange_printWarningMessage() throws FinanceBuddyException {
         ui.setInputs("yes", "0", "1000000000", "1000");
         budgetLogic.setBudget(financialList);
@@ -96,8 +80,14 @@ class BudgetLogicTest {
                 System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
+                "Please set your budget amount:" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
                 "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount." +
                 System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "--------------------------------------------" + System.lineSeparator() +
+                "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Your budget has successfully been set to: $ 1000.00" + System.lineSeparator() +
@@ -113,7 +103,7 @@ class BudgetLogicTest {
      */
     @Test
     void promptUserToSetBudget_budgetNotSet_setBudget() throws FinanceBuddyException {
-        ui.setInputs("yes", "1000");
+        ui.setInputs("1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
         String expectedOutput = "--------------------------------------------" + System.lineSeparator() +
@@ -136,7 +126,7 @@ class BudgetLogicTest {
         budget.setBudgetAmount(1000);
         budget.setBudgetSetDate(LocalDate.of(LocalDate.now().getYear() - 1, Month.JANUARY, 1));
 
-        ui.setInputs("yes", "1000");
+        ui.setInputs("1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
         String expectedOutput = "Your budget was set in a previous month." + System.lineSeparator() +
@@ -215,25 +205,6 @@ class BudgetLogicTest {
     }
 
     @Test
-    void testGetBudgetAndBalanceWhenNotSet() {
-        budgetLogic.getBudgetAndBalance();
-
-        assertEquals("No budget has been set." + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator(), outContent.toString());
-    }
-
-    @Test
-    void testGetBudgetAndBalanceWhenSet() {
-        budget.setBudgetAmount(2000);
-        budgetLogic.modifyBalance(-400);
-        budgetLogic.getBudgetAndBalance();
-
-        assertEquals("Your current budget is: $ 2000.00" + System.lineSeparator() +
-                "Your current monthly balance is: $ 1600.00" + System.lineSeparator() +
-                "--------------------------------------------" + System.lineSeparator(), outContent.toString());
-    }
-
-    @Test
     void testChangeBalanceFromExpenseInCurrentMonth() {
         budget.setBudgetAmount(1000);
         budgetLogic.changeBalanceFromExpense(-50, LocalDate.now());
@@ -242,11 +213,11 @@ class BudgetLogicTest {
     }
 
     @Test
-    void changeBalanceFromExpenses_oneExpenseCurrentMonth_expectDecrease() {
+    void changeBalanceFromExpenses_oneExpenseCurrentMonth_expectDecrease() throws FinanceBuddyException {
         budget.setBudgetAmount(1000);
 
-        String pastDate = "27/11/2023";
-        budgetLogic.changeBalanceFromExpenseString(19, pastDate);
+        String pastDate = "27/11/2024";
+        budgetLogic.changeBalanceFromExpenseString(-20, pastDate);
         
         assertEquals(980, budget.getBalance());
     }

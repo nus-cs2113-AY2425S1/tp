@@ -59,13 +59,15 @@ public class BudgetLogic {
      */
     public void promptUserToSetBudget(FinancialList financialList) throws FinanceBuddyException {
         if (!budget.isBudgetSet()) {
-            handleSetBudget(financialList);
+            final double amount = getValidBudgetAmountFromUser();
+            handleSetBudget(financialList, amount);
             return;
         }
         LocalDate budgetSetDate = budget.getBudgetSetDate();
         if (!isCurrentMonth(budgetSetDate)) {
             System.out.println("Your budget was set in a previous month.");
-            handleSetBudget(financialList);
+            final double amount = getValidBudgetAmountFromUser();
+            handleSetBudget(financialList, amount);
             return;
         }
         recalculateBalance(financialList);
@@ -131,7 +133,7 @@ public class BudgetLogic {
      */
     private double getValidBudgetAmountFromUser() {
         while (true) {
-            Commons.printSingleLineWithBars("Please set your budget amount:");t
+            Commons.printSingleLineWithBars("Please set your budget amount:");
             try {
                 String amountInput = ui.getUserInput();
                 double amount = Double.parseDouble(amountInput);
@@ -152,11 +154,11 @@ public class BudgetLogic {
      * @return true if the amount is valid (>= $0.01), false otherwise.
      */
     public boolean isValidBudgetAmount(double amount) {
-        if (amount >= 0.01) {
+        if (amount >= 0.01 && amount <= 9999999.00) {
             return true;
         } else {
             Commons.printSingleLineWithBars(
-                    "Budget amount must be >= $0.01. Please enter a valid amount.");
+                    "Budget amount must be >= $0.01 and <= $9999999.00. Please enter a valid amount.");
             logger.log(LogLevels.WARNING, "Amount less than $0.01 entered.");
             return false;
         }
