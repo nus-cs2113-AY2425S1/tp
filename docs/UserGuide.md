@@ -177,7 +177,7 @@ Format:
   - When the input is an integer, the input would be saved as an integer.
   - When the input is a double, the input would be saved to 2 decimal places.
     If the input has more than 2 decimal places, it would be rounded off to the nearest 2 decimal places.
-  -The application does not support limits more than 1 quadrillion. Any limit entered above this amount would be rounded down to 1         quadrillion(1,000,000,000,000,000).
+  - The application does not support limits more than 1 quadrillion. Any limit entered above this amount would be rounded down to 1         quadrillion(1,000,000,000,000,000).
 
 Example:
 
