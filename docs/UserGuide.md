@@ -257,12 +257,6 @@ Expected Output:
 
 ![Successful delete message](images/SuccessfulDeleteMessage.png)
 
-Example: `delete 0`
-
-Expected Output:
-```
-Please provide a valid index of the course plan you would like to delete.
-```
 
 ### List Personal Tracker courses: `list mapped`
 Lists all the courses saved in your Personal Tracker.

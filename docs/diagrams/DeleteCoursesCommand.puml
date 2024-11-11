@@ -12,12 +12,12 @@ activate DeleteCoursesCommand
 
 DeleteCoursesCommand -> DeleteCoursesCommand: parseDeleteCommand(userInput: String)
 activate DeleteCoursesCommand
-return descriptionSubstrings : String[]
+return inputDetails : String[]
 
 DeleteCoursesCommand -> DeleteCoursesCommand: getListIndex(descriptionSubstrings : String[])
 activate DeleteCoursesCommand
 
-DeleteCoursesCommand -> Integer: parseInt(descriptionSubstrings[1] : String)
+DeleteCoursesCommand -> Integer: parseInt(inputDetails[Index of parameter] : String)
 activate Integer
 return listIndex : int
 return listIndex: int
@@ -27,8 +27,10 @@ activate DeleteCoursesCommand
 DeleteCoursesCommand -> Storage: getCourse(listIndex : int)
 activate Storage
 Storage --> DeleteCoursesCommand: courseToDelete : Course
+deactivate Storage
 DeleteCoursesCommand -> Storage: deleteCourse(listIndex : int)
-Storage --> DeleteCoursesCommand
+activate Storage
+Storage --> DeleteCoursesCommand: return
 deactivate Storage
 
 DeleteCoursesCommand -> UI: printDeleteMessage(courseToDelete: Course)
