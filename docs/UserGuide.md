@@ -50,7 +50,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 
 ## Terminology:
 
-- **Exercise**: An exercise defined by a name, number of reps and sets, weight and average calories burned.
+- **Exercise**: An exercise is defined by a name, number of reps and sets, weight and average calories burned.
 - **Day**: A ‘workout day’ is a collection of exercises to be done together.
 - **Programme**: A programme is a collection of workout days.
 - **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
@@ -63,9 +63,10 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - The system automatically creates the file if it does not exist.
 - If the structure of the JSON file has been tampered with (e.g., removing the "programmeList" key or using {} as the entire content), the program will handle this scenario by treating the user as a first-time user and initializing a fresh start.
 - If any data values within the JSON file are found to be invalid (e.g., negative numbers where only positive values are allowed), the specific section containing corrupted data (either the `ProgrammeList` or `History`) will be re-initialized to be empty.
-<!-- @@author nirala-ts -->
+
 ---
 
+<!-- @@author nirala-ts -->
 ## To Note
 
 - BuffBuddy is designed specifically for programmes with **weighted exercises**. All exercises must include a weight value. Exercises such as 

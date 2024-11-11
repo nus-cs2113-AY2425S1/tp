@@ -1,16 +1,17 @@
 # Developer Guide
 
-## Acknowledgements
 <!-- @@author Bev-low -->
+## Acknowledgements
 We used these third party libraries to develop our application:
 
 - Gson
 - Mockito
-<!-- @@author -->
+
 ## Design
 
+<!-- @@author nirala-ts -->
 ### UI Component
-![Class_Diagram_of_Ui_Component](images/uiComponent.png)
+![Class_Diagram_for_Ui](images/uiComponent.png)
 
 The `UI` component manages the input and output interface between the user and the system, allowing interaction through command input and message displays. It enables seamless communication of user requests and system feedback in an organized and formatted manner.
 
@@ -172,7 +173,7 @@ The `Storage` component,
 - **Relies on `ProgrammeList` and `History` from the Model component:** Since the `Storage` component is tasked with saving and retrieving
   the `ProgrammeList` and `History` objects, it ensures the data is accurately represented and stored.
 - **Utilizes custom serializers:** To properly handle date formats and other specific needs, Storage makes use of custom serializers for
-  objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
+  objects like LocalDate from the `DateSerializer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
 
 The `FileManager` component,
 
@@ -191,7 +192,7 @@ The `DateSerializer` component,
 - **Implements `JsonSerializer` and `JsonDeserializer` interfaces**: The class implements both `JsonSerializer<LocalDate>` and `JsonDeserializer<LocalDate>` from the Gson library, allowing it to handle JSON conversion for `LocalDate` objects.
 - **Uses a standardized date format**: The `DateTimeFormatter` is configured with the pattern `dd-MM-yyyy`, which ensures that all serialized and deserialized dates conform to this format.
 
-<!-- @@author -->
+<!-- @@author nirala-ts -->
 ### Parser Component
 
 #### Overview
@@ -200,49 +201,55 @@ The Parser Component is a key part of the application, responsible for interpret
 It handles the delegation of command creation to specialized factories and manages flag parsing for a range of commands related to program management, meals, water intake, and history. 
 This component includes several classes and factories to ensure organized and efficient parsing and command generation.
 
-![Class_Diagram_of_Parser_Component](images/parserComponent.png)
+![Class_Diagram_for_Factory_Component](images/parserFactoryComponent.png)
 
 #### Parser Component
 The `Parser` class serves as the main entry point for parsing user input. 
 It splits the command string into a main command and arguments, identifies the appropriate factory, and delegates the command creation process. 
 It uses the CommandFactory to create command objects based on user input.
 
-#### FlagParser
-The `FlagParser` is a utility class for parsing flagged arguments within commands. It simplifies the extraction of specific values from arguments, supporting formats like integer, date, string, and index.
-This class also manages alias mapping to provide flexibility in flag usage, allowing different aliases for the same flag.
-
-#### ParserUtils
-`ParserUtils` is a utility class that contains common parsing methods used across the parser classes, including methods for splitting arguments, parsing integers, floats, indices, and dates.
-It provides standardized parsing functionality to avoid redundancy.
-
 #### CommandFactory
-The `CommandFactory` class acts as a central factory that distributes command creation requests to specific factories such as `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`. 
+The `CommandFactory` class acts as a central factory that distributes command creation requests to specific factories such as `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`.
 If an unrecognized command is provided, it returns an `InvalidCommand`.
 
 #### ProgCommandFactory
-
-The `ProgCommandFactory` is responsible for creating program-related commands. 
-It supports commands for creating, viewing, starting, deleting, logging, and editing programs, as well as adding or removing days and exercises from programs. 
+The `ProgCommandFactory` is responsible for creating program-related commands.
+It supports commands for creating, viewing, starting, deleting, logging, and editing programs, as well as adding or removing days and exercises from programs.
 It relies on helper methods like `parseDay` and `parseExercise` to streamline parsing of day and exercise arguments.
 
 #### MealCommandFactory
-
-The `MealCommandFactory` handles commands related to meal management, including adding, deleting, and viewing meals. It uses flags to parse meal details such as the meal name, calories, and date. 
+The `MealCommandFactory` handles commands related to meal management, including adding, deleting, and viewing meals. It uses flags to parse meal details such as the meal name, calories, and date.
 The factory generates specific commands like `AddMealCommand`, `DeleteMealCommand`, and `ViewMealCommand` based on the parsed input.
 
 
 #### WaterCommandFactory
-The `WaterCommandFactory` is responsible for water-related commands. It parses arguments to identify commands for adding, deleting, and viewing water intake entries. 
+The `WaterCommandFactory` is responsible for water-related commands. It parses arguments to identify commands for adding, deleting, and viewing water intake entries.
 This factory ensures that water logs can be managed with commands such as `AddWaterCommand`, `DeleteWaterCommand`, and `ViewWaterCommand`.
 
 #### HistoryCommandFactory
-The `HistoryCommandFactory` manages history-related commands. It supports viewing, listing, deleting history entries, and managing personal bests and weekly summaries. 
+The `HistoryCommandFactory` manages history-related commands. It supports viewing, listing, deleting history entries, and managing personal bests and weekly summaries.
 The factory can generate commands such as `ViewHistoryCommand`, `DeleteHistoryCommand`, `WeeklySummaryCommand`, and `ViewPersonalBestCommand` depending on the parsed input.
 
 
-![Class_Diagram_of_FlagDefinitions_Component](images/FlagDefinitionsComponent.png)
+#### FlagParser 
+
+![Class_Diagram_for_FlagParser_Component](images/flagParserComponent.png)
+
+The `FlagParser` is a utility class for parsing flagged arguments within commands. It simplifies the extraction of specific values from arguments, supporting formats like integer, date, string, and index.
+This class also manages alias mapping to provide flexibility in flag usage, allowing different aliases for the same flag.
+
+#### ParserUtils
+
+![Class_Diagram_for_ParserUtils_Component](images/parserUtilsComponent.png)
+
+`ParserUtils` is a utility class that contains common parsing methods used across the parser classes, including methods for splitting arguments, parsing integers, floats, indices, and dates.
+It provides standardized parsing functionality to avoid redundancy.
+
 
 #### FlagDefinitions
+
+![Class_Diagram_for_FlagDefinitions_Component](images/flagDefinitionsComponent.png)
+
 The `FlagDefinitions` class contains predefined constants for the various flags used across commands, such as flags for dates, programs, days, exercises, names, sets, reps, weights, and calories.
 It standardizes flag usage throughout the component, ensuring consistency in flag names.
 
@@ -366,7 +373,7 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
 
-
+<!-- @@author TVageesan -->
 ### Edit Programme
 
 #### Overview
@@ -619,9 +626,10 @@ The following sequence diagram shows how a load operation for ProgrammeList goes
 
 The following sequence diagram shows how a save operation goes through the Storage component:
 ![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
-<!-- @@author -->
+
 ---
 
+<!-- @@author -->
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Logging Guide](LoggingGuide.md)
@@ -643,38 +651,52 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 - Users will be able to track their progress as they progress on their fitness journey
 - Users will be able to track water and calorie intake to better track their nutrition
 
+
+<!-- @@author nirala-ts-->
 ## User Stories
 
-| Version | As a ...               | I want to ...                                           | So that I can ...                                    |
-|---------|------------------------|---------------------------------------------------------|------------------------------------------------------|
-| v1.0    | fitness enthusiast     | create a new workout plan/routine                       | tailor my workout to fit my needs                    |
-| v1.0    | fitness enthusiast     | create a workout entry (input sets, weights, rep, time) | keep track of my progress                            |
-| v1.0    | fitness enthusiast     | view my routine when I begin my workout                 | follow my plan more effectively                      |
-| v1.0    | fitness enthusiast     | view their logged workout entry for a specific day      | see what they have done previously                   |
-| v1.0    | fitness enthusiast     | delete a workout entry                                  | remove mistakenly created logs                       |
-| v1.0    | fitness enthusiast     | delete a fitness routine if I no longer use it          | ensure my routines remain relevant and organized     |
-| v1.0    | fitness enthusiast     | edit my existing fitness routine                        | further customize my routines after making them      |
-| v2.0    | progress tracking user | view a summary of my weekly workout activity            | measure my overall progress                          |
-| v2.0    | progress tracking user | track my personal bests for each exercise               | see improvements over time                           |
-| v2.0    | nutrition-focused user | track calories burned during my workout                 | align my fitness routine with my dietary goals       |
-| v2.0    | nutrition-focused user | add a meal I just ate                                   | track my meals over time                             |
-| v2.0    | nutrition-focused user | delete a meal I ate                                     | delete a wrongly inputted meal                       |
-| v2.0    | nutrition-focused user | view my meals I ate on a certain date                   | see how much calories I have eaten                   |
-| v2.0    | hydration-focused user | add my water intake                                     | track my water intake for each day                   |
-| v2.0    | hydration-focused user | view my water intake                                    | see how much water I have consumed across days/week  |
-| v2.0    | hydration-focused user | delete a water intake                                   | remove any mistakes made when inputting water intake |
+| Version | As a ...               | I want to ...                                      | So that I can ...                                     |
+|---------|------------------------|----------------------------------------------------|-------------------------------------------------------|
+| v1.0    | fitness enthusiast     | create a new workout programme/routine             | tailor my workout to fit my needs                     |
+| v1.0    | fitness enthusiast     | set a programme as active                          | default to this programme when logging workouts       |
+| v1.0    | fitness enthusiast     | add a workout day to my programme                  | structure my programme with specific workout days     |
+| v1.0    | fitness enthusiast     | add exercises to a workout day                     | define the exercises and goals for that day           |
+| v1.0    | fitness enthusiast     | edit my existing fitness routine                   | further customize my routines after making them       |
+| v2.0    | fitness enthusiast     | update exercise details like weight, sets, or reps | adjust my routine based on progress or goals          |
+| v1.0    | fitness enthusiast     | delete a workout entry                             | remove mistakenly created logs                        |
+| v1.0    | fitness enthusiast     | delete a fitness routine if I no longer use it     | ensure my routines remain relevant and organized      |
+| v2.0    | fitness enthusiast     | delete a workout day or exercise from a programme  | keep my programme up to date with relevant exercises  |
+| v1.0    | fitness enthusiast     | log my workout for a specific day                  | keep track of my progress and activities              |
+| v1.0    | fitness enthusiast     | view my routine when I begin my workout            | follow my plan more effectively                       |
+| v2.0    | fitness enthusiast     | view a specific workout record                     | review my activities and progress on a particular day |
+| v2.0    | fitness enthusiast     | view all my workout programmes                     | have a quick overview of all available programmes     |
+| v2.0    | progress tracking user | view a summary of my weekly workout activity       | measure my overall progress                           |
+| v2.0    | progress tracking user | track my personal bests for each exercise          | see improvements over time                            |
+| v2.0    | nutrition-focused user | track calories burned during my workout            | align my fitness routine with my dietary goals        |
+| v2.0    | nutrition-focused user | add a meal I ate                                   | track my meals and caloric intake                     |
+| v2.0    | nutrition-focused user | delete a meal I logged                             | remove incorrect meal entries                         |
+| v2.0    | nutrition-focused user | view my meals on a certain date                    | see how many calories I consumed                      |
+| v2.0    | nutrition-focused user | view a caloric balance in the history view         | understand my net calorie intake and expenditure      |
+| v2.0    | hydration-focused user | add my water intake                                | track my water intake for each day                    |
+| v2.0    | hydration-focused user | view my water intake                               | see how much water I have consumed across days/week   |
+| v2.0    | hydration-focused user | delete a water intake                              | remove any mistakes made when inputting water intake  |
+| v2.0    | user                   | exit BuffBuddy                                     | close the program after completing my activities      |
+
 
 ## Non-Functional Requirements
 
-- Java 11 or above installed
-- Program built to support only single user
+- Ensure that you have Java 17 or above installed.
+- Program is built to support single user only
 
 ## Glossary
 
-- _exercise_ - Any exercise that can defined by a name, rep, set, weight and calories burned.
-- _day_ - A day is a collection of exercises meant to be done in one day
-- _programme_ - A programme is a weekly plan of workout days meant to be performed in rotation
+- **Exercise**: An exercise defined by a name, number of reps and sets, weight and average calories burned.
+- **Day**: A ‘workout day’ is a collection of exercises to be done together.
+- **Programme**: A programme is a collection of workout days.
+- **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
 
+
+<!-- @@author -->
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}

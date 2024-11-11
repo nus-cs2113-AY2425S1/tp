@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class FlagParser {
+  - parsedFlags: HashMap
+  - aliasMap: HashMap
+
+  - generateSplitBy(String... ignoredFlags): String
+  - initializeAliasMap(): void
+  - parse(String argumentString, String splitBy): void
+  - resolveAlias(String flag): String
+  + hasFlag(String flag): boolean
+  + validateRequiredFlags(String... requiredFlags): void
+  + getStringByFlag(String flag): String
+  + getIndexByFlag(String flag): int
+  + getIntegerByFlag(String flag): int
+  + getFloatByFlag(String flag): float
+  + getDateByFlag(String flag): LocalDate
+}
+
+ProgCommandFactory "1" --> "1" FlagParser : uses
+WaterCommandFactory "1" --> "1" FlagParser : uses
+MealCommandFactory "1" --> "1" FlagParser : uses
+
+@enduml

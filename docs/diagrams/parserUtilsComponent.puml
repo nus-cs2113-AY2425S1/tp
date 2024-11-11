@@ -1,0 +1,19 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class ParserUtils {
+  + <u>splitArguments(String argumentString): String[]
+  + <u>parseInteger(String intString): int
+  + <u>parseFloat(String floatString): float
+  + <u>parseIndex(String indexString): int
+  + <u>parseDate(String dateString): LocalDate
+}
+
+Parser "1" --> "*" ParserUtils : uses
+ProgCommandFactory "1" --> "*" ParserUtils : uses
+WaterCommandFactory "1" --> "*" ParserUtils : uses
+FlagParser "1" --> "*" ParserUtils : uses
+HistoryCommandFactory "1" --> "*" ParserUtils : uses
+MealCommandFactory "1" --> "*" ParserUtils : uses
+
+@enduml

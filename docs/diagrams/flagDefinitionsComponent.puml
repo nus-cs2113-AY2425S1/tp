@@ -24,6 +24,5 @@ class FlagDefinitions {
 MealCommandFactory "1" --> "*" FlagDefinitions : uses
 ProgCommandFactory "1" --> "*" FlagDefinitions : uses
 WaterCommandFactory "1" --> "*" FlagDefinitions : uses
-FlagParser "1" --> "*" FlagDefinitions : uses
 
 @enduml
