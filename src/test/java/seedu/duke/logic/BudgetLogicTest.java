@@ -118,7 +118,7 @@ class BudgetLogicTest {
         ui.setInputs("yes", "1000");
         budgetLogic.promptUserToSetBudget(financialList);
 
-        String expectedOutput = "Your budget was set in a previous month." + System.lineSeparator() +
+        String expectedOutput = "Your budget of $ 1000.00 was set in a previous month." + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
                 "Please set your budget amount:" + System.lineSeparator() +
                 "--------------------------------------------" + System.lineSeparator() +
