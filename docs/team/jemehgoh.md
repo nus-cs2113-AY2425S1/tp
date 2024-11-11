@@ -30,7 +30,8 @@ EventManagerCLI is a desktop CLI application meant for managing small-scale even
 
 * **Enhancements to existing features**:
   * Added error handling for the `view` command (Pull request [#61](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/61))
-  * Fixed duplicate entry bugs for the `EventList` and `Event` commands (Pull request [#120](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/120))
+  * Fixed duplicate entry bugs for the `EventList` and `Event` commands (Pull requests [#120](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/120),[#245](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/245))
+  * Refactored parser methods to improve SLAP and reduce duplicate code (Pull requests [#163](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/163), [#253](https://github.com/AY2425S1-CS2113-W13-3/tp/pull/253))
 
 * **Documentation**
   * User Guide
