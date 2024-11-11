@@ -17,14 +17,14 @@ import static org.mockito.Mockito.verify;
 class CommandFactoryTest {
 
     private CommandFactory commandFactory;
-    private ProgCommandFactory progFactoryMock;
+    private ProgammeCommandFactory progFactoryMock;
     private MealCommandFactory mealFactoryMock;
     private WaterCommandFactory waterFactoryMock;
     private HistoryCommandFactory historyFactoryMock;
 
     @BeforeEach
     void setUp() {
-        progFactoryMock = mock(ProgCommandFactory.class);
+        progFactoryMock = mock(ProgammeCommandFactory.class);
         mealFactoryMock = mock(MealCommandFactory.class);
         waterFactoryMock = mock(WaterCommandFactory.class);
         historyFactoryMock = mock(HistoryCommandFactory.class);
