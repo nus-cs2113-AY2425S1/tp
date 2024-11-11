@@ -21,14 +21,6 @@ The sequence diagram below describes how the components interacts with one anoth
 
 ![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
 
-### SpendSwift
-#### Purpose
-Interface for command-line interactions.
-
-#### Main flow
-- The system starts and displays a greeting.
-- Continuously processes user commands until "bye".
-
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
 #### TrackerData
