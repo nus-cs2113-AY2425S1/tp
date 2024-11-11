@@ -586,7 +586,7 @@ The following sequence diagrams (Delete Water, View Water) follow the same struc
 
 #### Activity Diagram for "Add Water" Feature
 
-![Add Water Activity Diagram](images/addWaterActivitydiagram.png)
+![Add Water Activity Diagram](images/addWaterActivityDiagram.png)
 
 #### Summary of Feature
 
