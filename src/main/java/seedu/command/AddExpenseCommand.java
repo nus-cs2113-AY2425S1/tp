@@ -7,15 +7,19 @@ import seedu.exceptions.InvalidDateFormatException;
 import seedu.main.UI;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
+import seedu.message.InfoMessages;
 import seedu.transaction.Expense;
 import seedu.transaction.Transaction;
 import seedu.transaction.TransactionList;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class AddExpenseCommand extends AddTransactionCommand {
     public static final String COMMAND_WORD = "add-expense";
-    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]";
+    public static final String COMMAND_GUIDE = "add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]:" +
+            " Add an expense";
     public static final String[] COMMAND_MANDATORY_KEYWORDS = {"a/"};
     public static final String[] COMMAND_EXTRA_KEYWORDS = {"d/", "c/"};
 
@@ -51,17 +55,24 @@ public class AddExpenseCommand extends AddTransactionCommand {
         }
 
         Category category = handleCategoryInput(arguments.get(COMMAND_EXTRA_KEYWORDS[1]));
-        Transaction transaction = null;
+        Transaction temp = null;
         try {
-            transaction = (!Objects.equals(category.getName(), "")) ?
+            temp = (!Objects.equals(category.getName(), "")) ?
                     createTransaction(amount, expenseName, dateString, category) :
                     createTransaction(amount, expenseName, dateString);
         } catch (Exception e) {
             return List.of(CommandResultMessages.ADD_TRANSACTION_FAIL + e.getMessage());
         }
-        transactions.addTransaction(transaction);
+        transactions.addTransaction(temp);
         Storage.saveTransaction(transactions.getTransactions());
-        return List.of(CommandResultMessages.ADD_TRANSACTION_SUCCESS + transaction.toString());
+        List<String> messages = new ArrayList<>();
+        messages.add(CommandResultMessages.ADD_TRANSACTION_SUCCESS + temp.toString());
+        messages.add(InfoMessages.CURRENT_LIST);
+        List<Transaction> transactionList = transactions.getTransactions();
+        for (Transaction transaction: transactionList) {
+            messages.add(transactionList.indexOf(transaction) + 1 +". "+transaction.toString());
+        }
+        return messages;
     }
 
     private Category handleCategoryInput(String categoryName) {

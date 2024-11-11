@@ -1,26 +1,29 @@
 # uNivUSaver User Guide
 ## Table of Contents
-1. [Introduction](#introduction)
-2. [Quick Start](#quick-start)
-3. [Features](#features)
-   - [Adding](#adding)
-     - [Add an expense: `add-expense`](#add-an-expense-add-expense)
-     - [Add an income: `add-income`](#add-an-income-add-income)
-     - [Add a category: `add-category`](#add-a-category-add-category)
-     - [Add a budget: `add-budget`](#add-a-budget-add-budget)
-   - [Deleting](#deleting)
-     - [Delete an expense/income: `delete-transaction`](#delete-an-expenseincome-delete-transaction)
-     - [Delete a category: `delete-category`](#delete-a-category-delete-category)
-   - [Viewing](#viewing)
-     - [List all categories: `view-category`](#list-all-categories-view-category)
-     - [View expenses: `view-expense`](#view-expenses-view-expense)
-     - [View income: `view-income`](#view-income-view-income)
-     - [View transaction history: `history`](#view-transaction-history-history)
-   - [View total amount in account: `view-total`](#view-total-amount-in-account-view-total)
-   - [View command list: `help`](#view-command-list-help)
-   - [Searching](#searching)
-     - [Search transaction by keywords: `KeywordsSearchCommand`](#search-transaction-by-keywords-keywordssearchcommand)
-4. [Command Summary](#command-summary)
+1. [Introduction](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#introduction)
+2. [Quick Start](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#quick-start)
+3. [Features](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#features)
+   - [View command list: `help`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-command-list-help)
+   - [Adding](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#adding)
+     - [Add an expense: `add-expense`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#add-an-expense-add-expense)
+     - [Add an income: `add-income`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#add-an-income-add-income)
+     - [Add a category: `add-category`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#add-a-category-add-category)
+     - [Add a budget: `add-budget`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#add-a-budget-add-budget)
+   - [Deleting](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#deleting)
+     - [Delete an expense/income: `delete-transaction`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#delete-an-expenseincome-delete-transaction)
+     - [Delete a category: `delete-category`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#delete-a-category-delete-category)
+   - [Updating](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#updating)
+     - [Update an expense category: `categorize`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#update-an-expense-category-categorize)
+   - [Viewing list](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#viewing-list)
+     - [List all categories: `view-category`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#list-all-categories-view-category)
+     - [View expenses: `view-expense`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-expenses-view-expense)
+     - [View income: `view-income`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-income-view-income)
+     - [View transaction history: `history`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-transaction-history-history)
+   - [View total amount in account: `view-total`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-total-amount-in-account-view-total)
+   - [Searching: `search`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#searching-search)
+   - [Tracking: `track`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#tracking-track)
+   - [Leave the app: `bye`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#leave-the-app-bye)
+5. [Command Summary](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#command-summary)
 
 ---
 ## Introduction
@@ -44,23 +47,32 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 >- Parameters in [] are optional (e.g. `[f/ DATE]`)
 >- The keywords must be followed by **at least one space** before adding the associated parameter (e.g. `d/ DATE`)
 >- Parameters can be in any order, except for the parameters without keyword (e.g. `DESCRIPTION`)
->- Extraneous parameters for commands that do not take in parameters (such as help, list, bye and clear) will be ignored.
+>- Extraneous parameters for commands that do not take in parameters (such as help, bye) will be ignored.
+>- Empty commands will be ignored.
 >- The date and time format for input is `yyyy-MM-dd [hhMM]`. Time is optional, the system will automatically take '2359' or '0000' for time.
 >- The month format for input is `yyyy-MM-dd`
+
+> **&#9432;** **NOTES ON THE TRANSACTION LIST:**
+>- The transaction list will be sorted in time order.
+>- Any updating action (e.g. deleting, re-categorizing...) will be performed on the whole transaction list, not the sole expense/ income list
+
+### View command list: `help`
+- View all available commands in the application.
+- **Format:** `help`
 
 ### Adding
 #### Add an expense: `add-expense`
 - Add an amount of expense into the history.
 - **Format:** `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]`
 - **Tips:**
-  - If the category is not entered, the programme will prompt you to enter a category or to leave it empty
+  - If the category is not entered, the program will prompt you to enter a category or to leave it empty
   - You may either fill in a category already in the category list or create a new category if it is not present in the list
   - If the date is not entered, the system will take the current day.
 - **Examples:**
   ```
-  add-expense a/ 17 d/ 07.09.2024 c/ FnB
-  add-expense Amusement park a/ 52 d/ 08.09.2024
-  add-expense ChiCha San Chen a/ 6 d/ 09.09.2024 c/ FnB
+  add-expense a/ 17 d/ 2024-07-09 c/ FnB
+  add-expense Amusement park a/ 52 d/ 2024-08-09
+  add-expense ChiCha San Chen a/ 6 d/ 2024-09-09 c/ FnB
   ```
 
 #### Add an income: `add-income`
@@ -76,17 +88,18 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 
 #### Add a category: `add-category`
 - Add a category into the category list.
-- **Format:** `add-category n/NAME`
+- **Format:** `add-category CATEGORY_NAME`
 - **Tip:**
   - Category name must be unique.
 - **Examples:**
   ```
-  add-category n/ FnB
-  add-category n/ Laundry
+  add-category FnB
+  add-category Laundry
   ```
+
 #### Add a budget: `add-budget`
 - Sets a monthly budget to track spending against.
-- **Format:** `add-budget m/ MONTH a/ AMOUNT`
+- **Format:** `add-budget a/ AMOUNT m/ MONTH`
 - **Tips:**
   - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
   - The amount represents the budget limit for that month.
@@ -109,10 +122,21 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 
 #### Delete a category: `delete-category`
 - Delete a category from the category list.
-- **Format:** `delete-category i/ INDEX`
+- **Format:** `delete-category CATEGORY_NAME`
 - **Example:**
   ```
-  delete-category i/ 6
+  delete-category FnB
+  ```
+  
+---
+### Updating
+
+#### Update an expense category: `categorize`
+- Update the category field of an expense.
+- **Format:** `categorize i/ INDEX c/ CATEGORY`
+- **Example:**
+  ```
+  categorize i/ 6 c/ Food
   ```
   
 ---
@@ -154,15 +178,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - View the total amount of money currently in the account.
 - **Format:** `view-total`
 
----
-### View command list: `help`
-- View all available commands in the application.
-- **Format:** `help`
-
----
-### Searching
-
-#### Search transaction by keywords: `KeywordsSearchCommand`
+### Searching: `search`
 - Search for transaction or transactions in the transactionList using one or multiple keywords. The command counts exact match, with case ignore.
 - **Format:** `search k/ [keyword_1] [keyword_2] ... [keyword_n]`
 - **Example:**
@@ -171,10 +187,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   search k/ school fee ABC
   ```
   
-### Tracking
-
-#### Track the progress towards budget for a certain moth: `track m/ Month`
-- Track your spending progress to make sure you are within the budget
+### Tracking: `track`
+- Track the progress towards budget for a certain month to make sure you are within the budget
 - **Format:** `track m/ MONTH`
 - **Tips:**
   - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
@@ -185,24 +199,32 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   track m/ 2020-10
   ```
 
+### Leave the app: `bye`
+- Peacefully leave the application
+- **Format:** `bye`
+
+
 ## Command Summary
-It seems like you're trying to format a table of commands, but the current format may not render properly in the application or website you're using. Here's a properly formatted version of your command list using markdown or a clean text format, which should display well in most environments:
 
 ### Command List
 
 | **Command Word**     |                          **Syntax**                           |                     **Example**                     |
 |----------------------|:-------------------------------------------------------------:|:---------------------------------------------------:|
-| `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |      `add-expense a/ 17 d/ 07.09.2024 c/ FnB`       |
+| `help`               |                            `help`                             |                       `help`                        |
+| `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |    `add-expense Food a/ 17 d/ 2024-07-09 c/ FnB`    |
 | `add-income`         |        `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`         | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
-| `add-category`       |                    `add-category n/ NAME`                     |                `add-category n/ FnB`                |
+| `add-category`       |                    `add-category CATEGORY_NAME`               |                `add-category FnB`                   |
 | `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
 | `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
-| `delete-category`    |                  `delete-category i/ INDEX`                   |               `delete-category i/ 6`                |
+| `delete-category`    |             `delete-category CATEGORY_NAME`                   |               `delete-category FnB`                 |
+| `categorize`         |              `categorize i/ INDEX c/ CATEGORY`                |              `categorize i/ 6 c/ Food`              |
 | `view-category`      |                        `view-category`                        |                   `view-category`                   |
-| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |               `view-expense c/ food`                |
+| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |   `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`|
 | `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
 | `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
 | `view-total`         |                         `view-total`                          |                    `view-total`                     |
-| `help`               |                            `help`                             |                       `help`                        |
-| `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |           
+| `search`             |     `search k/ [keyword_1] [keyword_2] ... [keyword_n]`       |                 `search k/ school fee ABC`          |
+| `track`              |                       `track m/ MONTH`                        |                 `track m/ 2024-11`                  |
+| `bye`                |                            `bye`                              |                       `bye`                         |
+           
 

@@ -5,6 +5,7 @@ import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
+import seedu.utils.DescriptionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +50,7 @@ public class AddCategoryCommand extends Command {
             return messages;
         }
 
-        String categoryName = arguments.get("");
-        if (categoryName == "yes" || categoryName == "no") {
-            return List.of(CommandResultMessages.ADD_CATEGORY_FAIL + ErrorMessages.INVALID_CATEGORY_NAME);
-        }
-
+        String categoryName = DescriptionUtils.parseDescription(arguments.get(""));
         Category category = new Category(categoryName);
         Category temp = categoryList.addCategory(category);
 

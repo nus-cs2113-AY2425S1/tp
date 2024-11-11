@@ -4,7 +4,7 @@ participant ":Main" as Main
 
 activate Main
 create "helpCommand:HelpCommand" as HelpCommand
-Main -> HelpCommand: new HelpCommand()
+Main -> HelpCommand: HelpCommand()
 
 activate HelpCommand
 
@@ -29,7 +29,7 @@ opt Field found
     Parser -> CommandMap: put(commandWord, helpCommand)
     activate CommandMap
 
-    CommandMap --> Parser: success
+    CommandMap --> Parser: return
 
     deactivate CommandMap
 end
@@ -40,7 +40,7 @@ deactivate Main
 @enduml
 
 @startuml
-participant "Main" as Main
+participant ":Main" as Main
 
 participant "parser:Parser" as Parser
 Main -> Parser: parseCommand(commandWord:String)
@@ -62,7 +62,7 @@ deactivate Main
 @enduml
 
 @startuml
-participant "Main" as Main
+participant ":Main" as Main
 
 participant "parser:Parser" as Parser
 Main -> Parser: extractArguments(command, argumentString)

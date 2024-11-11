@@ -1,23 +1,24 @@
 # Developer Guide
 
 ## Table of Contents
-1. [Acknowledgements](#acknowledgements)
-2. [Design & Implementation](#design--implementation)
-    - [Category](#category)
-    - [TransactionList](#transactionlist)
-    - [Command](#command)
-    - [AddIncomeCommand](#addincomecommand)
-    - [Command Parser](#command-parser)
-3. [Product Scope](#product-scope)
-    - [Target User Profile](#target-user-profile)
-    - [Value Proposition](#value-proposition)
-4. [User Stories](#user-stories)
-5. [Non-Functional Requirements](#non-functional-requirements)
-6. [Glossary](#glossary)
-7. [Instructions for Manual Testing](#instructions-for-manual-testing)
+1. [Acknowledgements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#acknowledgements)
+2. [Design & Implementation](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#design--implementation)
+    - [Category](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#category)
+    - [TransactionList](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionlist)
+    - [Command](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command)
+    - [AddIncomeCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#addincomecommand)
+    - [Command Parser](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command-parser)
+3. [Product Scope](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#product-scope)
+    - [Target User Profile](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#target-user-profile)
+    - [Value Proposition](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#value-proposition)
+4. [User Stories](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#user-stories)
+5. [Non-Functional Requirements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#non-functional-requirements)
+6. [Glossary](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#glossary)
+7. [Instructions for Manual Testing](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#instructions-for-manual-testing)
 
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
+- The `Storage` uses external library Gson by Google from [Gson](https://github.com/google/gson.git), with changes to get on well with the current project
 
 ## Design & implementation
 ### Category
@@ -176,10 +177,10 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
     - **Returns**: A new `Income` instance.
 
 ### Command Parser
-The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic.
+The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic. There is only one Command Parser living through a session.
 
 #### Class responsibilities
-1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects.
+1. **Command registration**: Maintain a mapping of command words to their corresponding `Command` objects. This command object will maintain throughout the session and every execution will be called through it.
 2. **Command parsing**: Convert a command string entered by the user into a `Command` object.
 3. **Argument extraction**: Extract and organize the arguments associated with a given command.
    
@@ -194,6 +195,7 @@ The `Parser` class is responsible for interpreting user commands and extracting 
    - **Process**:
      - Retrieves the `COMMAND_WORD` field from the `Command` object
      - Adds the word and the command to the `commands` map.
+   - **Diagram note**: In the following registration diagram, `helpCommand` stays alive and referenced throughout the session.
     
     ![register_command](./diagrams/parser/register-command-sequence.png)
     

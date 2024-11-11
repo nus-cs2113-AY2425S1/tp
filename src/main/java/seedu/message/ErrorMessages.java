@@ -35,6 +35,8 @@ public class ErrorMessages {
     public static final String ERROR_SAVING_BUDGETS = "Error saving budgets: %s";
 
     // DateTime
+    public static final String MESSAGE_INVALID_START_END =
+            "Your start day must come before end day!";
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm";
     public static final String MESSAGE_INVALID_YEAR_MONTH_FORMAT =
@@ -47,5 +49,8 @@ public class ErrorMessages {
     public static final String INVALID_AMOUNT_FORMAT = "Invalid amount format: ";
 
 
-
+    public static final String INVALID_AMOUNT_GUIDE = "\n    Make sure the amount is positive and is smaller than " +
+            "1000000000";
+    public static final String INVALID_STRING_FORMAT = "\n    Invalid description format";
+    public static final String INVALID_DESCRIPTION_GUIDE = "\n    Description can have at most 40 characters";
 }

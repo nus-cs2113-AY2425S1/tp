@@ -93,6 +93,7 @@ public class Main {
             start();
             runCommandLoop();
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             logger.log(Level.WARNING, "Unknown error: " + e.getMessage());
         }
     }
@@ -156,25 +157,25 @@ public class Main {
         HelpCommand helpCommand = new HelpCommand();
         parser.registerCommands(helpCommand);
 
-        parser.registerCommands(new AddCategoryCommand(categories));
-        parser.registerCommands(new AddIncomeCommand(transactions));
         parser.registerCommands(new AddExpenseCommand(transactions, ui, categories));
+        parser.registerCommands(new AddIncomeCommand(transactions));
+        parser.registerCommands(new AddCategoryCommand(categories));
         parser.registerCommands(new AddBudgetCommand(budgetTracker));
 
-        parser.registerCommands(new DeleteCategoryCommand(categories, transactions));
         parser.registerCommands(new DeleteTransactionCommand(transactions));
+        parser.registerCommands(new DeleteCategoryCommand(categories, transactions));
+
+        parser.registerCommands(new UpdateCategoryCommand(transactions, categories));
 
         parser.registerCommands(new ViewCategoryCommand(categories));
         parser.registerCommands(new ViewExpenseCommand(transactions));
         parser.registerCommands(new ViewIncomeCommand(transactions));
-        parser.registerCommands(new ViewTotalCommand(transactions));
         parser.registerCommands(new HistoryCommand(transactions));
 
-        parser.registerCommands(new TrackProgressCommand(budgetTracker));
+        parser.registerCommands(new ViewTotalCommand(transactions));
 
         parser.registerCommands(new KeywordsSearchCommand(transactions));
-
-        parser.registerCommands(new UpdateCategoryCommand(transactions, categories));
+        parser.registerCommands(new TrackProgressCommand(budgetTracker));
 
         parser.registerCommands(new ByeCommand());
 
@@ -189,6 +190,7 @@ public class Main {
      */
     private static void runCommandLoop() {
         while (isRunning) {
+
             String commandString = ui.getUserInput();
             String[] commandParts = commandString.split(" ", 2);
 

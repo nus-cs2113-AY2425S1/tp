@@ -12,7 +12,8 @@ class AmountUtilsTest {
         try {
             AmountUtils.parseAmount("test");
         } catch (IllegalArgumentException e) {
-            assertEquals(ErrorMessages.INVALID_AMOUNT_FORMAT + "test", e.getMessage());
+            assertEquals(ErrorMessages.INVALID_AMOUNT_FORMAT + "test"
+                    + ErrorMessages.INVALID_AMOUNT_GUIDE, e.getMessage());
         }
     }
 
@@ -21,7 +22,8 @@ class AmountUtilsTest {
         try {
             AmountUtils.parseAmount("-1");
         } catch (IllegalArgumentException e) {
-            assertEquals(ErrorMessages.INVALID_AMOUNT_FORMAT + "-1", e.getMessage());
+            assertEquals(ErrorMessages.INVALID_AMOUNT_FORMAT + "-1"
+                    + ErrorMessages.INVALID_AMOUNT_GUIDE , e.getMessage());
         }
     }
 

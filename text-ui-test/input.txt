@@ -12,7 +12,7 @@ add-expense Lunch a/ 20 d/ 2024-11-01 c/ Groceries
 add-expense Dinner a/ 15 d/ 2024-11-01
 no
 
-add-expense Dinner a/ 15 d/ 2024-11-01
+add-expense Dinner a/ 15 d/ 2024-11-01 1111
 NewCategory
 
 add-expense a/ 15 d/ 2024-11-01
@@ -38,7 +38,7 @@ no
 delete-category NewCategory
 skip
 
-delete-category Luxury
+delete-category luxury
 LessLuxury
 yes
 
@@ -76,9 +76,10 @@ track m/ 13
 foo
 
 search k/ Dinner
+search k/ din
 search k/
 
-categorize i/ 5 c/ Food
+categorize i/ 5 c/ food
 categorize i/ 5 c/ NonExistingCategory
 categorize i/ 999 c/ Groceries
 categorize i/ abc c/ Groceries
