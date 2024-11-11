@@ -346,7 +346,7 @@ Updated exercise: Bicep_Curl: 3 sets of 15 at 8kg | Burnt 100 cals
 ```
 ---
 
-<!-- @@author andreusxcarvalho -->
+<!-- @@author nirala-ts -->
 ### 11. Log Workout
 
 This feature records the successful completion of a workout for the specified day within the chosen programme.

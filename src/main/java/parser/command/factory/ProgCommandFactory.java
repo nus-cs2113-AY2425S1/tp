@@ -181,7 +181,6 @@ public class ProgCommandFactory {
         return new DeleteProgrammeCommand(progIndex);
     }
 
-    // @@author andreusxcarvalho
     /**
      * Prepares and returns a {@link LogProgrammeCommand} to log activity in a specific program on a particular date.
      *
