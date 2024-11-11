@@ -13,16 +13,13 @@ Check out my contributions to ExchangeCourseMapper on the [TP Dashboard](https:/
 
 ### Enhancements Implemented:
 #### PersonalTrackerCommand
-Abstract parent class to allow child classes for the Personal Tracker features to be implemented through 
-over-riding methods
+Abstract parent class for child classes of the Personal Tracker feature.
 
 #### Filter Courses Command Class
 Implemented the `FilterCoursesCommand` class to allow users to filter out Partner University Courses that can be
-mapped to a specific NUS course they plan to take during exchange. 
-Running this command will display the courses offered by PUs in Oceania that can be mapped back to the user specified
-NUS SoC course.
+mapped to a specific NUS course they plan to take during exchange.
 
-#### Nus Course Code Validator Class
+#### NUS Course Code Validator Class
 Implemented the `NusCourseCodeValidator` class to check if the NUS course code input for the `FilterCoursesCommand`
 follows a valid NUS SoC course code format.
 
@@ -34,28 +31,27 @@ The list index input from the user will be further checked to ensure it is a val
 #### Miscellaneous
 * J-unit test, assertions and logging for all classes were done to gracefully handle errors.
 * Refactored code over the course of the project to follow SLAP.
-* Created the `constants` package, with the `Messages`, `Commands`, `JsonKey` and `Regex` files to store named constants.
+* Created the `constants` package to store named constants (`Messages`, `Commands`, `JsonKey` and `Regex`)
 
 ### Contributions to User Guide:
 * Documented Filter Courses and Delete Courses Functions
 
 ### Contributions to Developer Guide:
-#### 1. Design and Implementation Section
-* Made config files for UML diagrams to follow standard notations, and
-  class diagrams of `Commands` structure: `Command` class inheritance, `CheckInformationCommand` and
-  `PersonalTrackerCommand`, and sequence diagrams for FilterCourses and DeleteCourses commands.
-* Documented the implementation of FilterCourses and DeleteCourses commands.
+* Design and Implementation Section
+  * Made config files for UML diagrams to follow standard notations, and
+    class diagrams of `Commands` structure: `Command` class inheritance, `CheckInformationCommand` and
+    `PersonalTrackerCommand`, and sequence diagrams for FilterCourses and DeleteCourses commands.
+  * Documented the implementation of FilterCourses and DeleteCourses commands.
 
-#### 2. Instructions for manual testing Section
-* Documented test cases for testers to follow for the commands inheriting from `CheckInformationCommands`
-* Included notes for testers that could guide them through the testing
+* Instructions for manual testing Section
+  * Documented test cases for testers to follow for the commands inheriting from `CheckInformationCommand`
 
 ### Contributions to team-based tasks:
 * Set up the GitHub team organisation, tP repository, and issue tracker.
 * Provided the idea of a CLI application to help with Student Exchange Programme planning.
 * Added the database as a resource to Java in order to package it with the JAR.
 * Creation of the `constants` package, for the use of named constants in our team code.
-* Actively participates in weekly meetings.
+* Actively participates in weekly meetings to clarify doubts and set goals together.
 
 ### Review/mentoring contributions:
 * GitHub code reviews for multiple PRs, learning together with the team: 

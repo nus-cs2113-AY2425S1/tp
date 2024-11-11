@@ -168,6 +168,22 @@ public class FilterCoursesCommandTest {
                 normalizeLineEndings(actualOutput));
     }
 
+    @Test
+    public void execute_invalidNusCourseCodes_expectErrorMessage() {
+        String userInput = "filter eeeeeeeeeee";
+        filterCoursesCommand.execute(userInput);
+        String expectedOutput = """
+                -----------------------------------------------------
+                Please follow this format for the NUS SoC course code input (not case-sensitive):
+                CS/EE/BT/IS followed by a 4-digit sequence e.g CS3241
+                Some courses may end with a character too e.g. CS1010J
+                -----------------------------------------------------
+                """;
+        String actualOutput = outputStreamCaptor.toString();
+        assertEquals(normalizeLineEndings(expectedOutput),
+                normalizeLineEndings(actualOutput));
+    }
+
     public JsonObject createDatabaseJsonObject() throws FileNotFoundException {
         JsonReader jsonReader = Json.createReader(new FileReader("./data/database.json"));
         JsonObject jsonObject = jsonReader.readObject();

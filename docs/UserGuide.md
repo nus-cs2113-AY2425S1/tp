@@ -53,7 +53,7 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 >You may try one of the following:
 >- Remove the corrupted line (delete one course mapping).
 >- Remove any empty lines in the file.
->- Ensure the file has an empty line at the end of the list of courses for a new course to be added.
+>- Ensure the file has one empty line at the end of the list of courses for a new course to be added.
 >
 > **This list is non-exhaustive.**
 > 
@@ -410,7 +410,7 @@ cs3244 | the australian national university | comp3670
 cs2102 | the university of melbourne | info20003
 ```
 
-### Find courses in personalised tracker `find`
+### Find courses in personalised tracker: `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`

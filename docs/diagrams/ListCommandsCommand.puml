@@ -1,7 +1,6 @@
 @startuml
 
 !include .SequenceDiagram.config
-
 hide footbox
 
 actor CEG_Student
@@ -9,17 +8,17 @@ actor CEG_Student
 participant ListCommandsCommand as LCC
 participant UI as UI
 
-CEG_Student - LCC execute (userInputString)
+CEG_Student -> LCC: execute (userInputString)
 
 activate LCC
 
-LCC - UI printCommandsList()
+LCC -> UI: printCommandsList()
 activate UI
 
-UI -- LCC  display list of commands
+UI --> LCC:  display list of commands
 deactivate UI
 
-LCC -- CEG_Student
+LCC --> CEG_Student
 deactivate LCC
 
 @enduml
