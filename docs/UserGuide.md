@@ -4,6 +4,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
+- [Notes](#notes)
 - [Features](#features)
 - [FAQ](#faq)
 - [Command Summary](#command-summary)

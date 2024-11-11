@@ -69,8 +69,7 @@ public class CategoryFacade {
     
     /**
      * Calls {@code CategoryStorage} to load category information from a CSV file,
-     * then calls {@code CategoryFilter} to display the categories which are
-     * nearing or exceeding the limit.
+     * then to show filtered categories based on spending limits.
      *
      * @param expenseList the list of expenses to track category information
      * @throws WheresMyMoneyException if there is an error while loading category info
@@ -84,8 +83,8 @@ public class CategoryFacade {
 
 
     /**
-     * Calls {@code CategoryFilter} to show filtered categories.
-     * based on spending limits.
+     * Calls {@code CategoryFilter} to display the categories which are
+     * nearing or exceeding the limit.
      */
     public void displayFilteredCategories() {
         categoryFilter.getCategoriesFiltered();
