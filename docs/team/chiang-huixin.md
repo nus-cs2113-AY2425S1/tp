@@ -26,28 +26,25 @@ This is a link to the code I have contributed: [TP dashboard](https://nus-cs2113
 - Implemented the `ListUniCoursesCommand` class to allow user to list out the courses available for a
   specific school
 - Implemented JUnit test for `ListUniCoursesCommand` class.
-- Implemented assertions, loggings and exceptions for error handling.
-- Added Javadoc for documentation.
+- Implemented assertions, loggings and exceptions for error handling and Javadoc for documentation.
 
 #### HelpCommand #####
 - Implemented the `HelpCommand` class to allow users to ask for help when in doubt of the features.
 - Implemented JUnit test for `HelpCommand` class.
-- Implemented assertions, loggings and exceptions for error handling.
-- Added Javadoc for documentation.
+- Implemented assertions, loggings and exceptions for error handling and Javadoc for documentation.
 
 #### FindCoursesCommand ####
 - Implemented the `FindCoursesCommand` class to allow users to search for specific NUS courses in their Personalised
   Tracker.
 - Implemented JUnit tests for `FindCoursesCommand` class.
-- Implemented assertions, loggings and exceptions for error handling.
-- Added Javadoc for documentation.
+- Implemented assertions, loggings and exceptions for error handling and Javadoc for documentation.
 
-## Contributions to UG:
+## 3. Contributions to UG:
 - Documented List University Courses command
 - Documented Help Command
 - Documented Find Courses Command
 
-## Contribution to DG:
+## 4. Contribution to DG:
 #### Class Diagram section ####
 - Implemented `Parser` class diagram
 
@@ -64,21 +61,20 @@ This is a link to the code I have contributed: [TP dashboard](https://nus-cs2113
 - Written overview, how the feature is implemented, why it is implemented that way
 - Sequence diagram for `FindCoursesCommand`
 
-## Manual Testing Section
-- Documented test cases for features like `FindCoursesCommand`, `AddCoursesCommand` and
-  `DeleteCoursesCommand`
+#### Manual Testing Section
+- Documented test cases for features `FindCoursesCommand`, `AddCoursesCommand` and `DeleteCoursesCommand`
 
-## Contribution to team-based tasks
+## 5. Contribution to team-based tasks
 - Reviewed PRs to ensure adherence to code quality and standards
 - Maintained GitHub issue tracker
 
-## Review/mentoring contributions ###
+## 6. Review/mentoring contributions ###
 * Github code review and comments:
 * [#84](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/84)
 * [#100](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/100)
 * [#168](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/168)
 
-## Contributions beyond the project team:
+## 7. Contributions beyond the project team:
 * Peer review for team CS2113-T11-1
 * Here are some of the comments:
 * [PR1](https://github.com/nus-cs2113-AY2425S1/tp/pull/15/files#diff-94fa36935d6c1f7219b9f9db36e467da385cadbf636e14fde5c37332bbc6a834)
