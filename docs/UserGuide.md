@@ -68,6 +68,8 @@ upcoming-remind                                                  upcoming-remind
 add-goal (goal name) (deadline)                                  add-goal run 12/12/2024 14:00:00
 delete-goal (goal index)                                         delete-goal 1
 list-goal                                                        list-goal
+gpoints                                                          gpoints PU
+gperformance                                                     gperformance WAR
 add-water (amount)                                               add-water 500
 delete-water (index)                                             delete-water 1
 list-water                                                       list-water
