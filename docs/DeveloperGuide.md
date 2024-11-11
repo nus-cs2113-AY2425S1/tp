@@ -470,6 +470,8 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
+The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram. 
+
 #### Sequence Diagram for "Delete Meal" Command
 
 ![Delete Meal Sequence Diagram](images/deleteMealSequenceDiagram.png)
