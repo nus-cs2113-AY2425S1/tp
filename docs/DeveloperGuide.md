@@ -10,7 +10,7 @@
   * [Command component](#command-component)
   * [Event component](#event-component)
 * [Implementation](#implementation)
-  * [Command parsing](#command-parsing-)
+  * [Command parsing](#command-parsing)
   * [List feature](#list-feature)
   * [Add feature](#add-feature)
   * [Remove feature](#remove-feature)
@@ -206,7 +206,7 @@ The component and its dependencies are shown in the below **Component Diagram**:
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Command parsing ###
+### Command parsing
 
 The user command input for the program is in the following format:
 

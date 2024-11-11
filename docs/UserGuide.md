@@ -7,7 +7,7 @@
   * [Viewing the command list: `menu`](#viewing-the-command-list-menu)
   * [Listing all events: `list`](#listing-all-events-list)
   * [Adding an event, participant or item: `add`](#adding-an-event-participant-or-item-add)
-  * [Removing an event, participant or item: `remove`](#removing-an-event-participant-or-item-remove-)
+  * [Removing an event, participant or item: `remove`](#removing-an-event-participant-or-item-remove)
   * [Viewing all participants or items for an event: `view`](#viewing-all-participants-or-items-for-an-event-view)
   * [Editing the information of an event, participant or item: `edit`](#editing-the-information-of-an-event-participant-or-item-edit)
   * [Marking events, participants, or items: `mark`](#marking-events-participants-or-items-mark)
@@ -131,7 +131,7 @@ Examples:
 * `add -p John Tan -email john@gmail.com -e Origami workshop` adds a participant `John Tan` to the event `Origami workshop`.
 * `add -m Origami paper -e Origami workshop` adds an item `Origami paper` to the event `Origami workshop`.
 
-### Removing an event, participant or item: `remove` 
+### Removing an event, participant or item: `remove`
 
 Removes an event from the event list, a participant from an event, or an item from an event.
 
