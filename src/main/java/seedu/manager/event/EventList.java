@@ -253,19 +253,18 @@ public class EventList  {
      * @param eventTime The new time of the event.
      * @param eventVenue The new venue of the event.
      * @param eventPriority The new priority of the event.
-     * @return {@code true} if the event was successfully edited;
-     *         {@code false} if the event does not exist.
+     * @return the updated name of the event if the event details were updated. Otherwise, returns an empty string.
      */
-    public boolean editEvent(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue,
+    public String editEvent(String eventName, String eventNewName, LocalDateTime eventTime, String eventVenue,
             Priority eventPriority) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 String name = getUpdatedEventName(eventNewName, event);
                 event.updateEvent(name, eventTime, eventVenue, eventPriority);
-                return true;
+                return name;
             }
         }
-        return false;
+        return "";
     }
 
     //@@author KuanHsienn
@@ -284,16 +283,16 @@ public class EventList  {
      * @param newName        the new name of the participant.
      * @param email          the new email address of the participant.
      * @param eventName      the name of the event associated with the participant.
-     * @return {@code true} if the participant was successfully edited;
-     *         {@code false} if the event does not exist or the participant was not found.
+     * @return the updated participant name if the participant was successfully edited;
+     *         an empty string if the event does not exist or the participant was not found.
      */
-    public boolean editParticipant(String currentName, String newName, String email, String eventName) {
+    public String editParticipant(String currentName, String newName, String email, String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 return event.updateParticipant(currentName, newName, email);
             }
         }
-        return false;
+        return "";
     }
 
     //@@author MatchaRRR
@@ -306,18 +305,19 @@ public class EventList  {
      * If the event does not exist, it returns {@code false}.
      * </p>
      *
-     * @param itemName The name of original item.
-     * @param itemNewName The name of the new item.
-     * @return {@code true} if the item was successfully edited;
-     *         {@code false} if the item does not exist.
+     * @param itemName the name of original item.
+     * @param itemNewName the name of the new item.
+     * @param eventName the name of the event the item is in.
+     * @return the updated name of the item if the item was successfully edited;
+     *         an empty string if the item or event specified does not exist.
      */
-    public boolean editItem(String itemName, String itemNewName, String eventName) {
+    public String editItem(String itemName, String itemNewName, String eventName) {
         for (Event event : eventList) {
             if (event.getEventName().equals(eventName)) {
                 return event.updateItem(itemName, itemNewName);
             }
         }
-        return false;
+        return "";
     }
 
     //@@author LTK-1606

@@ -6,7 +6,7 @@ package seedu.manager.command;
  */
 public class EditParticipantCommand extends Command{
     public static final String COMMAND_WORD = "edit";
-    private static final String EDIT_PARTICIPANT_MESSAGE = "Participant contact information successfully updated";
+    private static final String EDIT_PARTICIPANT_MESSAGE = "The following participant's details has been updated:\n";
     private static final String EDIT_FAILURE_MESSAGE = "Event/Participant not found!";
     protected String eventName;
     protected String participantName;
@@ -25,14 +25,13 @@ public class EditParticipantCommand extends Command{
      * @param eventName The name of the event associated with the participant.
      */
     public EditParticipantCommand(String participantName, String newParticipantName, String participantEmail,
-                                  String eventName) {
+            String eventName) {
         super(false);
         this.participantName = participantName;
         this.newParticipantName = newParticipantName;
         this.participantEmail = participantEmail;
         this.eventName = eventName;
     }
-
 
     /**
      * Executes the edit operation, updating the participant's contact information if the
@@ -41,10 +40,29 @@ public class EditParticipantCommand extends Command{
      */
     @Override
     public void execute() {
-        if (participantName != null) {
-            boolean isEdited = eventList.editParticipant(participantName, newParticipantName, participantEmail,
-                    this.eventName);
-            this.message = (isEdited) ? EDIT_PARTICIPANT_MESSAGE : EDIT_FAILURE_MESSAGE;
+        assert participantName != null: "Participant name cannot be null.";
+        String updatedName = eventList.editParticipant(participantName, newParticipantName, participantEmail,
+                eventName);
+        if (updatedName.equalsIgnoreCase("")) {
+            message = EDIT_FAILURE_MESSAGE;
+        } else {
+            message = getOutputMessage(updatedName, participantEmail);
         }
+    }
+
+    /**
+     * Returns a success output message with the given participant details.
+     *
+     * @param name the updated name of the participant.
+     * @param email the updated email of the participant.
+     * @return an output message with name, email, and the event name.
+     */
+    private String getOutputMessage(String name, String email) {
+        StringBuilder outputMessage = new StringBuilder();
+        outputMessage.append(EDIT_PARTICIPANT_MESSAGE);
+        String formattedString = String.format("Participant name: %s / Participant email: %s / Event name: %s",
+                name, email, eventName);
+        outputMessage.append(formattedString);
+        return outputMessage.toString();
     }
 }

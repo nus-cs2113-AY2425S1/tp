@@ -10,14 +10,13 @@ import java.time.LocalDateTime;
  */
 public class EditEventCommand extends Command{
     public static final String COMMAND_WORD = "edit";
-    private static final String EDIT_EVENT_MESSAGE = "Event information successfully updated";
+    private static final String EDIT_EVENT_MESSAGE = "The following event has been updated:\n";
     private static final String EDIT_FAILURE_MESSAGE = "Event not found!";
     protected String eventName;
     protected String eventNewName;
     protected LocalDateTime eventTime;
     protected String eventVenue;
     protected Priority eventPriority;
-
 
     //@@author MatchaRRR
     /**
@@ -39,7 +38,6 @@ public class EditEventCommand extends Command{
         this.eventPriority = eventPriority;
     }
 
-
     /**
      * Executes the edit operation, updating the event's information if the event exits.
      * If successful, a confirmation message
@@ -47,7 +45,30 @@ public class EditEventCommand extends Command{
      */
     @Override
     public void execute() {
-        boolean isEdited = this.eventList.editEvent(eventName, eventNewName, eventTime, eventVenue, eventPriority);
-        this.message = (isEdited) ? EDIT_EVENT_MESSAGE : EDIT_FAILURE_MESSAGE;
+        String updatedName = eventList.editEvent(eventName, eventNewName, eventTime, eventVenue, eventPriority);
+        if (updatedName.equalsIgnoreCase("")) {
+            message = EDIT_FAILURE_MESSAGE;
+        } else {
+            message = getOutputMessage(updatedName, eventTime, eventVenue, eventPriority);
+        }
+    }
+
+    /**
+     * Returns a success output message with the given event details.
+     *
+     * @param name the updated event name.
+     * @param time the updated event time.
+     * @param venue the updated event venue.
+     * @param priority the updated event priority.
+     * @return an output message with name, time, venue and priority.
+     */
+    private String getOutputMessage(String name, LocalDateTime time, String venue, Priority priority) {
+        String dateTimeString = time.toString();
+        StringBuilder outputMessage = new StringBuilder();
+        outputMessage.append(EDIT_EVENT_MESSAGE);
+        String formattedString = String.format("Event name: %s / Event time: %s / Event venue: %s / Event Priority: %s",
+                name, dateTimeString, venue, priority);
+        outputMessage.append(formattedString);
+        return outputMessage.toString();
     }
 }

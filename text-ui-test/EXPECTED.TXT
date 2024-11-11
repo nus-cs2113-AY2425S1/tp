@@ -50,7 +50,8 @@ Enter a command: There is 1 event in your list! Here is your scheduled event:
 ------------------------
 Enter a command: Event not found!
 ------------------------
-Enter a command: Event information successfully updated
+Enter a command: The following event has been updated:
+Event name: dinner party / Event time: 2026-10-10T15:00 / Event venue: Bob's House / Event Priority: LOW
 ------------------------
 Enter a command: There is 1 event in your list! Here is your scheduled event:
 1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
@@ -126,7 +127,8 @@ Enter a command: There is 1 item in anniversary celebration! Here is your item:
 1. balloon [ ]
 
 ------------------------
-Enter a command: Item successfully updated
+Enter a command: The following item has been updated:
+Item name: cake / Event name: anniversary celebration
 ------------------------
 Enter a command: There is 1 item in anniversary celebration! Here is your item:
 1. cake [ ]

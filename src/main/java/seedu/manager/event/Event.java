@@ -246,37 +246,38 @@ public class Event {
      *
      * @param participantName the name of the participant to be updated.
      * @param newEmail       the new email address of the participant.
-     * @return {@code true} if the participant was successfully updated;
-     *         {@code false} if the participant was not found.
+     * @return the updated participant name if the details were updated. Otherwise, returns an empty string.
      */
-    public boolean updateParticipant(String participantName, String newName, String newEmail) {
+    public String updateParticipant(String participantName, String newName, String newEmail) {
         for (Participant participant : this.participantList) {
             if (participant.getName().equalsIgnoreCase(participantName)) {
                 String nameToSet = getUpdatedParticipantName(newName, participant);
                 participant.setName(nameToSet);
                 participant.setEmail(newEmail);
-                return true;
+                return nameToSet;
             }
         }
-        return false;
+        return "";
     }
 
     //@@author MatchaRRR
     /**
-     * Updates the details of an event.
+     * Updates the details of an item.
      *
      * @param itemName The name of original item.
      * @param itemNewName The name of the new item.
+     * @return the updated name of the item if the details were updated; an empty string otherwise.
      */
-    public boolean updateItem(String itemName, String itemNewName) {
+    public String updateItem(String itemName, String itemNewName) {
         for (Item item : this.itemList) {
             if (item.getName().equalsIgnoreCase(itemName)) {
-                item.setName(getUpdatedItemName(itemNewName, item));
+                String updatedName = getUpdatedItemName(itemNewName, item);
+                item.setName(updatedName);
                 item.setPresent(false);
-                return true;
+                return updatedName;
             }
         }
-        return false;
+        return "";
     }
 
     //@@author jemehgoh
@@ -336,7 +337,7 @@ public class Event {
      * @param itemName the name of the item.
      * @param isPresent true if the item is to be marked present, false if it is to be marked absent.
      * @return {@code true} if the item with itemName has been marked present or absent,
-     *         @code false} otherwise.
+     *         {@code false} otherwise.
      */
     public boolean markItemByName(String itemName, boolean isPresent) {
         Optional<Item> item = getItemByName(itemName);
