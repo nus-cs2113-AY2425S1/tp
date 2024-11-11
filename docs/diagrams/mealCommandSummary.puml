@@ -1,4 +1,7 @@
 @startuml
+
+skinparam classAttributeIconSize 0
+
 abstract class MealCommand {
     # date: LocalDate
     + execute(ProgrammeList, History): CommandResult
