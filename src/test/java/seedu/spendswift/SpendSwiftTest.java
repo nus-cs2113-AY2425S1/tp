@@ -337,7 +337,7 @@ class BudgetManagerTest {
 
 
     private Category findCategory(TrackerData trackerData, String categoryName) {
-        for (Category category : trackerData.getCategories()) {
+        for (Category category: trackerData.getCategories()) {
             if (category.getName().equalsIgnoreCase(categoryName)) {
                 return category;
             }
@@ -552,7 +552,7 @@ private String generateRandomWord(Random random, int wordLength) {
 
         // Assert that the set limit matches the maximum limit
         assertEquals(0, BigDecimal.valueOf(maxLimit).compareTo(setLimit),
-                     "The budget limit should be exactly set to the maximum allowed");
+            "The budget limit should be exactly set to the maximum allowed");
     }
 
     @Test
@@ -576,8 +576,8 @@ private String generateRandomWord(Random random, int wordLength) {
         BigDecimal setLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
         // Assert that the set limit matches the maximum limit
-        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit), 
-                     "The budget limit is set below  the maximum allowed");
+        assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit),
+            "The budget limit is set below  the maximum allowed");
 
     }
 
@@ -586,7 +586,7 @@ private String generateRandomWord(Random random, int wordLength) {
      * Tests setting a budget limit above the maximum allowed.
      * Ensures that the budget limit does not exceed the predefined maximum
      * when an invalid higher limit is attempted to be set.
-    **/
+     **/
     @Test
     void testSetInvalidBudgetLimitAboveMaximum() {
         BudgetManager budgetManager = new BudgetManager();
@@ -598,7 +598,7 @@ private String generateRandomWord(Random random, int wordLength) {
         Category category = findCategory(trackerData, "Education");
 
         // Ensure that the category is not null
-     
+
 
         // Manually initialize the Budget for "Education" with a valid limit to test setting an invalid one
         Budget budget = new Budget(category, maxAllowedLimit);
@@ -634,20 +634,10 @@ class TrackerDataTest {
         // Initializing categories, expenses, and budgets for some tests
         trackerData.setCategories(Arrays.asList(testCategory));
         trackerData.setExpenses(Arrays.asList(testExpense));
-        HashMap<Category, Budget> budgets = new HashMap<>();
+        HashMap < Category, Budget > budgets = new HashMap < > ();
         budgets.put(testCategory, testBudget);
         trackerData.setBudgets(budgets);
     }
-
-    /**@Test
-    void testInitialization() {
-        assertNotNull(trackerData.getCategories());
-        assertNotNull(trackerData.getExpenses());
-        assertNotNull(trackerData.getBudgets());
-        assertTrue(trackerData.getCategories().isEmpty());
-        assertTrue(trackerData.getExpenses().isEmpty());
-        assertTrue(trackerData.getBudgets().isEmpty());
-    }**/
 
     @Test
     void testGetCategories() {
@@ -683,20 +673,12 @@ class TrackerDataTest {
     void testSetBudgets() {
         Category newCategory = new Category("Travel");
         Budget newBudget = new Budget(newCategory, 300.0);
-        HashMap<Category, Budget> newBudgets = new HashMap<>();
+        HashMap < Category, Budget > newBudgets = new HashMap < > ();
         newBudgets.put(newCategory, newBudget);
         trackerData.setBudgets(newBudgets);
         assertEquals(1, trackerData.getBudgets().size());
         assertEquals(newBudget, trackerData.getBudgets().get(newCategory));
     }
-}
-
-
-
-
-
-
-
 
 
 
