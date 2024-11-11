@@ -9,6 +9,7 @@ import seedu.spendswift.command.Budget;
 import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
+import java.math.BigDecimal;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
