@@ -575,19 +575,26 @@ private String generateRandomWord(Random random, int wordLength) {
     }
 
 
+     /**
+     * Tests setting a budget limit above the maximum allowed.
+     * Ensures that the budget limit does not exceed the predefined maximum
+     * when an invalid higher limit is attempted to be set.
+     */
     @Test
     void testSetInvalidBudgetLimitAboveMaximum() {
-
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
-        double invalidLimit = 1000000000000000.01; // Maximum allowed budget limit
-
+        final double maxAllowedLimit = 1000000000000000.00; // Define the maximum allowed limit
+        final double invalidLimit = maxAllowedLimit + 0.01; // Slightly above the maximum
 
         // Find the "Education" category
         Category category = findCategory(trackerData, "Education");
 
-        // Manually initialize the Budget for "Education" to avoid NullPointerException
-        Budget budget = new Budget(category, invalidLimit);
+        // Ensure that the category is not null
+        assertNotNull(category, "Category should not be null");
+
+        // Manually initialize the Budget for "Education" with a valid limit to test setting an invalid one
+        Budget budget = new Budget(category, maxAllowedLimit);
         trackerData.getBudgets().put(category, budget); // Add Budget to the map
 
         // Attempt to set the budget limit above the maximum allowed
@@ -596,8 +603,9 @@ private String generateRandomWord(Random random, int wordLength) {
         // Retrieve the current limit
         BigDecimal currentLimit = BigDecimal.valueOf(trackerData.getBudgets().get(category).getLimit());
 
-        // Assert that the budget limit remains unchanged
-        assertEquals(0, BigDecimal.valueOf(invalidLimit).compareTo(currentLimit), "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
+        // Assert that the budget limit remains unchanged and is not set above the maximum
+        assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
+            "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
     }
 }
 
