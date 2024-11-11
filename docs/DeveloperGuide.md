@@ -76,62 +76,32 @@ making the system more adaptable and maintainable.
 
 ![TrackerData Class Diagram](developerguidepictures/TrackerData.drawio.png)
 
-`TrackerData` serves as the main data structure, consolidating and managing `Category`, `Expense`, and `Budget` data for efficient tracking and processing within the program.
-- `Category`: Defines and organises each category by name, providing a streamlined structure for grouping expenses and budgets.
-- `Expense`: Represents individual expenses, with attributes for the name, amount, and category, allowing categorisation of expenses and easy budget monitoring.
+`TrackerData` serves as the main data structure, consolidating and managing `Category`, `Expense`, and `Budget` data 
+for efficient tracking and processing within the program.
+The manager classes (`ExpenseManager`, `CategoryManager`, and `BudgetManager`) are designed to interact directly with 
+`TrackerData` to handle commands related to their respective domains.
+- `Category`: Defines and organises each category by name, 
+providing a streamlined structure for grouping expenses and budgets.
+- `Expense`: Represents individual expenses, with attributes for the name, amount, and category, 
+allowing categorisation of expenses and easy budget monitoring.
 - `Budget`: Tracks spending limits for specific categories.
+- `ExpenseManager`: Handles operations related to expenses. 
+It provides methods for adding, deleting, and managing expenses within the system.
+- `CategoryManager`: Manages categories, including the addition and deletion of categories. 
+It works closely with `TrackerData` to ensure the appropriate category associations for expenses and budgets.
+- `BudgetManager`: Handles the management of budgets, including setting and updating budget limits, 
+and calculating remaining budget based on associated expenses. It operates in conjunction with `TrackerData` to 
+track expenses per category.
 
-By centralising all data in TrackerData, this structure provides a cohesive view of categories, expenses, and budgets, 
-simplifying data access and updates across SpendSwift’s functions. This modular design ensures separation of concerns, 
-where each class handles specific responsibilities (such as categorizing expenses or setting budget limits).
+Centralising data management in `TrackerData` and delegating specific command handling to the respective manager classes
+promotes a clean separation of concerns. `TrackerData` acts as the central hub for data access and manipulation, 
+ensuring a unified approach to data handling across the system. This structure simplifies data access and updates, 
+while each manager class focuses on a specific domain, enhancing modularity.
 
-This clear division of roles enhances system flexibility and maintainability. 
-Adjustments to categories, expenses, or budgets can be easily implemented without disrupting the overall system, 
-supporting a well-organized and scalable financial tracking solution.
-
-### Core Classes Overview
-![CoreManagement](diagrams/CoreManagement.png)
-#### TrackerData
-
-TrackerData centralizes and manages the lists of categories, expenses, and budgets, 
-providing a unified data source for other classes.
-
-##### Usage
-TrackerData is utilized by the manager classes to store and retrieve categorized data. 
-Each manager accesses TrackerData to perform operations.
-
-#### CategoryManager
-Handles all category-related operations, including adding and formatting categories.
-
-##### Operations
-
-- `addCategory(String)`: Adds a new category.
-- `formatCategoryInput(String)`: Formats category input, ensuring consistency.
-
-##### Relationship
-- Dependency: Accesses TrackerData to add and retrieve categories.
-
-#### BudgetManager
-Handles budget-related functionalities like setting and viewing budget limits for categories.
-
-##### Operations
-- `addBudgetLimit(String, double)`: Adds a budget limit for a specific category.
-- `viewBudget()`: Views current budget limits and spending against them.
-- `resetMonthlyBudget()`: Resets budgets at the start of each month.
-
-##### Relationship
-- Dependency: Accesses TrackerData to manage budget data associated with categories.
-
-#### ExpenseManager
-Manages expenses, including adding, deleting, and viewing expenses categorized by spending areas.
-
-##### Operations
-- `addExpense(String, double, String)`: Adds a new expense.
-- `deleteExpense(int)`: Deletes an expense by index.
-- `viewExpensesByCategory()`: Displays expenses grouped by category.
-
-##### Relationship
-- Dependency: Accesses TrackerData to add, delete, and view expenses categorized by spending areas.
+This modular design allows for easy extensions and maintenance. 
+Each manager is responsible for a distinct aspect of the application — expenses, categories, or budgets — encapsulating 
+functionality within modules. As a result, adjustments to categories, expenses, or budgets can be made independently 
+without disrupting other parts of the system, supporting a scalable and well-organized financial tracking solution.
 
 ### Expense, Category, and Budget Entities
 ![Entities](diagrams/Entities.png)
