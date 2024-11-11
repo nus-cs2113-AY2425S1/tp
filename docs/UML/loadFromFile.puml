@@ -58,8 +58,11 @@ loop for each line in file
         deactivate ":Storage"
         deactivate ":Internship"
         deactivate ":InternshipList"
+        ":Storage" --> ":EasInternship"
 end
+
 deactivate ":Storage"
+":EasInternship"--> ":User"
 
 
 @enduml
