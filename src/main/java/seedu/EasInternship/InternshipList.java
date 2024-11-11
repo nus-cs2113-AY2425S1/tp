@@ -1,7 +1,7 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import seedu.exceptions.InvalidDeadline;
-import seedu.exceptions.InvalidIndex;
+import seedu.exceptions.InvalidID;
 import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
@@ -14,11 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //@@author jadenlimjc
+/**
+ * The InternshipList class is responsible for managing a list of internships.
+ * It supports operations such as adding, removing, sorting, and managing a favourites list of internships.
+ * The class also allows for sorting internships by various attributes like role, company, status, etc.
+ * Additionally, it maintains a history of actions taken with the internships using a Logger.
+ */
 public class InternshipList {
-    private static final UiInternshipList ui = new UiInternshipList();
-    private static final Logger LOGGER = Logger.getLogger("EasInternship");
     public ArrayList<Internship> internships;
     public ArrayList<Internship> favouriteInternships;
+    private final UiInternshipList ui = new UiInternshipList();
+    private final Logger LOGGER = Logger.getLogger("EasInternship");
 
     // Constructor
     public InternshipList() {
@@ -31,6 +37,12 @@ public class InternshipList {
         favouriteInternships = new ArrayList<>();
     }
 
+    /**
+    * Adds an internship to the list of internships.
+    * Ensures there are no duplicates before adding.
+    *
+    * @param internship The internship to be added.
+    */
     public void addInternship(Internship internship) {
 
         assert internship != null : "Internship object cannot be null";
@@ -56,12 +68,17 @@ public class InternshipList {
         return true;
     }
 
-    // Method to remove an internship by index (0-based)
 
     //@@author jadenlimjc
-    public void removeInternship(int index) throws InvalidIndex {
+    /**
+    * Removes an internship from the list of internships by its index.
+    *
+    * @param index The index of the internship to be removed.
+    * @throws IndexOutOfBoundsException If the index is out of bounds.
+    */
+    public void removeInternship(int index) throws InvalidID {
         if (!isWithinBounds(index)) {
-            throw new InvalidIndex(index);
+            throw new InvalidID(index);
         }
         Internship internship = internships.remove(index);
         assert internship != null : "Removed internship should not be null";
@@ -85,15 +102,10 @@ public class InternshipList {
 
     // Method to get an internship by index
     public Internship getInternship(int index) {
-        try {
-            if (!isWithinBounds(index)) {
-                throw new InvalidIndex(index);
-            }
-            return internships.get(index);
-        } catch (InvalidIndex ie) {
-            ui.showOutput(ie.getMessage());
+        if (!isWithinBounds(index)) {
             return null;
         }
+        return internships.get(index);
     }
 
     //@@author Ridiculouswifi
@@ -133,6 +145,7 @@ public class InternshipList {
             break;
         }
         LOGGER.log(Level.INFO, "Internship " + (index + 1) + " updated: " + field);
+
         return updatedValue;
     }
 
@@ -154,7 +167,10 @@ public class InternshipList {
     }
 
     //@@author jadenlimjc
-    // Method to list all internships
+    /**
+    * Displays all internships in the list.
+    * The internships will be displayed in the current sorted order.
+    */
     public void listAllInternships() {
         ui.showInternships(internships, "list");
     }
@@ -273,12 +289,57 @@ public class InternshipList {
     }
 
     /**
-     * Lists internships sorted by status alphabetically (case-insensitive).
+     * Lists internships sorted by status in the following order:
+     * 1. Application Pending
+     * 2. Application Completed
+     * 3. Accepted
+     * 4. Rejected
+     * If internships have the same status, they are sorted by role alphabetically.
      */
     public void listInternshipsSortedByStatus() {
-        ArrayList<Internship> sortedInternships = new ArrayList<>(internships);
+        // Separate internships by status into four different lists
+        ArrayList<Internship> pendingList = new ArrayList<>();
+        ArrayList<Internship> completedList = new ArrayList<>();
+        ArrayList<Internship> acceptedList = new ArrayList<>();
+        ArrayList<Internship> rejectedList = new ArrayList<>();
 
-        Collections.sort(sortedInternships, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
+        for (Internship internship : internships) {
+            String status = internship.getStatus().toLowerCase();
+            switch (status) {
+            case "application pending":
+                pendingList.add(internship);
+                break;
+            case "application completed":
+                completedList.add(internship);
+                break;
+            case "accepted":
+                acceptedList.add(internship);
+                break;
+            case "rejected":
+                rejectedList.add(internship);
+                break;
+            default:
+                // If there's an unknown status, you might want to handle it or ignore it
+                LOGGER.log(Level.WARNING, "Unknown status: " + status);
+                break;
+            }
+        }
+
+        // Sort each list by role alphabetically (case-insensitive)
+        Comparator<Internship> roleComparator = Comparator.comparing(internship -> internship.getRole().toLowerCase());
+        pendingList.sort(roleComparator);
+        completedList.sort(roleComparator);
+        acceptedList.sort(roleComparator);
+        rejectedList.sort(roleComparator);
+
+        // Create a final sorted list by combining the lists in the required order
+        ArrayList<Internship> sortedInternships = new ArrayList<>();
+        sortedInternships.addAll(pendingList);
+        sortedInternships.addAll(completedList);
+        sortedInternships.addAll(acceptedList);
+        sortedInternships.addAll(rejectedList);
+
+        // Display the sorted internships
         ui.showInternships(sortedInternships, "status");
     }
 
@@ -330,13 +391,60 @@ public class InternshipList {
         ui.showInternships(sortedInternships, "skills in favourite");
     }
 
+
     /**
-     * Lists all favourite internships sorted by status alphabetically (case-insensitive).
+     * Lists internships sorted by status in the following order:
+     * 1. Application Pending
+     * 2. Application Completed
+     * 3. Accepted
+     * 4. Rejected
+     * If internships have the same status, they are sorted by role alphabetically.
      */
     public void listFavouriteInternshipsSortedByStatus() {
-        ArrayList<Internship> sortedList = new ArrayList<>(favouriteInternships);
-        Collections.sort(sortedList, Comparator.comparing(internship -> internship.getStatus().toLowerCase()));
-        ui.showInternships(sortedList, "status in favourite");
+        // Separate internships by status into four different lists
+        ArrayList<Internship> pendingList = new ArrayList<>();
+        ArrayList<Internship> completedList = new ArrayList<>();
+        ArrayList<Internship> acceptedList = new ArrayList<>();
+        ArrayList<Internship> rejectedList = new ArrayList<>();
+
+        for (Internship internship : favouriteInternships) {
+            String status = internship.getStatus().toLowerCase();
+            switch (status) {
+            case "application pending":
+                pendingList.add(internship);
+                break;
+            case "application completed":
+                completedList.add(internship);
+                break;
+            case "accepted":
+                acceptedList.add(internship);
+                break;
+            case "rejected":
+                rejectedList.add(internship);
+                break;
+            default:
+                // If there's an unknown status, you might want to handle it or ignore it
+                LOGGER.log(Level.WARNING, "Unknown status: " + status);
+                break;
+            }
+        }
+
+        // Sort each list by role alphabetically (case-insensitive)
+        Comparator<Internship> roleComparator = Comparator.comparing(internship -> internship.getRole().toLowerCase());
+        pendingList.sort(roleComparator);
+        completedList.sort(roleComparator);
+        acceptedList.sort(roleComparator);
+        rejectedList.sort(roleComparator);
+
+        // Create a final sorted list by combining the lists in the required order
+        ArrayList<Internship> sortedInternships = new ArrayList<>();
+        sortedInternships.addAll(pendingList);
+        sortedInternships.addAll(completedList);
+        sortedInternships.addAll(acceptedList);
+        sortedInternships.addAll(rejectedList);
+
+        // Display the sorted internships
+        ui.showInternships(sortedInternships, "status in favourite");
     }
 
     /**

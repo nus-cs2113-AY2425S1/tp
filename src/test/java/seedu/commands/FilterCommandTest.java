@@ -1,8 +1,8 @@
 package seedu.commands;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.Internship;
-import seedu.duke.InternshipList;
+import seedu.EasInternship.Internship;
+import seedu.EasInternship.InternshipList;
 
 import java.util.ArrayList;
 
@@ -19,7 +19,7 @@ public class FilterCommandTest {
         internships = new InternshipList();
         filterCommand = new FilterCommand();
         args = new ArrayList<>();
-        filterCommand.setInternshipList(internships);
+        filterCommand.setInternshipsList(internships);
     }
 
     void createListOne() {

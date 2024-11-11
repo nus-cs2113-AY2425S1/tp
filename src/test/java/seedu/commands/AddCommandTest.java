@@ -1,8 +1,8 @@
 package seedu.commands;
 
 import org.junit.jupiter.api.Test;
-import seedu.duke.Internship;
-import seedu.duke.InternshipList;
+import seedu.EasInternship.Internship;
+import seedu.EasInternship.InternshipList;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class AddCommandTest {
     void createList() {
         internships = new InternshipList();
         addCommand = new AddCommand();
-        addCommand.setInternshipList(internships);
+        addCommand.setInternshipsList(internships);
     }
 
     @Test

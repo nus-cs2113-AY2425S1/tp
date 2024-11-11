@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.EasInternship;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +38,7 @@ public class Deadline {
     }
 
     public void setDate(String date) throws DateTimeParseException {
+        assert date != null;
         this.date = LocalDate.parse(date, DATE_FORMATTER);
     }
 

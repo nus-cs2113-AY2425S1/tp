@@ -58,7 +58,7 @@ Each internship is assigned a unique ID, serving as the reference for functions 
 **Format:** `add -role {Role name} -company {Company name} -from {date} -to {date}`
 
 - `role` and `company` are compulsory flags.
-- `from` and `to` are optional and will be replaced with `01/01` when left empty.
+- `from` and `to` are optional and will be replaced with `01/01` when left empty. The format for date is MM/yy.
 
 **Example Input 1:**
 `add -role Software Engineer Intern -company Google`
@@ -96,6 +96,33 @@ Deadlines:
 	No deadlines set.
 __________________________________________________
 __________________________________________________
+```
+
+**Example Erroneous Input 1:**
+`add Software Engineer Intern Google`
+
+**Example Erroneous Output 1:**
+```
+__________________________________________________
+__________________________________________________
+Role not specified.
+Company not specified.
+__________________________________________________
+__________________________________________________
+```
+
+**Example Erroneous Input 1:**
+`add -role Software Engineer Intern -company Google -from 35/10`
+
+**Example Erroneous Output 1:**
+```
+__________________________________________________
+__________________________________________________
+35/10 is not a valid date
+Please enter a date in the MM/yy format
+__________________________________________________
+__________________________________________________
+
 ```
 
 ## Update Command: `update`
@@ -716,14 +743,6 @@ __________________________________________________
 __________________________________________________
 Sorted internships by status.
 __________________________________________________
-ID: 3	Status: Accepted
-Role: IT support Intern
-Company: Microsoft
-Duration: 03/24 to 08/24
-Skills: Java 
-Deadlines:
-	certificate submit: 15/04/24
-__________________________________________________
 ID: 2	Status: Application Completed
 Role: Customer Service Intern
 Company: Google
@@ -731,6 +750,14 @@ Duration: 05/25 to 09/25
 Skills: Python SQL 
 Deadlines:
 	interview reply: 12/04/24
+__________________________________________________
+ID: 3	Status: Accepted
+Role: IT support Intern
+Company: Microsoft
+Duration: 03/24 to 08/24
+Skills: Java 
+Deadlines:
+	certificate submit: 15/04/24
 __________________________________________________
 ID: 1	Status: Rejected
 Role: Embedded Software Engineer Intern
@@ -821,7 +848,7 @@ __________________________________________________
 
 ## Delete Command: `delete`
 
-This feature removes an entire listing from the tracker.
+This feature removes an entire listing from the tracker and updates all remaining IDs.
 
 **Format:** `delete {ID}`
 
@@ -860,7 +887,21 @@ Internship deleted: 1
 __________________________________________________
 __________________________________________________
 ```
+`list`
 
+```
+__________________________________________________
+__________________________________________________
+ID: 1	Status: Application Pending
+Role: accountant
+Company: XYZ
+Duration: 01/01 to 01/01
+Skills: No Skills Entered 
+Deadlines:
+	No deadlines set.
+__________________________________________________
+__________________________________________________
+```
 ## Calendar Command: `calendar`
 
 Lists out all deadlines along with the current date (according to local machine date)
@@ -875,13 +916,13 @@ __________________________________________________
 Deadlines:
 
 10/10/24 
-	1: interview round 1
+	1 (ABS): interview round 1
 
 02/11/24 --> Today
-	2: application deadline
+	2 (XYZ): application deadline
 
 05/11/24 
-	1: interview round 2
+	1 (ABS): interview round 2
 __________________________________________________
 __________________________________________________
 ```
@@ -920,6 +961,10 @@ __________________________________________________
 
 
 ## FAQ
+
+**Q**: Can I use "-" in my fields?
+
+**A**: No. Unknown flag will be thrown.
 
 **Q**: How do I transfer my data to another computer? 
 
