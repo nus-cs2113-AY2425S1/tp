@@ -83,7 +83,7 @@ class DeleteExerciseCommandTest {
     @Test
     void execute_deletesExerciseFromDay_returnsSuccessMessage() {
         String expectedMessage = String.format(
-                DeleteExerciseProgrammeCommand.SUCCESS_MESSAGE_FORMAT, VALID_EXERCISE_ID, exercise
+                DeleteExerciseProgrammeCommand.SUCCESS_MESSAGE_FORMAT, VALID_EXERCISE_ID + 1, exercise
         );
         CommandResult expectedResult = new CommandResult(expectedMessage);
 
