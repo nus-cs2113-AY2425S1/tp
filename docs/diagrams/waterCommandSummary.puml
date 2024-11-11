@@ -4,21 +4,21 @@ skinparam classAttributeIconSize 0
 
 abstract class WaterCommand {
     # date: LocalDate
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 class AddWaterCommand {
     - amount: int
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 class DeleteWaterCommand {
     - waterIndex: int
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 class ViewWaterCommand {
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 WaterCommand <|-- AddWaterCommand

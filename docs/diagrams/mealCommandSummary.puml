@@ -4,22 +4,22 @@ skinparam classAttributeIconSize 0
 
 abstract class MealCommand {
     # date: LocalDate
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 class AddMealCommand {
     - mealName: String
     - calories: int
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 class DeleteMealCommand {
     - indexMealToDelete: int
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 class ViewMealCommand {
-    + execute(ProgrammeList, History): CommandResult
+    + execute(History): CommandResult
 }
 
 MealCommand <|-- AddMealCommand
