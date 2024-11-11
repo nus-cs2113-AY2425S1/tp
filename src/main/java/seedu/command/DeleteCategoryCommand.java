@@ -4,6 +4,8 @@ import seedu.category.Category;
 import seedu.category.CategoryList;
 import seedu.datastorage.Storage;
 import seedu.exceptions.CategoryNotFoundException;
+import seedu.exceptions.InvalidCategoryNameException;
+import seedu.exceptions.InvalidDescriptionFormatException;
 import seedu.main.UI;
 import seedu.message.ErrorMessages;
 import seedu.message.CommandResultMessages;
@@ -148,7 +150,22 @@ public class DeleteCategoryCommand extends Command {
 
             // If the user enter a new category and proceed to 'yes'
             if (response.equalsIgnoreCase("yes") && temp!=null) {
-                categoryList.addCategory(temp);
+                try {
+                    categoryList.addCategory(temp);
+                } catch (InvalidDescriptionFormatException e) {
+                    ui.printMessage(CommandResultMessages.ADD_CATEGORY_FAIL + e.getMessage());
+                    ui.printMessage(ErrorMessages.INVALID_DESCRIPTION_GUIDE);
+                    ui.printMessage("Type 'no' to cancel, " +
+                            "'skip' to remove the category of these expenses," +
+                            "or enter a category name to re-categorize: ");
+                    continue;
+                } catch (InvalidCategoryNameException e) {
+                    ui.printMessage(CommandResultMessages.ADD_CATEGORY_FAIL + e.getMessage());
+                    ui.printMessage("Type 'no' to cancel, " +
+                            "'skip' to remove the category of these expenses," +
+                            "or enter a category name to re-categorize: ");
+                    continue;
+                }
                 ui.printMessage("New category '" + temp.getName() + "' created.");
                 return temp;
             } else if (response.equalsIgnoreCase("no")) {
@@ -160,13 +177,12 @@ public class DeleteCategoryCommand extends Command {
                 if (temp != null) {
                     return temp;
                 } else {
-                    ui.printMessage("Category '" + response + "' does not exist. Current category:");
+                    ui.printMessage("Category '" + response + "' does not exist. Current categories:");
                     for (Category category:categoryList.getCategories()) {
                         ui.printMessage(category.toString());
                     }
                     ui.printMiddleMessage("Type 'yes' to create a new category, or enter an existing category name. " +
                             "Type 'no' to cancel, skip' to remove the category of these expenses: ");
-
                     // Temporarily save the inserted category
                     temp = new Category(response);
                 }

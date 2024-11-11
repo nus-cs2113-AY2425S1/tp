@@ -31,7 +31,7 @@
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Invalid amount format: -100
-    Make sure the amount is positive and is smaller than 1000000000
+	Make sure the amount is positive and is smaller than 1000000000
 	-------------------------------------
 	-------------------------------------
 	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
@@ -43,7 +43,16 @@
 	2. Income [amount=1000.0, description=, date=2024-11-01 2359]
 	3. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
 	-------------------------------------
-	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
+	No category specified. Enter a category or type 'no' to skip. Current categories: 
+	Category: Food
+	Category: Entertainment
+	Category: Transport
+	Category: Utilities
+	Category: Others
+	Category: Groceries
+	Category: EmptyCategory
+	Category: NewCategory
+	-------------------------------------
 	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	Your current transaction list: 
 	1. Income [amount=5000.0, description=Salary, date=2024-11-01 2359]
@@ -51,7 +60,16 @@
 	3. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
 	4. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	-------------------------------------
-	No category specified. Enter a category or type 'no' to skip: 	-------------------------------------
+	No category specified. Enter a category or type 'no' to skip. Current categories: 
+	Category: Food
+	Category: Entertainment
+	Category: Transport
+	Category: Utilities
+	Category: Others
+	Category: Groceries
+	Category: EmptyCategory
+	Category: NewCategory
+	-------------------------------------
 	Transaction added: Expense [amount=15.0, description=Dinner, date=2024-11-01 1111, category=NewCategory]
 	Your current transaction list: 
 	1. Expense [amount=15.0, description=Dinner, date=2024-11-01 1111, category=NewCategory]
@@ -60,8 +78,26 @@
 	4. Expense [amount=20.0, description=Lunch, date=2024-11-01 2359, category=Groceries]
 	5. Expense [amount=15.0, description=Dinner, date=2024-11-01 2359, category=]
 	-------------------------------------
-	No category specified. Enter a category or type 'no' to skip: 	Category 'SomeCategory' does not exist.
-	Type 'yes' to create a new category or enter an existing category name: 	New category 'SomeCategory' created.
+	No category specified. Enter a category or type 'no' to skip. Current categories: 
+	Category: Food
+	Category: Entertainment
+	Category: Transport
+	Category: Utilities
+	Category: Others
+	Category: Groceries
+	Category: EmptyCategory
+	Category: NewCategory
+	Category 'SomeCategory' does not exist. Current categories:
+	Category: Food
+	Category: Entertainment
+	Category: Transport
+	Category: Utilities
+	Category: Others
+	Category: Groceries
+	Category: EmptyCategory
+	Category: NewCategory
+	Type 'yes' to create a new category, or enter an existing category name. Type 'no' to skip: 
+	New category 'SomeCategory' created.
 	-------------------------------------
 	Transaction added: Expense [amount=15.0, description=, date=2024-11-01 2359, category=SomeCategory]
 	Your current transaction list: 
@@ -75,8 +111,18 @@
 	-------------------------------------
 	Error creating transaction: Your date and/or time is invalid. Should be: yyyy-MM-dd HHmm
 	-------------------------------------
-	Category 'Luxury' does not exist.
-	Type 'yes' to create a new category or enter an existing category name: 	New category 'Luxury' created.
+	Category 'Luxury' does not exist. Current categories:
+	Category: Food
+	Category: Entertainment
+	Category: Transport
+	Category: Utilities
+	Category: Others
+	Category: Groceries
+	Category: EmptyCategory
+	Category: NewCategory
+	Category: SomeCategory
+	Type 'yes' to create a new category, or enter an existing category name. Type 'no' to skip: 
+	New category 'Luxury' created.
 	-------------------------------------
 	Transaction added: Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=Luxury]
 	Your current transaction list: 
@@ -107,7 +153,7 @@
 	-------------------------------------
 	These expenses need modification: 
 	Expense [amount=15.0, description=Dinner, date=2024-11-01 1111, category=NewCategory]
-	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'Lmao' does not exist. Current category:
+	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'Lmao' does not exist. Current categories:
 	Category: Food
 	Category: Entertainment
 	Category: Transport
@@ -127,7 +173,7 @@
 	-------------------------------------
 	These expenses need modification: 
 	Expense [amount=1000000.0, description=, date=2024-11-07 2359, category=Luxury]
-	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'LessLuxury' does not exist. Current category:
+	Type 'no' to cancel, 'skip' to remove the category of these expenses,or enter a category name to re-categorize: 	Category 'LessLuxury' does not exist. Current categories:
 	Category: Food
 	Category: Entertainment
 	Category: Transport
