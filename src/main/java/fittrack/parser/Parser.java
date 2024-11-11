@@ -292,7 +292,7 @@ public class Parser {
                     System.out.println("Invalid goal index.");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Please specify a valid index to delete.");
+                System.out.println("Invalid format: Please specify a valid index to delete.");
             }
             updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
             break;
@@ -312,7 +312,7 @@ public class Parser {
 
             // Check if description is empty or not a valid single numeral
             if (description.isEmpty() || !description.matches("\\d+")) {
-                System.out.println("Please provide a valid amount of water.");
+                System.out.println("Invalid water format: Please use 'add-water' + (water in ml)");
                 break;
             }
 
@@ -329,7 +329,7 @@ public class Parser {
         case DELETE_WATER_COMMAND:
             // Check if description is empty or not a valid single numeral
             if (description.isEmpty() || !description.matches("\\d+")) {
-                System.out.println("Please provide a valid water index number.");
+                System.out.println("Invalid format: Please provide a valid water index number.");
                 break;
             }
 
@@ -357,17 +357,18 @@ public class Parser {
                     System.out.println(SEPARATOR);
                     updateSaveFile(sessionList, goalList, reminderList, foodWaterList);
                 } catch (NumberFormatException e) {
-                    System.out.println("Please enter a valid number for calories.");
+                    System.out.println("Invalid water format: Please use 'add-food' + (food item) "
+                        + "+ (calories)");
                 }
             } else {
-                System.out.println("Please provide both food name and calories.");
+                System.out.println("Invalid format: Please provide both food name and calories.");
             }
             break;
 
         case DELETE_FOOD_COMMAND:
             // Check if description is empty or not a valid single numeral
             if (description.isEmpty() || !description.matches("\\d+")) {
-                System.out.println("Please provide a valid food index number.");
+                System.out.println("Invalid format: Please provide a valid food index number.");
                 break;
             }
 

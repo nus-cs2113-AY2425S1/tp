@@ -19,7 +19,7 @@ public class AddFitnessGoal {
                 + System.lineSeparator());
         } else {
             System.out.println("Goal added: " + goalDescription + " with deadline: " + deadline
-            +System.lineSeparator());
+                +System.lineSeparator());
         }
     }
 }
