@@ -51,7 +51,8 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - **Day**: A ‘workout day’ is a collection of exercises to be done together.
 - **Programme**: A programme is a collection of workout days.
 - **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
-
+- 
+<!-- @@author Bev-low -->
 ## Data Storage Information:
 - The application uses a JSON file to store user data, ensuring persistence across sessions.
 - All records, including logged days, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
@@ -59,7 +60,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 - The system automatically creates the file if it does not exist.
 - If the structure of the JSON file has been tampered with (e.g., removing the "programmeList" key or using {} as the entire content), the program will handle this scenario by treating the user as a first-time user and initializing a fresh start.
 - If any data values within the JSON file are found to be invalid (e.g., negative numbers where only positive values are allowed), the specific section containing corrupted data (either the `ProgrammeList` or `History`) will be re-initialized to be empty.
-
+<!-- @@author -->
 ---
 
 ## To Note
@@ -229,7 +230,7 @@ Day 2: Wednesday
 ```
 
 ---
-
+<!-- @@author Bev-low -->
 ### 6. Add Day to Programme
 
 This feature adds a new day to the specified existing programme.
@@ -341,6 +342,7 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 Updated exercise: Bicep_Curl: 3 sets of 15 at 8kg | Burnt 100 cals
 ==================================================
 ```
+<!-- @@author -->
 ---
 
 ### 11. Log Workout
@@ -421,7 +423,7 @@ Chicken_Breast | 250kcal has been deleted
 ```
 
 ---
-
+<!-- @@author Bev-low -->
 ### 15. Add New Water Log
 
 This feature adds a water log to the daily record of the specific date.
@@ -529,7 +531,7 @@ Total Water Intake: 200.2 liters
 Caloric Balance: 300 kcal
 ==================================================
 ```
-
+<!-- @@author -->
 ---
 
 ### 19. View Specific Record
