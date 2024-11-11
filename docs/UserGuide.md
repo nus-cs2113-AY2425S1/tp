@@ -1,3 +1,4 @@
+<!-- @@author nirala-ts -->
 # User Guide
 
 ## Table of Contents
@@ -5,33 +6,35 @@
 2. [Quick Start](#quick-start)
 3. [Terminology](#terminology)
 4. [To Note](#to-note)
-5. [Features](#features)
-  - [1. Add New Programme](#1-add-new-programme)
-  - [2. Set Programme as Active](#2-set-programme-as-active)
-  - [3. List All Programmes](#3-list-all-programmes)
-  - [4. View Programme](#4-view-programme)
-  - [5. Delete Programme](#5-delete-programme)
-  - [6. Add Day to Programme](#6-add-day-to-programme)
-  - [7. Delete Day from Programme](#7-delete-day-from-programme)
-  - [8. Add Exercise in Programme](#8-add-exercise-in-programme)
-  - [9. Delete Exercise from Programme](#9-delete-exercise-from-programme)
-  - [10. Update Exercise in Programme](#10-update-exercise-in-programme)
-  - [11. Log Workout](#11-log-workout)
-  - [12. Add New Meal](#12-add-new-meal)
-  - [13. View Meals](#13-view-meals)
-  - [14. Delete Meal](#14-delete-meal)
-  - [15. Add New Water Log](#15-add-new-water-log)
-  - [16. View Water Logs](#16-view-water-logs)
-  - [17. Delete Water Log](#17-delete-water-log)
-  - [18. View History](#18-view-history)
-  - [19. View Specific Record](#19-view-specific-record)
-  - [20. View Weekly Summary](#20-view-weekly-summary)
-  - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
-  - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises)
-  - [23. Delete Record](#23-delete-record)
-  - [Exiting BuffBuddy](#24-exit-buffbuddy)
-6. [Alias Table](#alias-table)
-7. [Command Summary](#command-summary)
+5. [Data Storage](#data-storage)
+6. [Features](#features)
+   - [1. Add New Programme](#1-add-new-programme)
+   - [2. Set Programme as Active](#2-set-programme-as-active)
+   - [3. List All Programmes](#3-list-all-programmes)
+   - [4. View Programme](#4-view-programme)
+   - [5. Delete Programme](#5-delete-programme)
+   - [6. Add Day to Programme](#6-add-day-to-programme)
+   - [7. Delete Day from Programme](#7-delete-day-from-programme)
+   - [8. Add Exercise in Programme](#8-add-exercise-in-programme)
+   - [9. Delete Exercise from Programme](#9-delete-exercise-from-programme)
+   - [10. Update Exercise in Programme](#10-update-exercise-in-programme)
+   - [11. Log Workout](#11-log-workout)
+   - [12. Add New Meal](#12-add-new-meal)
+   - [13. View Meals](#13-view-meals)
+   - [14. Delete Meal](#14-delete-meal)
+   - [15. Add New Water Log](#15-add-new-water-log)
+   - [16. View Water Logs](#16-view-water-logs)
+   - [17. Delete Water Log](#17-delete-water-log)
+   - [18. View History](#18-view-history)
+   - [19. View Specific Record](#19-view-specific-record)
+   - [20. View Weekly Summary](#20-view-weekly-summary)
+   - [21. View PB for an Exercise](#21-view-pb-for-an-exercise)
+   - [22. View PBs for All Exercises](#22-view-pbs-for-all-exercises)
+   - [23. Delete Record](#23-delete-record)
+   - [24. Exiting BuffBuddy](#24-exit-buffbuddy)
+7. [Alias Table](#alias-table)
+8. [Command Summary](#command-summary)
+9. [FAQ](#FAQ)
 
 ## Introduction
 
@@ -80,6 +83,14 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 
 - All flags must have valid values. Negative values or zero are not accepted.
 
+
+## Data Storage
+
+- The application stores user data in a JSON file, ensuring persistence across sessions.
+- All records, including logged workouts, meals, and water intake, are saved in a structured format within a designated file (./data/data.json).
+- The JSON format is human-readable, allowing users to easily view their stored data if needed.
+- The system automatically creates the file if it does not exist.
+- If the file is altered or corrupted, the program will reset the list of programs and history to prevent data issues.
 
 ## Features
 
@@ -221,6 +232,7 @@ Day 2: Wednesday
 
 ---
 
+<!-- @@author TVageesan -->
 ### 6. Add Day to Programme
 
 This feature adds a new day to the specified existing programme.
@@ -334,6 +346,7 @@ Updated exercise: Bicep_Curl: 3 sets of 15 at 8kg | Burnt 100 cals
 ```
 ---
 
+<!-- @@author nirala-ts -->
 ### 11. Log Workout
 
 This feature records the successful completion of a workout for the specified day within the chosen programme.
@@ -356,6 +369,7 @@ Monday
 
 ---
 
+<!-- @@author Atulteja -->
 ### 12. Add New Meal
 
 This feature adds a meal to the daily record of the specific date.
@@ -412,7 +426,8 @@ Chicken_Breast | 250kcal has been deleted
 ```
 
 ---
-
+ 
+<!-- @@author Bev-low -->
 ### 15. Add New Water Log
 
 This feature adds a water log to the daily record of the specific date.
@@ -470,6 +485,7 @@ If `DATE` is not specified, the command defaults to the current date at the time
 
 ---
 
+<!-- @@author andreusxcarvalho -->
 ### 18. View History
 
 This feature displays a comprehensive record of workouts, meals, and water intake for each logged day.
@@ -584,9 +600,9 @@ Completed On: 11-11-2024
 
 This feature displays the personal best for the specified exercise.
 
-**Command**: `history pb EXERICSE_NAME`
+**Command**: `history pb EXERCISE_NAME`
 
-_Note_: `EXERICSE_NAME` is not case-sensitive.
+_Note_: `EXERCISE_NAME` is not case-sensitive.
 
 **Example**: `history pb bench_press`
 
@@ -649,6 +665,7 @@ Caloric Balance: 300 kcal
 ==================================================
 ```
 
+<!-- @@author nirala-ts -->
 ### 24. Exit BuffBuddy
 
 This feature exits and closes the programme.
@@ -673,7 +690,7 @@ ___
 | /d   | /day              |
 | /t   | /date             |
 | /n   | /name             |
-| /e   | /exercise         |
+| /e   | /exercise, /ex    |
 | /s   | /set, /sets       |
 | /r   | /rep, /reps       |
 | /w   | /weight           |
@@ -687,33 +704,58 @@ ___
 | /w   | /water            |
 | /v   | /volume, /vol     |
 
+___
 
 ## Command Summary
 
-| Command                                   | Description                                                               | Format                                                                                              | Example                                                                   |
-|-------------------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| **Add Programme**                         | Creates a new workout programme                                           | `prog create PROG_NAME`                                                                             | `prog create Starter`                                                     |
-| **Add Detailed Programme**                | Creates a detailed programme with days and exercises                      | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES`       | `prog create Starter /d Monday /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
-| **Set Active Programme**                  | Sets a programme as the active one                                        | `prog start [PROG_INDEX]`                                                                           | `prog start 1`                                                            |
-| **List Programmes**                       | Lists all workout programmes                                              | `prog list`                                                                                         | `prog list`                                                               |
-| **View Programme**                        | Displays the detailed routine of a specific programme                     | `prog view [PROG_INDEX]`                                                                            | `prog view 1`                                                             |
-| **Delete Programme**                      | Deletes a specified programme                                             | `prog delete [PROG_INDEX]`                                                                          | `prog delete 1`                                                           |
-| **Add Day to Programme**                  | Adds a new day to an existing programme                                   | `prog edit [/p PROG_INDEX] /ad DAY_NAME`                                                            | `prog edit /p 1 /ad Cardio_Day`                                           |
-| **Delete Day from Programme**             | Deletes a day from an existing programme                                  | `prog edit [/p PROG_INDEX] /xd DAY_INDEX`                                                           | `prog edit /p 1 /xd 1`                                                    |
-| **Add Exercise to Programme**             | Adds an exercise to a specific day in a programme                         | `prog edit [/p PROG_INDEX] /d DAY_INDEX /ae /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES` | `prog edit /p 1 /d 1 /ae /n Push_Up /w 30 /r 15 /s 3 /c 100`              |
-| **Delete Exercise from Programme**        | Deletes an exercise from a specific day in a programme                    | `prog edit [/p PROG_INDEX] /d DAY_INDEX /xe EXERCISE_INDEX`                                         | `prog edit /p 1 /d 1 /xe 1`                                               |
-| **Update Exercise in Programme**          | Updates an exercise in a specific day of a programme                      | `prog edit [/p PROG_INDEX] /d DAY_INDEX /ue EXERCISE_INDEX [args]`                                  | `prog edit /p 1 /d 1 /ue 1 /w 30 /r 12`                                   |
-| **Log Workout**                           | Logs a workout for a specific day                                         | `prog log [/p PROG_INDEX] /d DAY_INDEX [/t DATE]`                                                   | `prog log /p 1 /d 1 /t 12-10-2024`                                        |
-| **Add Meal**                              | Adds a meal to a daily record                                             | `meal add /n MEAL_NAME /c CALORIES [/t DATE]`                                                       | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                         |
-| **View Meals**                            | Displays all meals for a specific date                                    | `meal view [DATE]`                                                                                  | `meal view 30-10-2024`                                                    |
-| **Delete Meal**                           | Deletes a meal from a daily record                                        | `meal delete /m MEAL_INDEX [/t DATE]`                                                               | `meal delete /m 1 /t 30-10-2024`                                          |
-| **Add Water Log**                         | Adds a water log to a daily record                                        | `water add /v WATER_VOLUME [/t DATE]`                                                               | `water add /v 200.2 /t 30-10-2024`                                        |
-| **View Water Logs**                       | Displays all water logs for a specific date                               | `water view [DATE]`                                                                                 | `water view 30-10-2024`                                                   |
-| **Delete Water Log**                      | Deletes a water log from a daily record                                   | `water delete /w WATER_INDEX [/t DATE]`                                                             | `water delete /w 1 /t 30-10-2024`                                         |
-| **View History**                          | Displays a comprehensive record of workouts, meals, and water intake      | `history list`                                                                                      | `history list`                                                            |
-| **View Specific Record**                  | Displays a record for a specified date                                    | `history view [DATE]`                                                                               | `history view 30-10-2024`                                                 |
-| **View Weekly Summary**                   | Displays a summary of workouts, meals, and water intake for the past week | `history wk`                                                                                        | `history wk`                                                              |
-| **View Personal Best for an Exercise**    | Displays the personal best for a specified exercise                       | `history pb EXERCISE_NAME`                                                                          | `history pb bench_press`                                                  |
-| **View Personal Bests for All Exercises** | Displays personal bests for all exercises                                 | `history pb`                                                                                        | `history pb`                                                              |
-| **Delete Record**                         | Deletes a daily record for a specified date                               | `history delete [DATE]`                                                                             | `history delete 30-10-2024`                                               |
-| **Exit BuffBuddy**                        | Exits the BuffBuddy application                                           | `bye`                                                                                               | `bye`                                                                     |
+| Command                                   | Format                                                                                              | Example                                                                   |
+|-------------------------------------------|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| **Add Programme**                         | `prog create PROG_NAME`                                                                             | `prog create Starter`                                                     |
+| **Add Detailed Programme**                | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES`       | `prog create Starter /d Monday /e /n Bench_Press /s 3 /r 12 /w 30 /c 100` |
+| **Set Active Programme**                  | `prog start [PROG_INDEX]`                                                                           | `prog start 1`                                                            |
+| **List Programmes**                       | `prog list`                                                                                         | `prog list`                                                               |
+| **View Programme**                        | `prog view [PROG_INDEX]`                                                                            | `prog view 1`                                                             |
+| **Delete Programme**                      | `prog delete [PROG_INDEX]`                                                                          | `prog delete 1`                                                           |
+| **Add Day to Programme**                  | `prog edit [/p PROG_INDEX] /ad DAY_NAME`                                                            | `prog edit /p 1 /ad Cardio_Day`                                           |
+| **Delete Day from Programme**             | `prog edit [/p PROG_INDEX] /xd DAY_INDEX`                                                           | `prog edit /p 1 /xd 1`                                                    |
+| **Add Exercise to Programme**             | `prog edit [/p PROG_INDEX] /d DAY_INDEX /ae /n EXERCISE_NAME /w WEIGHT /r REPS /s SETS /c CALORIES` | `prog edit /p 1 /d 1 /ae /n Push_Up /w 30 /r 15 /s 3 /c 100`              |
+| **Delete Exercise from Programme**        | `prog edit [/p PROG_INDEX] /d DAY_INDEX /xe EXERCISE_INDEX`                                         | `prog edit /p 1 /d 1 /xe 1`                                               |
+| **Update Exercise in Programme**          | `prog edit [/p PROG_INDEX] /d DAY_INDEX /ue EXERCISE_INDEX [args]`                                  | `prog edit /p 1 /d 1 /ue 1 /w 30 /r 12`                                   |
+| **Log Workout**                           | `prog log [/p PROG_INDEX] /d DAY_INDEX [/t DATE]`                                                   | `prog log /p 1 /d 1 /t 12-10-2024`                                        |
+| **Add Meal**                              | `meal add /n MEAL_NAME /c CALORIES [/t DATE]`                                                       | `meal add /n Chicken_Breast /c 250 /t 30-10-2024`                         |
+| **View Meals**                            | `meal view [DATE]`                                                                                  | `meal view 30-10-2024`                                                    |
+| **Delete Meal**                           | `meal delete /m MEAL_INDEX [/t DATE]`                                                               | `meal delete /m 1 /t 30-10-2024`                                          |
+| **Add Water Log**                         | `water add /v WATER_VOLUME [/t DATE]`                                                               | `water add /v 200.2 /t 30-10-2024`                                        |
+| **View Water Logs**                       | `water view [DATE]`                                                                                 | `water view 30-10-2024`                                                   |
+| **Delete Water Log**                      | `water delete /w WATER_INDEX [/t DATE]`                                                             | `water delete /w 1 /t 30-10-2024`                                         |
+| **View History**                          | `history list`                                                                                      | `history list`                                                            |
+| **View Specific Record**                  | `history view [DATE]`                                                                               | `history view 30-10-2024`                                                 |
+| **View Weekly Summary**                   | `history wk`                                                                                        | `history wk`                                                              |
+| **View Personal Best for an Exercise**    | `history pb EXERCISE_NAME`                                                                          | `history pb bench_press`                                                  |
+| **View Personal Bests for All Exercises** | `history pb`                                                                                        | `history pb`                                                              |
+| **Delete Record**                         | `history delete [DATE]`                                                                             | `history delete 30-10-2024`                                               |
+| **Exit BuffBuddy**                        | `bye`                                                                                               | `bye`                                                                     |
+
+___
+
+## FAQ
+
+1. **How can I back up my data?**
+   - BuffBuddy saves data in a JSON file located at `./data/data.json`. You can create a backup by copying this file to 
+   another location.
+
+2. **What happens if I accidentally delete or corrupt the data file?**
+   - If the data file is deleted or corrupted, BuffBuddy will reset your program list and history to prevent data issues. 
+   However, restoring a backup of the JSON file (if you have one) can also recover your data.
+
+3. **Can I add exercises that don’t involve weights?**
+   - BuffBuddy currently only supports weighted exercises. Exercises like jumping jacks or other body weight exercises cannot 
+   be added without a weight parameter.
+
+4. **What is the caloric balance in the history view?**
+   - The caloric balance shows the difference between the calories burned through exercise and the calories consumed through 
+   meals, helping you monitor your energy intake and expenditure.
+
+5. **What happens if I input invalid values for commands?**
+   - BuffBuddy performs basic validation for parameters. Negative values or missing required parameters will prompt an error, 
+   and the command won’t be executed. Ensure all required fields are filled correctly.
