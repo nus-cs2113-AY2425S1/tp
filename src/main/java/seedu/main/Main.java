@@ -216,5 +216,8 @@ public class Main {
             List<String> messages = command.execute();
             ui.showCommandResult(messages);
         }
+        Storage.saveCategory(categories.getCategories());
+        Storage.saveTransaction(transactions.getTransactions());
+        Storage.saveBudgets(budgetTracker.getMonthlyBudgets());
     }
 }
