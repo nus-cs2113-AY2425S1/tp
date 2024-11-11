@@ -10,7 +10,7 @@ or by partner universities (PU) when you want to view the relevant options. For 
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 - [Quick Start](#quick-start)
-- [Features](#features-)
+- [Features](#features)
     - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
@@ -277,7 +277,7 @@ Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_COD
 
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
 * Do not add punctuation to the above three parameters.
-* Do not switch the order of parameters. Keyword `/pu` must come before `/coursepu` keyword.
+* Do not switch the order of parameters. Keyword `/pu` must come before the `/coursepu` keyword.
 * For `PARTNER_UNIVERSITY_NAME`, indicate the partner university's full name or their respective official abbreviation.
 
 Example of usage (lowercase):
