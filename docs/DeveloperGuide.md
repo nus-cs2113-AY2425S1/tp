@@ -365,7 +365,7 @@ This process illustrates how BuffBuddy handles the creation of a workout program
 
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
----
+
 
 ### Edit Programme
 
@@ -428,7 +428,7 @@ To summarize, the following activity diagram describes how the overall operation
 
 ![Edit Command Diagram](images/editCommandActivityDiagram.png)
 
----
+
 
 ### Add Meal
 
@@ -486,52 +486,58 @@ The diagram shows the interactions among different classes and objects during th
 
 The **Add Meal** feature uses a **hierarchical command pattern** to manage meal additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
 
----
+
 <!-- @@author Bev-low -->
 ### Add Water
 
-The **Add Water** Feature
-<!-- @@author -->
----
+The **Add Water** feature manages the functionality related to adding water to a daily record. It interacts with various components such as `History`, `DailyRecord`, and `Water` to ensure water are added correctly.
 
-### Create Programme Feature
+The Add Water command navigates through the following hierarchy:
+- **History** → **DailyRecord** → **Water**
+- If a `DailyRecord` does not exist for a given date, it is created before adding the water.
 
-#### Feature Overview
-
-The "Create Programme" feature enables users to build a structured fitness program with workout days, each containing specific exercises. This feature allows flexible customization, enabling users to plan their fitness goals in detail, including attributes such as the name, sets, reps, weight, and calories for each exercise.
+These operations include:
+- Adding a water log to `Water` in the `DailyRecord` of a particular date in `History`.
+- 
+Given below is an example usage scenario for adding a water log and how to add water command functions at each step. 
 
 #### Example Usage
 
-##### 1. **User Input and Command Handling**:
+**Step 1**: The user starts by adding a water log using the command:
 
-- Upon startup, BuffBuddy welcomes the user and continuously prompts for commands.
-- The command input is read, parsed, and handled by `handleCommand`. If the user enters a valid command (e.g., `create`), it is executed, producing a `CommandResult`.
+water add /v WATER_VOLUME [/t Date] 
 
-##### 2. **Command Parsing and Execution**:
+- The command is parsed and translated into an `AddWaterCommand` object. Water contains an arrayList of floats, representing ml of water.
 
-- `Parser.parse()` analyzes the user’s input to identify the command type and arguments.
-- `CommandFactory.createCommand()` determines the specific command (e.g., `CreateCommand`) and forwards it to the relevant command factory (`ProgCommandFactory` for programme-related commands).
+**Step 2**: The command retrieves the `DailyRecord` for the specified date from the `History` using `getRecordByDate()`. If no record exists, a new one is created.
 
-##### 3. **Creating a Programme**:
+**Step 3**: The `AddWaterCommand` adds the water log to the `Water` of the `DailyRecord`. The `Water` is then updated with the new water log.
 
-- Within `ProgCommandFactory`, `prepareCreateCommand()` splits the input string by `/d` (indicating separate days) and `/e` (indicating exercises within each day).
-- Each **Day** is parsed by `parseDay`, and each **Exercise** is created using `parseExercise`, which extracts details such as name, sets, reps, weight, and calories using flag parsing (`/n`, `/s`, `/r`, `/w`, and `/c` flags).
-- The `CreateCommand` is then prepared with the programme name and its associated days.
-
-###### 4. **Inserting and Storing Programmes**:
-
-- The `execute()` method of `CreateCommand` uses `ProgrammeList` to insert a new programme, which is then stored for future access and manipulation.
-- `ProgrammeList.insertProgramme()` creates a `Programme` object and adds it to the list, ensuring it is available for subsequent commands (e.g., viewing, editing, or deleting).
-
-###### 5. **Execution Feedback**:
-
-- A successful creation logs the programme details and returns a `CommandResult`, notifying the user of the new programme with its full structure.
-
-This flow allows users to easily create structured workout routines, customizing their fitness journey directly within BuffBuddy.
+**Step 4**: The newly added water log object is displayed as part of the `CommandResult`.
 
 The overall design that enables this functionality is described generically by the following sequence diagram.
 
----
+![Add Water Sequence Diagram](images/addWaterSequenceDiagram.png)
+
+The diagram shows the interactions among different classes and objects during the execution of the "Add Water" command.
+
+#### Sequence Diagram for "Delete Water" Command 
+
+![Delete Meal Sequence Diagram](images/deleteWaterSequenceDiagram.png)
+
+#### Sequence Diagram for "View Water" Command
+
+![View Meal Sequence Diagram](images/viewWaterSequenceDiagram.png)
+
+#### Activity Diagram for "Add Water" Feature
+
+![Add Meal Activity Diagram](images/addWaterActivitydiagram.png)
+
+#### Summary of Feature
+
+The **Add Water** feature uses a **hierarchical command pattern** to manage water additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
+
+<!-- @@author -->
 
 ### WeeklySummary Feature
 
@@ -581,7 +587,7 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
 
----
+
 <!-- @@author Bev-low -->
 ### Save/Load Feature
 
