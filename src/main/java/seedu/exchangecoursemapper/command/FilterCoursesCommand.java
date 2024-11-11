@@ -22,6 +22,10 @@ import static seedu.exchangecoursemapper.constants.Logs.COMPLETE_EXECUTION;
 import static seedu.exchangecoursemapper.constants.Logs.NO_NUS_COURSE_CODE_FILTER;
 import static seedu.exchangecoursemapper.constants.Logs.FILTER_COURSES_LIMIT;
 import static seedu.exchangecoursemapper.constants.Logs.LIST_MAPPABLE_COURSES;
+import static seedu.exchangecoursemapper.constants.Logs.INVALID_NUS_COURSE_CODE_FORMAT;
+import static seedu.exchangecoursemapper.constants.Logs.INVALID_SOC_COURSE_CODE_FORMAT;
+import static seedu.exchangecoursemapper.constants.Logs.MAPPABLE_COURSES_EXIST;
+import static seedu.exchangecoursemapper.constants.Logs.NO_MAPPABLE_COURSES;
 import static seedu.exchangecoursemapper.constants.Commands.COMMAND_WORD_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.FILTER_COMMAND_PARAMETER_INDEX;
 import static seedu.exchangecoursemapper.constants.Commands.ZERO_INDEX_OFFSET;
@@ -100,16 +104,18 @@ public class FilterCoursesCommand extends CheckInformationCommand {
     /**
      * Returns the user specified NUS course code as a String to use as a filter.
      *
-     * @param descriptionSubstrings A user's input separated into details containing the NUS course code.
+     * @param inputDetails A user's input separated into details containing the NUS course code.
      * @return a String containing the extracted information: NUS course code.
      */
-    public String getNusCourseCode(String[] descriptionSubstrings) throws IllegalArgumentException {
-        assert descriptionSubstrings[FILTER_COMMAND_PARAMETER_INDEX] != null : NO_NUS_COURSE_CODE_PARSED;
-        String nusCourseCode = descriptionSubstrings[FILTER_COMMAND_PARAMETER_INDEX].toLowerCase();
+    public String getNusCourseCode(String[] inputDetails) throws IllegalArgumentException {
+        assert inputDetails[FILTER_COMMAND_PARAMETER_INDEX] != null : NO_NUS_COURSE_CODE_PARSED;
+        String nusCourseCode = inputDetails[FILTER_COMMAND_PARAMETER_INDEX].toLowerCase();
         if (!NusCourseCodeValidator.isValidSocCourseCode(nusCourseCode)) {
+            logger.log(Level.WARNING, INVALID_SOC_COURSE_CODE_FORMAT);
             throw new IllegalArgumentException(Exception.nonSocNusCourseGiven());
         }
         if (!NusCourseCodeValidator.isValidNusCourseCodeFormat(nusCourseCode)) {
+            logger.log(Level.WARNING, INVALID_NUS_COURSE_CODE_FORMAT);
             throw new IllegalArgumentException(Exception.invalidNusCourseCodeFormat());
         }
         return nusCourseCode;
@@ -134,8 +140,10 @@ public class FilterCoursesCommand extends CheckInformationCommand {
         }
 
         if (!isCourseFound) {
+            logger.log(Level.INFO, NO_MAPPABLE_COURSES);
             ui.printMessage(NO_MAPPABLE_COURSES_MESSAGE);
         } else {
+            logger.log(Level.INFO, MAPPABLE_COURSES_EXIST);
             ui.printMessage(END_OF_FILTER_RESULTS_NOTICE);
         }
     }
@@ -160,6 +168,7 @@ public class FilterCoursesCommand extends CheckInformationCommand {
             String nusCourseCode = course.getString(NUS_COURSE_CODE_KEY);
 
             if (nusCourseCode.equalsIgnoreCase(courseToFind)) {
+                logger.log(Level.INFO, MAPPABLE_COURSES_EXIST);
                 ui.printMappableCourse(universityName, course);
                 isCourseFound = true;
             }
