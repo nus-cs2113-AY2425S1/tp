@@ -1,6 +1,6 @@
 package seedu.commands;
 
-import seedu.EasInternship.Internship;
+import seedu.easinternship.Internship;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;

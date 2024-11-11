@@ -3,7 +3,7 @@
 ## Overview
 
 EasInternship is a desktop tracking application used for tracking internship applications along the various stages
-of an application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+of an application. The user interacts with it using a CLI and the application is written in Java.
 
 Given below are my contributions to the project.
 
@@ -15,13 +15,13 @@ Given below are my contributions to the project.
 <br><br>
 
 - **New Feature:** Added the ability to add an internship entry.
-  - What it does: Allows the user to add a new internship entry
-  - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications
+  - What it does: Allows the user to add a new internship entry.
+  - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications.
   - Highlights: This functionality is fundamental for managing and tracking multiple internship applications in a single place, which allows for efficient updates and reviews of application statuses.
 <br><br>
 
 - **New Feature:** Added the ability to delete an internship entry.
-  - What it does: Allows the user to delete a new internship entry
+  - What it does: Allows the user to delete a new internship entry.
   - Justification: Applicants might be applying to multiple companies and hence it can aid the user in tracking their multiple applications by deleting internships that are no longer necessary to be maintained.
   - Highlights: This functionality is fundamental for managing and tracking multiple internship applications in a single place, which allows for efficient updates and reviews of application statuses.
 <br><br>
@@ -64,4 +64,4 @@ Given below are my contributions to the project.
 <br><br>
 
 - **Community:**
-  - PRs reviewed (with non-trivial review comments): [#35](), [#37](), [#122]()
+  - PRs reviewed (with non-trivial review comments): [#35](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/35), [#37](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/37), [#122](https://github.com/AY2425S1-CS2113-T10-1/tp/pull/122)
