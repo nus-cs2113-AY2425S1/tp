@@ -264,13 +264,26 @@ have clear targets to prepare for the NAPFA test.
 
 **Format**: `add-goal (goal name) (deadline)`
 
+- `(goal name)` is the description of the goal (e.g., "run", "swim").
+- `[deadline]` is an optional argument. If provided, it should follow the format DD/MM/YYYY HH:MM:SS. 
+- If no deadline is provided, the time will default to 00:00:00 on the specified date.
+- 
 **Example**: `add-goal run 12/12/2024 14:00:00`
 
 **Expected Output**:
+
+If a deadline is provided:
 ```
 ____________________________________________________________________________________________________
 Goal added: run
 Deadline: 12/12/2024 14:00:00
+____________________________________________________________________________________________________
+```
+If a deadline is not specified:
+```
+____________________________________________________________________________________________________
+Goal added: run
+No deadline set.
 ____________________________________________________________________________________________________
 ```
 
