@@ -147,6 +147,14 @@ Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 * The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
 * The `CONTACT_TYPE` is the type of contact either number or email
 
+The available partner universities are:
+* The University of Western Australia (uwa)
+* The University of Melbourne (unimelb)
+* The Australian National University (anu)
+* Victoria University of Wellington (wgtn)
+
+Abbreviation of the universities name can be used.
+
 Example: `obtain victoria university of wellington /number`
 
 Expected Output:
