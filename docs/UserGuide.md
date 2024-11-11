@@ -410,7 +410,7 @@ cs3244 | the australian national university | comp3670
 cs2102 | the university of melbourne | info20003
 ```
 
-### Find courses in personalised tracker `find`
+### Find courses in personalised tracker: `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`
