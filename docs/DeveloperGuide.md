@@ -25,11 +25,32 @@ In this sequence diagram, all the components would be grouped together and simpl
 
 ![Overal Sequence Diagram](developerguidepictures/Overall%20Sequence%20Diagram.drawio.png)
 
-The sections below give more details of the components and any additional components.
+**The sections below give more details of the components and any additional components.**
 
 ---
 
 ## Class Diagrams
+### Storage
+
+![Storage Class Diagram](developerguidepictures/Storage.drawio.png)
+
+`Storage` is designed to handle the saving and loading of data for categories and expenses within the program.
+- `Storage`: Coordinates the loading and saving of data for both categories and expenses. 
+It creates and manages instances of `ExpenseStorage` and `CategoryStorage`.
+- `ExpenseStorage`: Responsible for loading and saving expense data to a file. 
+Each expense record contains the expense name, amount, and category.
+- `CategoryStorage`: Manages category data, including category names and optional budget limits. 
+It loads and saves categories to a file, ensuring the integrity of category data and budget associations.
+
+
+The `Storage` class employs composition to manage instances of `ExpenseStorage` and `CategoryStorage`. 
+This design centralizes all data storage-related operations within Storage, providing a single interface for other 
+parts of the system to interact with. By encapsulating these operations, any changes to data-saving or loading 
+processes can be isolated within the individual storage classes, minimizing the impact on the rest of the application.
+
+This structure separates expenses and categories into distinct storage classes — `ExpenseStorage` and `CategoryStorage` 
+— which clarifies their respective responsibilities. This separation promotes modularity and enhances maintainability 
+by ensuring each storage class focuses exclusively on managing one type of data.
 
 ### Core Classes Overview
 ![CoreManagement](diagrams/CoreManagement.png)
