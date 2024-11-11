@@ -8,6 +8,7 @@
   - [Features](#features)
     - [Help](#help)
     - [Set/Edit Budget](#setedit-budget)
+    - [Delete Budget](#delete-budget)
     - [Add Transaction](#add-transaction)
     - [Edit Transaction](#edit-transaction)
     - [Delete Transaction](#delete-transaction)
@@ -279,7 +280,7 @@ Got it. I've edited this expense:
 Example 4: Edits the description and date of the 3rd entry to be `dinner` and `11/09/2024` respectively.
 
 ```
-edit 3 /des dinner /d 11/09/24
+edit 3 /des dinner /d 11/09/2024
 --------------------------------------------
 Got it. I've edited this expense:
 [Expense] - dinner $ 8.00 (on 11/09/2024) [UNCATEGORIZED]
@@ -291,7 +292,7 @@ Got it. I've edited this expense:
 Example 5: Edits the description, amount, and date of the 4th entry to be `breakfast`, `5` and `12/09/2024` respectively.
 
 ```
-edit 4 /des breakfast /a 5 /d 12/09/24
+edit 4 /des breakfast /a 5 /d 12/09/2024
 --------------------------------------------
 Got it. I've edited this expense:
 [Expense] - breakfast $ 5.00 (on 12/09/2024) [UNCATEGORIZED]
