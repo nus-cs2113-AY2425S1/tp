@@ -1,6 +1,6 @@
-package seedu.spendswift.command;
+package seedu.spendswift.model;
 
-import seedu.spendswift.Format;
+import seedu.spendswift.format.Format;
 import java.io.IOException;
 import seedu.spendswift.CurrencyConverter;
 

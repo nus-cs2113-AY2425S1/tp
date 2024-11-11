@@ -1,11 +1,11 @@
 package seedu.spendswift.parser;
 
-import seedu.spendswift.Storage;
+import seedu.spendswift.storage.Storage;
 import seedu.spendswift.command.BudgetManager;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
-import seedu.spendswift.command.TrackerData;
-import seedu.spendswift.UI;
+import seedu.spendswift.model.TrackerData;
+import seedu.spendswift.ui.UI;
 
 import java.io.IOException;
 

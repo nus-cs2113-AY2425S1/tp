@@ -4,10 +4,10 @@ import java.util.Calendar;
 import org.junit.jupiter.api.Test;
 import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.ExpenseManager;
-import seedu.spendswift.command.TrackerData;
-import seedu.spendswift.command.Budget;
-import seedu.spendswift.command.Category;
-import seedu.spendswift.command.Expense;
+import seedu.spendswift.model.TrackerData;
+import seedu.spendswift.model.Budget;
+import seedu.spendswift.model.Category;
+import seedu.spendswift.model.Expense;
 import seedu.spendswift.command.BudgetManager;
 //import java.util.Random;
 

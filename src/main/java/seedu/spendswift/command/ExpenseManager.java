@@ -1,9 +1,12 @@
 //@@author glenda-1506
 package seedu.spendswift.command;
 
-import seedu.spendswift.ErrorMessage;
-import seedu.spendswift.Format;
-import seedu.spendswift.SuccessMessage;
+import seedu.spendswift.ui.ErrorMessage;
+import seedu.spendswift.format.Format;
+import seedu.spendswift.ui.SuccessMessage;
+import seedu.spendswift.model.Category;
+import seedu.spendswift.model.Expense;
+import seedu.spendswift.model.TrackerData;
 import seedu.spendswift.parser.InputParser;
 
 import java.util.List;

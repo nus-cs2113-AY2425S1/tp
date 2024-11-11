@@ -1,9 +1,13 @@
 package seedu.spendswift.command;
 
-import seedu.spendswift.ErrorMessage;
-import seedu.spendswift.Format;
-import seedu.spendswift.SuccessMessage;
-import seedu.spendswift.UI;
+import seedu.spendswift.ui.ErrorMessage;
+import seedu.spendswift.format.Format;
+import seedu.spendswift.ui.SuccessMessage;
+import seedu.spendswift.ui.UI;
+import seedu.spendswift.model.Budget;
+import seedu.spendswift.model.Category;
+import seedu.spendswift.model.Expense;
+import seedu.spendswift.model.TrackerData;
 import seedu.spendswift.parser.InputParser;
 
 import java.util.Calendar;
@@ -130,15 +134,15 @@ public class BudgetManager {
         }
 
         if (budgets.containsKey(existingCategory)) {
-            budgets.get(existingCategory).setLimit(preciseLimit.doubleValue()); 
-            System.out.println("Updated budget for category '" + existingCategory.getName() + 
+            budgets.get(existingCategory).setLimit(preciseLimit.doubleValue());
+            System.out.println("Updated budget for category '" + existingCategory.getName() +
                 "' to " + preciseLimit.toPlainString());
             budgets.get(existingCategory).setLimit(limit);
             SuccessMessage.printExistingBudget(limit, existingCategory);
         } else {
             Budget newBudget = new Budget(existingCategory, preciseLimit.doubleValue());
             budgets.put(existingCategory, newBudget);
-            System.out.println("Set budget for category '" 
+            System.out.println("Set budget for category '"
                 + existingCategory.getName() + "' to " + preciseLimit.toPlainString());
             SuccessMessage.printNewBudget(limit, existingCategory);
         }
