@@ -2,7 +2,8 @@
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+Formatting of this Developer's Guide was done with reference to [AddressBook-Level3 Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
+
 
 ## Design & implementation
 
@@ -20,17 +21,18 @@
     5. [DeleteCommand Implementation](#deletecommand-implementation)
     6. [SortCommand Implementation](#sortcommand-implementation)
     7. [UpdateCommand Implementation](#updatecommand-implementation)
-    8. [RemoveCommand Implementation](#RemoveCommand-implementation)
+    8. [RemoveCommand Implementation](#removeCommand-implementation)
+    9. [CalendarCommand Implementation](#calendarcommand-implementation)
 ---
 
 ## About the Product
-1. [Product Scope](#Product-Scope)
-   1. [Target User Profile](#Target-User-Profile)
-   2. [Value Proposition](#Value-proposition)
-2. [User Stories](#User-Stories)
-3. [Non-Functional Requirements](#Non-Functional-Requirements)
-4. [Glossary](#Glossary)
-5. [Instructions for Manual Testing](#Instructions-for-manual-testing)
+1. [Product Scope](#product-scope)
+   1. [Target User Profile](#target-user-profile)
+   2. [Value Proposition](#value-proposition)
+2. [User Stories](#user-stories)
+3. [Non-Functional Requirements](#non-functional-requirements)
+4. [Glossary](#glossary)
+5. [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 ---
 ## 1. Design
