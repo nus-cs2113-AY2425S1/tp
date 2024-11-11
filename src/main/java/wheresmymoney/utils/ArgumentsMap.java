@@ -53,19 +53,24 @@ public class ArgumentsMap extends HashMap<String, String> {
         }
     }
 
-    private Float parsePrice(String priceString) throws InvalidInputException {
+    private Float parsePrice(String priceString, String argumentDisplayName) throws InvalidInputException {
         Float price;
         try {
             price = Float.parseFloat(priceString);
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("Price given \""+priceString+"\" is invalid. "+
-                    "Please make sure it is a number");
+            throw new InvalidInputException(argumentDisplayName + " given \""+priceString+"\" is invalid. "+
+                    "Please make sure it is a number.");
         }
         assert price != null;
         if (price <= 0) {
-            throw new InvalidInputException("Price cannot take on a value that is less than or equal to 0");
+            throw new InvalidInputException(argumentDisplayName +
+                    " cannot take on a value that is less than or equal to 0.");
         }
         return price;
+    }
+
+    private Float parsePrice(String priceString) throws InvalidInputException {
+        return parsePrice(priceString, "Price");
     }
 
     /**
@@ -88,5 +93,17 @@ public class ArgumentsMap extends HashMap<String, String> {
     public Float getRequiredPrice() throws InvalidInputException {
         String priceString = getRequired(Parser.ARGUMENT_PRICE);
         return parsePrice(priceString);
+    }
+
+
+    /**
+     * Gets a required price and throws an exception if that price is not provided/ invalid.
+     *
+     * @return Price
+     * @throws InvalidInputException If price is not given or is invalid
+     */
+    public Float getRequiredLimit() throws InvalidInputException {
+        String limitString = getRequired(Parser.ARGUMENT_LIMIT);
+        return parsePrice(limitString, "Limit");
     }
 }

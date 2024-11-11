@@ -16,13 +16,9 @@ public class SetCommand extends Command {
     @Override
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpense) throws WheresMyMoneyException {
-        try {
-            String category = argumentsMap.get(Parser.ARGUMENT_CATEGORY);
-            float limit = Float.parseFloat(argumentsMap.get(Parser.ARGUMENT_LIMIT));
-            categoryFacade.setCategorySpendingLimit(category, limit);
-        } catch (NullPointerException | NumberFormatException e) {
-            throw new InvalidInputException("Invalid Arguments");
-        }
+        String category = argumentsMap.getRequired(Parser.ARGUMENT_CATEGORY);
+        Float limit = argumentsMap.getRequiredLimit();
+        categoryFacade.setCategorySpendingLimit(category, limit);
     }
     
 }

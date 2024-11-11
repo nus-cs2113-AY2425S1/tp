@@ -23,16 +23,12 @@ public class DeleteCommand extends Command {
     public void execute(ExpenseList expenseList, CategoryFacade categoryFacade, 
             RecurringExpenseList recurringExpenseList) throws WheresMyMoneyException {
         int index = argumentsMap.getRequiredIndex();
-        try {
-            if (this.isRecur()) {
-                recurringExpenseList.deleteRecurringExpense(index);
-            } else {
-                Expense expense = expenseList.getExpenseAtIndex(index);
-                expenseList.deleteExpense(index);
-                categoryFacade.deleteCategory(expense.getCategory(), expense.getPrice());
-            }
-        } catch (NullPointerException | NumberFormatException e) {
-            throw new InvalidInputException("Invalid Arguments.");
+        if (this.isRecur()) {
+            recurringExpenseList.deleteRecurringExpense(index);
+        } else {
+            Expense expense = expenseList.getExpenseAtIndex(index);
+            expenseList.deleteExpense(index);
+            categoryFacade.deleteCategory(expense.getCategory(), expense.getPrice());
         }
     }
     
