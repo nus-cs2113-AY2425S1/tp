@@ -23,7 +23,7 @@ public class ExpenseManager {
             }
 
             if (category.isEmpty()) {
-                ErrorMessage.printExpensesManagerEmptyCategory();
+                ErrorMessage.printMissingCategory();
                 return;
             }
 
@@ -152,7 +152,7 @@ public class ExpenseManager {
             String category = parser.parseCategory(input);
 
             if (category == null || category.isEmpty()) {
-                ErrorMessage.printExpensesManagerEmptyCategory();
+                ErrorMessage.printMissingCategory();
                 return;
             }
             tagExpenseHelper(trackerData, expenseIndex, category);
