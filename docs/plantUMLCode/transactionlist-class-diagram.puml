@@ -1,0 +1,52 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class TransactionList {
+    - invertedIndex : Map<String, List<Transaction>>
+
+    + TransactionList()
+    + addTransaction(transaction : Transaction) : void
+    + deleteTransaction(index : int) : Transaction
+    + getTransactions() : ArrayList<Transaction>
+    + getTransactionsBetween(startTime : LocalDateTime, endTime : LocalDateTime) : List<Transaction>
+    + getExpensesByCategory(category : Category) : List<Transaction>
+    + searchTransactionsByKeywords(keywords : List<String>) : List<Transaction>
+    + getTodaySpending() : double
+    + updateCategory(index : int, newCategory : Category) : boolean
+}
+
+class "<<abstract>>\nTransaction" {
+    -  amount : double
+    - description : String
+    - dateTimeString : String
+
+    + getAmount() : double
+    + getDescription() : String
+    + getDate() : LocalDateTime
+    + setDate(date : LocalDateTime) : void
+    + getTransactionType() : String
+}
+
+class Expense extends "<<abstract>>\nTransaction" {
+    - category : Category
+
+    + getCategory() : Category
+    + setCategory(category : Category) : void
+}
+
+class Income extends "<<abstract>>\nTransaction" {
+    + getTransactionType() : String
+}
+
+class Category {
+    - name : String
+
+    + getName() : String
+}
+
+TransactionList "1" --> "*" "<<abstract>>\nTransaction"
+
+
+Expense --> Category
+
+@enduml
