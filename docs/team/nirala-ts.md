@@ -1,7 +1,7 @@
 # Project Portfolio: Nirala Tanishka Singh
 
 ## Project: BuffBuddy
-BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, meals and water intake alongside tracking your calories and personal bests. The user interacts with it using a CLI.
+BuffBuddy is a CLI workout and meal tracker that tracks your programmes, workouts, meals and water intake alongside tracking your calories and personal bests.
 
 ## Summary of Contributions
 
@@ -9,8 +9,6 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
 - **Code Link**: [Click here to view my code on the tP Code Dashboard](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=nirala-ts&tabRepo=AY2425S1-CS2113-W10-3%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 ### Enhancements Implemented
-
-I implemented six key features to improve the functionality and usability of BuffBuddy:
 
 1.**Add New Programme**: Feature to create workout programs.
 - **What it does**: Allows users to add a new workout program by specifying a name or creating a more detailed program with multiple days and exercises in one command. This enables advanced users to efficiently set up complex routines.
@@ -45,7 +43,7 @@ I implemented six key features to improve the functionality and usability of Buf
 
 Each feature in BuffBuddy was designed with advanced input flexibility, allowing parameters to be entered in any order and making certain parameters optional to accommodate varied user preferences. 
 Additionally, all flags associated with these features have aliases, providing users with alternative command syntax to access the same functionality. This design not only improves usability but also enhances the overall user experience by enabling more intuitive and flexible interactions.
-Implementing this flexibility was challenging and required sophisticated parsing logic to ensure consistent and accurate processing of commands. The parsing mechanism was carefully developed to handle alias recognition, optional parameters, and various parameter sequences without compromising functionality. This level of customization demanded a structured approach to parse inputs dynamically while maintaining clarity and ease of use across all BuffBuddy commands.
+Implementing this flexibility was challenging and required sophisticated parsing logic to ensure consistent and accurate processing of commands. The parsing mechanism was carefully developed to handle alias recognition, optional parameters, and various parameter sequences without compromising functionality.
 
 
 ### Contributions to the User Guide (UG)
