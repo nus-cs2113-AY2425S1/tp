@@ -1,1 +1,74 @@
-James Gosling
+add expense
+add expense no amount
+add expense negative amount a/-1
+add expense wrong date format a/123.45 d/wrong
+add expense Japan Flight a/123.45 d/30/12/2024 c/transport
+add expense Buy Tesla Stock a/100.10 d/02/10/2024
+list expenses
+delete expense 1
+list expense
+list expenses
+add expense
+add expense a/122
+add income
+add income a/123
+add income Negative amount a/-1
+add income wrong date a/122 d/wrong
+add income Tuition a/100.00 d/15/12/2024
+add income Internship a/123 d/13/10/2024
+add budget
+add budget a/-1000
+add budget a/1234 m/11/2024
+add budget a/800 m/03/2024
+add budget a/2300 m/11/2024
+add budget a/3000 m/07/2024
+add budget a/5000 m/02/2024
+deduct budget
+deduct budget a/-1000
+deduct budget a/1234 m/11/2024
+deduct budget a/800 m/03/2024
+deduct budget a/2300 m/11/2024
+deduct budget a/1500 m/02/2024
+list budgets m/02/2024
+list budgets m/07/2022
+list budgets
+list budget
+list incomes
+remove income 1
+remove incomes 1
+list income
+delete income 1
+list incomes
+add expense Japan Flight a/123.45 d/30/10/2024 c/transport
+add expense Ipad a/123.45 d/30/08/2024 c/education
+list expenses c/transport
+list expenses m/08/2024
+list expenses c/transport m/10/2024
+list expenses c/incorrect category
+list expenses m/invalid month
+list expenses c/food
+list expenses c/education m/02/2024
+add income Tuition a/100.00 d/15/12/2024
+add income Internship a/123 d/13/10/2024
+list incomes
+list incomes m/10/2024
+list incomes m/08/2024
+list incomes m/20/2024
+add income tutor a/1500 d/20/10/2023
+add expense food a/550 d/30/10/2023
+display income spent m/10/2023
+list expenses
+edit expense 1
+a/50
+add expense Fridge a/5000 d/1/2/2024 c/others
+add budget a/2000 m/02/2024
+list remaining budget
+list incomes
+edit income 1
+a/10000 d/10/12/2024
+edit income -10
+edit income 50
+edit income 3
+c/food
+list incomes
+bye

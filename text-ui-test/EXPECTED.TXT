@@ -1,9 +1,339 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
-What is your name?
-Hello James Gosling
+========================================================
+Welcome to Budget Buddy!
+========================================================
+Enter commands: ========================================================
+No description provided.
+========================================================
+Enter commands: ========================================================
+Amount not entered.
+========================================================
+Enter commands: ========================================================
+Amount should be a positive number with up to 2 decimal places.
+========================================================
+Enter commands: ========================================================
+Invalid date format. Use d/DD/MM/YYYY.
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been added:
+Description: Japan Flight  Amount: 123.45  Date: 2024-12-30  Category: TRANSPORT
+You have 1 expense transaction(s) in total.
+The remaining budget for 2024-12 in the TRANSPORT category is: -123.45
+Caution! You have exceeded your budget!
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been added:
+Description: Buy Tesla Stock  Amount: 100.10  Date: 2024-10-02  Category: OTHERS
+You have 2 expense transaction(s) in total.
+The remaining budget for 2024-10 in the OTHERS category is: -100.10
+Caution! You have exceeded your budget!
+========================================================
+Enter commands: ========================================================
+1. Description: Japan Flight  Amount: 123.45  Date: 2024-12-30  Category: TRANSPORT
+2. Description: Buy Tesla Stock  Amount: 100.10  Date: 2024-10-02  Category: OTHERS
+There are 2 expense(s) in total, with a sum of $223.55.
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been deleted:
+Description: Japan Flight  Amount: 123.45  Date: 2024-12-30  Category: TRANSPORT
+You have 1 expense transaction(s) in total.
+No budget found for 2024-12.
+========================================================
+Enter commands: ========================================================
+Invalid input
+========================================================
+Enter commands: ========================================================
+1. Description: Buy Tesla Stock  Amount: 100.10  Date: 2024-10-02  Category: OTHERS
+There are 1 expense(s) in total, with a sum of $100.10.
+========================================================
+Enter commands: ========================================================
+No description provided.
+========================================================
+Enter commands: ========================================================
+Description cannot be empty.
+========================================================
+Enter commands: ========================================================
+No description provided.
+========================================================
+Enter commands: ========================================================
+Description cannot be empty.
+========================================================
+Enter commands: ========================================================
+Amount should be a positive number with up to 2 decimal places.
+========================================================
+Enter commands: ========================================================
+Invalid date format. Use d/dd/MM/yyyy.
+========================================================
+Enter commands: ========================================================
+The following income transaction has been added:
+Description: Tuition  Amount: 100.00  Date: 2024-12-15
+You have 1 income transaction(s) in total.
+========================================================
+Enter commands: ========================================================
+The following income transaction has been added:
+Description: Internship  Amount: 123.00  Date: 2024-10-13
+You have 2 income transaction(s) in total.
+========================================================
+Enter commands: ========================================================
+No amount provided.
+========================================================
+Enter commands: ========================================================
+Invalid amount: -1000.0. Amount must be a positive value.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 1234.00  Date: 2024-11
+ Category: {OTHERS=1234.00}
+You have 1 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 800.00  Date: 2024-03
+ Category: {OTHERS=800.00}
+You have 2 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 3534.00  Date: 2024-11
+ Category: {OTHERS=3534.00}
+You have 2 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 3000.00  Date: 2024-07
+ Category: {OTHERS=3000.00}
+You have 3 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 5000.00  Date: 2024-02
+ Category: {OTHERS=5000.00}
+You have 4 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+No amount provided.
+========================================================
+Enter commands: ========================================================
+Invalid amount: -1000.0. Must be a positive value.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 2300.00  Date: 2024-11
+ Category: {OTHERS=2300.00}
+You have 4 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget has been deleted as its amount reached zero:
+Date: 2024-03
+You have 3 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget has been deleted as its amount reached zero:
+Date: 2024-11
+You have 2 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 3500.00  Date: 2024-02
+ Category: {OTHERS=3500.00}
+You have 2 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+Here is the budget for the specified month:
+Total Monthly Budget: 3500.00  Date: 2024-02
+ Category: {OTHERS=3500.00}
+========================================================
+Enter commands: ========================================================
+No budget found for date: 2022-07
+========================================================
+Enter commands: ========================================================
+Listing up to the 12 most recent budgets:
+1. Total Monthly Budget: 3000.00  Date: 2024-07
+ Category: {OTHERS=3000.00}
+2. Total Monthly Budget: 3500.00  Date: 2024-02
+ Category: {OTHERS=3500.00}
+========================================================
+Enter commands: ========================================================
+Invalid input
+========================================================
+Enter commands: ========================================================
+1. Description: Tuition  Amount: 100.00  Date: 2024-12-15
+2. Description: Internship  Amount: 123.00  Date: 2024-10-13
+There are 2 income(s) in total, with a sum of $223.00.
+========================================================
+Enter commands: ========================================================
+Invalid input
+========================================================
+Enter commands: ========================================================
+Invalid input
+========================================================
+Enter commands: ========================================================
+Invalid input
+========================================================
+Enter commands: ========================================================
+The following income transaction has been deleted:
+Description: Tuition  Amount: 100.00  Date: 2024-12-15
+You have 1 income transaction(s) in total.
+========================================================
+Enter commands: ========================================================
+1. Description: Internship  Amount: 123.00  Date: 2024-10-13
+There are 1 income(s) in total, with a sum of $123.00.
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been added:
+Description: Japan Flight  Amount: 123.45  Date: 2024-10-30  Category: TRANSPORT
+You have 2 expense transaction(s) in total.
+The remaining budget for 2024-10 in the TRANSPORT category is: -123.45
+Caution! You have exceeded your budget!
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been added:
+Description: Ipad  Amount: 123.45  Date: 2024-08-30  Category: EDUCATION
+You have 3 expense transaction(s) in total.
+The remaining budget for 2024-08 in the EDUCATION category is: -123.45
+Caution! You have exceeded your budget!
+========================================================
+Enter commands: ========================================================
+1. Description: Japan Flight  Amount: 123.45  Date: 2024-10-30  Category: TRANSPORT
+Your total expense(s) for TRANSPORT are $123.45
+========================================================
+Enter commands: ========================================================
+1. Description: Ipad  Amount: 123.45  Date: 2024-08-30  Category: EDUCATION
+Your total expense(s) for August 2024 are $123.45
+========================================================
+Enter commands: ========================================================
+1. Description: Japan Flight  Amount: 123.45  Date: 2024-10-30  Category: TRANSPORT
+Your total expense(s) for TRANSPORT in October 2024 are $123.45
+========================================================
+Enter commands: ========================================================
+Unknown category. Use a valid category.
+========================================================
+Enter commands: ========================================================
+Invalid month format. Use m/MM/yyyy.
+========================================================
+Enter commands: ========================================================
+No expense entry with given parameters found, try again with a different parameter.
+========================================================
+Enter commands: ========================================================
+No expense entry with given parameters found, try again with a different parameter.
+========================================================
+Enter commands: ========================================================
+The following income transaction has been added:
+Description: Tuition  Amount: 100.00  Date: 2024-12-15
+You have 2 income transaction(s) in total.
+========================================================
+Enter commands: ========================================================
+The following income transaction has been added:
+Description: Internship  Amount: 123.00  Date: 2024-10-13
+You have 3 income transaction(s) in total.
+========================================================
+Enter commands: ========================================================
+1. Description: Internship  Amount: 123.00  Date: 2024-10-13
+2. Description: Tuition  Amount: 100.00  Date: 2024-12-15
+3. Description: Internship  Amount: 123.00  Date: 2024-10-13
+There are 3 income(s) in total, with a sum of $346.00.
+========================================================
+Enter commands: ========================================================
+1. Description: Internship  Amount: 123.00  Date: 2024-10-13
+2. Description: Internship  Amount: 123.00  Date: 2024-10-13
+There are 2 income(s) in total for October 2024, with a sum of $246.0.
+========================================================
+Enter commands: ========================================================
+No income entry with given month found, try again with a different month.
+========================================================
+Enter commands: ========================================================
+Invalid month format. Use m/MM/yyyy.
+========================================================
+Enter commands: ========================================================
+The following income transaction has been added:
+Description: tutor  Amount: 1500.00  Date: 2023-10-20
+You have 4 income transaction(s) in total.
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been added:
+Description: food  Amount: 550.00  Date: 2023-10-30  Category: OTHERS
+You have 4 expense transaction(s) in total.
+The remaining budget for 2023-10 in the OTHERS category is: -550.00
+Caution! You have exceeded your budget!
+========================================================
+Enter commands: ========================================================
+Percentage of income spent for 2023-10: 36.7%
+========================================================
+Enter commands: ========================================================
+1. Description: Buy Tesla Stock  Amount: 100.10  Date: 2024-10-02  Category: OTHERS
+2. Description: Japan Flight  Amount: 123.45  Date: 2024-10-30  Category: TRANSPORT
+3. Description: Ipad  Amount: 123.45  Date: 2024-08-30  Category: EDUCATION
+4. Description: food  Amount: 550.00  Date: 2023-10-30  Category: OTHERS
+There are 4 expense(s) in total, with a sum of $897.00.
+========================================================
+Enter commands: Edit the following fields as follows: Amount: a/, Category: c/, Date: d/
+You may the exit change menu by pressing enter with no input.
+Currently Editing Entry:
+Description: Buy Tesla Stock  Amount: 100.10  Date: 2024-10-02  Category: OTHERS
+Enter edit Field: ========================================================
+Edited Expense:
+Description: Buy Tesla Stock  Amount: 50.00  Date: 2024-10-02  Category: OTHERS
+========================================================
+Enter commands: ========================================================
+The following expense transaction has been added:
+Description: Fridge  Amount: 5000.00  Date: 2024-02-01  Category: OTHERS
+You have 5 expense transaction(s) in total.
+The remaining budget for 2024-02 in the OTHERS category is: -1500.00
+Caution! You have exceeded your budget!
+========================================================
+Enter commands: ========================================================
+The following budget amount has been updated:
+Total Monthly Budget: 5500.00  Date: 2024-02
+ Category: {OTHERS=5500.00}
+You have 2 budget(s) in total.
+========================================================
+Enter commands: ========================================================
+All budgets after expense deductions:
+Total Monthly Budget: 3000.00  Date: 2024-07
+ Category: {OTHERS=3000.00}
+Total Monthly Budget: 500.00  Date: 2024-02
+ Category: {OTHERS=500.00}
+Total Monthly Budget: -173.45  Date: 2024-10
+ Category: {TRANSPORT=-123.45, OTHERS=-50.00}
+Total Monthly Budget: -123.45  Date: 2024-08
+ Category: {EDUCATION=-123.45}
+Total Monthly Budget: -550.00  Date: 2023-10
+ Category: {OTHERS=-550.00}
+========================================================
+Enter commands: ========================================================
+1. Description: Internship  Amount: 123.00  Date: 2024-10-13
+2. Description: Tuition  Amount: 100.00  Date: 2024-12-15
+3. Description: Internship  Amount: 123.00  Date: 2024-10-13
+4. Description: tutor  Amount: 1500.00  Date: 2023-10-20
+There are 4 income(s) in total, with a sum of $1846.00.
+========================================================
+Enter commands: Edit the following fields as follows: Amount: a/, Date: d/
+You may the exit change menu by pressing enter with no input.
+Currently Editing Entry:
+Description: Internship  Amount: 123.00  Date: 2024-10-13
+Enter edit Field: ========================================================
+Edited Income:
+Description: Internship  Amount: 10000.00  Date: 2024-12-10
+========================================================
+Enter commands: ========================================================
+Edit index must be greater than 0.
+========================================================
+Enter commands: ========================================================
+Input index is larger than the number of incomes. Try with a smaller index
+========================================================
+Enter commands: Edit the following fields as follows: Amount: a/, Date: d/
+You may the exit change menu by pressing enter with no input.
+Currently Editing Entry:
+Description: Internship  Amount: 123.00  Date: 2024-10-13
+Enter edit Field: ========================================================
+No valid fields detected, Exiting change menu.
+========================================================
+Enter commands: ========================================================
+1. Description: Internship  Amount: 10000.00  Date: 2024-12-10
+2. Description: Tuition  Amount: 100.00  Date: 2024-12-15
+3. Description: Internship  Amount: 123.00  Date: 2024-10-13
+4. Description: tutor  Amount: 1500.00  Date: 2023-10-20
+There are 4 income(s) in total, with a sum of $11723.00.
+========================================================
+Enter commands: ========================================================
+Bye!
+========================================================

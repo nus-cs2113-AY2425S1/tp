@@ -1,0 +1,30 @@
+expense | plane | 1000.0 | 15/9/2024 | FOOD
+expense | hello | 2.0 | 15/9/2024 | OTHERS
+expense | go skiing | 100.0 | 15/10/2024 | FOOD
+expense | plane tickets to korea | 1000.0 | 15/9/2024 | OTHERS
+expense | zoo tickets | 20.0 | 15/9/2024 | FOOD
+expense | plane tickets to japan | 1000.0 | 15/10/2024 | OTHERS
+expense | plane tickets to europe | 1000.0 | 1/8/2024 | OTHERS
+expense | wingstop | 20.0 | 15/10/2024 | OTHERS
+expense | plane ticket to japan | 1000.0 | 10/10/2024 | TRANSPORT
+expense | food | 5.5 | 10/10/2024 | FOOD
+expense | test | 10.0 | 10/10/2024 | OTHERS
+expense | popmart | 300.0 | 20/10/2023 | ENTERTAINMENT
+expense | table | 123.0 | 1/10/2023 | OTHERS
+expense | char | 2567.0 | 3/10/2023 | OTHERS
+expense | fly kite | 50.0 | 9/10/2025 | ENTERTAINMENT
+expense | go zoo | 300.0 | 10/10/2024 | OTHERS
+expense | restaurant | 300.0 | 10/10/2025 | FOOD
+income | tuition fees | 1000.0 | 15/9/2024
+income | tuition | 2.0E8 | 15/9/2024
+income | tuition fee | 10000.0 | 15/10/2024
+income | Starbucks crew | 1000.0 | 1/10/2024
+income | Mcdonald crew | 1000.0 | 15/10/2024
+income | fries crew | 2000.0 | 15/10/2023
+income | tuition fee | 1000.0 | 15/9/2024
+budget | 3200.0 | 2024-11 | {ENTERTAINMENT=3000.0, FOOD=200.0}
+budget | 2400.0 | 2024-10 | {TRANSPORT=1200.0, ENTERTAINMENT=1200.0}
+budget | 2550.0 | 2024-08 | {OTHERS=1800.0, FOOD=750.0}
+budget | 1700.0 | 2024-07 | {OTHERS=1700.0}
+budget | 3900.0 | 2024-05 | {OTHERS=1300.0, ENTERTAINMENT=1300.0, FOOD=1300.0}
+budget | 2600.0 | 2023-08 | {OTHERS=1900.0, UTILITIES=700.0}
