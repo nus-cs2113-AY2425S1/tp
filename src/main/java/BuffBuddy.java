@@ -10,10 +10,10 @@ import programme.ProgrammeList;
 import java.util.NoSuchElementException;
 
 /**
- * Represents the main class of the BuffBuddy application, a fitness tracking
- * program designed to manage user commands, interact with storage, display UI messages,
- * and maintain a history of commands and user programs.
- */
+* Represents the main class of the BuffBuddy application, a fitness tracking
+* program designed to manage user commands, interact with storage, display UI messages,
+* and maintain a history of commands and user programs.
+*/
 
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
@@ -33,22 +33,22 @@ public class BuffBuddy {
         ui.showMessage(storage.getMessage());
     }
 
-      /**
-     * Main entry point for the BuffBuddy application.
-     * Initializes a BuffBuddy instance with the default file path and
-     * starts the main command handling loop.
-     *
-     * @param args Command-line arguments (unused).
-     */
+    /**
+    * Main entry point for the BuffBuddy application.
+    * Initializes a BuffBuddy instance with the default file path and
+    * starts the main command handling loop.
+    *
+    * @param args Command-line arguments (unused).
+    */
 
     public static void main(String[] args) {
         new BuffBuddy(DEFAULT_FILE_PATH).run();
     }
     
     /**
-     * Runs the main program loop for BuffBuddy, displaying a welcome message,
-     * handling user commands, and displaying a farewell message upon exit.
-     */
+    * Runs the main program loop for BuffBuddy, displaying a welcome message,
+    * handling user commands, and displaying a farewell message upon exit.
+    */
     
     public void run() {
         ui.showWelcome();
@@ -56,11 +56,11 @@ public class BuffBuddy {
         ui.showFarewell();
     }
 
-     /**
-     * Handles the command processing loop, reading commands from the user,
-     * parsing them, executing the corresponding actions, and saving data.
-     * Exits the loop when an ExitCommand is issued.
-     */
+    /**
+    * Handles the command processing loop, reading commands from the user,
+    * parsing them, executing the corresponding actions, and saving data.
+    * Exits the loop when an ExitCommand is issued.
+    */
     
     private void handleCommands() {
         while(true) {
