@@ -318,7 +318,7 @@ transactionData.txt should be created in the data folder as well if it does not 
 
 `Test case 3` :
 
-`details` : Adding a user using `add-user /u john /a 16 /c 87777777` <br>
+`details` : Adding a user using `add-user /u bill /a 16 /c 87777777` <br>
 `check` : The command should return an error message saying that the age is illegal to drive which is true 
 for most countries at age of 16. Our legal age is 18 thus changing the age to 18 and above but maximally 100 years old 
 will work now.

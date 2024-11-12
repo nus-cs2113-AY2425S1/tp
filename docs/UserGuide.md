@@ -303,6 +303,7 @@ The status will be updated automatically when a transaction record is:
 Adds a new rental transaction to the system.
 
 To add transaction bearing either an existing license plate number and/or customer name, all previous transactions containing either both or one of the parameter must be either marked as completed or be removed from the transaction list.
+It means that when a customer and a car are in a transaction, either that customer or that car cannot involve in other transactions, including transactions with different time periods (start date - end date), unless that transaction is marked as completed or be removed from the transaction list.
 
 **Format:** `add-tx /c [LICENSE_PLATE_NUMBER] /u [CUSTOMER_NAME] /d [DURATION] /s [START_DATE: dd-MM-yyyy]`
 
@@ -493,7 +494,7 @@ The transactions are displayed in the same format as list-txs.
 **Format:** `find-txs-by-customer /u [CUSTOMER_NAME]`
 
 - `/u` identifier specifies the Customer Name.
-- `CUSTOMER_NAME` must match an existing customer in the customer list. This is not case sensitive, 'john' and 'John' is the same.
+- `CUSTOMER_NAME` must partially match an existing customer in the customer list. This is not case-sensitive, 'john' and 'John' is the same, and 'john' input can search for the user 'John Doe', which contains 'John'.
 
 **Example:**  
 `find-txs-by-customer /u John`
