@@ -93,6 +93,8 @@ Hi! Welcome to FindOurSEP! Enter help for the list of commands.
 ```
 The user can then begin using the program by inputting [commands](#notes-about-the-command-format).
 
+<div style="page-break-after: always;"></div>
+
 #### File Input
 If `2` is chosen instead, the users will be asked to upload files in CSV, JSON, or TXT format, containing multiple student records at once. This method is ideal for batch processing, allowing efficient loading of extensive datasets into the program. Each file type follows a specific format for student ID, GPA, and university preferences, ensuring consistent and structured data handling.
 
@@ -103,8 +105,6 @@ Example: C:\Users\bob\OneDrive\Documents\tp\test.csv
 Please enter the ABSOLUTE path to the file: 
 --------------------------------------------------------------------------------
 ```
-
-<div style="page-break-after: always;"></div>
 
 **NOTE:** If the test files are in the same folder as the `.jar` file, users can just enter the name of the test file. E.g, `test.json`.
 
