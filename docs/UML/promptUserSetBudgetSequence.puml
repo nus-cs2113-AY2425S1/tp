@@ -16,7 +16,7 @@ opt budget not set
     BudgetLogic -> AppUi: displaySetBudgetMessage()
     BudgetLogic -> BudgetLogic: shouldSetBudget()
     activate BudgetLogic
-    return boolean
+    return shouldSetBudget
     alt user does not wish to set budget
         BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
         activate BudgetLogic
