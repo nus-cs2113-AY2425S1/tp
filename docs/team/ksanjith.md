@@ -24,6 +24,8 @@ keep track of what ingredients you have on hand.
 - Created Sort Ingredients Command ([PR #142](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/142))
   - Wrote code to allow users to sort their ingredients alphabetically (by name).
 
+<div style="page-break-after: always;"></div>
+
 #### Enhancements Implemented
 - Created additional tests for existing classes and methods to increase overall coverage ([PR #81](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/81)) 
   - Total Class Coverage improved from 58% to 91%
@@ -32,7 +34,7 @@ keep track of what ingredients you have on hand.
   - Total Branch Coverage improved from 40% to 54%
 - Expanded on the Help Command's output to better explain all the available commands and their usage ([PR #79](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/79))
 - Started using EmptyListException to throw exceptions when user is trying to modify, search, sort or delete
-from an empty recipe list ([PR #81)](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/81))
+from an empty recipe list ([PR #81](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/81))
 - Started using InvalidSaveLineException for when there are invalid lines found in the save file during load ([PE #215](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/215))
 - Enhanced and expanded the save-load system to be more robust in finding irregular lines in save file and
 to immediately overwrite the found irregular lines ([PE #215](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/215))
@@ -54,6 +56,8 @@ to immediately overwrite the found irregular lines ([PE #215](https://github.com
 - Made changes and fixes to the DG to settle all the feedback given by the TA during DG review ([PR #128](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/128))
 - Completed the section on Instructions for Manual Testing ([PR #153](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/153))
 - Wrote the sections on Storage class and Sort Command
+
+<div style="page-break-after: always;"></div>
 
 #### Contributions to Team-Based Tasks
 - Fixed various bugs in the code ([PR #93](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/93))
