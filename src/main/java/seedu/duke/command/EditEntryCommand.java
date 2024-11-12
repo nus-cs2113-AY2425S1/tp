@@ -63,7 +63,7 @@ public class EditEntryCommand extends Command {
             throws FinanceBuddyException {
 
         this.index = index;
-        this.amount = Math.round(amount * 100.0)/100.0;
+        this.amount = Commons.roundToTwoDP(amount);
         this.description = description;
         this.category = category;
         try {
@@ -73,7 +73,7 @@ public class EditEntryCommand extends Command {
             throw e;
         }
 
-        assert description !=null && !description.isEmpty() : "Description should not be empty";
+        assert description != null && !description.isEmpty() : "Description should not be empty";
     }
 
     /**

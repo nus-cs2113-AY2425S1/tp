@@ -35,6 +35,9 @@ import seedu.duke.logic.BudgetLogic;
  * <p>Methods:</p>
  * <ul>
  *   <li>{@link #getStorageFile()} - Retrieves the storage file, creating it if necessary.</li>
+ *   <li>{@link #getBudgetFile()} - Retrieves the budget file, creating it if necessary.</li>
+ *   <li>{@link #getStorageFileWithoutMsg()} - Retrieves the storage file without displaying a message.</li>
+ *   <li>{@link #getBudgetFileWithoutMsg()} - Retrieves the budget file without displaying a message.</li>
  *   <li>{@link #update(FinancialList, BudgetLogic)} - Updates the storage file with the entries 
  *          from the given FinancialList and BudgetLogic.</li>
  *   <li>{@link #parseExpense(String[])} - Parses a string array into an Expense object.</li>
@@ -51,7 +54,8 @@ import seedu.duke.logic.BudgetLogic;
  *   <li>{@link #clearInvalidLines()} - Clears all the invalid lines stored in the invalidLines list.</li>
  *   <li>{@link #printInvalidLines()} - Prints the invalid lines stored in the invalidLines list.</li>
  *   <li>{@link #printLoadingResult()} - Prints the result of loading data from storage.</li>
- *  
+ *   <li>{@link #deleteBudgetFromFile()} - Deletes the budget file from the file system.</li>
+ *   <li>{@link #deleteFinancialListFromFile()} - Deletes the financial list file from the storage.</li>
  * </ul>
  * 
  * <p>Fields:</p>

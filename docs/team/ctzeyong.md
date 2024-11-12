@@ -2,7 +2,7 @@
 
 ## Overview
 
-Finance Buddy is a software that allows university students to log their daily expenditures
+FinanceBuddy is a software that allows university students to log their daily expenditures
 to help manage their budgets. Users can add, delete and edit expenditure logs
 into the app as well as list out all their logged transactions.
 
@@ -16,38 +16,42 @@ to see the RepoSense report of code contributed to this project.
 
 ### Enhancements Implemented
 
-Implemented
-- `Log` class and `LogLevels` enumeration for logging purposes 
-- `AddEntryCommand` abstract class
+**New implementation**: Singleton `Log` class and `LogLevels` enumeration
+- <ins>What it does</ins>: Central class that manages logging in the program 
+- <ins>Justification</ins>: Single instance of a logging class allows for easier toggling of settings
 
-Aided in development of
-- `AddIncomeCommand` initial implementation
-- `SeeAllEntriesCommand` calculation of cashflow
-- `BudgetLogic` calculation and displaying of remaining balance
+**New implementation**:`AddEntryCommand` abstract class
+- <ins>What it does</ins>: Class that holds common attributes of
+`AddExpenseCommand` and `AddIncomeCommand`
+- <ins>Justification</ins>: Increases level of abstraction
 
-Enhanced exception handling
+**New implementation**: `AddIncomeCommand` backbone implementation
+- <ins>What it does</ins>: Class that adds `Income` to `financialList`
+- <ins>Justification</ins>: Key feature of application
 
-### Contributions to the UG
+**Enhanced feature**: `SeeAllEntriesCommand` calculation of cashflow
+- <ins>What it does</ins>: Calculates and displays net cashflow of entries listed
+- <ins>Justification</ins>: Side feature that enhances user experience
+
+**Enhanced feature**: `BudgetLogic` remaining balance feature
+- <ins>What it does</ins>: Calculates and displays remaining balance
+- <ins>Justification</ins>: Enables warning to user when budget is exceeded
+
+**General contribution**: Enhanced exception handling
+- <ins>What it does</ins>: Throws `FinanceBuddyException` with error message
+- <ins>Justification</ins>: Errors can be displayed in a manner that
+the user understands the warning
+
+### Contributions to the [User Guide](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html)
+
+Sections contributed: Introduction, Quick Start, Help
+
+### Contributions to the [Developer Guide](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html)
 
 Sections contributed:
-[Introduction](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html#introduction),
-[Quick Start](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html#quick-start),
-[Help](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html#help)
-
-See below for more details.
-
-### Contributions to the DG
-
-Sections contributed:
-[Commands](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#commands),
-[Adding Entries](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#adding-entries),
-[Editing Entries](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#editing-entries),
-[Exceptions and Logging](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#exceptions-and-logging),
-[Budget](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#budget-and-budgetlogic)
+Budgeting, Commands, Adding Entries, Editing Entries, Exceptions and Logging
 
 Contributed all UML diagrams in the sections listed above.
-
-See below for more details.
 
 ### Github Issues Contributions
 
@@ -95,15 +99,7 @@ Reviewed PR
 [#187](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/187),
 [#199](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/199),
 [#283](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/283),
-[#292](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/292).
-[#302](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/302).
-[#303](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/303).
-[#307](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/307).
-
-<div style="page-break-after: always;"></div>
-
-## Appendix: Extracts of Developer Guide
-
-<div style="page-break-after: always;"></div>
-
-## Appendix: Extracts of User Guide
+[#292](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/292),
+[#302](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/302),
+[#303](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/303),
+[#307](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/307)

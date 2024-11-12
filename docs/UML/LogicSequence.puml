@@ -28,12 +28,14 @@ Logic -> Logic : getCategoryFromInput(commandArguments, entry)
 alt category specified
     Logic -> Logic : parseCategory(categoryStr, entry)
 end
+@enduml
 
-Logic -> EditEntryCommand : new EditEntryCommand(index, amount, description, date, category)
-activate EditEntryCommand
+@startuml
+Logic -> EditEntryCommand ** : new EditEntryCommand(index, amount, description, date, category)
+
 ref over EditEntryCommand : Run command
 EditEntryCommand --> Logic : Command successfully executed
-deactivate EditEntryCommand
+
 
 Logic --> User : Entry edited successfully
 deactivate Logic

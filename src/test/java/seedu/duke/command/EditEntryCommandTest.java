@@ -168,7 +168,7 @@ class EditEntryCommandTest {
             editEntryCommand.execute(financialList);
         });
 
-        assertEquals(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX, exception.getMessage());
+        assertEquals(Commons.ERROR_MESSAGE_OUT_OF_BOUNDS_INDEX + 0, exception.getMessage());
         assertEquals(1, financialList.getEntryCount());
     }
 

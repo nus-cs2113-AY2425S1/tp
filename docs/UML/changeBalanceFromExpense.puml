@@ -16,7 +16,7 @@ deactivate Budget
 opt budget is set
     BudgetLogic -> BudgetLogic: isCurrentMonth(date)
     activate BudgetLogic
-    BudgetLogic --> BudgetLogic: return boolean
+    BudgetLogic --> BudgetLogic: return isCurrentMonth
     deactivate BudgetLogic
 
     opt date is in current month
@@ -27,14 +27,12 @@ opt budget is set
 
         BudgetLogic -> BudgetLogic: hasExceededBudget()
         activate BudgetLogic
-        BudgetLogic --> BudgetLogic: return boolean
+        BudgetLogic --> BudgetLogic: return hasExceededBudget
         deactivate BudgetLogic
 
         opt budget has exceeded
             BudgetLogic -> AppUi: displayBudgetBalanceExceededMessage(budgetAmount)
         end
-
-        BudgetLogic -> AppUi: displayBudgetBalanceMessage(balance)
     end
 end
 

@@ -55,7 +55,7 @@ public class AppUi {
      */
     public void displaySetBudgetMessage() {
         System.out.println(Commons.LINE_SEPARATOR);
-        System.out.println("Would you like to set a budget? (yes/no)");
+        System.out.println("Would you like to set a new budget? (yes/no)");
         System.out.println(Commons.LINE_SEPARATOR);
     }
 

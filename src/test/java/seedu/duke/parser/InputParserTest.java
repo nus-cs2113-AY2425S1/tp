@@ -2,6 +2,7 @@ package seedu.duke.parser;
 
 import org.junit.jupiter.api.Test;
 import seedu.duke.exception.FinanceBuddyException;
+import seedu.duke.util.Commons;
 
 import java.util.HashMap;
 
@@ -17,8 +18,8 @@ class InputParserTest {
         assertEquals(4, result.size());
         assertEquals("list", result.get(InputParser.COMMAND));
         assertEquals("income", result.get(InputParser.ARGUMENT));
-        assertEquals("01/01/2024", result.get("/from"));
-        assertEquals("31/12/2024", result.get("/to"));
+        assertEquals("01/01/2024", result.get(Commons.FLAG_START_POINT));
+        assertEquals("31/12/2024", result.get(Commons.FLAG_END_POINT));
     }
 
     @Test
@@ -29,9 +30,9 @@ class InputParserTest {
         assertEquals(5, result.size());
         assertEquals("expense", result.get(InputParser.COMMAND));
         assertEquals("Coffee", result.get(InputParser.ARGUMENT));
-        assertEquals("5.50", result.get("/a"));
-        assertEquals("10/11/2024", result.get("/d"));
-        assertEquals("FOOD", result.get("/c"));
+        assertEquals("5.50", result.get(Commons.FLAG_AMOUNT));
+        assertEquals("10/11/2024", result.get(Commons.FLAG_DATE));
+        assertEquals("FOOD", result.get(Commons.FLAG_CATEGORY));
     }
 
     @Test
@@ -42,7 +43,7 @@ class InputParserTest {
         assertEquals(3, result.size());
         assertEquals("income", result.get(InputParser.COMMAND));
         assertEquals("Bonus", result.get(InputParser.ARGUMENT));
-        assertEquals("1000", result.get("/a"));
+        assertEquals("1000", result.get(Commons.FLAG_AMOUNT));
     }
 
     @Test
@@ -53,10 +54,10 @@ class InputParserTest {
         assertEquals(6, result.size());
         assertEquals("edit", result.get(InputParser.COMMAND));
         assertEquals("3", result.get(InputParser.ARGUMENT));
-        assertEquals("Rent Payment", result.get("/des"));
-        assertEquals("750", result.get("/a"));
-        assertEquals("01/12/2024", result.get("/d"));
-        assertEquals("UTILITIES", result.get("/c"));
+        assertEquals("Rent Payment", result.get(Commons.FLAG_DESCRIPTION));
+        assertEquals("750", result.get(Commons.FLAG_AMOUNT));
+        assertEquals("01/12/2024", result.get(Commons.FLAG_DATE));
+        assertEquals("UTILITIES", result.get(Commons.FLAG_CATEGORY));
     }
 
     @Test

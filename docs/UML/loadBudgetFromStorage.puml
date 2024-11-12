@@ -5,7 +5,7 @@ skinparam responseMessageBelowArrow true
 participant "Storage" as storage
 participant "Budget" as budget
 participant "FinancialList" as financialList
-participant ":Logger" as logger
+participant ":Log" as logger
 
 storage -> storage : loadBudget(filename)
 activate storage
@@ -18,7 +18,8 @@ alt budget file found
 
 else budget file not found
     storage -> logger : log warning "Budget file not found"
-    logger -> storage : return warning message
+    activate logger
+    return return warning message
     storage -> budget : create new Budget with default values
     return Budget (new with default values)
 end
