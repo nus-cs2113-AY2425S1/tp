@@ -1,9 +1,11 @@
+package seedu.javaninja;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.javaninja.Cli;
-import seedu.javaninja.Parser;
-import seedu.javaninja.QuizManager;
-import seedu.javaninja.Topic;
+//import seedu.javaninja.Cli;
+//import seedu.javaninja.Parser;
+//import seedu.javaninja.QuizManager;
+//import seedu.javaninja.Topic;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -67,7 +69,7 @@ class ParserTest {
 
         // Check printed output contains review message
         String printedOutput = outputStream.toString();
-        assertTrue(printedOutput.contains("Reviewing your past results:"),
+        assertTrue(printedOutput.contains("Reviewing all quiz results:"),
                 "Output should display review message.");
     }
 

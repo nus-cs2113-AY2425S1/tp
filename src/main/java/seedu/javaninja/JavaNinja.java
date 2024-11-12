@@ -31,10 +31,12 @@ public class JavaNinja {
         cli.printEnclosure();
         cli.printStartMessage();
         cli.printEnclosure();
-        while (true) {
+        boolean isRunning = true;
+        while (isRunning) {
             try {
                 String input = cli.readInput().trim();
-                if (input.equals("quit")) {
+                if (input.equalsIgnoreCase("quit")) {
+                    isRunning = false;
                     break;
                 }
                 parser.determineCommand(input);
@@ -42,8 +44,8 @@ public class JavaNinja {
                 throw new RuntimeException(e);
             }
         }
-        quizManager.saveResults();
-        cli.printGoodByeMessage();
+        cli.printGoodByeMessage(); // This should print "Thank you for using Java Ninja!"
+        quizManager.saveResults(); // This should print "Results saved."
         cli.closeScanner();
     }
 
