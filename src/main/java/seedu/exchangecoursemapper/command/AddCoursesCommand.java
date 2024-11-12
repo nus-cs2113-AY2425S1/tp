@@ -2,6 +2,7 @@ package seedu.exchangecoursemapper.command;
 
 import seedu.exchangecoursemapper.constants.Assertions;
 import seedu.exchangecoursemapper.constants.Logs;
+import seedu.exchangecoursemapper.constants.Commands;
 import seedu.exchangecoursemapper.courses.Course;
 import seedu.exchangecoursemapper.exception.Exception;
 import seedu.exchangecoursemapper.storage.Storage;
@@ -9,6 +10,7 @@ import seedu.exchangecoursemapper.storage.CourseRepository;
 import seedu.exchangecoursemapper.parser.CourseValidator;
 import seedu.exchangecoursemapper.ui.UI;
 import seedu.exchangecoursemapper.parser.Parser;
+
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -63,11 +65,13 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             logger.log(Level.INFO, Logs.PARSE_ADD_COMMANDS);
             String[] descriptionSubstrings = parseAddCommand(description);
 
-            assert descriptionSubstrings.length == 3 : Assertions.MISSING_FIELDS;
+            assert descriptionSubstrings.length == Commands.MINIMUM_COURSE_LENGTH : Assertions.MISSING_FIELDS;
             logger.log(Level.INFO, Logs.EXTRACT_COURSES);
+
             String nusCourse = descriptionSubstrings[0].trim().toLowerCase();
             String pu = descriptionSubstrings[1].trim().toLowerCase();
             pu = parser.parsePUAbbreviations(pu);
+
             String puCourse = descriptionSubstrings[2].trim().toLowerCase();
 
             logger.log(Level.INFO, Logs.FORMAT);
@@ -88,7 +92,8 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     }
 
     /**
-     * Trims the user's input and remove the `add` command. The method also throw an exception
+     * Returns trimmed string without the `add` command.
+     * The method trims the user's input and remove the `add` command. The method also throw an exception
      * when there is no input after the `add` command.
      *
      * @param input A string containing the user's input.
@@ -98,9 +103,9 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
         String trimmedString = input.trim();
 
         assert !trimmedString.isEmpty() : Assertions.MISSING_USER_INPUT;
-        String[] outputSubstrings = trimmedString.split(" ", 2);
+        String[] outputSubstrings = trimmedString.split(" ", Commands.MINIMUM_INPUT_LENGTH);
 
-        if (outputSubstrings.length < 2 || outputSubstrings[1].trim().isEmpty()) {
+        if (outputSubstrings.length < Commands.MINIMUM_INPUT_LENGTH || outputSubstrings[1].trim().isEmpty()) {
             logger.log(Level.WARNING, Logs.MISSING_INPUT_AFTER_KEYWORD);
             throw new IllegalArgumentException(Exception.noInputAfterAdd());
         }
@@ -110,7 +115,8 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
     }
 
     /**
-     * Parse the trimmed user input and extract out the following information:
+     * Returns a String[] with the relevant Course information from the user's input.
+     * The method parse the trimmed user input and extract out the following information:
      * 1. NUS course code,
      * 2. Name of Partner University (PU),
      * 3. PU course code.
@@ -122,24 +128,25 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
      */
     public String[] parseAddCommand(String input) {
 
-        input = input.replaceAll("(?i)/pu", "/pu")
-                .replaceAll("(?i)/coursepu", "/coursepu")
+        input = input.replaceAll("(?i)/pu", Commands.PU_FLAG)
+                .replaceAll("(?i)/coursepu", Commands.COURSEPU_FLAG)
                 .trim()
                 .replaceAll(" +", " ");
 
-        if ((!input.contains("/pu") || !input.contains("/coursepu"))) {
+        if ((!input.contains(Commands.PU_FLAG) || !input.contains(Commands.COURSEPU_FLAG))) {
             logger.log(Level.WARNING, Logs.MISSING_KEYWORDS);
             throw new IllegalArgumentException(Exception.missingKeyword());
         }
 
-        if (input.contains("/pu/coursepu") || input.contains("/coursepu/pu")) {
+        if (input.contains(Commands.PU_FLAG_COURSEPU_FLAG_COMBINED)
+                || input.contains(Commands.COURSEPU_FLAG_PU_FLAG_COMBINED)) {
             logger.log(Level.WARNING, Logs.ADJACENT_KEYWORDS);
             throw new IllegalArgumentException(Exception.adjacentInputError());
         }
 
         String[] inputSubstrings = input.split(" /coursepu | /pu ");
 
-        if (inputSubstrings.length < 3) {
+        if (inputSubstrings.length < Commands.MINIMUM_COURSE_LENGTH) {
             logger.log(Level.WARNING, Logs.INVALID_COURSE_CODE);
             throw new IllegalArgumentException(Exception.invalidCourseCodes());
         }

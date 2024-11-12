@@ -29,6 +29,10 @@ public class FileHandler {
     private static final Logger logger = Logger.getLogger(FileHandler.class.getName());
     private final String filePath;
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
+
     /**
      * FileHandler constructor.
      *
@@ -56,7 +60,7 @@ public class FileHandler {
     }
 
     /**
-     * Returns a list of all stored course mappings from the `myList.json` file at the specified file path
+     * Returns a list of all the stored course mappings from the `myList.json` file at the specified file path
      * as a String List.
      *
      * @return a String List, where each string represents a formatted course mapping from `myList.json`.

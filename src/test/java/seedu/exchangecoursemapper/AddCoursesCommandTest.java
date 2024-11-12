@@ -33,8 +33,8 @@ public class AddCoursesCommandTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             addCoursesCommand.trimString(input);
         });
-        assertEquals("Please provide the nus course code, " +
-                "name of partner university (PU) and the PU course code.", exception.getMessage());
+        assertEquals("Please provide a nus course code, " +
+                "name of partner university (PU) and a PU course code.", exception.getMessage());
     }
 
     @Test
@@ -43,8 +43,8 @@ public class AddCoursesCommandTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             addCoursesCommand.trimString(input);
         });
-        assertEquals("Please provide the nus course code, " +
-                "name of partner university (PU) and the PU course code.", exception.getMessage());
+        assertEquals("Please provide a nus course code, " +
+                "name of partner university (PU) and a PU course code.", exception.getMessage());
     }
 
 

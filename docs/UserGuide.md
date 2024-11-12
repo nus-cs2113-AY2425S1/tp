@@ -10,7 +10,7 @@ or by partner universities (PU) when you want to view the relevant options. For 
 you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 
 - [Quick Start](#quick-start)
-- [Features](#features-)
+- [Features](#features)
     - [List all commands: `commands`](#list-all-commands-commands)
     - [Help Command: `help`](#help-command-help)
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
@@ -53,7 +53,7 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 >You may try one of the following:
 >- Remove the corrupted line (delete one course mapping).
 >- Remove any empty lines in the file.
->- Ensure the file has an empty line at the end of the list of courses for a new course to be added.
+>- Ensure the file has one empty line at the end of the list of courses for a new course to be added.
 >
 > **This list is non-exhaustive.**
 > 
@@ -100,7 +100,9 @@ For example, filter cs2040
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out the name of each school users could possibly go for their SEP.
+List out the name of each school CEG students could possibly go for their SEP in Oceania.
+
+Their abbreviated names will also be displayed. 
 
 Format: `list schools`
 
@@ -183,8 +185,8 @@ This is the end of the list.
 * Note that the output would be a list of mappable courses of the format above.
 
 
-### Obtain contacts from the list of universities `obtain`
-Obtain the contact details of the university of interest from the list of schools available.
+### Obtain contacts from the list of universities: `obtain`
+Obtain the contact details (email or number) of the university of interest from the list of schools available.
 
 Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 
@@ -197,7 +199,7 @@ The available partner universities are:
 * The Australian National University (anu)
 * Victoria University of Wellington (wgtn)
 
-Abbreviation of the universities name can be used.
+Abbreviation of the universities name may be used.
 
 Example: `obtain victoria university of wellington /number`
 
@@ -275,32 +277,25 @@ Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_COD
 
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
 * Do not add punctuation to the above three parameters.
-* Do not switch the order of parameters. Keyword `/pu` must come before `/coursepu` keyword.
-* For `PARTNER_UNIVERSITY_NAME`, indicate the partner university's full name or their respective official abbreviation.
+* Do not switch the order of parameters. Keyword `/pu` must come before the `/coursepu` keyword.
+* For `PARTNER_UNIVERSITY_NAME`, indicate either the partner university's full name or its respective 
+  official abbreviation.
 
-Example of usage (lowercase):
+Example of usage (using partner university's abbreviation):
 
-`add cs2102 /pu the university of melbourne /coursepu info20003`
+`add cs2102 /pu unimelb /coursepu info20003`
 
 Expected output:
 
 ![Add Courses Lowercase Output](images/AddCoursesCommandLowercaseScreenshot.png)
 
-Example of usage (normal case):
+Example of usage (using partner university's full name):
 
 `add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 Expected output:
 
 ![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
-
-Example of usage (using partner university abbreviations):
-
-`add cs2102 /pu unimelb /coursepu info20003`
-
-Expected output:
-
-![Add Courses Normal Case Output](images/AddCoursesCommandLowercaseScreenshot.png)
 
 
 ### Delete course mapping plans from Personal Tracker: `delete`
@@ -410,7 +405,7 @@ cs3244 | the australian national university | comp3670
 cs2102 | the university of melbourne | info20003
 ```
 
-### Find courses in personalised tracker `find`
+### Find courses in personalised tracker: `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`

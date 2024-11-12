@@ -27,6 +27,9 @@ public class DataIntegrityChecker extends Command {
     private static final UI ui = new UI();
     private final CourseValidator courseValidator;
 
+    static {
+        logger.setLevel(Level.SEVERE);
+    }
 
     /** DataIntegrityChecker constructor.*/
     public DataIntegrityChecker() {
@@ -34,7 +37,9 @@ public class DataIntegrityChecker extends Command {
     }
 
     /**
-     * Returns the integrity of all entries in the file.
+     * Returns whether all course mapping entries are valid.
+     * Validates the integrity of the entries in the provided list by checking each entry
+     * against the JsonObject database.
      * Logs any integrity issues but does not terminate the program.
      *
      * @param entries List of all entries in the file to be validated.
@@ -75,6 +80,14 @@ public class DataIntegrityChecker extends Command {
         return isValid;
     }
 
+
+    /**
+     * Identifies and removes duplicate course mappings from a list of course mappings.
+     * The method also prints out the removed duplicates and provides a confirmation of its removal.
+     *
+     * @param courses A Course List containing all the user's past course mappings.
+     * @param storage A Storage instance used to save non-dulplicate courses.
+     */
     public void removeDuplicateCourses(List<Course> courses, Storage storage) {
         Set<String> uniqueCourses = new HashSet<>();
         List<Course> nonDuplicateCourses = new ArrayList<>();

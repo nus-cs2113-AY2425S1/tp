@@ -21,6 +21,9 @@ public class ExchangeCourseMapper {
         runMapper();
     }
 
+    /**
+     * Handles all operations of the ExchangeCourseMapper application.
+     */
     private static void runMapper() {
         Parser parser = new Parser();
         UI mapperUI = new UI();
