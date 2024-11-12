@@ -46,7 +46,6 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
     * Edge cases (empty strings, boundary values)
     * Error conditions
     * Command execution results
-
 #### Documentation
 * **User Guide**:
     * Added documentation for the features in v1.0
@@ -55,12 +54,10 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 * **Developer Guide**:
     * Added implementation details of the Category class.
     * Fixed bugs for the sequence diagrams
-
 #### Contributions to Team-based Tasks
 * Participated in weekly team meetings
 * Helped maintain project documentation
 * Contributed to user testing
-
 #### Community
 * **Review/Mentoring Contributions**:
 
