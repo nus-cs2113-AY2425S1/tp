@@ -431,7 +431,7 @@ After the user loads from file, all categories that have exceeded its designated
 Each of the classes in this package handle a separate concern relating to category management (achieving Separation of Concerns Principle) and each focuses on a specific responsibility (achieving Single Responsibility Principle).
 
 - `CategoryFacade` class
-  - Acts as a singleton because only one instance of this exists throughout the program's lifetime. The program passes this instance around through method parameters.
+  - Acts as a Singleton because only one instance of this exists throughout the program's lifetime. The program instantiates this class once and passes this instance around through method parameters.
   - Acts as a facade because it provides the Command classes with a unified interface to the underlying category management classes, without the Command classes knowing of the complexity of the interactions between the category-related classes. 
     - This abstracts and encapsulates the category management information with an interface. 
     - This decouples classes outside the package from the classes inside.
