@@ -1,11 +1,11 @@
 @startuml
 actor User
-participant "UI" as UI
-participant "BuffBuddy" as BB
-participant "Parser" as Parser
-participant "AddWaterCommand" as AddCmd
-participant "History" as History
-participant "DailyRecord" as DailyRec
+participant ":UI" as UI
+participant ":BuffBuddy" as BB
+participant ":Parser" as Parser
+participant ":AddWaterCommand" as AddCmd
+participant ":History" as History
+participant ":DailyRecord" as DailyRec
 
 User -> UI: "water add /v WATER_VOLUME /t Date"
 activate UI

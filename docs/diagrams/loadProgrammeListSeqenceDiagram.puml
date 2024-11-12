@@ -1,6 +1,9 @@
 @startuml
 
 actor Client
+participant ":Storage" as Storage
+participant ":FileManager" as FileManager
+participant ":JsonObject" as JsonObject
 
 Client -> Storage : loadProgrammeList()
 activate Storage
@@ -14,12 +17,18 @@ alt element == null or element.isJsonNull()
     create JsonObject as emptyJsonObject
     FileManager -> emptyJsonObject : new JsonObject()
     activate emptyJsonObject
+    note right
+    The header is meant to be :JsonObject
+    end note
     emptyJsonObject --> FileManager : Empty JsonObject
     deactivate emptyJsonObject
 else
     create JsonObject as allDataJsonObject
     FileManager -> allDataJsonObject : new JsonObject()
     activate allDataJsonObject
+    note right
+        The header is meant to be :JsonObject
+        end note
     allDataJsonObject --> FileManager : Empty JsonObject
     deactivate allDataJsonObject
     FileManager -> allDataJsonObject : getAsJsonObject()
@@ -35,6 +44,9 @@ deactivate FileManager
 alt jsonObject == null or !jsonObject.has("programmeList")
     create JsonObject as emptyProgrammeListJsonObject
     FileManager -> emptyProgrammeListJsonObject : new JsonObject()
+    note right
+        The header is meant to be :JsonObject
+        end note
     activate emptyProgrammeListJsonObject
     destroy allDataJsonObject
     destroy emptyJsonObject

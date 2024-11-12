@@ -1,12 +1,12 @@
 @startuml
 
 actor User
-participant "UI" as UI
-participant "BuffBuddy" as BB
-participant "Parser" as Parser
-participant "DeleteWaterCommand" as Cmd
-participant "History" as History
-participant "DailyRecord" as DailyRec
+participant ":UI" as UI
+participant ":BuffBuddy" as BB
+participant ":Parser" as Parser
+participant ":DeleteWaterCommand" as Cmd
+participant ":History" as History
+participant ":DailyRecord" as DailyRec
 
 User -> UI: "water delete /w WATER_INDEX /t Date"
 activate UI
