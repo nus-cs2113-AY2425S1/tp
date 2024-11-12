@@ -87,23 +87,23 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
   add-expense a/ 17 d/ 2024-07-09 c/ FnB
   add-expense Amusement park a/ 52 d/ 2024-08-09
-  add-expense ChiCha San Chen a/ 6 d/ 2024-09-09 c/ FnB
+  add-expense ChiCha a/ 6 d/ 2024-09-09 c/ FnB
   
   Example Output:
-    add-expense ChiCha San Chen a/ 6 d/ 2024-09-09 c/ FnB
-    Category 'FnB' does not exist. Current categories:
-    Category: Food
-    Category: Entertainment
-    Category: Transport
-    Category: Utilities
-    Category: Others
-    Type 'yes' to create a new category, or enter an existing category name. Type 'no' to skip: 
-    yes
-    New category 'FnB' created.
-    -------------------------------------
-    Transaction added: Expense [amount=6.0, description=ChiCha San CHen, date=2024-09-09 0000, category=FnB]
-    Your current transaction list:
-    1. Expense [amount=6.0, description=ChiCha San CHen, date=2024-09-09 0000, category=FnB]
+  add-expense ChiCha a/ 6 d/ 2024-09-09 c/ FnB
+  Category 'FnB' does not exist. Current categories:
+  Category: Food
+  Category: Entertainment
+  Category: Transport
+  Category: Utilities
+  Category: Others
+  Type 'yes' to create a new category, or enter an existing category name. Type 'no' to skip: 
+  yes
+  New category 'FnB' created.
+  -------------------------------------
+  Transaction added: Expense [amount=6.0, description=ChiCha, date=2024-09-09 0000, category=FnB]
+  Your current transaction list:
+  1. Expense [amount=6.0, description=ChiCha, date=2024-09-09 0000, category=FnB]
     -------------------------------------
   ```
 
@@ -169,14 +169,14 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 #### Delete an expense/income: `delete-transaction`
 - Delete an expense or income from the history.
 - **Format:** `delete-transaction i/ INDEX`
-- **Example:**
+- **Example:** Note that the output will be on a line
   ```
   delete-transaction i/ 1
   
   Example output:
   delete-transaction i/ 1
   -------------------------------------
-  Transaction deleted: 1. Income [amount=340.0, description=allowance, date=2024-11-12 1051]
+  Transaction deleted: 1. Income [amount=10.0, description=, date=2024-11-12 1051]
   Your current transaction list: 
   -------------------------------------
   ```
@@ -221,14 +221,15 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Format:** `categorize i/ INDEX c/ CATEGORY`
 - - **Tip:**
 - The category must be in the category list, and the transaction must be an expense.
-- **Example:**
+- **Example:** Note that the output will be on a line
   ```
   categorize i/ 1 c/ Food
   
   Example output:
   categorize i/ 1 c/ Food
   -------------------------------------
-  Transaction updated: Expense [amount=1000.0, description=, date=2024-11-12 1058, category=Food]
+  Transaction updated: 
+  Expense [amount=1000.0, description=, date=2024-11-12 1058, category=Food]
   -------------------------------------
   ```
   
@@ -266,14 +267,14 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ------------------------------------- 
   1. Expense [amount=1000.0, description=, date=2024-11-12 1058, category=Food] 
   2. Expense [amount=200.0, description=fruits, date=2024-11-12 1102, category=Food] 
-  3. Expense [amount=50.0, description=fruit basket, date=2024-11-12 1102, category=Food] 
+  3. Expense [amount=50.0, description=fruit pie, date=2024-11-12 1102, category=Food] 
   -------------------------------------
   ```
 
 #### View income: `view-income`
 - View the income in an optional start and end time. If start and end time are left blank, full history will be shown.
 - **Format:** `view-income [f/ DATE] [t/ DATE]`
-- **Example:**
+- **Example:** 
   ```
   view-income
   view-income f/ 2024-09-16 t/ 2024-09-19
@@ -292,7 +293,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Tips:**
     - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
     - Tracking of progress is only available for current or past months.
-- **Example:**
+- **Example:** Note that the output will be on a line
   ```
   view-budget 
   view-budget m/ 2024-11
@@ -305,7 +306,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   
   view-budget m/ 2024-11
   ------------------------------------- 
-  Warning! You've already exceeded your budget for 2024-11. Spent: $1000.00, Budget: $120.00. 
+  Warning! You've already exceeded your budget for 2024-11.
+  Spent: $1000.00, Budget: $120.00. 
   -------------------------------------
   ```
   
@@ -322,7 +324,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   -------------------------------------
   1. Expense [amount=1000.0, description=, date=2024-11-12 1058, category=Food] 
   2. Expense [amount=200.0, description=fruits, date=2024-11-12 1102, category=Food] 
-  3. Expense [amount=50.0, description=fruit basket, date=2024-11-12 1102, category=Food] 
+  3. Expense [amount=50.0, description=fruit pie, date=2024-11-12 1102, category=Food] 
   4. Income [amount=200.0, description=, date=2024-11-12 1110] 
   -------------------------------------
   ```
@@ -356,7 +358,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   search k/ fruit
   -------------------------------------
   Expense [amount=200.0, description=fruits, date=2024-11-12 1102, category=Food]
-  Expense [amount=50.0, description=fruit basket, date=2024-11-12 1102, category=Food] 
+  Expense [amount=50.0, description=fruit pie, date=2024-11-12 1102, category=Food] 
   -------------------------------------
   ```
 
