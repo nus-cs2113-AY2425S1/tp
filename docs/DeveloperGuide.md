@@ -3,6 +3,7 @@
 # Developer Guide
 
 ----------------------------------
+<!-- @@author gskang-22 -->
 ## Table of Contents
 1. [Acknowledgements](#acknowledgements)
 2. [Design & Implementation](#design--implementation)
@@ -46,6 +47,7 @@
     - [Glossary](#glossary)
 4. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 ----------------------------------
+<!-- @@author -->
 
 ## Acknowledgements
 
@@ -127,7 +129,7 @@ The RecipeList class represents a list of recipes.
 This class handles the addition, deletion and editing of recipes.
 
 <!-- @@author -->
-
+<!-- @@author gskang-22 -->
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/recipesClassDiagram.png)
 
@@ -182,11 +184,14 @@ This class handles the addition, deletion and editing of ingredients.
      - Returns the number of ingredients in the list
    - void sortAlphabetically():
      - Sorts the ingredients list alphabetically by ingredient name
+<!-- @@author -->
 
 Shown below is a class diagram detailing the interaction between `IngredientList` and `Ingredient`:
 ![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
 
 <div style="page-break-after: always;"></div>
+
+<!-- @@author gskang-22 -->
 
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
@@ -205,10 +210,14 @@ of command functionalities
   - `execute()`: An abstract method that must be implemented by all subclasses
     - Defines the primary action performed by the command (E.g. add new recipe to `recipeList` for `AddRecipeCommand`)
 
+<!-- @@author -->
+
 Shown below is a class diagram detailing the interaction between the parent `Command` class and it's child classes:
 ![commandClassesShort.png](img/ClassDiagrams/commandsShortClassDiagram.png)
 
 <div style="page-break-after: always;"></div>
+
+<!-- @@author gskang-22 -->
 
 #### 2. Command Flow (Using `Command` Classes)
 1. Initialisation: Instantiate a `Command` subclass by passing user input through the `parseCommand()` of `Parser`
@@ -231,7 +240,9 @@ implementation of the `execute()` method
 
 #### 1. `AddCommand` Class
 - The `AddCommand` class adds a newly created Recipe object to the current RecipeList object's ArrayList of Recipes
- 
+
+<!-- @@author -->
+
 Shown below is a sequence diagram detailing how a new recipe is added using the AddCommand object,
 starting from parsing the user input to the addition of the recipe to the recipeList object,
 to finally printing the "recipe added" message to the User on the CLI:
@@ -252,7 +263,7 @@ to finally modifying and saving the recipe in the RecipeList:
 
 <!-- @@author -->
 <div style="page-break-after: always;"></div>
-
+<!-- @@author gskang-22 -->
 #### 3. `AddIngredientCommand` Class
 - The `AddIngredientCommand` class is responsible for adding a new ingredient to `IngredientList`
 - When executed, it takes an `Ingredient` object, adds it to the `IngredientList`, saves the updated list to the storage, and 
@@ -273,7 +284,7 @@ storage, and informs the user of the successful deletion or an error if the reci
 its name
 - Upon execution, it removes the specified `Ingredient`, updates the `Ingredientlist` in the storage, and notifies 
 the user about the deletion
-
+<!-- @@author -->
 #### 7. `FindCommand` Class
 - The `FindCommand` class is used to find recipes based on user's query and options
 - When executed, a list of matching recipes extracted from `RecipeList` will be printed out using the 
@@ -288,7 +299,7 @@ the user about the deletion
 - If no matching ingredient is found, the `printEmptyFindIngred()` of `Ui` method is called instead
 
 <!-- @@author -->
-
+<!-- @@author gskang-22 -->
 #### 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
 on how to use them
@@ -302,7 +313,7 @@ on how to use them
 - The `ListIngredientCommand` class is responsible for listing all the ingredients currently stored in the 
 `IngredientList`
 - When executed, it retrieves the list of ingredients and displays them to the user through the UI
-
+<!-- @@author -->
 <!-- @@author 3CCLY -->
 
 #### 12. `RandomCommand` Class
