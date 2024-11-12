@@ -7,17 +7,20 @@ import history.History;
 import parser.Parser;
 import ui.Ui;
 import programme.ProgrammeList;
-
 import java.util.NoSuchElementException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+/**
+ * Represents the main class of the BuffBuddy application, a fitness tracking
+ * program designed to manage user commands, interact with storage, display UI messages,
+ * and maintain a history of commands and user programs.
+ */
 
 public class BuffBuddy {
     private static final String DEFAULT_FILE_PATH = "./data/data.json";
 
     private final Ui ui;
-    private History history;
-    private ProgrammeList programmes;
+    private final History history;
+    private final ProgrammeList programmes;
     private final Storage storage;
     private final Parser parser;
 
@@ -30,18 +33,35 @@ public class BuffBuddy {
         ui.showMessage(storage.getMessage());
     }
 
+      /**
+     * Main entry point for the BuffBuddy application.
+     * Initializes a BuffBuddy instance with the default file path and
+     * starts the main command handling loop.
+     *
+     * @param args Command-line arguments (unused).
+     */
+
     public static void main(String[] args) {
-        Logger rootLogger = Logger.getLogger("");
-        rootLogger.setLevel(Level.OFF);
         new BuffBuddy(DEFAULT_FILE_PATH).run();
     }
-
+    
+    /**
+     * Runs the main program loop for BuffBuddy, displaying a welcome message,
+     * handling user commands, and displaying a farewell message upon exit.
+     */
+    
     public void run() {
         ui.showWelcome();
         handleCommands();
         ui.showFarewell();
     }
 
+     /**
+     * Handles the command processing loop, reading commands from the user,
+     * parsing them, executing the corresponding actions, and saving data.
+     * Exits the loop when an ExitCommand is issued.
+     */
+    
     private void handleCommands() {
         while(true) {
             try {
