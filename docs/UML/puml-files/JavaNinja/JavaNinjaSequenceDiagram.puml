@@ -1,0 +1,32 @@
+@startuml
+
+actor User
+
+participant ":Cli" as CLI
+participant ":JavaNinja" as JN
+participant ":Parser" as P
+participant ":QuizManager" as QM
+
+
+User -> CLI : readInput() (e.g., "review")
+activate CLI
+CLI -> JN : return "review"
+activate JN
+deactivate CLI
+
+JN -> P : determineCommand("review")
+deactivate JN
+activate P
+P -> QM : printPastResults()
+deactivate P
+activate QM
+QM -> CLI : "display past quiz results"
+deactivate QM
+activate CLI
+CLI -> User : display past results
+deactivate CLI
+deactivate P
+
+
+
+@enduml

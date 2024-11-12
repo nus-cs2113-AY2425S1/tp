@@ -1,0 +1,43 @@
+@startuml
+
+actor User
+
+participant ":QuizManager" as QM
+participant ":QuizGenerator" as QG
+participant ":Quiz" as Quiz
+participant ":QuizResults" as QR
+
+User -> QM : select /d timed /t Loops
+activate QM
+
+alt Topic not found
+    QM -> QM : logger.warning("No such topic")
+    deactivate QM
+else Topic found
+    QM -> QG : selectTimedQuiz("Loops")
+    activate QG
+
+    QG --> User : getTimeLimitFromUser()
+    QG --> User : getQuestionLimitFromUser()
+    User -> QG : return timeLimitInSeconds, questionLimit
+    QG -> Quiz : new Quiz(topic)
+    activate Quiz
+    QG -> Quiz : startQuiz(timeLimitInSeconds, questionLimit
+    deactivate QG
+
+    loop for each question
+        Quiz -> User : display question and options
+        User --> Quiz : submit answer
+        Quiz -> Quiz : processAnswer()
+    end
+end
+
+
+Quiz -> QM : quiz completed
+deactivate Quiz
+activate QM
+deactivate Quiz
+QM --> QR : addResultsAndPrintScore()
+deactivate QM
+
+@enduml

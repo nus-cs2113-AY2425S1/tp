@@ -1,9 +1,16 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
-What is your name?
-Hello James Gosling
+----------------------
+Welcome to Java Ninja!
+List of available commands:
+'view' to view topics
+'select /d timed/untimed /t [topic]/random' to select a topic or random topics
+'review' to review past results (default sorted by newest)
+'review highest/lowest/oldest/newest' to sort results
+'review t/[TOPIC]' to view results of a specific topic
+'review t/[TOPIC] highest/lowest/oldest/newest' to sort
+'add Flashcards /q <DESCRIPTION> /a <ANSWER>' to input for your own revision as well!
+'help' for this list of commands
+'exit' to exit the quiz, activate only while doing the quiz
+'quit' to exit the program
+----------------------
+> Thank you for using Java Ninja!
+Results saved.

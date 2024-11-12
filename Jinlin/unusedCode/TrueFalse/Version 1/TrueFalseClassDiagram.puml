@@ -1,0 +1,31 @@
+@startuml
+hide stereotype
+hide circle
+
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    FontColor Black
+}
+
+class Question {
+    - text : String
+    + Question(text : String)
+    + getText() : String
+    + checkAnswer(userAnswer : String) : boolean
+    + printOptions() : void
+    + toString() : String
+}
+
+class TrueFalse {
+    - correctAnswer : boolean
+    + TrueFalse(questionText : String, correctAnswer : boolean)
+    + checkAnswer(userAnswer : String) : boolean
+    + printOptions() : void
+    + toString() : String
+}
+
+TrueFalse --|> Question : extends
+
+@enduml

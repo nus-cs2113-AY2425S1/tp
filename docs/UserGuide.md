@@ -1,42 +1,180 @@
-# User Guide
+# Java Ninja User Guide
+
+---
 
 ## Introduction
 
-{Give a product intro}
+Java Ninja is a command-line interface (CLI) learning tool focused on helping beginner programmers enhance their understanding of fundamental programming concepts. This tool provides different modes of assessments with various difficulty levels as you progress.
+
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Command Summary](#command-summary)
+- [Troubleshooting](#troubleshooting)
+
+---
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 17 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Download the latest version of `JavaNinja` from [here](https://github.com/AY2425S1-CS2113-W12-4/tp/releases).
+3. Copy the file to the folder you want to use as the home folder for JavaNinja.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
+   ```shell
+   java -jar javaninja.jar
+   ```
+5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
+   Some example commands you can try:
+    - `help`: Lists all basic commands.
+    - `view`: Displays available topics.
+    - `select /d timed|untimed /t [topic]`: Selects a specified topic (e.g., `select /d timed /t loops`) to start the quiz.
+    - `review`: Displays a summary of quiz results.
+    - `exit`: Exits the quiz, activate only while doing the quiz.
+    - `quit`: Exits the program.
+    - `add Flashcards` : Adds a flashcard for your own quick revision
+6. Refer to the features below for each command.
 
-## Features 
+---
 
-{Give detailed description of each feature}
+## Features
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+### 1. View Topics: `view`
+Displays a list of all available quiz topics that you can attempt, such as loops, conditionals, and data types.
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+**Format**: `view`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+**Example**:
+   ```shell
+   view
+   ```
 
-Example of usage: 
+### 2. Select Topic and Start Quiz: `select`
+This command allows you to select a specific topic or a random selection of topics to initiate a quiz. Before starting, you will be prompted to enter:
+- A time limit for the quiz (in seconds or minutes) if the quiz is timed.
+- The number of questions you wish to attempt.
+- /d: Specifies whether the quiz should be timed or untimed
+- /t: Specifies the topic for the quiz. You can provide a specific topic name or use random to select a mix of questions from multiple topics.
+    - If random is chosen, you will be prompted to specify how many topics you'd like to be tested on, and how many questions per topic.
 
-`todo n/Write the rest of the User Guide d/next week`
+**Format**: `select /d timed|untimed /t TOPIC|Random`
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+**Example**:
+   ```shell
+    select /d timed /t loops
+    OR
+    select /d untimed /t random
+   ```
+
+### 3. Taking a Quiz
+Once a topic is selected, the quiz begins with a series of questions in multiple-choice, True/False, or fill-in-the-blank formats.
+
+> Note: The question types are randomised, so you may not be able to see all the question formats displayed in a single quiz session!
+
+* **Exit Quiz**: Type `exit` anytime during the quiz to end it early.
+* **Automatic Termination**: The quiz ends automatically if the time limit expires or the specified number of questions is completed.
+
+This countdown feature ensures that users are aware of time constraints, enhancing the user experience and preventing unexpected quiz terminations.
+
+**Example**:
+   ```shell
+   Set a time limit for the quiz.
+   Enter the number of questions you want to attempt (Max 15): 10
+   Enter the number of minutes for the quiz (or 0 to enter seconds): 
+   Enter the number of seconds: 10
+   ```
+
+### 4. Adding a Flashcard: `add Flashcards`
+Allows users to add their own quiz questions. Useful for your own revision in the future!
+
+> Note: You're not allowed to add in any other custom topics other than flashcards!
+
+Format: `add Flashcards /q [QUESTION] /a [ANSWER]`
+
+* The `QUESTION` can be in a natural language format.
+* The `ANSWER` cannot contain punctuation.
+
+**Example**:
+```shell
+add Flashcards /q The keyword used to define a class is `____`. /a class
+```
+
+**Output Expected**:
+```shell
+Added flashcard: Q: The keyword used to define a class is `____`. A: class
+```
+
+### 5. Reviewing Past Results: `review`
+Displays a summary of all quiz results taken during the current session, including scores and comments on performance.
+Default sorting is newest result to oldest result
+
+Format: `review`
+
+Format: `review highest/lowest/oldest/newest`
+
+Format: `review t/[TOPIC]`
+
+Format: `review t/[TOPIC] highest/lowest/oldest/newest`
+
+**Example**:
+```shell
+review
+```
+
+**Expected Output**:
+```shell
+Reviewing all quiz results:
+Topic: Loops, Score: 20%, Questions Limit: 5, Time Limit: untimed, Date: Tue Nov 12 11:38:43 SGT 2024
+```
+
+### 6. Exit Quiz: `exit`
+Exit the current quiz session if you want to stop answering questions without finishing the quiz.
+
+**Format**: `exit`
+
+**Example**:
+```shell
+exit
+```
+
+### 7. Exit Programme: `quit`
+Exits the programme
+
+**Format**: `quit`
+
+**Example**:
+```shell
+quit
+```
+---
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer? 
+**Q**: What should I do if I encounter an error saying "Command not recognized"?  
+**A**: Ensure you have typed the command correctly without any typos. Use the `help` command to view all available commands and check the correct format.
 
-**A**: {your answer here}
+---
 
 ## Command Summary
 
-{Give a 'cheat sheet' of commands here}
+| Command                                         | Description                                                                     |
+|-------------------------------------------------|---------------------------------------------------------------------------------|
+| `view`                                          | View all available quiz topics.                                                 |
+| `select /d timed OR untimed /t [TOPIC_NAME]`    | Select a timed or untimed topic and start the quiz for that topic.              |
+| `select /d timed OR untimed /t random`          | Select a timed or untimed quiz with randomly chosen topics.                     |
+| `add Flashcards /q [QUESTION] /a [ANSWER]`      | Add a custom flashcard question for revision.                                   |
+| `review`                                        | View results of quizzes taken during this session, sorted by newest by default. |
+| `review highest/lowest/oldest/newest`           | View quiz results sorted by highest/lowest score or oldest/newest date.         |
+| `review t/[TOPIC]`                              | View results for a specific topic.                                              |
+| `review t/[TOPIC] highest/lowest/oldest/newest` | View sorted results for a specific topic.                                       |
+| `help`                                          | List all commands with descriptions.                                            |
+| `exit`                                          | Exit the quiz.                                                                  |
+| `quit`                                          | Exit the program.                                                               |
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+
+
+## Troubleshooting
+
+- **Issue**: The application does not start when running the `java -jar javaninja.jar` command.
+    - **Solution**: Make sure Java 17 or above is installed and properly configured in your system's PATH. You can check your Java version with `java -version`.
+
+- **Issue**: Commands are not recognized or produce unexpected results.
+    - **Solution**: Ensure correct command syntax. Use the `help` command to verify command formats.

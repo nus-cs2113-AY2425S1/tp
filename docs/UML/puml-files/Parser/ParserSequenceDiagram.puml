@@ -1,0 +1,28 @@
+@startuml
+
+actor User
+
+participant ":Cli" as CLI
+participant ":Parser" as P
+participant ":QuizManager" as QM
+
+
+User -> CLI : readInput() (e.g., "select /d timed /t Loops")
+activate CLI
+CLI -> P : determineCommand("select /d timed /t Loops")
+deactivate CLI
+
+activate P
+P -> P : processCommand("select Loops")
+
+
+
+P -> QM : selectTopic("Loops")
+deactivate P
+
+activate QM
+QM -> QM : Starts Quiz on "Loops"
+QM --> User : Quiz Start on Loops
+deactivate QM
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+class Question {
+    - text : String
+    + Question(String text)
+    + getText() : String
+    + checkAnswer(String userAnswer) : boolean
+    + printOptions() : void
+    + toString() : String
+}
+
+class FillInTheBlank {
+    - correctAnswer : String
+    + FillInTheBlank(String questionText, String correctAnswer)
+    + checkAnswer(String userAnswer) : boolean
+    + printQuestion() : void
+    + toString() : String
+}
+
+FillInTheBlank --|> Question : extends
+@enduml
