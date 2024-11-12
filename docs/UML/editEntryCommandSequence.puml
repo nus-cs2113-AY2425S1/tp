@@ -1,12 +1,7 @@
 @startuml
 
-actor  User
-
 participant Logic
-participant FinancialList
-
-
-User -> Logic: editCommand(commandArguments)
+Logic -> Logic: editCommand(commandArguments)
 activate Logic
 
 Logic -> Logic: processIndexToAmend(commandArguments)
@@ -78,7 +73,6 @@ destroy Expense
 destroy Income
 deactivate EditEntryCommand
 destroy EditEntryCommand
-Logic --> User
-deactivate Logic
+return
 
 @enduml
