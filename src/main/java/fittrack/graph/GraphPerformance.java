@@ -4,13 +4,28 @@ import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
 import java.util.ArrayList;
 
+/**
+ * Abstract class responsible for generating performance graphs for different exercises.
+ * This class extends GraphBase and provides methods to format and generate
+ * graphical representations of exercise performance over multiple training sessions.
+ *
+ * The class supports generating performance graphs for both time-based and
+ * repetition-based exercises, allowing users to visualize their progress.
+ */
 public abstract class GraphPerformance extends GraphBase {
 
     static final int INVALID_TIME_VALUE = -1;
     static final int DATETIME_LENGTH = 16; //Length of Date format without spaces
     static final int OPTIMAL_GAP_LENGTH = 6;
 
-    //Returns line with properly spaced descriptions for the X axis
+    /**
+     * Formats the X-axis header with session descriptions.
+     *
+     * @param numSessions      The number of training sessions.
+     * @param sessionList      The list of training sessions.
+     * @param maxXHeaderLength The maximum length of the individual X-axis headers.
+     * @return A formatted string containing the centered session descriptions.
+     */
     private static String formatXHeaderDesc(int numSessions,
             ArrayList<TrainingSession> sessionList, int maxXHeaderLength) {
         StringBuilder descriptions = new StringBuilder();
@@ -20,7 +35,14 @@ public abstract class GraphPerformance extends GraphBase {
         return descriptions.toString();
     }
 
-    //Returns line with properly spaced descriptions for the X axis
+    /**
+     * Formats the X-axis header with session dates.
+     *
+     * @param numSessions      The number of training sessions.
+     * @param sessionList      The list of training sessions.
+     * @param maxXHeaderLength The maximum length of the X-axis header.
+     * @return A formatted string containing the centered session dates.
+     */
     private static String formatXHeaderDate(int numSessions,
             ArrayList<TrainingSession> sessionList, int maxXHeaderLength) {
         StringBuilder dates = new StringBuilder();
@@ -30,7 +52,15 @@ public abstract class GraphPerformance extends GraphBase {
         return dates.toString();
     }
 
-    //Getting the X axis for the performance graph
+    /**
+     * Generates the X-axis headers for the performance graph.
+     *
+     * @param numSessions      The number of training sessions.
+     * @param sessionList      The list of training sessions.
+     * @param maxXHeaderLength The maximum length of the X-axis header.
+     * @param yOffset          The offset needed for the Y-axis labels.
+     * @return A formatted string representing the X-axis headers (description and date).
+     */
     static String generateXHeader(int numSessions, ArrayList<TrainingSession> sessionList,
             int maxXHeaderLength, int yOffset){
         String xHeadersDate = formatXHeaderDate(numSessions, sessionList, maxXHeaderLength);
@@ -127,6 +157,12 @@ public abstract class GraphPerformance extends GraphBase {
         return maxExercisePerformance;
     }
 
+    /**
+     * Generates a graph showing the user's performance for a specific exercise over multiple training sessions.
+     *
+     * @param exercise    The exercise type to generate the graph for.
+     * @param sessionList The list of training sessions.
+     */
     public static void graphExercisePerformance(Exercise exercise, ArrayList<TrainingSession> sessionList) {
         System.out.print("Here's your progression for " + exercise.toString() + " over your training sessions:"
                 + System.lineSeparator() + System.lineSeparator());
