@@ -1,8 +1,7 @@
 @startuml
-actor User
 participant Logic
 
-User -> Logic: addIncome(commandArguments)
+Logic -> Logic: addIncome(commandArguments)
 activate Logic
 
 Logic -> Logic: parseAmount(amount from input)
