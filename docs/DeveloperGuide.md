@@ -570,7 +570,7 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
-The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands.
+The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. All the parser classes interactions has been encapsulated into the 'parser' class for readability and simplification. The parser interactions remain the same for all the 3 features. 
 
 #### Sequence Diagram for "Delete Meal" Command
 
