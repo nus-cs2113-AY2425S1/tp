@@ -40,18 +40,19 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
     - **Meal, MealList and water class diagrams**
       - Illustrates the structure of the meal, meallist and water classes within the system, listing out all its methods and parameters whilst depicting their accessibility.
     - **Addmeal sequence diagram**
-      - Created a sequence diagram for the Add Meal command, illustrating the step-by-step interaction between various classes and components when a user adds a meal. The diagram includes user interaction with the Ui and the subsequent parsing and command execution handled by the Parser and AddMealCommand classes. It details data retrieval through History and DailyRecord objects and updates using the addMealToRecord() method, along with the creation of new Meal and DailyRecord objects as needed. This diagram is essential for visualizing the data and control flow during the "Add Meal" operation.
+      - Created a sequence diagram for the Add Meal command, illustrating the step-by-step interaction between various classes and components when a user adds a meal. The diagram includes user interaction with the Ui and the subsequent parsing and command execution handled by the Parser and AddMealCommand classes. 
     - **Deletemeal sequence diagram**
-      - Created a sub diagram of the delete meal command which excludes all the repeated actions from the add meal sequence diagram by parser, ui and buffbuddy classes.. This sequence diagram depicts the delete meal specific methods and actions.
+      - Created a sequence diagram for the Delete Meal command, illustrating the step-by-step interaction between various classes and components when a user deletes a meal. The diagram includes user interaction with the Ui and the subsequent parsing and command execution handled by the Parser and AddMealCommand classes. Noted differences from the Add Meal feature. 
     - **Viewmeal sequence diagram**
-      - Similar to the delete meal diagram, the view meal sequence diagram also depicts the view meal specific methods and actions and excludes the repeated actions by parser, ui and buffbuddy classes.
+      - Created a sequence diagram for the View Meals command, illustrating the step-by-step interaction between various classes and components when a user wants to view the meals. The diagram includes user interaction with the Ui and the subsequent parsing and command execution handled by the Parser and AddMealCommand classes. Noted differences from the Add Meal feature.
     - **Addmeal activity diagram**
       - Created an activity diagram for the "Add Meal" command, detailing the workflow from user input to returning a success message. The diagram illustrates the sequence of operations including command parsing, object creation, interaction with History, and updating the MealList.
 
 ### Contributions to Team-Based Tasks
 - Actively participated in team meetings and discussions
-- Helped in designing the class and data structures for the programme and meal components
+- Helped in designing the class and data structures for the programme meal and water components
 - Helped team members in debugging or solving bugs
+- Participated in a collaborative debugging session to identify and resolve issues before the V2.0 release
 
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:
@@ -61,7 +62,8 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
   - [PR #163 - Shift building of string from PBCommands to History class](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/163)
   - [PR #214 - Java Docs for Storage, Water and FileManager](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/214)
   - [PR #218 - Polish History features ](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/218)
-    - [PR #224 - Update Edit Programme User Guide](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/224)
+  - [PR #224 - Update Edit Programme User Guide](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/224)
 
 ### Contributions Beyond the Project Team
+- Bug testing for other teams doing peer reviews
 
