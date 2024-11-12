@@ -7,9 +7,10 @@ It lets users record and track training sessions, calculate their NAPFA scores a
 ## Summary of Contributions
 
 ### Code Contributed
-https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=zoom&zA=TheDinos&zR=AY2425S1-CS2113-W13-2%2Ftp%5Bmaster%5D&zACS=143.81368136813683&zS=2024-09-20&zFS=&zU=2024-11-01&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false
+View code contributed [here.](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=zoom&zA=TheDinos&zR=AY2425S1-CS2113-W13-2%2Ftp%5Bmaster%5D&zACS=143.81368136813683&zS=2024-09-20&zFS=&zU=2024-11-01&zMG=false&zFTF=commit&zFGS=groupByRepos&zFR=false)
 
 ### Enhancements implemented
+
 | Class                        | Functionality                                                                                                                                                           |
 |------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | TrainingSession              | Manages a user's fitness session, tracking performance across various exercises, calculating points, and determining the award level based on total and minimum points. |
