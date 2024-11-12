@@ -58,3 +58,5 @@ they have exceeded, or are close to exceeding, their budget.
   - Add initial diagrams for UI, Parser and Logic components [#182](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/182)
   - Update diagrams and logic section [#202](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/202)
   
+- **Project Management:**
+  - Help coordinate meetings and tasks for the project
