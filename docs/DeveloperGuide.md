@@ -274,7 +274,8 @@ This allows users to navigate this program easily and effectively.
 
 #### Overview:
 This command is responsible for displaying and retrieving the full list of universities
-from our data source file which contains university data. It helps the users to identify the possible choices in Oceania.
+from our data source file which contains university data. It helps the users to identify the 
+possible choices in Oceania.
 
 #### How the feature is implemented:
 * The `ListSchoolCommand` class extends the `CheckInformationCommand` class where it overrides the `execute` method for
@@ -344,8 +345,8 @@ university. It helps users to reach out to the partner universities for any enqu
 exchange opportunities.
 
 #### How the feature is implemented:
-* The `ObtainContactsCommand` class extends the `CheckInformationCommand` class where it overrides the `execute()` method for
-  custom behaviour.
+* The `ObtainContactsCommand` class extends the `CheckInformationCommand` class where it overrides the `execute()` 
+  method for custom behaviour.
 * The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
   superclass.
 * The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested
