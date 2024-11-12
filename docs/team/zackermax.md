@@ -6,11 +6,12 @@ It lets users record and track training sessions, calculate their NAPFA scores a
 
 ## Summary of Contributions
 
-### Code contributed:
-https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=Zackermax&tabRepo=AY2425S1-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false
+### Code contributed: [(link)](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=Zackermax&tabRepo=AY2425S1-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 ### Enhancements implemented:
 I implemented the following classes, exceptions and functions which handle data logging and storage, user interfacing and execution of commands.
+This code forms the core of the program and allowed my team to build upon it to implement their features. 
+I also wrote the JUnit tests for the code I wrote within these classes.
 
 | Class            | Functionality                                                                                                |
 |------------------|--------------------------------------------------------------------------------------------------------------|
@@ -43,18 +44,19 @@ For each feature, I detailed its Purpose, Format, an Example and its Expected Ou
 
 ### Developer Guide:  
 
-Documented the Project Architecture and created the Architecture Diagram.
+Documented the Project Architecture with an Architecture Diagram and Overall Class Diagram.
 
 Documented Set User, Add Training Session, Modify Training Session, Delete Training Session, List Training Session 
 and View Training Session, with a sequence diagram for each.
 
-Wrote 10 User Stories to give better perspective on project requirements and direction
+Wrote the User Stories to give better perspective on project requirements and direction
 
 ## Project Management:
 ### Contributions to team-based tasks
 Set up Gradle and Logger for team use.
-Administrated the issue tracker (creating issues, assigning contributors, issue tags, etc).
-Maintained user/developer docs that are not specific to a feature (Architecture, User Stories, etc).
+Coordinated work between team members, kept track of tasks and deadlines and informed them when their work was not done.
+Administrated the issue tracker (creating issues, assigning contributors, issue tags, etc.). 
+Maintained user/developer docs that are not specific to a feature (Architecture, User Stories, etc.).
 
 ### Review/mentoring contributions:
 Responsible for reviewing and providing feedback on many issues and PRs.
