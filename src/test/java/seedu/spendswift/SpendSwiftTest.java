@@ -555,8 +555,7 @@ class FormatTest {
 }
 
 class StorageTest   
- {
-
+ {  
     @Test
     void testSaveData() throws IOException {
         UI ui = mock(UI.class);
