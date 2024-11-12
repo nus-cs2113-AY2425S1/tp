@@ -45,7 +45,7 @@ public class Messages {
             + System.lineSeparator() + "set (gender) (age)                                               set male 12"
             + System.lineSeparator() + "add (session name)                                               add session1"
             + System.lineSeparator() + "modify (session index) (new datetime)                            " +
-            "modify 1 1986-04-08 12:30"
+            "modify 1 08/04/1986 12:30"
             + System.lineSeparator() + "list                                                             list"
             + System.lineSeparator() + "view (session index)                                             view 1"
             + System.lineSeparator() + "edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1"

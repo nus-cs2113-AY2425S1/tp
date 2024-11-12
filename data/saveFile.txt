@@ -1,0 +1,3 @@
+User|MALE|12
+TrainingSession|session1|12/11/2024 10:12|MALE|12|No mood recorded|0|0|-1|0|0|-1
+TrainingSession|session2|12/11/2024 10:13|MALE|12|No mood recorded|0|0|-1|0|0|-1
