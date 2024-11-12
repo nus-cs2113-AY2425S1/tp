@@ -140,6 +140,25 @@ Your current monthly balance is: $ 1000.00
 <hr>
 <div style="page-break-after: always;"></div>
 
+### Delete Budget
+User can delete their budget completely by using the budget command.
+
+**Format**: `budget 0`
+
+**Example Usage**:
+
+Example 1: 
+```
+// Delete budget by setting amount to 0
+budget 0
+--------------------------------------------
+Budget has been deleted.
+--------------------------------------------
+```
+
+<hr>
+<div style="page-break-after: always;"></div>
+
 ### Add Transaction
 
 The `Add Transaction` command allows you to add either an income or expense entry to your financial list. You can specify details like a description, amount, date, and category for better tracking.
