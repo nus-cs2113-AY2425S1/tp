@@ -8,9 +8,12 @@ import seedu.manager.event.EventList;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -107,12 +110,15 @@ public class FileParser {
     private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         try {
             String eventName = fields[1].trim();
-            LocalDateTime time = LocalDateTime.parse(fields[2].trim(), formatter);
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(fields[2].trim());
+            LocalDateTime time = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
             String venue = fields[3].trim();
             Priority priority = Priority.valueOf(fields[4].trim().toUpperCase());
             boolean isDone = getIsMarked(fields[5].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
-        } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (ParseException | IndexOutOfBoundsException | NullPointerException exception) {
             logWarning("File line cannot be parsed, event not loaded");
         }
     }
