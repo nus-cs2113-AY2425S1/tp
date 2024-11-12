@@ -71,7 +71,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 >- JSON Error Handling:
     >- Corruption within objects (eg. invalid key or value, incorrect syntax): The programme will skip these objects while loading the JSON file
 >- Corruption of JSON file structure: The content will be cleared and reinitialised, previously stored objects will be lost
->- [JSON Guide](JSON)
+>- [JSON Guide](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#json-editing)
 
 ### View command list: `help`
 - View all available commands in the application.
