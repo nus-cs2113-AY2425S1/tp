@@ -20,11 +20,12 @@
      - [View expenses: `view-expense`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-expenses-view-expense)
      - [View income: `view-income`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-income-view-income)
      - [View transaction history: `history`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-transaction-history-history)
+     - [View budget: `view-budget`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#viewing-of-budget-view-budget)
    - [View total amount in account: `view-total`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-total-amount-in-account-view-total)
    - [Searching: `search`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#searching-search)
-   - [View budget: `view-budget`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#viewing-of-budget-view-budget)
    - [Leave the app: `bye`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#leave-the-app-bye)
-4. [Command Summary](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#command-summary)
+4. [FAQs](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#faqs)
+5. [Command Summary](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#command-summary)
 
 ---
 ## Introduction
@@ -33,14 +34,13 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 ## Quick Start
 1. Ensure that you have Java 17 or above installed.
 2. Download the latest version of `uNivUSaver` from [here](https://github.com/AY2425S1-CS2113-W10-4/tp/releases).
-3. Copy the file to the folder you want the program to stay in, make sure the data files `(*.json)` is in the same folder with the `uNivUSaver.jar` file.
+3. Copy the file to the folder you want the program to stay in.
 4. Open a command terminal, run the following:
    ```
    cd Path/to/directory # Change directory into the folder you put the jar file in
    java -jar uNivUSaver.jar # Start the program.
    ```
-5. The data files will be read automatically
-6. Type `help` to view the command list and syntax.
+5. Type `help` to view the command list and syntax.
 
 ## Features
 > **&#9432;** **NOTES ON THE COMMAND FORMAT:**
@@ -50,8 +50,9 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 >- Parameters can be in any order, except for the parameters without keyword (e.g. `DESCRIPTION`)
 >- Extraneous parameters for commands that do not take in parameters (such as help, bye) will be ignored.
 >- Empty commands will be ignored.
->- The date and time format for input is `yyyy-MM-dd [hhMM]`. Time is optional, the system will automatically take '2359' or '0000' for time.
+>- The date and time format for input is `yyyy-MM-dd [hhMM]`. Time is optional, the system will automatically take '0000' or '2359' for time.
 >- The month format for input is `yyyy-MM-dd`
+>- Expected output: Note that the output may vary depending on your current transaction list, category list and current date
 
 > **&#9432;** **NOTES ON THE TRANSACTION LIST:**
 >- The transaction list will be sorted in time order.
@@ -61,6 +62,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - View all available commands in the application.
 - **Format:** `help`
 
+---
 ### Adding
 #### Add an expense: `add-expense`
 - Add an amount of expense into the history.
@@ -116,7 +118,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Add a category into the category list.
 - **Format:** `add-category CATEGORY_NAME`
 - **Tip:**
-  - Category name must be unique.
+  - Category name must be unique. We do small checks on the duplicated categories, but can not deal with all the duplication cases (e.g. The app won't find "Wa" and "W a" is duplicated category)
 - **Examples:**
   ```
   add-category FnB
@@ -168,6 +170,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 #### Delete a category: `delete-category`
 - Delete a category from the category list.
 - **Format:** `delete-category CATEGORY_NAME`
+- **Tip:**
+  - If there were some expenses categorized in the category, you will be prompted to choose a new category. 
 - **Example:**
   ```
   delete-category FnB
@@ -199,8 +203,10 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 ### Updating
 
 #### Update an expense category: `categorize`
-- Update the category field of an expense (the category must be in the transaction list).
+- Update the category field of an expense.
 - **Format:** `categorize i/ INDEX c/ CATEGORY`
+- - **Tip:**
+  - The category must be in the category list, and the transaction must be an expense. 
 - **Example:**
   ```
   categorize i/ 6 c/ Food
@@ -301,7 +307,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   ```
 
 ### Searching: `search`
-- Search for transaction or transactions in the transactionList using one or multiple keywords. The command counts exact match, with case ignore.
+- Search for transaction or transactions in the transactionList using one or multiple keywords. The command counts partial match, with case ignore.
 - **Format:** `search k/ [keyword_1] [keyword_2] ... [keyword_n]`
 - **Example:**
   ```
@@ -343,6 +349,18 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Peacefully leave the application
 - **Format:** `bye`
 
+## FAQs
+**Q:** Why some of my data from my data file is missing?
+
+**A:** Note that the app will do a brief scan of the data file and only allow valid data to be added into the list
+
+**Q:** What is the difference between `view-total` and `view-budget`?
+
+**A:** `view-total` shows the total amount of income, expenses, and the net total (income minus expenses) in the account overall.`view-budget` displays the progress toward a specific monthly budget, letting you know if you are within or exceeding the limit for that month.
+
+**Q:** Why do I not see the newly added transaction at the end of the list?
+
+**A:** Note that the list will be arranged in time order, with the end of the list presenting the latest transaction. You may see you transaction added in somewhere else in the list.
 
 ## Command Summary
 
@@ -353,14 +371,14 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 | `help`               |                            `help`                             |                       `help`                        |
 | `add-expense`        | `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]` |    `add-expense Food a/ 17 d/ 2024-07-09 c/ FnB`    |
 | `add-income`         |        `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`         | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
-| `add-category`       |                 `add-category CATEGORY_NAME`                  |                 `add-category FnB`                  |
+| `add-category`       |                    `add-category CATEGORY_NAME`               |                `add-category FnB`                   |
 | `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
 | `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
 | `delete-category`    |                `delete-category CATEGORY_NAME`                |                `delete-category FnB`                |
 | `delete-budget`      |                   `delete-budget m/ MONTH`                    |             `delete-budget m/ 2024-11`              |
 | `categorize`         |               `categorize i/ INDEX c/ CATEGORY`               |              `categorize i/ 6 c/ Food`              |
 | `view-category`      |                        `view-category`                        |                   `view-category`                   |
-| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        | `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`  |
+| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |   `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`|
 | `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
 | `view-budget`        |                   `view-budget [m/ MONTH]`                    |       `view-budget` `view-budget m/ 2024-11`        |
 | `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
