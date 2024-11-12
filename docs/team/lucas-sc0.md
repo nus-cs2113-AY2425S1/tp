@@ -25,7 +25,7 @@ and delete -a. Fixed inverted values being displayed in CSV due to hashmap imple
 * Custom exception were build on-top of existing code to handle invalid inputs
     - InventraInvalidRecordCountException
 * Created assertions for defensive programming
-* Configured non verbose logging for add command to ensure decluttering of UI
+* Configured non-verbose logging for add command to ensure de-cluttering of UI
 * Addressed bugs highlighted in PE-D 
 
 3. JUnit Test Cases
