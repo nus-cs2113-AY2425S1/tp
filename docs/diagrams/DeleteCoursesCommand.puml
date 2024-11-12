@@ -1,0 +1,46 @@
+@startuml
+!include .SequenceDiagram.config
+
+actor CEG_Student
+participant ":DeleteCoursesCommand" as DeleteCoursesCommand
+participant ":Integer" as Integer
+participant ":Storage" as Storage
+participant ":UI" as UI
+
+CEG_Student -> DeleteCoursesCommand: execute (userInput:String)
+activate DeleteCoursesCommand
+
+DeleteCoursesCommand -> DeleteCoursesCommand: parseDeleteCommand(userInput: String)
+activate DeleteCoursesCommand
+return inputDetails : String[]
+
+DeleteCoursesCommand -> DeleteCoursesCommand: getListIndex(descriptionSubstrings : String[])
+activate DeleteCoursesCommand
+
+DeleteCoursesCommand -> Integer: parseInt(inputDetails[Index of parameter] : String)
+activate Integer
+return listIndex : int
+return listIndex: int
+
+DeleteCoursesCommand -> DeleteCoursesCommand: deleteCourse(listIndex : int, storage: Storage)
+activate DeleteCoursesCommand
+DeleteCoursesCommand -> Storage: getCourse(listIndex : int)
+activate Storage
+Storage --> DeleteCoursesCommand: courseToDelete : Course
+deactivate Storage
+DeleteCoursesCommand -> Storage: deleteCourse(listIndex : int)
+activate Storage
+Storage --> DeleteCoursesCommand: return
+deactivate Storage
+
+DeleteCoursesCommand -> UI: printDeleteMessage(courseToDelete: Course)
+activate UI
+UI --> DeleteCoursesCommand: display deletion message
+deactivate UI
+
+DeleteCoursesCommand --> DeleteCoursesCommand
+deactivate DeleteCoursesCommand
+
+DeleteCoursesCommand --> CEG_Student
+deactivate DeleteCoursesCommand
+@enduml

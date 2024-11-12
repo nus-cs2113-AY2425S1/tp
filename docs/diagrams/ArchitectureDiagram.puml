@@ -1,0 +1,28 @@
+@startuml
+
+skinparam componentStyle rectangle
+
+actor CEG_Student
+database myList_data
+database JSON_data
+
+component UI
+component Parser
+component Main
+component Storage
+component Command
+
+CEG_Student -down.-> UI
+UI -right-> Parser
+
+Main -down-> Parser
+Main -down-> UI
+Main -up-> Storage
+
+Command -down-> Storage
+Parser -right-> Command
+
+Command -right.-> JSON_data
+Storage -right.-> myList_data
+
+@enduml

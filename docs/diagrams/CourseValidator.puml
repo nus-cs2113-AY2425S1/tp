@@ -1,0 +1,45 @@
+@startuml
+hide footbox
+!include .SequenceDiagram.config
+participant ":AddCoursesCommand" as AddCoursesCommand
+participant ":CourseValidator" as CourseValidator
+participant ":Ui" as Ui
+
+activate AddCoursesCommand
+
+AddCoursesCommand -> CourseValidator:isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject)
+activate CourseValidator
+
+CourseValidator -> CourseValidator:getPUCourseList
+activate CourseValidator
+
+opt matchPu == null
+CourseValidator -> Ui:displayPartnerUniversities()
+activate Ui
+Ui --> CourseValidator
+deactivate
+CourseValidator --> AddCoursesCommand: throw no PU found error
+end
+return courses: JsonArray
+
+
+CourseValidator -> CourseValidator: isValidCourseMapping
+activate CourseValidator
+
+
+loop for each course in courses JsonArray
+
+opt puCourseCode == puCourseCodeInput && nusCourseCode == nusCourseCodeInput
+    CourseValidator --> AddCoursesCommand: true: Boolean
+end
+
+end
+  CourseValidator --> Ui: displayAvailableMappings()
+  activate Ui
+  Ui --> CourseValidator
+  deactivate
+  CourseValidator --> AddCoursesCommand: false: Boolean
+deactivate
+
+deactivate
+@enduml

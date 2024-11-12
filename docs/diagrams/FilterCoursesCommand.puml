@@ -1,0 +1,62 @@
+@startuml
+!include .SequenceDiagram.config
+hide footbox
+
+actor CEG_Student
+participant ":FilterCoursesCommand" as FilterCoursesCommand
+participant ":Command" as Command
+participant "<<class>>\n:NusCourseCodeValidator" as NusCourseCodeValidator
+
+CEG_Student -> FilterCoursesCommand: execute (userInput:String)
+activate FilterCoursesCommand
+
+FilterCoursesCommand -> Command: createJsonObject()
+activate Command
+
+Command --> FilterCoursesCommand: JsonObject
+deactivate Command
+
+FilterCoursesCommand -> FilterCoursesCommand: parseFilterInput(userInput: String)
+activate FilterCoursesCommand
+return inputDetails : String[]
+
+FilterCoursesCommand -> FilterCoursesCommand: getNusCourseCode(inputDetails: String[])
+activate FilterCoursesCommand
+
+FilterCoursesCommand -> NusCourseCodeValidator: isValidSocCourseCode(nusCourseCode: String)
+activate NusCourseCodeValidator
+return isValidSocCourseCode: boolean
+FilterCoursesCommand -> NusCourseCodeValidator: isValidNusCourseCodeFormat(nusCourseCode: String)
+activate NusCourseCodeValidator
+return isValidNusCourseCodeFormat: boolean
+return courseToFind : String
+
+FilterCoursesCommand -> FilterCoursesCommand: displayMappableCourses(jsonObject : JsonObject, courseToFind : String)
+activate FilterCoursesCommand
+
+loop for each universityName in universityNames
+    FilterCoursesCommand -> FilterCoursesCommand: isCourseFound(...)
+    activate FilterCoursesCommand
+    loop for each course in courses
+        opt course == courseToFind
+            FilterCoursesCommand -> UI: printMappableCourse(universityName: String, course: JsonObject)
+            activate UI
+            return Print mappable course information
+        end
+    end
+    FilterCoursesCommand --> FilterCoursesCommand: isCourseFound: boolean
+    deactivate FilterCoursesCommand
+end
+
+opt isCourseFound == false
+    FilterCoursesCommand -> UI: printMessage(No mappable courses message)
+    activate UI
+    return Print no mappable courses message
+end
+
+FilterCoursesCommand --> FilterCoursesCommand
+deactivate FilterCoursesCommand
+
+FilterCoursesCommand --> CEG_Student
+deactivate FilterCoursesCommand
+@enduml

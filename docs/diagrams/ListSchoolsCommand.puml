@@ -1,0 +1,47 @@
+@startuml
+
+!include .SequenceDiagram.config
+hide footbox
+
+actor CEG_Student
+participant ":ListSchoolCommand" as ListSchoolCommand
+participant ":UI" as UI
+participant ":Command" as Command
+
+CEG_Student -> ListSchoolCommand: execute (userInput:String)
+activate ListSchoolCommand
+
+ListSchoolCommand -> ListSchoolCommand: fetch school data
+activate ListSchoolCommand
+
+ListSchoolCommand -> Command: createJsonObject()
+activate Command
+
+Command --> ListSchoolCommand: JsonObject
+deactivate Command
+
+ListSchoolCommand --> ListSchoolCommand: JsonObject
+deactivate ListSchoolCommand
+
+ListSchoolCommand -> ListSchoolCommand: validates the JSON object
+activate ListSchoolCommand
+ListSchoolCommand --> ListSchoolCommand
+deactivate ListSchoolCommand
+
+ListSchoolCommand -> ListSchoolCommand: displaySchoolList (jsonObject:JsonObject)
+activate ListSchoolCommand
+
+loop for each PU Name in PU Names
+    alt no university name found
+        ListSchoolCommand --> CEG_Student: Displays exception message
+    else else
+        ListSchoolCommand -> UI: printUniversityList(universityName: String)
+    end
+end
+
+ListSchoolCommand --> ListSchoolCommand
+deactivate ListSchoolCommand
+
+ListSchoolCommand --> CEG_Student
+deactivate ListSchoolCommand
+@enduml

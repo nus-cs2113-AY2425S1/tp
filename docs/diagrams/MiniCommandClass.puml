@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+!include .ClassDiagram.config
+
+abstract class Command as "{abstract} \nCommand"
+abstract class PersonalTrackerCommand as "{abstract} \nPersonalTrackerCommand" extends Command
+abstract class CheckInformationCommand as "{abstract} \nCheckInformationCommand" extends Command
+class ListSchoolCommand as "ListSchoolCommand" extends CheckInformationCommand
+class DeleteCoursesCommand as "DeleteCoursesCommand" extends PersonalTrackerCommand
+
+@enduml

@@ -1,9 +1,10 @@
 # About us
 
-Display | Name | Github Profile | Portfolio 
---------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | John Doe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Joe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | John Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+
+Display |         Name         |             Github Profile              | Portfolio 
+--------|:--------------------:|:---------------------------------------:|:---------:
+![](https://via.placeholder.com/100.png?text=Photo) | Joe Tien You (Louis) | [Github](https://github.com/louisjoety) | [Portfolio](team/louisjoety)
+![](https://via.placeholder.com/100.png?text=Photo) |    Chiew Chun Jia    | [Github](https://github.com/chewycj) | [Portfolio](team/chewycj)
+![](https://via.placeholder.com/100.png?text=Photo) |    Chiang Hui Xin    | [Github](https://github.com/Chiang-HuiXin) | [Portfolio](team/chiang-huixin)
+![](https://via.placeholder.com/100.png?text=Photo) |   Han Zixuan Nancy   | [Github](https://github.com/hzxnancy) | [Portfolio](team/hzxnancy)
+![](https://via.placeholder.com/100.png?text=Photo) |     Goh Aik Haw      | [Github](https://github.com/wahkia) | [Portfolio](team/wahkia)

@@ -1,0 +1,30 @@
+@startuml
+
+hide footbox
+
+!include .SequenceDiagram.config
+
+actor CEG_Student
+
+participant ":HelpCommand" as HelpCommand
+
+CEG_Student -> HelpCommand : execute(input: String)
+activate HelpCommand
+
+HelpCommand -> HelpCommand : getCommand
+activate HelpCommand
+opt Valid Input
+    return return parsed command
+end
+
+
+HelpCommand -> HelpCommand
+activate HelpCommand
+opt Valid Command
+    return Print specific help messages
+end
+
+HelpCommand --> CEG_Student
+deactivate HelpCommand
+
+@enduml
