@@ -1,0 +1,54 @@
+@startuml
+!include Style.puml
+
+skinparam classAttributeIconSize 0
+left to right direction
+
+
+class Recipe #COLOR_RED{
+    - name: String
+    - ingredients: ArrayList<Ingredient>
+    - steps: ArrayList<String>
+    - cuisine: String = null
+    - timeTaken: Integer = null
+    __
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>, cuisine: String, timeTaken: Integer)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>, cuisine: String)
+    + Recipe(name: String, ingredients: ArrayList<Ingredient>, steps: ArrayList<String>, timeTaken: Integer)
+    + getName(): String
+    + setName(name: String): void
+    + getIngredients(): ArrayList<Ingredient>
+    + setIngredients(ingredients: ArrayList<Ingredient>): void
+    + getSteps(): ArrayList<String>
+    + setSteps(steps: ArrayList<String>): void
+    + getCuisine(): String
+    + setCuisine(cuisine: String): void
+    + getTimeTaken(): Integer
+    + setTimeTaken(timeTaken: Integer): void
+    + equals(recipeToCheck: Recipe): boolean
+    + toString(): String
+    + toSaveString(): String
+}
+hide Recipe circle
+
+
+class RecipeList #COLOR_PURPLE_BLUE{
+    - counter: int = 0
+    __
+    + RecipeList()
+    + addRecipe(recipe: Recipe): void
+    + getRecipes(): ArrayList<Recipe>
+    + getRecipe(id: int): Recipe
+    + removeRecipeByName(name: String): boolean
+    + editRecipe(name: String, editedRecipe: Recipe): boolean
+    + getCounter(): int
+    + sortAlphabetically(): void
+    + sortByTimeTaken(): void
+}
+hide RecipeList circle
+
+
+RecipeList "1 " o---- "recipes * " Recipe: contains >
+
+@enduml

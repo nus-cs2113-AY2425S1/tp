@@ -12,6 +12,7 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: '5.10.0'
 }
 
 test {
@@ -28,12 +29,14 @@ test {
     }
 }
 
+sourceSets.main.java.srcDirs = ['src/main/java']
+
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("ymfc.YMFC")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("YMFC")
     archiveClassifier.set("")
 }
 
@@ -43,4 +46,8 @@ checkstyle {
 
 run{
     standardInput = System.in
+}
+
+run {
+    enableAssertions = true
 }

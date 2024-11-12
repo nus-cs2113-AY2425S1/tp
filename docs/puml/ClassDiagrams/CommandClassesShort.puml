@@ -1,0 +1,136 @@
+@startuml
+skinparam classAttributeIconSize 0
+!define ABSTRACT &#123;abstract&#125;
+!define COMMAND "{abstract}\nCommand"
+
+class COMMAND {
+    # isBye: boolean
+    __
+    + Command()
+    + setBye(): void
+    + isBye(): boolean
+    + execute(recipes: RecipeList, ingredients: IngredientList, ui: Ui, storage: Storage): void ABSTRACT
+}
+hide COMMAND circle
+
+class AddCommand {
+    - recipe: Recipe
+    __
+    + AddCommand(recipe: Recipe)
+}
+hide AddCommand circle
+
+class AddIngredientCommand {
+    - ingredient: Ingredient
+    __
+    + AddIngredientCommand(ingredient: Ingredient)
+}
+hide AddIngredientCommand circle
+
+class ByeCommand {
+    __
+    + ByeCommand()
+}
+hide ByeCommand circle
+
+class DeleteCommand {
+    - recipeName: String
+    --
+    + DeleteCommand(recipeName: String)
+}
+hide DeleteCommand circle
+
+class DeleteIngredientCommand {
+    - ingredientName: String
+    --
+    + DeleteIngredientCommand(ingredientName: String)
+}
+hide DeleteIngredientCommand circle
+
+class EditCommand {
+    - recipe: Recipe
+    --
+    + EditCommand(recipe: Recipe)
+}
+hide EditCommand circle
+
+class FindCommand {
+    - query: String
+    - isByName: boolean = true
+    - isByIngredient: boolean = false
+    - isByStep: boolean = false
+    - numMatches: int = 0
+    __
+    + FindCommand(query: String)
+}
+hide FindCommand circle
+
+class FindIngredientCommand {
+    - query: String
+    - numMatches: int = 0
+    __
+    + FindIngredientCommand(query: String)
+}
+hide FindIngredientCommand circle
+
+class HelpCommand {
+    __
+    + HelpCommand()
+}
+hide HelpCommand circle
+
+class ListCommand {
+    __
+    + ListCommand()
+}
+hide ListCommand circle
+
+class ListIngredientCommand {
+    __
+    + ListIngredientCommand()
+}
+hide ListIngredientCommand circle
+
+class RandomCommand {
+    --
+    + RandomCommand()
+}
+hide RandomCommand circle
+
+class RecommendCommand {
+    __
+    + RecommendCommand()
+}
+hide RecommendCommand circle
+
+class SortCommand {
+    - listBy: String
+    __
+    + SortCommand(listBy: String)
+}
+hide SortCommand circle
+
+class SortIngredientCommand {
+    --
+    + SortIngredientCommand()
+}
+hide SortIngredientCommand circle
+
+
+AddCommand --u|> COMMAND
+AddIngredientCommand --u|> COMMAND
+ByeCommand --|> COMMAND
+DeleteCommand --u|> COMMAND
+DeleteIngredientCommand --u|> COMMAND
+EditCommand --|> COMMAND
+FindCommand --r|> COMMAND
+FindIngredientCommand --l|> COMMAND
+HelpCommand --|> COMMAND
+ListCommand --|> COMMAND
+ListIngredientCommand --|> COMMAND
+RandomCommand --|> COMMAND
+RecommendCommand --u|> COMMAND
+SortCommand --|> COMMAND
+SortIngredientCommand --|> COMMAND
+
+@enduml

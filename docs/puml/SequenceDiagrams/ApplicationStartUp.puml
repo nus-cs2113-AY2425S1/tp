@@ -1,0 +1,72 @@
+'@@author: seanngja
+@startuml
+!include Style.puml
+scale 1024*864
+
+hide footbox
+skinparam sequenceReferenceBackgroundColor COLOR_YELLOW
+skinparam sequenceReferenceHeaderBackgroundColor COLOR_RED
+skinparam ParticipantBackgroundColor COLOR_LIGHTBLUE
+skinparam {
+    SequenceGroupBackgroundColor COLOR_LIGHTRED
+}
+
+actor User
+box Start Up COLOR_PALE_PINK
+participant ":YMFC" as Main <<class>>
+participant "ui:Ui" as UI
+participant "storage:Storage" as S
+participant "recipeList:RecipeList" as RL
+participant "ingredientList:IngredientList" as IL
+participant ":Parser" as P <<class>>
+end box
+
+User -> Main: Start Application
+activate Main
+
+create UI
+Main -> UI: Ui(InputStream)
+activate UI
+UI --> Main
+deactivate UI
+
+create RL
+Main -> RL: RecipeList()
+activate RL
+RL --> Main
+deactivate RL
+
+create IL
+Main -> IL: IngredientList()
+activate IL
+IL --> Main
+deactivate IL
+
+create S
+Main -> S: Storage()
+activate S
+S --> Main
+deactivate S
+
+ref over Main, P
+Load in ingredients and recipes
+from hard disk
+end ref
+
+loop COLOR_GREEN until command.isBye()
+    ref over Main, P
+    Receive user input and process command
+    end ref
+end
+
+Main --> User: Close Application
+deactivate Main
+
+destroy S
+destroy UI
+destroy IL
+destroy RL
+destroy P
+
+
+@enduml
