@@ -7,7 +7,7 @@ participant ":BuffBuddy" as BuffBuddy
 participant ":Ui" as Ui
 participant ":Parser" as Parser
 participant ":CommandFactory" as CommandFactory
-participant ":ProgCommandFactory" as ProgCommandFactory
+participant ":ProgrammeCommandFactory" as ProgCommandFactory
 participant ":CreateProgrammeCommand" as CreateProgrammeCommand
 participant ":ProgrammeList" as ProgrammeList
 participant ":CommandResult" as CommandResult
@@ -32,7 +32,7 @@ Parser -> CommandFactory: CommandResult()
 activate CommandFactory
 
 create ProgCommandFactory
-CommandFactory -> ProgCommandFactory: ProgCommandFactory()
+CommandFactory -> ProgCommandFactory: ProgrammeCommandFactory()
 activate ProgCommandFactory
 
 ProgCommandFactory --> CommandFactory

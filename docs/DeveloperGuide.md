@@ -194,18 +194,18 @@ The `Parser` component,
 The `CommandFactory` component,
 
 - **Centralizes command production**: The `CommandFactory` class is responsible for creating `Command` objects based on the command type in user input, providing a single access point for command creation.
-- **Manages subcommand factories**: It delegates specific command creation tasks to sub-factories, including `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`, based on the parsed command. If the command is unsupported, it returns an `InvalidCommand`.
+- **Manages subcommand factories**: It delegates specific command creation tasks to sub-factories, including `ProgrammeCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`, based on the parsed command. If the command is unsupported, it returns an `InvalidCommand`.
 
 
-The `ProgCommandFactory` component,
+The `ProgrammeCommandFactory` component,
 
-![Class_Diagram_for_ProgCommandFactory_Component](images/progFactoryComponent.png)
+![Class_Diagram_for_ProgrammeCommandFactory_Component](images/progFactoryComponent.png)
 
 - **Processes program-related commands**: This factory handles commands related to creating, viewing, editing, starting, deleting, 
   and logging programs within the application.
 - **Parses and prepares complex program structures**: It includes helper methods to interpret hierarchical program structures,
   allowing users to create and modify workout programs with days and exercises. It also supports commands with complex flags, ensuring flexibility in program management.
-- _Note:_ Since `ProgCommandFactory` is responsible for creating a wide variety of commands, the class diagram has been simplified by using the superclass `Command` class to 
+- _Note:_ Since `ProgrammeCommandFactory` is responsible for creating a wide variety of commands, the class diagram has been simplified by using the superclass `Command` class to 
   represent all sub-command classes that are actually created.
 
 
@@ -346,11 +346,11 @@ Given below is an example usage scenario for 'create programme' and how the crea
 
 **Step 2**: After parsing this input, a `CreateProgrammeCommand` is created.
 
-**Step 3**: The command then calls `ProgCommandFactory#prepareCreateCommand()` to parse the details of the programme.
+**Step 3**: The command then calls `ProgrammeCommandFactory#prepareCreateCommand()` to parse the details of the programme.
 
 **Step 4**: Inside `prepareCreateCommand`, the programme name and day details are parsed. For each day specified:
-- `ProgCommandFactory#parseDay()` is called to create a new `Day` object.
-- For each exercise in the day, `ProgCommandFactory#parseExercise()` is called to create an `Exercise` object with the specified details.
+- `ProgrammeCommandFactory#parseDay()` is called to create a new `Day` object.
+- For each exercise in the day, `ProgrammeCommandFactory#parseExercise()` is called to create an `Exercise` object with the specified details.
 - Each created `Exercise` is added to the `Day` object.
 
 **Step 5**: The `CreateProgrammeCommand` then calls `ProgrammeList#insertProgramme()` with the parsed programme name and list of days to add the new programme to `ProgrammeList`.
@@ -699,7 +699,7 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ### Log Programme Feature
 
-The Log Programme feature allows users to log a specific day of a workout programme into the history on a specified date. This feature is implemented using components like `LogProgrammeCommand`, `Parser`, `ProgCommandFactory`, and `History`. Users can activate this feature by entering the `prog log` command in the UI. The implementation follows the command pattern, alongside a factory pattern for creating commands.
+The Log Programme feature allows users to log a specific day of a workout programme into the history on a specified date. This feature is implemented using components like `LogProgrammeCommand`, `Parser`, `ProgrammeCommandFactory`, and `History`. Users can activate this feature by entering the `prog log` command in the UI. The implementation follows the command pattern, alongside a factory pattern for creating commands.
 
 ### Overview
 
@@ -721,8 +721,8 @@ The following example illustrates the usage scenario and behavior of the Log Pro
 2. **Step 2**: The `Parser` breaks down the command `prog log` into:
     - Main command: `prog`
     - Subcommand: `log`
-3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a programme command and delegates to `ProgCommandFactory`.
-4. **Step 4**: `ProgCommandFactory` identifies `log` as the `LogProgrammeCommand` trigger and creates a new `LogProgrammeCommand` instance with the specified parameters.
+3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a programme command and delegates to `ProgrammeCommandFactory`.
+4. **Step 4**: `ProgrammeCommandFactory` identifies `log` as the `LogProgrammeCommand` trigger and creates a new `LogProgrammeCommand` instance with the specified parameters.
 5. **Step 5**: The `LogProgrammeCommand` is passed back through the chain to the UI, which then calls its `execute` method.
 6. **Step 6**: During execution:
     - `LogProgrammeCommand` retrieves the programme and day specified by the user from `ProgrammeList`.

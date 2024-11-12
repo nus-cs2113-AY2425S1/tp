@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 hide circle
 
-class ProgCommandFactory {
+class ProgrammeCommandFactory {
   - <u> COMMAND_WORD: String
 
   + parse(String argumentString): Command
@@ -22,18 +22,18 @@ class ProgCommandFactory {
   - parseExerciseUpdate(String argumentString): ExerciseUpdate
 }
 
-ProgCommandFactory "1          " --> "1" Command : "creates"
+ProgrammeCommandFactory "1          " --> "1" Command : "creates"
 
-ProgCommandFactory "1       " -->  "1" FlagParser : "creates"
+ProgrammeCommandFactory "1       " -->  "1" FlagParser : "creates"
 
-ProgCommandFactory ..> ParserUtils
-ProgCommandFactory ..> FlagDefinitions
-ProgCommandFactory ..> ProgrammeException
-ProgCommandFactory ..> FlagException
+ProgrammeCommandFactory ..> ParserUtils
+ProgrammeCommandFactory ..> FlagDefinitions
+ProgrammeCommandFactory ..> ProgrammeException
+ProgrammeCommandFactory ..> FlagException
 
-ProgCommandFactory ..> Day
-ProgCommandFactory ..> Exercise
-ProgCommandFactory ..> ExerciseUpdate
+ProgrammeCommandFactory ..> Day
+ProgrammeCommandFactory ..> Exercise
+ProgrammeCommandFactory ..> ExerciseUpdate
 
 
 @enduml
