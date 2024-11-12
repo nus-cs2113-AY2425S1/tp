@@ -15,6 +15,7 @@ import seedu.spendswift.command.Format;
 
 
 
+
 import org.junit.jupiter.api.BeforeEach;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -547,3 +548,4 @@ class FormatTest {
         assertEquals("-$123.45", Format.formatAmount(-123.45), "Should handle negative values correctly.");
     }
 }
+
