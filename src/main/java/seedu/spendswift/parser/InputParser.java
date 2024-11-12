@@ -92,7 +92,7 @@ public class InputParser {
             // Cap the limit at 1 quadrillion if it exceeds this value
             if (limit > quadrillion) {
                 System.err.println("Limit exceeds 1 quadrillion, capping to 1 quadrillion.");
-                limit = QUADRILLION;
+                limit = quadrillion;
             }
 
             return limit;
