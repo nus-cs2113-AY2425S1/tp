@@ -4,9 +4,23 @@ import fittrack.enums.Exercise;
 import fittrack.trainingsession.TrainingSession;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for generating and displaying a performance graph that tracks the progression of
+ * repetitions/distance for a specific exercise across multiple training sessions. It formats the graph with
+ * asterisks representing the performance earned for each session.
+ */
 public class GraphPerformanceRepsDistance extends GraphPerformance {
 
-    //Formats the asterisks and blank space for a session based on the current performance level (row of graph)
+    /**
+     * Formats the representation of a session's performance in the graph based on the current performance level.
+     * This method uses asterisks to represent performance and adds points information if needed.
+     *
+     * @param session The training session whose performance is being formatted.
+     * @param currentPerf The current performance level being checked.
+     * @param exercise The specific exercise for which the performance is being tracked.
+     * @param maxXHeaderLength The maximum length of the header for proper alignment.
+     * @return A formatted string representing the session's performance in the graph.
+     */
     private static String formatSessionPerformance(TrainingSession session, int currentPerf,
             Exercise exercise, int maxXHeaderLength) {
         int exercisePerformance = session.getExercisePerformance(exercise);
@@ -20,7 +34,17 @@ public class GraphPerformanceRepsDistance extends GraphPerformance {
         }
     }
 
-    //Getting an individual row for the performance graph
+    /**
+     * Generates an individual row of the performance graph, checking all sessions to determine the performance level
+     * and formatting the corresponding asterisks or points information.
+     *
+     * @param currentPerf The current performance level being displayed in the row.
+     * @param numSessions The total number of sessions in the graph.
+     * @param maxXHeaderLength The maximum length of the header for proper bar alignment.
+     * @param sessionList The list of training sessions being displayed.
+     * @param exercise The specific exercise for which the performance is being tracked.
+     * @return A formatted string representing a single row in the performance graph.
+     */
     private static String generatePerformanceRow(int currentPerf, int numSessions, int maxXHeaderLength,
             ArrayList<TrainingSession> sessionList, Exercise exercise) {
         StringBuilder rowContent = new StringBuilder();
@@ -31,7 +55,17 @@ public class GraphPerformanceRepsDistance extends GraphPerformance {
         return rowContent.toString();
     }
 
-    //Getting the Y axis and main contents for the performance graph
+    /**
+     * Generates the main contents of the performance graph, including the Y-axis labels and the rows representing each
+     * performance level for all training sessions. The graph is formatted with the appropriate spacing for alignment.
+     *
+     * @param maxExercisePerformance The maximum performance level for the exercise being tracked.
+     * @param numSessions The total number of sessions to be displayed in the graph.
+     * @param maxXHeaderLength The maximum length of the header for proper alignment of the graph.
+     * @param sessionList The list of training sessions being displayed.
+     * @param exercise The specific exercise for which the performance is being tracked.
+     * @return A formatted string representing the entire performance graph.
+     */
     private static String generateMainGraphPerformance(int maxExercisePerformance, int numSessions,
             int maxXHeaderLength, ArrayList<TrainingSession> sessionList, Exercise exercise) {
         StringBuilder mainContents = new StringBuilder();
