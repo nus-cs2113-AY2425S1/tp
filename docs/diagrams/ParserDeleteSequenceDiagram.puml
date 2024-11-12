@@ -1,0 +1,60 @@
+@startuml
+
+participant ":Flashbang"
+participant ":Parser"
+participant "flashBook:FlashBook"
+participant "command:DeleteCommand"
+participant "cs2113:FlashcardSet"
+participant "result:CommandResult"
+
+":Flashbang" -> ":Parser" : parseCommand("delete --m cs2113 --i 1")
+activate ":Parser"
+
+":Parser" -> ":Parser" : parseCommandType("delete --m cs2113 --i 1")
+activate ":Parser"
+deactivate ":Parser"
+
+":Parser" -> ":Parser" : createDeleteCommand("delete --m cs2113 --i 1")
+activate ":Parser"
+
+":Parser" -> "flashBook:FlashBook" : getInstance()
+activate "flashBook:FlashBook"
+return flashBook
+
+":Parser" -> "flashBook:FlashBook" : getFlashcardSet("cs2113")
+activate "flashBook:FlashBook"
+return cs2113
+deactivate "flashBook:FlashBook"
+
+create "command:DeleteCommand"
+":Parser" -> "command:DeleteCommand" : DeleteCommand(cs2113, 1)
+activate "command:DeleteCommand"
+return command
+
+":Parser" --> ":Parser" : command
+deactivate ":Parser"
+":Parser" --> ":Flashbang" : command
+deactivate ":Parser"
+
+":Flashbang" -> "command:DeleteCommand" : execute()
+activate "command:DeleteCommand"
+
+"command:DeleteCommand" -> "cs2113:FlashcardSet" : removeCard(targetCard)
+activate "cs2113:FlashcardSet"
+"cs2113:FlashcardSet" -> "cs2113:FlashcardSet" : remove(targetCard)
+activate "cs2113:FlashcardSet"
+deactivate "cs2113:FlashcardSet"
+deactivate "cs2113:FlashcardSet"
+
+create "result:CommandResult"
+"command:DeleteCommand" -> "result:CommandResult" : CommandResult("success message")
+activate "result:CommandResult"
+return result
+
+destroy "result:CommandResult"
+
+return result
+
+destroy "command:DeleteCommand"
+
+@enduml

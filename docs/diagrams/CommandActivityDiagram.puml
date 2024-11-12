@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:Flashbang();
+while (Input Command) is (not instance of QuitCommand)
+  :Request input from User;
+  :Parse Request into a Command;
+  -> creates based on user input;
+    fork
+    :AddCommand;
+    fork again
+    :Delete Card;
+    fork again
+    :other commands;
+    end fork
+  :Execute Command;
+  :Print Execution Feedback;
+  :Save Changes to Storage;
+endwhile
+stop
+
+@enduml

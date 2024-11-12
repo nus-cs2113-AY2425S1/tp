@@ -1,0 +1,20 @@
+@startuml
+
+class Flashbang
+class CommandResult
+class Parser
+abstract class "Command"
+class XYZCommand
+
+Flashbang --> Parser
+
+Parser --> "Command" : calls
+Parser --> XYZCommand : creates
+
+"Command" <|-- XYZCommand
+
+"Command" --> CommandResult : creates
+CommandResult --> Flashbang
+
+
+@enduml

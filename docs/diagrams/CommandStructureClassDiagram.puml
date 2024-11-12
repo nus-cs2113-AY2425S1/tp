@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+
+
+abstract class Command {
+    + execute(): CommandResult {abstract}
+}
+class AddCommand {
+    + execute(): CommandResult
+}
+
+class DeleteCommand {
+    + execute(): CommandResult
+}
+
+class EditCommand {
+    + execute(): CommandResult
+}
+class FlashbangCommand {
+    + execute(): CommandResult
+}
+class ViewCommand {
+    + execute(): CommandResult
+}
+class HelpCommand {
+    + execute(): CommandResult
+}
+class QuitCommand {
+    + execute(): CommandResult
+}
+class SearchCommand {
+    + execute(): CommandResult
+}
+class InvalidCommand {
+    + execute(): CommandResult
+}
+
+class CommandResult {
+    + String: feedbackToUser
+}
+
+CommandResult <.. Command
+
+Command <|-- AddCommand
+Command <|-- DeleteCommand
+Command <|-- EditCommand
+Command <|-- FlashbangCommand
+Command <|-- HelpCommand
+Command <|-- QuitCommand
+Command <|-- ViewCommand
+Command <|-- InvalidCommand
+Command <|-- SearchCommand
+
+
+@enduml

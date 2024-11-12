@@ -1,0 +1,42 @@
+@startuml
+!include Style.puml
+
+actor User as user
+participant Parser
+participant FlashBook
+participant FlashCardSet
+participant Command as command
+
+user -> Parser : parseCommand(input)
+activate Parser
+
+Parser -> Parser : parseCommandType(input)
+activate Parser
+    Parser <-- Parser : commandType
+deactivate Parser
+
+alt commandType is valid
+    Parser <-- Parser : extractFields()
+    Parser -> Parser : create a command
+        activate Parser
+        Parser -> FlashBook : getModule()
+        activate FlashBook
+
+        FlashBook -> FlashCardSet : getFlashCardSet()
+        activate FlashCardSet
+        FlashCardSet --> Parser : FlashCardSet
+        deactivate FlashCardSet
+
+        deactivate FlashBook
+        Parser --> command : ValidCommand
+    deactivate Parser
+else commandType is invalid
+    Parser -> Parser : create a command
+        activate Parser
+        Parser --> command : InvalidCommand
+        deactivate Parser
+end
+
+user <-- command : Command instance
+deactivate Parser
+@enduml

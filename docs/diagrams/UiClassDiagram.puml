@@ -1,0 +1,16 @@
+@startuml
+skinparam classAttributeIconSize 0 
+
+title UI - Class Diagram
+class Ui {
+    - scanner: Scanner
+    + Ui()
+    + {static} displayCommands(): void
+    + {static} welcomeMessage(): void
+    + {static} printResponse(text: String): void
+    + {static} getRequest(): String
+    + {static} displayGetNewPromptFromUser(prompt: String): void
+    + {static} displayConfirmationQuestion(prompt: String): void
+    + {static} displayOldStoredValue(prompt: String, value: String): void
+}
+@enduml

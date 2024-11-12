@@ -1,0 +1,56 @@
+@startuml
+
+class Storage {
+    + Storage(String)
+    + writeFlashBookToFile(FlashBook)
+    + readFlashCardsFromFile(): HashMap<String, FlashCardSet>
+    - createDir(): void
+    - cardFormatter(String): Card
+    - readFlashCardSetFromFile(String, File): FlashCardSet
+    - createFile(File): void
+}
+
+class FlashBook {
+    - instance: FlashBook
+    - allFlashCardSets: HashMap<String, FlashCardSet>
+    + getInstance(): FlashBook
+    + setInstance(flashCards: HashMap<String, FlashCardSet>): void
+    + getAllFlashCardSets(): HashMap<String, FlashCardSet>
+    + addFlashCardSet(module: String): void
+    + getFlashCardSet(module: String): FlashCardSet
+}
+
+class FlashCardSet {
+    - flashCardSet: ArrayList<Card>
+    - moduleName: String
+    + FlashCardSet(module: String)
+    + FlashCardSet(module: String, flashCardSet: ArrayList<Card>)
+    + getModuleName(): String
+    + getFlashCardSet(): ArrayList<Card>
+    + getCard(cardIndex: int): Card
+    + addCard(toAdd: Card): void
+    + removeCard(toRemove: Card): void
+    + viewFlashCards(module: String): void
+    + performFlashBang(): void
+    + iterator(): Iterator<Card>
+}
+
+class Card {
+    - question: String
+    - answer: String
+    - topic: String
+    + Card(question : String, answer : String)
+    + Card(question : String, answer : String, topic : String)
+    + getQuestion() : String
+    + getTopic() : String
+    + setQuestion(question : String) : void
+    + getAnswer() : String
+    + setAnswer(answer : String) : void
+    + toWritableString() : String
+    + toString() : String
+}
+
+Storage  -->  FlashBook : "uses"
+FlashBook --> "1" FlashCardSet
+FlashCardSet  --> "*" Card
+@enduml

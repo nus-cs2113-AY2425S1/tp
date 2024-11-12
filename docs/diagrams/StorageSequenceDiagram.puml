@@ -1,0 +1,87 @@
+@startuml
+actor Client
+participant Storage
+participant File
+participant FlashCardSet
+participant Card
+participant FlashBook
+participant FileWriter
+
+== Initialization and Directory Creation ==
+Client -> Storage:  Storage(directoryPath)
+activate Storage
+Storage -> File:  File(directoryPath)
+activate File
+File --> Storage: File instance
+deactivate File
+
+Storage -> Storage: createDir()
+alt Directory doesn't exist
+    Storage -> File: mkdirs()
+    File --> Storage: Success/Failure
+else Directory exists
+    Storage -> Storage: Directory ready
+end
+deactivate Storage
+
+== Writing FlashBook to File ==
+Client -> Storage: writeFlashBookToFile(flashBook)
+activate Storage
+Storage -> FlashBook: getAllFlashCardSets()
+FlashBook --> Storage: HashMap<String, FlashCardSet>
+
+loop HashMap
+    Storage -> File: File(directory, module+".txt")
+    activate File
+    File --> Storage: File instance
+    deactivate File
+
+    Storage -> Storage: createFile(File)
+    Storage -> FileWriter:  FileWriter(flashCardSetFile)
+    activate FileWriter
+    FileWriter --> Storage: FileWriter instance
+    deactivate FileWriter
+
+    loop FlashCardSet
+        Storage -> Card: toWritableString()
+        activate Card
+        Card --> Storage: formattedString
+        deactivate Card
+        Storage -> FileWriter: write(formattedString)
+    end
+
+    FileWriter -> FileWriter: close()
+end
+Storage --> Client: Write Complete
+deactivate Storage
+
+== Reading FlashCards from File ==
+Client -> Storage: readFlashCardsFromFile()
+activate Storage
+
+Storage -> File: directory.listFiles(".txt files")
+alt Files found
+    loop for each File
+        Storage -> FlashCardSet:  FlashCardSet(module)
+        activate FlashCardSet
+        FlashCardSet --> Storage: FlashCardSet instance
+
+        loop File
+            File -> Storage: line (card data)
+            Storage -> Storage: cardFormatter(line)
+            activate Card
+            Card --> Storage: Card instance
+            deactivate Card
+
+            Storage -> FlashCardSet: addCard(Card)
+        end
+        Storage -> File: close()
+        deactivate FlashCardSet
+    end
+    Storage --> Client: HashMap<String, FlashCardSet>
+else No files found
+    Storage --> Client: Empty HashMap
+end
+deactivate Storage
+
+@enduml

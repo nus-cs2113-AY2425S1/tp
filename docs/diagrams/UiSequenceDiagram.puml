@@ -1,0 +1,41 @@
+@startuml
+!include docs/diagrams/Style.puml
+
+actor User
+
+User -> Ui : welcomeMessage()
+activate Ui
+Ui -> Ui : displayCommands()
+deactivate Ui
+
+User -> Ui: printResponse()
+activate Ui
+Ui -> Ui : displayCommands()
+deactivate Ui
+
+User -> Ui : getRequest() 
+activate Ui 
+Ui -> Ui : return scanner.nextLine();
+deactivate Ui
+
+User -> Ui : displayGetNewPromptFromUser("request")
+activate Ui
+Ui -> User : "Enter new request:"
+deactivate Ui
+
+User -> Ui: displayConfirmationQuestion("prompt")
+activate Ui 
+Ui -> User : "Do you want to change: "
+deactivate Ui
+
+User -> Ui: displayOldStoredValue("prompt", "value")
+activate Ui
+Ui -> User : "Old: "
+deactivate Ui
+
+
+
+
+
+
+@enduml
