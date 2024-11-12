@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 hide circle
 
-class UI {
+class Ui {
     +displayMessage(message: String) {static} : void
     +getUserInput() {static} : String
     +close() {static} : void
@@ -19,23 +19,22 @@ class Parser {
     -packCommandToExistingArgumentsMap(...) {static} : void
     -packArgumentToExistingArgumentsMap(...) {static} : void
     -packFollowingArgumentsToExistingArgumentsMap(...) {static} : void
-    -packWordsToArgumentsMap(words: String[]) {static} : HashMap<String, String>
-    -parseLineToArgumentsMap(line: String) {static} : HashMap<String, String>
+    -packWordsToArgumentsMap(words: String[]) {static} : ArgumentsMap
+    -parseLineToArgumentsMap(line: String) {static} : ArgumentsMap
     +commandMatching(...) {static} : Command
     +parseInputToCommand(line: String) {static} : Command
 }
 
 class "{abstract}\nCommand" {
-    +argumentsMap: HashMap<String, String>
-    +Command(HashMap<String, String>)
-    +execute(expenseList : ExpenseList, categoryFacade : CategoryFacade, recurringExpenseList : RecurringExpenseList) {abstract}
-    +isRecur(): boolean
+    +argumentsMap: ArgumentsMap
+    +Command(ArgumentsMap)
+    +execute(ExpenseList) {abstract}
     +isExit(): boolean
+    +isRecur(): boolean
 }
 
 
-Main "1" .up.> "1" UI
+Main "1" .up.> "1" Ui
 Main "1" .right.> "1" Parser : < provides command for
 Main "1" .down.> "1" "{abstract}\nCommand" : executes >
-
 @enduml

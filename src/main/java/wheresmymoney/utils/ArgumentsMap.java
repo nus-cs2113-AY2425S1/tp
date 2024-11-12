@@ -1,5 +1,6 @@
 package wheresmymoney.utils;
 
+import wheresmymoney.Ui;
 import wheresmymoney.exception.InvalidInputException;
 
 import java.util.HashMap;
@@ -49,22 +50,32 @@ public class ArgumentsMap extends HashMap<String, String> {
         try {
             return Integer.parseInt(indexArgument) - 1;
         } catch (Exception e) {
-            throw new InvalidInputException("Index given is invalid. Check if it is a number, or in range.");
+            throw new InvalidInputException("Index given \""+indexArgument+"\" is invalid. Check if it is a number.");
         }
     }
 
-    private Float parsePrice(String priceString) throws InvalidInputException {
+    private Float parsePrice(String priceString, String argumentDisplayName) throws InvalidInputException {
         Float price;
         try {
             price = Float.parseFloat(priceString);
         } catch (NumberFormatException e) {
-            throw new InvalidInputException("Price given is invalid.");
+            throw new InvalidInputException(argumentDisplayName + " given \""+priceString+"\" is invalid. "+
+                    "Please make sure it is a number.");
         }
         assert price != null;
         if (price <= 0) {
-            throw new InvalidInputException("Price cannot take on a value that is less than or equal to 0");
+            throw new InvalidInputException(argumentDisplayName +
+                    " cannot take on a value that is less than or equal to 0.");
+        }
+        if (price >= 9999.99) {
+            Ui.displayMessage("Warning: \""+priceString+"\" input is equal to or exceeds 9999.99, "+
+                    "which may not be well supported by the program.");
         }
         return price;
+    }
+
+    private Float parsePrice(String priceString) throws InvalidInputException {
+        return parsePrice(priceString, "Price");
     }
 
     /**
@@ -87,5 +98,17 @@ public class ArgumentsMap extends HashMap<String, String> {
     public Float getRequiredPrice() throws InvalidInputException {
         String priceString = getRequired(Parser.ARGUMENT_PRICE);
         return parsePrice(priceString);
+    }
+
+
+    /**
+     * Gets a required limit and throws an exception if that limit is not provided/ invalid.
+     *
+     * @return Limit
+     * @throws InvalidInputException If limit is not given or is invalid
+     */
+    public Float getRequiredLimit() throws InvalidInputException {
+        String limitString = getRequired(Parser.ARGUMENT_LIMIT);
+        return parsePrice(limitString, "Limit");
     }
 }

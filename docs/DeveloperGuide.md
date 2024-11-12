@@ -6,6 +6,18 @@
     - [Table of Contents](#table-of-contents)
     - [Acknowledgements](#acknowledgements)
     - [Design & Implementation](#design--implementation)
+        - [Architecture](#architecture)
+        - [Ui and Parser](#ui-and-parser)
+        - [Commands](#commands)
+        - [Storage](#storage)
+        - [Expense and Expense List](#expense-and-expense-list)
+        - [Expense Filter](#expense-filter)
+        - [Date and Time Handling](#date-and-time-handling)
+        - [Calculations](#calculations)
+        - [Visualizer](#visualizer)
+        - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
+        - [Category Package](#category-package)
+        - [Exceptions and Logging](#exceptions-and-logging)
     - [Product Scope](#product-scope)
         - [Target User Profile](#target-user-profile)
         - [Value Proposition](#value-proposition)
@@ -15,6 +27,7 @@
     - [Instructions for Testing](#instructions-for-testing)
         - [Manual Testing](#manual-testing)
         - [JUnit Testing](#junit-testing)
+        - [Text UI Testing](#text-ui-testing)
 
 <div style="page-break-after: always;"></div>
 
@@ -46,6 +59,7 @@ Design and Implementation has been broken down into various sections, each tagge
 - [Expense and Expense List](#expense-and-expense-list)
 - [Expense Filter](#expense-filter)
 - [Date and Time Handling](#date-and-time-handling)
+- [Calculations](#calculations)
 - [Visualizer](#visualizer)
 - [Recurring Expense and Recurring Expense List](#recurring-expense-and-recurring-expense-list)
 - [Category Package](#category-package)
@@ -60,7 +74,7 @@ This architecture consist of:
 1. `Ui`, `Main`, `Parser`, and `Command` classes: These classes stand between the user and the internal processing of the software.
 2. `Expense`, `ExpenseList`, `ExpenseFilter` classes: Model expenses that commands can interact with.
 3. `Storage` class: Stores information between sessions.
-4. Logger and other utility classes: Provide extra functionalities for the software.
+4. `Logging` and other utility classes: Provide extra functionalities for the software.
 
 ### Ui and Parser
 
@@ -68,7 +82,7 @@ This architecture consist of:
 
 The `Ui` class handles I/O operations such as displaying messages and reading user input.
 The `Parser` parses user input and returns the relevant Command Object.
-An `ArgumentMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
+An `ArgumentsMap` object storing the mappings of the arguments to their values is passed in to the constructor of that `Command` object.
 These classes are important for allowing the User to interact with the application.
 
 
@@ -81,35 +95,36 @@ The `Ui` class has the following key methods:
 | `displayMessage` | Displays a message (`String`) |
 | `getUserInput`   | Reads User Input              |
 
-The Parser class has the following key method:
+The `Parser` class has the following key method:
 
 | Method                 | Description                                               |
 |------------------------|-----------------------------------------------------------|
 | `parseInputToCommand`  | Parses a given user input and returns the related Command |
 
-The `ArgumentMap` class extends the `HashMap<String, String>` class with the following methods
+The `ArgumentsMap` class extends the `HashMap<String, String>` class with the following methods:
 
 | Method             | Description                                                                                   |
 |--------------------|-----------------------------------------------------------------------------------------------|
 | `isRecur`          | Checks if the arguments passed shows that the user wants to access the Recurring Expense List |
 | `getRequired`      | Gets a required argument and throws an exception if that argument is not provided.            |
 | `getRequiredIndex` | Gets a required index and throws an exception if that index is not provided.                  |
-| `getPrice`        | Gets a price and throws an exception if that price is invalid.                                |
+| `getPrice`         | Gets a price and throws an exception if that price is invalid.                                |
 | `getRequiredPrice` | Gets a required price and throws an exception if that price is not provided/ invalid.         |
+| `getRequiredLimit` | Gets a required limit and throws an exception if that limit is not provided/ invalid.         |
 
 
 <u>Design Considerations</u>
 
-Low-level I/O operations (eg. stdio) are consolidated in the Ui class such that we can easily switch the I/O methods by 
-modifying only the Ui class. This would make it easier to port the application to other platforms if needed.
+Low-level I/O operations (e.g. stdio) are consolidated in the `Ui` class such that we can easily switch the I/O methods by 
+modifying only the `Ui` class. This would make it easier to port the application to other platforms if needed.
 
-Ui class is used as part of exception handling for displaying of error messages to the user for feedback.
+`Ui` class is used as part of exception handling for displaying of error messages to the user for feedback.
 
 The Parser also has some considerations such as
 1. Restricted arguments which should not be used by other developers in their commands. These include
     1. `/command` -> used for the main command keyword
     2. `/index` -> used for the main text argument (the index of the expense to edit/ delete) right after the command keyword
-3. Any duplicate arguments will throw an InvalidInputException
+3. Any duplicate arguments will throw an `InvalidInputException`
 4. All `/` in the argument values should be escaped
     1. Examples
        1. `command /argument \/value` -> `argument`: `/value`
@@ -120,25 +135,25 @@ The Parser also has some considerations such as
        1. commands -> e.g. `/command /argument value1` -> the command is `/command`
            1. It is discouraged to do so, but the option is left for potential expandability
        2. arguments -> e.g. `command /argument/param value` -> the argument name is `argument/param`
-    3. Leading and Trailing spaces are ignored, but additional spaces within values (eg. `main  value`) are counted 
+    3. Leading and Trailing spaces are ignored, but additional spaces within values (e.g. `main  value`) are counted 
 
-An ArgumentMap class is created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
+An `ArgumentsMap` class was created as it makes it easier to do argument validation, compared to a regular `HashMap<String, String>` class.
 
 ### Commands
 
 #### Overview
 
-The abstract Command class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
+The abstract `Command` class has been implemented to introduce an additional layer of abstraction between I/O and command execution, allowing for separation of handling command keywords and executing commands.
 
 
 <u>Implementation Details</u>
 
-The following diagram is a class diagram for Command and its children classes. 
+The following diagram is a class diagram for `Command` and its children classes. 
 This has been heavily simplified and only shows the key commands.
 
 ![CommandInheritance.png](diagrams%2Fimages%2FCommandInheritance.png)
 
-The following diagram is a sequence diagram for execution of Command.
+The following diagram is a sequence diagram for execution of `Command`.
 
 ![CommandExecutionSequence.png](diagrams%2Fimages%2FCommandExecutionSequence.png)
 
@@ -153,17 +168,17 @@ Commands interact with `Ui` and `Parser` classes via `Main`, as illustrated in t
 Storage is mostly handled by the different states themselves (`ExpenseList`, `RecurringExpenseList`, `CategoryStorage`).
 This is to keep the storage tightly coupled with the data and ensures that when the data format is updated,
 the storage format is updated accordingly, increasing cohesion.
-The current implementation abstracted out common Csv functions into the CsvUtils class, but this implementation
+The current implementation abstracted out common Csv functions into the `CsvUtils` class, but this implementation
 also allows more flexible file formats between different classes, instead of relying solely on a certain format. 
 This might help for future expandability.
 
 
-However, we also do have a Storage class which handles how these file handling methods interact with one another. 
+However, we also do have a `Storage` class which handles how these file handling methods interact with one another. 
 This is to consolidate the overall file loading and saving logic in the program. 
 This is useful for certain cases, such as standardising default file paths 
 It would be modified when there is a change of interaction between the various loading/ saving methods of the classes.
 
-The LoadCommand and SaveCommand would reference the Storage class, so ideally they would not need to be changed much 
+The `LoadCommand` and `SaveCommand` would reference the Storage class, so ideally they would not need to be changed much 
 for feature changes.
 
 <u>Implementation Details</u>
@@ -284,6 +299,34 @@ The `DateUtils` class' attributes and methods are all class-level, because:
 
 
 
+### Calculations
+
+<u>Overview</u>
+
+The `StatsCommand` class first passes the expense list through the filters specified by the user, then performs
+calculations on the expenses in the list to obtain meaningful statistics from them.
+
+<u>Implementation Details</u>
+
+`StatsCommand`, similar to the `list` command, takes in `category` and `from`/`to` dates.
+It uses `ExpenseFilter` to generate an `ArrayList<Expense>` of matched expenses and passes it to `displayStats`.
+
+The `displayStats` method, upon receiving `filteredExpenses`, performs the following steps:
++ Determine `highest` and `lowest` (expenses with the highest and lowest `price` in `filteredExpenses` respectively).
++ Calculate `sum` by adding `price` of all expenses in `filteredExpenses`.
++ Calculate `mean` by dividing `sum` by the number of expenses in `filteredExpenses`.
++ Obtain `truncatedMean`:
+  + On displaying it to the user, `mean` has too many decimal places since it is a float, making it hard to read and 
+  slightly inaccurate.
+  + This is why `displayStats` obtains `truncatedMean`, a double with only two decimal places to display to the
+  user. This is done by:
+    + First multiplying `mean` by 100 to keep 2 decimal places,
+    + Passing it through `Math.floor()` to remove the excess decimal places,
+    + Dividing it by 100 to get the final `mean`, but with only 2 decimal places.
++ Display the obtained statistics to the user.
+
+
+
 ### Visualizer
 
 The `VisualizeCommand`, similar to the `list` command, takes in `category` and `from`/`to` dates.
@@ -305,7 +348,7 @@ Data is passed to the XChart library in the form of two series - a `timeSeries` 
 
 <u>Overview</u>
 
-The `RecurringExpense` class extends from the `Expense` class and it represents an indivual recurring expense with a price, description, category, last date added and a frequency.
+The `RecurringExpense` class extends from the `Expense` class and it represents an individual recurring expense with a price, description, category, last date added and a frequency.
 
 The `RecurringExpenseList` class extends from the `ExpenseList` class and it manages a collection of `RecurringExpense` objects.
 It allows for addition, editing and deletion of expenses.
@@ -328,11 +371,11 @@ The `RecurringExpenseList` class has the following key methods:
 
 Since the programme does not have an auto-save function upon closing the programme or auto-load when starting the programme, it is up to the user to save their work and to load it again.
 
-Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will by added after a `save` and a `load` command is used.
+Adding a recurring expense will only add a singular normal expense for that specified date (or current date if a date was not specified). All other valid expenses will be added after a `save` and a `load` command is used.
 - The `save` command is needed to register the recurring expense into the system.
-- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified. More details can be found in the Developer Guide.
+- The `load` command is used to trigger the mechanism to add all other valid expenses according to the date specified.
 
-Editing a recurring expense will not edit the normal expenses that are asscociated with the recurring expense. You will need to edit the normal expenses yourself.
+Editing a recurring expense will not edit the normal expenses that are associated with the recurring expense. You will need to edit the normal expenses yourself.
 
 Deleting a recurring expense will not delete the normal expenses that are associated with the recurring expense. You will need to delete the normal expenses yourself.
 
@@ -459,15 +502,15 @@ The following diagram is a UML class diagram for `CategoryFacade`, `CategoryTrac
 
 <u>Overview</u>
 
-The program implements Exception handling and Logging with the WheresMyMoneyException and Logging classes.
+The program implements Exception handling and Logging with the `WheresMyMoneyException` and `Logging` classes.
 
 <u>Implementation Details</u>
 
-WheresMyMoneyException has various children classes, such as `StorageException` and `InvalidInputException`. 
+`WheresMyMoneyException` has various children classes, such as `StorageException` and `InvalidInputException`. 
 These children classes are meant to provide more information on the error to the developer (beyond the message) such 
 that exception handling in the program could be better targeted in the future.
 
-The Logging class is implemented as a Singleton for ease of use. 
+The `Logging` class is implemented as a Singleton for ease of use. 
 Developers can log down certain actions in the program by simply calling the relevant class method `log(Level, String)`. 
 
 ---
@@ -537,3 +580,19 @@ load
 ## JUnit Testing
 
 JUnit tests are written in the subdirectory `test` and serve to test key methods part of the application.
+
+## Text UI Testing
+
+Files relating to Text UI Testing can be found in the directory text-ui-test.
+
+When running tests on a Windows system, run the following command from the specified directory:
+
+```
+./runtest.bat
+```
+
+When running tests on a UNIX-based system, run the following command from the specified directory:
+
+```
+./runtest.sh
+```
