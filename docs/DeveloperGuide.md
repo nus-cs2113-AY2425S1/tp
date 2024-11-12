@@ -642,6 +642,10 @@ to check and plan course mappings for that specified course.
 >These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
+> [NOTE!]
+> SCHOOL_NAME inputs for the commands: `list courses`, `obtain`, `add`, `compare`
+> are not case-sensitive, and you can either input the University's full name, or its abbreviation.
+
 ### 1. Start ExchangeCourseMapper
 1. Follow the instructions in our [User Guide Quick Start](UserGuide.md#quick-start)
 2. Expected: Welcome message on the terminal, prompting for the user's input
@@ -659,11 +663,9 @@ testers are expected to do more *exploratory* testing.
 * 2.2.1 List all Partner Universities (PUs) in Oceania
   * Prerequisites: None
   * Test Case: `list schools` <br/>
-  * Expected: List of names of PUs in Oceania.
+  * Expected: List of names and abbreviations of PUs in Oceania.
 
 #### 2.3 Find mappable courses in a specific PU in Oceania
-> [NOTE!]
-> SCHOOL_NAME is not case-sensitive, and you can either input the University's full name, or its abbreviation.
 
 * 2.3.1 See all mappable courses from a valid PU (Using full university name)
   * Prerequisites: None
@@ -733,7 +735,7 @@ testers are expected to do more *exploratory* testing.
 
 * 2.6.2 Add course mappings with the correct format and valid mapping (Using University abbreviation)
   * Prerequisites: None
-  * Test case: `add CS2040 /pu uwa /coursepu CITS2200`
+  * Test case: `add cs3241 /pu unimelb /coursepu comp30019`
   * Expected: Prints out a confirmation message indicating success
 
 
@@ -755,7 +757,7 @@ testers are expected to do more *exploratory* testing.
 * 2.6.5 Add course mappings with invalid partner university (PU) name
   * Prerequisites: None
   * Test case: `add CS2040 /pu the university of australia /coursepu CITS2200`
-  * Expected: Prints out error message and a list of partner universities
+  * Expected: Prints out error message and a list of partner universities with name and abbreviations
 
 
 #### 2.7 Delete course mapping plans into Personal Tracker
@@ -766,7 +768,7 @@ testers are expected to do more *exploratory* testing.
 
 
 * 2.7.2 Delete course mapping plan with invalid task number
-  * Prerequisites: only one course mapping plan in tracker
+  * Prerequisites: less than 100 course mapping plans in tracker
   * Test case: `delete 100`
   * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
     in personal tracker
@@ -793,7 +795,7 @@ testers are expected to do more *exploratory* testing.
     one line.
   * Test Case: `list mapped`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
-  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing. 
+  * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing. 
 
 
 #### 2.9 Compare saved course mapping plans between universities
@@ -808,7 +810,7 @@ testers are expected to do more *exploratory* testing.
   * Prerequisites: At least one saved course mapping plan saved in myList.json, for either The University of Melbourne 
     or The University of Western Australia.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
-  * Expected: Prints out message that the unique mappings currently saved for each given PU.
+  * Expected: Prints out message with the unique mappings currently saved for each given PU.
 
 
 ##### Corrupted data file
@@ -818,7 +820,7 @@ testers are expected to do more *exploratory* testing.
     one line.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
-  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing.
+  * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing.
 
 #### 2.10 Find course mappings in Personal Tracker
 * 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
