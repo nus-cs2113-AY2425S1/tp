@@ -11,23 +11,23 @@ It lets users record and track training sessions, calculate their NAPFA scores a
 ### Enhancements implemented:
 I implemented the following and also implemented all the Junit testings under my class.
 
-| **Class**                     | **Purpose**                                                                                                                         |
-|-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
-| `ExerciseStation` (abstract)  | Base class for different exercise stations, providing common structure and methods for tracking performance and calculating points. |
-| `SitUpStation`                | Tracks and formats user's sit up reps and provides exercise information.                                                            |
-| `PullUpStation`               | Tracks and formats user's pull up reps and provides exercise information.                                                           |
-| `StandingBroadJumpStation`    | Tracks and formats user's jump distance and provides exercise information.                                                          |
-| `WalkAndRunStation`           | Tracks and formats user's 2.4km run time and provides exercise information.                                                         |
-| `ShuttleRunStation`           | Tracks and formats user's shuttle run time and provides exercise information.                                                       |
-| `SitAndReachStation`          | Tracks and formats user's sit and reach length and provides exercise information.                                                   |
+| **Class**                     | **Purpose**                                                                                                                    |
+|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| `ExerciseStation` (abstract)  | Base class for stations, providing common structure for tracking performance and points.           |
+| `SitUpStation`                | Tracks and formats user's sit up reps and provides exercise information.                                                       |
+| `PullUpStation`               | Tracks and formats user's pull up reps and provides exercise information.                                                      |
+| `StandingBroadJumpStation`    | Tracks and formats user's jump distance and provides exercise information.                                                     |
+| `WalkAndRunStation`           | Tracks and formats user's 2.4km run time and provides exercise information.                                                    |
+| `ShuttleRunStation`           | Tracks and formats user's shuttle run time and provides exercise information.                                                  |
+| `SitAndReachStation`          | Tracks and formats user's sit and reach length and provides exercise information.                                              |
 | `Calculation` (abstract)      | Base class for different exercise calculators, providing structure for calculating points based on performance and user attributes. |
-| `SitUpCalculator`             | Calculates points for the sit-up based on age, gender and reps.                                                                     |
-| `PullUpCalculator`            | Calculates points for the pull-up based on age, gender and reps.                                                                    |
-| `StandingBroadJumpCalculator` | Calculates points for the standing broad jump based on age, gender and distance.                                                    |
-| `SitAndReachCalculator`       | Calculates points for the sit and reach station based on age, gender and length.                                                    |
-| `LookUpKey`                   | indexing user attributes (such as age and gender) within lookup tables for point calculation.                                       |
-| `InvalidAgeException`         | Custom exception class for handling invalid age entries.                                                                            |
-| `GraphPerformanceTime`        | Displays a graph of normalized time performance against session index for time-based exercises.                                     |
+| `SitUpCalculator`             | Calculates points for the sit-up based on age, gender and reps.                                                                |
+| `PullUpCalculator`            | Calculates points for the pull-up based on age, gender and reps.                                                               |
+| `StandingBroadJumpCalculator` | Calculates points for the standing broad jump based on age, gender and distance.                                               |
+| `SitAndReachCalculator`       | Calculates points for the sit and reach station based on age, gender and length.                                               |
+| `LookUpKey`                   | indexing user attributes (such as age and gender) within lookup tables for point calculation.                                  |
+| `InvalidAgeException`         | Custom exception class for handling invalid age entries.                                                                       |
+| `GraphPerformanceTime`        | Displays a graph of normalized time performance against session index for time-based exercises.                                |
 
 ## Documentation:
 ### User Guide:
