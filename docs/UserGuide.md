@@ -42,8 +42,9 @@ ________________________________________________________________________________
 You are a 12 year old male.
 ____________________________________________________________________________________________________
 ```
-> **Note**: The user will be prompted to set their age and gender at each program start. This is because individuals 
-> will age, and hence the calculations of their NAPFA exercise points will be different.
+> **Note**: The user will be prompted to set their age and gender the first time you start the program. 
+> Users are strongly encouraged to regularly update their age information, as the calculations of their NAPFA exercise 
+> points will be different depending on the user's age at the time they are logged.
 
 ### 2. Help Function: `help`
 **Purpose**: Prints a complete list of valid commands.
@@ -63,7 +64,7 @@ view (session index)                                             view 1
 edit (session index) (exercise acronym) (repetitions/time)       edit 1 PU 1
 delete (session index)                                           delete 1
 edit-mood (session index) (mood description)                     edit-mood 1 Sad
-remind (Event / Task) (deadline)                                 remind NAPFA DD/MM/YYYY
+remind (Event / Task) // (deadline)                              remind NAPFA // DD/MM/YYYY
 list-remind                                                      list-remind 
 delete-remind (reminder index)                                   delete-remind1
 upcoming-remind                                                  upcoming-remind
@@ -246,7 +247,8 @@ ________________________________________________________________________________
 **Format**: `remind [description] // [deadline]`
 - `description` and `deadline` fields must be non-empty.
 - `deadline` field must be formatted `dd/MM/yyyy` or `dd/MM/yyyy HH:mm`. 
-- If `deadline` field is given as `dd/MM/yyyy`, `HH:mm` information will default to `00:00` on that date. 
+
+> **Note**: If `deadline` field is given as `dd/MM/yyyy`, `HH:mm` information will default to `00:00` on that date. 
 
 **Example**: `remind NAPFA // 31/12/2024`
 
@@ -278,6 +280,9 @@ ________________________________________________________________________________
 ### 13. List soon-due Reminders: `upcoming-remind`
 **Purpose**: Displays all Reminders the user has added that are due in the next week (7 days).
 
+> **Note**: Reminders are considered "upcoming" if they are scheduled for  less than 168 (7 * 24) 
+> hours from the time of invoking the function.
+
 **Format**: `upcoming-remind`
 
 **Example Output**:
@@ -300,7 +305,7 @@ ________________________________________________________________________________
 **Expected Output**:
 ```
 ____________________________________________________________________________________________________
-Got it. I've deleted this reminder:NAPFA | 31/12/2024 00:00
+Got it. I've deleted this reminder: NAPFA | 31/12/2024 00:00
 There are 0 reminders in your list.
 ____________________________________________________________________________________________________
 ```
