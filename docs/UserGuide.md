@@ -148,7 +148,6 @@ User can delete their budget completely by using the budget command.
 
 Example 1: Deleting budget using budget command.
 ```
-// Delete budget by setting amount to 0
 budget 0
 --------------------------------------------
 Budget has been deleted.
@@ -234,9 +233,6 @@ Got it! I've added this income:
 
 **Notes**:
 - There is a restriction of up to 5000 entries in the list
-
-<hr>
-<div style="page-break-after: always;"></div>
 
 ### Edit Transaction
 Edits an existing transaction in your financial list.
