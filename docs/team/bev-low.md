@@ -52,12 +52,8 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:
-    - [PR #208 - Polish v1 features](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/208)
-    - [PR #165 - Add delete log functionality](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/165)
-    - [PR #162 - Refactor EditCommand](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/162)
     - [PR #151 - Added WaterCommandFactory and ViewWaterCommand classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/151) 
     - [PR #90 - Add assertions and logging details for files in parser package](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/90)
     - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81) 
     - [PR #45 - Add delete & create day functionality to edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/45)
-    - [PR #31 - Add create & edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/31)
 - Mentored team members by providing code feedback and debugging assistance.

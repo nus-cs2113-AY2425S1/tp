@@ -126,7 +126,11 @@ public class ProgrammeList {
             index = currentActiveProgramme;
         }
 
-        if (index < 0 || index >= programmeList.size()) {
+        if(index < 0) {
+            throw ProgrammeException.indexOutOfBounds();
+        }
+
+        if (index >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for getProgramme()", index);
             throw ProgrammeException.doesNotExist("programme");
         }
@@ -160,7 +164,10 @@ public class ProgrammeList {
             throw ProgrammeException.programmeListEmpty();
         }
 
-        if (startIndex < 0 || startIndex >= programmeList.size()) {
+        if (startIndex < 0) {
+            throw ProgrammeException.indexOutOfBounds();
+        }
+        if (startIndex >= programmeList.size()) {
             logger.log(Level.WARNING, "Invalid index: {0} for startProgramme()", startIndex);
             throw ProgrammeException.doesNotExist("programme");
         }
