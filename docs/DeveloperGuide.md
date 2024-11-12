@@ -3,6 +3,7 @@
 # Developer Guide
 
 ----------------------------------
+<!-- @@author gskang-22 -->
 ## Table of Contents
 1. [Acknowledgements](#acknowledgements)
 2. [Design & Implementation](#design--implementation)
@@ -46,6 +47,7 @@
     - [Glossary](#glossary)
 4. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
 ----------------------------------
+<!-- @@author -->
 
 ## Acknowledgements
 
@@ -127,7 +129,7 @@ The RecipeList class represents a list of recipes.
 This class handles the addition, deletion and editing of recipes.
 
 <!-- @@author -->
-
+<!-- @@author gskang-22 -->
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/recipesClassDiagram.png)
 
@@ -182,11 +184,14 @@ This class handles the addition, deletion and editing of ingredients.
      - Returns the number of ingredients in the list
    - void sortAlphabetically():
      - Sorts the ingredients list alphabetically by ingredient name
+<!-- @@author -->
 
 Shown below is a class diagram detailing the interaction between `IngredientList` and `Ingredient`:
 ![ingredientClasses.png](img/ClassDiagrams/ingredientsClassDiagram.png)
 
 <div style="page-break-after: always;"></div>
+
+<!-- @@author gskang-22 -->
 
 ### Command Classes
 The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
@@ -205,10 +210,14 @@ of command functionalities
   - `execute()`: An abstract method that must be implemented by all subclasses
     - Defines the primary action performed by the command (E.g. add new recipe to `recipeList` for `AddRecipeCommand`)
 
+<!-- @@author -->
+
 Shown below is a class diagram detailing the interaction between the parent `Command` class and it's child classes:
 ![commandClassesShort.png](img/ClassDiagrams/commandsShortClassDiagram.png)
 
 <div style="page-break-after: always;"></div>
+
+<!-- @@author gskang-22 -->
 
 #### 2. Command Flow (Using `Command` Classes)
 1. Initialisation: Instantiate a `Command` subclass by passing user input through the `parseCommand()` of `Parser`
@@ -231,7 +240,9 @@ implementation of the `execute()` method
 
 #### 1. `AddCommand` Class
 - The `AddCommand` class adds a newly created Recipe object to the current RecipeList object's ArrayList of Recipes
- 
+
+<!-- @@author -->
+
 Shown below is a sequence diagram detailing how a new recipe is added using the AddCommand object,
 starting from parsing the user input to the addition of the recipe to the recipeList object,
 to finally printing the "recipe added" message to the User on the CLI:
