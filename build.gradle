@@ -12,6 +12,9 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j
+    implementation group: 'net.lingala.zip4j', name: 'zip4j', version: '2.11.5'
 }
 
 test {
@@ -29,11 +32,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("seedu.planpal.PlanPal")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("PlanPal")
     archiveClassifier.set("")
 }
 
@@ -42,5 +45,7 @@ checkstyle {
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }
+

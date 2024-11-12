@@ -1,9 +1,9 @@
 # About us
 
-Display | Name | Github Profile | Portfolio 
---------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | John Doe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Joe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | John Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+|      Name       |              Github Profile              |                                                      Portfolio                                                       |
+|:---------------:|:----------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|
+|      Gavin      | [Github](https://github.com/parasytezz)  |                     [Portfolio](https://ay2425s1-cs2113-w14-2.github.io/tp/team/parasytezz.html)                     |
+|  Bu Yin Shuang  | [Github](https://github.com/crystal-bys) |                    [Portfolio](https://ay2425s1-cs2113-w14-2.github.io/tp/team/crystal-bys.html)                     |
+|   Lam Hoi Kei   |   [Github](https://github.com/anlamm)    |                       [Portfolio](https://ay2425s1-cs2113-w14-2.github.io/tp/team/anlamm.html)                       |
+|   Nathan Tan    |   [Github](https://github.com/Yisoong)   |                      [Portfolio](https://ay2425s1-cs2113-w14-2.github.io/tp/team/yisoong.html)                       |
+| Si Thu Lin Aung |  [Github](https://github.com/C2linaung)  |                     [Portfolio](https://ay2425s1-cs2113-w14-2.github.io/tp/team/c2linaung.html)                      |
