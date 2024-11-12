@@ -286,6 +286,19 @@ from our data source file which contains university data. It helps the users to 
 * There are also exceptions, assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
+#### Why it is implemented that way:
+* The two methods `displaySchoolList()` and `execute()` are separated for ease of debugging and code tracing. This is 
+  also in line with the idea that each method has a responsibility of its own.
+* Exception handling for null school name is implemented in case of corruption of the file that contains the school 
+  names.
+
+#### Alternative Implementation considered:
+* Considered placing all the class methods inside the `execute` method but kept SLAP in mind to ensure
+  readability.
+* The abbreviations should have been places in a data folder or another data structure should be utilised rather than an
+  array. But this would raise the complexity of the implementation, hence an array was used to store the abbreviations
+  in the end.
+
 #### Sequence Diagram:
 ![List School Command Sequence Diagram](images/ListSchoolsCommand.png)
 
@@ -349,11 +362,12 @@ exchange opportunities.
 #### Why it is implemented that way:
 * The `execute` method is essential and unique to every command class so inheritance was used.
 * Validating the contact and school name is crucial and a separate class (`SchoolContactValidator`) is used to handle
-  the validity of each input category.
+  the validity of each input category. This is in line with the separation of concerns where each method has a 
+  responsibility.
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
 * By using inheritance, new command classes can easily extend the functionality of existing ones
-  which reducing redundancy in the code
+  which reducing redundancy in the code.
 * Logging and assertions helps the team of developers to follow through the command execution.
 
 #### Alternatives considered:
