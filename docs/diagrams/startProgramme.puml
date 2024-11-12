@@ -1,0 +1,79 @@
+@startuml
+actor User
+participant ":Ui" as Ui
+participant ":BuffBuddy" as BuffBuddy
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory
+participant ":ProgCommandFactory" as ProgCommandFactory
+participant ":StartProgrammeCommand" as Command
+participant ":ProgrammeList" as Model
+participant ":CommandResult" as CommandResult
+
+
+User -> Ui : "prog start..."
+activate Ui
+BuffBuddy -> Ui: readCommand()
+activate BuffBuddy
+Ui --> BuffBuddy : "prog start..."
+
+BuffBuddy -> Parser : parse("prog start...")
+activate Parser
+
+Parser -> CommandFactory : createCommand("prog", "start...")
+
+activate CommandFactory
+
+CommandFactory -> ProgCommandFactory : parse("start", indexString)
+activate ProgCommandFactory
+ProgCommandFactory -> ProgCommandFactory : preparestartCommand(indexString)
+activate ProgCommandFactory
+
+
+ProgCommandFactory -> "ParserUtils" : parseIndex(indexString)
+activate "ParserUtils"
+ProgCommandFactory <-- "ParserUtils" : parsed programme index
+deactivate "ParserUtils"
+create Command
+ProgCommandFactory -> Command : startProgrammeCommand(programmeIndex)
+
+
+activate Command
+ProgCommandFactory <-- Command: created Command
+ProgCommandFactory --> ProgCommandFactory
+deactivate ProgCommandFactory
+CommandFactory <-- ProgCommandFactory: created Command
+deactivate ProgCommandFactory
+Parser <-- CommandFactory: created Command
+deactivate CommandFactory
+BuffBuddy <-- Parser: created Command
+deactivate Parser
+
+
+BuffBuddy -> Command : execute()
+
+
+alt if programme exists
+    Command -> Model : startProgramme(index)
+    activate Model
+    Command <-- Model: started Programme
+    deactivate Model
+else programme does not exist
+
+end
+create CommandResult
+Command -> CommandResult: CommandResult(...)
+
+
+deactivate Command
+activate CommandResult
+BuffBuddy <-- CommandResult : return CommandResult
+deactivate CommandResult
+BuffBuddy -> Ui : showMessage(...)
+
+deactivate BuffBuddy
+destroy CommandResult
+User <-- Ui : "Started programme..."
+deactivate Ui
+
+
+@enduml

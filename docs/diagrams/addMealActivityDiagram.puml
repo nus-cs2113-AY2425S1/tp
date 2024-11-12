@@ -1,0 +1,21 @@
+@startuml
+start
+
+:User inputs "meal add /n [mealName] /c [calories]";
+
+:Create new Meal object;
+-> [Command Parsing] Parse input command;
+:Create AddMealCommand object;
+
+-> [History Interaction] Check if DailyRecord exists for the date;
+if (DailyRecord exists?) then (Yes)
+  :Retrieve existing DailyRecord;
+else (No)
+  :Create new DailyRecord;
+  -> Add new DailyRecord to History;
+endif
+
+-> Add Meal to MealList;
+:Return success message to User;
+stop
+@enduml

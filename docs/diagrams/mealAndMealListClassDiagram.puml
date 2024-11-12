@@ -1,0 +1,26 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide circle
+
+class Meal {
+    - calories : int
+    - name : String
+    + Meal(String name, int calories)
+    + getCalories() : int
+    + getName() : String
+}
+
+class MealList {
+    - meals : ArrayList<Meal>
+    + MealList() : void
+    + isEmpty() : boolean
+    + getSize() : int
+    + addMeal(Meal meal) : void
+    + deleteMeal(int index) : Meal
+    + getMeals() : ArrayList<Meal>
+}
+
+MealList "1" *-- "0..*" Meal : contains
+
+@enduml

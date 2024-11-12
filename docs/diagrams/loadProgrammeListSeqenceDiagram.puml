@@ -1,0 +1,92 @@
+@startuml
+
+actor Client
+participant ":Storage" as Storage
+participant ":FileManager" as FileManager
+participant ":JsonObject" as JsonObject
+
+Client -> Storage : loadProgrammeList()
+activate Storage
+
+Storage -> FileManager : loadProgrammeList()
+activate FileManager
+
+FileManager -> FileManager : load()
+activate FileManager
+alt element == null or element.isJsonNull()
+    create JsonObject as emptyJsonObject
+    FileManager -> emptyJsonObject : new JsonObject()
+    activate emptyJsonObject
+    note right
+    The header is meant to be :JsonObject
+    end note
+    emptyJsonObject --> FileManager : Empty JsonObject
+    deactivate emptyJsonObject
+else
+    create JsonObject as allDataJsonObject
+    FileManager -> allDataJsonObject : new JsonObject()
+    activate allDataJsonObject
+    note right
+        The header is meant to be :JsonObject
+        end note
+    allDataJsonObject --> FileManager : Empty JsonObject
+    deactivate allDataJsonObject
+    FileManager -> allDataJsonObject : getAsJsonObject()
+    activate allDataJsonObject
+    allDataJsonObject --> FileManager : JsonObject containing all data
+    deactivate allDataJsonObject
+
+end
+
+FileManager --> FileManager : JsonObject (entire data file)
+deactivate FileManager
+
+alt jsonObject == null or !jsonObject.has("programmeList")
+    create JsonObject as emptyProgrammeListJsonObject
+    FileManager -> emptyProgrammeListJsonObject : new JsonObject()
+    note right
+        The header is meant to be :JsonObject
+        end note
+    activate emptyProgrammeListJsonObject
+    destroy allDataJsonObject
+    destroy emptyJsonObject
+    emptyProgrammeListJsonObject --> FileManager : Empty JsonObject
+    deactivate emptyProgrammeListJsonObject
+    FileManager --> Storage : Empty JsonObject
+    deactivate JsonObject
+else
+    create JsonObject
+    FileManager -> JsonObject : new JsonObject()
+    activate JsonObject
+    JsonObject --> FileManager : Empty JsonObject
+    deactivate JsonObject
+    FileManager -> JsonObject : getAsJsonObject("programmeList")
+    activate JsonObject
+    JsonObject --> FileManager : JsonObject containing programmeList
+    deactivate JsonObject
+    FileManager --> Storage : JsonObject containing programmeList
+end
+deactivate FileManager
+
+alt programmeListJson == null or programmeListJson.size() == 0
+    Storage --> Client : new ProgrammeList()
+else
+    Storage -> Storage : validateProgrammeList(programmeListJson)
+    activate Storage
+    deactivate Storage
+    alt programmeListJson not valid
+    Storage --> Client : new ProgrammeList()
+    else
+    Storage -> Storage : programmeListFromJson(programmeListJson)
+    activate Storage
+    Storage --> Storage : loadedProgrammeList
+    deactivate Storage
+    destroy emptyProgrammeListJsonObject
+    destroy JsonObject
+    Storage --> Client : ProgrammeList object
+    deactivate Storage
+    end
+end
+deactivate Storage
+
+@enduml

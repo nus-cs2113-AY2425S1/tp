@@ -1,0 +1,79 @@
+@startuml
+actor User
+participant ":Ui" as Ui
+participant ":BuffBuddy" as BuffBuddy
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory
+participant ":ProgCommandFactory" as ProgCommandFactory
+participant ":ViewProgrammeCommand" as Command
+participant ":ProgrammeList" as Model
+participant ":CommandResult" as CommandResult
+
+
+User -> Ui : "prog view..."
+activate Ui
+BuffBuddy -> Ui: readCommand()
+activate BuffBuddy
+Ui --> BuffBuddy : "prog view..."
+
+BuffBuddy -> Parser : parse("prog view...")
+activate Parser
+
+Parser -> CommandFactory : createCommand("prog", "view...")
+
+activate CommandFactory
+
+CommandFactory -> ProgCommandFactory : parse("view", indexString)
+activate ProgCommandFactory
+ProgCommandFactory -> ProgCommandFactory : prepareViewCommand(indexString)
+activate ProgCommandFactory
+
+
+ProgCommandFactory -> "ParserUtils" : parseIndex(indexString)
+activate "ParserUtils"
+ProgCommandFactory <-- "ParserUtils" : parsed programme index
+deactivate "ParserUtils"
+create Command
+ProgCommandFactory -> Command : ViewProgrammeCommand(programmeIndex)
+
+
+activate Command
+ProgCommandFactory <-- Command: created Command
+ProgCommandFactory --> ProgCommandFactory
+deactivate ProgCommandFactory
+CommandFactory <-- ProgCommandFactory: created Command
+deactivate ProgCommandFactory
+Parser <-- CommandFactory: created Command
+deactivate CommandFactory
+BuffBuddy <-- Parser: created Command
+deactivate Parser
+
+
+BuffBuddy -> Command : execute()
+
+
+alt if programme exists
+    Command -> Model : getProgramme(index)
+    activate Model
+    Command <-- Model: selected Programme
+    deactivate Model
+else programme does not exist
+
+end
+create CommandResult
+Command -> CommandResult: CommandResult(...)
+
+
+deactivate Command
+activate CommandResult
+BuffBuddy <-- CommandResult : return CommandResult
+deactivate CommandResult
+BuffBuddy -> Ui : showMessage(...)
+
+deactivate BuffBuddy
+destroy CommandResult
+User <-- Ui : "Viewing programme..."
+deactivate Ui
+
+
+@enduml

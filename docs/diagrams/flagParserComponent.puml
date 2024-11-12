@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class FlagParser {
+  - parsedFlags: HashMap
+  - aliasMap: HashMap
+
+  - generateSplitBy(String... ignoredFlags): String
+  - initializeAliasMap(): void
+  - parse(String argumentString, String splitBy): void
+  - resolveAlias(String flag): String
+  + hasFlag(String flag): boolean
+  + validateRequiredFlags(String... requiredFlags): void
+  + getStringByFlag(String flag): String
+  + getIndexByFlag(String flag): int
+  + getIntegerByFlag(String flag): int
+  + getFloatByFlag(String flag): float
+  + getDateByFlag(String flag): LocalDate
+}
+
+FlagParser ..> ParserUtils
+FlagParser ..> FlagDefinitions
+FlagParser ..> FlagException
+FlagParser ..> Utils
+
+@enduml

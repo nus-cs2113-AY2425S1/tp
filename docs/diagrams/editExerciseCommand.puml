@@ -1,0 +1,46 @@
+@startuml
+participant ":EditExerciseCommand" as EditExerciseCommand
+participant ":ProgrammeList" as ProgrammeList
+participant ":Programme" as Programme
+participant ":Day" as Day
+participant ":Exercise" as Exercise
+
+-> EditExerciseCommand : execute()
+activate EditExerciseCommand
+
+EditExerciseCommand -> ProgrammeList : getProgramme(programmeIndex)
+activate ProgrammeList
+
+alt Programme exists
+    ProgrammeList --> EditExerciseCommand : selected Programme
+    deactivate ProgrammeList
+
+    EditExerciseCommand -> Programme : getDay(dayIndex)
+    activate Programme
+
+    alt Day exists
+        Programme --> EditExerciseCommand : selected Day
+        deactivate Programme
+
+        EditExerciseCommand -> Day: getExercise(exerciseIndex)
+        activate Day
+
+        alt Exercise exists
+            Day --> EditExerciseCommand: selected Exercise
+            deactivate Day
+
+            EditExerciseCommand -> Exercise: updateExercise(update)
+            activate Exercise
+            Exercise --> EditExerciseCommand: updated Exercise
+            deactivate Exercise
+            else Exercise does not exist
+        end
+        else Day does not exist
+    end
+    else Programme does not exist
+end
+
+<-- EditExerciseCommand
+deactivate EditExerciseCommand
+
+@enduml

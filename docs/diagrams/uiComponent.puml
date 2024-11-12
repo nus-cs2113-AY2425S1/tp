@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class Ui {
+    - in: Scanner
+    - out: PrintStream
+
+    + readCommand(): String
+    + showLine(): void
+    + showMessage(String msg): void
+    + showMessage(Exception e): void
+    + showMessage(CommandResult result): void
+    + showWelcome(): void
+    + showFarewell(): void
+    + showFirstTime(): void
+}
+
+class CommandResult {
+  - message: String
+
+  + getMessage(): String
+}
+
+Ui ..> CommandResult
+
+@enduml

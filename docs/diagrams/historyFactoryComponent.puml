@@ -1,0 +1,24 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class HistoryCommandFactory {
+  - <u> COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  + prepareViewHistoryCommand(String argumentString): Command
+  + preparePersonalBestCommand(String argumentString): Command
+  + prepareDeleteHistoryCommand(String argumentString): Command
+}
+
+HistoryCommandFactory "1" --> "1" InvalidCommand : "  creates"
+HistoryCommandFactory "1" --> "1" ListPersonalBestsCommand : "  creates"
+HistoryCommandFactory "1" --> "1" ViewHistoryCommand : "  creates"
+HistoryCommandFactory "1  " --> "1" DeleteHistoryCommand : "  creates"
+HistoryCommandFactory "1" --> "1" ListHistoryCommand : "  creates"
+HistoryCommandFactory "1" --> "1" ViewPersonalBestCommand : "  creates"
+HistoryCommandFactory "1" --> "1" WeeklySummaryCommand : "  creates"
+
+HistoryCommandFactory ..> ParserUtils
+
+@enduml

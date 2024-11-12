@@ -1,0 +1,20 @@
+@startuml
+start
+
+:User inputs "water add /v WATER_VOLUME /t Date";
+
+-> [Command Parsing] Parse input command;
+:Create AddWaterCommand object;
+
+-> [History Interaction] Check if DailyRecord exists for the date;
+if (DailyRecord exists?) then (Yes)
+  :Retrieve existing DailyRecord;
+else (No)
+  :Create new DailyRecord;
+  -> Add new DailyRecord to History;
+endif
+
+-> Add Water log to Water;
+:Return success message to User;
+stop
+@enduml

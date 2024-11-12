@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class HistoryCommand <<abstract>> {
+    - date : LocalDate
+    + HistoryCommand()
+    + HistoryCommand(date : LocalDate)
+    + execute(history : History) : CommandResult
+}
+
+class DeleteHistoryCommand {
+    + DeleteHistoryCommand(date : LocalDate)
+    + execute(history : History) : CommandResult
+}
+
+class ListHistoryCommand {
+    + execute(history : History) : CommandResult
+}
+
+class ListPersonalBestsCommand {
+    + execute(history : History) : CommandResult
+}
+
+class ViewHistoryCommand {
+    + ViewHistoryCommand(date : LocalDate)
+    + execute(history : History) : CommandResult
+}
+
+class ViewPersonalBestCommand {
+    - exerciseName : String
+    + ViewPersonalBestCommand(exerciseName : String)
+    + execute(history : History) : CommandResult
+}
+
+class WeeklySummaryCommand {
+    + execute(history : History) : CommandResult
+}
+
+HistoryCommand <|-- DeleteHistoryCommand
+HistoryCommand <|-- ListHistoryCommand
+HistoryCommand <|-- ListPersonalBestsCommand
+HistoryCommand <|-- ViewHistoryCommand
+HistoryCommand <|-- ViewPersonalBestCommand
+HistoryCommand <|-- WeeklySummaryCommand
+@enduml
+

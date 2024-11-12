@@ -1,0 +1,53 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+hide circle
+
+class Storage {
+    - message : String
+    - isProgrammeListEmpty : boolean
+    - isProgrammelistCorrupted : boolean
+    - isHistoryEmpty : boolean
+    - isHistoryCorrupted : boolean
+    - createJson(programmeList : ProgrammeList, history : History) : JsonObject
+    - programmeListToJson(programmeList : ProgrammeList) : JsonObject
+    - historyToJson(history : History) : JsonObject
+    - programmeListFromJson(JsonObject : jsonObject) : ProgrammeList
+    - historyFromJson(JsonObject : jsonObject) : History
+    - validateProgrammeList(JsonObject : programmeList) : void
+    - validateHistory(JsonObject : history) : void
+    - validateDate(String : dateString) : void
+    - validateProgramme(JsonArray : programmeList) : void
+    - validateDay(JsonArray : dayList) : void
+    - validateExercise(JsonArray : exercises) : void
+    - validateMeal(JsonArray : meals) : void
+    - validateWater(JsonArray : waterList) : void
+    + loadProgrammeList() : ProgrammeList
+    + loadHistory() : History
+    + saveData(programmeList : ProgrammeList, history : History) : void
+    + getMessage() : String
+}
+
+class FileManager {
+    - path : String
+    - load() : JsonObject
+    - createDirIfNotExists() : void
+    - createFileIfNotExists() : void
+    + loadProgrammeList() : JsonObject
+    + loadHistory() : JsonObject
+    + save(data : JsonObject) : void
+}
+
+class DateSerializer {
+    - formatter : DateTimeFormatter
+    + serialize(LocalDate src, Type typeOfSrc, JsonSerializationContext context) : JsonElement
+    + deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) : LocalDate
+}
+
+Storage "1" --> "1" FileManager : contains
+
+Storage ..> History
+Storage ..> ProgrammeList
+Storage ..> DateSerializer
+
+@enduml
