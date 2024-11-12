@@ -9,6 +9,10 @@ import seedu.spendswift.ui.UI;
 
 import java.io.IOException;
 
+/**
+ * Parses and processes user input commands in the SpendSwift application.
+ * Delegates command handling to appropriate managers and ensures data is saved.
+ */
 public class Parser {
     private final ExpenseManager expenseManager;
     private final CategoryManager categoryManager;
@@ -16,6 +20,10 @@ public class Parser {
     private final UI ui;
     private final Storage storage;
 
+
+    /**
+     * Constructs an empty parser with required managers, UI, and storage.
+     */
     public Parser(ExpenseManager expenseManager, CategoryManager categoryManager, BudgetManager budgetManager, UI ui,
                   Storage storage) {
         this.expenseManager = expenseManager;
@@ -25,6 +33,14 @@ public class Parser {
         this.storage = storage;
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     * Delegates command execution to appropriate managers.
+     *
+     * @param trackerData The object to manage categories, expenses, and budgets.
+     * @param input The user input command as a string.
+     * @return True if the commands "bye" to exit the software, False else.
+     */
     public boolean parseCommand(String input, TrackerData trackerData) throws IOException {
         input = input.trim().toLowerCase();
 
