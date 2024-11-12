@@ -384,14 +384,13 @@ The `Storage` class
 
 <div style="page-break-after: always;"></div>
 
-2. reads the `.txt` save files to load in past saved recipes immediately when app is launched
+2. Reads the `.txt` save files to load in past saved recipes immediately when app is launched
   - If the user had modified the save files to contain irregular lines of text, then they are simply ignored.
     - A message is printed to the CLI to alert user of the irregular lines within the save file
     - The irregular lines are immediately deleted from the save files
   - The following Sequence diagram shows how the `loadRecipes()` method in the `Storage` class
     loads in past saved recipes from the `.txt` file when the app is first launched
-    - The sequence diagram does not show how irregular lines within save files are handled, 
-and only describes how regular, properly formatted save files are loaded in
+    - The sequence diagram does not show how irregular lines within save files are handled, and only describes how regular, properly formatted save files are loaded in
 
 ![loadRecipes.png](img/SequenceDiagrams/LoadRecipesSequenceDiagram.png)
 
