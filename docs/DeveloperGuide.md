@@ -181,8 +181,9 @@ the `dd/MM/yyyy` format.
 
 <ins>Usage Example</ins>
 
-``` 
-HashMap<String, String> commandArgs = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
+```java
+HashMap<String, String> commandArgs
+  = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
         
 LocalDate parsedDate = DateParser.parse("12/10/2024");
 ```
