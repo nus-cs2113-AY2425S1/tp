@@ -11,8 +11,8 @@ Useful links:
 * [About Us](AboutUs.md)
 
 Teams PPP:
-* [danusan-s.md](team%2Fdanusan-s.md)
-* [ducphong135.md](team%2Fducphong135.md)
-* [lucas-sc0.md](team%2Flucas-sc0.md)
-* [luxlucky7.md](team%2Fluxlucky7.md)
-* [tayjerom.md](team%2Ftayjerom.md)
+* [danusan-s.md](./team/danusan-s.md)
+* [ducphong135.md](./team/ducphong135.md)
+* [lucas-sc0.md](./team/lucas-sc0.md)
+* [luxlucky7.md](./team/luxlucky7.md)
+* [tayjerom.md](./team/tayjerom.md)
