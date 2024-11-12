@@ -105,8 +105,8 @@ The application will also prompt the user when budget has not been set for the c
 
 The budget command can also be used to modify the current month's budget amount.
 
-After budget is set by user, adding, deleting or editing expenses will show the budget and remaining balance for the month.
-The budget amount and balance will also be viewable by the user under the list command.
+After budget is set by user, adding, deleting or editing expenses will show the budget and remaining balance 
+for the month. The budget amount and balance will also be viewable by the user under the list command.
 
 **Format**: `budget AMOUNT`
 
