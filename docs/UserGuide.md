@@ -20,7 +20,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 3. Copy the file to the folder you want to use as the home folder for JavaNinja.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
    ```shell
-   java -jar javaninja.jar
+   java -jar tp.jar
    ```
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
    Some example commands you can try:
@@ -78,7 +78,7 @@ This countdown feature ensures that users are aware of time constraints, enhanci
    ```shell
    Set a time limit for the quiz.
    Enter the number of questions you want to attempt (Max 15): 10
-   Enter the number of minutes for the quiz (or 0 for seconds): 
+   Enter the number of minutes for the quiz (or 0 to enter seconds): 
    Enter the number of seconds: 10
    ```
 
@@ -104,8 +104,15 @@ Added flashcard: Q: The keyword used to define a class is `____`. A: class
 
 ### 5. Reviewing Past Results: `review`
 Displays a summary of all quiz results taken during the current session, including scores and comments on performance.
+Default sorting is newest result to oldest result
 
 Format: `review`
+
+Format: `review highest/lowest/oldest/newest`
+
+Format: `review t/[TOPIC]`
+
+Format: `review t/[TOPIC] highest/lowest/oldest/newest`
 
 **Example**:
 ```shell
@@ -114,14 +121,8 @@ review
 
 **Expected Output**:
 ```shell
-Reviewing your past results:
-{
- Topic: Loops,
- Score: 0%,
- Time Limit: 60 seconds,
- Questions Attempted: 1,
- Comment: Better luck next time!
-}
+Reviewing all quiz results:
+Topic: Loops, Score: 20%, Questions Limit: 5, Time Limit: untimed, Date: Tue Nov 12 11:38:43 SGT 2024
 ```
 
 
