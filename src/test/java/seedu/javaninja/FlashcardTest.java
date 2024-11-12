@@ -1,7 +1,3 @@
-/**
- * This class contains unit tests for the {@link Flashcard}
- * class to ensure proper functionality with Java-related questions.
- */
 package seedu.javaninja;
 
 import org.junit.jupiter.api.BeforeEach;
