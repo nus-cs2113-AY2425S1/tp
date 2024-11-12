@@ -46,9 +46,9 @@ they have exceeded, or are close to exceeding, their budget.
       ensures that users can adapt their financial planning to changes in their goals or circumstances.
         
     
-**Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=kestryix&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other)
+- **Code Contributed:** [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=kestryix&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other)
 
-**Documentation:** 
+- **Documentation:** 
 - <ins>User Guide</ins>
   - Initial draft for setting/editing budget and command summary [#156](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/156)
   - Add command summary table [#203](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/203)
@@ -57,5 +57,4 @@ they have exceeded, or are close to exceeding, their budget.
   - Initial draft for UI, Parser and Logic components [#129](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/129)
   - Add initial diagrams for UI, Parser and Logic components [#182](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/182)
   - Update diagrams and logic section [#202](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/202)
-
-**Project Management**
+  

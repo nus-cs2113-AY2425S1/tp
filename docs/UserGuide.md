@@ -8,6 +8,7 @@
   - [Features](#features)
     - [Help](#help)
     - [Set/Edit Budget](#setedit-budget)
+    - [Delete Budget](#delete-budget)
     - [Add Transaction](#add-transaction)
     - [Edit Transaction](#edit-transaction)
     - [Delete Transaction](#delete-transaction)
@@ -108,8 +109,8 @@ The budget amount and balance will also be viewable by the user under the list c
 
 **Example Usage**:
 
+Example 1: Initial budget setting option
 ```
-// Initial budget setting option
 Would you like to set a budget? (yes/no)
 --------------------------------------------
 yes
@@ -122,8 +123,10 @@ Your budget has successfully been set to: $ 1000.00
 Your current monthly balance is: $ 1000.00
 --------------------------------------------
 ```
+
+
+Example 2: Setting budget using the budget command
 ```
-// Setting budget using the budget command
 budget 1000
 --------------------------------------------
 Your budget has successfully been set to: $ 1000.00
@@ -218,88 +221,109 @@ Adds an income of $200 from a gift, using today’s date and the default categor
 ### Edit Transaction
 Edits an existing transaction in your financial list.
 
-**Format**: `edit INDEX [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
+**Format**: `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]`
 
- - Edits the transaction at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called. 
- - `INDEX` must be a positive integer.
+ - Edits the the specific field(s) of a transaction.
+ - Should at least modify one field.
 
 **Parameter Details:** (Refer to [here](#param_details) for what each parameter represents)
-
+ - `INDEX` (optional):
+   - `INDEX` refers to the index number shown in the displayed financial list when [`list`](#list-transactions) is called (ordered by date).
+   - `INDEX` must be a positive integer.
+   - If the `INDEX` is omitted, then will edit the amended trasaction as default.
  - `DESCRIPTION` (optional): 
    - shouldn't be blank if provided.
-   - DO NOT USE `¦¦` in `DESCRIPTION` cause it serve as the seperator token in storage file.
+   - DO NOT USE `¦¦` and `/` in `DESCRIPTION` cause these symbols are used as separator tokens in the storage file and as prefixes for command arguments.
+   - We don't support characters outside of English alphabets and numbers.
  - `AMOUNT` (optional):
    - Must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `DATE` (optional):
-   - Should follow `DD/MM/YY` format and cannot be after the system date.
+   - Should follow `DD/MM/YYYY` format and cannot be after the system date.
  - `CATEGORY` (optional):
    - Should be one of the categories allowed in Expenses/Incomes.
 
 **Example Usages**:
+Example 1: Edits the description of the 1st entry to be `breakfast`.
 
 ```
 edit 1 /des breakfast
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 10.50 (on 12/10/24) [FOOD]
+[Expense] - breakfast $ 10.50 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the description of the 1st entry to be breakfast.
 
 <br>
+
+Example 2: Edits the amount of the 1st entry to be `5.99`.
 
 ```
 edit 1 /a 5.99
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 5.99 (on 12/10/24) [FOOD]
+[Expense] - breakfast $ 5.99 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the amount of the 1st entry to be 5.99.
 
 <br>
+
+Example 3: Edits the description and amount of the 2nd entry to be `lunch` and `20` respectively.
 
 ```
 edit 2 /des lunch /a 20
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - lunch $ 20.00 (on 12/10/24) [FOOD]
+[Expense] - lunch $ 20.00 (on 12/10/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the description and amount of the 2nd entry to be lunch and 20 respectively.
 
 <br>
 
+Example 4: Edits the description and date of the 3rd entry to be `dinner` and `11/09/2024` respectively.
+
 ```
-edit 3 /des dinner /d 11/09/24
+edit 3 /des dinner /d 11/09/2024
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - dinner $ 8.00 (on 11/09/24) [UNCATEGORIZED]
+[Expense] - dinner $ 8.00 (on 11/09/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Edits the description and date of the 3rd entry to be dinner and 11/09/2024 respectively.
 
 <br>
 
+Example 5: Edits the description, amount, and date of the 4th entry to be `breakfast`, `5` and `12/09/2024` respectively.
+
 ```
-edit 4 /des breakfast /a 5 /d 12/09/24
+edit 4 /des breakfast /a 5 /d 12/09/2024
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - breakfast $ 5.00 (on 12/09/24) [UNCATEGORIZED]
+[Expense] - breakfast $ 5.00 (on 12/09/2024) [UNCATEGORIZED]
 --------------------------------------------
 ```
-Edits the description, amount, and date of the 4th entry to be breakfast, 5 and 12/09/2024 respectively.
 
 <br>
+
+Example 6: Edits the category of the 5th entry to be `FOOD`.
 
 ```
 edit 5 /c FOOD
 --------------------------------------------
 Got it. I've edited this expense:
-[Expense] - bubble tea $ 4.00 (on 07/11/24) [FOOD]
+[Expense] - bubble tea $ 4.00 (on 07/11/2024) [FOOD]
 --------------------------------------------
 ```
-Edits the category of the 5th entry to be FOOD.
+
+<br>
+
+Example 7: Edits the amount of the last amended entry to be `11`.
+
+```
+edit /a 11
+--------------------------------------------
+Got it. I've edited this expense:
+[Expense] - Taiwanese bubble tea $ 11.00 (on 11/11/2024) [FOOD]
+--------------------------------------------
+```
 
 <hr>
 <div style="page-break-after: always;"></div>
@@ -333,29 +357,26 @@ Lists out transactions in your financial list in ascending order of date for you
 filtered by type (income/expense) or restricted to a stipulated period. The app will display the total number of 
 transactions listed, total cashflow/expenditure/income during the stipulated period depending on the transaction type
 selected to be listed, as well as the category with the highest total expenditure/income.
-Beside each listed transaction, the transaction's index in the financial list is shown for quick reference should
+
+> Note: Beside each listed transaction, the transaction's **index in the financial list** is shown for quick reference should
 you wish to edit/delete the transaction.
 
 **Format:** `list [expense|income] [/from START_DATE] [/to END_DATE]`
 
-<br>
+**Example Usage:** 
 
-#### List by Type
-
-User can command app to list out only expenses, only incomes or both expenses and incomes.
-
-**Example Usage:**
-
+Example 1: Lists out all expenses and incomes.
+Displays total count of entries listed, total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively.
 ```
 list
 --------------------------------------------
 Here's a list of all recorded entries:
-1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
-2. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
-3. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-4. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
-5. [Income] - allowance $ 100.00 (on 27/10/24) [GIFT]
-6. [Income] - ang pow money $ 15.00 (on 01/11/24) [GIFT]
+1. [Expense] - lunch $ 3.50 (on 22/09/2024) [FOOD]
+2. [Income] - salary $ 3000.00 (on 03/10/2024) [SALARY]
+3. [Expense] - dinner $ 4.50 (on 05/10/2024) [FOOD]
+4. [Expense] - movie $ 20.00 (on 10/10/2024) [ENTERTAINMENT]
+5. [Income] - allowance $ 100.00 (on 27/10/2024) [GIFT]
+6. [Income] - ang pow money $ 15.00 (on 01/11/2024) [GIFT]
 
 Total count: 6
 
@@ -367,18 +388,25 @@ Highest Income Category: SALARY ($3000.00)
 No budget has been set.
 --------------------------------------------
 ```
-Lists out all expenses and incomes. 
-Displays total cashflow (income - expenditure), and shows categories with the highest total expenditure and income respectively.
 
 <br>
+
+#### List by Type
+
+User can command app to list out only expenses, only incomes or both expenses and incomes.
+
+**Example Usage:**
+
+Example 2: Lists out all expenses.
+Displays total count of expenses listed, total expenditure, and shows categories with the highest total expenditure.
 
 ```
 list expense
 --------------------------------------------
 Here's a list of all recorded expenses:
-1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
-3. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-4. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
+1. [Expense] - lunch $ 3.50 (on 22/09/2024) [FOOD]
+3. [Expense] - dinner $ 4.50 (on 05/10/2024) [FOOD]
+4. [Expense] - movie $ 20.00 (on 10/10/2024) [ENTERTAINMENT]
 
 Total count: 3
 
@@ -407,13 +435,16 @@ Category with the highest expenditure/income displayed will also be based on the
 
 **Example Usage:**
 
+Example 3: List all transactions from 03/10/2024 to 10/10/2024 inclusive.
+Displays total count of transactions listed, as well as 
+net cashflow and categories with highest expense/income respectively during the stipulated period.
 ```
-list /from 03/10/24 /to 10/10/24
+list /from 03/10/2024 /to 10/10/2024
 --------------------------------------------
 Here's a list of all recorded entries:
-2. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
-3. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-4. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
+2. [Income] - salary $ 3000.00 (on 03/10/2024) [SALARY]
+3. [Expense] - dinner $ 4.50 (on 05/10/2024) [FOOD]
+4. [Expense] - movie $ 20.00 (on 10/10/2024) [ENTERTAINMENT]
 
 Total count: 3
 
@@ -439,16 +470,18 @@ budget as well as his/her balance (budget - total expenditure that month) will b
 
 **Example Usage:**
 
+Example 4: Viewing budget/remaining balance using `list`. Note that the above
+is in the context of the user using the app in November 2024. (i.e. budget is for 11/2024)
 ```
 list
 --------------------------------------------
 Here's a list of all recorded entries:
-1. [Expense] - lunch $ 3.50 (on 22/09/24) [FOOD]
-2. [Income] - salary $ 3000.00 (on 03/10/24) [SALARY]
-3. [Expense] - dinner $ 4.50 (on 05/10/24) [FOOD]
-4. [Expense] - movie $ 20.00 (on 10/10/24) [ENTERTAINMENT]
-5. [Income] - allowance $ 100.00 (on 27/10/24) [GIFT]
-6. [Income] - ang pow money $ 15.00 (on 01/11/24) [GIFT]
+1. [Expense] - lunch $ 3.50 (on 22/09/2024) [FOOD]
+2. [Income] - salary $ 3000.00 (on 03/10/2024) [SALARY]
+3. [Expense] - dinner $ 4.50 (on 05/10/2024) [FOOD]
+4. [Expense] - movie $ 20.00 (on 10/10/2024) [ENTERTAINMENT]
+5. [Income] - allowance $ 100.00 (on 27/10/2024) [GIFT]
+6. [Income] - ang pow money $ 15.00 (on 01/11/2024) [GIFT]
 
 Net cashflow: $ 3087.00
                 
@@ -459,8 +492,6 @@ Your budget has successfully been set to: $ 2000.00
 Your current monthly balance is : $ 2000.00
 --------------------------------------------
 ```
-Viewing budget/remaining balance using `list`. Note that the above
-is in the context of the user using the app in November 2024. (i.e. budget is for 11/2024)
 
 <hr>
 
@@ -473,18 +504,20 @@ Please do not modify these files manually, otherwise the transactions or the bud
 
 <div style="page-break-after: always;"></div>
 
+
 ## Command Summary
-| **Command**                                                      | **Description**                                                                            |
-|------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
-| `list [income \| expense] [/from START_DATE] [/to END_DATE]`     | Shows logged transactions, highlights categories, monthly budget, and balance              |
-| `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`           | Logs a new expense with optional date and category.                                        |
-| `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`          | Logs a new income with optional date and category.                                         |
-| `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]` | Edits the specified transaction. Defaults to last amended transaction if INDEX is omitted. |
-| `delete [INDEX] [/to END_INDEX]`                                | Deletes the specified transaction(s). Defaults to last amended if INDEX is omitted.        | 
-| `budget AMOUNT`                                                 | Sets or modifies the monthly budget                                                        |
-| `budget 0`                                                      | Deletes budget                                                                             |
-| `exit`                                                           | Exits the program.                                                                         |
-| `help`                                                         | Displays a list of all valid commands.                                                     |
+| **Command**                                                           | **Description**                                                                                 |
+|-----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| `list [income \| expense] [/from START_DATE] [/to END_DATE]`          | Shows logged transactions, highlights categories, monthly budget, and balance                   |
+| `expense DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`               | Logs a new expense with optional date and category.                                             |
+| `income DESCRIPTION /a AMOUNT [/d DATE] [/c CATEGORY]`                | Logs a new income with optional date and category.                                              |
+| `edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]` | Edits the specified transaction. Defaults to last amended transaction if INDEX is omitted.      |
+| `delete [INDEX] [/to END_INDEX]`                                      | Deletes the specified transaction(s). Defaults to last amended transaction if INDEX is omitted. | 
+| `delete all`                                                          | Deletes all transaction(s).                                                                     |
+| `budget AMOUNT`                                                       | Sets or modifies the monthly budget                                                             |
+| `budget 0`                                                            | Deletes budget                                                                                  |
+| `exit`                                                                | Exits the program.                                                                              |
+| `help`                                                                | Displays a list of all valid commands.                                                          |
 
 **Defined Categories**:
 
