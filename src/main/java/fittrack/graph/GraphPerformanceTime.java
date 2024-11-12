@@ -26,7 +26,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param maxXHeaderLength The maximum length for each header element for alignment purposes.
      * @return A StringBuilder representing the formatted header with actual time values.
      */
-    private static StringBuilder buildTimeHeader(Exercise exercise, ArrayList<TrainingSession> sessionList,
+    protected static StringBuilder buildTimeHeader(Exercise exercise, ArrayList<TrainingSession> sessionList,
             int maxXHeaderLength) {
         StringBuilder timeHeader = new StringBuilder(ALIGNMENT_SPACE_STRING); // Adjusted spacing for alignment
         for (TrainingSession session : sessionList) {
@@ -45,7 +45,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param actualTime The actual time recorded for the exercise performance.
      * @return A formatted string of the exercise time if valid; otherwise, returns INVALID_TIME_STRING.
      */
-    private static String getDisplayTime(Exercise exercise, int actualTime) {
+    protected static String getDisplayTime(Exercise exercise, int actualTime) {
         String displayTime = "";
         if (actualTime == INVALID_TIME_VALUE) {
             displayTime = INVALID_TIME_STRING;
@@ -63,7 +63,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @return A formatted string showing the time in seconds to 1 decimal place for Shuttle Run or
      *     the time in minutes and seconds for Walk And Run.
      */
-    private static String processDisplayTime(Exercise exercise, int actualTime) {
+    protected static String processDisplayTime(Exercise exercise, int actualTime) {
         String displayTime;
         if (exercise == Exercise.SHUTTLE_RUN) {
             displayTime = String.format("%.1fs", actualTime / 10.0); // Convert time back to seconds with 1 decimal
@@ -82,7 +82,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param time The time value to check.
      * @return A string containing a zero if time < 10, otherwise an empty string.
      */
-    private static String padStartingZero(int time){
+    protected static String padStartingZero(int time){
         if(time < SMALLEST_DOUBLE_DIGIT) {
             return "0";
         }
@@ -99,7 +99,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param maxXHeaderLength The maximum length for the X-axis header for alignment purposes.
      * @return A StringBuilder containing the main contents of the graph.
      */
-    private static StringBuilder buildMainContents(Exercise exercise, ArrayList<TrainingSession> sessionList,
+    protected static StringBuilder buildMainContents(Exercise exercise, ArrayList<TrainingSession> sessionList,
             int minPerformance, int maxPerformance, int maxXHeaderLength) {
         StringBuilder mainContents = new StringBuilder();
         for (double i = HIGHEST_NORMALISED_VALUE; i >= LOWEST_NORMALISED_VALUE; i -= INCREMENT_SCALE) {
@@ -122,7 +122,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param i The current normalized value being checked.
      * @param mainContents The StringBuilder to append the results to.
      */
-    private static void processResultToPoint(Exercise exercise, ArrayList<TrainingSession> sessionList,
+    protected static void processResultToPoint(Exercise exercise, ArrayList<TrainingSession> sessionList,
             int minPerformance, int maxPerformance, int maxXHeaderLength, double i, StringBuilder mainContents) {
         for (TrainingSession session : sessionList) {
             double normalizedPerformance = getNormalizePerformance(exercise, minPerformance, maxPerformance, session);
@@ -141,7 +141,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param mainContents The StringBuilder to append to.
      * @param normalizedPerformance The normalized performance value of the current session.
      */
-    private static void addAsteriskToTimeGraph(int minPerformance, int maxPerformance, int maxXHeaderLength,
+    protected static void addAsteriskToTimeGraph(int minPerformance, int maxPerformance, int maxXHeaderLength,
             double normalizedValue, StringBuilder mainContents, double normalizedPerformance) {
         boolean isAllPerformanceSame = maxPerformance == minPerformance;
         if (normalizedPerformance == INVALID_TIME_VALUE) {
@@ -169,7 +169,7 @@ public class GraphPerformanceTime extends GraphPerformance {
      * @param session The training session containing the performance data.
      * @return The normalized performance value, or INVALID_TIME_VALUE if the data is invalid.
      */
-    private static double getNormalizePerformance(Exercise exercise, int minPerformance,
+    protected static double getNormalizePerformance(Exercise exercise, int minPerformance,
             int maxPerformance, TrainingSession session) {
         double performance = session.getExercisePerformance(exercise);
 

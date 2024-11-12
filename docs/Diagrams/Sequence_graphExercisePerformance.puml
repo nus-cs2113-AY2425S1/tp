@@ -1,10 +1,10 @@
 @startuml
 
-participant Ui as Ui
-participant GraphPerformance as Graph
-participant TrainingSession as TrainingSession
-participant GraphPerformanceTime as GraphTime
-participant GraphPerformanceRepsDistance as GraphRepsDistance
+participant ":Ui" as Ui
+participant ":GraphPerformance" as Graph
+participant ":TrainingSession" as TrainingSession
+participant ":GraphPerformanceTime" as GraphTime
+participant ":GraphPerformanceRepsDistance" as GraphRepsDistance
 
 Ui -> Graph : graphExercisePerformance(exercise, sessionList)
 activate Graph
@@ -12,10 +12,10 @@ note over Graph
     Print header text
 end note
 
-Graph -> Graph : getMaxExercisePerformance(sessionList, exercise, numSessions)
+Graph -> Graph : getMaxExercisePerformance(...)
 activate Graph
 
-loop For Each Session
+loop For each training session
     Graph -> TrainingSession : getExercisePerformance(exercise)
     activate TrainingSession
     TrainingSession --> Graph : exercisePerformance
@@ -24,24 +24,24 @@ end
 Graph --> Graph : maxExercisePerformance
 deactivate Graph
 
-Graph -> Graph : getMinTimePerformance(sessionList, exercise, numSessions)
+Graph -> Graph : getMinTimePerformance(...)
 activate Graph
 Graph --> Graph : minTimePerformance
 deactivate Graph
 
 alt WalkAndRun or ShuttleRun
-    Graph -> GraphTime : graphExerciseTime(exercise, sessionList, minExercisePerformance, maxExercisePerformance, maxXHeaderLength)
+    Graph -> GraphTime : graphExerciseTime(...)
     activate GraphTime
     GraphTime --> Graph : body for time graph
     deactivate GraphTime
 else
-    Graph -> GraphRepsDistance : graphExerciseRepsDistance(exercise, sessionList, maxExercisePerformance, maxXHeaderLength, numSessions)
+    Graph -> GraphRepsDistance : graphExerciseRepsDistance(...)
     activate GraphRepsDistance
     GraphRepsDistance --> Graph : body for distance_reps graph
     deactivate GraphRepsDistance
 end
 
-Graph -> Graph : generateXHeader(numSessions, sessionList, maxXHeaderLength, yOffset)
+Graph -> Graph : generateXHeader(...)
 activate Graph
 Graph --> Graph : XHeader
 deactivate Graph

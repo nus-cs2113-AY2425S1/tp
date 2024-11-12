@@ -9,7 +9,7 @@ The user can:
 3. Set fitness goals.
 4. Visualise their training progress.
 
-The NAPFA score sheet used for this chatbot can be found [here](https://www.dunmansec.moe.edu.sg/files/pe_napfa.pdf)
+The NAPFA score sheet used for this chatbot can be found [here](https://www.dunmansec.moe.edu.sg/files/pe_napfa.pdf).
 This guide will bring you through the various features of FitTrackCLI, and how to utilise them!
 
 
@@ -42,6 +42,8 @@ ________________________________________________________________________________
 You are a 12 year old male.
 ____________________________________________________________________________________________________
 ```
+> **Note**: The user will be prompted to set their age and gender at each program start. This is because individuals 
+> will age, and hence the calculations of their NAPFA exercise points will be different.
 
 ### 2. Help Function: `help`
 **Purpose**: Prints a complete list of valid commands.
@@ -98,11 +100,16 @@ There are 1 sessions in the list.
 ____________________________________________________________________________________________________
 ```
 
-> **Note**: The session datetime of the training added training session will be the current system datetime of the 
+> **Note 1**: The session datetime of the training added training session will be the current system datetime of the 
 > system.
+> 
+> **Note 2**: The user's age and gender, provided at the start, determine the point calculation criteria for each 
+> training session. These attributes are tied to each session and directly influence the points awarded. Note that 
+> training sessions added in different program runs may have varying criteria, as the user's age and gender may change 
+> between runs.
 
 ### 4. Modify the DateTime of a Training Session: `modify`
-**Purpose**: Modifies the recorded date and time of an Existing Training Session.
+**Purpose**: Modifies the recorded date and time of an existing Training Session.
 
 **Format**: `modify [session index] [new datetime]`
 - `session index` and `new datetime` fields must be non-empty.
@@ -187,6 +194,8 @@ Total points: 5
 Overall Award: No Award
 ____________________________________________________________________________________________________
 ```
+
+> **Note**: Refer to the beginning of the features section for the table of valid and invalid inputs.
 
 ### 8. Edit your post-Training Session mood: `edit-mood`
 **Purpose**: Edit the post-training mood of a training session.
@@ -366,9 +375,9 @@ ________________________________________________________________________________
 **Purpose**: Display the points the user has accumulated across different training sessions. Points can either reflect 
 the user’s total overall points or be specific to a chosen exercise.
 
-**Format**: 
-    - **Overall Points**: Use `gpoints` to view total points for the training sessions.
-    - **Exercise specific points**: Use `gpoints [exercise acronym]` to view points for a specific exercise in the 
+**Format**:     
+    - <u>Overall Points</u>: Use `gpoints` to view total points for the training sessions.</br>
+    - <u>Exercise specific points</u>: Use `gpoints [EXERCISE_ACRONYM]` to view points for a specific exercise in the 
 training session.
 
 **Example 1**: `gpoints` 
@@ -399,9 +408,10 @@ session4            | 07/11/2024 16:57 | ***** (5)
 
 ### 19. Display Performance Graph: `gperformance`
 **Purpose**:
-(1) For non-time based station, command displays a bar graph of the raw performance metric (i.e. distance/length/rep) 
-    against session index.
-(2) For time based station, command displays a scatter graph of the normalised performance metric (i.e. time) 
+1. For non-time based station, command displays a bar graph of the raw performance metric (i.e. distance/length/rep) 
+    against session index.              
+        
+2. For time based station, command displays a scatter graph of the normalised performance metric (i.e. time) 
     against session index.
 
 
