@@ -11,7 +11,7 @@ import seedu.spendswift.command.Category;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.BudgetManager;
 import seedu.spendswift.command.Format;
-import java.math.RoundingMode;
+
 
 
 
@@ -498,53 +498,55 @@ class TrackerDataTest {
  class FormatTest {
 
     @Test
-    public void testFormatInput_NullInput() {
-        assertNull("Input is null, should return null.", Format.formatInput(null));
+    void testFormatInput_NullInput() {
+        assertNull(Format.formatInput(null), "Input is null, should return null.");
     }
 
     @Test
-    public void testFormatInput_EmptyString() {
-        assertEquals("Empty string should return empty string.", "", Format.formatInput(""));
+    void testFormatInput_EmptyString() {
+        assertEquals("", Format.formatInput(""), "Empty string should return empty string.");
     }
 
     @Test
-    public void testFormatInput_AllLowerCase() {
-        assertEquals("Should capitalize first letter and make rest lower case.", "Hello", Format.formatInput("hello"));
+    void testFormatInput_AllLowerCase() {
+        assertEquals("Hello", Format.formatInput("hello"), "Should capitalize first letter and make rest lower case.");
     }
 
     @Test
-    public void testFormatInput_MixedCase() {
-        assertEquals("Should capitalize first letter and make rest lower case.", "World", Format.formatInput("wOrLD"));
+    void testFormatInput_MixedCase() {
+        assertEquals("World", Format.formatInput("wOrLD"), "Should capitalize first letter and make rest lower case.");
     }
 
     @Test
-    public void testFormatInput_AllUpperCase() {
-        assertEquals("Should capitalize first letter and make rest lower case.", "Test", Format.formatInput("TEST"));
+    void testFormatInput_AllUpperCase() {
+        assertEquals("Test", Format.formatInput("TEST"), "Should capitalize first letter and make rest lower case.");
+    }
+
+    // Tests for formatAmount method
+
+    @Test
+    void testFormatAmount_RoundToWholeNumber() {
+        assertEquals("$123", Format.formatAmount(123.0), "Should format as whole number with dollar sign.");
     }
 
     @Test
-    public void testFormatAmount_RoundToWholeNumber() {
-        assertEquals("Should format as whole number with dollar sign.", "$123", Format.formatAmount(123.0));
+    void testFormatAmount_RoundToTwoDecimals() {
+        assertEquals("$123.46", Format.formatAmount(123.456), "Should format to two decimal places with dollar sign.");
     }
 
     @Test
-    public void testFormatAmount_RoundToTwoDecimals() {
-        assertEquals("Should format to two decimal places with dollar sign.", "$123.46", Format.formatAmount(123.456));
+    void testFormatAmount_RoundingNecessary() {
+        assertEquals("$123.46", Format.formatAmount(123.455), "Should round half up to two decimal places with dollar sign.");
     }
 
     @Test
-    public void testFormatAmount_RoundingNecessary() {
-        assertEquals("Should round half up to two decimal places with dollar sign.", "$123.46", Format.formatAmount(123.455));
+    void testFormatAmount_ExactDecimal() {
+        assertEquals("$123.50", Format.formatAmount(123.50), "Should handle exact decimal without rounding.");
     }
 
     @Test
-    public void testFormatAmount_ExactDecimal() {
-        assertEquals("Should handle exact decimal without rounding.", "$123.50", Format.formatAmount(123.50));
-    }
-
-    @Test
-    public void testFormatAmount_NegativeValue() {
-        assertEquals("Should handle negative values correctly.", "-$123.45", Format.formatAmount(-123.45));
+    void testFormatAmount_NegativeValue() {
+        assertEquals("-$123.45", Format.formatAmount(-123.45), "Should handle negative values correctly.");
     }
 }
 
