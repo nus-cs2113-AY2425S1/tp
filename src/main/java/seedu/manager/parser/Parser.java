@@ -161,20 +161,20 @@ public class Parser {
     private static final String SPACE = " ";
     private static final String ARROW = ">";
 
-    private static final String EVENT_FLAG_REGEX = "( -e | -t | -v | -u )";
-    private static final String PARTICIPANT_FLAG_REGEX = "( -p | -email | -e )";
-    private static final String ITEM_FLAG_REGEX = "( -m | -e )";
-    private static final String REMOVE_EVENT_FLAG_REGEX = " -e ";
-    private static final String REMOVE_PARTICIPANT_FLAG_REGEX = "( -p | -e )";
-    private static final String EDIT_EVENT_ATTRIBUTE_FLAG_REGEX = "( -e | -name | -t | -v | -u )";
-    private static final String VIEW_FLAG_REGEX = "( -e | -y )";
-    private static final String MARK_EVENT_FLAG_REGEX = " -e | -s ";
-    private static final String MARK_PARTICIPANT_FLAG_REGEX = " -p | -e | -s ";
-    private static final String MARK_ITEM_FLAG_REGEX = " -m | -e | -s ";
-    private static final String COPY_FLAG_REGEX = " > ";
-    private static final String SORT_FLAG_REGEX = " -by ";
-    private static final String FILTER_FLAG_REGEX = "( -e | -d | -t | -x | -u )";
-    private static final String FIND_FLAG_REGEX = "( -e | -p )";
+    private static final String EVENT_FLAG_REGEX = "(?<!\\S)(-e|-t|-v|-u)(?!\\S)";
+    private static final String PARTICIPANT_FLAG_REGEX = "(?<!\\S)(-p|-email|-e)(?!\\S)";
+    private static final String ITEM_FLAG_REGEX = "(?<!\\S)(-m|-e)(?!\\S)";
+    private static final String REMOVE_EVENT_FLAG_REGEX = "(?<!\\S)(-e)(?!\\S)";
+    private static final String REMOVE_PARTICIPANT_FLAG_REGEX = "(?<!\\S)(-p|-e)(?!\\S)";
+    private static final String EDIT_EVENT_ATTRIBUTE_FLAG_REGEX = "(?<!\\S)(-e|-name|-t|-v|-u)(?!\\S)";
+    private static final String VIEW_FLAG_REGEX = "(?<!\\S)(-e|-y)(?!\\S)";
+    private static final String MARK_EVENT_FLAG_REGEX = "(?<!\\S)(-e|-s)(?!\\S)";
+    private static final String MARK_PARTICIPANT_FLAG_REGEX = "(?<!\\S)(-p|-e|-s)(?!\\S)";
+    private static final String MARK_ITEM_FLAG_REGEX = "(?<!\\S)(-m|-e|-s)(?!\\S)";
+    private static final String COPY_FLAG_REGEX = "(?<!\\S)(>)(?!\\S)";
+    private static final String SORT_FLAG_REGEX = "(?<!\\S)(-by)(?!\\S)";
+    private static final String FILTER_FLAG_REGEX = "(?<!\\S)(-e|-d|-t|-x|-u)(?!\\S)";
+    private static final String FIND_FLAG_REGEX = "(?<!\\S)(-e|-p)(?!\\S)";
 
     private static final String ADD_EVENT_REGEX = "add\\s+-e\\s+(.*?)\\s+-t\\s+(.*?)\\s+-v\\s+(.*?)\\s+-u\\s+(.*)";
     private static final String ADD_PARTICIPANT_REGEX = "add\\s+-p\\s+(.*?)\\s+" +
