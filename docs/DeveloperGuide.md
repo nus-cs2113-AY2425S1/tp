@@ -59,6 +59,8 @@ as `TrainingSession`, `Goal`, `Reminder`, `FoodEntry`, and `WaterEntry`. The dat
 `data/saveFile.txt`, with functionality to initialize the save file, load data from it, and update the file with the 
 latest information. Below is a breakdown of the methods used for these tasks:
 
+![Class_Storage.png](Images/Class_Storage.png)
+
 #### 1. Initializing the Save File
 The `initialiseSaveFile()` method ensures that the necessary directory and save file exist. If the "data" directory or 
 "saveFile.txt" file is not found, the method attempts to create them. If successful, a message is logged confirming the 
@@ -123,7 +125,7 @@ application's file handling processes.
 This system provides an efficient and reliable way to persist and retrieve application data, ensuring data integrity and
 ease of maintenance.
 
-[//]: # (![Class_Storage.png]&#40;Images/Class_Storage.png&#41;)
+
 
 ### Set User
 When the application starts up, it will prompt the user for their gender and age via the Set User feature.
