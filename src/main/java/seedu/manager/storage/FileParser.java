@@ -5,15 +5,20 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
+import seedu.manager.exception.InvalidCommandException;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 //@@author KuanHsienn
 /**
@@ -22,6 +27,8 @@ import java.util.logging.Logger;
  * and adds them to the provided EventList.
  */
 public class FileParser {
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
+
     private final Logger logger;
 
     /**
@@ -107,14 +114,19 @@ public class FileParser {
     private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
         try {
             String eventName = fields[1].trim();
-            LocalDateTime time = LocalDateTime.parse(fields[2].trim(), formatter);
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateTimeFormat.setLenient(false);
+            Date parsedDateTime = dateTimeFormat.parse(fields[2].trim());
+            LocalDateTime time = LocalDateTime.ofInstant(parsedDateTime.toInstant(), ZoneId.systemDefault());
             String venue = fields[3].trim();
             Priority priority = Priority.valueOf(fields[4].trim().toUpperCase());
             boolean isDone = getIsMarked(fields[5].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
-        } catch (DateTimeParseException | IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (ParseException | IndexOutOfBoundsException
+                 | NullPointerException | IllegalArgumentException exception) {
             logWarning("File line cannot be parsed, event not loaded");
         }
+
     }
 
     /**
@@ -129,10 +141,16 @@ public class FileParser {
             String participantName = fields[1].trim();
             String email = fields[2].trim();
             String eventName = fields[3].trim();
+
+            if (!isValidEmail(email)) {
+                logWarning("Invalid email format");
+                throw new InvalidCommandException("Invalid email format");
+            }
+
             boolean isPresent = getIsMarked(fields[4].trim());
             String isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
-        } catch (IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (IndexOutOfBoundsException | NullPointerException | IllegalArgumentException exception) {
             logWarning("File line cannot be parsed, participant not loaded");
         }
     }
@@ -152,7 +170,7 @@ public class FileParser {
             boolean isPresent = getIsMarked(fields[3].trim());
             String isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
-        } catch (IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (IndexOutOfBoundsException | NullPointerException | IllegalArgumentException exception) {
             logWarning("File line cannot be parsed, item not loaded");
         }
     }
@@ -171,7 +189,7 @@ public class FileParser {
             return false;
         } else {
             logWarning("Cannot parse mark status, setting to false");
-            return false;
+            throw new IllegalArgumentException();
         }
     }
 
@@ -185,6 +203,16 @@ public class FileParser {
         if (isLoaded.equalsIgnoreCase("")) {
             logWarning("Associated event not found, entry not loaded");
         }
+    }
+
+    /**
+     * Checks if the email address is valid.
+     *
+     * @param email the email address to validate.
+     * @return true if the email is valid, false otherwise.
+     */
+    private boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
     /**
