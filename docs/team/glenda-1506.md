@@ -5,14 +5,12 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 
 
 ### Summary of Contributions
-#### Code Contributed
-[RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=glenda-1506&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
+Code Contributed: [RepoSense Link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=glenda-1506&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-09-20&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
 #### Enhancements Implemented
 - Testing and Quality Assurance 
   - Added extensive JUnit tests for various components (Budget.java, Expense.java, and maximum coverage for other classes): Pull Requests `#79`, `#80`
-  - Ensured assertions are enabled in build.gradle: Pull Request `#27`
-  - Refactored assertions to improve code reliability: Pull Request `#28`
+  - Enabled and refactored assertions to improve code reliability: Pull Requests `#27`, `#28`
 
 - Category Management 
   - Resolved case sensitivity issues in category input to prevent duplicate categories with different capitalisations: Pull Request `#33`
@@ -25,7 +23,7 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 
 - Documentation
   - Added author tags in documentation to attribute work clearly: Pull Requests `#63`, `#64`
-  - Ensure that all documentation formatting is consistent and accurate: Pull Request `#218`
+  - Ensure that all documentation formatting is consistent and accurate: Pull Request `#218`, `#134`, `#227`, `#229`
 
 - Error Handling
   - Added exceptions for edge cases, enhancing the robustness of the application: Pull Request `#25`
@@ -45,18 +43,15 @@ SpendSwift is a simple budgeting tool designed for budget-conscious users. With 
 - Added all manual testing instructions: Pull Requests `#135`, `#136`
 - Added all class diagrams and architecture diagram, with their explanation: Pull Requests `#136`, `#213`, `#211`
 - Added all sequence diagrams, with their explanation: Pull Requests `#66`, `#219`, `#226`
-- Ensure all the formatting is accurate and consistent: Pull Requests `#134`, `#227`, `#229`
 
 #### Contributions to team-based tasks
 - Set up the GitHub team organisation and team repository
 - Maintain the issue tracker and release management
-- Updating user and developer guides that are not specific to a feature
 - Necessary general code enhancements
 
 #### Review/mentoring contributions
-- Guidance on Project Workflow: Actively provided clear guidelines to ensure the team followed best practices for version control, including instructions for local edits, creating pull requests, and verifying auto-build success before merging. This helped maintain build consistency and prevented errors.
+- Actively provided clear guidelines to ensure the team followed best practices for version control, including instructions for local edits, creating pull requests, and verifying auto-build success before merging. This helped maintain build consistency and prevented errors.
 - Team Coordination: Helped the team stay on track by reminding members of deadlines, prompting active participation, and clarifying steps to streamline contributions and avoid common mistakes.
-- Assign different tasks to each team member, ensuring that the team is productive in what they do
 
 #### Contributions beyond the project team
 - Conducted a detailed review of the Developer Guide of a peer team
