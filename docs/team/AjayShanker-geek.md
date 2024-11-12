@@ -21,9 +21,13 @@ Given below are my contributions to the project.
 - **New Feature: `Json Utility`**
     - **What it does**: Coverts `Hospital` object <-> JSON for seamless data persistence that follows the API formate.
     - **Justification**: This will allow the system to save and load data from disk in JSON format.
-- **New Feature: `StorageBackup`**
+- **New Feature: `Storage Backup`**
     - **What it does**: Provides a backup mechanism for the system's data, allowing nurses to restore data in case of accidental deletion or corruption without overwritting important data.
     - **Justification**: Ensures data integrity and reliability by providing a safety net for critical information.
+- **New Feature: `Storage Deserialization`**
+    - **What it does**: Ensure no duplication and invalid data is loaded into the system.
+    - **Justification**: Prevents data corruption and ensures data consistency by validating loaded data before updating the system.
+    - **Highlights**: Implemented data validation checks during deserialization to prevent duplication and invalid data from being loaded into the system. Use Jackson Library to deserialize with buildin `DeserializationFeature` like `FAIL_ON_UNKNOWN_PROPERTIES` to ensure data integrity.
 - **New Feature: State Management with `StateManager` Class**
     - **What it does**: Centralizes state management for the system, allowing for easy state transitions and command execution based on the current state.
     - **Justification**: Simplifies command execution and improves system organization by enforcing state-dependent operations.
@@ -45,6 +49,12 @@ Given below are my contributions to the project.
 - Enhancements to existing features:
     - Improved CLI UI by adding color-coded output for better readability and visual distinction between different types of information.
     - Improved Project website by adding a UI preview image and jekyll theme that elevate reading exprience.
+- **Team Based Tasks**:
+    - Setup GitHub Organization and Repository for the project.
+    - Setup Issue Tracker and Project Board for the project.
+    - Help out in maintaining the project website.
+    - Help out in maintaining issue tracker.
+    - Intergrate ImgBot and CodeCov for the project.
 - **Documentation**:
   - **README**:
     - Added a UI preview image and updated the project description for better understanding.
@@ -53,7 +63,7 @@ Given below are my contributions to the project.
     - Improve page format ([PR #97](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/97)).
   - **Developer Guide**:
     - Added Architecture Diagram to illustrate MediTask's overall project structure ([PR #97](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/97)).
-    - Added Class diagram for Storage functionality ([PR #97](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/97)).
+    - Added Class diagram for Storage functionality ([PR #97](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/97), [PR #213](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/213)).
 
 - **Community and Contributions**:
   - **PRs Reviewed (with non-trivial comments)**: [PR #98](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/98), [PR #92](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/92), [PR #77](https://github.com/AY2425S1-CS2113-T11-1/tp/pull/77)
