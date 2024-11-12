@@ -15,6 +15,10 @@ UI --> BB: command object
 BB -> Parser: parse(command)
 activate Parser
 Parser -> Parser : Parse inputs
+note right
+parser interactions are put under
+the parser for simplification
+end note
 activate Parser
 deactivate Parser
 create AddCmd
