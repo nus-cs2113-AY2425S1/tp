@@ -195,6 +195,8 @@ Example:
 
 ![set-budget](userguidepictures/set-budget.png)
 
+<div style="page-break-after: always;"></div>
+
 ### View All Expenses: view-expenses
 Displays all expenses recorded, grouped by its categories.
 
@@ -207,8 +209,6 @@ Format:
 Example output:
 
 ![view-expenses](userguidepictures/view-expenses.png)
-
-<div style="page-break-after: always;"></div>
 
 ### View All Categories: view-category
 Displays all categories, without expenses and their budget limit.
