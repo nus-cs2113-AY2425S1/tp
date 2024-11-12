@@ -2,10 +2,12 @@
 
 ## Acknowledgements
 <!-- @@author Bev-low -->
-We used these third party libraries to develop our application:
 
-- Gson
-- Mockito
+BuffBuddy uses the following libraries
+1. [Gson](https://google.github.io/gson/) - For saving and loading user data to a JSON file
+2. [JUnit](https://junit.org/junit5/) - For automated testing
+3. [Mockito](https://site.mockito.org/) - Supplements JUnit testing by creating mocks
+4. [Gradle](https://gradle.org/) - For build automation
 
 ## Design
 
@@ -19,7 +21,6 @@ The `UI` component manages the input and output interface between the user and t
 - **Handles user inputs and outputs**: The `UI` component relies on `Scanner` for capturing user input and `PrintStream` for outputting messages to the console. The `readCommand()` method reads a line of text, typically representing a user command, and returns it for processing.
 - **Displays feedback messages**: The component provides `showMessage(String msg)`, `showMessage(Exception e)`, and `showMessage(CommandResult result)` methods to present different types of feedback to users, including general messages, error messages, and results of command executions. These methods ensure messages are formatted and include consistent visual separators.
 - **Shows program start and end messages**: The component features `showWelcome()` and `showFarewell()` methods to display welcome and farewell messages, respectively, creating a friendly user experience from start to finish.
-- **Ensures consistency with static properties**: The class defines constants for formatting, including `ERROR_HEADER`, `LINE_CHAR`, and `LINE_LENGTH`, used to standardize message presentation throughout the application.
 - **Keeps input and output streams flexible for testing**: The `UI` component is constructed with a `Scanner` and `PrintStream`, which can be replaced or redirected as needed, allowing easy adaptability for testing and debugging purposes.
 
 <!-- @@author Bev-low -->
@@ -380,10 +381,6 @@ interrupt the command execution. BuffBuddy will print the appropriate error mess
 
 The **Start Programme** feature allows users to start a specific workout programme. This sets the programme as the active programme, which other commands will default to if no programme is explicitly specified.
 
-#### Sequence diagram
-
-![](images/startProgramme.png)
-
 #### Example Usage
 
 Given below is an example usage scenario for 'start programme' and how the start programme command functions at each step.
@@ -404,15 +401,15 @@ Given below is an example usage scenario for 'start programme' and how the start
 
 **Step 8:** The user interface displays the result message to the user, confirming the successful activation of the programme.
 
+#### Sequence diagram
+
+![](images/startProgramme.png)
+
 ### View Programme
 
 #### Overview
 
 The **View Programme** feature allows users to view the details of a specific programme.
-
-#### Sequence Diagram
-
-![](images/viewProgramme.png)
 
 #### Example Usage
 
@@ -434,15 +431,15 @@ Given below is an example usage scenario for 'view programme' and how the view p
 
 **Step 8:** The user interface displays the result message to the user, showing the details of the selected programme.
 
+#### Sequence Diagram
+
+![](images/viewProgramme.png)
+
 ### Delete Programme
 
 #### Overview
 
 The **Delete Programme** feature allows users to delete created programmes from the programme list.
-
-#### Sequence Diagram
-
-![Delete Programme Sequence Diagram](images/deleteProgramme.png)
 
 #### Example Usage
 
@@ -464,6 +461,10 @@ Given below is an example usage scenario for 'delete programme' and how the dele
 
 **Step 8:** The user interface displays the result message to the user, confirming the successful deletion of the programme.
 
+#### Sequence Diagram
+
+![Delete Programme Sequence Diagram](images/deleteProgramme.png)
+
 ### Edit Programme
 
 #### Overview
@@ -477,6 +478,24 @@ These operations include:
 - Adding or removing Days to the Programme
 - Adding or removing Exercises to Days in the Programme
 - Updating the details of Exercises in Days in the Programme
+
+##### Example Usage
+
+Given below is an example usage scenario for 'delete exercise' and how the edit programme functions at each step.
+
+Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
+
+Step 2. The user executes `programme edit /p 1 /d 1 /xe 1` to delete the first exercise in the first day of the first programme.
+
+Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
+
+Step 4. The command first retrieves the chosen Programme with `ProgrammeList#getProgramme()`.
+
+Step 5. The command then retrieves the chosen Day with `Programme#getDay()`.
+
+Step 6. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
+
+Step 7. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the returned `CommandResult`.
 
 #### Sequence Diagram
 
@@ -502,24 +521,6 @@ Generally, if a conditional check fails (i.e. if the selected `Programme` does n
 ##### Update exercise
 
 ![Edit Exercise](images/editExerciseCommand.png)
-
-##### Example Usage
-
-Given below is an example usage scenario for 'delete exercise' and how the edit programme functions at each step.
-
-Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
-
-Step 2. The user executes `programme edit /p 1 /d 1 /xe 1` to delete the first exercise in the first day of the first programme.
-
-Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
-
-Step 4. The command first retrieves the chosen Programme with `ProgrammeList#getProgramme()`.
-
-Step 5. The command then retrieves the chosen Day with `Programme#getDay()`.
-
-Step 6. With the Day object, it performs the `Day#deleteExercise()` with the given exercise ID
-
-Step 7. The deleted Exercise object is then returned to the `DeleteExerciseCommand` to display as part of the returned `CommandResult`.
 
 #### Activity Diagram
 
@@ -762,13 +763,15 @@ load the data from the file via `FileManager#load()`. The loaded data is then co
 objects, restoring the user's previous session.
 
 The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
+
 ![Sequence Diagram for Load operation](./images/loadProgrammeListSequenceDiagram.png)
 
 The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/saveSequenceDiagram.png)
-<!-- @@author -->
----
 
+![Sequence Diagram for Save operation](./images/saveSequenceDiagram.png)
+
+---
+<!-- @@author -->
 ## Documentation, logging, testing, configuration, dev-ops
 
 * [Logging Guide](LoggingGuide.md)
@@ -838,6 +841,156 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 <!-- @@author TVageesan -->
 ## Instructions for manual testing
 
+Here’s a structured manual testing guide for BuffBuddy based on the app's user guide and aligned with the reference format you provided.
 
-1. Complete the [quick start](UserGuide.md) guide.
+---
+
+### **Manual Testing Guide for BuffBuddy**
+
+
+
+#### **Initial Launch**
+
+- Download the BuffBuddy JAR file and place it in an empty folder.
+- Launch the application by using `java -jar BuffBuddy.jar` in the terminal.
+
+#### **Adding and Managing Programmes**
+
+1. **Adding a New Programme**
+    - **Command**: `prog create PROG_NAME`
+    - **Example**: `prog create Starter`
+    - **Expected Outcome**:
+        - A confirmation message with the programme name appears, e.g., "New programme created: Starter".
+
+2. **Setting an Active Programme**
+    - **Command**: `prog start [PROG_INDEX]`
+    - **Example**: `prog start 1`
+    - **Expected Outcome**:
+        - The specified programme is marked as "Active".
+
+3. **Listing All Programmes**
+    - **Command**: `prog list`
+    - **Expected Outcome**:
+        - A list of all programmes is shown with an indication of which is currently active.
+
+4. **Deleting a Programme**
+    - **Command**: `prog delete [PROG_INDEX]`
+    - **Example**: `prog delete 1`
+    - **Expected Outcome**:
+        - The specified programme is deleted, and if it was the active one, another becomes active.
+
+---
+
+#### **Adding and Managing Workout Days**
+
+1. **Adding a New Day to a Programme**
+    - **Command**: `prog edit /p PROG_INDEX /ad DAY_NAME`
+    - **Example**: `prog edit /p 1 /ad Cardio`
+    - **Expected Outcome**:
+        - A new day, e.g., "Cardio," is added to the specified programme.
+
+2. **Deleting a Day from a Programme**
+    - **Command**: `prog edit /p PROG_INDEX /xd DAY_INDEX`
+    - **Example**: `prog edit /p 1 /xd 1`
+    - **Expected Outcome**:
+        - The specified day is removed from the programme.
+
+---
+
+#### **Adding, Updating, and Deleting Exercises**
+
+1. **Adding an Exercise to a Day**
+    - **Command**: `prog edit /p PROG_INDEX /d DAY_INDEX /ae /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES`
+    - **Example**: `prog edit /p 1 /d 1 /ae /n Push Up /s 3 /r 15 /w 0 /c 50`
+    - **Expected Outcome**:
+        - The exercise details are added to the specified day.
+
+2. **Updating an Exercise**
+    - **Command**: `prog edit /p PROG_INDEX /d DAY_INDEX /ue EXERCISE_INDEX [args]`
+    - **Example**: `prog edit /p 1 /d 1 /ue 1 /r 12`
+    - **Expected Outcome**:
+        - The updated exercise details are shown.
+
+3. **Deleting an Exercise**
+    - **Command**: `prog edit /p PROG_INDEX /d DAY_INDEX /xe EXERCISE_INDEX`
+    - **Example**: `prog edit /p 1 /d 1 /xe 1`
+    - **Expected Outcome**:
+        - The specified exercise is removed from the list for that day.
+
+---
+
+#### **Recording and Viewing Workouts**
+
+1. **Logging a Workout**
+    - **Command**: `prog log /p PROG_INDEX /d DAY_INDEX [/t DATE]`
+    - **Example**: `prog log /p 1 /d 1 /t 01-01-2024`
+    - **Expected Outcome**:
+        - A confirmation message displays, showing the exercises completed and calories burned.
+
+2. **Viewing Workout History**
+    - **Command**: `history list`
+    - **Expected Outcome**:
+        - A list of all recorded workout sessions, with dates and summaries, is displayed.
+
+---
+
+#### **Tracking and Viewing Meals**
+
+1. **Adding a New Meal**
+    - **Command**: `meal add /n MEAL_NAME /c CALORIES [/t DATE]`
+    - **Example**: `meal add /n Chicken Breast /c 300 /t 01-01-2024`
+    - **Expected Outcome**:
+        - Confirmation that the meal has been added, with calories shown.
+
+2. **Viewing Meals**
+    - **Command**: `meal view [DATE]`
+    - **Example**: `meal view 01-01-2024`
+    - **Expected Outcome**:
+        - List of meals for the specified date, showing names and calories.
+
+---
+
+#### **Managing Water Logs**
+
+1. **Adding a Water Log**
+    - **Command**: `water add /v WATER_VOLUME [/t DATE]`
+    - **Example**: `water add /v 500 /t 01-01-2024`
+    - **Expected Outcome**:
+        - Confirmation that the water log has been added, showing volume.
+
+2. **Viewing Water Logs**
+    - **Command**: `water view [DATE]`
+    - **Expected Outcome**:
+        - List of water logs for the date, showing volumes in liters.
+
+---
+
+#### **Personal Best and Summary Views**
+
+1. **View Personal Best for an Exercise**
+    - **Command**: `history pb EXERCISE_NAME`
+    - **Example**: `history pb Bench Press`
+    - **Expected Outcome**:
+        - Display of the user's best record for the specified exercise.
+
+2. **View Weekly Summary**
+    - **Command**: `history wk`
+    - **Expected Outcome**:
+        - A summary of workouts, meals, and water logs for the past week.
+
+---
+
+#### **Data Management and Error Handling**
+
+1. **Corrupted Data File Simulation**
+    - **Steps**:
+        - Edit or corrupt the data file (e.g., remove keys).
+        - Re-launch BuffBuddy.
+    - **Expected Outcome**:
+        - BuffBuddy should initialize with an empty data file, treating the user as a new entry.
+
+2. **Exiting the Application**
+    - **Command**: `bye`
+    - **Expected Outcome**:
+        - BuffBuddy exits gracefully with a confirmation message.
 

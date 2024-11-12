@@ -1,7 +1,8 @@
 @startuml
 skinparam classAttributeIconSize 0
+hide circle
 
-abstract class HistoryCommand {
+class HistoryCommand <<abstract>> {
     - date : LocalDate
     + HistoryCommand()
     + HistoryCommand(date : LocalDate)

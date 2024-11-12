@@ -65,7 +65,7 @@ import static parser.ParserUtils.splitArguments;
  *
  */
 
-public class ProgammeCommandFactory {
+public class ProgrammeCommandFactory {
     public static final String COMMAND_WORD = "prog";
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 

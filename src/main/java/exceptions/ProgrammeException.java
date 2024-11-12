@@ -63,4 +63,8 @@ public class ProgrammeException extends BuffBuddyException {
     public static ProgrammeException doesNotExist(String name) {
         return new ProgrammeException(name + " does not exist.");
     }
+
+    public static ProgrammeException indexOutOfBounds() {
+        return new ProgrammeException("Index should be more than 0");
+    }
 }

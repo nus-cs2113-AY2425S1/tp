@@ -1,8 +1,9 @@
 @startuml
 
 skinparam classAttributeIconSize 0
+hide circle
 
-abstract class ProgrammeCommand {
+ class ProgrammeCommand <<abstract>> {
     # programmeIndex: int
     # dayIndex: int
     + equals(other: Object): boolean

@@ -11,21 +11,21 @@ activate EditExerciseCommand
 EditExerciseCommand -> ProgrammeList : getProgramme(programmeIndex)
 activate ProgrammeList
 
-opt Programme exists
+alt Programme exists
     ProgrammeList --> EditExerciseCommand : selected Programme
     deactivate ProgrammeList
 
     EditExerciseCommand -> Programme : getDay(dayIndex)
     activate Programme
 
-    opt Day exists
+    alt Day exists
         Programme --> EditExerciseCommand : selected Day
         deactivate Programme
 
         EditExerciseCommand -> Day: getExercise(exerciseIndex)
         activate Day
 
-        opt Exercise exists
+        alt Exercise exists
             Day --> EditExerciseCommand: selected Exercise
             deactivate Day
 
@@ -33,11 +33,14 @@ opt Programme exists
             activate Exercise
             Exercise --> EditExerciseCommand: updated Exercise
             deactivate Exercise
+            else Exercise does not exist
         end
+        else Day does not exist
     end
+    else Programme does not exist
 end
 
 <-- EditExerciseCommand
 deactivate EditExerciseCommand
-destroy EditExerciseCommand
+
 @enduml

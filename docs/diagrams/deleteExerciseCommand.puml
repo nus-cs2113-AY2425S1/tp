@@ -10,14 +10,14 @@ activate Command
 Command -> ProgrammeList : getProgramme(programmeIndex)
 activate ProgrammeList
 
-opt Programme exists
+alt Programme exists
     ProgrammeList --> Command : selected Programme
     deactivate ProgrammeList
 
     Command -> Programme : getDay(dayIndex)
     activate Programme
 
-    opt Day exists
+    alt Day exists
         Programme --> Command : selected Day
         deactivate Programme
 
@@ -25,7 +25,9 @@ opt Programme exists
         activate Day
         Day --> Command: deleted Exercise
         deactivate Day
+        else Day does not exist
     end
+    else Programme does not exist
 end
 
 <-- Command  : deleted Exercise

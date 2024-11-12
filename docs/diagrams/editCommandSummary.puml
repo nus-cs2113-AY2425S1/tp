@@ -1,8 +1,8 @@
 @startuml
 skinparam classAttributeIconSize 0
+hide circle
+    class EditProgrammeCommand         <<abstract>>{
 
-    class EditProgrammeCommand {
-        <<abstract>>
         #exerciseIndex: int
         +EditProgrammeCommand(programmeIndex: int, dayIndex: int, exerciseIndex: int)
         +EditProgrammeCommand(programmeIndex: int, dayIndex: int)
