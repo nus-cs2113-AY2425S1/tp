@@ -7,8 +7,21 @@ import seedu.spendswift.parser.InputParser;
 
 import java.util.List;
 
+/**
+ * Manages methods related to expenses in the SpendSwift application.
+ * Includes adding, deleting, tagging, and viewing expenses grouped by category.
+ */
 public class ExpenseManager {
 
+
+    /**
+     * Helper function to add an expense.
+     * It parses the input to extract the name, amount, and category of the expense to be added.
+     * It validates the parsed values and checks for errors.
+     *
+     * @param input The user input containing necessary fields.
+     * @param trackerData The {@code TrackerData} object containing necessary information.
+     */
     //@@author kq2003
     public void addExpenseRequest(String input, TrackerData trackerData) {
         try {
@@ -80,6 +93,14 @@ public class ExpenseManager {
         SuccessMessage.printAddExpense(newExpense);
     }
 
+    /**
+     * Helper function to delete an expense.
+     * It parses the input to extract the name, amount, and category of the expense to be deleted.
+     * It validates the parsed values and checks for errors.
+     *
+     * @param input The user input containing necessary fields.
+     * @param trackerData The {@code TrackerData} object containing necessary information.
+     */
     //@@glenda-1506
     public void deleteExpenseRequest(String input, TrackerData trackerData) {
         try {
@@ -138,6 +159,16 @@ public class ExpenseManager {
         SuccessMessage.printExpensesByCategory(expenses, categories);
     }
 
+
+    /**
+     * Handles the user request to tag an expense with a category.
+     *
+     * It parses the input to extract the index of the designated expense and the category name.
+     *
+     *
+     * @param input The user input containing necessary fields.
+     * @param trackerData The {@code TrackerData} object containing necessary information.
+     */
     //@@author glenda-1506
     public void tagExpense(TrackerData trackerData, String input) {
         try {
@@ -163,6 +194,16 @@ public class ExpenseManager {
         }
     }
 
+    /**
+     * Helper function to tag an expense with specified category.
+     * If category does not exist, appropriate messages will be displayed. Otherwise, an expense would be taged with
+     * specified category.
+     *
+     *
+     * @param trackerData The {@code TrackerData} object containing necessary information.
+     * @param expenseIndex The index of the expense to tag.
+     * @param categoryName The name of the category to tag the expense.
+     */
     private static void tagExpenseHelper(TrackerData trackerData, int expenseIndex, String categoryName) {
         List<Expense> expenses = trackerData.getExpenses();
         List<Category> categories = trackerData.getCategories();

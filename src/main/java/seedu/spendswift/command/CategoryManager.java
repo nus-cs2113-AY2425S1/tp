@@ -7,7 +7,18 @@ import seedu.spendswift.parser.InputParser;
 
 import java.util.List;
 
+/**
+ * Manages methods that are related to the category class in the spendswift application.
+ */
 public class CategoryManager {
+
+    /**
+     * Adds a new category to the tracker data.
+     * If the category already exists, an appropriate message is displayed.
+     *
+     * @param trackerData   The {@code TrackerData} object containing the categories.
+     * @param categoryName  The name of the category to be added.
+     */
     private static void addCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
 
@@ -25,6 +36,13 @@ public class CategoryManager {
         SuccessMessage.printAddCategory(newCategory);
     }
 
+    /**
+     * Parses the user input, and adds a category to the tracker data.
+     * Displays an error message if the category name is missing.
+     *
+     * @param input The user input that is going to be parsed, with details.
+     * @param trackerData The{@code TrackerData} object containing necessary information.
+     */
     public void addCategory(String input, TrackerData trackerData) {
         InputParser parser = new InputParser();
         String categoryName = parser.parseCategory(input);
@@ -37,6 +55,13 @@ public class CategoryManager {
         addCategoryHelper(trackerData, categoryName);
     }
 
+
+    /**
+     * Displays all categories currently stored in tracker data.
+     * If no categories exist, appropriate messages will be displayed.
+     *
+     * @param trackerData The{@code TrackerData} object containing necessary information.
+     */
     public void viewAllCategories(TrackerData trackerData) {
         List<Category> categories = trackerData.getCategories();
         if (categories.isEmpty()) {
@@ -46,6 +71,15 @@ public class CategoryManager {
         }
     }
 
+
+    /**
+     * Helper function to delete a category from the tracker data.
+     * If the category is associated with an expense, it cannot be deleted.
+     * If the category does not exist, appropriate messages will be displayed.
+     *
+     * @param trackerData The{@code TrackerData} object containing necessary information.
+     * @param categoryName The name of the category to be deleted.
+     */
     private static void deleteCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
         List<Expense> expenses = trackerData.getExpenses();
@@ -80,6 +114,13 @@ public class CategoryManager {
         }
     }
 
+    /**
+     * Parses the user input and deletes a category from the tracker data.
+     * Displays an error message if the category name is missing or empty.
+     *
+     * @param input         The user input containing the category name.
+     * @param trackerData   The {@code TrackerData} object containing the categories.
+     */
     public void deleteCategory(String input, TrackerData trackerData) {
         InputParser parser = new InputParser();
         String categoryName = parser.parseCategory(input);
