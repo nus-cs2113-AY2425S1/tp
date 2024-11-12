@@ -8,7 +8,6 @@ It lets users record and track training sessions, calculate their NAPFA scores a
 
 ### Code contributed: [(link)](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=CheeKiangg&tabRepo=AY2425S1-CS2113-W13-2%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
-
 ### Enhancements implemented:
 I implemented the following and also implemented all the Junit testings under my class.
 
