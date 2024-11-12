@@ -24,8 +24,8 @@ import java.util.Map;
  * in the system. It supports updating specific records or renaming fields within the inventory.
  *
  * Usage:
- * - update -d <id>, <fieldname>, <newvalue>: updates a specific field of a record.
- * - update -h <old>, <new>: renames an existing field (header).
+ * - update -d id, fieldname, newvalue: updates a specific field of a record.
+ * - update -h old, new: renames an existing field (header).
  */
 public class UpdateCommand extends Command {
 

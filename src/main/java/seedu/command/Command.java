@@ -7,9 +7,11 @@ import seedu.exceptions.InventraException;
 
 /**
  * An abstract class representing a command in the Inventra application.
- * Commands are used to perform various actions on the inventory, such as adding, deleting, or viewing records and fields.
+ * Commands are used to perform various actions on the inventory,
+ * such as adding, deleting, or viewing records and fields.
  *
- * Each command class extending {@code Command} is expected to implement the {@code execute} method to define its specific behavior.
+ * Each command class extending {@code Command} is expected to
+ * implement the {@code execute} method to define its specific behavior.
  */
 public abstract class Command {
     protected Inventory inventory;
