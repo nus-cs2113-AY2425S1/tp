@@ -85,7 +85,7 @@ participant "budgetLogic:BudgetLogic" as bl
         return
     else type is null or empty
         create all
-        app -> all ** : SeeAllCommand(startDate, endDate)
+        app -> all ** : SeeAllEntriesCommand(startDate, endDate)
         activate all
         return
         app -> all : execute(financialList)
