@@ -41,10 +41,10 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 
 * Key Test Scenarios:
     * Invalid input validation
-    * Null handling
-    * Edge cases (empty strings, boundary values)
+    * Null handling and edge cases (empty strings, boundary values)
     * Error conditions
     * Command execution results
+
 #### Documentation
 * **User Guide**:
     * Added documentation for the features in v1.0
@@ -57,7 +57,6 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 #### Contributions to Team-based Tasks
 * Participated in weekly team meetings
 * Helped maintain project documentation
-* Contributed to user testing
 
 #### Community
 * **Review/Mentoring Contributions**:
