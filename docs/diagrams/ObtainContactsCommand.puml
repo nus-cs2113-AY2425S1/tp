@@ -37,17 +37,20 @@ activate ObtainContactsCommand
 
 ObtainContactsCommand -> SchoolContactValidator: isSchoolValid(jsonObject : JsonObject, schoolName : String)
 activate SchoolContactValidator
+
 SchoolContactValidator --> ObtainContactsCommand: isSchoolValid:Boolean
 deactivate SchoolContactValidator
 
 alt school is valid
     ObtainContactsCommand -> ObtainContactsCommand: getMatchingSchoolName(jsonObject : JsonObject, schoolName : String)
     activate ObtainContactsCommand
+
     loop for  each school found in the set of schools
         opt checks if the school name matches
             return key: String
         end
     end
+
 else else
         ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
 end
@@ -72,12 +75,15 @@ alt contact type is valid
     else NUMBER_KEY
         ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
     end
+
 else else
     ObtainContactsCommand --> CEG_Student: Display Invalid Contact Type Message
 end
 
 deactivate ObtainContactsCommand
+
 ObtainContactsCommand --> ObtainContactsCommand
+
 deactivate ObtainContactsCommand
 
 ObtainContactsCommand --> CEG_Student
