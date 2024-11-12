@@ -1230,6 +1230,10 @@ faster than a typical mouse/GUI driven app
 
 - **Logger**: A component that records significant events or errors that occur during application execution, aiding in debugging and tracking application behavior.
 
+- **Last amended transaction**: The last amended transaction refers to the last added/edited/deleted transaction.
+If the last edit to the list of transactions was a delete, the list is considered to have no "last amended entry".
+Memory of last amended entry is not saved after exiting the app.
+
 ## Instructions for manual testing
 
 ### Manual Testing
