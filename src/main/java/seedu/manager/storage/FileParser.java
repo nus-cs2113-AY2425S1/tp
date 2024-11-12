@@ -118,9 +118,11 @@ public class FileParser {
             Priority priority = Priority.valueOf(fields[4].trim().toUpperCase());
             boolean isDone = getIsMarked(fields[5].trim());
             events.addEvent(eventName, time, venue, priority, isDone);
-        } catch (ParseException | IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (ParseException | IndexOutOfBoundsException
+                 | NullPointerException | IllegalArgumentException exception) {
             logWarning("File line cannot be parsed, event not loaded");
         }
+
     }
 
     /**
@@ -138,7 +140,7 @@ public class FileParser {
             boolean isPresent = getIsMarked(fields[4].trim());
             String isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
-        } catch (IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (IndexOutOfBoundsException | NullPointerException | IllegalArgumentException exception) {
             logWarning("File line cannot be parsed, participant not loaded");
         }
     }
@@ -158,7 +160,7 @@ public class FileParser {
             boolean isPresent = getIsMarked(fields[3].trim());
             String isLoaded = events.addItemToEvent(itemName, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
-        } catch (IndexOutOfBoundsException | NullPointerException exception) {
+        } catch (IndexOutOfBoundsException | NullPointerException | IllegalArgumentException exception) {
             logWarning("File line cannot be parsed, item not loaded");
         }
     }
@@ -177,7 +179,7 @@ public class FileParser {
             return false;
         } else {
             logWarning("Cannot parse mark status, setting to false");
-            return false;
+            throw new IllegalArgumentException();
         }
     }
 
