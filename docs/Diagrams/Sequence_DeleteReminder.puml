@@ -1,0 +1,52 @@
+@startuml
+title Sequence Diagram for "delete <index of a reminder>" Command
+
+actor User
+participant ":FitTrack"
+participant ":Parser"
+participant ":Ui"
+skinparam style strictuml
+
+User -> ":FitTrack": User inputs delete command
+activate ":FitTrack"
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
+
+alt Invalid index format
+    ":Parser" --> ":FitTrack": throw IllegalArgumentException
+    note over ":Ui"
+        Print INVALID_INDEX_NON_NUMERIC_MESSAGE
+    end note
+else Invalid index out of bounds
+    ":Parser" --> ":FitTrack": throw IndexOutOfBoundsException
+    note over ":Ui"
+        Print INDEX_OUT_OF_BOUNDS_MESSAGE
+    end note
+else Valid index
+    ":FitTrack" -> ":Parser": reminderList.get(reminderIndexToDelete)
+    ":Parser" --> ":FitTrack": reminderToDelete
+
+    ":FitTrack" -> ":Parser": reminderList.remove(reminderIndexToDelete)
+
+    ":Parser" -> ":Ui": printDeletedReminder(reminderList, reminderToDelete)
+    activate ":Ui"
+    note over ":Ui"
+        Print DELETE_REMINDER_MESSAGE
+        Print reminderDescription
+    end note
+
+    ":Ui" -> ":Ui": printReminderCount(reminderList)
+    activate ":Ui"
+    ":Ui" --> ":Ui"
+    deactivate ":Ui"
+
+    ":Parser" -> ":FitTrack": updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList)
+end
+
+":Ui" --> ":Parser"
+deactivate ":Ui"
+":Parser" --> ":FitTrack"
+deactivate ":Parser"
+deactivate ":FitTrack"
+
+@enduml

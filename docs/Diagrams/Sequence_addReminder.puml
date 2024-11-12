@@ -1,0 +1,69 @@
+@startuml
+actor User
+participant ":FitTrack"
+participant ":Parser"
+participant ":Reminder"
+participant ":Ui"
+participant ":Storage"
+
+User -> ":FitTrack": add reminder description and deadline
+activate ":FitTrack"
+
+":FitTrack" -> ":Parser": parse(...)
+
+activate ":Parser"
+
+alt Invalid input format (no '//' separator)
+    ":Parser" --> ":FitTrack": throw IllegalArgumentException
+    note over ":Ui"
+        Print "Input must contain a non-blank description and a deadline, with '//' between them"
+    end note
+else Valid input format
+    ":Parser" -> ":FitTrack": split(description, "//")
+    ":Parser" -> ":FitTrack": trim(inputDeadline, inputDescription)
+
+    alt Invalid deadline or description (empty)
+        ":Parser" --> ":FitTrack": throw IllegalArgumentException
+        note over ":Ui"
+            Print "Input must contain a non-blank description and a deadline"
+        end note
+    else Valid description and deadline
+        ":Parser" -> ":FitTrack": parseDeadline(inputDeadline)
+        activate ":FitTrack"
+
+        alt Invalid deadline format
+            ":Parser" --> ":FitTrack": throw IllegalArgumentException
+            note over ":Ui"
+                Print "Invalid deadline format"
+            end note
+        else Valid deadline
+            ":FitTrack" -> ":Reminder": new Reminder(inputDescription, deadline, user)
+            activate ":Reminder"
+            ":Reminder" --> ":FitTrack": reminder
+            deactivate ":Reminder"
+
+            ":FitTrack" -> ":Parser": reminderList.add(reminder)
+            ":Parser" --> ":FitTrack": return
+
+            ":Parser" -> ":Ui": printAddedReminder(reminderList)
+            activate ":Ui"
+            note over ":Ui"
+                Print "Reminder added"
+            end note
+            ":Ui" --> ":Parser"
+            deactivate ":Ui"
+        end
+    end
+end
+
+":Parser" --> ":FitTrack"
+deactivate ":Parser"
+
+":FitTrack" -> ":Storage": updateSaveFile(user, sessionList, goalList, reminderList, foodWaterList)
+activate ":Storage"
+":Storage" --> ":FitTrack": return
+deactivate ":Storage"
+
+deactivate ":FitTrack"
+
+@enduml
