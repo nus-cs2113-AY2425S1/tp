@@ -28,7 +28,7 @@ class Parser {
 class "{abstract}\nCommand" {
     +argumentsMap: ArgumentsMap
     +Command(ArgumentsMap)
-    +execute(ExpenseList) {abstract}
+    +execute(expenseList : ExpenseList, categoryFacade : CategoryFacade, recurringExpenseList : RecurringExpenseList) {abstract}
     +isExit(): boolean
     +isRecur(): boolean
 }
