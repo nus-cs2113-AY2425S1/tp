@@ -256,7 +256,7 @@ Edits an existing transaction in your financial list.
  - `AMOUNT` (optional):
    - Must be a positive number with a maximum value of $9999999.00. If it's a floating-point number, it will be rounded to two decimal places.
  - `DATE` (optional):
-   - Should follow `DD/MM/YYYY` format and cannot be after the system date.
+   - Should follow `dd/MM/yyyy` format and cannot be after the system date.
  - `CATEGORY` (optional):
    - Should be one of the categories allowed in Expenses/Incomes.
 
