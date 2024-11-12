@@ -2,6 +2,7 @@
 title: Ajay Shanker
 parent: About Us
 # nav_order: 5
+nav_enabled: false
 ---
 
 # Ajay Shanker's Project Portfolio Page
