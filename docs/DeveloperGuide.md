@@ -32,7 +32,7 @@ img
     - [Exceptions and Logging](#exceptions-and-logging)
     - [Storage](#storage)
   - [Product scope](#product-scope)
-    - [Target user profile:](#target-user-profile)
+    - [Target user profile](#target-user-profile)
     - [Value proposition](#value-proposition)
   - [User Stories](#user-stories)
   - [Use Cases](#use-cases)
