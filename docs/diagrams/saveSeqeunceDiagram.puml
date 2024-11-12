@@ -1,6 +1,9 @@
 @startuml
 
 actor Client
+participant ":Storage" as Storage
+participant ":JsonObject" as JsonObject
+participant ":FileManager" as FileManager
 
 Client -> Storage : saveData(programmeList, history)
 activate Storage
