@@ -10,26 +10,21 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
 
 ### Enhancements Implemented
 
-- **Meals Intake features**: Designed and wrote the code to add, delete and view meals. 
-
-    - **What it does**: This feature allows the user to add, delete or view meals to their daily record for that day. They are also able to add, delete and view meals from previous days. 
-
-    - **Justification**: The meals futures is essential in tracking ones calorie intake so that they can visualise the amount of food they are consuming to make changes to their diet to better reach their goals. 
-
-    - **Highlights**: This feature allows users to easily add, view, and delete meals for the current and previous days, supporting flexible and comprehensive meal tracking. Robust error handling ensures that all entries are complete and accurate, enhancing usability with clear prompts and messages.
-
+- **Meals Intake features**: Designed and wrote the code to add, delete and view meals.
+    - **What it does**: This feature allows the user to add, delete or view meals to their daily record for that day. They are also able to add, delete and view meals from previous days.
+    - **Justification**: The meals futures is essential in tracking ones calorie intake so that they can visualise the amount of food they are consuming to make changes to their diet to better reach their goals.
+    - **Highlights**: This feature allows users to easily add, view, and delete meals for the current and previous days, supporting flexible and comprehensive meal tracking. 
 
 - **Program Feature classes**: Designed and wrote the Exercise, Day, Programme, Programme List classes handling the programme features.
-
   - **What it does**: These classes form the foundational components for managing and supporting the creation, modification, and tracking of exercise programs. 
-  - **Justification**: These classes are essential building blocks for a structured approach to managing exercise programs. By designing these classes, users can handle workout data modularly, which facilitates maintainability and future feature enhancements. The clear organization supports the creation of flexible and personalized workout routine
+  - **Justification**: These classes are essential building blocks for a structured approach to managing exercise programs. By designing these classes, users can handle workout data modularly.
   - **Highlights**: The classes are implemented with robust error handling to ensure valid user inputs and prevent common issues like null inputs or out-of-bounds access.
 
 
 ### Contributions to the User Guide (UG)
 - Added/edited the following sections:
     - **Added documentation for meal related features**
-      - Provided comprehensive explanations and examples on how users can add, delete and view their meals. Gave examples of usages all the possible commands and clearly stated which flags were optional (if any). 
+      - Provided comprehensive explanations and examples on how users can add, delete and view their meals.  
     - **Added documentation for the water related features**:
       - Provided comprehensive explanations and examples on how users can add, delete and view their water intake.
 - Added all these functions to the summary table at the end if the UG for ease of reference.
@@ -39,19 +34,14 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
 - **UML Diagrams**:
     - **Meal, MealList and water class diagrams**
       - Illustrates the structure of the meal, meallist and water classes within the system, listing out all its methods and parameters whilst depicting their accessibility.
-    - **Addmeal sequence diagram**
-      - Created a sequence diagram for the Add Meal command, illustrating the step-by-step interaction between various classes and components when a user adds a meal. 
-    - **Deletemeal sequence diagram**
-      - Created a sequence diagram for the Delete Meal command, illustrating the step-by-step interaction between various classes and components when a user deletes a meal.
-    - **Viewmeal sequence diagram**
-      - Created a sequence diagram for the View Meals command, illustrating the step-by-step interaction between various classes and components when a user wants to view the meals.
+    - **Addmeal, Deletemeal and Viewmeal sequence diagram**
+      - Created a sequence diagram for the 3 commands, illustrating the step-by-step interaction between various classes and components when a user adds a meal.
     - **Addmeal activity diagram**
       - Created an activity diagram for the "Add Meal" command, detailing the workflow from user input to returning a success message. 
 
 ### Contributions to Team-Based Tasks
 - Actively participated in team meetings and discussions
 - Helped in designing the class and data structures for the programme meal and water components
-- Helped team members in debugging or solving bugs
 - Participated in a collaborative debugging session to identify and resolve issues before the V2.0 release
 
 ### Review/Mentoring Contributions
