@@ -4,6 +4,7 @@ import seedu.javaninja.question.Question;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Collections;
+import java.util.ArrayList;
 
 public class QuizGenerator {
     private final Cli cli;
@@ -90,14 +91,13 @@ public class QuizGenerator {
                 .limit(numTopics)
                 .toList();
 
-        List<Question> randomQuestions = selectedTopics.stream()
-                .flatMap(topic -> topic.getQuestions().stream())
+        List<Question> limitedQuestions = selectedTopics.stream()
+                .flatMap(topic -> {
+                    List<Question> shuffledQuestions = new ArrayList<>(topic.getQuestions());
+                    Collections.shuffle(shuffledQuestions);
+                    return shuffledQuestions.stream().limit(numQuestions);
+                })
                 .collect(Collectors.toList());
-
-        Collections.shuffle(randomQuestions);
-        List<Question> limitedQuestions = randomQuestions.stream()
-                .limit(numQuestions)
-                .toList();
 
         Topic randomQuiz = new Topic("Random Quiz");
         for (Question question : limitedQuestions) {
@@ -106,6 +106,7 @@ public class QuizGenerator {
 
         return randomQuiz;
     }
+
 
     private int getQuestionLimitFromUser(Topic topic) {
         int maxQuestions = topic.getQuestions().size();

@@ -57,6 +57,14 @@ public class QuizManager {
             return;
         }
 
+        if (topicName.equalsIgnoreCase("random")) {
+            boolean quizStarted = quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
+            if (quizStarted) {
+                addResultsAndPrintScore();
+            }
+            return;
+        }
+
         String matchedTopic = topicManager.getTopicNames().stream()
                 .filter(name -> name.equalsIgnoreCase(topicName))
                 .findFirst()
@@ -69,13 +77,12 @@ public class QuizManager {
         }
 
         boolean quizStarted = false;
-        if (matchedTopic.equalsIgnoreCase("random")) {
-            quizStarted = quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
-        } else if (quizType == QuizType.TIMED) {
+        if (quizType == QuizType.TIMED) {
             quizStarted = quizSession.selectTimedQuiz(matchedTopic);
         } else {
             quizStarted = quizSession.selectUntimedQuiz(matchedTopic);
         }
+
 
         if (quizStarted) {
             addResultsAndPrintScore();
