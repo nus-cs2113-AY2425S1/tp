@@ -35,11 +35,6 @@ BuffBuddy is a CLI workout and meal tracker that tracks your programmes, workout
 - **Justification**: This helps users keep their program list manageable by allowing the removal of unused or outdated workouts.
 - **Highlights**: Provides flexibility by supporting both specified and default deletions, enhancing usability for users who frequently update their routines.
 
-6.**Log Workout**: Feature to track workout completion.
-- **What it does**: Enables users to log the completion of a workout on a specified day, including tracking the date and exercise details.
-- **Justification**: Maintaining a workout log supports users’ fitness journeys by recording their progress over time, aiding in motivation and accountability.
-- **Highlights**: Captures extensive workout data—such as exercises, sets, reps, and calories burned—providing a detailed record that users can reference to track improvements.
-
 
 Each feature in BuffBuddy was designed with advanced input flexibility, allowing parameters to be entered in any order and making certain parameters optional to accommodate varied user preferences. 
 Additionally, all flags associated with these features have aliases, providing users with alternative command syntax to access the same functionality. This design not only improves usability but also enhances the overall user experience by enabling more intuitive and flexible interactions.
@@ -56,8 +51,7 @@ Here’s an overview of the features I documented:
 3. **List All Programmes**: I outlined the command to view a complete list of user-created workout programs, which provides an overview of all available programs and highlights the active program for easy reference.
 4. **View Programme**: I included a breakdown of how to display the details of a particular program, such as exercises organized by day, with full exercise specifications, allowing users to review their progress or plan workouts accordingly.
 5. **Delete Programme**: I provided guidance on deleting a program, either by specifying the program index or defaulting to the active program, ensuring users can manage and clear their list of workout programs efficiently.
-6. **Log Workout**: I documented how users can log completed workouts, specifying the date and program/day index, to help track workout progress. This feature enables users to maintain a record of their fitness journey, including sets, reps, and calories burned for each exercise.
-7. **Exit BuffBuddy**: I illustrated how users can safely exit the application.
+6. **Exit BuffBuddy**: I illustrated how users can safely exit the application.
 
 Each feature description includes clear command syntax, examples, and sample outputs to illustrate expected results, helping users to navigate and personalize their fitness routines with confidence.
 

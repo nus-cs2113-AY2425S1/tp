@@ -342,7 +342,7 @@ Updated exercise: Bicep Curl: 3 sets of 15 at 8kg | Burnt 100 kcal
 
 ---
 
-<!-- @@author nirala-ts -->
+<!-- @@author andreusxcarvalho -->
 
 ### 11. Log Workout
 
