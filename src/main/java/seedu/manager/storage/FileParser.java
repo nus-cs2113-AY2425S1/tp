@@ -27,9 +27,9 @@ import java.util.regex.Pattern;
  * and adds them to the provided EventList.
  */
 public class FileParser {
-    private final Logger logger;
-
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
+
+    private final Logger logger;
 
     /**
      * Constructs a new FileParser.
