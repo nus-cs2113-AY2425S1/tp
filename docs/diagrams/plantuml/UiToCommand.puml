@@ -29,6 +29,7 @@ class "{abstract}\nCommand" {
     +argumentsMap: HashMap<String, String>
     +Command(HashMap<String, String>)
     +execute(expenseList : ExpenseList, categoryFacade : CategoryFacade, recurringExpenseList : RecurringExpenseList) {abstract}
+    +isRecur(): boolean
     +isExit(): boolean
 }
 
