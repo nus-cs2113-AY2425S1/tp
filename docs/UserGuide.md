@@ -83,27 +83,28 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
     - If the category is not entered, the program will prompt you to enter a category or to leave it empty
     - You may either fill in a category already in the category list or create a new category if it is not present in the list
     - If the date is not entered, the system will take the current day.
-- **Examples:**
+- **Examples:** Note that the follow-up question will be printed on a line
   ```
-  add-expense a/ 17 d/ 2024-07-09 c/ FnB
+  add-expense ChiCha a/ 17 d/ 2024-07-09 c/ FnB
   add-expense Amusement park a/ 52 d/ 2024-08-09
-  add-expense ChiCha a/ 6 d/ 2024-09-09 c/ FnB
+  add-expense a/ 6 d/ 2024-09-09 c/ FnB
   
   Example Output:
-  add-expense ChiCha a/ 6 d/ 2024-09-09 c/ FnB
+  add-expense a/ 6 d/ 2024-09-09 c/ FnB
   Category 'FnB' does not exist. Current categories:
   Category: Food
   Category: Entertainment
   Category: Transport
   Category: Utilities
   Category: Others
-  Type 'yes' to create a new category, or enter an existing category name. Type 'no' to skip: 
+  Type 'yes' to create a new category, or enter an existing category name.
+  Type 'no' to skip: 
   yes
   New category 'FnB' created.
   -------------------------------------
-  Transaction added: Expense [amount=6.0, description=ChiCha, date=2024-09-09 0000, category=FnB]
+  Transaction added: Expense [amount=6.0, description=, date=2024-09-09 0000, category=FnB]
   Your current transaction list:
-  1. Expense [amount=6.0, description=ChiCha, date=2024-09-09 0000, category=FnB]
+  1. Expense [amount=6.0, description=, date=2024-09-09 0000, category=FnB]
     -------------------------------------
   ```
 
@@ -169,7 +170,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 #### Delete an expense/income: `delete-transaction`
 - Delete an expense or income from the history.
 - **Format:** `delete-transaction i/ INDEX`
-- **Example:** Note that the output will be on a line
+- **Example:**
   ```
   delete-transaction i/ 1
   
@@ -221,7 +222,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Format:** `categorize i/ INDEX c/ CATEGORY`
 - - **Tip:**
 - The category must be in the category list, and the transaction must be an expense.
-- **Example:** Note that the output will be on a line
+- **Example:** Note that the output will be printed on a line
   ```
   categorize i/ 1 c/ Food
   
@@ -293,7 +294,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Tips:**
     - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
     - Tracking of progress is only available for current or past months.
-- **Example:** Note that the output will be on a line
+- **Example:** Note that the output for `view-budget m/ 2024-11` will be printed on a line
   ```
   view-budget 
   view-budget m/ 2024-11
