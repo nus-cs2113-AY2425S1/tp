@@ -773,6 +773,17 @@ testers are expected to do more *exploratory* testing.
   * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
     in personal tracker
 
+
+> [NOTE!]
+> The tests below would require the tester to corrupt the `myList.json` file stored in the data folder (found in
+> the directory where your terminal is running from).
+> 
+> To corrupt data: At least one saved course mapping plan saved in myList.json, then remove any of the information
+> (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code).
+> 
+> To fix the file: Revert all changes, and make sure that there is **no new line** after the last course mapping plan.
+
+
 #### 2.8 Listing out all saved course mapping plans in Personal Tracker
 ##### Non-corrupted data file
 * 2.8.1 Listing an empty data file
@@ -790,12 +801,11 @@ testers are expected to do more *exploratory* testing.
 
 ##### Corrupted data file
 * 2.8.3 Listing a non-empty data file
-  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
-    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
-    one line.
+  * Prerequisites: Corrupted data file (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
   * Test Case: `list mapped`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
-  * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing. 
+  * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing.
+    (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
 
 
 #### 2.9 Compare saved course mapping plans between universities
@@ -815,12 +825,11 @@ testers are expected to do more *exploratory* testing.
 
 ##### Corrupted data file
 * 2.9.3 Listing a non-empty data file
-  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
-    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
-    one line.
+  * Prerequisites: Corrupted data file (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
   * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing.
+    (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
 
 #### 2.10 Find course mappings in Personal Tracker
 * 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
