@@ -191,7 +191,7 @@ Obtain the contact details (email or number) of the university of interest from 
 Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 
 * The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
-* The `CONTACT_TYPE` is the type of contact either number or email
+* The `CONTACT_TYPE` is the type of contact either number or email.
 
 The available partner universities are:
 * The University of Western Australia (uwa)

@@ -35,19 +35,22 @@ end
 ObtainContactsCommand -> ObtainContactsCommand: findMatchingSchool(jsonObject: JsonObject, schoolName: String)
 activate ObtainContactsCommand
 
-ObtainContactsCommand -> SchoolContactValidator
+ObtainContactsCommand -> SchoolContactValidator: isSchoolValid(jsonObject : JsonObject, schoolName : String)
 activate SchoolContactValidator
-SchoolContactValidator --> ObtainContactsCommand: isSchoolValid(jsonObject : JsonObject, schoolName : String)
+
+SchoolContactValidator --> ObtainContactsCommand: isSchoolValid:Boolean
 deactivate SchoolContactValidator
 
 alt school is valid
     ObtainContactsCommand -> ObtainContactsCommand: getMatchingSchoolName(jsonObject : JsonObject, schoolName : String)
     activate ObtainContactsCommand
+
     loop for  each school found in the set of schools
         opt checks if the school name matches
             return key: String
         end
     end
+
 else else
         ObtainContactsCommand --> CEG_Student: Display "Unknown university - " + schoolName
 end
@@ -58,9 +61,9 @@ deactivate ObtainContactsCommand
 ObtainContactsCommand -> ObtainContactsCommand: checkValidContact(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
 activate ObtainContactsCommand
 
-ObtainContactsCommand -> SchoolContactValidator
+ObtainContactsCommand -> SchoolContactValidator: isValidContactType(contactType : String)
 activate SchoolContactValidator
-SchoolContactValidator --> ObtainContactsCommand: isValidContactType(contactType : String)
+SchoolContactValidator --> ObtainContactsCommand: isValidContactType : Boolean
 deactivate SchoolContactValidator
 
 alt contact type is valid
@@ -72,12 +75,15 @@ alt contact type is valid
     else NUMBER_KEY
         ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
     end
+
 else else
     ObtainContactsCommand --> CEG_Student: Display Invalid Contact Type Message
 end
 
 deactivate ObtainContactsCommand
+
 ObtainContactsCommand --> ObtainContactsCommand
+
 deactivate ObtainContactsCommand
 
 ObtainContactsCommand --> CEG_Student
