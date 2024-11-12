@@ -1,18 +1,32 @@
 @startuml
 actor User
 User -> TopicManager : loadQuestions()
+activate TopicManager
+
 TopicManager -> Storage : loadData()
+activate Storage
 Storage --> TopicManager : List<String> questionData
+deactivate Storage
+
 TopicManager -> TopicManager : parseTopic(String line)
+activate TopicManager
 
 alt if topic exists
     TopicManager -> Topic : getOrCreateTopic(String topicName)
+    activate Topic
     Topic --> TopicManager : return existing Topic
+    deactivate Topic
 else if topic does not exist
     TopicManager -> Topic : getOrCreateTopic(String topicName)
+    activate Topic
     Topic -> Topic : Topic(topicName)
+    activate Topic
     Topic --> TopicManager : return new Topic
+    deactivate Topic
 end
 
 TopicManager -> Topic : addQuestion(Question question)
+activate Topic
+deactivate Topic
+deactivate TopicManager
 @enduml
