@@ -147,7 +147,7 @@ User can delete their budget completely by using the budget command.
 
 **Example Usage**:
 
-Example 1: 
+Example 1: Deleting budget using budget command.
 ```
 // Delete budget by setting amount to 0
 budget 0
