@@ -68,10 +68,10 @@ class ProgrammeCommandFactoryTest {
     // Tests for prepareCreateCommand
     @Test
     public void testPrepareCreateCommandValidInput() {
-        String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w 0 /c 50";
+        String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w 10 /c 50";
 
         Day expectedDay = new Day("Day1");
-        expectedDay.insertExercise(new Exercise(3, 15, 0, 50, "PushUps"));
+        expectedDay.insertExercise(new Exercise(3, 15, 10, 50, "PushUps"));
 
         ArrayList<Day> expectedDays = new ArrayList<>(List.of(expectedDay));
         CreateProgrammeCommand expectedCommand = new CreateProgrammeCommand("MyProgram", expectedDays);
@@ -96,14 +96,14 @@ class ProgrammeCommandFactoryTest {
 
     @Test
     public void testPrepareCreateCommandMultipleDays() {
-        String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w 0 /c 50 /d " +
-                "Day2 /e /name SitUps /set 2 /rep 20 /w 0 /c 30";
+        String argumentString = "MyProgram /d Day1 /e /name PushUps /set 3 /rep 15 /w 10 /c 50 /d " +
+                "Day2 /e /name SitUps /set 2 /rep 20 /w 10 /c 30";
 
         Day day1 = new Day("Day1");
-        day1.insertExercise(new Exercise(3, 15, 0, 50, "PushUps"));
+        day1.insertExercise(new Exercise(3, 15, 10, 50, "PushUps"));
 
         Day day2 = new Day("Day2");
-        day2.insertExercise(new Exercise(2, 20, 0, 30, "SitUps"));
+        day2.insertExercise(new Exercise(2, 20, 10, 30, "SitUps"));
 
         ArrayList<Day> expectedDays = new ArrayList<>(Arrays.asList(day1, day2));
         CreateProgrammeCommand expectedCommand = new CreateProgrammeCommand("MyProgram", expectedDays);
@@ -116,14 +116,14 @@ class ProgrammeCommandFactoryTest {
     @Test
     public void testPrepareCreateCommandMultipleDaysMultipleExercises() {
         String argumentString = "MyProgram " +
-                "/d Day1 /e /name PushUps /set 3 /rep 15 /w 0 /c 50 " +
-                "/e /name SitUps /set 2 /rep 20 /w 0 /c 30 " +
+                "/d Day1 /e /name PushUps /set 3 /rep 15 /w 10 /c 50 " +
+                "/e /name SitUps /set 2 /rep 20 /w 10 /c 30 " +
                 "/d Day2 /e /name Squats /set 4 /rep 10 /w 20 /c 100 " +
                 "/e /name Lunges /set 3 /rep 12 /w 15 /c 80";
 
         Day day1 = new Day("Day1");
-        day1.insertExercise(new Exercise(3, 15, 0, 50, "PushUps"));
-        day1.insertExercise(new Exercise(2, 20, 0, 30, "SitUps"));
+        day1.insertExercise(new Exercise(3, 15, 10, 50, "PushUps"));
+        day1.insertExercise(new Exercise(2, 20, 10, 30, "SitUps"));
 
         Day day2 = new Day("Day2");
         day2.insertExercise(new Exercise(4, 10, 20, 100, "Squats"));

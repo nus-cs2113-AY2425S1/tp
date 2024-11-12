@@ -80,7 +80,7 @@ class FlagParserTest {
     @Test
     void testGetIndexByFlagValidCase() {
         assertEquals(0, flagParser.getIndexByFlag("/p"),
-                "Expected zero-based index '0' for flag '/p' with value '1'");
+                "Expected zero-based index '0' for flag '/p' with value '0'");
     }
 
     @Test
