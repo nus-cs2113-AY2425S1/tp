@@ -11,7 +11,7 @@
     - [Delete Budget](#delete-budget)
     - [Add Transaction](#add-transaction)
     - [Edit Transaction](#edit-transaction)
-    - [Delete Transaction](#delete-transaction-1)
+    - [Delete Transaction](#delete-transaction)
     - [List Transactions](#list-transactions)
       - [List by Type](#list-by-type)
       - [List by Date](#list-by-date)
