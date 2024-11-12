@@ -779,8 +779,8 @@ and the enumeration `LogLevels`.
 <ins>Implementation Details</ins>
 
 The `Log` class has a private constructor to prevent multiple instances of the class.
-The `Log` class is instantiated through the `LogHelper` class, and is accessed through the
-`getInstance()` method.
+The `Log` class is instantiated through the nested static `LogHelper` class,
+and is accessed through the `getInstance()` method.
 
 The `LogLevels` enumeration is used to indicate the level of a particular log.
 - `INFO` Represents informational messages that highlight the progress of the application.
