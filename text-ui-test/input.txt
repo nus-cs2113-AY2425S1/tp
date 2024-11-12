@@ -1,1 +1,9 @@
-James Gosling
+1
+add id/A1234567J gpa/5.00 p/{13,63,21}
+add id/A2468101J gpa/5.00 p/{88}
+add id/A3691215J gpa/5.00 p/{19,66}
+list
+delete A2468101J
+delete A3691215J
+exit
+no

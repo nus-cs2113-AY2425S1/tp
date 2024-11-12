@@ -1,0 +1,5 @@
+package command;
+
+public enum Commands {
+    ADD, DELETE, LIST, FIND, FILTER, ALLOCATE, EXIT, QUIT, BYE, HELP, GENERATE, MINIMUM, STATS, VIEWQUOTA, REVERT, VOID
+}

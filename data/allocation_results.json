@@ -1,0 +1,129 @@
+{
+  "students" : [ {
+    "id" : "A1234567J",
+    "gpa" : 4.5,
+    "uniPreferences" : [ 1, 2, 3 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A1234567I",
+    "gpa" : 5.0,
+    "uniPreferences" : [ 12, 61, 43 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A7654321K",
+    "gpa" : 3.8,
+    "uniPreferences" : [ 2, 3, 1 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A1357913L",
+    "gpa" : 4.0,
+    "uniPreferences" : [ 3, 1, 2 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A9876543M",
+    "gpa" : 3.2,
+    "uniPreferences" : [ 12, 45, 67 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A2468101N",
+    "gpa" : 4.7,
+    "uniPreferences" : [ 5, 23, 49 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A1122334O",
+    "gpa" : 2.9,
+    "uniPreferences" : [ 78, 56, 23 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A3344556P",
+    "gpa" : 4.0,
+    "uniPreferences" : [ 9, 34, 21 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A5566778Q",
+    "gpa" : 3.5,
+    "uniPreferences" : [ 41, 12, 89 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A6677889R",
+    "gpa" : 2.4,
+    "uniPreferences" : [ 30, 77, 18 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A7788990S",
+    "gpa" : 3.9,
+    "uniPreferences" : [ 60, 15, 2 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A9988776T",
+    "gpa" : 4.3,
+    "uniPreferences" : [ 88, 55, 13 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A4455667U",
+    "gpa" : 3.1,
+    "uniPreferences" : [ 27, 44, 91 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A2233445V",
+    "gpa" : 5.0,
+    "uniPreferences" : [ 20, 1, 50 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A1123581W",
+    "gpa" : 4.8,
+    "uniPreferences" : [ 33, 9, 76 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A3141592X",
+    "gpa" : 3.6,
+    "uniPreferences" : [ 65, 22, 48 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A5454545C",
+    "gpa" : 3.0,
+    "uniPreferences" : [ 17, 58, 36 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A4343434B",
+    "gpa" : 4.6,
+    "uniPreferences" : [ 6, 35, 40 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A3232323A",
+    "gpa" : 3.4,
+    "uniPreferences" : [ 28, 19, 70 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A2121212Z",
+    "gpa" : 4.2,
+    "uniPreferences" : [ 7, 50, 29 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  }, {
+    "id" : "A0101010Y",
+    "gpa" : 2.7,
+    "uniPreferences" : [ 14, 63, 5 ],
+    "allocatedUniversity" : -1,
+    "successfullyAllocated" : false
+  } ]
+}

@@ -10,8 +10,18 @@ repositories {
 }
 
 dependencies {
+    // JUnit dependencies for testing
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // AsciiTable dependencies for formatting tables
+    implementation group: 'de.vandermeer', name: 'asciitable', version: '0.3.2'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.0'
+
+    // https://mvnrepository.com/artifact/com.opencsv/opencsv
+    implementation group: 'com.opencsv', name: 'opencsv', version: '5.9'
 }
 
 test {
@@ -29,11 +39,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("findoursep.FindOurSEP")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("FindOurSEP")
     archiveClassifier.set("")
 }
 
@@ -41,6 +51,7 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
+    enableAssertions = true
 }

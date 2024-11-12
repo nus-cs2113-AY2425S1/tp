@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Projects>
+    <Project id="001">
+        <Name>Project Alpha</Name>
+        <Description>Developing a cloud-based storage solution.</Description>
+        <Technologies>
+            <Technology>Java</Technology>
+            <Technology>AWS</Technology>
+            <Technology>Docker</Technology>
+        </Technologies>
+        <TeamLead>Jane Cena</TeamLead>
+    </Project>
+    <Project id="002">
+        <Name>Project Beta</Name>
+        <Description>Creating a microservices architecture for an e-commerce platform.</Description>
+        <Technologies>
+            <Technology>Python</Technology>
+            <Technology>Kubernetes</Technology>
+            <Technology>Kafka</Technology>
+        </Technologies>
+        <TeamLead>Bob The Builder</TeamLead>
+    </Project>
+</Projects>
