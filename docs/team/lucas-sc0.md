@@ -20,10 +20,8 @@ Please view all my contributions to the project codes [here](https://nus-cs2113-
 * `CSV.java`: Fixed errors with metadata handling after deletion, ensured CSV metadata is updated correctly after delete -e 
 and delete -a. Fixed inverted values being displayed in CSV due to hashmap implementation for Inventory data structure.
 
-
 2. Exception Handling and Assertions:
-* Custom exception were build on-top of existing code to handle invalid inputs
-    * InventraInvalidRecordCountException
+* Custom exception were build on-top of existing code to handle invalid inputs: InventraInvalidRecordCountException
 * Created assertions for defensive programming 
 * Configured non-verbose logging for add command to ensure de-cluttering of UI 
 * Addressed bugs highlighted in PE-D 

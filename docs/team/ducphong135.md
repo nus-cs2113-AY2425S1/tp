@@ -22,7 +22,7 @@ Please view all my contributions to the project codes [here](https://nus-cs2113-
 * Address bug in PE-D
 
 ### Contributions to User Guide (UG)
-1. Updated the following `Command` Sections:`view`, `exit`
+* Updated the following `Command` Sections:`view`, `exit`
     - Add command `view -f` to match with project development
     - Update `exit` command for clarification
 
@@ -37,5 +37,3 @@ Please view all my contributions to the project codes [here](https://nus-cs2113-
 ### Summary
 In this project `Inventra`, I have implemented some core functionalities,
 ensured proper exception handling and data persistence.
-  
-
