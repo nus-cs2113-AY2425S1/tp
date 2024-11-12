@@ -11,7 +11,7 @@ public class UI {
     private static final String INVALID_INPUT_MESSAGE = "Please enter a valid command! " +
             "Use the help command to find valid command.";
     private static final String HELP_INTRO_MESSAGE = "Here are the commands available:";
-    private static final String HELP_ADD_EXPENSE = "Add expense: add-expense n/NAME a/AMOUNT [c/CATEGORY]";
+    private static final String HELP_ADD_EXPENSE = "Add expense: add-expense n/NAME a/AMOUNT c/CATEGORY";
     private static final String HELP_DELETE_EXPENSE = "Delete expense: delete-expense e/INDEX";
     private static final String HELP_ADD_CATEGORY = "Add new category: add-category c/CATEGORY";
     private static final String HELP_DELETE_CATEGORY = "Delete new category: delete-category c/CATEGORY";

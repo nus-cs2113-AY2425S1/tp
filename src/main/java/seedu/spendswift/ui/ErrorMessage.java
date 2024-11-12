@@ -9,8 +9,6 @@ public class ErrorMessage {
     private static final String INVALID_INDEX = "Invalid expense index format. " +
             "Please enter a valid positive integer after 'e/'.";
     private static final String EXPENSEMANAGER_EMPTY_NAME = "Invalid input! Please provide a name for your expense.";
-    private static final String EXPENSEMANAGER_EMPTY_CATEGORY = "Invalid input! " +
-            "Please provide a category.";
     private static final String EXPENSEMANAGER_NEGATIVE_AMOUNT = "Invalid input! Please provide a positive amount!";
     private static final String NEGATIVE_LIMIT = "Invalid input! Please provide a positive limit!";
     private static final String PARSING_ERROR = "Error parsing the input. Please use the correct format.";
@@ -51,12 +49,6 @@ public class ErrorMessage {
     public static void printExpensesManagerEmptyName(){
         System.out.println(UI.SEPARATOR);
         System.out.println(EXPENSEMANAGER_EMPTY_NAME);
-        System.out.println(UI.SEPARATOR);
-    }
-
-    public static void printExpensesManagerEmptyCategory(){
-        System.out.println(UI.SEPARATOR);
-        System.out.println(EXPENSEMANAGER_EMPTY_CATEGORY);
         System.out.println(UI.SEPARATOR);
     }
 

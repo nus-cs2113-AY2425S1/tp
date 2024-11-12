@@ -1,17 +1,18 @@
 @startuml
 actor User
-participant SpendSwift
-participant Parser
-participant ExpenseManager
-participant TrackerData
-participant InputParser
-participant ErrorMessage
-participant SuccessMessage
-participant Format
-participant Category
-participant Expense
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":ExpenseManager" as ExpenseManager
+participant ":TrackerData" as TrackerData
+participant ":InputParser" as InputParser
+participant ":ErrorMessage" as ErrorMessage
+participant ":SuccessMessage" as SuccessMessage
+participant ":Format" as Format
+participant ":Category" as Category
+participant ":Expense" as Expense
 
-User -> SpendSwift : input("tag-expense 1 /category Food")
+User -> SpendSwift : input("tag-expense e/1 c/Food")
+activate SpendSwift
 SpendSwift -> Parser : parseCommand(input, trackerData)
 
 activate Parser
@@ -19,45 +20,88 @@ Parser -> ExpenseManager : tagExpense(trackerData, input)
 
 activate ExpenseManager
 ExpenseManager -> InputParser : parseIndex(input)
-InputParser --> ExpenseManager : Return expenseIndex
+activate InputParser
+InputParser --> ExpenseManager : return expenseIndex: int
+deactivate InputParser
 
-alt Invalid Index
+opt Invalid Index
     ExpenseManager -> ErrorMessage : printInvalidIndex()
-    deactivate ExpenseManager
-    deactivate Parser
-else Valid Index
-    ExpenseManager -> InputParser : parseCategory(input)
-    InputParser --> ExpenseManager : Return categoryName
-
-    alt Invalid or Empty Category
-        ExpenseManager -> ErrorMessage : printExpensesManagerEmptyCategory()
-        deactivate ExpenseManager
-        deactivate Parser
-    else Valid Category
-        ExpenseManager -> ExpenseManager : tagExpenseHelper(trackerData, expenseIndex, categoryName)
-
-        activate ExpenseManager
-        ExpenseManager -> TrackerData : getExpenses()
-        TrackerData --> ExpenseManager : Return list of expenses
-
-        ExpenseManager -> TrackerData : getCategories()
-        TrackerData --> ExpenseManager : Return list of categories
-
-        ExpenseManager -> Format : formatInput(categoryName)
-        Format --> ExpenseManager : Return formattedCategoryName
-
-        loop Check each category
-            ExpenseManager -> Category : Check if name matches formattedCategoryName
-        end
-
-        alt Matching Category Found
-            ExpenseManager -> Expense : setCategory(matchingCategory)
-            ExpenseManager -> SuccessMessage : printTaggedExpense(expense)
-        else No Matching Category
-            ExpenseManager -> SuccessMessage : printMissingCategory(formattedCategoryName)
-        end
-        deactivate ExpenseManager
-    end
+    activate ErrorMessage
+    ErrorMessage --> ExpenseManager : return
+    deactivate ErrorMessage
+    ExpenseManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
 end
+
+ExpenseManager -> InputParser : parseCategory(input)
+activate InputParser
+InputParser --> ExpenseManager : return categoryName: String
+deactivate InputParser
+
+opt Invalid or Empty Category
+    ExpenseManager -> ErrorMessage : printExpensesManagerEmptyCategory()
+    activate ErrorMessage
+    ErrorMessage --> ExpenseManager : return
+    deactivate ErrorMessage
+    ExpenseManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
+end
+
+    ExpenseManager -> ExpenseManager : tagExpenseHelper(trackerData, expenseIndex, categoryName)
+
+    activate ExpenseManager
+    ExpenseManager -> TrackerData : getExpenses()
+    activate TrackerData
+    TrackerData --> ExpenseManager : return expenses: List<Expense>
+    deactivate TrackerData
+    ExpenseManager -> TrackerData : getCategories()
+    activate TrackerData
+    TrackerData --> ExpenseManager : return categories: List<Category>
+    deactivate TrackerData
+
+    ExpenseManager -> Format : formatInput(categoryName.trim())
+    activate Format
+    Format --> ExpenseManager : return formattedCategoryName: String
+    deactivate Format
+
+    loop Check each category
+        ExpenseManager -> Category : Check if name matches formattedCategoryName
+        activate Category
+        Category --> ExpenseManager : return category: String
+        deactivate Category
+    end
+
+    alt Matching Category Found
+        ExpenseManager -> Expense : setCategory(matchingCategory)
+        activate Expense
+        Expense --> ExpenseManager : return
+        deactivate Expense
+        ExpenseManager -> SuccessMessage : printTaggedExpense(expense)
+        activate SuccessMessage
+        SuccessMessage --> ExpenseManager : return
+        deactivate SuccessMessage
+    else No Matching Category
+        ExpenseManager -> SuccessMessage : printMissingCategory(formattedCategoryName)
+        activate SuccessMessage
+        SuccessMessage --> ExpenseManager : return
+        deactivate SuccessMessage
+    end
+
+    ExpenseManager -> TrackerData : setExpenses(expenses)
+    activate TrackerData
+    TrackerData --> ExpenseManager : return
+    deactivate TrackerData
+
+ExpenseManager --> ExpenseManager : return
+deactivate ExpenseManager
+
+ExpenseManager --> Parser : return
+deactivate ExpenseManager
+Parser --> SpendSwift : return false
 deactivate Parser
+SpendSwift --> User : return
+deactivate SpendSwift
+
 @enduml

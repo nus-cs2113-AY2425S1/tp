@@ -151,7 +151,7 @@ public class BudgetManager {
             double limit = parser.parseLimit(input);
 
             if (category.isEmpty()) {
-                ErrorMessage.printExpensesManagerEmptyCategory();
+                ErrorMessage.printMissingCategory();
                 return;
             }
 

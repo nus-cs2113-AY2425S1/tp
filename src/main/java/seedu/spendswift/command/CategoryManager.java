@@ -11,11 +11,6 @@ public class CategoryManager {
     private static void addCategoryHelper(TrackerData trackerData, String categoryName) {
         List<Category> categories = trackerData.getCategories();
 
-        if (categoryName.isEmpty()) {
-            ErrorMessage.printMissingCategory();
-            return;
-        }
-
         String formattedCategoryName = Format.formatInput(categoryName);
         for (Category category : categories) {
             if (category.getName().equalsIgnoreCase(formattedCategoryName)) {
@@ -35,7 +30,7 @@ public class CategoryManager {
         String categoryName = parser.parseCategory(input);
 
         if (categoryName == null || categoryName.isEmpty()) {
-            ErrorMessage.printExpensesManagerEmptyCategory();
+            ErrorMessage.printMissingCategory();
             return;
         }
 
@@ -90,7 +85,7 @@ public class CategoryManager {
         String categoryName = parser.parseCategory(input);
 
         if (categoryName == null || categoryName.isEmpty()) {
-            ErrorMessage.printExpensesManagerEmptyCategory();
+            ErrorMessage.printMissingCategory();
             return;
         }
 

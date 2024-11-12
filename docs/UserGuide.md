@@ -29,6 +29,10 @@ If the line separator have overlaps, please extend your terminal screen or reduc
 
 For details on all available commands, refer to the Features section below.
 
+---
+
+<div style="page-break-after: always;"></div>
+
 ## Features
 ### Command Format Notes
 1. Commands are case-insensitive: Command words can be typed in any combination of upper or lower case.
@@ -52,10 +56,12 @@ For details on all available commands, refer to the Features section below.
 
    Example: If the command specifies `view-expenses 123`, it will be interpreted as `list`.
 
-6. Avoid using command prefixes (e.g., n/, a/, c/, etc.) within parameter values, as they may interfere with parsing.
+6. Avoid using command prefixes (e.g., `n/`, `a/`, `c/`, etc.) and special characters `|` within parameter values, as they may interfere with parsing.
 
    Example: `add-expense n/Coffee 2023/02/12 a/5.50 c/Food` is valid, but `n/Coffee a/s/a/a/a/ a/5.50 c/Food` is not,
    as `a/` is used within the `NAME` parameter, causing confusion with the `a/AMOUNT` prefix.
+
+<div style="page-break-after: always;"></div>
 
 ### Add an Expense: add-expense
 This command allows you to record a new expense.
@@ -87,6 +93,8 @@ Example:
 
 ![add-expense](userguidepictures/add-expense.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Delete an Expense: delete-expense
 This command removes an existing expense from the record.
 
@@ -117,6 +125,8 @@ Format:
 Example:
 
 ![add-category](userguidepictures/add-category.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Delete a Category: delete-category
 Delete an existing category, with no expenses tagged to it.
@@ -157,6 +167,8 @@ Example:
 
 ![tag-expense](userguidepictures/tag-expense.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Add Budget Limit to a Category: set-budget
 Set a maximum spending limit for a category for the current month.
 
@@ -182,6 +194,8 @@ Format:
 Example:
 
 ![set-budget](userguidepictures/set-budget.png)
+
+<div style="page-break-after: always;"></div>
 
 ### View All Expenses: view-expenses
 Displays all expenses recorded, grouped by its categories.
@@ -222,6 +236,8 @@ Example output:
 
 ![view-budget](userguidepictures/view-budget.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Help
 Provides a summary of available commands and their functionalities.
 It serves as a quick reference for users to understand how to use different features and commands in the system.
@@ -241,6 +257,7 @@ Format:
 
 ![bye](userguidepictures/bye.png)
 
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -263,7 +280,7 @@ To make changes, delete the existing expense using `delete-expense` and add a ne
 For example, if you enter an amount of 5.678, it will be saved as 5.68.
 
 ## Command Summary
-- Add expense `add-expense n/NAME a/AMOUNT [c/CATEGORY]`
+- Add expense `add-expense n/NAME a/AMOUNT c/CATEGORY`
 - Delete expense `delete-expense e/INDEX`
 - Add category `add-category c/CATEGORY`
 - Delete category `delete-category c/CATEGORY`

@@ -1,0 +1,26 @@
+@startuml
+actor User
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":UI" as UI
+
+User -> SpendSwift : input("help")
+activate SpendSwift
+SpendSwift -> Parser : parseCommand(input, trackerData)
+
+activate Parser
+Parser -> UI : printHelpMessage()
+
+activate UI
+UI --> Parser : return
+
+deactivate UI
+Parser --> SpendSwift : return false
+
+deactivate Parser
+
+SpendSwift --> User : return
+deactivate SpendSwift
+
+
+@enduml
