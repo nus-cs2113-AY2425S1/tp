@@ -2,9 +2,13 @@
 
 ## Project: JavaNinja
 
-JavaNinja is a desktop learning tool application designed for teaching programming concepts. Users interact with the tool via a Command-Line Interface (CLI). It is written in Java, comprising approximately 10 kLoC.
+JavaNinja is a desktop learning tool application designed for teaching programming concepts. Users interact with the tool via a Command-Line Interface (CLI).
 
 Below are my key contributions to the project:
+
+Here is also a link to the code I have contributed: 
+
+[Link to Contribution Dashboard for Shaun Goh](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=shaunngoh&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=shaunngoh&tabRepo=AY2425S1-CS2113-W12-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 ---
 
