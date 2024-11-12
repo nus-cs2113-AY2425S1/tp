@@ -79,7 +79,7 @@ PR for 1-3: [#61](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/61)
 
 ### Contributions to Team-Based Tasks
 1. Set up team GitHub Organisation/Repository
-2. Managed release `v1.0` & `v2.1` on GitHub ([v1.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0), [v2.1](https://github.com/AY2425S1-CS2113-W12-2/tp/releases))
+2. Managed release `v1.0` & `v2.1` on GitHub ([v1.0](https://github.com/AY2425S1-CS2113-W12-2/tp/releases/tag/v1.0))
 3. Maintained issue and project tracker
 4. Incorporated third-party libraries (OpenCSV & Jackson)
 5. Updated `gradle.yml` to ensure smooth running of GitHub Continuous Integration Actions ([#38](https://github.com/AY2425S1-CS2113-W12-2/tp/pull/38))
