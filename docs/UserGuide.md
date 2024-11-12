@@ -120,7 +120,7 @@ Customer name : John
 Age : 18
 Contact Number : 95382572
 ```
-
+---
 ### Removing a User from the Database: `remove-user`
 
 Removes a customer from the customer list.
@@ -129,7 +129,7 @@ Removes a customer from the customer list.
 
 * `CUSTOMER_NAME` : `STRING`.
 * `CUSTOMER_NAME` must match an existing customer in the database.
-* `CUSTOMER_NAME` is not case sensitive. 'John' and 'john' mean the same customer.
+* `CUSTOMER_NAME` is not case-sensitive. 'John' and 'john' mean the same customer.
 
 **Example of usage:**
 `remove-user /u John`
@@ -138,6 +138,7 @@ Removes a customer from the customer list.
 ```
 John has been removed from customer list
 ```
+---
 ### Removing all Users from the Database: `remove-all-users`
 
 Removes all customers from the customer list. 
@@ -151,6 +152,7 @@ Removes all customers from the customer list.
 ```
 All customers removed!!!
 ```
+---
 ### Listing All Users: `list-users`
 
 Lists all customers in the customer list in this format for each customer:  
@@ -231,8 +233,9 @@ All cars removed!!!
 ### Listing All Cars: `list-cars`
 
 Lists all the cars owned by the company, sorted according to the price of renting the car for a day.  
-The format for the each car in the list is:  
-Car Model | License PLate Number | Price of Rental (Per Day) | Availability (for Rental) | Price Category | Median Price of Cars in Fleet
+The format for each car in the list is:  
+Car Model | License PLate Number | Price of Rental (Per Day) | Availability (for Rental) | Price Category | 
+Median Price of Cars in Fleet
 
 **Format:** `list-cars`
 
@@ -311,16 +314,16 @@ It means that when a customer and a car are in a transaction, either that custom
 - `LICENSE_PLATE_NUMBER` must match an existing car in the database. This is unique as the program will not allow 2 cars to have the same license plate number.
 
 
-- `/u` identifier specifies the name of the customer. 
+- `/u` identifier specifies the name of the customer.
 - `CUSTOMER_NAME` must match an existing customer in the database. This is unique as the program will not allow 2 customers to have the same name.
 
 
 - `/d` identifier specifies the duration of the rental in days.
-- `DURATION` must be an integer between 1 to 365 (inclusive). This allows the rental companies to handle rental transactions from 1 day to 365 days (a year). 
+- `DURATION` must be an integer between 1 and 365 (inclusive). This allows the rental companies to handle rental transactions from 1 day to 365 days (a year).
 
 
 - `/s` identifier specifies the start date of the rental.
-- `START_DATE` is in the format of [dd-MM-yyyy], accepting integers input only. It must be a valid date in the calender.
+- `START_DATE` is in the format of [dd-MM-yyyy], accepting integers input only. It must be a valid date in the calendar.
 
 **Example:**  
 `add-tx /c SZZ1579D /u John /d 15 /s 11-05-2025`
@@ -494,6 +497,7 @@ The transactions are displayed in the same format as list-txs.
 **Format:** `find-txs-by-customer /u [CUSTOMER_NAME]`
 
 - `/u` identifier specifies the Customer Name.
+
 - `CUSTOMER_NAME` must partially match an existing customer in the customer list. This is not case-sensitive, 'john' and 'John' is the same, and 'john' input can search for the user 'John Doe', which contains 'John'.
 
 **Example:**  

@@ -35,7 +35,7 @@ if not defined JAR_FILE (
 REM Run the Java application and redirect input/output
 java -jar "%JAR_FILE%" < input.txt > ACTUAL.TXT
 
-REM Convert line endings to Unix format for comparison
+REM Use PowerShell to convert line endings
 powershell -Command "(Get-Content -Path 'EXPECTED.TXT') | Set-Content -NoNewline -Path 'EXPECTED-UNIX.TXT'"
 powershell -Command "(Get-Content -Path 'ACTUAL.TXT') | Set-Content -NoNewline -Path 'ACTUAL.TXT'"
 

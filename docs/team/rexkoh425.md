@@ -43,33 +43,34 @@ is a priority.
 
 ### <u>Code Contribution</u>
 
-Code contributed: https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=rexkoh425&breakdown=true
+Click [here](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=rexkoh425&breakdown=true)
+to view my code contributions for this project!!
 
 ### <u>Project management</u>
 
-Managed releases v1.0 - v2.1 (3 releases) on GitHub.
+Managed releases v1.0 - v2.1 (3 releases) on GitHub.<br>
 
 ### <u>Enhancements to existing features:</u>
 
-1) Improved Junit test for CarFile , CustomerFile and TransactionFile. 
-   * Achieve at least 80% coverage for Class, Method , Line and Branch for each class mentioned above.
-2) Improved error handling of loading data from file to prevent malicious data from crashing the program.
-3) Data loaded from file follows constraints as if the user had added the command through the command line.
+1) Improved Junit test for CarFile , CustomerFile and TransactionFile. <br>
+2) Achieve at least 80% coverage for Class, Method , Line and Branch for each class mentioned above.<br>
+3) Improved error handling of loading data from file to prevent malicious data from crashing the program.<br>
+4) Data loaded from file follows constraints as if the user had added the command through the command line.<br>
 
 ### <u>Documentation:</u>
 #### User Guide:
-Added documentation for the features e.g. add-user and list-cars.
-Added documentation to inform user of file loading.
-Added user stories for add-user , list-cars
+Added documentation for the features e.g. add-user and list-cars.<br>
+Added documentation to inform user of file loading.<br>
+Added user stories for add-user , list-cars<br>
 
 #### Developer Guide:
-1) Added implementation details of the adding customer details e.g. AddCustomerSequence.png.
-2) Added implementation details of listing cars e.g. ListCarsSequence.png.
-3) Added implementation details of file saving e.g. CarFileLoader.png & FileHandlerClassDiagram.png.
-4) Updated NFR.
-5) Added overall architecture diagram.
-6) Include manual testing instructions.
+1) Added implementation details of the adding customer details e.g. AddCustomerSequence.png.<br>
+2) Added implementation details of listing cars e.g. ListCarsSequence.png.<br>
+3) Added implementation details of file saving e.g. CarFileLoader.png & FileHandlerClassDiagram.png.<br>
+4) Updated NFR.<br>
+5) Added overall architecture diagram.<br>
+6) Include manual testing instructions.<br>
 
 ### Community:
-PRs reviewed (with non-trivial review comments): #68, #95, #110.
-Reported bugs and suggestions for other teams in the class in peer DG review.
+PRs reviewed (with non-trivial review comments): #68, #95, #110.<br>
+Reported bugs and suggestions for other teams in the class in peer DG review.<br>

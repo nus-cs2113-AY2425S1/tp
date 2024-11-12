@@ -1,3 +1,5 @@
+# Liu Hao's Project Portfolio Page
+
 ## Overview
 
 CliRental is a CLI-based application designed to streamline the operations of car rental companies by efficiently managing customers, cars, and rental transactions. Written in Java with approximately 4k lines of code, CliRental replaces traditional pen-and-paper methods, offering car rental managers a reliable and user-friendly tool for handling large volumes of data.

@@ -11,6 +11,7 @@ Display |   Name   |             Github Profile             | Portfolio
 
 Display | Name | Github Profile | Portfolio 
 --------|:----:|:--------------:|:---------:
+
 ![](./team/Ryan.jpeg) | Ryan Fong | [Github](https://github.com/CT9ARyan) | [Portfolio](./team/ct9aryan.md)
 
 Display |  Name   |             Github Profile             | Portfolio 
