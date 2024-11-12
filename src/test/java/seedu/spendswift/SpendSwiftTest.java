@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import java.math.BigDecimal;
-//import java.math.BigDecimal;
+import java.text.DecimalFormat;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -491,6 +491,58 @@ class TrackerDataTest {
     }
 }
 
+ class FormatTest {
+
+    @Test
+    public void testFormatInput_NullInput() {
+        assertNull("Input is null, should return null.", Format.formatInput(null));
+    }
+
+    @Test
+    public void testFormatInput_EmptyString() {
+        assertEquals("Empty string should return empty string.", "", Format.formatInput(""));
+    }
+
+    @Test
+    public void testFormatInput_AllLowerCase() {
+        assertEquals("Should capitalize first letter and make rest lower case.", "Hello", Format.formatInput("hello"));
+    }
+
+    @Test
+    public void testFormatInput_MixedCase() {
+        assertEquals("Should capitalize first letter and make rest lower case.", "World", Format.formatInput("wOrLD"));
+    }
+
+    @Test
+    public void testFormatInput_AllUpperCase() {
+        assertEquals("Should capitalize first letter and make rest lower case.", "Test", Format.formatInput("TEST"));
+    }
+
+    @Test
+    public void testFormatAmount_RoundToWholeNumber() {
+        assertEquals("Should format as whole number with dollar sign.", "$123", Format.formatAmount(123.0));
+    }
+
+    @Test
+    public void testFormatAmount_RoundToTwoDecimals() {
+        assertEquals("Should format to two decimal places with dollar sign.", "$123.46", Format.formatAmount(123.456));
+    }
+
+    @Test
+    public void testFormatAmount_RoundingNecessary() {
+        assertEquals("Should round half up to two decimal places with dollar sign.", "$123.46", Format.formatAmount(123.455));
+    }
+
+    @Test
+    public void testFormatAmount_ExactDecimal() {
+        assertEquals("Should handle exact decimal without rounding.", "$123.50", Format.formatAmount(123.50));
+    }
+
+    @Test
+    public void testFormatAmount_NegativeValue() {
+        assertEquals("Should handle negative values correctly.", "-$123.45", Format.formatAmount(-123.45));
+    }
+}
 
 
 
