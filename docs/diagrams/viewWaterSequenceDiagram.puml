@@ -56,8 +56,7 @@ DailyRecord --> Cmd: Water list
 deactivate DailyRecord
 
 deactivate Cmd
-<-- Cmd :
-destroy Cmd
+
 
 Cmd --> BB: CommandResult object
 deactivate Cmd
