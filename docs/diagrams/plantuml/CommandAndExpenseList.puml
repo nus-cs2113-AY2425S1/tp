@@ -5,7 +5,7 @@ hide circle
 class "{abstract}\nCommand" {
     +argumentsMap: HashMap<String, String>
     +Command(HashMap<String, String>)
-    +execute(ExpenseList) {abstract}
+    +execute(expenseList : ExpenseList, categoryFacade : CategoryFacade, recurringExpenseList : RecurringExpenseList) {abstract}
     +isExit(): boolean
 }
 
@@ -17,5 +17,5 @@ class ExpenseList {
     +listByFilter(category: String, from: String, to: String): ArrayList<Expense>
 }
 
-"{abstract}\nCommand" .down.> "1" ExpenseList
+"{abstract}\nCommand" .down.> " 1   " ExpenseList
 @enduml
