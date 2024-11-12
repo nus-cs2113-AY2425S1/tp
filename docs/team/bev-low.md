@@ -57,3 +57,6 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
     - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81) 
     - [PR #45 - Add delete & create day functionality to edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/45)
 - Mentored team members by providing code feedback and debugging assistance.
+
+### Contributions Beyond the Project Team
+- Reported 15 bugs in Mock PE for AY2425S1-CS2113-T10-4
