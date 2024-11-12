@@ -14,21 +14,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * It manages quiz questions, tracks correct answers, and calculates the final score.
  */
 public class Quiz {
-    private Topic topic;                  // The topic of the quiz
-    private int currentQuestionIndex;     // The index of the current question
-    private int correctAnswers;           // Number of correct answers
-    private QuizTimer quizTimer;          // Timer to track the quiz's time limit
-    private Cli cli;                      // CLI instance for user interaction
-    private int questionLimit;            // Limit on the number of questions in the quiz
+    private Topic topic;
+    private int currentQuestionIndex;
+    private int correctAnswers;
+    private QuizTimer quizTimer;
+    private Cli cli;
+    private int questionLimit;
     private boolean isTimed;
 
-    /**
-     * Constructs a new `Quiz` instance with the specified topic and CLI instance.
-     *
-     * @param topic The topic for the quiz.
-     * @param cli   The CLI instance to handle user input and output.
-     * @throws IllegalArgumentException if the topic is null or contains no questions.
-     */
     public Quiz(Topic topic, Cli cli) {
         assert topic != null : "Topic must not be null";
         assert !topic.getQuestions().isEmpty() : "Topic must contain at least one question";
@@ -41,22 +34,14 @@ public class Quiz {
         this.isTimed = false;
     }
 
-    /**
-     * Starts the quiz session by setting the time limit and question limit,
-     * and begins prompting the user with questions.
-     *
-     * @param timeLimitInSeconds The time limit for the quiz in seconds.
-     * @param questionLimit      The number of questions to attempt in the quiz.
-     * @throws IllegalStateException if the quiz has no questions to start.
-     */
     public void start(int timeLimitInSeconds, int questionLimit) {
         this.questionLimit = questionLimit;
         List<Question> questions = topic.getRandomQuestions(questionLimit);
 
         AtomicBoolean timeUp = null;
         if (timeLimitInSeconds > 0) {
-            timeUp = quizTimer.startTimer(timeLimitInSeconds);
             isTimed = true;
+            timeUp = quizTimer.startTimer(timeLimitInSeconds, this::endQuizEarly);
         } else {
             isTimed = false;
         }
@@ -67,7 +52,7 @@ public class Quiz {
 
         while (currentQuestionIndex < questions.size() && currentQuestionIndex < questionLimit) {
             if (isTimed && timeUp.get()) {
-                break;
+                return; // Ensures the loop exits immediately
             }
             Question currentQuestion = questions.get(currentQuestionIndex);
             assert currentQuestion != null : "Current question must not be null";
@@ -83,13 +68,12 @@ public class Quiz {
             } else if (currentQuestion instanceof FillInTheBlank) {
                 cli.printMessage("Please fill in the blank with the correct answer.");
             } else if (currentQuestion instanceof Flashcard) {
-                cli.printMessage("Please answer with your flashcard anser.");
+                cli.printMessage("Please answer with your flashcard answer.");
             }
             cli.printEnclosure();
 
             if (isTimed && timeUp.get()) {
-                cli.printMessage("Time's up! The quiz will end now");
-                break;
+                return;
             }
 
             if (!shouldContinueQuiz(currentQuestion)) {
@@ -102,15 +86,13 @@ public class Quiz {
         if (timeLimitInSeconds > 0) {
             quizTimer.cancelTimer();
         }
-        cli.printMessage("Quiz finished. Your score is: " + getScore() + "%");
     }
 
-    /**
-     * Prompts the user to answer a question and checks if the quiz should continue.
-     *
-     * @param currentQuestion The current question being answered.
-     * @return `true` if the quiz should continue, `false` if it should end.
-     */
+    private void endQuizEarly() {
+        cli.printMessage("\nTime's up! The quiz is ending now.");
+        cli.printMessage("Your score is: " + getScore() + "%");
+    }
+
     private boolean shouldContinueQuiz(Question currentQuestion) {
         boolean validInput = false;
         while (!validInput) {
@@ -118,18 +100,10 @@ public class Quiz {
             String answer = cli.readInput();
 
             if (isTimed && quizTimer.isTimeUp()) {
-                break;
+                return false;
             }
 
-            // Check if the user wants to exit the quiz
             if (answer.equalsIgnoreCase("exit")) {
-                Flashcard flashcard = (Flashcard) currentQuestion;
-                if (flashcard.getCorrectAnswer().equalsIgnoreCase("exit")) {
-                    // Treat "exit" as the correct answer rather than an exit command
-                    answerQuestion(answer, currentQuestion);
-                    validInput = true;
-                    continue;
-                }
                 cli.printMessage("Exiting the quiz. Returning to main menu...");
                 return false;
             }
@@ -144,12 +118,6 @@ public class Quiz {
         return true;
     }
 
-    /**
-     * Evaluates the user's answer to a question and provides feedback.
-     *
-     * @param answer          The answer provided by the user.
-     * @param currentQuestion The current question to be answered.
-     */
     public void answerQuestion(String answer, Question currentQuestion) {
         assert currentQuestionIndex < topic.getQuestions().size() : "Question index out of bounds";
         assert answer != null && !answer.trim().isEmpty() : "Answer must not be null or empty";
@@ -159,26 +127,15 @@ public class Quiz {
             correctAnswers++;
         } else {
             cli.printMessage("Incorrect!");
-            cli.printMessage("The correct answer is: "
-                    + currentQuestion.getCorrectAnswer());
+            cli.printMessage("The correct answer is: " + currentQuestion.getCorrectAnswer());
         }
     }
 
-    /**
-     * Calculates and returns the user's score as a percentage.
-     *
-     * @return The percentage of correct answers in the quiz.
-     */
     public int getScore() {
         int totalQuestions = questionLimit;
         return (int) ((double) correctAnswers / totalQuestions * 100);
     }
 
-    /**
-     * Returns the total number of questions available in the topic.
-     *
-     * @return The total question count in the topic.
-     */
     public int getQuestionCount() {
         return topic.getQuestions().size();
     }

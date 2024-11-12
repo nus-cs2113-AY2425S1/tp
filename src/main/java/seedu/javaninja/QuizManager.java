@@ -10,26 +10,20 @@ import java.util.logging.Logger;
  */
 public class QuizManager {
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
-    private QuizGenerator quizSession;       // Manages each quiz session
-    private QuizResults quizResults;         // Stores and retrieves quiz results
-    private TopicManager topicManager;       // Manages topics and flashcards
-    private Cli cli;                         // CLI instance for user interaction
+    private QuizGenerator quizSession;
+    private QuizResults quizResults;
+    private TopicManager topicManager;
+    private Cli cli;
 
-    /**
-     * Constructs a `QuizManager` instance and initializes the necessary components.
-     *
-     * @param cli The CLI instance for user interaction.
-     */
     public QuizManager(Cli cli) {
         this.cli = cli;
         topicManager = new TopicManager(cli);
         quizResults = new QuizResults();
         quizSession = new QuizGenerator(topicManager, cli);
 
-        loadDataFromFile(); // Load questions, flashcards, and previous results from files
+        loadDataFromFile();
     }
 
-    /* For testing */
     public QuizManager(Cli cli, boolean loadFromStorage) {
         this.cli = cli;
         topicManager = new TopicManager(cli);
@@ -41,18 +35,11 @@ public class QuizManager {
         }
     }
 
-    /**
-     * Initiates a quiz session on the specified topic.
-     *
-     * @param input The name of the topic for the quiz session.
-     */
     public void handleQuizSelection(String input) {
-        QuizType quizType = QuizType.UNTIMED; // Default quiz type
-        String topicName = null;
+        QuizType quizType = QuizType.UNTIMED;
+        final String topicName;
 
-        // Split input by "/d" and "/t" to determine quiz type and topic name
         String[] typeParts = input.split("/d", 2);
-
         if (typeParts.length < 2 || typeParts[1].trim().isEmpty()) {
             cli.printMessage("Please specify '/d timed' or '/d untimed' for quiz type.");
             return;
@@ -61,7 +48,6 @@ public class QuizManager {
         String[] topicParts = typeParts[1].split("/t", 2);
         String quizTypeStr = topicParts[0].trim().toLowerCase();
 
-        // Validate quiz type input
         if (QuizType.isValidType(quizTypeStr)) {
             quizType = QuizType.valueOf(quizTypeStr.toUpperCase());
         } else {
@@ -69,7 +55,6 @@ public class QuizManager {
             return;
         }
 
-        // Check for topic name
         if (topicParts.length > 1 && !topicParts[1].trim().isEmpty()) {
             topicName = topicParts[1].trim();
         } else {
@@ -77,17 +62,26 @@ public class QuizManager {
             return;
         }
 
-        // Start quiz based on the quiz type and topic
-        boolean quizStarted = false;
-        if (topicName.equalsIgnoreCase("random")) {
-            quizStarted = quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
-        } else if (quizType == QuizType.TIMED) {
-            quizStarted = quizSession.selectTimedQuiz(topicName);
-        } else {
-            quizStarted = quizSession.selectUntimedQuiz(topicName);
+        String matchedTopic = topicManager.getTopicNames().stream()
+                .filter(name -> name.equalsIgnoreCase(topicName))
+                .findFirst()
+                .orElse(null);
+
+        if (matchedTopic == null) {
+            cli.printMessage("Topic not found. Ensure the topic name matches exactly.");
+            cli.printMessage("Topic not found: " + topicName);
+            return;
         }
 
-        // If quiz started, add results and print score
+        boolean quizStarted = false;
+        if (matchedTopic.equalsIgnoreCase("random")) {
+            quizStarted = quizSession.selectRandomTopicsQuiz(quizType == QuizType.TIMED);
+        } else if (quizType == QuizType.TIMED) {
+            quizStarted = quizSession.selectTimedQuiz(matchedTopic);
+        } else {
+            quizStarted = quizSession.selectUntimedQuiz(matchedTopic);
+        }
+
         if (quizStarted) {
             addResultsAndPrintScore();
         }
@@ -101,46 +95,38 @@ public class QuizManager {
         }
     }
 
-    /**
-     * Adds the completed quiz session's results to the record and displays the final score to the user.
-     */
     public void addResultsAndPrintScore() {
         String topicName = quizSession.getTopicName();
         int completedQuizScore = quizSession.getQuizScore();
-        quizResults.addResult(topicName, completedQuizScore);
-        cli.printMessage("Quiz finished. Your score is: " + completedQuizScore + "%");
+        int questionLimit = quizSession.getQuestionLimit();
+        int timeLimit = quizSession.getTimeLimitInSeconds();
+
+        if (quizResults.getAllResults().stream().noneMatch(result -> result.getTopic().equalsIgnoreCase(topicName)
+                && result.getScore() == completedQuizScore)) {
+            quizResults.addResult(topicName, completedQuizScore, questionLimit, timeLimit);
+            String comment = quizResults.generateComment(completedQuizScore);
+            cli.printMessage("Quiz finished. Your score is: " + completedQuizScore + "%");
+            cli.printMessage("Comment: " + comment);
+        }
     }
 
-    /**
-     * Loads data from files, including topics, flashcards, and past quiz results.
-     */
     private void loadDataFromFile() {
         topicManager.loadQuestions();
         topicManager.loadFlashcards();
-        quizResults.loadResults(); // Initialize results from any available storage
+        quizResults.loadResults();
     }
 
-    /**
-     * Retrieves a list of available quiz topics.
-     *
-     * @return A list of topic names.
-     */
     public List<String> getQuizzesAvailable() {
         return topicManager.getTopicNames();
     }
 
-    /**
-     * Reviews quiz results for a specific topic, with options to sort by date or score.
-     *
-     * @param topic The topic to filter results by.
-     * @param isNewestFirst Whether to sort by newest date first.
-     * @param sortByScore Whether to sort by highest score.
-     */
-    public void reviewResultsByTopic(String topic, boolean isNewestFirst, boolean sortByScore) {
+    public void reviewResultsByTopic(String topic, boolean isNewestFirst, boolean sortByScore, boolean sortByLowestScore) {
         List<QuizResults.Result> filteredResults = quizResults.getResultsByTopic(topic);
 
         if (sortByScore) {
             filteredResults = quizResults.sortByScore(filteredResults);
+        } else if (sortByLowestScore) {
+            filteredResults = quizResults.sortByLowestScore(filteredResults);
         } else {
             filteredResults = quizResults.sortByDate(filteredResults, isNewestFirst);
         }
@@ -150,17 +136,13 @@ public class QuizManager {
         }
     }
 
-    /**
-     * Reviews all quiz results, with options to sort by date or score.
-     *
-     * @param isNewestFirst Whether to sort by newest date first.
-     * @param sortByScore Whether to sort by highest score.
-     */
-    public void reviewAllResults(boolean isNewestFirst, boolean sortByScore) {
+    public void reviewAllResults(boolean isNewestFirst, boolean sortByScore, boolean sortByLowestScore) {
         List<QuizResults.Result> allResults = quizResults.getAllResults();
 
         if (sortByScore) {
             allResults = quizResults.sortByScore(allResults);
+        } else if (sortByLowestScore) {
+            allResults = quizResults.sortByLowestScore(allResults);
         } else {
             allResults = quizResults.sortByDate(allResults, isNewestFirst);
         }
@@ -170,11 +152,6 @@ public class QuizManager {
         }
     }
 
-    /**
-     * Adds a flashcard question based on user input.
-     *
-     * @param input The user's input specifying the flashcard question.
-     */
     public void addInput(String input) {
         try {
             topicManager.addFlashcardByUser(input);
@@ -183,18 +160,10 @@ public class QuizManager {
         }
     }
 
-    /**
-     * Saves quiz results and flashcards, displaying feedback to the user regarding the success of the save operations.
-     */
     public void saveResults() {
         cli.printMessage("Saving functionality is not yet implemented.");
     }
 
-    /**
-     * Provides access to the current quiz session, primarily for testing purposes.
-     *
-     * @return The active or newly created `QuizSession` instance.
-     */
     public QuizGenerator getQuizSession() {
         if (this.quizSession == null) {
             this.quizSession = new QuizGenerator(topicManager, cli);
@@ -202,20 +171,10 @@ public class QuizManager {
         return this.quizSession;
     }
 
-    /**
-     * Provides access to the quiz results instance, primarily for testing purposes.
-     *
-     * @return The `QuizResults` instance storing past quiz results.
-     */
     public QuizResults getQuizResults() {
         return this.quizResults;
     }
 
-    /**
-     * Provides access to the topic manager, primarily for testing purposes.
-     *
-     * @return The `TopicManager` instance managing quiz topics and flashcards.
-     */
     public TopicManager getTopicManager() {
         return this.topicManager;
     }
