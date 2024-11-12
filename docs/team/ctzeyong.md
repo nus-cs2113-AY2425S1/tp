@@ -17,7 +17,7 @@ to see the RepoSense report of code contributed to this project.
 ### Enhancements Implemented
 
 Implemented
-- `Log` class and `LogLevels` enumeration for logging purposes 
+- `Log` class and `LogLevels` enumeration for logging purposes
 - `AddEntryCommand` abstract class
 
 Aided in development of
@@ -31,16 +31,12 @@ Enhanced exception handling
 
 Sections contributed: Introduction, Quick Start, Help
 
-See [below](#appendix-extracts-of-user-guide) for more details.
-
 ### Contributions to the [DG](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html)
 
 Sections contributed:
 Commands, Adding Entries, Editing Entries, Exceptions and Logging, Budget
 
 Contributed all UML diagrams in the sections listed above.
-
-See [below](#appendix-extracts-of-developer-guide) for more details.
 
 ### Github Issues Contributions
 
@@ -88,15 +84,7 @@ Reviewed PR
 [#187](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/187),
 [#199](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/199),
 [#283](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/283),
-[#292](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/292).
-[#302](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/302).
-[#303](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/303).
-[#307](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/307).
-
-<div style="page-break-after: always;"></div>
-
-## Appendix: Extracts of Developer Guide
-
-<div style="page-break-after: always;"></div>
-
-## Appendix: Extracts of User Guide
+[#292](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/292),
+[#302](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/302),
+[#303](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/303),
+[#307](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/307)
