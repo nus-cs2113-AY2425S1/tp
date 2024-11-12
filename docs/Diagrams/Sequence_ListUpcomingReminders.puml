@@ -1,0 +1,51 @@
+@startuml
+title Sequence Diagram for "list" (upcoming Reminders) Command
+skinparam style strictuml
+
+actor User
+participant ":FitTrack"
+participant ":Parser"
+participant ":Ui"
+participant ":Reminder"
+
+User -> ":FitTrack": List upcoming Reminders Command
+activate ":FitTrack"
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
+":Parser" -> ":Ui": printUpcomingReminders(reminderList)
+activate ":Ui"
+
+alt reminderList.isEmpty()
+    note over ":Ui"
+        Print LIST_REMINDER_EMPTY_MESSAGE
+        Print NO_UPCOMING_REMINDERS
+    end note
+else !reminderList.isEmpty()
+    ":Ui" -> ":Reminder": findUpcomingReminders(reminderList)
+    activate ":Reminder"
+    ":Reminder" --> ":Ui": upcomingReminders
+    deactivate ":Reminder"
+
+    note over ":Ui"
+        Print "There are X reminders due in the next week:"
+    end note
+
+    loop for each reminder in upcomingReminders
+        ":Ui" -> ":Reminder": printReminderInformation()
+        activate ":Reminder"
+        ":Reminder" --> ":Ui"
+        deactivate ":Reminder"
+    end
+
+    note over ":Ui"
+        Print "You have Y reminders in total. View them with 'list-remind'."
+    end note
+end
+
+":Ui" --> ":Parser"
+deactivate ":Ui"
+":Parser" --> ":FitTrack"
+deactivate ":Parser"
+deactivate ":FitTrack"
+
+@enduml

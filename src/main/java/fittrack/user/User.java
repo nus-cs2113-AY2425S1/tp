@@ -9,6 +9,11 @@ import java.util.Iterator;
 import static fittrack.storage.Storage.DATA_DELIMITER;
 import static fittrack.storage.Storage.DATA_DELIMITER_REGEX;
 
+/**
+ * Represents a user in the system, including their gender, age, and goals.
+ * The User class allows modification of user attributes, and user data is saved
+ * and loaded from a serialized format for persistent storage.
+ */
 public class User extends Saveable {
 
     public Gender gender;  // User's gender
@@ -118,11 +123,26 @@ public class User extends Saveable {
         return gender + " " + age;  // Return gender and age as a string
     }
 
+    /**
+     * Converts the user object to a string representation suitable for saving to a file.
+     * The format is: {@code User|<gender>|<age>}.
+     *
+     * @return A string representing the user in a saveable format.
+     */
     @Override
     public String toSaveString() {
         return "User" + DATA_DELIMITER + gender.toString() + DATA_DELIMITER + age;
     }
 
+
+    /**
+     * Creates a User object from a saved string representation.
+     * The string format must be {@code User|<gender>|<age>}
+     *
+     * @param saveString The string representation of a saved user.
+     * @return A User object created from the saved data.
+     * @throws IllegalArgumentException If the string format is invalid or contains unrecognized data.
+     */
     public static User fromSaveString(String saveString) {
         // Split the string by the '|' delimiter
         String[] stringData = saveString.split(DATA_DELIMITER_REGEX);

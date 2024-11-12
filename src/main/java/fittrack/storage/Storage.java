@@ -21,6 +21,22 @@ import java.util.Scanner;
 
 import static fittrack.logger.FitTrackLogger.LOGGER;
 
+/**
+ * The {@code Storage} class handles the initialization, reading, and writing of the application's save file.
+ * It provides methods for loading, saving, and updating the data of various {@link Saveable} objects, such as
+ * {@link TrainingSession}, {@link Goal}, {@link Reminder}, {@link FoodEntry}, and {@link WaterEntry}.
+ * The save file is stored in a text format, with each line representing a serialized object of type {@code Saveable}.
+ * <p>
+ * The class ensures that the save file is created if it does not exist, and it handles the persistence of data by
+ * serializing objects into the save file and reading them back when needed. It also offers a method for creating
+ * {@code Saveable} objects from their string representations in the save file.
+ * </p>
+ *
+ * <p>
+ * The save file path is configurable through {@link #setSaveFilePath(String)}. By default, the path is set to
+ * "data/saveFile.txt".
+ * </p>
+ */
 public class Storage {
 
 
@@ -139,15 +155,16 @@ public class Storage {
     }
 
     /**
-     * Updates the save file with the latest information from the provided lists of
-     * `TrainingSession`, `Goal`, and `Reminder` objects. Each list item is serialized
-     * into its string representation and written to the save file, with each entry on
-     * a new line.
+     * Updates the save file with the latest data from the provided lists of objects, including
+     * {@code TrainingSession}, {@code Goal}, {@code Reminder}, {@code FoodEntry}, and {@code WaterEntry}.
+     * Each object is serialized and written to the save file, with each entry separated by a newline.
      *
-     * @param sessionList The list of `TrainingSession` objects to be saved.
-     * @param goalList The list of `Goal` objects to be saved.
-     * @param reminderList The list of `Reminder` objects to be saved.
-     * @throws IOException If any of the provided lists are null or if an I/O error occurs during writing.
+     * @param user The {@code User} object to be saved.
+     * @param sessionList The list of {@code TrainingSession} objects to be saved.
+     * @param goalList The list of {@code Goal} objects to be saved.
+     * @param reminderList The list of {@code Reminder} objects to be saved.
+     * @param foodWaterList The list of {@code FoodEntry} and {@code WaterEntry} objects to be saved.
+     * @throws IOException If any of the provided lists are null or if an I/O error occurs.
      */
     public static void updateSaveFile(User user, ArrayList<TrainingSession> sessionList, ArrayList<Goal> goalList,
                                       ArrayList<Reminder> reminderList,
