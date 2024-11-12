@@ -8,7 +8,7 @@ img
 }
 </style>
 
-# Developer Guide
+# FinanceBuddy Developer Guide
 
 ## Table of Contents
 
@@ -52,7 +52,7 @@ img
 
 ## Acknowledgements
 
-Finance Buddy uses the following tools for development:
+FinanceBuddy uses the following tools for development:
 
 1. JUnit5 - Used for testing
 2. Gradle - Used for build automation
@@ -847,7 +847,7 @@ logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
 <ins>Overview</ins>
 
 The `Storage` class has been implemented to manage reading and writing financial data (both expenses and incomes) 
-and budget data to and from storage files within the Finance Buddy application. 
+and budget data to and from storage files within the FinanceBuddy application. 
 This class creates necessary directories and files if they do not exist, parses data into `Expense` and `Income` objects, 
 and stores and retrieves budget information to maintain data consistency across application sessions.
 
@@ -998,7 +998,7 @@ storage.update(financialList, budgetLogic);
 - is reasonably comfortable using CLI apps
 
 ### Value proposition
-Finance Buddy allows our target user profile to keep track of their income/expenditures
+FinanceBuddy allows our target user profile to keep track of their income/expenditures
 faster than a typical mouse/GUI driven app
 
 <div style="page-break-after: always;"></div>
