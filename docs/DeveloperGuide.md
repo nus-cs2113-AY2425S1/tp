@@ -23,6 +23,7 @@ img
     - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
       - [FinancialList Component](#financiallist-component)
       - [FinancialEntry Component](#financialentry-component)
+    - [Budgeting](#budgeting)
     - [Commands](#commands)
     - [Adding Entries](#adding-entries)
     - [Deleting Entries](#deleting-entries)
@@ -30,7 +31,6 @@ img
     - [Listing Entries](#listing-entries)
     - [Exceptions and Logging](#exceptions-and-logging)
     - [Storage](#storage)
-    - [Budget and BudgetLogic](#budget-and-budgetlogic)
   - [Product scope](#product-scope)
     - [Target user profile:](#target-user-profile)
     - [Value proposition](#value-proposition)
@@ -410,6 +410,117 @@ System.out.println(expense.toString());
 
 <div style="page-break-after: always;"></div>
 
+### Budgeting
+
+<ins>Overview</ins>
+
+Budgeting is facilitated by the `Budget` and `BudgetLogic` class.
+
+The `Budget` class serves as a representation of a user's budget in the application.
+It keeps track of the budget amount, remaining balance,
+the status of whether the budget has been set, and the date when the budget was last set.
+
+The `BudgetLogic` class serves as an intermediate class between the `Logic` and `Budget` class.
+The `BudgetLogic` class handles the logic directly related to the `Budget` class, including
+setting the budget, modifying the remaining balance when `Expense` is added, deleted or edited. It also
+recalculates the remaining balance, and prompts the user when the budget is exceeded.
+
+<ins>Class Structure</ins>
+
+The class diagram below shows the structure of `Budget` and `BudgetLogic`. The `Logic` class
+has been greatly simplified to simply show the association between these classes.
+
+<img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
+
+The constructor of the `Budget` class
+- Sets `budgetAmount` and `balance` to 0
+- Sets `isBudgetSet` to false
+- Sets `budgetSetDate` to null
+
+<ins>Methods</ins>
+
+The `Budget` class has the following methods:
+- `getBudgetAmount()`: `double` Returns the value of `budgetAmount`
+- `setBudgetAmount(double)`
+    - Sets the value of `budgetAmount` and `balance` to the provided value
+    - Sets `isBudgetSet` to true
+    - Sets `budgetSetDate` to the current date of the machine
+- `resetBudgetAmount()` Used for deleting budget
+    - Sets `budgetAmount` and `balance` to 0
+    - Sets `isBudgetSet` to false
+    - Sets `budgetSetDate` to null
+- `getBudgetAmountString()`: `String` Returns a `String` format of `budgetAmount`
+- `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
+- `getBalance()`: `double` Returns the value of `balance`
+- `updateBalance(double)` Sets the value of `balance` to the provided value, rounded to 2 decimal places
+- `getBalanceString()`: `String` Returns a `String` format of `balance`
+- `setBudgetSetDate(LocalDate)` Sets `budgetSetDate` to the date provided,
+  specifically for `Storage` class
+- `getBudgetSetDate()`: `LocalDate` Returns `budgetSetDate`
+- `toStorageString`: `String` Converts the budget attributes to a formatted `String`
+  specifically for the `Storage` class
+
+The `BudgetLogic` class has the following methods:
+- `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
+- `getBudget()`: `Budget` Returns `budget`
+- `promptUserToSetBudget(FinancialList)` Decides whether to prompt user to set a new budget
+    - If no budget has been set, or budget was set in a previous month, user is prompted to set a new budget
+    - If budget was set in a previous month and user does not wish to set a new budget, `budgetAmount` is retained
+- `handleSetBudget(FinancialList)`
+    - Handles the user input of whether to set a budget, and of the budget amount
+    - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
+    - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
+- `shouldSetBudget()`: `boolean`
+    - Constantly prompts user for a "yes" or "no" input
+    - Returns `true` if "yes" is inputted, `false` if "no" is inputted
+- `getValidBudgetAmountFromUser()`: `double`
+    - Constantly prompts user for a budget amount
+    - Returns the value inputted
+- `isValidBudgetAmount(double)`: `boolean` Returns `true` if the amount is within 0.01 to 9999999.00,
+  otherwise return `false`
+- `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
+- `printBudgetAndBalance()` Displays budget amount and remaining balance
+- `printBalanceAmount()` Displays the remaining balance if budget has been set
+- `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
+- `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
+  same year and month as the current date
+- `changeBalanceFromExpenseString(double, String)` and `changeBalanceFromExpense(double, LocalDate)`
+    - Both methods achieve the same result, but `changeBalanceFromExpenseString(double, String)`
+      first parses the date in `String` into `LocalDate`
+    - Modifies remaining balance if the `Expense` happened in the current month
+    - Displays message to warn user if budget has been exceeded
+- `recalculateBalance(FinancialList)` Resets the remaining balance to the budget amount,
+  then scans through the whole `FinancialList` and deducts the remaining balance accordingly
+
+<ins>Implementation Details</ins>
+
+Users set budget by invoking `budget AMOUNT`.
+The acceptable range of values are from 0.01 to 9999999.00,
+facilitated by `isValidBudgetAmount()` method in `BudgetLogic`.
+If the amount entered is 0, `resetBudgetAmount()` method in `Budget` is called.
+
+This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the
+following argument:
+- `argument`: Represents the budget amount to be set. This is a compulsory argument.
+
+The sequence diagrams below show 2 key methods of `BudgetLogic` class.
+
+The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
+
+<img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+
+The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class,
+and by the `Logic` class.
+
+<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+
+<ins>Design Considerations</ins>
+
+Given that the `Budget` class has a significant enough number of attributes and methods,
+the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
+
+<div style="page-break-after: always;"></div>
+
 ### Commands
 
 <ins>Overview</ins>
@@ -418,27 +529,26 @@ The abstract class `Command` has been implemented to introduce an additional lay
 of abstraction between the `Logic` class and command execution,
 allowing for separation of handling command keywords and executing commands.
 
+<ins>Class Structure</ins>
+
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
 <img src="UML/Command.png" alt="Command Inheritance Diagram" width="auto" height="200">
 
-<ins>Constructor</ins>
-
-The `Command` constructor updates the attributes based on the input arguments.
-
 <ins>Methods</ins>
 
 The abstract `Command` class and its related children classes have the following method:
 
-- `execute`: Effect the command based on the corresponding child class.
+- `execute`: Effect the command based on the corresponding child class
 
 ### Adding Entries
 
 <ins>Overview</ins>
 
 The feature to add entries is facilitated by the abstract class `AddEntryCommand`.
-The `AddExpenseCommand` and `AddIncomeCommand` classes extend from the `AddEntryCommand`,
+The `AddExpenseCommand` and `AddIncomeCommand` classes extend from the `AddEntryCommand`
+(see class diagram in the [above section](#commands)),
 and are used to add expenses and incomes respectively.
 
 <ins>Class Structure</ins>
@@ -469,6 +579,9 @@ following arguments:
 - `/d`: Represents the date on which the transaction occurred. If this argument is not used,
   the current date is used. An exception occurs if this argument is used but the value is left blank.
 - `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
+
+There is a limit of 5000 entries in the `financialList` at any one time.
+Attempts to add entries above the limit will be rejected.
 
 Below is a simplified sequence diagram of the user adding an income. 
 A similar sequence happens when an expense is added.
@@ -532,11 +645,15 @@ The user invokes the command to edit entries by entering the following command:
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
 - `argument` Represents the index of the entry in the full financial list.
-  If no index is provided, the latest entry is edited.
+If no index is provided, the latest entry is edited.
+Note that the latest entry edit is not saved between sessions.
 - `/des` Represents the description of the transaction. This is an optional argument.
 - `/a` Represents the amount of money used in the transaction. This is an optional argument.
 - `/d` Represents the date on which the transaction occurred. This is an optional argument.
-- `/c` Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
+- `/c` Represents the category used in the transaction. If an invalid category is provided,
+the entry will default to UNCATEGORIZED. This is an optional argument.
+
+If there is no change compared to the original entry, an error message is thrown.
 
 Below is a simplified sequence diagram of the user editing an entry. Note that the lifeline
 of `Expense` should terminate with the cross, but due to the limitations of plantUML, the
@@ -857,111 +974,6 @@ storage.update(financialList, budgetLogic);
 
  - **Data Persistence**: Storage supports retention of records after application closure, aligning with needs for long-term financial tracking.
  - **Scalability**: Future improvements to Storage could incorporate encryption or remote storage options, enhancing data security and flexibility.
-
-<div style="page-break-after: always;"></div>
-
-### Budget and BudgetLogic
-
-<ins>Overview</ins>
-
-The `Budget` class serves as a representation of a user's budget in the application.
-It keeps track of the budget amount, remaining balance,
-the status of whether the budget has been set, and the date when the budget was last set.
-
-The `BudgetLogic` class serves as an intermediate class between the `Logic` and `Budget` class.
-The `BudgetLogic` class handles the logic directly related to the `Budget` class, including
-setting the budget, modifying the remaining balance when `Expense` is added, deleted or edited. It also
-recalculates the remaining balance, and prompts the user when the budget is exceeded.
-
-<ins>Class Structure</ins>
-
-The class diagram below shows the structure of `Budget` and `BudgetLogic`. The `Logic` class
-has been greatly simplified to simply show the association between these classes.
-
-<img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
-
-The constructor of the `Budget` class
-- Sets `budgetAmount` and `balance` to 0
-- Sets `isBudgetSet` to false
-- Sets `budgetSetDate` to null
-
-<ins>Methods</ins>
-
-The `Budget` class has the following methods:
-- `getBudgetAmount()`: `double` Returns the value of `budgetAmount`
-- `setBudgetAmount(double)`
-  - Sets the value of `budgetAmount` and `balance` to the provided value
-  - Sets `isBudgetSet` to true
-  - Sets `budgetSetDate` to the current date of the machine
-- `resetBudgetAmount()` Similar to the constructor,
-  - Sets `budgetAmount` and `balance` to 0
-  - Sets `isBudgetSet` to false
-  - Sets `budgetSetDate` to null
-- `getBudgetAmountString()`: `String` Returns a `String` format of `budgetAmount`
-- `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
-- `getBalance()`: `double` Returns the value of `balance`
-- `updateBalance(double)` Sets the value of `balance` to the provided value, rounded to 2 decimal places
-- `getBalanceString()`: `String` Returns a `String` format of `balance`
-- `setBudgetSetDate(LocalDate)` Sets `budgetSetDate` to the date provided,
-specifically for `Storage` class
-- `getBudgetSetDate()`: `LocalDate` Returns `budgetSetDate`
-- `toStorageString`: `String` Converts the budget attributes to a formatted `String`
-  specifically for the `Storage` class
-
-The `BudgetLogic` class has the following methods:
-- `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
-- `getBudget()`: `Budget` Returns `budget`
-- `promptUserToSetBudget(FinancialList)` Decides whether to prompt user to set a new budget
-  - If no budget has been set, or budget was set in a previous month, user is prompted to set a new budget
-  - If budget was set in a previous month and user does not wish to set a new budget, `budgetAmount` is retained
-- `handleSetBudget(FinancialList)`
-  - Handles the user input of whether to set a budget, and of the budget amount
-  - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
-  - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
-- `shouldSetBudget()`: `boolean`
-  - Constantly prompts user for a "yes" or "no" input
-  - Returns `true` if "yes" is inputted, `false` if "no" is inputted
-- `getValidBudgetAmountFromUser()`: `double`
-  - Constantly prompts user for a budget amount
-  - Returns the value inputted
-- `isValidBudgetAmount(double)`: `boolean` Returns `true` if the amount is within 0.01 to 9999999.00,
-otherwise return `false`
-- `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
-- `printBudgetAndBalance()` Displays budget amount and remaining balance
-- `printBalanceAmount()` Displays the remaining balance if budget has been set
-- `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
-- `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
-same year and month as the current date
-- `changeBalanceFromExpenseString(double, String)` and `changeBalanceFromExpense(double, LocalDate)`
-  - Both methods achieve the same result, but `changeBalanceFromExpenseString(double, String)`
-  first parses the date in `String` into `LocalDate`
-  - Modifies remaining balance if the `Expense` happened in the current month
-  - Displays message to warn user if budget has been exceeded
-- `recalculateBalance(FinancialList)` Resets the remaining balance to the budget amount,
-then scans through the whole `FinancialList` and deducts the remaining balance accordingly
-
-<ins>Implementation Details</ins>
-
-The sequence diagrams below show 3 main methods of `BudgetLogic` class.
-
-The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
-The sequence diagram shows an example of the method being called by the `Logic` class.
-
-<img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
-
-The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class,
-and by the `Logic` class.
-
-<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
-
-The `changeBalanceFromExpense()` method is called by the `Logic` class.
-
-<img src="UML/changeBalanceFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
-
-<ins>Design Considerations</ins>
-
-Given that the `Budget` class has a significant enough number of attributes and methods,
-the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
 
 <div style="page-break-after: always;"></div>
 
