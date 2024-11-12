@@ -1,8 +1,10 @@
+package seedu.javaninja;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.javaninja.Cli;
-import seedu.javaninja.Topic;
-import seedu.javaninja.TopicManager;
+//import seedu.javaninja.Cli;
+//import seedu.javaninja.Topic;
+//import seedu.javaninja.TopicManager;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;

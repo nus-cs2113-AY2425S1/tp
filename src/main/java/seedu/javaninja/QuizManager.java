@@ -122,7 +122,8 @@ public class QuizManager {
         return topicManager.getTopicNames();
     }
 
-    public void reviewResultsByTopic(String topic, boolean isNewestFirst, boolean sortByScore, boolean sortByLowestScore) {
+    public void reviewResultsByTopic(String topic, boolean isNewestFirst, boolean sortByScore,
+                                     boolean sortByLowestScore) {
         List<QuizResults.Result> filteredResults = quizResults.getResultsByTopic(topic);
 
         if (sortByScore) {

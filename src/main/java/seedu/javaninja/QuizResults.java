@@ -186,7 +186,8 @@ public class QuizResults {
         private final int timeLimitInSeconds;
         private final String comment;
 
-        public Result(String topic, int score, Date date, int questionsAttempted, int timeLimitInSeconds, String comment) {
+        public Result(String topic, int score, Date date,
+                      int questionsAttempted, int timeLimitInSeconds, String comment) {
             this.topic = topic;
             this.score = score;
             this.date = date;
