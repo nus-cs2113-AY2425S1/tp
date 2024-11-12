@@ -1,0 +1,43 @@
+
+@startuml
+abstract class FinancialEntry {
+    - String description
+    - double amount
+    - LocalDate date
+    {abstract} + getCategory() : Enum<>
+}
+
+class FinancialList {
+    - ArrayList<FinancialEntry> entries
+    - Map<Expense.Category, Double> totalExpenseByCategory
+    - Map<Income.Category, Double> totalIncomeByCategory
+    + FinancialList()
+    + addEntry(FinancialEntry entry) : void
+    + deleteEntry(int index) : void
+    + editEntry(int index, double amount, String description, LocalDate date, Enum<?> category) : void
+    + getEntry(int index) : FinancialEntry
+    + getEntryCount() : int
+    + getTotalExpenseByCategory() : Map<Expense.Category, Double>
+    + getTotalIncomeByCategory() : Map<Income.Category, Double>
+    + getHighestExpenseCategory() : Map.Entry<Expense.Category, Double>
+    + getHighestIncomeCategory() : Map.Entry<Income.Category, Double>
+    + clearCategoryTotals() : void
+}
+
+class Income {
+    - Category category
+    + Income(double amount, String description, LocalDate date, Category category)
+    + getCategory() : Income.Category
+}
+
+class Expense {
+    - Category category
+    + Expense(double amount, String description, LocalDate date, Category category)
+    + getCategory() : Expense.Category
+}
+
+FinancialList "1" --> "*" FinancialEntry
+FinancialEntry <|-- Income
+FinancialEntry <|-- Expense
+
+@enduml

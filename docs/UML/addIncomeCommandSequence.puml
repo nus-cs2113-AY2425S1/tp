@@ -1,0 +1,47 @@
+@startuml
+participant Logic
+
+Logic -> Logic: addIncome(commandArguments)
+activate Logic
+
+Logic -> Logic: parseAmount(amount from input)
+activate Logic
+return amount
+
+Logic -> Logic: parseIncomeCategoryOrDefault(category from input)
+activate Logic
+return category
+
+create AddIncomeCommand
+Logic -> AddIncomeCommand: new(amount, description, date, category)
+activate AddIncomeCommand
+return addIncomeCommand
+Logic -> AddIncomeCommand: execute(list)
+activate AddIncomeCommand
+
+create Income
+AddIncomeCommand -> Income: new(amount, description, date, category)
+activate Income
+return income
+
+AddIncomeCommand -> FinancialList: getEntryCount()
+activate FinancialList
+return preEntryCount
+
+AddIncomeCommand -> FinancialList: addEntry(income)
+activate FinancialList
+return
+
+AddIncomeCommand -> FinancialList: getTotalIncomeByCategory()
+activate FinancialList
+return incomeTotals
+
+AddIncomeCommand -> AppUi: display income added message
+return
+
+return
+
+destroy Income
+destroy AddIncomeCommand
+
+@enduml

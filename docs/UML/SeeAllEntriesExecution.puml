@@ -1,0 +1,69 @@
+@startuml
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant ":SeeAllEntriesCommand" as cmd
+participant "financialList:FinancialList" as list
+participant ":FinancialEntry" as entry
+
+
+
+
+cmd -> list : clear Category totals
+activate list
+return
+
+cmd -> list : getEntryCount()
+activate list
+return financialListEntryCount
+
+loop i < financialListEntryCount
+    cmd -> list : getEntry(i)
+    activate list
+    return entry
+
+    cmd -> cmd : shouldBeIncluded(entry)
+    activate cmd
+    return decision to include entry
+
+    opt entry should be included
+        cmd -> cmd : increment this.entryCount
+        activate cmd
+        return
+
+        cmd -> entry : toString()
+        activate entry
+        return entryString
+        cmd -> cmd : append to entryList
+        activate cmd
+        return
+
+        cmd -> cmd : add/substract amount from net cashflow
+        activate cmd
+        return
+        cmd -> list : update total expense/income in category
+        activate list
+        return
+    end
+end
+
+alt this.entryCount == 0
+    cmd -> cmd : print no entry message
+        activate cmd
+        return
+else else
+    cmd -> cmd: print entryList with net cashflow
+        activate cmd
+        return
+    cmd -> list : getHighestExpenseCategory()
+    activate list
+    return highestExpenseCategory
+    cmd -> list : getHighestIncomeCategory()
+    activate list
+    return highestIncomeCategory
+    cmd --> cmd: print Highest Expense/Income category and amount spent/earned
+    activate cmd
+    return
+end
+
+@enduml
