@@ -59,4 +59,4 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 - Mentored team members by providing code feedback and debugging assistance.
 
 ### Contributions Beyond the Project Team
-- Reported 15 bugs in Mock PE for AY2425S1-CS2113-T10-4
+- Reported 15 bugs in Mock PE for [AY2425S1-CS2113-T10-4](https://github.com/AY2425S1-CS2113-T10-4/tp/issues/184)
