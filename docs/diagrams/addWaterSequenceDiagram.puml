@@ -14,14 +14,6 @@ activate BB
 UI --> BB: command object
 BB -> Parser: parse(command)
 activate Parser
-
-Parser -> Parser : Validate inputs
-activate Parser
-alt inputs are not valid
-    Parser --> BB : throw ParserException
-else inputs are valid
-deactivate Parser
-
 Parser -> Parser : Parse inputs
 activate Parser
 deactivate Parser
@@ -61,7 +53,6 @@ deactivate DailyRec
 
 AddCmd --> BB: CommandResult object
 deactivate AddCmd
-end
 destroy AddCmd
 
 BB -> UI: Show CommandResult
