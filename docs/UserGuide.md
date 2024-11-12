@@ -183,6 +183,14 @@ The `Add Transaction` command allows you to add either an income or expense entr
 - **Expense**: Categories include `FOOD`, `TRANSPORT`, `ENTERTAINMENT`, `UTILITIES`, `OTHER`, and `UNCATEGORIZED`.
 - **Income**: Categories include `SALARY`, `INVESTMENT`, `GIFT`, `OTHER`, and `UNCATEGORIZED`.
 
+>**Notes**:
+>- `DESCRIPTION` field must not be left blank or contain the characters `¦¦` and `/`. These symbols are used as separator tokens in the storage file and as prefixes for command arguments.
+>- Input amounts are rounded off to the nearest 2 decimal places.
+>- The app does not allow transactions to have an amount greater than $9999999.00 after rounding of to the nearest 2 d.p.
+>- The app does not allow transactions to be entered with a date later than the system date.
+>- Category are not case-sensitive.
+>- There is a limit of 5000 entries in the `financialList` at any one time. Attempts to add entries above the limit will be rejected.
+
 **Examples Usage**:
 
 Example 1: Adds an expense of $10.50 for lunch on October 12, 2024, categorized as FOOD.
@@ -259,6 +267,11 @@ Edits an existing transaction in your financial list.
    - Should follow `dd/MM/yyyy` format and cannot be after the system date.
  - `CATEGORY` (optional):
    - Should be one of the categories allowed in Expenses/Incomes.
+
+>**Notes**:
+>- The last amended transaction refers to the last added/edited/deleted transaction.
+    - If the last edit to the list of transactions was a delete, the list is considered to have no "last amended entry"
+>- Memory of last amended entry is not saved after exiting the app
 
 **Example Usages**:
 Example 1: Edits the description of the 1st entry to be `breakfast`.
@@ -348,7 +361,7 @@ Got it. I've edited this expense:
 
 ### Delete Transaction
 
-Deletes Transaction one or multiple transactions from your financial list.
+Deletes one or multiple transactions from your financial list.
 
 **Format**: delete [INDEX] [/to ENDINDEX]
 
@@ -360,6 +373,14 @@ Deletes Transaction one or multiple transactions from your financial list.
         - **A specific index**: Deletes the transaction at the specified position.
 - /to ENDINDEX (optional): Deletes a range of transactions starting from INDEX to ENDINDEX (inclusive).
 
+>**Notes**:
+>- Use the delete command cautiously, especially when using delete all.
+>- Balances will automatically adjust after each deletion.
+>- The keyword "all" is case-sensitive and must be in lowercase to execute.
+>- The last amended transaction refers to the last added/edited/deleted transaction.
+>  - If the last edit to the list of transactions was a delete, the list is considered to have no "last amended entry"
+>- Memory of last amended entry is not saved after exiting the app
+  
 **Example Usage**:
 
 Example 1: Deletes the transaction at index 5
@@ -396,12 +417,6 @@ delete all
 Okay! A total of 15 entries have been deleted.
 --------------------------------------------
 ```
-
-**Notes**:
-- Ensure indices provided are valid; otherwise, an error message will be displayed.
-- Use the delete command cautiously, especially when using delete all.
-- Balances will automatically adjust after each deletion.
-- Last amended entry will be lost after exiting the app.
 
 <hr>
 <div style="page-break-after: always;"></div>
