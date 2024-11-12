@@ -122,17 +122,7 @@ public class InputParser {
     }
 
 
-    /**
-     * Parses a name component from the input using "n/" prefix..
-     *
-     * @param input The input string containing the name.
-     * @return The extracted name as a string.
-     */
-    public String parseName(String input) {
-        return parseComponent(input, "n/");
-    }
-}
-
+  
 
 
     
