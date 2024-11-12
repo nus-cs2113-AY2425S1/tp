@@ -37,8 +37,7 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 * Highlights:
     * Covered both valid and invalid input scenarios
     * Implemented boundary value testing
-    * Ensured proper error handling and messages
-    * Verified proper state updates after command execution
+    * Ensured proper error handling and messages and verified proper state updates after command execution
 
 * Key Test Scenarios:
     * Invalid input validation
@@ -54,10 +53,12 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 * **Developer Guide**:
     * Added implementation details of the Category class.
     * Fixed bugs for the sequence diagrams
+
 #### Contributions to Team-based Tasks
 * Participated in weekly team meetings
 * Helped maintain project documentation
 * Contributed to user testing
+
 #### Community
 * **Review/Mentoring Contributions**:
 
