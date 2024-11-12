@@ -1,4 +1,4 @@
-//@@glenda-1506
+
 package seedu.spendswift.parser;
 
 import seedu.spendswift.ui.ErrorMessage;
@@ -72,7 +72,7 @@ public class InputParser {
     public String parseCategory(String input) {
         return parseComponent(input, "c/");
     }
-
+   
     /**
      * Parses a limit component from teh string input using "l/" prefix.
      *
@@ -130,6 +130,7 @@ public class InputParser {
     public String parseName(String input) {
         return parseComponent(input, "n/");
     }
+}
 
 
 
