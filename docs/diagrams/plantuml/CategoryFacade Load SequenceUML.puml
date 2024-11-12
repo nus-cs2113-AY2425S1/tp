@@ -17,19 +17,19 @@ participant ":ExpenseList" as EL
 
 S -> CF: call interface's method
 CF -> CT: clear current tracker
-CT --> CF: return
+CT --> CF:
 CF -> EL: obtain expense list
 EL --> CF: return expense list
 CF -> CS: populate tracker using expense list
 CS --> CF: return tracker
 CF -> CS: call load method
-CS --> CF: return
+CS --> CF:
 CF -> CFilt: populate maxheaps to sort exceeding and nearing categories
-CFilt --> CF: return
+CFilt --> CF:
 CF -> CFilt: display categories with a total that exceeded the limit
-CFilt --> CF: return
+CFilt --> CF:
 CF -> CFilt: display categories with a total that is nearing the limit
-CFilt --> CF: return
-CF --> S: return
+CFilt --> CF:
+CF --> S:
 
 @enduml
