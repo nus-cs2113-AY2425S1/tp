@@ -45,7 +45,6 @@ public class Budget {
     /**
      * Updates the spending limit.
      *
-     * @return The new spending limit.
      */
     public void setLimit(double limit) {
         this.limit = limit;
