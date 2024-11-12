@@ -72,7 +72,7 @@ The `JavaNinja` class acts as a controller that organizes interactions between `
 Here is a simple sequence diagram that describes how the components interact with each other:
 ![JavaNinjaSequenceDiagram](https://github.com/user-attachments/assets/54ca9d63-c5eb-45ec-872c-a6ccb830ef26)
 
-### `Cli` class: 
+### `Cli` class:
 The `Cli` class is responsible for managing user interactions in the command-line interface.
 It handles user input, displays messages, and provides guidance on available commands, making it the primary interface between the user and the application.
 
@@ -119,7 +119,7 @@ It processes input strings from the command-line interface and routes these comm
 The sequence diagram below demonstrates the interactions within the `Parser` component when a user inputs the command `select Loops`:
 ![ParserSequenceDiagram](https://github.com/user-attachments/assets/4a863dd8-641f-4991-86d3-e45e6e7b1061)
 
-### `QuizManager` class: 
+### `QuizManager` class:
 The `QuizManager` class serves as the primary controller for quiz functionalities within the application. 
 It manages quiz operations such as starting and tracking quizzes, handling topics, saving results, and providing feedback.
 
@@ -171,7 +171,7 @@ When `loadQuestions()` reads each line from the storage file, `parseTopic()` is 
 The following sequence diagram shows the interactions within `TopicManager` during topic initialisation from the storage file.
 ![TopicInstantiationSequenceDiagram](https://github.com/user-attachments/assets/562bffb0-c24e-422f-a16b-dadd988e8291)
 
-### `QuizGenerator` class: 
+### `QuizGenerator` class:
 The `QuizGenerator` class is responsible for managing a single quiz session.
 It interacts with the user through the `Cli` class to set up quiz parameters (time limit and question limit), initializes and starts the `Quiz`, and retrieves the final score.
 The class maintains the current quiz, selected topic, and session limits for each session.
