@@ -40,7 +40,7 @@ loop for each universityName in universityNames
     end
 end
 
-alt universityName not null
+opt universityName not null
         loop for courseArray.size()
         ListUniCoursesCommand -> UI: printListUniCoursesCommand(...)
         activate UI

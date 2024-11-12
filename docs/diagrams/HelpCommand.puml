@@ -13,14 +13,14 @@ activate HelpCommand
 
 HelpCommand -> HelpCommand : getCommand
 activate HelpCommand
-alt Valid Input
+opt Valid Input
     return return parsed command
 end
 
 
 HelpCommand -> HelpCommand
 activate HelpCommand
-alt Valid Command
+opt Valid Command
     return Print specific help messages
 end
 
