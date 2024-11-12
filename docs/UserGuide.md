@@ -234,7 +234,6 @@ Got it! I've added this income:
 
 **Notes**:
 - There is a restriction of up to 5000 entries in the list
-- 
 
 <hr>
 <div style="page-break-after: always;"></div>
