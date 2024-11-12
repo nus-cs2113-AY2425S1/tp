@@ -20,18 +20,20 @@ Please view all my contributions to the project codes [here](https://nus-cs2113-
     - InventraInvalidNumberException
 * Implement ViewCommandTest to check for exception handling of `view` command
 * Address bug in PE-D
+
 ### Contributions to User Guide (UG)
-1. Updated the following `Command` Sections:`view`, `exit`
+* Updated the following `Command` Sections:`view`, `exit`
     - Add command `view -f` to match with project development
     - Update `exit` command for clarification
+
 ### Contributions to Developer Guide (DG)
 * Help to check for errors in Class Diagram and Sequence Diagrams for DG.
+
 ### Contributions to Team-Based Tasks
 * Help to suggest new features for the product, include `view -f` and `delete -r`
 * Support in writing user stories
 * Arrange team meeting
+
 ### Summary
 In this project `Inventra`, I have implemented some core functionalities,
 ensured proper exception handling and data persistence.
-  
-
