@@ -138,8 +138,9 @@ public class ParserUtils {
             return NULL_INTEGER;
         }
 
-        int index = parseInteger(indexString) - 1;
+        int index = parseInteger(indexString);
         validate(index);
+        index--;
 
         logger.log(Level.INFO, "Successfully parsed index: {0}", index);
         return index;
