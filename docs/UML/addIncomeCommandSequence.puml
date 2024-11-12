@@ -16,19 +16,18 @@ return category
 create AddIncomeCommand
 Logic -> AddIncomeCommand: new(amount, description, date, category)
 activate AddIncomeCommand
-AddIncomeCommand --> Logic: addIncomeCommand
+return addIncomeCommand
 Logic -> AddIncomeCommand: execute(list)
 activate AddIncomeCommand
 
 create Income
 AddIncomeCommand -> Income: new(amount, description, date, category)
 activate Income
-Income --> AddIncomeCommand: income
+return income
 
 AddIncomeCommand -> FinancialList: getEntryCount()
 activate FinancialList
-FinancialList --> AddIncomeCommand: preEntryCount
-deactivate FinancialList
+return preEntryCount
 
 AddIncomeCommand -> FinancialList: addEntry(income)
 activate FinancialList
@@ -39,13 +38,11 @@ activate FinancialList
 return incomeTotals
 
 AddIncomeCommand -> AppUi: display income added message
-AddIncomeCommand --> Logic
-deactivate AddIncomeCommand
-
-deactivate Income
-destroy Income
-deactivate AddIncomeCommand
-destroy AddIncomeCommand
 return
+
+return
+
+destroy Income
+destroy AddIncomeCommand
 
 @enduml

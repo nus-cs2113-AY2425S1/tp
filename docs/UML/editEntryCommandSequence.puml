@@ -32,7 +32,7 @@ return category
 create EditEntryCommand
 Logic -> EditEntryCommand: new EditEntryCommand(index, amount, description, date, category)
 activate EditEntryCommand
-EditEntryCommand --> Logic: editCommand
+return editCommand
 
 Logic -> EditEntryCommand: execute(financialList)
 activate EditEntryCommand
@@ -49,37 +49,32 @@ alt entry instanceof Expense
     Create Expense
     EditEntryCommand -> Expense: new(amount, description, date, category)
     activate Expense
-    Expense --> EditEntryCommand: replacementEntry
-    EditEntryCommand -> FinancialList: deleteEntry(index)
-    activate FinancialList
-    return
-    EditEntryCommand -> FinancialList: addEntry(replacementEntry)
-    activate FinancialList
-    return
-    Logic -> Logic: updateExpenseBalance(entry, amount, date)
-    activate Logic
-    return
-    deactivate Expense
-    destroy Expense
+    return replacementEntry
 else
     Create Income
     EditEntryCommand -> Income: new(amount, description, date, category)
     activate Income
-    Income --> EditEntryCommand: replacementEntry
-
-    EditEntryCommand -> FinancialList: deleteEntry(index)
-    activate FinancialList
-    return
-    EditEntryCommand -> FinancialList: addEntry(replacementEntry)
-    activate FinancialList
+    return replacementEntry
+end
+EditEntryCommand -> FinancialList: deleteEntry(index)
+activate FinancialList
+return
+EditEntryCommand -> EditEntryCommand: getRightfulInsertIndex(financialList, replacementEntry, index)
+activate EditEntryCommand
+return correctIndex
+EditEntryCommand -> FinancialList: addEntryAtSpecificIndex(replacementEntry, correctIndex)
+activate FinancialList
+return
+opt entry instanceof Expense
+    Logic -> Logic: updateExpenseBalance(entry, amount, date)
+    activate Logic
     return
 end
 
 EditEntryCommand -> AppUi: display entry edited message
 
 EditEntryCommand --> Logic
-
-deactivate Income
+destroy Expense
 destroy Income
 deactivate EditEntryCommand
 destroy EditEntryCommand
