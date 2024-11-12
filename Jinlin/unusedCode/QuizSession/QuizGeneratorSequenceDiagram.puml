@@ -1,0 +1,49 @@
+@startuml
+actor User
+
+participant ":Cli" as CLI
+participant ":QuizGenerator" as QG
+
+User -> CLI : processCommand("select /d timed /t Loops")
+activate CLI
+CLI -> QG : selectTimedQuiz("Loops")
+deactivate CLI
+activate QG
+
+loop getQuestionLimitFromUser
+    QG --> CLI : printMessage("Enter the number of questions (Max X)")
+    deactivate QG
+    activate CLI
+    CLI --> User : display message
+    User -> CLI : enter question limit
+    CLI --> QG : return questionLimit
+    deactivate CLI
+    activate QG
+    alt valid question limit
+        QG -> QG : use questionLimit
+    else invalid question limit
+        QG --> CLI : printMessage("Invalid number. Re-enter")
+    end
+end
+
+loop getTimeLimitInSecondsFromUser
+    QG --> CLI : printMessage("Enter the number of minutes (or 0 for seconds)")
+    deactivate QG
+    activate CLI
+    CLI --> User : display message
+    User -> CLI : enter time limit
+    CLI -> QG : return timeLimitInSeconds
+    deactivate CLI
+    activate QG
+
+    alt valid time limit
+        QG -> QG : use timeLimitInSeconds
+    else invalid time limit
+        QG --> CLI : printMessage("Invalid input. Re-enter")
+    end
+end
+
+QG -> QG : start quiz with questionLimit and timeLimitInSeconds
+deactivate QG
+deactivate CLI
+@enduml
