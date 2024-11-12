@@ -24,6 +24,7 @@
    - [View total amount in account: `view-total`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-total-amount-in-account-view-total)
    - [Searching: `search`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#searching-search)
    - [Leave the app: `bye`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#leave-the-app-bye)
+
 4. [FAQs](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#faqs)
 5. [Command Summary](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#command-summary)
 
@@ -52,11 +53,22 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 >- Empty commands will be ignored.
 >- The date and time format for input is `yyyy-MM-dd [hhMM]`. Time is optional, the system will automatically take '0000' or '2359' for time.
 >- The month format for input is `yyyy-MM-dd`
->- Expected output: Note that the output may vary depending on your current transaction list, category list and current date
+>- Description and category names cannot exceed 40 characters.
+>- Please enter one command at a time
+>- Expceted output: Note that the output may vary depending on your current transaction list, category list and current date
 
 > **&#9432;** **NOTES ON THE TRANSACTION LIST:**
 >- The transaction list will be sorted in time order.
 >- Any updating action (e.g. deleting, re-categorizing...) will be performed on the whole transaction list, not the sole expense/ income list
+>- The upper limit for each transaction is 1000000000 (1 billion)
+
+> **&#9432;** **NOTES ON SAVE AND LOAD FUNCTIONALITY (FOR ADVANCED USERS)**
+>- The Save & Load Functionality is implemented by serialising TransactionList, CategoryList and budgets and save as JSON files in the local storage
+>- It is not advisable to edit JSON files directly as a corrupted JSON file may lead to unwanted effects
+>- JSON Error Handling:
+    >- Corruption within objects (eg. invalid key or value, incorrect syntax): The programme will skip these objects while loading the JSON file
+>- Corruption of JSON file structure: The content will be cleared and reinitialised, previously stored objects will be lost
+>- [JSON Guide](JSON)
 
 ### View command list: `help`
 - View all available commands in the application.
@@ -68,9 +80,9 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Add an amount of expense into the history.
 - **Format:** `add-expense [DESCRIPTION] a/ AMOUNT [d/ DATE] [c/ CATEGORY]`
 - **Tips:**
-  - If the category is not entered, the program will prompt you to enter a category or to leave it empty
-  - You may either fill in a category already in the category list or create a new category if it is not present in the list
-  - If the date is not entered, the system will take the current day.
+    - If the category is not entered, the program will prompt you to enter a category or to leave it empty
+    - You may either fill in a category already in the category list or create a new category if it is not present in the list
+    - If the date is not entered, the system will take the current day.
 - **Examples:**
   ```
   add-expense a/ 17 d/ 2024-07-09 c/ FnB
@@ -95,11 +107,12 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
     -------------------------------------
   ```
 
+
 #### Add an income: `add-income`
 - Add an amount of income into the history.
 - **Format:** `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`
 - **Tip:**
-  - If the date is not entered, the system will take the current day.
+    - If the date is not entered, the system will take the current day.
 - **Examples:**
   ```
   add-income Monthly allowance a/ 300 d/ 2024-09-19 1100
@@ -113,6 +126,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
     1. Income [amount=52.0, description=, date=2024-09-19 1100]
     -------------------------------------
   ```
+
 
 #### Add a category: `add-category`
 - Add a category into the category list.
@@ -135,9 +149,9 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Sets a monthly budget to track spending against.
 - **Format:** `add-budget a/ AMOUNT m/ MONTH`
 - **Tips:**
-  - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
-  - The amount represents the budget limit for that month.
-  - Budget can only be set for current or future months
+    - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
+    - The amount represents the budget limit for that month.
+    - Budget can only be set for current or future months
 - **Examples:**
   ```
   add-budget a/ 1000 m/ 2024-11 
@@ -171,7 +185,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Delete a category from the category list.
 - **Format:** `delete-category CATEGORY_NAME`
 - **Tip:**
-  - If there were some expenses categorized in the category, you will be prompted to choose a new category. 
+    - If there were some expenses categorized in the category, you will be prompted to choose a new category.
 - **Example:**
   ```
   delete-category FnB
@@ -198,7 +212,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   Budget deleted: Budget for 2025-02 has been deleted.
   -------------------------------------
   ```
-  
+
 ---
 ### Updating
 
@@ -206,7 +220,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Update the category field of an expense.
 - **Format:** `categorize i/ INDEX c/ CATEGORY`
 - - **Tip:**
-  - The category must be in the category list, and the transaction must be an expense. 
+- The category must be in the category list, and the transaction must be an expense.
 - **Example:**
   ```
   categorize i/ 6 c/ Food
@@ -326,8 +340,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - View the list of budgets, or view the budget progress of a certain month
 - **Format:** `view-budget [m/ MONTH]`
 - **Tips:**
-  - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
-  - Tracking of progress is only available for current or past months.
+    - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
+    - Tracking of progress is only available for current or past months.
 - **Example:**
   ```
   view-budget 
@@ -349,6 +363,59 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - Peacefully leave the application
 - **Format:** `bye`
 
+
+## JSON Editing ##
+- JSON basic syntax:
+    - data is in key/value pairs ```"key":"value"```
+    - Data is separated by commas
+    - Curly braces hold objects ```{"key":"value"}```
+    - Square brackets hold arrays ```[{"key1":"value1"},{"key2":"value2"}]```
+- TransactionList and CategoryList in the programme are stored as Array of Transaction object and Category object respectively, Budgets are stored as key/value pairs
+- TransactionList Syntax:
+```
+[
+    {
+      "type": "expense",
+      "category": {
+         "name": ""
+       },
+      "amount": 52.0,
+      "description": "Amusement park",
+      "dateTimeString": "2024-08-09 0000"
+    },
+    {
+    "type": "income",
+    "amount": 300.0,
+    "description": "Monthly allowance",
+    "dateTimeString": "2024-09-19 1100"
+    }
+]
+```
+- CategoryList Syntax:
+```
+[
+  {
+    "name": "Food"
+  },
+  {
+    "name": "Transport"
+  },
+  {
+    "name": "Entertainment"
+  },
+  {
+    "name": "FnB"
+  }
+]
+```
+- Budgets Syntax:
+```
+{
+  "2024-11": 100.0,
+  "2024-12": 200.0
+}
+```
+
 ## FAQs
 **Q:** Why some of my data from my data file is missing?
 
@@ -361,6 +428,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 **Q:** Why do I not see the newly added transaction at the end of the list?
 
 **A:** Note that the list will be arranged in time order, with the end of the list presenting the latest transaction. You may see you transaction added in somewhere else in the list.
+
 
 ## Command Summary
 
@@ -386,4 +454,3 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 | `search`             |      `search k/ [keyword_1] [keyword_2] ... [keyword_n]`      |             `search k/ school fee ABC`              |
 | `bye`                |                             `bye`                             |                        `bye`                        |
            
-
