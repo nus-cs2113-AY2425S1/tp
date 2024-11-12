@@ -71,12 +71,13 @@ public class Ui {
         endSegment();
     }
 
-    public static void printModifiedSession(ArrayList<TrainingSession> sessionList, int sessionIndex) {
+    public static void printModifiedSession(ArrayList<TrainingSession> sessionList, int sessionIndex,
+                                            int newSessionIndex) {
         assert sessionList != null : "Session list must not be null";
         assert !sessionList.isEmpty() : "Session list must not be empty";
         beginSegment();
         System.out.println("Session " + (sessionIndex + 1) + " has been modified:");
-        System.out.println("New Date/Time: " + sessionList.get(sessionIndex).getSessionDatetime());
+        System.out.println("New Date/Time: " + sessionList.get(newSessionIndex).getSessionDatetime());
         endSegment();
     }
 

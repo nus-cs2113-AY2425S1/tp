@@ -11,10 +11,14 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static fittrack.messages.Messages.ADD_REMINDER_MESSAGE;
+import static fittrack.messages.Messages.DELETE_REMINDER_COMMAND;
+import static fittrack.messages.Messages.INDEX_OUT_OF_BOUNDS_MESSAGE;
 import static fittrack.messages.Messages.INVALID_DATETIME_MESSAGE;
+import static fittrack.messages.Messages.INVALID_INDEX_NON_NUMERIC_MESSAGE;
 import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.parser.Parser.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -150,6 +154,64 @@ public class ParserReminderTest {
 
             outputStreamCaptor.reset();
         }
+    }
+
+    @Test
+    void testDeleteReminderWithValidIndex() throws IOException {
+
+        // Add sample reminders to the list
+        reminderList.add(new Reminder("Drink water", LocalDateTime.now().plusHours(1), user));
+        reminderList.add(new Reminder("Go for a walk", LocalDateTime.now().plusHours(2), user));
+        reminderList.add(new Reminder("Attend meeting", LocalDateTime.now().plusDays(1), user));
+
+        String reminderIndexToDelete = "2";
+        String inputString = DELETE_REMINDER_COMMAND + " " + reminderIndexToDelete ;
+
+        parse(user, inputString, sessionList, reminderList, goalList, foodWaterList);
+
+        // Verify the reminder is removed from the list
+        assertEquals(2, reminderList.size(), "Reminder list should contain 2 items after deletion.");
+        assertEquals("Drink water", reminderList.get(0).getDescription(), "First item should " +
+                "remain unchanged.");
+        assertEquals("Attend meeting", reminderList.get(1).getDescription(), "Second item should " +
+                "be 'Attend meeting' after deletion.");
+    }
+
+    @Test
+    void testDeleteReminderWithInvalidIndex() throws IOException {
+
+        String invalidIndex = "5";  // Out of bounds index
+        String inputString = DELETE_REMINDER_COMMAND + " " + invalidIndex ;
+
+        // Add sample reminders to the list
+        reminderList.add(new Reminder("Drink water", LocalDateTime.now().plusHours(1), user));
+        reminderList.add(new Reminder("Go for a walk", LocalDateTime.now().plusHours(2), user));
+        reminderList.add(new Reminder("Attend meeting", LocalDateTime.now().plusDays(1), user));
+
+        parse(user, inputString, sessionList, reminderList, goalList, foodWaterList);
+
+        // Normalize the output to avoid newline issues
+        String normalizedOutput = outputStreamCaptor.toString().trim().replaceAll("\\r\\n?", "\n");
+
+        assertEquals(INDEX_OUT_OF_BOUNDS_MESSAGE,
+                normalizedOutput);
+
+        outputStreamCaptor.reset();
+    }
+
+    @Test
+    void testDeleteReminderWithNonNumericIndex() throws IOException {
+        String nonNumericIndex = "abc";
+        String inputString = DELETE_REMINDER_COMMAND + " " + nonNumericIndex;
+
+        parse(user, inputString, sessionList, reminderList, goalList, foodWaterList);
+
+        // Normalize the output to avoid newline issues
+        String normalizedOutput = outputStreamCaptor.toString().trim().replaceAll("\\r\\n?", "\n");
+
+        assertEquals(INVALID_INDEX_NON_NUMERIC_MESSAGE,normalizedOutput);
+
+        outputStreamCaptor.reset();
     }
 
 }
