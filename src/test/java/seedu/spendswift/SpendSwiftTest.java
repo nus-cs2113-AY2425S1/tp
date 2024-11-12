@@ -22,7 +22,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -398,7 +397,7 @@ class BudgetManagerTest {
         assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit),
             "The budget limit is set below  the maximum allowed");
 
-    } 
+    }
 
 
     void testSetInvalidBudgetLimitAboveMaximum() {
@@ -426,7 +425,7 @@ class BudgetManagerTest {
         // Assert that the budget limit remains unchanged and is not set above the maximum
         assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
-    
+
     }
 }
 
@@ -495,7 +494,7 @@ class TrackerDataTest {
     }
 }
 
- class FormatTest {
+class FormatTest {
 
     @Test
     void testFormatInput_NullInput() {
@@ -549,9 +548,3 @@ class TrackerDataTest {
         assertEquals("-$123.45", Format.formatAmount(-123.45), "Should handle negative values correctly.");
     }
 }
-
-
-
-
-
-
