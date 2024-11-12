@@ -367,7 +367,7 @@ class BudgetManagerTest {
         String categoryName = "Travel";
         double budgetLimit = 300.0;
         double expenseAmount = 350.0;
-        CategoryManager.addCategory(trackerData, categoryName);
+        CategoryManager.addCategory(categoryName,trackerData);
         budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
         ExpenseManager.addExpense(trackerData, "Train Ticket", expenseAmount, categoryName);
         Category category = findCategory(trackerData, categoryName);
@@ -385,7 +385,7 @@ class BudgetManagerTest {
         String categoryName = "Food";
         double budgetLimit = 200.0;
         double expenseAmount = 150.0;
-        CategoryManager.addCategory(trackerData, categoryName);
+        CategoryManager.addCategory(categoryName, trackerData);
         budgetManager.setBudgetLimit(trackerData, categoryName, budgetLimit);
         ExpenseManager.addExpense(trackerData, "Lunch", expenseAmount, categoryName);
         Category category = findCategory(trackerData, categoryName);
