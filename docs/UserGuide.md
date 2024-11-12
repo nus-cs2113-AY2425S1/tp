@@ -20,17 +20,17 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 3. Copy the file to the folder you want to use as the home folder for JavaNinja.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
    ```shell
-   java -jar tp.jar
+   java -jar javaninja.jar
    ```
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
    Some example commands you can try:
-   - `help`: Lists all basic commands.
-   - `view`: Displays available topics.
-   - `select /d timed|untimed /t [topic]`: Selects a specified topic (e.g., `select /d timed /t loops`) to start the quiz.
-   - `review`: Displays a summary of quiz results.
-   - `exit`: Exits the quiz, activate only while doing the quiz.
-   - `quit`: Exits the program.
-   - `add Flashcards` : Adds a flashcard for your own quick revision
+    - `help`: Lists all basic commands.
+    - `view`: Displays available topics.
+    - `select /d timed|untimed /t [topic]`: Selects a specified topic (e.g., `select /d timed /t loops`) to start the quiz.
+    - `review`: Displays a summary of quiz results.
+    - `exit`: Exits the quiz, activate only while doing the quiz.
+    - `quit`: Exits the program.
+    - `add Flashcards` : Adds a flashcard for your own quick revision
 6. Refer to the features below for each command.
 
 ---
@@ -53,11 +53,11 @@ This command allows you to select a specific topic or a random selection of topi
 - The number of questions you wish to attempt.
 - /d: Specifies whether the quiz should be timed or untimed
 - /t: Specifies the topic for the quiz. You can provide a specific topic name or use random to select a mix of questions from multiple topics.
-  - If random is chosen, you will be prompted to specify how many topics you'd like to be tested on, and how many questions per topic.
+    - If random is chosen, you will be prompted to specify how many topics you'd like to be tested on, and how many questions per topic.
 
 **Format**: `select /d timed|untimed /t TOPIC|Random`
 
-**Example**: 
+**Example**:
    ```shell
     select /d timed /t loops
     OR
@@ -90,7 +90,7 @@ Allows users to add their own quiz questions. Useful for your own revision in th
 Format: `add Flashcards /q [QUESTION] /a [ANSWER]`
 
 * The `QUESTION` can be in a natural language format.
-* The `ANSWER` cannot contain punctuation.  
+* The `ANSWER` cannot contain punctuation.
 
 **Example**:
 ```shell
@@ -124,7 +124,6 @@ review
 Reviewing all quiz results:
 Topic: Loops, Score: 20%, Questions Limit: 5, Time Limit: untimed, Date: Tue Nov 12 11:38:43 SGT 2024
 ```
-
 
 ### 6. Exit Quiz: `exit`
 Exit the current quiz session if you want to stop answering questions without finishing the quiz.
@@ -175,7 +174,7 @@ quit
 ## Troubleshooting
 
 - **Issue**: The application does not start when running the `java -jar javaninja.jar` command.
-  - **Solution**: Make sure Java 17 or above is installed and properly configured in your system's PATH. You can check your Java version with `java -version`.
+    - **Solution**: Make sure Java 17 or above is installed and properly configured in your system's PATH. You can check your Java version with `java -version`.
 
 - **Issue**: Commands are not recognized or produce unexpected results.
-  - **Solution**: Ensure correct command syntax. Use the `help` command to verify command formats.
+    - **Solution**: Ensure correct command syntax. Use the `help` command to verify command formats.
