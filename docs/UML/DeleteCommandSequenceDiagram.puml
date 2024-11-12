@@ -37,6 +37,8 @@ else Delete All
 end
 
 L -> ST: Update storage with FinancialList and BudgetLogic
+ST --> L: Acknowledge update completion
+
+L -> User: Display confirmation message
 deactivate L
-User <- L: Display confirmation message
 @enduml
