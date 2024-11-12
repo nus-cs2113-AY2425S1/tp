@@ -1,0 +1,46 @@
+@startuml
+Title Ui Component
+skinparam classAttributeIconSize 0
+hide circle
+class Ui {
+    <u># DIVIDER: String</u>
+    <u>- scanner: Scanner
+    <u>- MESSAGE_WELCOME: String</u>
+    <u>- MESSAGE_GOODBYE: String</u>
+
+    + readInput(): void
+    + showOutput(output: String): voidd
+    + showUnknownCommand(input: String): void
+    + showErrorCommand(errorMessage: String): void
+    + printHeadDivider(): void
+    + printTailDivider(): void
+    + printDivider(): void
+}
+
+
+
+class UiCommand {
+        <u>- FORMATTER_DATE: DateTimeFormatter
+        <u>- POINTER_TO_NOW: String
+        - invalidFlags: String
+        - updatedFields: String
+        - invalidFields: String
+
+        + UiCommand(): UiCommand
+        + showEditedInternship(internship: Internship, action: String): void
+        + addUpdatedField(updatedField: String, updatedValue: String, type: String): void
+        + addInvalidFlag(flag: String): void
+        + addInvalidField(field: String, invalidMessage: String): void
+        + showCommands(commands: ArrayList<Command>): void
+        + showCalendar(deadlines: ArrayList<Deadline>, companies: ArrayList<String>): void
+    }
+
+class UiInternshipList {
+        + showInternships(internships: ArrayList<Internship>, field: String): void
+        + getSortField(field: String): String
+        + showDeletedInternship(id: Integer): void
+    }
+
+UiCommand -left-|> Ui
+UiInternshipList -up-|> Ui
+@enduml

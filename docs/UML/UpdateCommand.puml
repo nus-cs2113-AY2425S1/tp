@@ -1,0 +1,82 @@
+@startuml
+title UpdateCommand Sequence Diagram
+hide footbox
+
+participant User
+participant UpdateCommand
+participant UiCommand
+participant InternshipList
+participant UiInternshipList
+
+User -> UpdateCommand:execute(args)
+activate UpdateCommand #red
+
+UpdateCommand -> InternshipList:isWithinBounds(index)
+activate InternshipList #orange
+
+break Not in Bounds
+    InternshipList -> UiInternshipList:showInvalidIndex()
+    activate UiInternshipList #yellow
+    UiInternshipList --> User:show invalid index message
+    deactivate UiInternshipList
+end
+
+deactivate InternshipList
+
+UpdateCommand -> UiCommand:clearInvalidFlags()
+activate UiCommand #green
+deactivate UiCommand
+
+UpdateCommand -> UiCommand:clearUpdatedFields()
+activate UiCommand #green
+deactivate UiCommand
+
+UpdateCommand -> UiCommand:clearInvalidFields()
+activate UiCommand #green
+deactivate UiCommand
+
+loop for arg in args
+    UpdateCommand -> UpdateCommand:updateOneField(words, internshipIndex)
+    activate UpdateCommand #red
+
+    alt status || skills || role || company || from || to || deadline
+        UpdateCommand -> UpdateCommand:isValidWords()
+        activate UpdateCommand #red
+
+        alt field is empty
+            UpdateCommand -> UiCommand:addInvalidField(field, message)
+            activate UiCommand #green
+            deactivate UiCommand
+        end
+
+        UpdateCommand --> UpdateCommand: :boolean
+        deactivate UpdateCommand
+
+        UpdateCommand -> InternshipList:updateField(internshipIndex, field, value)
+        activate InternshipList #orange
+        InternshipList --> UpdateCommand:updatedValue: String
+        deactivate InternshipList
+
+        UpdateCommand -> UiCommand:addUpdatedField(field, value, type)
+        activate UiCommand #green
+        deactivate UiCommand
+    else default
+        UpdateCommand -> UiCommand:addInvalidFlag(field)
+        activate UiCommand #green
+        deactivate UiCommand
+    end
+
+    UpdateCommand --> UpdateCommand
+    deactivate UpdateCommand
+
+end
+
+UpdateCommand -> UiCommand:showEditedInternships(internship, action)
+activate UiCommand #green
+UiCommand --> User:print output
+deactivate UiCommand
+
+UpdateCommand --> User
+deactivate UpdateCommand
+
+@enduml

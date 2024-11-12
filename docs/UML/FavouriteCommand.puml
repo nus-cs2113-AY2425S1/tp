@@ -1,0 +1,55 @@
+@startuml
+Title FavouriteCommand execute method
+hide footbox
+
+participant User
+participant FavouriteCommand
+participant InternshipList
+participant UiCommand
+
+
+User -> FavouriteCommand: execute(args)
+activate FavouriteCommand #turquoise
+
+opt Empty args
+FavouriteCommand -> UiCommand: showEmptyFlags()
+activate UiCommand #red
+UiCommand --> FavouriteCommand
+deactivate UiCommand
+FavouriteCommand --> User
+end
+FavouriteCommand -> FavouriteCommand: getInputInternships()
+activate FavouriteCommand #turquoise
+opt Invalid args
+FavouriteCommand -> UiCommand : showOutput(exception.getMessage())
+activate UiCommand #red
+UiCommand --> FavouriteCommand
+deactivate UiCommand
+FavouriteCommand --> User
+end
+FavouriteCommand --> FavouriteCommand : inputInternships
+deactivate FavouriteCommand
+FavouriteCommand -> InternshipList : favouriteInternships
+activate InternshipList #green
+InternshipList --> FavouriteCommand : favouriteInternships
+deactivate InternshipList
+loop internship in inputInternships
+    opt internship not in favouriteInternships
+    FavouriteCommand -> InternshipList : favouriteInternships.add()
+    activate InternshipList #green
+    InternshipList --> FavouriteCommand
+    deactivate InternshipList
+    end
+end
+FavouriteCommand -> UiCommand : showOutput(message)
+activate UiCommand #red
+UiCommand --> FavouriteCommand
+deactivate UiCommand
+FavouriteCommand -> InternshipList : listFavouriteInternshipsSortedByID()
+activate InternshipList #green
+InternshipList --> FavouriteCommand
+deactivate InternshipList
+FavouriteCommand --> User
+deactivate FavouriteCommand
+
+@enduml

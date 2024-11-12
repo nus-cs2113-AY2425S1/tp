@@ -1,0 +1,69 @@
+@startuml
+Title loadFromFile
+hide footbox
+participant ":User"
+participant ":EasInternship"
+participant ":Storage"
+participant ":Internship"
+participant ":InternshipList"
+
+":User"->":EasInternship": start program
+activate ":EasInternship" #green
+":EasInternship"-->":InternshipList" **: create
+activate ":InternshipList" #aquamarine
+deactivate ":InternshipList"
+":EasInternship"->":Storage": loadFromFile(internshipList)
+activate ":Storage" #orange
+
+loop for each line in file
+
+    alt line starts with "FAVOURITES:"
+        ":Storage" -> ":Storage" : add favInternshipId to favouriteIds
+        activate ":Storage" #orange
+        return
+
+        end
+
+    ":Storage"-> ":Internship" **: new Internship(role, company, startDate, endDate)
+    activate ":Internship" #blue
+    ":Storage"->":InternshipList": addInternship(internship)
+    activate ":InternshipList" #aquamarine
+    deactivate ":InternshipList"
+    ":Storage" -> ":Internship" :setSkills(skills)
+    activate ":Internship" #blue
+    deactivate ":Internship"
+    ":Storage" -> ":Internship" : setStatus(status)
+    activate ":Internship" #blue
+    deactivate ":Internship"
+
+    ":Storage" -> ":Storage": parseDeadlines(deadlineString, internshipId)
+    activate ":Storage" #orange
+    return List<Deadline> loadedDeadlines
+    loop for deadline in loadedDeadlines
+        ":Storage" -> ":Internship" : addDeadline(description, date)
+        activate ":Internship" #blue
+        deactivate ":Internship"
+    end
+
+    loop for favInternshipId in favouriteIds
+        ":Storage" -> ":InternshipList" : getInternship(favInternshipId)
+        activate ":InternshipList" #aquamarine
+        ":InternshipList" --> ":Storage" : favInternship
+        deactivate ":InternshipList"
+        ":Storage" -> ":InternshipList" : add to favouriteInternships
+        activate ":InternshipList" #aquamarine
+        deactivate ":InternshipList"
+    end
+
+        deactivate ":Storage"
+        deactivate ":Internship"
+        deactivate ":InternshipList"
+        ":Storage" --> ":EasInternship"
+end
+
+deactivate ":Storage"
+":EasInternship"--> ":User"
+
+
+@enduml
+

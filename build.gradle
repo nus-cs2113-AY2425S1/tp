@@ -29,12 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("seedu.easinternship.EasInternship")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
-    archiveClassifier.set("")
+    archiveFileName = "easInternship.jar"
 }
 
 checkstyle {
@@ -43,4 +42,5 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = true;
 }

@@ -1,0 +1,58 @@
+@startuml
+title CalendarCommand Sequence Diagram
+hide footbox
+
+participant User
+participant CalendarCommand
+participant UiCommand
+participant InternshipList
+
+User -> CalendarCommand:execute(args)
+activate CalendarCommand #red
+
+CalendarCommand -> CalendarCommand:getDeadlines()
+activate CalendarCommand #red
+
+CalendarCommand -> InternshipList:getAllInternships()
+activate InternshipList #orange
+InternshipList --> CalendarCommand:allInternships: List
+deactivate InternshipList
+loop for internship in allInternships
+    CalendarCommand -> Internship:getDeadlines()
+    activate Internship #yellow
+    Internship --> CalendarCommand:deadlines: ArrayList
+    deactivate Internship
+end
+
+CalendarCommand --> CalendarCommand:deadlines: ArrayList
+deactivate CalendarCommand
+
+CalendarCommand -> CalendarCommand:sortDeadlines(deadlines)
+activate CalendarCommand #red
+CalendarCommand --> CalendarCommand:sortedDeadlines: ArrayList
+deactivate CalendarCommand
+
+CalendarCommand -> CalendarCommand:getCompanies(deadlines)
+activate CalendarCommand #red
+loop for deadline in deadlines
+    CalendarCommand -> InternshipList:getInternship(internshipIndex)
+    activate InternshipList #orange
+    InternshipList -> Internship:getCompany()
+    activate Internship #yellow
+    Internship --> InternshipList:company: String
+    deactivate Internship
+    InternshipList --> CalendarCommand: company: String
+    deactivate InternshipList
+end
+CalendarCommand --> CalendarCommand:companies: ArrayList
+deactivate CalendarCommand
+
+CalendarCommand -> UiCommand:showCalendar(sortedDeadlines, companies)
+activate UiCommand #green
+UiCommand --> CalendarCommand
+deactivate UiCommand
+
+CalendarCommand --> User
+deactivate CalendarCommand
+
+@enduml

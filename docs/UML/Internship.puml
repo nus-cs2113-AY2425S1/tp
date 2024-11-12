@@ -1,0 +1,51 @@
+@startuml
+
+Title Model Component
+skinparam classAttributeIconSize 0
+hide circle
+class Internship {
+    - id: int
+    - role: String
+    - company: String
+    - startDate: YearMonth
+    - endDate: YearMonth
+    - deadlines: List<Deadline>
+    - skills: ArrayList<String>
+    - status: String
+
+    + updateStatus(userStatus : String): void
+    + setStartDate(start : String): void
+    + setEndDate(end : String): void
+    + addDeadline(description : String , date : String): void
+    + removeDeadline(description : String ): void
+    + setSkills(skills : String): void
+    + removeSkill(skill : String): void
+}
+
+
+
+class InternshipList {
+        - internships : ArrayList<Internship>
+        - ui : UiInternshipList
+
+        + addInternship(internship : Internship): void
+        + removeInternship(index : int): void
+        + updateField(index : int, field : String, value : String): void
+        + listAllInternships(): void
+    }
+
+class Deadline {
+        - internshipID : int
+        - description : String
+        - date : LocalDate
+
+        + setInternshipId(internshipId : int) : void
+        + setDescription(description : String) : void
+        + setDate(date : String) : void
+    }
+
+InternshipList "1" --> "*" Internship
+Internship "1" --> "*" Deadline
+
+@enduml
+
