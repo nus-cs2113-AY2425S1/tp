@@ -131,6 +131,8 @@ To attempt to reload the data, exit and restart the program to try the upload ag
 
 For further support, please take a look at [Accepted File Format](#accepted-file-format).
 
+<div style="page-break-after: always;"></div>
+
 ### *Notes about the command format:*
 - Words in UPPER_CASE are the parameters to be supplied by the user.
 - Extraneous parameters for commands that do not take in parameters (such as help, list and exit) will be ignored.
