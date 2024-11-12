@@ -6,6 +6,7 @@ import seedu.exceptions.InvalidStatus;
 import seedu.exceptions.MissingValue;
 import seedu.ui.UiInternshipList;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -266,7 +267,16 @@ public class InternshipList {
             } else if (earliestDeadline2 == null) {
                 return -1; // i2 has no deadline, so it goes after i1
             }
-            return compareYearMonth(earliestDeadline1.getDate(), earliestDeadline2.getDate());
+
+            LocalDate date1 = earliestDeadline1.getUnformattedDate();
+            LocalDate date2 = earliestDeadline2.getUnformattedDate();
+            if (date1.isBefore(date2)) {
+                return -1;
+            }
+            if (date1.isAfter(date2)) {
+                return 1;
+            }
+            return 0;
         });
     }
 
