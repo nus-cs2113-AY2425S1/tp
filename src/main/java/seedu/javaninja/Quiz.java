@@ -9,10 +9,6 @@ import seedu.javaninja.question.Flashcard;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * The `Quiz` class represents a single quiz session for a specified topic.
- * It manages quiz questions, tracks correct answers, and calculates the final score.
- */
 public class Quiz {
     private Topic topic;
     private int currentQuestionIndex;
@@ -21,6 +17,7 @@ public class Quiz {
     private Cli cli;
     private int questionLimit;
     private boolean isTimed;
+    private boolean exited; // To track if the quiz was exited
 
     public Quiz(Topic topic, Cli cli) {
         assert topic != null : "Topic must not be null";
@@ -32,6 +29,7 @@ public class Quiz {
         this.correctAnswers = 0;
         questionLimit = 0;
         this.isTimed = false;
+        this.exited = false;
     }
 
     public void start(int timeLimitInSeconds, int questionLimit) {
@@ -52,7 +50,7 @@ public class Quiz {
 
         while (currentQuestionIndex < questions.size() && currentQuestionIndex < questionLimit) {
             if (isTimed && timeUp.get()) {
-                return; // Ensures the loop exits immediately
+                return;
             }
             Question currentQuestion = questions.get(currentQuestionIndex);
             assert currentQuestion != null : "Current question must not be null";
@@ -77,6 +75,7 @@ public class Quiz {
             }
 
             if (!shouldContinueQuiz(currentQuestion)) {
+                exited = true;
                 break;
             }
 
@@ -103,8 +102,9 @@ public class Quiz {
                 return false;
             }
 
-            if (answer.equalsIgnoreCase("exit")) {
+            if (answer.equalsIgnoreCase("exit") || answer.equalsIgnoreCase("quit")) {
                 cli.printMessage("Exiting the quiz. Returning to main menu...");
+                exited = true;
                 return false;
             }
 
@@ -138,5 +138,9 @@ public class Quiz {
 
     public int getQuestionCount() {
         return topic.getQuestions().size();
+    }
+
+    public boolean isExited() {
+        return exited;
     }
 }

@@ -1,7 +1,6 @@
 package seedu.javaninja;
 
 import seedu.javaninja.question.Question;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Collections;
@@ -14,7 +13,6 @@ public class QuizGenerator {
     private Topic topic;
     private Quiz currentQuiz;
 
-
     public QuizGenerator(TopicManager topicManager, Cli cli) {
         this.topicManager = topicManager;
         this.cli = cli;
@@ -25,9 +23,13 @@ public class QuizGenerator {
     }
 
     /**
-     * Starts a timed quiz on a specific topic.
-     * @param topicName The name of the topic.
+     * Returns the current Quiz instance.
+     * @return the current quiz.
      */
+    public Quiz getQuiz() {
+        return currentQuiz;
+    }
+
     public boolean selectTimedQuiz(String topicName) {
         topic = topicManager.getTopic(topicName);
         if (topic == null) {
@@ -36,19 +38,13 @@ public class QuizGenerator {
         }
 
         currentQuiz = new Quiz(topic, cli);
-
         questionLimit = getQuestionLimitFromUser(topic);
         timeLimitInSeconds = getTimeLimitInSecondsFromUser();
-
 
         currentQuiz.start(timeLimitInSeconds, questionLimit);
         return true;
     }
 
-    /**
-     * Starts an untimed quiz on a specific topic.
-     * @param topicName The name of the topic.
-     */
     public boolean selectUntimedQuiz(String topicName) {
         topic = topicManager.getTopic(topicName);
         if (topic == null) {
@@ -57,18 +53,13 @@ public class QuizGenerator {
         }
 
         timeLimitInSeconds = -1;
-
         questionLimit = getQuestionLimitFromUser(topic);
         currentQuiz = new Quiz(topic, cli);
 
-        currentQuiz.start(timeLimitInSeconds, questionLimit);// -1 for no time limit
+        currentQuiz.start(timeLimitInSeconds, questionLimit);
         return true;
     }
 
-    /**
-     * Starts a quiz with random topics, either timed or untimed.
-     * @param isTimed Determines if the quiz should be timed.
-     */
     public boolean selectRandomTopicsQuiz(boolean isTimed) {
         int numTopics = getNumTopicsFromUser();
         int numQuestions = getNumQuestionsFromUser();
@@ -82,38 +73,31 @@ public class QuizGenerator {
             currentQuiz.start(timeLimitInSeconds, questionLimit);
         } else {
             timeLimitInSeconds = -1;
-            currentQuiz.start(timeLimitInSeconds, questionLimit); // -1 for no time limit
+            currentQuiz.start(timeLimitInSeconds, questionLimit);
         }
         return true;
     }
 
-    /**
-     * Generates a random quiz topic with a specified number of topics and questions.
-     * @param numTopics Number of topics to include.
-     * @param numQuestions Number of questions per topic.
-     * @return A Topic containing randomly selected questions.
-     */
     private Topic generateRandomQuiz(int numTopics, int numQuestions) {
         List<Topic> allTopics = topicManager.getTopics();
 
-        // Ensure that we do not attempt to select more topics than available
         if (numTopics > allTopics.size()) {
             numTopics = allTopics.size();
         }
 
         Collections.shuffle(allTopics);
         List<Topic> selectedTopics = allTopics.stream()
-            .limit(numTopics)
-            .toList();
+                .limit(numTopics)
+                .toList();
 
         List<Question> randomQuestions = selectedTopics.stream()
-            .flatMap(topic -> topic.getQuestions().stream())
-            .collect(Collectors.toList());
+                .flatMap(topic -> topic.getQuestions().stream())
+                .collect(Collectors.toList());
 
         Collections.shuffle(randomQuestions);
         List<Question> limitedQuestions = randomQuestions.stream()
-            .limit(numQuestions)
-            .toList();
+                .limit(numQuestions)
+                .toList();
 
         Topic randomQuiz = new Topic("Random Quiz");
         for (Question question : limitedQuestions) {
@@ -123,14 +107,9 @@ public class QuizGenerator {
         return randomQuiz;
     }
 
-    /**
-     * Prompts the user for a question limit, ensuring it's within the topic's question size.
-     * @param topic The topic to quiz on.
-     * @return Number of questions to use for the quiz.
-     */
     private int getQuestionLimitFromUser(Topic topic) {
         int maxQuestions = topic.getQuestions().size();
-        final int UPPER_LIMIT = 1000; // Define a practical upper limit for question count
+        final int UPPER_LIMIT = 1000;
 
         while (true) {
             cli.printMessage("Enter the number of questions you want to attempt (Max " + maxQuestions + "): ");
@@ -151,10 +130,6 @@ public class QuizGenerator {
         }
     }
 
-    /**
-     * Prompts the user for a time limit for timed quizzes.
-     * @return Time limit in seconds.
-     */
     public int getTimeLimitInSecondsFromUser() {
         while (true) {
             cli.printMessage("Enter the number of minutes for the quiz (or 0 for seconds): ");
@@ -178,10 +153,6 @@ public class QuizGenerator {
         }
     }
 
-    /**
-     * Gets the number of topics to include for a random quiz.
-     * @return Number of topics.
-     */
     private int getNumTopicsFromUser() {
         while (true) {
             cli.printMessage("Enter the number of topics to include in the random quiz: ");
@@ -197,10 +168,6 @@ public class QuizGenerator {
         }
     }
 
-    /**
-     * Gets the number of questions per topic for a random quiz.
-     * @return Number of questions per topic.
-     */
     private int getNumQuestionsFromUser() {
         while (true) {
             cli.printMessage("Enter the number of questions per topic for the random quiz: ");
@@ -215,7 +182,6 @@ public class QuizGenerator {
             }
         }
     }
-
 
     public int getTimeLimitInSeconds() {
         return timeLimitInSeconds;

@@ -1,7 +1,3 @@
-/**
- * This class contains unit tests for the {@link QuizTimer} class to ensure proper functionality of the
- * timer operations, including starting, checking, and canceling the timer.
- */
 package seedu.javaninja;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,14 +26,14 @@ class QuizTimerTest {
     }
 
     /**
-     * Tests the {@link QuizTimer#startTimer(int)} method to verify that the timeUp flag is set
+     * Tests the {@link QuizTimer#startTimer(int, Runnable)} method to verify that the timeUp flag is set
      * to true after the timer completes the specified duration.
      *
      * @throws InterruptedException if the sleep is interrupted.
      */
     @Test
     public void startTimer_validDuration_setsTimeUpAfterCompletion() throws InterruptedException {
-        AtomicBoolean timeUp = quizTimer.startTimer(2);
+        AtomicBoolean timeUp = quizTimer.startTimer(2, () -> {});
         Thread.sleep(3000);
         assertTrue(timeUp.get(), "Expected timeUp flag to be true after timer completion.");
     }
@@ -50,7 +46,7 @@ class QuizTimerTest {
      */
     @Test
     public void isTimeUp_beforeTimerCompletes_returnsFalse() throws InterruptedException {
-        quizTimer.startTimer(2);
+        quizTimer.startTimer(2, () -> {});
         assertFalse(quizTimer.isTimeUp(), "Expected timeUp flag to be false before timer completion.");
         Thread.sleep(3000);
         assertTrue(quizTimer.isTimeUp(), "Expected timeUp flag to be true after timer completion.");
@@ -64,7 +60,7 @@ class QuizTimerTest {
      */
     @Test
     public void cancelTimer_timerRunning_stopsTimerBeforeCompletion() throws InterruptedException {
-        quizTimer.startTimer(5);
+        quizTimer.startTimer(5, () -> {});
         Thread.sleep(1000);
         quizTimer.cancelTimer();
         Thread.sleep(5000);
