@@ -41,7 +41,7 @@ precise inventory management, real-time tracking and automation of tasks.
 ## Quick Start
 
 1. Prerequisites: Ensure Java 17 or above is installed in your Computer.
-2. Download: the latest [.jar] file from this [link](https://github.com/AY2425S1-CS2113-T11-4/tp/releases/tag/v2.0).
+   2. Download: the latest [.jar] file from this [link](https://github.com/AY2425S1-CS2113-T11-4/tp/releases/tag/v2.1). 
 3. Setup:
 *  Copy [.jar] file to the folder you would like to store your program to. 
 *  Open command terminal, [cd] into directory [.jar] is stored
