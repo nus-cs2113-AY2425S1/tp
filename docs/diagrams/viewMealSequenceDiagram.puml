@@ -1,14 +1,53 @@
 @startuml
 actor User
+participant "UI" as UI
+participant "BuffBuddy" as BB
+participant "Parser" as Parser
 participant "ViewMealCommand" as ViewCmd
+participant "History" as History
 participant "DailyRecord" as DailyRec
 
-ViewCmd -> DailyRec: getMealListFromRecord()
+User -> UI: "meal add /n [mealName] /c [calories]"
+activate UI
+BB -> UI: readCommand()
+activate BB
+UI --> BB: command object
+BB -> Parser: parse(command)
+activate Parser
+
+create ViewCmd
+Parser --> ViewCmd: ViewMealCommand(date)
+deactivate Parser
 activate ViewCmd
+
+ViewCmd -> History: getRecordByDate(date)
+activate History
+
+alt DailyRecord exists
+  History --> ViewCmd: DailyRecord object
+else No DailyRecord exists
+create DailyRec
+  History -> DailyRec: new DailyRecord()
+  activate DailyRec
+  DailyRec --> History
+  deactivate DailyRec
+  History --> ViewCmd
+end
+deactivate History
+
+ViewCmd -> DailyRec: getMealListFromRecord()
 activate DailyRec
 DailyRec --> ViewCmd: MealList object
 deactivate DailyRec
 
+ViewCmd --> BB: CommandResult object
 deactivate ViewCmd
-@enduml
 
+BB -> UI: Show CommandResult
+deactivate BB
+destroy ViewCmd
+
+UI -> User: Display success message
+deactivate UI
+
+@enduml
