@@ -1,18 +1,17 @@
 # Developer Guide
 
-# Developer Guide
-
 ----------------------------------
+
 ## Table of Contents
 1. [Acknowledgements](#acknowledgements)
 2. [Design & Implementation](#design--implementation)
     - [Architecture](#architecture)
-      - [Main Components of the Architecture](#main-components-of-the-architecture)
-      - [How the Architecture Components Interact](#how-the-architecture-components-interact-with-each-other)
+        - [Main Components of the Architecture](#main-components-of-the-architecture)
+        - [How the Architecture Components Interact](#how-the-architecture-components-interact-with-each-other)
     - [Ui Class](#ui-class)
     - [Recipe Class](#recipe-class)
     - [RecommendedRecipe Class](#recommendedrecipe-class)
-      - [SortByPercentMatch Class](#sortbypercentmatch-class)
+        - [SortByPercentMatch Class](#sortbypercentmatch-class)
     - [RecipeList Class](#recipelist-class)
     - [Ingredient Class](#ingredient-class)
     - [IngredientList Class](#ingredientlist-class)
@@ -45,6 +44,7 @@
     - [Non-Functional Requirements](#non-functional-requirements)
     - [Glossary](#glossary)
 4. [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+
 ----------------------------------
 
 ## Acknowledgements
