@@ -45,7 +45,7 @@ end
 FindCoursesCommand -> FindCoursesCommand: printFindCommand(foundCourses: List<Course>)
 activate FindCoursesCommand
 
-alt foundCourses is not empty
+opt foundCourses is not empty
     loop For all course in foundCourses
         FindCoursesCommand -> UI: printFoundCourses(...)
         activate UI
