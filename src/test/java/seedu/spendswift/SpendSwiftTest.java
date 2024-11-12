@@ -350,7 +350,7 @@ class BudgetManagerTest {
     }
 
       
-  @Test
+   @Test
    void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -360,7 +360,7 @@ class BudgetManagerTest {
         assertFalse(trackerData.getBudgets().containsKey(category));
     } 
 
- @Test
+    @Test
     void testAddExpenseExceedingBudget() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
@@ -378,7 +378,7 @@ class BudgetManagerTest {
                 .mapToDouble(Expense::getAmount)
                 .sum());
     }
-@Test
+    @Test
     void testAddExpenseWithinBudget() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
