@@ -56,6 +56,7 @@ FinanceBuddy uses the following tools for development:
 
 1. JUnit5 - Used for testing
 2. Gradle - Used for build automation
+3. Generative AI - Assistance in generating code and documentation
 
 ## Design and Implementation
 
@@ -1195,7 +1196,7 @@ faster than a typical mouse/GUI driven app
 
 ## Non-Functional Requirements
 
- - Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
+ - Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 17 installed. Instructions for downloading Java 17 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk17-archive-downloads.html).
  - Project Scope Constraints: The application should only be used for tracking. It is not meant to be involved in any form of monetary transaction.
  - Project Scope Constraints: Data storage is only to be performed locally.
  - Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
