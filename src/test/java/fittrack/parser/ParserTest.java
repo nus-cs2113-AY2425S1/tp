@@ -201,6 +201,8 @@ public class ParserTest {
             expectedOutput = expectedOutput.trim().replaceAll("\\r\\n?", "\n");
 
             assertEquals(expectedOutput, actualOutput);
+
+            outputStreamCaptor.reset();
         }
     }
 }
