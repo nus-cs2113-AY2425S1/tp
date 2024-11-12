@@ -84,7 +84,7 @@ public class InputParser {
         try {
             // Parse the limit string into double
             double limit = Double.parseDouble(limitStr);
-             final double quadrillion = 1000000000000000.0;
+            final double quadrillion = 1000000000000000.0;
 
             // Assertion to ensure the limit does not exceed 1 quadrillion
             assert limit <= quadrillion: "Limit exceeds 1 quadrillion, capping to 1 quadrillion";
