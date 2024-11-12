@@ -8,7 +8,7 @@ img
 }
 </style>
 
-# Developer Guide
+# FinanceBuddy Developer Guide
 
 ## Table of Contents
 
@@ -52,7 +52,7 @@ img
 
 ## Acknowledgements
 
-Finance Buddy uses the following tools for development:
+FinanceBuddy uses the following tools for development:
 
 1. JUnit5 - Used for testing
 2. Gradle - Used for build automation
@@ -181,8 +181,9 @@ the `dd/MM/yyyy` format.
 
 <ins>Usage Example</ins>
 
-``` 
-HashMap<String, String> commandArgs = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
+```java
+HashMap<String, String> commandArgs
+  = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
         
 LocalDate parsedDate = DateParser.parse("12/10/2024");
 ```
@@ -495,17 +496,17 @@ The `BudgetLogic` class has the following methods:
 <ins>Implementation Details</ins>
 
 Users set budget by invoking `budget AMOUNT`.
-The acceptable range of values are from 0.01 to 9999999.00,
-facilitated by `isValidBudgetAmount()` method in `BudgetLogic`.
-If the amount entered is 0, `resetBudgetAmount()` method in `Budget` is called.
 
 This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the
 following argument:
 - `argument`: Represents the budget amount to be set. This is a compulsory argument.
 
-The sequence diagrams below show 2 key methods of `BudgetLogic` class.
+The acceptable range of values are from 0.01 to 9999999.00,
+facilitated by `isValidBudgetAmount()` method in `BudgetLogic`.
+If the amount entered is 0, `resetBudgetAmount()` method in `Budget` is called.
 
-The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
+The sequence diagram below illustrates the program sequence of the `promptUserSetBudget()` method
+being invoked by the `FinanceBuddy` main class.
 
 <img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
 
@@ -576,9 +577,8 @@ This is parsed by `InputParser`, returning a HashMap `commandArguments`, contain
 following arguments:
 - `argument`: Represents the description of the entry. This is a compulsory argument.
 - `/a`: Represents the amount of money in the transaction. This is a compulsory argument.
-- `/d`: Represents the date on which the transaction occurred. If this argument is not used,
-  the current date is used. An exception occurs if this argument is used but the value is left blank.
-- `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
+- `/d`: Represents the date on which the transaction occurred, defaults to system date if `/d` is not used.
+- `/c`: Represents the category of the transaction, defaults to UNCATEGORIZED if unspecified or invalid.
 
 There is a limit of 5000 entries in the `financialList` at any one time.
 Attempts to add entries above the limit will be rejected.
@@ -660,7 +660,7 @@ Note that the latest entry edit is not saved between sessions.
 - `/des` Represents the description of the transaction. This is an optional argument.
 - `/a` Represents the amount of money used in the transaction. This is an optional argument.
 - `/d` Represents the date on which the transaction occurred. This is an optional argument.
-- `/c` Represents the category used in the transaction. If an invalid category is provided,
+- `/c` Represents the category used in the transaction. If an unspecified or invalid category is provided,
 the entry will default to UNCATEGORIZED. This is an optional argument.
 
 If there is no change compared to the original entry, an error message is thrown.
@@ -847,7 +847,7 @@ logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
 <ins>Overview</ins>
 
 The `Storage` class has been implemented to manage reading and writing financial data (both expenses and incomes) 
-and budget data to and from storage files within the Finance Buddy application. 
+and budget data to and from storage files within the FinanceBuddy application. 
 This class creates necessary directories and files if they do not exist, parses data into `Expense` and `Income` objects, 
 and stores and retrieves budget information to maintain data consistency across application sessions.
 
@@ -998,7 +998,7 @@ storage.update(financialList, budgetLogic);
 - is reasonably comfortable using CLI apps
 
 ### Value proposition
-Finance Buddy allows our target user profile to keep track of their income/expenditures
+FinanceBuddy allows our target user profile to keep track of their income/expenditures
 faster than a typical mouse/GUI driven app
 
 <div style="page-break-after: always;"></div>
