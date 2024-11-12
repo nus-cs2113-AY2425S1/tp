@@ -65,16 +65,25 @@ public class InputParser {
     public String parseCategory(String input) {
         return parseComponent(input, "c/");
     }
-
     public double parseLimit(String input) {
-        String limitStr = parseComponent(input, "l/");
-        try {
-            return Double.parseDouble(limitStr);
-        } catch (NumberFormatException e) {
-            ErrorMessage.printInvalidLimit();
-            return Double.NaN;
+    String limitStr = parseComponent(input, "l/");
+    try {
+        double limit = Double.parseDouble(limitStr);
+
+        // Assertion to ensure the limit does not exceed 1 quadrillion
+        assert limit <= 1 _000_000_000_000_000 .0: "Limit exceeds 1 quadrillion, capping to 1 quadrillion";
+
+        // Cap the limit at 1 quadrillion if it exceeds this value
+        if (limit > 1 _000_000_000_000_000 .0) {
+            limit = 1 _000_000_000_000_000 .0;
         }
+
+        return limit;
+    } catch (NumberFormatException e) {
+        ErrorMessage.printInvalidLimit();
+        return Double.NaN;
     }
+}
 
     public double parseAmount(String input) {
         String amountStr = parseComponent(input, "a/");
