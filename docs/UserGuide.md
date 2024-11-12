@@ -8,7 +8,7 @@
   - [Features](#features)
     - [Help](#help)
     - [Set/Edit Budget](#setedit-budget)
-    - [Delete Transaction](#delete-transaction)
+    - [Delete Budget](#delete-budget)
     - [Add Transaction](#add-transaction)
     - [Edit Transaction](#edit-transaction)
     - [Delete Transaction](#delete-transaction-1)
