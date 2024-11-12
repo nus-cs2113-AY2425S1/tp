@@ -1,6 +1,7 @@
+package seedu.javaninja;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.javaninja.JavaNinja;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,9 +29,10 @@ class JavaNinjaTest {
         JavaNinja javaNinja = new JavaNinja();
         javaNinja.run();
 
-        // Check if output contains expected farewell message
+        // Check if output contains the expected farewell message
         String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("Goodbye!"), "Expected farewell message in output.");
+        assertTrue(output.contains("Thank you for using Java Ninja!"), "Expected farewell message in output.");
+        assertTrue(output.contains("Results saved."), "Expected 'Results saved.' message in output.");
     }
 
     @Test

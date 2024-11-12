@@ -4,3 +4,6 @@ Flashcards|50|1731382871666|2|-1|Needs improvement.
 Random Quiz|0|1731383971172|2|-1|Better luck next time!
 Random Quiz|0|1731384151778|4|-1|Better luck next time!
 Random Quiz|0|1731384920085|4|-1|Better luck next time!
+Git|33|1731387798101|3|-1|Better luck next time!
+Java Basics|0|1731387859527|1|60|Better luck next time!
+Java Basics|0|1731387872968|1|60|Better luck next time!
