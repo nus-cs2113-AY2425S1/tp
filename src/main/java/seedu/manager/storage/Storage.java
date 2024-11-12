@@ -63,12 +63,8 @@ public class Storage {
      * @throws IOException If there is an error loading data from the file.
      */
     public void loadInfo(EventList events) throws IOException {
-        try {
-            FileParser parser = new FileParser();
-            parser.parseFile(events, filePath);
-        } catch (IOException exception) {
-            throw new IOException("Error loading data from file: " + filePath);
-        }
+        FileParser parser = new FileParser();
+        parser.parseFile(events, filePath);
     }
 
     /**

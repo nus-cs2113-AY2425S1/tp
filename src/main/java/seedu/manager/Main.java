@@ -56,7 +56,7 @@ public class Main {
     private static void loadData() {
         try {
             storage.loadInfo(events);
-            ui.showMessage("Events loaded successfully.");
+            ui.showMessage("Events loaded successfully. Any erroneous lines have been ignored.");
         } catch (IOException exception) {
             ui.showErrorMessageToUser(exception);
         }
