@@ -329,28 +329,39 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 
 #### Overview
 
-The **Create Programme** feature allows users to set up a new workout programme. This programme can either be empty, containing only the 
-programme name, or have multiple days with multiple exercises as well. To create a programme, BuffBuddy interprets the command and builds 
-a structured programme with specified days and exercises.
+#### Overview
+The **Create Programme** feature allows users to create a new workout programme. Users can either create a simple programme
+with just a name or design a multi-day schedule containing various exercises with details such as sets, reps, weight, and calories. 
+This feature enables users to personalize their workout plans according to their fitness goals.
 
 These operations include:
 - Parsing the programme name and optional day/exercise details.
 - Creating and organizing Day and Exercise objects within the programme.
 - Adding the completed programme to ProgrammeList.
 
-### Example Usage
+#### Example Usage
+Given below is an example usage scenario for 'create programme' and how the create programme command functions at each step.
 
-Given below is an example usage scenario for 'create programme' and how the create programme functions at each step.
+**Step 1**: The user executes the command `programme create Starter /d 1 /e Push-Ups /e Squats` to create a new programme named "Starter" with one day containing two exercises: "Push-Ups" and "Squats".
 
-Step 1. The user inputs the command to create a programme: `prog create Starter /d 1 /e Push-Ups /e Squats`
+**Step 2**: After parsing this input, a `CreateProgrammeCommand` is created.
 
-Step 2. BuffBuddy interprets this command through the Parser, generating a CreateProgrammeCommand.
+**Step 3**: The command then calls `ProgCommandFactory#prepareCreateCommand()` to parse the details of the programme.
 
-Step 3. The command checks for provided details, including days and exercises, and creates the necessary objects.
+**Step 4**: Inside `prepareCreateCommand`, the programme name and day details are parsed. For each day specified:
+- `ProgCommandFactory#parseDay()` is called to create a new `Day` object.
+- For each exercise in the day, `ProgCommandFactory#parseExercise()` is called to create an `Exercise` object with the specified details.
+- Each created `Exercise` is added to the `Day` object.
 
-Step 4. The CreateProgrammeCommand object inserts the programme with its structure into ProgrammeList
+**Step 5**: The `CreateProgrammeCommand` then calls `ProgrammeList#insertProgramme()` with the parsed programme name and list of days to add the new programme to `ProgrammeList`.
 
-Step 5. The programme's creation is confirmed to the user with a message displayed by Ui.
+**Step 6**: The created `Programme` object is returned to `CreateProgrammeCommand`.
+
+**Step 7**: The `CreateProgrammeCommand` formats a message indicating successful creation of the programme.
+
+**Step 8**: The formatted message is included in a `CommandResult`, which is returned to the user interface.
+
+**Step 9**: The user interface displays the result message to the user, confirming the successful creation of the programme.
 
 #### Sequence Diagram
 
@@ -478,7 +489,7 @@ to perform each specific edit command. For each edit command, the following sequ
 further break down how this interaction works.
 
 In each diagram, error handling has been simplified to keep the diagram brief.
-Generally, if a conditional check fails (i.e. if the selected `Programme` does not exist), a `ProgrammException` will be thrown and interrupt the command exeuction. `BuffBuddy` will print the appropiate error message based on the Exception and then wait for the next command.
+Generally, if a conditional check fails (i.e. if the selected `Programme` does not exist), a `ProgrammeException` will be thrown and interrupt the command execution. `BuffBuddy` will print the appropriate error message based on the Exception and then wait for the next command.
 
 ##### Add day
 
@@ -683,7 +694,7 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ### Sequence Diagram
 
-![Sequence Diagram for WeeklySummary feature](./images/weeklysummarySequenceDiagram.png)
+![Sequence Diagram for WeeklySummary feature](./images/weeklySummarySequenceDiagram.png)
 
 <!-- @@author andreusxcarvalho -->
 
@@ -752,10 +763,10 @@ load the data from the file via `FileManager#load()`. The loaded data is then co
 objects, restoring the user's previous session.
 
 The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
-![Sequence Diagram for Load operation](./images/loadProgrammeListSeqenceDiagram.png)
+![Sequence Diagram for Load operation](./images/loadProgrammeListSequenceDiagram.png)
 
 The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
+![Sequence Diagram for Save operation](./images/saveSequenceDiagram.png)
 <!-- @@author -->
 ---
 
@@ -824,6 +835,8 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 - **Programme**: A programme is a collection of workout days.
 - **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
 
+
+<!-- @@author TVageesan -->
 ## Instructions for manual testing
 
 

@@ -243,7 +243,7 @@ Created new day: Cardio
 ==================================================
 ```
 
-_Note_: Advanced users can directly create a day with multiple exercises and add it to to an existing programme using the following command:
+_Note_: Advanced users can directly create a day with multiple exercises and add it to an existing programme using the following command:
 
 **Command**: `prog edit [/p PROG_INDEX] /ad DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
 
@@ -767,12 +767,10 @@ BuffBuddy uses a JSON file to store user data, ensuring persistence across sessi
 
 ---
 
-___
-
 ## Command Summary
 
 | Command                                   | Format                                                                                              | Example                                                                   |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+|-------------------------------------------|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | **Add Programme**                         | `prog create PROG_NAME`                                                                             | `prog create Starter`                                                     |
 | **Add Detailed Programme**                | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES`       | `prog create Starter /d Monday /e /n Bench Press /s 3 /r 12 /w 30 /c 100` |
 | **Set Active Programme**                  | `prog start [PROG_INDEX]`                                                                           | `prog start 1`                                                            |
