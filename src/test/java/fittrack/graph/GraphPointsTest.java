@@ -16,7 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GraphPointsTest {
     private ArrayList<TrainingSession> sessionList;
-    private TrainingSession session1, session2, session3;
+    private TrainingSession session1;
+    private TrainingSession session2;
+    private TrainingSession session3;
     private final LocalDateTime testDatetime1 = LocalDateTime.now();
     private final LocalDateTime testDatetime2 = testDatetime1.plusHours(1);
     private final LocalDateTime testDatetime3 = testDatetime2.plusHours(1);
@@ -32,15 +34,8 @@ public class GraphPointsTest {
 
         // Sample TrainingSession objects for testing
         session1 = new TrainingSession(testDatetime1, "session1", testUser);
-//        session1.editExercise(Exercise.PULL_UP, "10");
-//        session1.editExercise(Exercise.SIT_UP, "15");
-
         session2 = new TrainingSession(testDatetime2, "session2", testUser);
-//        session2.editExercise(Exercise.PULL_UP, "20");
-//        session2.editExercise(Exercise.SIT_UP, "30");
-
         session3 = new TrainingSession(testDatetime3,"session3", testUser);
-//        session3.editExercise(Exercise.PULL_UP, "5");
 
         sessionList.add(session1);
         sessionList.add(session2);
@@ -51,8 +46,8 @@ public class GraphPointsTest {
     @Test
     public void testEmptyGraphSessions(){
         GraphPoints.graphSessions(sessionList);
-        assertEquals(
-                "Here's your point progression over the various training sessions:" + System.lineSeparator()
+        assertEquals("Here's your point progression over the various training sessions:"
+                + System.lineSeparator()
                 + "Session Description | Date             | Points" + System.lineSeparator()
                 + "--------------------|------------------|" + System.lineSeparator()
                 + "session1            | " + testDatetimeOutput1 + " |  (0)" + System.lineSeparator()

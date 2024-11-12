@@ -16,7 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GraphPerformanceRepsDistanceTest {
     private ArrayList<TrainingSession> sessionList;
-    private TrainingSession session1, session2, session3;
+    private TrainingSession session1;
+    private TrainingSession session2;
+    private TrainingSession session3;
     private final LocalDateTime testDatetime1 = LocalDateTime.now();
     private final LocalDateTime testDatetime2 = testDatetime1.plusHours(1);
     private final LocalDateTime testDatetime3 = testDatetime2.plusHours(1);
