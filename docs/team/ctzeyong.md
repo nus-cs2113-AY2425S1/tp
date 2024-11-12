@@ -2,7 +2,7 @@
 
 ## Overview
 
-Finance Buddy is a software that allows university students to log their daily expenditures
+FinanceBuddy is a software that allows university students to log their daily expenditures
 to help manage their budgets. Users can add, delete and edit expenditure logs
 into the app as well as list out all their logged transactions.
 
@@ -49,7 +49,7 @@ Sections contributed: Introduction, Quick Start, Help
 ### Contributions to the [Developer Guide](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html)
 
 Sections contributed:
-Commands, Adding Entries, Editing Entries, Exceptions and Logging, Budget
+Budgeting, Commands, Adding Entries, Editing Entries, Exceptions and Logging
 
 Contributed all UML diagrams in the sections listed above.
 
