@@ -23,11 +23,11 @@ activate parser
 loop for line in file
 
 
-    parser -> parser : parseLine(events, fields, formatter)
+    parser -> parser : parseLine(events, fields)
     activate parser 
 
     alt EVENT
-        parser -> parser : parseEventFileLine(events, fields, formatter)
+        parser -> parser : parseEventFileLine(events, fields)
         activate parser 
         parser -> events : addEvent(...)
         activate events 
