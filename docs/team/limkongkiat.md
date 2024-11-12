@@ -49,7 +49,8 @@ they have exceeded, or are close to exceeding, their budget.
     - Added section on List Entries feature [#109](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/109), 
     [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110), 
     [#153](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/153)
-    - Added Product Scope and User Stories section [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110)
+    - Added Product Scope, User Stories and Future Enhancements section [#110](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/110), 
+      [#322](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/322)
     - Did overall formatting for v2.0 DG [#214](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/214)
 
 - **Project Management**
