@@ -106,4 +106,4 @@ In addition to the features I also
 
 ### Contributions Beyond the Project Team
 
-Reported 13 bugs for Y2425S1-CS2113-W14-3 team during PE-D: https://github.com/nirala-ts/ped/issues
+Reported 13 bugs for Y2425S1-CS2113-W14-3 team during PE-D: [Y2425S1-CS2113-W14-3-PED](https://github.com/nirala-ts/ped/issues)
