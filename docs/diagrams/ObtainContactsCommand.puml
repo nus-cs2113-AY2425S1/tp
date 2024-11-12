@@ -70,7 +70,7 @@ alt contact type is valid
     ObtainContactsCommand -> ObtainContactsCommand: contactTypeIdentifier(schoolInfo: String, schoolName : String, contactType : String)
     activate ObtainContactsCommand
 
-    alt EMAIL_KEY
+    opt EMAIL_KEY
         ObtainContactsCommand -> UI: printContactInformation(EMAIL_TAG: String, schoolName: String, email:String)
     else NUMBER_KEY
         ObtainContactsCommand -> UI: printContactInformation(NUMBER_TAG: String, schoolName: String, number:String)
