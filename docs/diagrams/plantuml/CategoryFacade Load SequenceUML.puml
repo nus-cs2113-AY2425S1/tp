@@ -8,7 +8,7 @@ skinparam sequence {
 }
 hide footbox
 
-participant "<<Class>> \n Storage" as S
+participant "<<class>> \n Storage" as S
 participant ":CategoryFacade" as CF
 participant ":CategoryStorage" as CS
 participant ":CategoryTracker" as CT
