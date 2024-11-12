@@ -300,7 +300,7 @@ exactly one field in each time.
 
 #### Sequence Diagram:
 
-The following sequence diagram shows how the `SortCommand` is executed:
+The following sequence diagram shows how the `SortCommand` is executed:<br>
 ![](UML/SortCommand_Sequence_Diagram.png)
 
 <div style="page-break-after: always;"></div>
