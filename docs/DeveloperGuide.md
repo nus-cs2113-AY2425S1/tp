@@ -32,7 +32,7 @@ img
     - [Exceptions and Logging](#exceptions-and-logging)
     - [Storage](#storage)
   - [Product scope](#product-scope)
-    - [Target user profile:](#target-user-profile)
+    - [Target user profile](#target-user-profile)
     - [Value proposition](#value-proposition)
   - [User Stories](#user-stories)
   - [Use Cases](#use-cases)
@@ -56,6 +56,7 @@ FinanceBuddy uses the following tools for development:
 
 1. JUnit5 - Used for testing
 2. Gradle - Used for build automation
+3. Generative AI - Assistance in generating code and documentation
 
 ## Design and Implementation
 
@@ -74,6 +75,8 @@ with the other classes has been omitted from the diagram for better understandab
 The high-level overview of the program is shown in the diagram below as well.
 
 <img src="UML/overallFlow.png" alt="overall flow" width="auto" height="500" class="centre">
+
+<div style="page-break-after: always;"></div>
 
 ### Ui and Parser
 <ins>Overview</ins>
@@ -543,6 +546,8 @@ The abstract `Command` class and its related children classes have the following
 
 - `execute`: Effect the command based on the corresponding child class
 
+<div style="page-break-after: always;"></div>
+
 ### Adding Entries
 
 <ins>Overview</ins>
@@ -627,6 +632,8 @@ The `DeleteCommand` updates the `FinancialList` and storage to reflect the chang
 Below is a sequence diagram illustrating the process of deleting entries. 
 It highlights the interactions between components such as `InputParser`, `DeleteCommand`, `FinancialList`, `BudgetLogic`, and `Storage`.
 ![DeleteCommandSequenceDiagram.png](UML/DeleteCommandSequenceDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Editing Entries
 
@@ -896,8 +903,6 @@ The figure below show how the program load Budget from the files:
 
 <ins>Methods</ins>
 
-<ins>Methods</ins>
-
  - **getStorageFile()**:  
    Ensures the existence of the financial transaction storage file (`data/FinancialList.txt`) along with any necessary parent directories. 
    If these do not exist, they are created. 
@@ -990,12 +995,12 @@ storage.update(financialList, budgetLogic);
 ## Product scope
 
 ### Target user profile:
-- Singaporean University student who wants to manage their limited finances
-- busy with academics and CCAs, wants to manage finances quickly
-- prefer desktop apps over other types
-- can type fast
-- prefers typing to mouse interactions
-- is reasonably comfortable using CLI apps
+- Singaporean university student who wants to manage their limited finances
+- Busy with academics and CCAs, wants to manage finances quickly
+- Prefer desktop apps over other types
+- Can type fast
+- Prefers typing to mouse interactions
+- Is reasonably comfortable using CLI apps
 
 ### Value proposition
 FinanceBuddy allows our target user profile to keep track of their income/expenditures
@@ -1193,7 +1198,7 @@ faster than a typical mouse/GUI driven app
 
 ## Non-Functional Requirements
 
- - Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 11 installed. Instructions for downloading Java 11 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
+ - Technical Requirements: Any mainstream OS, i.e. Windows, macOS or Linux, with Java 17 installed. Instructions for downloading Java 17 can be found [here](https://www.oracle.com/sg/java/technologies/javase/jdk17-archive-downloads.html).
  - Project Scope Constraints: The application should only be used for tracking. It is not meant to be involved in any form of monetary transaction.
  - Project Scope Constraints: Data storage is only to be performed locally.
  - Quality Requirements: The application should be able to be used effectively by a novice with little experience with CLIs.
