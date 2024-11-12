@@ -25,7 +25,7 @@ import command.InvalidCommand;
  * @author nirala-ts
  */
 public class CommandFactory {
-    private final ProgammeCommandFactory progFactory;
+    private final ProgrammeCommandFactory progFactory;
     private final MealCommandFactory mealFactory;
     private final WaterCommandFactory waterFactory;
     private final HistoryCommandFactory historyFactory;
@@ -35,7 +35,7 @@ public class CommandFactory {
      * specific types of commands.
      */
     public CommandFactory() {
-        this.progFactory = new ProgammeCommandFactory();
+        this.progFactory = new ProgrammeCommandFactory();
         this.mealFactory = new MealCommandFactory();
         this.waterFactory = new WaterCommandFactory();
         this.historyFactory = new HistoryCommandFactory();
@@ -50,7 +50,7 @@ public class CommandFactory {
      * @param waterFactory the {@code WaterCommandFactory} instance to handle "water" commands
      * @param historyFactory the {@code HistoryCommandFactory} instance to handle "history" commands
      */
-    public CommandFactory(ProgammeCommandFactory progFactory, MealCommandFactory mealFactory,
+    public CommandFactory(ProgrammeCommandFactory progFactory, MealCommandFactory mealFactory,
                           WaterCommandFactory waterFactory, HistoryCommandFactory historyFactory) {
         this.progFactory = progFactory;
         this.mealFactory = mealFactory;
@@ -71,7 +71,7 @@ public class CommandFactory {
         assert commandString != null;
 
         return switch (commandString) {
-        case ProgammeCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
+        case ProgrammeCommandFactory.COMMAND_WORD -> progFactory.parse(argumentString);
         case MealCommandFactory.COMMAND_WORD -> mealFactory.parse(argumentString);
         case WaterCommandFactory.COMMAND_WORD -> waterFactory.parse(argumentString);
         case HistoryCommandFactory.COMMAND_WORD -> historyFactory.parse(argumentString);

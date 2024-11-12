@@ -119,6 +119,7 @@ Command -> CommandResult: create Command Result
 destroy ExerciseUpdate
 
 
+
 activate CommandResult
 Command <-- CommandResult : created CommandResult
 deactivate CommandResult
@@ -126,10 +127,11 @@ BuffBuddy <-- Command: created CommandResult
 deactivate Command
 
 BuffBuddy -> Ui : showMessage()
-destroy CommandResult
+
 deactivate BuffBuddy
 
 User <-- Ui : "Successfully edited..."
 deactivate Ui
-
+destroy Command
+destroy CommandResult
 @enduml

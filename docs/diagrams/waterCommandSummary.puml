@@ -1,8 +1,9 @@
 @startuml
 
 skinparam classAttributeIconSize 0
+hide circle
 
-abstract class WaterCommand {
+class WaterCommand <<abstract>> {
     # date: LocalDate
     + execute(History): CommandResult
 }
