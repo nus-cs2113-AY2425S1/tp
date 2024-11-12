@@ -68,7 +68,7 @@ The `ExerciseUpdate` component,
 - **Supports integration with update methods**: The `ExerciseUpdate` class can be passed as a parameter to methods in the `Exercise` class (e.g., `updateExercise()`), facilitating a seamless process for applying partial updates based on provided non-null values.
 - **Simplifies exercise modification logic**: With this class, the logic for updating exercises is consolidated, simplifying the code and ensuring consistency when modifying `Exercise` objects in various contexts.
 
-<!-- @@author -->
+<!-- @@author Atulteja -->
 
 ### Meal Component
 
@@ -530,7 +530,6 @@ To summarize, the following activity diagram describes how the overall operation
 
 <!-- @@author Atulteja -->
 
-
 ### Add Meal
 
 #### Overview
@@ -571,7 +570,7 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
-The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram.
+The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. All the parser classes interactions has been encapsulated into the 'parser' class for readability and simplification. The parser interactions remain the same for all the 3 features. 
 
 #### Sequence Diagram for "Delete Meal" Command
 

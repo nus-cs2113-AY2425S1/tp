@@ -1,13 +1,13 @@
 @startuml
 actor User
-participant "UI" as UI
-participant "BuffBuddy" as BB
-participant "Parser" as Parser
-participant "AddMealCommand" as AddCmd
-participant "History" as History
-participant "DailyRecord" as DailyRec
-participant "MealList" as MealList
-participant "Meal" as Meal
+participant ":UI" as UI
+participant ":BuffBuddy" as BB
+participant ":Parser" as Parser
+participant ":AddMealCommand" as AddCmd
+participant ":History" as History
+participant ":DailyRecord" as DailyRec
+participant ":MealList" as MealList
+participant ":Meal" as Meal
 
 User -> UI: "meal add /n [mealName] /c [calories]"
 activate UI
@@ -23,6 +23,7 @@ activate Meal
 Meal --> Parser: meal object
 deactivate Meal
 
+create AddCmd
 Parser --> AddCmd: AddMealCommand(meal, date)
 deactivate Parser
 activate AddCmd
@@ -60,10 +61,11 @@ deactivate DailyRec
 
 AddCmd --> BB: CommandResult object
 deactivate AddCmd
-destroy AddCmd
 
 BB -> UI: Show CommandResult
 deactivate BB
+destroy AddCmd
+destroy Meal
 
 UI -> User: Display success message
 deactivate UI

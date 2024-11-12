@@ -1,26 +1,72 @@
 @startuml
 actor User
-participant "DeleteMealCommand" as DeleteCmd
-participant "DailyRecord" as DailyRec
-participant "MealList" as MealList
-participant "Meal" as Meal
+participant ":UI" as UI
+participant ":BuffBuddy" as BB
+participant ":Parser" as Parser
+participant ":DeleteMealCommand" as DeleteCmd
+participant ":History" as History
+participant ":DailyRecord" as DailyRec
+participant ":MealList" as MealList
+participant ":Meal" as Meal
 
+User -> UI: "meal add /n [mealName] /c [calories]"
+activate UI
+BB -> UI: readCommand()
+activate BB
+UI --> BB: Command object
+BB -> Parser: parse(command)
+activate Parser
+
+create DeleteCmd
+Parser --> DeleteCmd: DeleteMealCommand(date)
+deactivate Parser
 activate DeleteCmd
-DeleteCmd -> DailyRec:
+
+DeleteCmd -> History: getRecordByDate(date)
+activate History
+
+alt DailyRecord exists
+  History --> DeleteCmd: DailyRecord object
+else No DailyRecord exists
+create DailyRec
+  History -> DailyRec: new DailyRecord()
+  activate DailyRec
+  DailyRec --> History : DailyRecord object
+  deactivate DailyRec
+  History --> DeleteCmd : DailyRecord object
+end
+deactivate History
+
+DeleteCmd -> DailyRec: deleteMealFromRecord()
 activate DailyRec
+DailyRec -> MealList: deleteMeal(index)
 
-DailyRec -> MealList: DeleteMealFromRecord(index)
+create Meal
 activate MealList
-MealList -> MealList: deleteMeal(index)
+MealList -> Meal: get(index)
+activate Meal
+Meal --> MealList: Meal object
+deactivate Meal
+
+MealList -> MealList: remove(index)
 activate MealList
+
 
 deactivate MealList
-MealList --> DailyRec: meal object
+MealList --> DailyRec: Meal object
 deactivate MealList
+DailyRec --> DeleteCmd : Meal object
 
-
-DailyRec --> DeleteCmd: meal object
 deactivate DailyRec
 
+
+DeleteCmd --> BB: CommandResult object
 deactivate DeleteCmd
+
+BB -> UI: Show CommandResult
+deactivate BB
+destroy DeleteCmd
+
+UI -> User: Display success message
+deactivate UI
 @enduml
