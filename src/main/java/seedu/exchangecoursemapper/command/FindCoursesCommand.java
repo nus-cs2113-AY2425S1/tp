@@ -42,10 +42,10 @@ public class FindCoursesCommand extends PersonalTrackerCommand{
     public void execute(String userInput, Storage storage) {
         logger.log(Level.INFO, Logs.EXECUTING_COMMAND);
         try {
-            if(!courseRepository.isFileValid() | courseRepository.hasDuplicateEntries()){
+            if(!courseRepository.isFileValid()){
                 return;
             }
-
+            courseRepository.removeDuplicateEntries();
             String keyword = getKeyword(userInput);
             logger.log(Level.INFO, Logs.EXECUTE_FIND_COMMAND);
             findCommand(keyword);

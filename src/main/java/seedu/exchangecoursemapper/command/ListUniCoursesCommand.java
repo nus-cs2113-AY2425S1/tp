@@ -47,8 +47,6 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
 
     /**
      * Fetches data by creating and returning a JsonObject instance.
-     * Logs the success of reading the JSON file and performs assertions to check that
-     * the JSON object is not null or empty.
      *
      * @return A JsonObject containing the data from the JSON file.
      * @throws IOException if an I/O error occurs while creating the JsonObject.
@@ -112,7 +110,7 @@ public class ListUniCoursesCommand extends CheckInformationCommand {
      * If no match is found, it returns null.
      *
      * @param universityNames A set of university names in the data.
-     * @param convertedPuName The lower case name of the university to be searched for.
+     * @param convertedPuName The converted lower case name of the university to be searched for.
      * @return The matching university name.
      */
     private String findUniversityName(Set<String> universityNames, String convertedPuName) {

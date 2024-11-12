@@ -5,10 +5,12 @@ actor CEG_Student
 !include .SequenceDiagram.config
 participant ":AddCoursesCommand" as AddCoursesCommand
 participant ":Ui" as Ui
+participant ":Parser" as Parser
 participant ":CourseValidator" as CourseValidator
 participant ":Command" as Command
 participant ":Course" as Course
 participant ":Storage" as Storage
+
 
 
 
@@ -29,25 +31,28 @@ AddCoursesCommand -> AddCoursesCommand:parseAddCommand(input: String)
 activate AddCoursesCommand
 return descriptionSubstring: String[]
 
-AddCoursesCommand -> CourseValidator: isValidInput(nusCourseInput: String, pu: String, puCourseInput: String, jsonObject: JsonObject)
+AddCoursesCommand -> Parser: parsePUAbbreviations(pu: String)
+activate Parser
+return parsed pu string
+
+AddCoursesCommand -> CourseValidator: isValidInput(...)
 activate CourseValidator
 return isValidInput: Boolean
 
 alt isValidInput
-AddCoursesCommand -> Course **: new Course(String puCourse, String nusCourse, String pu)
+AddCoursesCommand -> Course **: new Course(...)
 activate Course
 Course --> AddCoursesCommand : returns Course
 deactivate
-AddCoursesCommand -> Storage :addCourse(courseToStore)
-AddCoursesCommand -> Ui: printAddMessage(courseToStore)
-activate Ui
-Ui --> AddCoursesCommand: display add message
-deactivate Ui
+
+AddCoursesCommand -> Storage :addCourse(courseToStore: Course)
+
 else else
 AddCoursesCommand -> Ui: print error message
 activate Ui
 Ui --> AddCoursesCommand: display error message
 deactivate Ui
+
 end
 return
 

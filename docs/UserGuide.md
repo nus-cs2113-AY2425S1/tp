@@ -16,8 +16,8 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
     - [List out all the possible schools from the options: `list schools`](#list-out-all-the-possible-schools-from-the-options-list-schools)
     - [List courses provided by the partner university: `list courses`](#list-courses-provided-by-the-partner-university-list-courses)
     - [Obtain contacts from the list of universities: `obtain`](#obtain-contacts-from-the-list-of-universities-obtain)
-    - [Filter possible mappings: `filter`](#filtering-possible-mappings-filter)
-    - [Add a course mapping: `add`](#adding-a-course-mapping-add)
+    - [Filter possible mappings: `filter`](#filter-possible-mappings-filter)
+    - [Add a course mapping: `add`](#add-a-course-mapping-add)
     - [Delete course mapping plans from Personal Tracker: `delete`](#delete-course-mapping-plans-from-personal-tracker-delete)
     - [List Personal Tracker courses: `list mapped`](#list-personal-tracker-courses-list-mapped)
     - [Compare mapped courses between two universities: `compare`](#compare-mapped-courses-between-two-universities-compare)
@@ -51,9 +51,9 @@ you can save it in the Personal Tracker provided by ExchangeCourseMapper!
 > **NOTE:** If the file is **corrupted**, please restore it to its **original state** before proceeding with the program.
 > 
 >You may try one of the following:
->- Remove the corrupted line (delete one course mapping),
+>- Remove the corrupted line (delete one course mapping).
 >- Remove any empty lines in the file.
->- Ensure the file has an empty line at the end of the list of courses for a new course to be added.
+>- Ensure the file has one empty line at the end of the list of courses for a new course to be added.
 >
 > **This list is non-exhaustive.**
 > 
@@ -100,17 +100,19 @@ For example, filter cs2040
 ```
 
 ### List out all the possible schools from the options: `list schools`
-List out all the schools users could possibly go for their SEP.
+List out the name of each school CEG students could possibly go for their SEP in Oceania.
+
+Their abbreviated names will also be displayed. 
 
 Format: `list schools`
 
 Expected Output:
 ```
 -----------------------------------------------------
-The University of Melbourne
-The Australian National University
-Victoria University of Wellington
-The University of Western Australia
+The University of Melbourne (unimelb)
+The Australian National University (anu)
+Victoria University of Wellington (wgtn)
+The University of Western Australia (uwa)
 -----------------------------------------------------
 ```
 
@@ -130,6 +132,7 @@ The available partner universities are:
 * The University of Melbourne (unimelb)
 * The Australian National University (anu)
 * Victoria University of Wellington (wgtn)
+
 Abbreviation of the universities name can be used.
 
 Example of usage:
@@ -182,13 +185,21 @@ This is the end of the list.
 * Note that the output would be a list of mappable courses of the format above.
 
 
-### Obtain contacts from the list of universities `obtain`
-Obtain the contact details of the university of interest from the list of schools available.
+### Obtain contacts from the list of universities: `obtain`
+Obtain the contact details (email or number) of the university of interest from the list of schools available.
 
 Format: `obtain PARTNER_UNIVERSITY_NAME /CONTACT_TYPE`
 
 * The `PARTNER_UNIVERSITY_NAME` is the name of the partner university from the list of schools.
 * The `CONTACT_TYPE` is the type of contact either number or email
+
+The available partner universities are:
+* The University of Western Australia (uwa)
+* The University of Melbourne (unimelb)
+* The Australian National University (anu)
+* Victoria University of Wellington (wgtn)
+
+Abbreviation of the universities name may be used.
 
 Example: `obtain victoria university of wellington /number`
 
@@ -219,7 +230,7 @@ Email for The University of Melbourne: unimelb-support@unimelb.edu.au
 ```
 
 
-### Filtering possible mappings: `filter`
+### Filter possible mappings: `filter`
 Filters out all possible PU courses that can be mapped to a user specified NUS course.
 
 Format: `filter NUS_COURSE_CODE`
@@ -258,33 +269,33 @@ No mappable courses found for the given course code.
 -----------------------------------------------------
 ```
 
-### Adding a course mapping: `add`
-Adds a new course mapping into `myList.json` file for storage. Course mapping is subject to validation
+### Add a course mapping: `add`
+Adds a new course mapping into `myList.json` file for storage. Course mapping is subjected to validation
 to ensure that the course mapping is valid and that the university provided is an Oceania university.
 
 Format: `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY_NAME /coursepu PU_COURSE_CODE`
 
 * All 3 parameters `NUS_COURSE_CODE`, `PARTNER_UNIVERISTY_NAME` and `PU_COURSE_CODE` are case-insensitive.
 * Do not add punctuation to the above three parameters.
-* Do not switch the order of parameters. Keyword `/pu` must come before `/coursepu` keyword.
-* Indicate the full name of the partner university for `PARTNER_UNIVERISTY_NAME`. For example, indicate
-  `The Australian National University` instead of `Australian National University` or `ANU`.
+* Do not switch the order of parameters. Keyword `/pu` must come before the `/coursepu` keyword.
+* For `PARTNER_UNIVERSITY_NAME`, indicate either the partner university's full name or its respective 
+  official abbreviation.
 
-Example of usage (lowercase):
+Example of usage (using partner university's abbreviation):
 
-`add cs2102 /pu the university of melbourne /coursepu info20003`
+`add cs2102 /pu unimelb /coursepu info20003`
 
 Expected output:
 
-![Add Courses Normal Case Output](images/AddCoursesCommandLowercaseScreenshot.png)
+![Add Courses Lowercase Output](images/AddCoursesCommandLowercaseScreenshot.png)
 
-Example of usage (normal case):
+Example of usage (using partner university's full name):
 
 `add CS3244 /pu The Australian National University /coursepu COMP3670`
 
 Expected output:
 
-![Add Courses Lowercase Output](images/AddCoursesCommandNormalCaseScreenshot.png)
+![Add Courses Normal Case Output](images/AddCoursesCommandNormalCaseScreenshot.png)
 
 
 ### Delete course mapping plans from Personal Tracker: `delete`
@@ -394,7 +405,7 @@ cs3244 | the australian national university | comp3670
 cs2102 | the university of melbourne | info20003
 ```
 
-### Find courses in personalised tracker `find`
+### Find courses in personalised tracker: `find`
 This feature allows users to search for NUS courses in their course mappings.
 
 Format: `find [NUS_COURSE_CODE]`
@@ -407,6 +418,7 @@ Expected output:
 cs2040 | the university of western australia | cits2200
 -----------------------------------------------------
 ```
+* Please note that you will only get this output if you have this mapping in your personalised tracker.
 
 ## FAQ
 
@@ -462,7 +474,7 @@ cs2040 | the university of western australia | cits2200
 | **Commands**     | `commands`                                                                       |
 | **Help**         | `help [COMMAND]`                                                                 |
 | **List Schools** | `list schools`                                                                   |
-| **list courses** | `list courses [PARTNER_UNIVERISTY_NAME]`                                         |
+| **List courses** | `list courses [PARTNER_UNIVERISTY_NAME]`                                         |
 | **Obtain**       | `obtain [PARTNER_UNIVERSITY_NAME] /[CONTACT_TYPE]`                               |
 | **Filter**       | `filter [NUS_COURSE_CODE]`                                                       |
 | **Add**          | `add [NUS_COURSE_CODE] /pu [PARTNER_UNIVERSITY_NAME] /coursepu [PU_COURSE_CODE]` |

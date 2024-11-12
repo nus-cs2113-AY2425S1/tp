@@ -159,12 +159,13 @@ split the `Parser` class diagram into the two parts respectively to increase rea
 This class diagram represents the parsing of commands in Check Information. The multiplicities dependencies of the 
 command are 0 or 1 because the dependency is only formed when the command is called, else, it will be zero.
 
-![Class diagram for CheckInformationParser](images/CheckInformationParserClass.png)
+![Class diagram for CheckInformationParser](images/CheckInformationParserClass.jpg)
 
 This class diagram represents the parsing of commands in Personal Tracker. The `Parser` class has associations with the
 `UI` class and `Storage` class and dependencies with the commands in Personal Tracker.
 
-![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.png)
+![Class diagram for PersonalTrackerParser](images/PersonalTrackerParserClass.jpg)
+
 
 #### CourseValidator Class Diagram: 
 
@@ -283,7 +284,7 @@ from our data source file which contains university data. It helps the users to 
   superclass.
 * The `displaySchoolList()` method will iterate over the keys of the database which contains the University
   names, upon acquiring the keys, they will be printed over the CLI.
-* There are also assertions and logging in place for error handling.
+* There are also exceptions, assertions and logging in place for error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Sequence Diagram:
@@ -338,12 +339,18 @@ exchange opportunities.
 * The `getSchoolName()` and `getContactType()` methods are used to parse the user input, extracting the requested
   university name and contact type (email or phone number).
 * After parsing, the `findMatchingSchool()` method identifies the correct university entry within the JSON data.
-* The `handleContactType()` method retrieves and prints the requested contact information based on the input,
-  displaying either the university’s email address or phone number.
-* There are also assertions and logging in place for error handling.
+* During this time, the `isSchoolValid()` method inside the `SchoolContactValidator` class is used to check if the school 
+  name exists.
+* If school exists, the `checkValidContact()` method checks the validity of the contact type through a 
+  handler `isValidContactType()` in `SchoolContactValidator` class.
+* The `contactTypeIdentifier()` method then checks retrieves the contact type and displays the contact information via the 
+  `printContactInformation()` in the `UI` class.
+* There are also exceptions, assertions and logging in place for error handling.
 
 #### Why it is implemented that way:
 * The `execute` method is essential and unique to every command class so inheritance was used.
+* Validating the contact and school name is crucial and a separate class (`SchoolContactValidator`) is used to handle
+  the validity of each input category.
 * Every method in the class remains maintainable and has one responsibility this allows easy debugging and
   refactoring.
 * By using inheritance, new command classes can easily extend the functionality of existing ones
@@ -387,9 +394,9 @@ that NUS course is suitable to be mapped overseas in Oceania.
 
 
 #### Why it is implemented that way:
-- **Single Responsibility Principle:** The methods to check in the user's input for the NUS course code is extracted
-  into the `NusCourseCodeValidator` class, separate from the methods used in the `FilterCoursesCommand` clas, which
-  are mainly for the logic behind the filtering of courses.
+- **Single Responsibility Principle:** The methods to check the user's input for the NUS course code are extracted
+  into the `NusCourseCodeValidator` class, separate from the methods used in the `FilterCoursesCommand` class, which
+  are mainly used for the logic behind the filtering of courses.
 
 
 #### Sequence Diagram:
@@ -399,40 +406,51 @@ that NUS course is suitable to be mapped overseas in Oceania.
 
 #### Overview:
 This command is responsible for adding users' desired course mapping into the `myList.json` file.
-Additionally, each course mapping is checked against the current course mapping found in
-our data source file which contains university data, ensuring that the course mapping is accurate and is limited to Oceania
-universities. This command hence helps the users to keep track of their course mapping process.
+Additionally, each course mapping is checked against the current course mappings found in
+our database, to ensure that the course mapping is accurate and is limited 
+to universities in Oceania. This command hence helps the users to keep track of their course mapping process.
 
 #### How the feature is implemented:
 * The `AddCoursesCommand` class extends `Command` class where it overrides the `execute` method for
   custom behaviour.
-* The command first reads a JSON file to obtain the names via `createJsonObject()` method from the
+* The command first reads a JSON file to obtain the course mapping database via the `createJsonObject()` method from the
   superclass.
 * The `trimString` method then removes the `add` command and checks whether the user gave any input after the command.
-  The method would return the user's input without the command.
+  The method would return the trimmed user's input without the `add` command.
 * This input is then passed into the `parseAddCommand()` method to obtain the relevant information: NUS course code,
   name of partner university and partner university course code.
+* Specifically, the name of partner university is passed into the `getUniversityAbbreviations()` method found in the 
+  `Parser` class to convert any partner university abbreviations to their full form.
 * Along with the JSON Object created from the `createJSONObject()` method, the information extracted from the
-  `parseAddCommand()` method would be passed to the `isValidInput()` method to verify the user's course mapping.
-* In the `isValidInput()` method, the `getPUCourseList()` method is called to verify the user's partner university is
-  included in the dataset. An exception is thrown if the university is not found in the dataset.
-* Afterward, the `isValidCourseMapping` checks whether the NUS course code and PU course code are compatible for
-  course mapping.
+  `parseAddCommand()` method would be passed to the `isValidInput()` method to verify the user's course mapping. 
+* This initiates the course validation process by using the methods found in the `CourseValidator` class.
+* Firstly, the `getPUCourseList()` method is called to verify if the user's partner university is
+  included in the database. An exception is thrown if the university is not found in the database.
+* Afterward, the `isValidCourseMapping()` method checks whether the NUS course code and PU course code are compatible 
+  for course mapping against the database.
 * If both checks above are passed, the course mapping would be added to the `myList.json` file.
 * Throughout the code, exceptions, assertions and logging are in place for better error handling.
 * Line Separator is used to ensure readability and ease of use for users.
 
 #### Why is it implemented this way
-- The code is separated into distinct methods that addresses a separate concern, achieving Separation of concerns principle (SoC). This help achieve better modularity and readability. 
+- The code is separated into distinct methods that addresses a separate concern, achieving Separation of Concerns 
+  principle (SoC). This helps to achieve better modularity and readability. 
 - Each method includes numerous exception handlers to cover as many potential errors and edge cases as possible. 
+- The methods used in course validation is extracted out and placed in the `CourseValidator` class to enhance OOP 
+  and improve readability.
 
 #### Alternatives Considered
-- Initially, one way to validate a course mapping is by adding all course mappings to a hashmap. This allows indexing to locate the relevant course mapping. However, this approach may lead to unnecessary repetition since each course mapping is already stored in the JSON file.
-- At first, each course mapping is stored as a formatted string. However, this format makes it challenging to check course mappings and implement methods that require accessing course mappings from storage.
+- Initially, one way to validate a course mapping is by adding all course mappings to a hashmap. 
+  This allows indexing to locate the relevant course mapping. However, this approach may lead to unnecessary repetition 
+  since each course mapping is already stored in the JSON file.
+- Initially, each course mapping is stored as a formatted string. 
+  However, this format makes it challenging to verify course mappings and implement methods that need to access course 
+  mappings from storage.
 
 #### Sequence Diagram:
 ![Add Courses Sequence Diagram](images/AddCoursesCommand.png)
-Sequence Diagram for AddCourseCommand
+
+Sequence Diagram of AddCourseCommand
 
 ![Course Validator Sequence Diagram](images/CourseValidator.png)
 
@@ -590,11 +608,11 @@ to check and plan course mappings for that specified course.
 
 | Version | As a ...    | I want to ...                                           | So that I can ...                                              |
 |---------|-------------|---------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in those regions                   |
+| v1.0    | CEG student | see the possible Oceania Universities for CEG students  | see all my possible choices in that region                     |
 | v1.0    | CEG student | search for NUS courses to map                           | search for related courses in PUs                              |
 | v1.0    | CEG student | key in the school I want to go for exchange             | view the available course offered by the school                |
 | v1.0    | CEG student | want to see a list of commands                          | know what to do to go to access the features                   |
-| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any queries                        |
+| v2.0    | CEG student | obtain the email address of the partner universities    | send an email should I have any non-urgent queries             |
 | v2.0    | CEG student | obtain the contact number of the partner universities   | call the number should I have any urgent queries               |
 | v2.0    | CEG student | add a course mapping plan for a PU                      | keep track of my courses for a specific PU                     |
 | v2.0    | CEG student | list out the mapped courses by calling the list command | I can track all the courses I have mapped to the different PUs |
@@ -624,6 +642,10 @@ to check and plan course mappings for that specified course.
 >These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
 
+> [NOTE!]
+> SCHOOL_NAME inputs for the commands: `list courses`, `obtain`, `add`, `compare`
+> are not case-sensitive, and you can either input the University's full name, or its abbreviation.
+
 ### 1. Start ExchangeCourseMapper
 1. Follow the instructions in our [User Guide Quick Start](UserGuide.md#quick-start)
 2. Expected: Welcome message on the terminal, prompting for the user's input
@@ -641,16 +663,20 @@ testers are expected to do more *exploratory* testing.
 * 2.2.1 List all Partner Universities (PUs) in Oceania
   * Prerequisites: None
   * Test Case: `list schools` <br/>
-  * Expected: List of names of PUs in Oceania.
+  * Expected: List of names and abbreviations of PUs in Oceania.
 
 #### 2.3 Find mappable courses in a specific PU in Oceania
-> [NOTE!]
-> SCHOOL_NAME is not case-sensitive, but must be the same as the name listed by the `list schools` command,
-> word for word!
 
-* 2.3.1 See all mappable courses from a valid PU
+* 2.3.1 See all mappable courses from a valid PU (Using full university name)
   * Prerequisites: None
   * Test Case: `list courses The University of Western Australia` <br/>
+  * Expected: List of mappable courses, with information of the PU course code and name to the matching
+    NUS course code and name.
+
+
+* 2.3.1 See all mappable courses from a valid PU (Using university abbreviation)
+  * Prerequisites: None
+  * Test Case: `list courses uwa` <br/>
   * Expected: List of mappable courses, with information of the PU course code and name to the matching
     NUS course code and name.
 
@@ -701,45 +727,62 @@ testers are expected to do more *exploratory* testing.
 
 
 #### 2.6 Add course mapping plans into Personal Tracker
-* 2.6.1 Add course mappings with the correct format and valid mapping
+* 2.6.1 Add course mappings with the correct format and valid mapping (Using full university name)
   * Prerequisites: None
   * Test case: `add CS2040 /pu The university of western australia /coursepu CITS2200`
-  * Expected: Prints out a confirmation message indicating success
+  * Expected: Prints out a confirmation message indicating success.
 
 
-* 2.6.2 Add course mapping with incorrect format
+* 2.6.2 Add course mappings with the correct format and valid mapping (Using University abbreviation)
+  * Prerequisites: None
+  * Test case: `add cs3241 /pu unimelb /coursepu comp30019`
+  * Expected: Prints out a confirmation message indicating success.
+
+
+* 2.6.3 Add course mapping with incorrect format
   * Prerequisites: None
   * Test case 1: `add invalid format`
   * Test case 2: `add cs2040 /pu invalid uni`
   * Test case 3: `add cs2040 /pu the university of western australia`
-  * Expected: Prints out error message indicating to provide all valid parts
+  * Expected: Prints out error message indicating to provide all valid parts.
 
 
-* 2.6.3 Add course mappings with invalid NUS course code/ PU course code
+* 2.6.4 Add course mappings with invalid NUS course code/ PU course code
   * Prerequisites: None
   * Test case 1: `add CS1231 /pu the university of western australia /coursepu CITS2200`
   * Test case 2: `add CS2040 /pu the university of western australia /coursepu CITS1111`
-  * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`
+  * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`.
 
 
-* 2.6.4 Add course mappings with invalid partner university (PU) name
+* 2.6.5 Add course mappings with invalid partner university (PU) name
   * Prerequisites: None
   * Test case: `add CS2040 /pu the university of australia /coursepu CITS2200`
-  * Expected: Prints out error message and a list of partner universities
+  * Expected: Prints out error message and a list of partner universities with name and abbreviations.
 
 
 #### 2.7 Delete course mapping plans into Personal Tracker
 * 2.7.1 Delete course mapping plan with valid task number
   * Prerequisites: at least one course mapping plan in tracker
   * Test case: `delete 1`
-  * Expected: Prints a confirmation message indicating a success in deletion of the course mapping
+  * Expected: Prints a confirmation message indicating a success in deletion of the course mapping.
 
 
 * 2.7.2 Delete course mapping plan with invalid task number
-  * Prerequisites: only one course mapping plan in tracker
+  * Prerequisites: less than 100 course mapping plans in tracker
   * Test case: `delete 100`
   * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
-    in personal tracker
+    in personal tracker.
+
+
+> [NOTE!]
+> The tests below would require the tester to corrupt the `myList.json` file stored in the data folder (found in
+> the directory where the tester's terminal is running from).
+> 
+> To corrupt data: At least one saved course mapping plan saved in myList.json, then remove any of the information
+> (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code).
+> 
+> To fix the file: Revert all changes, and make sure that there is **no new line** after the last course mapping plan.
+
 
 #### 2.8 Listing out all saved course mapping plans in Personal Tracker
 ##### Non-corrupted data file
@@ -758,12 +801,11 @@ testers are expected to do more *exploratory* testing.
 
 ##### Corrupted data file
 * 2.8.3 Listing a non-empty data file
-  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
-    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
-    one line.
+  * Prerequisites: Corrupted data file (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
   * Test Case: `list mapped`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
-  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing. 
+  * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing.
+    (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
 
 
 #### 2.9 Compare saved course mapping plans between universities
@@ -778,21 +820,20 @@ testers are expected to do more *exploratory* testing.
   * Prerequisites: At least one saved course mapping plan saved in myList.json, for either The University of Melbourne 
     or The University of Western Australia.
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
-  * Expected: Prints out message that the unique mappings currently saved for each given PU.
+  * Expected: Prints out message with the unique mappings currently saved for each given PU.
 
 
 ##### Corrupted data file
 * 2.9.3 Listing a non-empty data file
-  * Prerequisites: At least one saved course mapping plan saved in myList.json, then remove any of the information
-    (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code)
-    one line.
+  * Prerequisites: Corrupted data file (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
   * Test Case: `compare pu/the university of melbourne pu/the university of western australia`<br/>
   * Expected: Prints out an error message notifying user which line in myList.json is corrupted.
-  * Please revert back to the file original stage (prior to  corruption) before continuing on with the manual testing.
+  * Please revert back to the file original stage (prior to corruption) before continuing on with the manual testing.
+    (follow note above [Section 2.8](#28-listing-out-all-saved-course-mapping-plans-in-personal-tracker))
 
 #### 2.10 Find course mappings in Personal Tracker
 * 2.10.1 Find course mapping plan with NUS course that is in the personal tracker
-  * Prerequisites: This course mapping saved `CS2040 | The university of western australia | CITS2200`*
+  * Prerequisites: This course mapping saved `CS2040 | The university of western australia | CITS2200`
   * Test case: `find cs2040`
   * Expected: Prints out the course mappings in the format of *
 
@@ -800,17 +841,17 @@ testers are expected to do more *exploratory* testing.
 * 2.10.2 Find course mapping plan when the personal tracker is empty
   * Prerequisites: No course mapping plan in the tracker
   * Test case: `find cs2040`
-  * Expected: Prints out error message indicating the list is empty and to ensure there are course mappings in the list
+  * Expected: Prints out error message indicating the list is empty and to ensure there are course mappings in the list.
 
 
 * 2.10.3 Find course mapping with invalid keywords  
   * Prerequisites: At least one course mapping plan in the tracker
   * Test case: `find cs`
-  * Expected: Prints out an error message indicating no match found
-  * Note that invalid keywords can mean a NUS course not in the tracker too
+  * Expected: Prints out an error message indicating no match found.
+  * Note that invalid keywords can mean a NUS course not in the tracker too.
 
 
 * 2.10.4 Find course with no keyword
   * Prerequisites: None
   * Test case: `find`
-  * Expected: Prints out an error message indicating keyword is empty
+  * Expected: Prints out an error message indicating keyword is empty.

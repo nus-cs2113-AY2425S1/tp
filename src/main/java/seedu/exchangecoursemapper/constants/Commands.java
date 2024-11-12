@@ -23,5 +23,12 @@ public class Commands {
     public static final int NUS_COURSE_CODE_LENGTH = 6;
     public static final int NUS_SPECIAL_COURSE_CODE_LENGTH = 7;
     public static final int NUS_COURSE_CODE_NUMERALS_START_INDEX = 2;
+    public static final int SPACE_DELIMITER = 1;
     public static final String HELP = "help";
+    public static final int MINIMUM_INPUT_LENGTH = 2;
+    public static final String PU_FLAG = "/pu";
+    public static final String COURSEPU_FLAG = "/coursepu";
+    public static final String PU_FLAG_COURSEPU_FLAG_COMBINED = "/pu/coursepu";
+    public static final String COURSEPU_FLAG_PU_FLAG_COMBINED = "/coursepu/pu";
+    public static final int MINIMUM_COURSE_LENGTH = 3;
 }
