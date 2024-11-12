@@ -1,0 +1,56 @@
+@startuml
+
+participant ":Ui" as Ui
+participant ":GraphPerformance" as Graph
+participant ":TrainingSession" as TrainingSession
+participant ":GraphPerformanceTime" as GraphTime
+participant ":GraphPerformanceRepsDistance" as GraphRepsDistance
+
+Ui -> Graph : graphExercisePerformance(exercise, sessionList)
+activate Graph
+note over Graph
+    Print header text
+end note
+
+Graph -> Graph : getMaxExercisePerformance(...)
+activate Graph
+
+loop For each training session
+    Graph -> TrainingSession : getExercisePerformance(exercise)
+    activate TrainingSession
+    TrainingSession --> Graph : exercisePerformance
+    deactivate TrainingSession
+end
+Graph --> Graph : maxExercisePerformance
+deactivate Graph
+
+Graph -> Graph : getMinTimePerformance(...)
+activate Graph
+Graph --> Graph : minTimePerformance
+deactivate Graph
+
+alt WalkAndRun or ShuttleRun
+    Graph -> GraphTime : graphExerciseTime(...)
+    activate GraphTime
+    GraphTime --> Graph : body for time graph
+    deactivate GraphTime
+else
+    Graph -> GraphRepsDistance : graphExerciseRepsDistance(...)
+    activate GraphRepsDistance
+    GraphRepsDistance --> Graph : body for distance_reps graph
+    deactivate GraphRepsDistance
+end
+
+Graph -> Graph : generateXHeader(...)
+activate Graph
+Graph --> Graph : XHeader
+deactivate Graph
+
+note over Graph
+    Print overall performance graph
+end note
+
+Ui <-- Graph :
+deactivate Graph
+
+@enduml

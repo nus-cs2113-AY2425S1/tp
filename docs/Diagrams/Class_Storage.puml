@@ -1,0 +1,64 @@
+@startuml
+' Use right-angle straight lines for relationships
+skinparam linetype ortho
+skinparam nodesep 100
+skinparam ranksep 100
+skinparam rankdir TB
+hide circle
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+
+' Define classes
+class FitTrack {
+}
+
+class Storage {
+    +initialiseSaveFile()
+    +loadSaveFile(loadList: ArrayList<Saveable>)
+    +updateSaveFile(...)
+    -createSaveableFromString(...)
+    +setSaveFilePath(path: String)
+    +getSaveFile(): File
+}
+
+class TrainingSession {
+    -sessionDateTime : LocalDateTime
+    -description : String
+    +fromSaveString(...): TrainingSession
+}
+
+class Goal {
+    +fromSaveString(...): Goal
+}
+
+class Reminder {
+    +fromSaveString(...): Reminder
+}
+
+class User {
+    -gender : Gender
+    -age : int
+    +setGender()
+    +setAge()
+    +getGender()
+    +getAge()
+    +toSaveString(): String
+}
+
+class FoodWaterIntake {
+    +getFoodList(): ArrayList<FoodEntry>
+    +getWaterList(): ArrayList<WaterEntry>
+}
+
+' Define relationships with right-angle arrows
+FitTrack "1" -> "1" Storage : uses >
+FitTrack "1" --> "1" User : creates >
+
+Storage "1" -> "*" TrainingSession : manages >
+Storage "1" -> "*" Goal : manages >
+Storage "1" -> "*" Reminder : manages >
+Storage "1" --> "1" FoodWaterIntake : manages >
+Storage "1" --> "1" User : manages >
+
+@enduml

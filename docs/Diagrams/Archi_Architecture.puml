@@ -1,0 +1,43 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+
+rectangle User {
+}
+
+rectangle Exceptions {
+}
+
+rectangle Storage {
+}
+
+rectangle FitTrack {
+}
+
+rectangle Parser {
+}
+
+rectangle Ui {
+}
+
+rectangle Commons {
+}
+
+FitTrack  -->  Parser
+FitTrack  -->  Ui
+FitTrack  -->  Storage
+FitTrack  -->  User
+
+Parser  -->  Commons
+Parser  -left->  User
+Parser  -right->  Ui
+
+Ui  -->  Commons
+
+Storage  -->  Commons
+Storage -> User
+Commons  -->  User
+
+@enduml

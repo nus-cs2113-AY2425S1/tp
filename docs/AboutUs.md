@@ -1,9 +1,8 @@
 # About us
-
-Display | Name | Github Profile | Portfolio 
---------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | John Doe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Joe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | John Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+Display |    Name    |           Github Profile           | Portfolio 
+--------|:----------:|:----------------------------------:|:---------:
+![](https://via.placeholder.com/100.png?text=Photo) | Zackermax See Zheng Feng | [Github](https://github.com/Zackermax) | [Portfolio](team/zackermax.md)
+![](https://via.placeholder.com/100.png?text=Photo) | Ng Chee Kiang | [Github](https://github.com/CheeKiangg) | [Portfolio](team/CheeKiang.md)
+![](https://via.placeholder.com/100.png?text=Photo) | Marcus Wong | [Github](https://github.com/TheDinos) | [Portfolio](team/marcuswong.md)
+![](https://via.placeholder.com/100.png?text=Photo) | Avjay Bhar | [Github](https://github.com/Yvorm) | [Portfolio](team/Yvorm.md)
+![](https://via.placeholder.com/100.png?text=Photo) | Ayushi Yadav | [Github](https://github.com/ayushi0803) | [Portfolio](team/ayushi.md)
