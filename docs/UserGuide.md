@@ -66,6 +66,7 @@ Enter a command:
   * e.g. `add -e Origami workshop -v Building A -t 2024-10-12 18:00 -u HIGH` will be interpreted as an invalid command.
 * Extraneous parameters for commands that do not take in parameters (e.g. `list`) will be ignored.
   * e.g. `list 1234` and `list -e event` will be interpreted by the program as `list`.
+* All characters like `-`, `()`, `:` and whitespaces etc. must be input using an **english keyboard** only.
 <div style="page-break-after: always;"></div>
 
 ### Viewing the command list: `menu`
