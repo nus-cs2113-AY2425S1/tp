@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Ui" as ui 
+Participant ":Storage" as storage 
+Participant ":EventList" as events 
+
+main -> ui : greetUser()
+activate ui 
+return
+
+ref over main, storage, events : Loading of events list
+
+main -> main : runCommandLoop()
+activate main
+
+loop exit command not entered
+ref over main, events :  Command parsing and execution
+ref over main, storage, events : Saving of events list
+end
+
+return
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":RemoveCommand" as command  
+
+[-> command : execute()
+activate command  
+
+alt participant name is not null
+    ref over command : Remove participant
+else item name is not null
+    ref over command : Remove item
+else else
+    ref over command : Remove event
+end
+
+return
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":AddCommand" as command  
+
+[-> command : execute()
+activate command  
+
+alt participantName is not null
+    ref over command : Add participant
+else itemName is not null
+    ref over command : Add item
+else else
+    ref over command : Add event
+end
+
+return
+
+
+@enduml

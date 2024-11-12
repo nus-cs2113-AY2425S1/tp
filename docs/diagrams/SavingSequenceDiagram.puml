@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage
+
+main -> main : saveData()
+activate main
+
+ref over main, storage : Saving of event, participant and item data
+
+return
+
+@enduml

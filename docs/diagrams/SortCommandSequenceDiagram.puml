@@ -1,0 +1,43 @@
+@startuml
+hide footbox
+
+participant ":SortCommand" as SC
+
+[-> SC: execute()
+activate SC
+
+create participant "SortedEventList :EventList" as SEL
+SC -> SEL : new EventList(eventList)
+activate SEL
+SEL --> SC:
+deactivate SEL
+
+alt sort by name
+    SC -> SEL: sortByName()
+    activate SEL
+    SEL --> SC:
+    deactivate SEL
+else sort by time
+    SC -> SEL: sortByTime()
+    activate SEL
+    SEL --> SC:
+    deactivate SEL
+else sort by priority
+    SC -> SEL: sortByPriority()
+    activate SEL
+    SEL --> SC:
+    deactivate SEL
+
+end alt
+
+destroy SEL
+
+note left of SEL
+    The lifeline does not
+    end here due to a
+    PlantUML limitation.
+end note
+
+return Display SortedEventList and sort result message
+
+@enduml

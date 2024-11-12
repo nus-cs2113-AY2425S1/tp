@@ -1,9 +1,143 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Welcome to EventManagerCLI.
+Error loading data from file: data.txt. New file will be created since it does not exists.
+------------------------
+Enter a command: Invalid command!
+------------------------
+Enter a command: Here are all the possible commands:
 
-What is your name?
-Hello James Gosling
+menu: Displays a list of all commands.
+list: Displays a list of all events.
+add -e EVENT -t TIME -v VENUE -u PRIORITY: Adds an event to the event list.
+add -p PARTICIPANT -email EMAIL -e EVENT: Adds a participant to an event.
+add -m ITEM -e EVENT: Adds an item to an event.
+remove -e EVENT: Removes an event from the event list.
+remove -p PARTICIPANT -e EVENT: Removes a participant from an event.
+remove -m ITEM -e EVENT: Removes an item from an event.
+edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY: Edits an event's info.
+edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT: Edits a participant's info.
+edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT: Edits an item's info.
+view -e EVENT -y TYPE: Displays the list of participants or items of an event.
+mark -e EVENT -s STATUS: Marks an event as done or not done.
+mark -p PARTICIPANT -e EVENT -s STATUS: Marks a participant as present or absent.
+mark -m ITEM -e EVENT -s STATUS: Marks an item as accounted or unaccounted for.
+copy FROM_EVENT > TO_EVENT: Copies the participant list from one event to another.
+sort -by KEYWORD: Sorts events by name/time/priority.
+filter -e/-d/-t/-x/-u FILTER_DESCRIPTION: Filters events by name/date/time/date-time/priority.
+find -e EVENT -p NAME: Finds all participants with a specified name in an event.
+exit: Exits program.
+------------------------
+Enter a command: There are 0 events in your list!
+
+------------------------
+Enter a command: Invalid command!
+Please enter your commands in the following format:
+add -e EVENT -t TIME -v VENUE -u PRIORITY
+add -p PARTICIPANT -email EMAIL -e EVENT
+add -m ITEM -e EVENT
+
+------------------------
+Enter a command: Event added successfully:
+Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event priority: HIGH
+------------------------
+Enter a command: There is 1 event in your list! Here is your scheduled event:
+1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: N
+
+------------------------
+Enter a command: Event marked as done
+------------------------
+Enter a command: There is 1 event in your list! Here is your scheduled event:
+1. Event name: dinner party / Event time: 2026-10-10 12:34 / Event venue: Alice's House / Event Priority: HIGH / Done: Y
+
+------------------------
+Enter a command: Event not found!
+------------------------
+Enter a command: The event has been updated to:
+Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event priority: LOW
+------------------------
+Enter a command: There is 1 event in your list! Here is your scheduled event:
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Enter a command: Participant added successfully:
+Participant name: Mary / Participant email: example@gmail.com / Event name: dinner party
+------------------------
+Enter a command: Invalid command!
+Please enter your commands in the following format:
+view -e EVENT -y TYPE
+
+------------------------
+Enter a command: Invalid command!
+Please enter your commands in the following format:
+edit -e OLD_EVENT_NAME -name NEW_EVENT_NAME -t TIME -v VENUE -u PRIORITY
+edit -p OLD_PARTICIPANT_NAME -name NEW_PARTICIPANT_NAME -email EMAIL -e EVENT
+edit -m OLD_ITEM_NAME > NEW_ITEM_NAME -e EVENT
+
+------------------------
+Enter a command: There is 1 participant in dinner party! Here is your participant:
+1. Name: Mary / Email: example@gmail.com [ ]
+
+------------------------
+Enter a command: Event added successfully:
+Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event priority: MEDIUM
+------------------------
+Enter a command: Events successfully sorted by name!
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+2. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Enter a command: Events successfully sorted by time!
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Item added successfully:
+Item name: curry chicken / Event name: dinner party
+------------------------
+Enter a command: Item accounted for.
+------------------------
+Enter a command: There is 1 item in dinner party! Here is your item:
+1. curry chicken [X]
+
+------------------------
+Enter a command: There are 2 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Events successfully filtered by name!
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+
+------------------------
+Enter a command: Filter flag matched no events!
+------------------------
+Enter a command: Events successfully filtered by time!
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Filter flag matched no events!
+------------------------
+Enter a command: Events successfully filtered by priority!
+1. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: There are 2 events in your list! Here are your scheduled events:
+1. Event name: dinner party / Event time: 2026-10-10 15:00 / Event venue: Bob's House / Event Priority: LOW / Done: Y
+2. Event name: anniversary celebration / Event time: 2026-10-23 12:34 / Event venue: hotel / Event Priority: MEDIUM / Done: N
+
+------------------------
+Enter a command: Item added successfully:
+Item name: balloon / Event name: anniversary celebration
+------------------------
+Enter a command: There is 1 item in anniversary celebration! Here is your item:
+1. balloon [ ]
+
+------------------------
+Enter a command: The item has been updated to:
+Item name: cake / Event name: anniversary celebration
+------------------------
+Enter a command: There is 1 item in anniversary celebration! Here is your item:
+1. cake [ ]
+
+------------------------
+Enter a command: Thank you for using EventManagerCLI. Goodbye!
+------------------------

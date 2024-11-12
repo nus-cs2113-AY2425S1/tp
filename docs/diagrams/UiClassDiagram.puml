@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+allowmixing
+
+skinparam ClassAttributeIconSize 0
+hide circle
+
+class Ui {
+    +userInput : Scanner
+    +greetUser() : void
+    +getCommand() : String
+    +showOutputToUser() : void
+    +showErrorMessageToUser() : void
+    +showMessage() : void
+}
+
+rectangle Main
+rectangle Command
+
+Main .> Ui
+Ui ..> Command
+
+@enduml

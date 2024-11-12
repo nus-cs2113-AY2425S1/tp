@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+hide circle
+skinparam ClassAttributeIconSize 0
+
+class Storage {
+        - filePath : String
+        + Storage(filePath : String) : Storage
+        + saveInfo(events : EventList) : void
+        + loadInfo(events : EventList) : void
+        - isValidFilePath(filePath : String) : boolean
+        - isTestEnvironment() : boolean
+}
+
+class Main
+class EventList
+class FileParser {
+    +parseFile(events : EventList, filePath : String) : void
+}
+
+Storage ..> EventList : saves/loads >
+FileParser <.. Storage : < invokes
+Main .> Storage : invokes >
+
+@enduml

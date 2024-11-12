@@ -1,0 +1,31 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":EventList" as eventList  
+participant ":Event" as event  
+participant "participant:Participant" as participant  
+participant "participantList:ArrayList<Participant>" as participantList  
+
+group sd Add participant to event
+    activate eventList  
+
+    eventList -> event : addParticipant(participantName, participantEmail)
+    activate event  
+
+    event -> event : getDuplicateParticipantName(participantName)
+    activate event  
+    return name:String
+
+    create participant
+    event -> participant : Participant(name, participantEmail)
+    activate participant
+    return participant:Participant
+
+    event -> participantList : add(participant)
+    activate participantList
+    return
+
+    return name:String
+end
+@enduml

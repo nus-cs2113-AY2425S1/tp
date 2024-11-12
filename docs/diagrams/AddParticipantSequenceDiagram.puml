@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":AddCommand" as command  
+participant ":EventList" as eventList  
+
+group sd Add participant
+    activate command  
+    command -> eventList : addParticipantToEvent(participantName,\n participantEmail, eventName)
+    activate eventList  
+
+    eventList -> eventList : getEventByName(eventName)
+    activate eventList  
+
+    return event:Event
+
+    opt Event found
+        ref over eventList : Add participant to event
+    end
+
+    return :String
+end
+@enduml

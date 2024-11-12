@@ -1,0 +1,27 @@
+@startuml
+!include style.puml
+
+rectangle {
+    rectangle Main
+    rectangle Ui UI_COLOUR
+    rectangle Parser PARSER_COLOUR
+    rectangle Storage STORAGE_COLOUR
+    rectangle Command COMMAND_COLOUR
+    rectangle Event EVENT_COLOUR
+}
+
+Main --> Ui
+Main --> Storage
+Main --> Event
+Main ..> Parser
+Main ..> Command
+
+Ui ..> Command
+
+Parser ..> Command
+
+Storage ..> Event
+
+Command ..> Event
+
+@enduml

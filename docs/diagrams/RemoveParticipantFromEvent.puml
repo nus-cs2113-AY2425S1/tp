@@ -1,0 +1,35 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":EventList" as eventList  
+participant "event:Event" as event  
+participant "participantList:ArrayList<Participant>" as participantList  
+participant "participant:Participant" as participant  
+
+group sd Remove participant from event
+    activate eventList  
+    eventList -> event : removeParticipant(participantName)
+    activate event  
+
+    loop for participant in participantList
+        event -> participant : getName()
+        activate participant  
+
+        return :String
+
+        opt name of participant equals participantName
+            event -> participantList : remove(participant)
+            activate participantList
+            destroy participant
+            note left of participant
+                The lifeline does not end
+                here due to a PlantUML
+                limitation.
+            end note
+            return
+        end
+    end
+    return :boolean
+end
+@enduml

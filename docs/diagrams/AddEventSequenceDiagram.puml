@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":AddCommand" as command  
+participant ":EventList" as eventList  
+participant "eventList:ArrayList<Event>" as list  
+participant "newEvent:Event" as event  
+
+group sd Add event
+    activate command  
+    command -> eventList : addEvent(eventName, eventTime, eventVenue, eventPriority)
+    activate eventList  
+
+    eventList -> eventList : getDuplicateEventName(eventName)
+    activate eventList  
+
+    return name:String
+
+
+    create event
+    eventList -> event : Event(name, eventTime, eventVenue, eventPriority)
+    activate event
+
+    return
+
+    eventList -> list : add(newEvent)
+    activate list
+
+    return
+
+    return name:String
+
+end
+
+@enduml

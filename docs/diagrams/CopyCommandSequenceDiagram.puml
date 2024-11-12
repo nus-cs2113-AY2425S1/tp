@@ -1,0 +1,39 @@
+@startuml
+hide footbox
+
+participant ":CopyCommand" as CC
+participant ":EventList" as EL
+participant "eventFrom:Event" as SourceEvent
+participant "eventTo:Event" as DestEvent
+
+[-> CC: execute()
+activate CC
+
+CC -> EL: getEventByName(copyTo)
+activate EL
+EL --> CC: eventTo:Event
+deactivate EL
+
+CC -> EL: getEventByName(copyFrom)
+activate EL
+EL --> CC: eventFrom:Event
+deactivate EL
+
+opt Both Events Found
+    CC -> SourceEvent: getParticipantList()
+    activate SourceEvent
+    SourceEvent --> CC: participantList:ArrayList<Participant>
+    deactivate SourceEvent
+
+    opt Participant List Not Empty
+        CC -> DestEvent: setParticipantList(participantList)
+        activate DestEvent
+        DestEvent --> CC
+        deactivate DestEvent
+    end opt
+
+end opt
+
+return Display copy result message
+
+@enduml

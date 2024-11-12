@@ -1,0 +1,15 @@
+@startuml
+!include style.puml
+
+hide circle
+skinparam ClassAttributeIconSize  0
+
+class Parser {
+    +parseCommand(command : String) : Command
+    +parseXYZCommand(input : String, commandParts : String) : Command
+}
+
+Main ..> Parser : invokes >
+Parser ..> Command : constructs >
+
+@enduml

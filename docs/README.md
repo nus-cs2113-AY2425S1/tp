@@ -1,6 +1,9 @@
-# Duke
+# EventManagerCLI
 
-{Give product intro here}
+<img src="images/Ui.png">
+
+**EventManagerCLI** is a CLI application for organisers of small-scale events that tracks
+the participants and logistics for such events.
 
 Useful links:
 * [User Guide](UserGuide.md)

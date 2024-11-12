@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":Parser"  as parser  
+participant ":XYZCommand" as xyzCommand
+
+[-> parser : parseCommand(command)
+activate parser  
+
+parser -> parser : parseXYZCommand(input, commandParts)
+activate parser  
+
+create xyzCommand
+parser -> xyzCommand : XYZCommand(...)
+activate xyzCommand  
+return :XYZCommand
+return
+
+return command:Command
+
+@enduml

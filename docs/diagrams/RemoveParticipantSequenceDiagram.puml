@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+hide footbox
+
+participant ":RemoveCommand" as command  
+participant ":EventList" as eventList  
+
+group sd Remove participant
+    activate command  
+    command -> eventList : removeParticipantFromEvent(participantName,\n eventName)
+    activate eventList  
+
+    eventList -> eventList : getEventByName()
+    activate eventList  
+
+    return event:Event
+
+    opt Event found
+        ref over eventList : Remove participant from event
+    end
+
+    return :boolean
+end
+
+
+@enduml

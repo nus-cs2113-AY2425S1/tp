@@ -1,0 +1,25 @@
+@startuml
+hide footbox
+
+participant ":ListCommand" as ListCommand
+participant ":EventList" as EventList
+
+[-> ListCommand: execute()
+activate ListCommand
+
+
+ListCommand -> EventList : getListSize()
+activate EventList
+EventList --> ListCommand
+deactivate EventList
+
+loop for each event in EventList
+    ListCommand -> EventList : getEvent(i)
+    activate EventList
+    EventList --> ListCommand
+    deactivate EventList
+end loop
+
+return
+
+@enduml

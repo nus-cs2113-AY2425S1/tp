@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage 
+Participant "event:Event" as event 
+Participant "eventList:EventList" as eventlist 
+Participant "participant:Participant" as participant
+Participant "item:Item" as item
+
+main -> main : saveData()
+activate main
+main -> storage : saveInfo(eventList)
+activate storage 
+
+storage -> eventlist : getList()
+activate eventlist 
+return event list
+
+loop for event in event list
+
+storage -> storage : getEventFields()
+activate storage 
+
+storage -> event : getEventName()
+activate event 
+event --> storage
+storage -> event : getEventTime()
+event --> storage
+storage -> event : getEventVenue()
+event --> storage
+storage -> event : getEventPriorityString()
+event --> storage
+storage -> event : markIfDone()
+event --> storage
+deactivate event
+
+return event fields
+
+storage -> event : getParticipantList()
+activate event 
+return participant list
+
+loop for participant in event's participant list
+
+storage -> storage : getParticipantFields()
+activate storage 
+
+storage -> participant : getName()
+activate participant
+participant --> storage
+storage -> participant : getEmail()
+participant --> storage
+storage -> event : getEventName()
+activate event 
+event --> storage
+deactivate event
+storage -> participant : markFileLineIfPresent()
+participant --> storage
+deactivate participant
+
+return participant fields
+
+end
+
+storage -> event : getItemList()
+activate event 
+return item list
+
+loop for item in event's item list
+
+storage -> storage : getItemFields()
+activate storage 
+
+storage -> item : getName()
+activate item
+item --> storage
+storage -> event : getEventName()
+activate event 
+event --> storage
+deactivate event
+storage -> item : markFileLineIfPresent()
+item --> storage
+deactivate item
+
+return item fields
+
+end
+end
+return
+
+main --> main
+deactivate main
+
+
+
+@enduml

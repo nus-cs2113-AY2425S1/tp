@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+hide footbox
+
+Participant ":Main" as main
+Participant ":Storage" as storage 
+Participant ":FileParser" as parser 
+Participant ":EventList" as events 
+
+main -> main : loadData()
+activate main
+main -> storage : loadInfo(eventList)
+activate storage 
+
+create parser
+storage -> parser : FileParser(eventList, filePath)
+activate parser 
+return
+
+storage -> parser : parseFile(eventList, filePath)
+activate parser 
+
+loop for line in file
+
+
+    parser -> parser : parseLine(events, fields)
+    activate parser 
+
+    alt EVENT
+        parser -> parser : parseEventFileLine(events, fields)
+        activate parser 
+        parser -> events : addEvent(...)
+        activate events 
+        return
+        return
+    else PARTICIPANT
+        parser -> parser : parseParicipantFileLine(events, fields)
+        activate parser 
+        parser -> events : addParticipantToEvent(...)
+        activate events 
+        return
+        return
+    else ITEM
+        parser -> parser : parseItemFileLine(events, fields)
+        activate parser 
+        parser -> events : addItemToEvent(...)
+        activate events 
+        return
+        return
+    end
+    return
+    deactivate events
+end
+
+
+parser --> storage
+deactivate parser
+storage --> main
+deactivate storage
+main --> main
+deactivate main
+
+
+@enduml
