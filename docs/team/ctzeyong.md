@@ -17,7 +17,7 @@ to see the RepoSense report of code contributed to this project.
 ### Enhancements Implemented
 
 Implemented
-- `Log` class and `LogLevels` enumeration for logging purposes 
+- `Log` class and `LogLevels` enumeration for logging purposes
 - `AddEntryCommand` abstract class
 
 Aided in development of
@@ -27,27 +27,16 @@ Aided in development of
 
 Enhanced exception handling
 
-### Contributions to the UG
+### Contributions to the [UG](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html)
+
+Sections contributed: Introduction, Quick Start, Help
+
+### Contributions to the [DG](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html)
 
 Sections contributed:
-[Introduction](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html#introduction),
-[Quick Start](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html#quick-start),
-[Help](https://ay2425s1-cs2113-w14-3.github.io/tp/UserGuide.html#help)
-
-See below for more details.
-
-### Contributions to the DG
-
-Sections contributed:
-[Commands](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#commands),
-[Adding Entries](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#adding-entries),
-[Editing Entries](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#editing-entries),
-[Exceptions and Logging](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#exceptions-and-logging),
-[Budget](https://ay2425s1-cs2113-w14-3.github.io/tp/DeveloperGuide.html#budget-and-budgetlogic)
+Commands, Adding Entries, Editing Entries, Exceptions and Logging, Budget
 
 Contributed all UML diagrams in the sections listed above.
-
-See below for more details.
 
 ### Github Issues Contributions
 
@@ -95,15 +84,7 @@ Reviewed PR
 [#187](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/187),
 [#199](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/199),
 [#283](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/283),
-[#292](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/292).
-[#302](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/302).
-[#303](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/303).
-[#307](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/307).
-
-<div style="page-break-after: always;"></div>
-
-## Appendix: Extracts of Developer Guide
-
-<div style="page-break-after: always;"></div>
-
-## Appendix: Extracts of User Guide
+[#292](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/292),
+[#302](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/302),
+[#303](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/303),
+[#307](https://github.com/AY2425S1-CS2113-W14-3/tp/pull/307)
