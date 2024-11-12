@@ -1,6 +1,7 @@
 @startuml
 
 skinparam classAttributeIconSize 0
+hide circle
 
 class ProgrammeList {
     + currentActiveProgramme : int

@@ -1,7 +1,8 @@
 @startuml
 skinparam classAttributeIconSize 0
+hide circle
 
-abstract class Command {
+class Command <<abstract>>{
     + execute(programmes: ProgrammeList, history: History): CommandResult
     + equals(other: Object): boolean
 }
@@ -19,26 +20,26 @@ class CommandResult {
     + equals(other: Object): boolean
 }
 
-abstract class ProgrammeCommand {
+class ProgrammeCommand <<abstract >>{
     # programmeIndex: int
     # dayIndex: int
     + equals(other: Object): boolean
 }
 
-abstract class EditProgrammeCommand {
+class EditProgrammeCommand <<abstract >>{
     # exerciseIndex: int
     + execute(programmes: ProgrammeList): CommandResult
 }
 
-abstract class WaterCommand {
+class WaterCommand <<abstract >>{
     # date: LocalDate
 }
 
-abstract class MealCommand {
+ class MealCommand <<abstract>>{
     # date: LocalDate
 }
 
-abstract class HistoryCommand {
+ class HistoryCommand <<abstract>>{
 }
 
 Command <|-- ProgrammeCommand
