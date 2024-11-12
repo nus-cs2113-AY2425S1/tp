@@ -730,13 +730,13 @@ testers are expected to do more *exploratory* testing.
 * 2.6.1 Add course mappings with the correct format and valid mapping (Using full university name)
   * Prerequisites: None
   * Test case: `add CS2040 /pu The university of western australia /coursepu CITS2200`
-  * Expected: Prints out a confirmation message indicating success
+  * Expected: Prints out a confirmation message indicating success.
 
 
 * 2.6.2 Add course mappings with the correct format and valid mapping (Using University abbreviation)
   * Prerequisites: None
   * Test case: `add cs3241 /pu unimelb /coursepu comp30019`
-  * Expected: Prints out a confirmation message indicating success
+  * Expected: Prints out a confirmation message indicating success.
 
 
 * 2.6.3 Add course mapping with incorrect format
@@ -744,34 +744,34 @@ testers are expected to do more *exploratory* testing.
   * Test case 1: `add invalid format`
   * Test case 2: `add cs2040 /pu invalid uni`
   * Test case 3: `add cs2040 /pu the university of western australia`
-  * Expected: Prints out error message indicating to provide all valid parts
+  * Expected: Prints out error message indicating to provide all valid parts.
 
 
 * 2.6.4 Add course mappings with invalid NUS course code/ PU course code
   * Prerequisites: None
   * Test case 1: `add CS1231 /pu the university of western australia /coursepu CITS2200`
   * Test case 2: `add CS2040 /pu the university of western australia /coursepu CITS1111`
-  * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`
+  * Expected: Prints out error message and a list of mappable courses offered by the PU in the format of `NUS COURSE | PU COURSE`.
 
 
 * 2.6.5 Add course mappings with invalid partner university (PU) name
   * Prerequisites: None
   * Test case: `add CS2040 /pu the university of australia /coursepu CITS2200`
-  * Expected: Prints out error message and a list of partner universities with name and abbreviations
+  * Expected: Prints out error message and a list of partner universities with name and abbreviations.
 
 
 #### 2.7 Delete course mapping plans into Personal Tracker
 * 2.7.1 Delete course mapping plan with valid task number
   * Prerequisites: at least one course mapping plan in tracker
   * Test case: `delete 1`
-  * Expected: Prints a confirmation message indicating a success in deletion of the course mapping
+  * Expected: Prints a confirmation message indicating a success in deletion of the course mapping.
 
 
 * 2.7.2 Delete course mapping plan with invalid task number
   * Prerequisites: less than 100 course mapping plans in tracker
   * Test case: `delete 100`
   * Expected: Prints out error message indicating to provide valid index and a prompt to list out the available mappings
-    in personal tracker
+    in personal tracker.
 
 
 > [NOTE!]
@@ -841,17 +841,17 @@ testers are expected to do more *exploratory* testing.
 * 2.10.2 Find course mapping plan when the personal tracker is empty
   * Prerequisites: No course mapping plan in the tracker
   * Test case: `find cs2040`
-  * Expected: Prints out error message indicating the list is empty and to ensure there are course mappings in the list
+  * Expected: Prints out error message indicating the list is empty and to ensure there are course mappings in the list.
 
 
 * 2.10.3 Find course mapping with invalid keywords  
   * Prerequisites: At least one course mapping plan in the tracker
   * Test case: `find cs`
-  * Expected: Prints out an error message indicating no match found
-  * Note that invalid keywords can mean a NUS course not in the tracker too
+  * Expected: Prints out an error message indicating no match found.
+  * Note that invalid keywords can mean a NUS course not in the tracker too.
 
 
 * 2.10.4 Find course with no keyword
   * Prerequisites: None
   * Test case: `find`
-  * Expected: Prints out an error message indicating keyword is empty
+  * Expected: Prints out an error message indicating keyword is empty.
