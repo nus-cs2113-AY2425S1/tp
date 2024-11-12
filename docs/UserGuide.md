@@ -71,6 +71,8 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 > All flags have aliases. Refer to the [alias table](#Alias-Table) to see the alternative options available for each flag.
 >
 > For date parameters, dates should be supplied in the `dd-MM-yyyy` format. e.g. `11-11-2024`
+>
+> Providing extra flags that are not specified by the User Guide will be ignored by BuffBuddy. e.g. `meal add /n Pie /c 200 /w 30` will produce the same result as `meal add /n Pie /c 200`.
 
 
 > ### Terminology
@@ -82,9 +84,6 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 > **Programme**: A programme is a collection of workout days.
 >
 > **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
-
-
-## Features
 
 ### 1. Add New Programme
 
@@ -100,8 +99,8 @@ New programme created:
 Starter
 ========================================
 ```
-
 _Note_: Advanced users can create a detailed programme with multiple days and exercises in one step by using the following command structure.
+
 This allows users to add specific exercises with sets, reps, weight, and calorie details for each day:
 
 **Command**: `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
@@ -121,16 +120,23 @@ Day 2: Wednesday
 1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 ==================================================
 ```
-
-_Note_: If the programme list was empty, the new programme added would be set to active by default.
+> **Warning:** users should note that copy pasting this directly into terminal will break it into a multi-line input, which BuffBuddy does not recognize as a valid command.
+> 
+> Please copy paste the command into a text editor such as Notepad and fix the formatting before pasting it into the terminal.
 
 ---
 
 ### 2. Set Programme as Active
 
 This feature sets the specified programme as the "active programme".  
+
 Once a programme is active, other commands will default to this programme if `PROG_INDEX` is not provided for those commands.
-**Note:** If the active programme is deleted, it will reset to the first programme (if exist).
+
+> **Notes on Active behaviour**
+>
+>  If the active programme is deleted, it will reset to the first programme (if exists).
+> 
+>  If there were previously no programmes and one is newly created, it will be automatically set as the active programme.
 
 **Command**: `prog start [PROG_INDEX]`
 
@@ -248,6 +254,10 @@ _Note_: Advanced users can directly create a day with multiple exercises and add
 **Command**: `prog edit [/p PROG_INDEX] /ad DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
 
 **Example**: `prog edit /p 1 /ad Cardio /e /n Dumbbell squat /w 10 /r 15 /s 10 /c 100 /e /n Kettlebell swing /w 10 /r 15 /s 10 /c 100`
+
+> **Warning:** users should note that copy pasting this directly into terminal will break it into a multi-line input, which BuffBuddy does not recognize as a valid command.
+> 
+> Please copy paste the command into a text editor such as Notepad and fix the formatting before pasting it into the terminal.
 
 ```
 ==================================================
