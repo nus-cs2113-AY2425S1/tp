@@ -33,7 +33,7 @@ they have exceeded, or are close to exceeding their budget.
 The current progress of the logging will be saved after each successful command.
 Progress is restored when FinanceBuddy is started up each time.
 
-<div style="page-break-after: always;"></div>
+<div style="page-break-after: always;"></div> 
 
 ## Quick Start
 
