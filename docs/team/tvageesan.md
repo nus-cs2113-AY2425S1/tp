@@ -23,14 +23,16 @@ BuffBuddy is a workout and meal tracker that tracks your programmes, workouts, m
   - **Added documentation for edit programme related features**: Description of the section or feature.
   - **Standardized format for all commands**: Made sure that all command descriptions were kept consistent and followed the same format.
   - **Added important notes on command format**: Added notes on the format of the arguments for each command to avoid user confusion.
-
+    
 ### Contributions to the Developer Guide (DG)
 
 - **Sections Contributed**: Command component, feature documentation for `Edit Programme`
 - **UML Diagrams**:
   - **Command Class** as well as all subclasses
   - **Edit Command** sequence diagram, activity diagram as well as sequence diagrams for all five of its associated subcommands.
-
+  - **Start Programme Command** section and sequence diagram
+  - **View Programme Command** section and sequence diagram
+  - **Delete Programme Command** section and sequence diagram
 ### Contributions to Team-Based Tasks
 
 - Participated in team meetings.
