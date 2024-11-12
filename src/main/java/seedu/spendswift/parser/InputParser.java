@@ -65,26 +65,54 @@ public class InputParser {
     public String parseCategory(String input) {
         return parseComponent(input, "c/");
     }
-    public double parseLimit(String input) {
-    String limitStr = parseComponent(input, "l/");
-    try {
-        double limit = Double.parseDouble(limitStr);
+    /**
+     * Parses the limit from the input string.
+     *
+     * @param input The input string containing the limit component prefixed with "l/".
+     * @return The parsed limit as a double, capped at 1 quadrillion if exceeded.
+     *         Returns Double.NaN if the limit is invalid or not found.
+     */
+    public static double parseLimit(String input) {
+        // Define the prefix to look for
+        final String PREFIX = "l/";
+        // Define the maximum allowed limit as 1 quadrillion without underscores
+        final double QUADRILLION = 1000000000000000.0; // 1,000,000,000,000,000
 
-        // Assertion to ensure the limit does not exceed 1 quadrillion
-        assert limit <= 1 _000_000_000_000_000 .0: "Limit exceeds 1 quadrillion, capping to 1 quadrillion";
-
-        // Cap the limit at 1 quadrillion if it exceeds this value
-        if (limit > 1 _000_000_000_000_000 .0) {
-            limit = 1 _000_000_000_000_000 .0;
+        // Check if the input is valid and contains the prefix
+        if (input == null || !input.contains(PREFIX)) {
+            System.err.println("No limit prefix 'l/' found in the input.");
+            return Double.NaN;
         }
 
-        return limit;
-    } catch (NumberFormatException e) {
-        ErrorMessage.printInvalidLimit();
-        return Double.NaN;
-    }
-}
+        // Split the input based on the prefix
+        String[] parts = input.split(PREFIX);
+        if (parts.length < 2) {
+            System.err.println("Limit prefix found but no value specified.");
+            return Double.NaN;
+        }
 
+        // Extract the substring after the prefix
+        String limitStr = parts[1].split(" ")[0].trim();
+
+        try {
+            // Parse the limit string into double
+            double limit = Double.parseDouble(limitStr);
+
+            // Assertion to ensure the limit does not exceed 1 quadrillion
+            assert limit <= QUADRILLION: "Limit exceeds 1 quadrillion, capping to 1 quadrillion";
+
+            // Cap the limit at 1 quadrillion if it exceeds this value
+            if (limit > QUADRILLION) {
+                System.err.println("Limit exceeds 1 quadrillion, capping to 1 quadrillion.");
+                limit = QUADRILLION;
+            }
+
+            return limit;
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid limit format: '" + limitStr + "'.");
+            return Double.NaN;
+        }
+    }
     public double parseAmount(String input) {
         String amountStr = parseComponent(input, "a/");
         try {
