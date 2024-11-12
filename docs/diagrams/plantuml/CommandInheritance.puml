@@ -5,7 +5,8 @@ hide circle
 class "{abstract}\nCommand" {
     +argumentsMap: HashMap<String, String>
     +Command(HashMap<String, String>)
-    +execute(ExpenseList) {abstract}
+    +execute(expenseList : ExpenseList, categoryFacade : CategoryFacade, recurringExpenseList : RecurringExpenseList) {abstract}
+    +isRecur(): boolean
     +isExit(): boolean
 }
 
