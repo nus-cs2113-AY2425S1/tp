@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -49,10 +48,9 @@ public class FileParser {
     public void parseFile(EventList events, String filePath) throws IOException {
         try {
             logInfo("Loading data from file");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             List<String[]> lines = getFileLines(filePath);
             for (String[] line : lines) {
-                parseLine(events, line, formatter);
+                parseLine(events, line);
             }
         } catch (IOException | CsvException exception) {
             throw new IOException("Error loading data from file: " + filePath +
@@ -80,14 +78,13 @@ public class FileParser {
      *
      * @param events   The EventList to populate.
      * @param fields   The fields of the line to parse.
-     * @param formatter The DateTimeFormatter to use for parsing date and time.
      */
-    private void parseLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
+    private void parseLine(EventList events, String[] fields) throws IOException {
         String type = fields[0];
         try {
             switch (type) {
             case "EVENT":
-                parseEventFileLine(events, fields, formatter);
+                parseEventFileLine(events, fields);
                 break;
             case "PARTICIPANT":
                 parseParticipantFileLine(events, fields);
@@ -108,10 +105,9 @@ public class FileParser {
      *
      * @param events   The EventList to populate.
      * @param fields   The fields of the event to parse.
-     * @param formatter The DateTimeFormatter to use for parsing date and time.
      * @throws IOException If there is an error adding the event to the list, or if the log file cannot be written to.
      */
-    private void parseEventFileLine(EventList events, String[] fields, DateTimeFormatter formatter) throws IOException {
+    private void parseEventFileLine(EventList events, String[] fields) throws IOException {
         try {
             String eventName = fields[1].trim();
             SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
