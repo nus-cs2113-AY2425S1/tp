@@ -1,0 +1,33 @@
+@startuml
+
+hide circle
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    FontColor Black
+}
+
+class QuizResults {
+    + addResult()
+    + saveResults()
+    + loadResults()
+}
+
+class Storage {
+    + loadData()
+    + saveToFile()
+}
+
+class Result {
+    - String topic
+    - int score
+    - Date date
+    - int questionsAttempted
+    + toString()
+}
+
+QuizResults *--> Storage : "1"
+QuizResults *--> "1..*" Result
+
+@enduml
