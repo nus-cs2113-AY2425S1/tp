@@ -42,10 +42,11 @@ deactivate Main
 
 @startuml
 participant ":Main" as Main
-
+"Main" -[hidden]> "Main" :
+activate Main
 participant "parser:Parser" as Parser
 Main -> Parser: parseCommand(commandWord:String)
-activate Main
+
 activate Parser
 
 Parser -> "commands: LinkedHashMap" as CommandMap: get(commandPart)
@@ -65,10 +66,10 @@ deactivate Main
 
 @startuml
 participant ":Main" as Main
-
+"Main" -[hidden]> "Main" :
+activate Main
 participant "parser:Parser" as Parser
 Main -> Parser: extractArguments(command, argumentString)
-activate Main
 activate Parser
 
 participant "command:Command" as Command
