@@ -82,7 +82,7 @@ public class AddCommand extends Command {
             // Validate field name for special characters
             if (!fieldName.matches(VALID_NAME_REGEX)) {
                 throw new InventraInvalidTypeException(fieldName, "contains invalid characters",
-                        "alphanumeric or .;:'\"&()<>{}%@*$#=~$");
+                        "alphanumeric or .;:'\"&()<!>{}%@*$#=~$");
             }
 
             if (fieldName.isEmpty() || fieldName.length() > 20) {
