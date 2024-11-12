@@ -1,3 +1,5 @@
+package seedu.javaninja;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.javaninja.Storage;
@@ -23,16 +25,16 @@ class StorageTest {
     // === Unit Tests ===
 
     @Test
-    public void loadData_withNoData_returnsEmptyList() throws IOException {
+    public void loadData_withNoData_returnsEmptyList() {
         // Verify that loading from an empty file returns an empty list
         List<String> data = storage.loadData();
         assertTrue(data.isEmpty(), "Expected empty list, but got data");
     }
 
     @Test
-    public void saveToFile_withNewData_overwritesFile() throws IOException {
+    public void saveToFile_withNewData_overwritesFile() {
         List<String> data = Arrays.asList("Line 1", "Line 2");
-        storage.saveToFile(TEST_FILE_PATH, data, false);
+        storage.saveToFile(data, false);  // Corrected method call
 
         List<String> loadedData = storage.loadData();
         assertEquals(data, loadedData, "Data saved to file does not match expected data");
@@ -41,12 +43,12 @@ class StorageTest {
     // === Integration Tests ===
 
     @Test
-    public void saveToFile_withAppendTrue_appendsDataToFile() throws IOException {
+    public void saveToFile_withAppendTrue_appendsDataToFile() {
         List<String> initialData = Arrays.asList("Line 1", "Line 2");
-        storage.saveToFile(TEST_FILE_PATH, initialData, false);
+        storage.saveToFile(initialData, false);  // Corrected method call
 
         List<String> additionalData = Arrays.asList("Line 3", "Line 4");
-        storage.saveToFile(TEST_FILE_PATH, additionalData, true);
+        storage.saveToFile(additionalData, true);  // Corrected method call
 
         List<String> expectedData = Arrays.asList("Line 1", "Line 2", "Line 3", "Line 4");
         List<String> loadedData = storage.loadData();
@@ -64,10 +66,10 @@ class StorageTest {
     }
 
     @Test
-    public void clearFile_withExistingData_removesAllData() throws IOException {
+    public void clearFile_withExistingData_removesAllData() {
         // Write data to the file first
         List<String> data = Arrays.asList("Some content", "Another line");
-        storage.saveToFile(TEST_FILE_PATH, data, false);
+        storage.saveToFile(data, false);  // Corrected method call
 
         // Clear the file
         storage.clearFile();

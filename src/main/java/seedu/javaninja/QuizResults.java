@@ -1,6 +1,5 @@
 package seedu.javaninja;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -14,17 +13,21 @@ import java.util.stream.Collectors;
  */
 public class QuizResults {
     private static final Logger logger = Logger.getLogger(QuizResults.class.getName());
-    private List<Result> results;
+    private final List<Result> results; // Made final
+    private final Storage storage; // Made final
 
     /**
-     * Constructs a `QuizResults` instance and initializes the results list.
+     * Constructs a `QuizResults` instance and initializes the results list and storage.
      */
     public QuizResults() {
         this.results = new ArrayList<>();
+        this.storage = new Storage("./data/results.txt");
+        loadResults();
     }
 
     /**
-     * Adds a new result to the list of results with date and time, including a comment.
+     * Adds a new result to the list of results with date and time, including a comment,
+     * and automatically saves the results to storage.
      *
      * @param topic The topic of the quiz.
      * @param score The score achieved in the quiz.
@@ -33,21 +36,63 @@ public class QuizResults {
      */
     public void addResult(String topic, int score, int questionsAttempted, int timeLimitInSeconds) {
         String comment = generateComment(score);
-        results.add(new Result(topic, score, new Date(), questionsAttempted, timeLimitInSeconds, comment));
+        Result newResult = new Result(topic, score, new Date(), questionsAttempted, timeLimitInSeconds, comment);
+        results.add(newResult);
+        saveResults(); // Automatically save results whenever a new result is added
     }
 
     /**
-     * Loads results from storage or initializes an empty list.
+     * Loads results from storage and handles potential data corruption.
      */
     public void loadResults() {
-        // This method can be modified to load results from a file or database
-        if (results == null) {
-            results = new ArrayList<>();
+        List<String> loadedData = storage.loadData();
+        for (String line : loadedData) {
+            try {
+                String[] parts = line.split("\\|");
+                if (parts.length >= 6) {
+                    String topic = parts[0];
+                    int score = Integer.parseInt(parts[1]);
+                    Date date = new Date(Long.parseLong(parts[2]));
+                    int questionsAttempted = Integer.parseInt(parts[3]);
+                    int timeLimitInSeconds = Integer.parseInt(parts[4]);
+                    String comment = parts[5];
+
+                    // Check if the result already exists
+                    boolean resultExists = results.stream()
+                            .anyMatch(r -> r.getTopic().equals(topic) &&
+                                    r.getDate().equals(date) &&
+                                    r.getScore() == score);
+
+                    if (!resultExists) {
+                        results.add(new Result(topic, score, date, questionsAttempted, timeLimitInSeconds, comment));
+                    }
+                }
+            } catch (Exception e) {
+                logger.warning("Corrupted data detected. Skipping line: " + line);
+            }
         }
     }
 
+
     /**
-     * Gets all stored results.
+     * Saves the current results to storage.
+     */
+    private void saveResults() {
+        List<String> lines = results.stream()
+                .map(result -> String.join("|",
+                        result.getTopic(),
+                        String.valueOf(result.getScore()),
+                        String.valueOf(result.getDate().getTime()),
+                        String.valueOf(result.getQuestionsAttempted()),
+                        String.valueOf(result.getTimeLimitInSeconds()),
+                        result.getComment()))
+                .collect(Collectors.toList());
+
+        storage.saveToFile(lines, false); // IOException is now caught internally in Storage
+    }
+
+    /**
+     * Retrieves all stored results.
      *
      * @return A list of all results.
      */
@@ -56,9 +101,9 @@ public class QuizResults {
     }
 
     /**
-     * Filters results by topic.
+     * Filters results by a given topic.
      *
-     * @param topic The topic to filter by.
+     * @param topic The topic to filter results by.
      * @return A list of results for the specified topic.
      */
     public List<Result> getResultsByTopic(String topic) {
@@ -68,11 +113,11 @@ public class QuizResults {
     }
 
     /**
-     * Sorts results by date, either newest or oldest.
+     * Sorts results by date, in either ascending or descending order.
      *
      * @param results The list of results to sort.
-     * @param isNewestFirst If true, sort by newest; otherwise, sort by oldest.
-     * @return A sorted list of results.
+     * @param isNewestFirst True to sort by newest first; false for oldest first.
+     * @return A sorted list of results by date.
      */
     public List<Result> sortByDate(List<Result> results, boolean isNewestFirst) {
         return results.stream()
@@ -82,7 +127,7 @@ public class QuizResults {
     }
 
     /**
-     * Sorts results by score in descending order.
+     * Sorts results by score in descending order (highest to lowest).
      *
      * @param results The list of results to sort.
      * @return A sorted list of results by highest score.
@@ -106,10 +151,10 @@ public class QuizResults {
     }
 
     /**
-     * Generates a summary comment based on the score achieved in the quiz.
+     * Generates a summary comment based on the given score.
      *
-     * @param score The score achieved in percentage.
-     * @return A comment that provides feedback on the user's performance.
+     * @param score The score to generate a comment for.
+     * @return A comment on the performance.
      */
     public String generateComment(int score) {
         if (score >= 90) {
@@ -124,7 +169,7 @@ public class QuizResults {
     }
 
     /**
-     * Represents a single quiz result with topic, score, date, number of questions, time limit, and comment.
+     * Represents a single quiz result with various attributes.
      */
     public static class Result {
         private final String topic;
@@ -152,9 +197,18 @@ public class QuizResults {
 
         @Override
         public String toString() {
-            String timeLimit = (timeLimitInSeconds <= 0) ? "untimed" : timeLimitInSeconds + " seconds";
-            return String.format("Topic: %s, Score: %d%%, Questions Attempted: %d, Time Limit: %s, Date: %s",
+            String timeLimit;
+            if (timeLimitInSeconds <= 0) {
+                timeLimit = "untimed";
+            } else if (timeLimitInSeconds % 60 == 0) {
+                // Display in minutes if it is a multiple of 60
+                timeLimit = (timeLimitInSeconds / 60) + " minutes";
+            } else {
+                timeLimit = timeLimitInSeconds + " seconds";
+            }
+            return String.format("Topic: %s, Score: %d%%, Questions Limit: %d, Time Limit: %s, Date: %s",
                     topic, score, questionsAttempted, timeLimit, date);
         }
+
     }
 }

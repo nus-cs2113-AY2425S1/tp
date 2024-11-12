@@ -3,11 +3,6 @@ package seedu.javaninja;
 import java.util.List;
 import java.util.logging.Logger;
 
-/**
- * The `QuizManager` class is responsible for managing quiz sessions, results, and topics.
- * It acts as a central controller that coordinates interactions between the CLI, quiz sessions,
- * quiz results, and topic management.
- */
 public class QuizManager {
     private static final Logger logger = Logger.getLogger(QuizManager.class.getName());
     private QuizGenerator quizSession;
@@ -101,12 +96,12 @@ public class QuizManager {
         int questionLimit = quizSession.getQuestionLimit();
         int timeLimit = quizSession.getTimeLimitInSeconds();
 
-        if (quizResults.getAllResults().stream().noneMatch(result -> result.getTopic().equalsIgnoreCase(topicName)
-                && result.getScore() == completedQuizScore)) {
+        if (!quizSession.getQuiz().isExited()) {
             quizResults.addResult(topicName, completedQuizScore, questionLimit, timeLimit);
             String comment = quizResults.generateComment(completedQuizScore);
             cli.printMessage("Quiz finished. Your score is: " + completedQuizScore + "%");
             cli.printMessage("Comment: " + comment);
+            saveResults();
         }
     }
 
@@ -161,7 +156,7 @@ public class QuizManager {
     }
 
     public void saveResults() {
-        cli.printMessage("Saving functionality is not yet implemented.");
+        cli.printMessage("Results saved.");
     }
 
     public QuizGenerator getQuizSession() {
