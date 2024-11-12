@@ -298,9 +298,8 @@ exactly one field in each time.
     alphabetically.
 13. If the user enters an invalid sort option, the command returns an error and lists the internships by ID.
 
-#### Sequence Diagram:
-
-The following sequence diagram shows how the `SortCommand` is executed:<br>
+#### Sequence Diagram:<br>
+The following sequence diagram shows how the `SortCommand` is executed:
 
 ![](UML/SortCommand_Sequence_Diagram.png)
 
