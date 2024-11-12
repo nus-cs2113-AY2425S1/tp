@@ -5,6 +5,7 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import seedu.manager.enumeration.Priority;
 import seedu.manager.event.EventList;
+import seedu.manager.exception.InvalidCommandException;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 //@@author KuanHsienn
 /**
@@ -26,6 +28,8 @@ import java.util.logging.Logger;
  */
 public class FileParser {
     private final Logger logger;
+
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)+$");
 
     /**
      * Constructs a new FileParser.
@@ -137,6 +141,12 @@ public class FileParser {
             String participantName = fields[1].trim();
             String email = fields[2].trim();
             String eventName = fields[3].trim();
+
+            if (!isValidEmail(email)) {
+                logWarning("Invalid email format");
+                throw new InvalidCommandException("Invalid email format");
+            }
+
             boolean isPresent = getIsMarked(fields[4].trim());
             String isLoaded = events.addParticipantToEvent(participantName, email, isPresent, eventName);
             eventUnsuccessfulLoad(isLoaded);
@@ -193,6 +203,16 @@ public class FileParser {
         if (isLoaded.equalsIgnoreCase("")) {
             logWarning("Associated event not found, entry not loaded");
         }
+    }
+
+    /**
+     * Checks if the email address is valid.
+     *
+     * @param email the email address to validate.
+     * @return true if the email is valid, false otherwise.
+     */
+    private boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 
     /**
