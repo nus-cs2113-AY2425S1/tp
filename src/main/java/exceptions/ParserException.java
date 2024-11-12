@@ -43,7 +43,7 @@ public class ParserException extends BuffBuddyException {
      * @return A {@code ParserExceptions} with a message indicating that the provided date is invalid.
      */
     public static ParserException invalidDate(String date) {
-        return new ParserException("Invalid Date: " + date + ",Provide Date in format dd-MM-yyyy.");
+        return new ParserException("Invalid Date: " + date + ", Provide Date in format dd-MM-yyyy.");
     }
 
     /**
