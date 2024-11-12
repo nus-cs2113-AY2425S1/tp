@@ -8,11 +8,10 @@
   - [Features](#features)
     - [Help](#help)
     - [Set/Edit Budget](#setedit-budget)
-    - [Delete Budget](#delete-budget)
+    - [Delete Transaction](#delete-transaction)
     - [Add Transaction](#add-transaction)
     - [Edit Transaction](#edit-transaction)
-    - [Delete Transaction](#delete-transaction)
-      - [Example Usage](#example-usage)
+    - [Delete Transaction](#delete-transaction-1)
     - [List Transactions](#list-transactions)
       - [List by Type](#list-by-type)
       - [List by Date](#list-by-date)
@@ -594,7 +593,7 @@ Your current monthly balance is : $ 2000.00
 Your Financial List will be stored in to `data/FinancialList.txt`, while your budget is stored in `data/Budget.txt`.
 FinanceBuddy will automatically update the files whenever your list or budget been modified through FinanceBuddy.
 When you start the FinanceBuddy program, it will check if the `data/FinancialList.txt` and `data/Budget.txt` exist.
-If do, it'll try to load the transactions and budget in the file row by row.
+If they do exist, they will try to load the transactions and budget in the file row by row.
 Please do not modify these files manually, otherwise the transactions or the budget with incorrect format will not be loaded.
 
 <div style="page-break-after: always;"></div>
