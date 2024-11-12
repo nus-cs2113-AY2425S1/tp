@@ -171,7 +171,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Format:** `delete-transaction i/ INDEX`
 - **Example:**
   ```
-  delete-transaction i/ 7
+  delete-transaction i/ 1
   
   Example output:
   delete-transaction i/ 1
@@ -204,7 +204,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
     - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
 - **Example:**
   ```
-  delete-budget m/ 2024-11
+  delete-budget m/ 2025-02
   
   Example output:
   delete-budget m/ 2025-02
@@ -223,7 +223,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - The category must be in the category list, and the transaction must be an expense.
 - **Example:**
   ```
-  categorize i/ 6 c/ Food
+  categorize i/ 1 c/ Food
   
   Example output:
   categorize i/ 1 c/ Food
@@ -258,7 +258,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Format:** `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`
 - **Examples:**
   ```
-  view-expense c/ food
+  view-expense c/ Food
   view-expense f/ 2024-09-16 t/ 2024-09-19
   
   Example output:
@@ -275,8 +275,9 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Format:** `view-income [f/ DATE] [t/ DATE]`
 - **Example:**
   ```
-  view-income f/ 2024-09-16 t/ 2024-09-19
   view-income
+  view-income f/ 2024-09-16 t/ 2024-09-19
+  view-income f/ 2024-10-11
   
   Example output:
   view-income f/ 2024-10-11
@@ -285,12 +286,35 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   -------------------------------------
   ```
 
+#### Viewing of budget: `view-budget`
+- View the list of budgets, or view the budget progress of a certain month
+- **Format:** `view-budget [m/ MONTH]`
+- **Tips:**
+    - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
+    - Tracking of progress is only available for current or past months.
+- **Example:**
+  ```
+  view-budget 
+  view-budget m/ 2024-11
+  
+  Example output:
+  view-budget 
+  -------------------------------------
+  1. Budget for 2024-11: $120.00
+  -------------------------------------
+  
+  view-budget m/ 2024-11
+  ------------------------------------- 
+  Warning! You've already exceeded your budget for 2024-11. Spent: $1000.00, Budget: $120.00. 
+  -------------------------------------
+  ```
+  
 #### View transaction history: `history`
 - View transaction history with an optional start and end time. If left blank, full history will be shown.
 - **Format:** `history [f/ DATE] [t/ DATE]`
 - **Examples:**
   ```
-  history f/ 2024-09-16 t/ 2024-09-19
+  history f/ 2024-10-11 t/ 2024-12-01
   history
   
   Example output:
@@ -325,37 +349,14 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 - **Format:** `search k/ [keyword_1] [keyword_2] ... [keyword_n]`
 - **Example:**
   ```
-  search k/ school
-  search k/ school fee ABC
+  search k/ fruit
+  search k/ school fee
   
   Example output:
   search k/ fruit
   -------------------------------------
   Expense [amount=200.0, description=fruits, date=2024-11-12 1102, category=Food]
   Expense [amount=50.0, description=fruit basket, date=2024-11-12 1102, category=Food] 
-  -------------------------------------
-  ```
-  
-### Viewing of budget: `view-budget`
-- View the list of budgets, or view the budget progress of a certain month
-- **Format:** `view-budget [m/ MONTH]`
-- **Tips:**
-    - The month should be specified in the format `yyyy-MM` (e.g., `2024-11`).
-    - Tracking of progress is only available for current or past months.
-- **Example:**
-  ```
-  view-budget 
-  view-budget m/ 2024-11
-  
-  Example output:
-  view-budget 
-  -------------------------------------
-  1. Budget for 2024-11: $120.00
-  -------------------------------------
-  
-  view-budget m/ 2024-11
-  ------------------------------------- 
-  Warning! You've already exceeded your budget for 2024-11. Spent: $1000.00, Budget: $120.00. 
   -------------------------------------
   ```
 
@@ -441,16 +442,16 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 | `add-income`         |        `add-income [DESCRIPTION] a/ AMOUNT [d/ DATE]`         | `add-income Monthly allowance a/ 300 d/ 2024-09-19` |
 | `add-category`       |                    `add-category CATEGORY_NAME`               |                `add-category FnB`                   |
 | `add-budget`         |                `add-budget a/ AMOUNT m/ MONTH`                |           `add-budget a/ 1000 m/ 2024-12`           |
-| `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 7`              |
+| `delete-transaction` |                 `delete-transaction i/ INDEX`                 |              `delete-transaction i/ 1`              |
 | `delete-category`    |                `delete-category CATEGORY_NAME`                |                `delete-category FnB`                |
 | `delete-budget`      |                   `delete-budget m/ MONTH`                    |             `delete-budget m/ 2024-11`              |
-| `categorize`         |               `categorize i/ INDEX c/ CATEGORY`               |              `categorize i/ 6 c/ Food`              |
+| `categorize`         |               `categorize i/ INDEX c/ CATEGORY`               |              `categorize i/ 1 c/ Food`              |
 | `view-category`      |                        `view-category`                        |                   `view-category`                   |
-| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |   `view-expense c/ food f/ 2024-09-16 t/ 2024-09-19`|
+| `view-expense`       |       `view-expense [c/ CATEGORY] [f/ DATE] [t/ DATE]`        |   `view-expense c/ Food f/ 2024-09-16 t/ 2024-09-19`|
 | `view-income`        |               `view-income [f/ DATE] [t/ DATE]`               |      `view-income f/ 2024-09-16 t/ 2024-09-19`      |
-| `view-budget`        |                   `view-budget [m/ MONTH]`                    |       `view-budget` `view-budget m/ 2024-11`        |
+| `view-budget`        |                   `view-budget [m/ MONTH]`                    |       `view-budget` or `view-budget m/ 2024-11`     |
 | `history`            |                 `history [f/ DATE] [t/ DATE]`                 |        `history f/ 2024-09-16 t/ 2024-09-19`        |
 | `view-total`         |                         `view-total`                          |                    `view-total`                     |
-| `search`             |      `search k/ [keyword_1] [keyword_2] ... [keyword_n]`      |             `search k/ school fee ABC`              |
+| `search`             |      `search k/ [keyword_1] [keyword_2] ... [keyword_n]`      |             `search k/ school fee`                  |
 | `bye`                |                             `bye`                             |                        `bye`                        |
            
