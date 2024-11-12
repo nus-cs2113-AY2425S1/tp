@@ -10,7 +10,8 @@ import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.command.BudgetManager;
 import seedu.spendswift.command.Format;
-//import seedu.spendswift.command.ExpenseManager;
+import seedu.spendswift.command.ExpenseManager;
+
 
 
 
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 
 class ExpenseTest {
