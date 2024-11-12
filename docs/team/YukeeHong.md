@@ -38,7 +38,6 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
     * Covered both valid and invalid input scenarios
     * Implemented boundary value testing
     * Ensured proper error handling and messages
-    * Added tests for command parsing and execution
     * Verified proper state updates after command execution
 
 * Key Test Scenarios:
@@ -47,7 +46,6 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
     * Edge cases (empty strings, boundary values)
     * Error conditions
     * Command execution results
-
 
 #### Documentation
 * **User Guide**:
