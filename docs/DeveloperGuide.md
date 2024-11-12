@@ -6,6 +6,8 @@ A high-level overview of the system is shown in the Architecture Diagram below.
 
 ![Architecture Diagram](classdiagrams/Architecture%20Diagram.drawio.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Main Components  
 SpendSwift class is in charge of launching the program, 
 and initialising the components that does the main execution of the program.
