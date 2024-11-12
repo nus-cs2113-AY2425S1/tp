@@ -187,7 +187,8 @@ public class Parser {
                     insertIndex++;
                 }
                 sessionList.add(insertIndex, modifiedSession);
-                printModifiedSession(sessionList,sessionIndex + 1);
+                printModifiedSession(sessionList,sessionIndex, insertIndex);
+                updateSaveFile(user, sessionList, goalList, reminderList,  foodWaterList);
             } catch (Exception e) {
                 // Handle any exceptions and print error message.
                 System.out.println(e.getMessage());
