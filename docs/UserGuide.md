@@ -72,6 +72,7 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 >
 > For date parameters, dates should be supplied in the `dd-MM-yyyy` format. e.g. `11-11-2024`
 
+
 > ### Terminology
 >
 > **Exercise**: A weighted exercise defined by a name, number of reps and sets, weight and average calories burned.
@@ -81,6 +82,9 @@ Build personalized workout plans, log progress, and stay motivated with an intui
 > **Programme**: A programme is a collection of workout days.
 >
 > **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
+
+
+## Features
 
 ### 1. Add New Programme
 
@@ -239,7 +243,7 @@ Created new day: Cardio
 ==================================================
 ```
 
-_Note_: Advanced users can directly create a day with multiple exercises and add it to to an existing programme using the following command:
+_Note_: Advanced users can directly create a day with multiple exercises and add it to an existing programme using the following command:
 
 **Command**: `prog edit [/p PROG_INDEX] /ad DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES /e ...`
 
@@ -248,10 +252,8 @@ _Note_: Advanced users can directly create a day with multiple exercises and add
 ```
 ==================================================
 Created new day: Cardio
-1. Dumbbell_squat: 10 sets of 15 at 10kg | Burnt 100 kcal
-2. Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 kcal
-1. Dumbbell squat: 10 sets of 15 at 10kg | Burnt 100 cals
-2. Kettlebell swing: 10 sets of 15 at 10kg | Burnt 100 cals
+1. Dumbbell squat: 10 sets of 15 at 10kg | Burnt 100 kcal
+2. Kettlebell swing: 10 sets of 15 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -288,9 +290,8 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 
 ```
 ==================================================
-Created new exercise:
-Lateral Pulldown: 3 sets of 15 at 30kg | Burnt 100 cals
-Lateral_Pulldown: 3 sets of 15 at 30kg | Burnt 100 kcal
+Created new exercise: 
+Lateral Pulldown: 3 sets of 15 at 30kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -308,9 +309,8 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 
 ```
 ==================================================
-Deleted exercise 1:
-Kettlebell swing: 10 sets of 15 at 10kg | Burnt 100 cals
-Kettlebell_swing: 10 sets of 15 at 10kg | Burnt 100 kcal
+Deleted exercise 1: 
+Kettlebell swing: 10 sets of 15 at 10kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -336,8 +336,7 @@ If `PROG_INDEX` is not specified, the command defaults to editing the current ac
 
 ```
 ==================================================
-Updated exercise: Bicep_Curl: 3 sets of 15 at 8kg | Burnt 100 kcal
-Updated exercise: Bicep Curl: 3 sets of 15 at 8kg | Burnt 100 cals
+Updated exercise: Bicep Curl: 3 sets of 15 at 8kg | Burnt 100 kcal
 ==================================================
 ```
 
@@ -501,10 +500,8 @@ Completed On: 07-11-2024
 
 Day:
 Monday
-1. Bench_Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
 2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
 
 Total Calories burnt: 400 kcal
 
@@ -523,8 +520,7 @@ Completed On: 11-11-2024
 
 Day:
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 
 Total Calories burnt: 100 kcal
 
@@ -559,8 +555,7 @@ If `DATE` is not specified, the command defaults to the current date at the time
 ==================================================
 Day:
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 
 Total Calories burnt: 100 kcal
 
@@ -591,15 +586,12 @@ This feature displays a summary of workouts, meals, and water intake for the pas
 ==================================================
 Your weekly workout summary:
 Monday
-1. Bench_Press: 3 sets of 15 at 30kg | Burnt 200 kcal
+1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 kcal
 2. Squat: 3 sets of 15 at 50kg | Burnt 200 kcal
-1. Bench Press: 3 sets of 15 at 30kg | Burnt 200 cals
-2. Squat: 3 sets of 15 at 50kg | Burnt 200 cals
 Completed On: 07-11-2024
 
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 Completed On: 11-11-2024
 ==================================================
 ```
@@ -658,8 +650,7 @@ If `DATE` is not specified, the command defaults to the current date at the time
 Deleted record:
 Day:
 Wednesday
-1. Bicep_Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
-1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 cals
+1. Bicep Curl: 3 sets of 10 at 10kg | Burnt 100 kcal
 
 Total Calories burnt: 100 kcal
 
@@ -695,6 +686,8 @@ Bye. Hope to see you again soon!
 
 ---
 
+___
+
 <!-- @@author Bev-low -->
 
 ## Data Storage
@@ -721,6 +714,7 @@ BuffBuddy uses a JSON file to store user data, ensuring persistence across sessi
 
 ---
 
+<!-- @@author nirala-ts -->
 ## FAQ
 
 1. **How can I back up my data?**
@@ -752,7 +746,7 @@ BuffBuddy uses a JSON file to store user data, ensuring persistence across sessi
 ## Alias Table
 
 | Flag | Alias             |
-| ---- | ----------------- |
+|------|-------------------|
 | /p   | /prog, /programme |
 | /d   | /day              |
 | /t   | /date             |
@@ -773,12 +767,10 @@ BuffBuddy uses a JSON file to store user data, ensuring persistence across sessi
 
 ---
 
-<!-- @@author -->
-
 ## Command Summary
 
 | Command                                   | Format                                                                                              | Example                                                                   |
-| ----------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+|-------------------------------------------|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | **Add Programme**                         | `prog create PROG_NAME`                                                                             | `prog create Starter`                                                     |
 | **Add Detailed Programme**                | `prog create PROG_NAME /d DAY_NAME /e /n EXERCISE_NAME /s SETS /r REPS /w WEIGHT /c CALORIES`       | `prog create Starter /d Monday /e /n Bench Press /s 3 /r 12 /w 30 /c 100` |
 | **Set Active Programme**                  | `prog start [PROG_INDEX]`                                                                           | `prog start 1`                                                            |
@@ -806,3 +798,5 @@ BuffBuddy uses a JSON file to store user data, ensuring persistence across sessi
 | **Exit BuffBuddy**                        | `bye`                                                                                               | `bye`                                                                     |
 
 ---
+
+

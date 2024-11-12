@@ -1,0 +1,39 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class ProgCommandFactory {
+  - <u> COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  - prepareCreateCommand(String argumentString): CreateProgrammeCommand
+  - prepareViewCommand(String argumentString): ViewProgrammeCommand
+  - prepareStartCommand(String argumentString): StartProgrammeCommand
+  - prepareDeleteCommand(String argumentString): DeleteProgrammeCommand
+  - prepareLogCommand(String argumentString): LogProgrammeCommand
+  - prepareEditCommand(String argumentString): EditProgrammeCommand
+  - prepareEditExerciseCommand(FlagParser flagParser): EditExerciseProgrammeCommand
+  - prepareCreateExerciseCommand(FlagParser flagParser): CreateExerciseProgrammeCommand
+  - prepareDeleteExerciseCommand(FlagParser flagParser): DeleteExerciseProgrammeCommand
+  - prepareCreateDayCommand(FlagParser flagParser): CreateDayProgrammeCommand
+  - prepareDeleteDayCommand(FlagParser flagParser): DeleteDayProgrammeCommand
+  - parseDay(String dayString): Day
+  - parseExercise(String argumentString): Exercise
+  - parseExerciseUpdate(String argumentString): ExerciseUpdate
+}
+
+ProgCommandFactory "1          " --> "1" Command : "creates"
+
+ProgCommandFactory "1       " -->  "1" FlagParser : "creates"
+
+ProgCommandFactory ..> ParserUtils
+ProgCommandFactory ..> FlagDefinitions
+ProgCommandFactory ..> ProgrammeException
+ProgCommandFactory ..> FlagException
+
+ProgCommandFactory ..> Day
+ProgCommandFactory ..> Exercise
+ProgCommandFactory ..> ExerciseUpdate
+
+
+@enduml
