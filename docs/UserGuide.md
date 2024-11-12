@@ -80,6 +80,8 @@ Please choose 1 or 2 or exit :)
 ```
 The program provides two methods for uploading student data, allowing flexibility in how you input and manage information. Below are the options:
 
+It is **HIGHLY RECOMMENDED** to use file input for large datasets and manual input for minor adjustments.
+
 #### Manual Input
 By inputting `1`, users can directly enter student data into the program. This option is useful for adding individual records or performing quick updates without needing to upload an entire file.
 
