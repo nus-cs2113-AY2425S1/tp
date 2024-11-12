@@ -1,0 +1,21 @@
+@startuml
+actor User
+User -> QuizManager : addResult(topic, score, questionsAttempted, timeLimitInSeconds)
+activate QuizManager
+
+QuizManager -> QuizResults : addResult(topic, score, questionsAttempted, timeLimitInSeconds)
+activate QuizResults
+
+QuizResults -> QuizResults : generateComment(score)
+QuizResults -> Result : new Result(topic, score, date, questionsAttempted, timeLimitInSeconds, comment)
+activate Result
+deactivate Result
+
+QuizResults -> QuizResults : saveResults()
+QuizResults -> Storage : saveToFile(lines, false)
+activate Storage
+deactivate Storage
+
+deactivate QuizResults
+deactivate QuizManager
+@enduml

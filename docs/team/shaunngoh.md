@@ -6,7 +6,8 @@ JavaNinja is a desktop learning tool application designed for teaching programmi
 
 Below are my key contributions to the project:
 
-Here is also a link to the code I have contributed:
+Here is also a link to the code I have contributed: 
+
 
 [Link to Contribution Dashboard for Shaun Goh](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=shaunngoh&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=shaunngoh&tabRepo=AY2425S1-CS2113-W12-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
@@ -19,7 +20,8 @@ Here is also a link to the code I have contributed:
     - Created foundational classes: `Parser`, `Cli`, `JavaNinja`, `QuizGenerator`, `QuizManager`, `TopicManager`, `Topic`, `Question`, and `Quiz`.
     - Each class was designed to adhere to the **Single Responsibility Principle (SRP)**, ensuring that each class has a well-defined purpose and focuses on a single aspect of the application’s functionality. This makes the codebase modular, maintainable, and extensible for future features.
     - Designed an object-oriented structure where each quiz session takes in a topic containing various question types, supporting modularity and extensibility.
-        - Eventually allows for different types of generated quizzes, such as quizzes of multiple topics, timed quizzes, or untimed quizzes.
+    - Eventually allows for different types of generated quizzes, such as quizzes of multiple topics, timed quizzes, or untimed quizzes.
+
 
 ---
 
