@@ -210,6 +210,24 @@ The implementation of these features is encapsulated within the `TransactionList
 
 ##### **a. Class-Level Design**
 
+**`Transaction` Class:**
+
+- **Responsibilities:**
+  - Represents a single car rental transaction, encapsulating details like transaction ID, car license plate, customer, rental duration, start and end dates, and completion status.
+  - Provides methods to manipulate transaction data, including setting a transaction ID, marking the transaction as completed, and generating string representations for display and file storage.
+
+- **Key Methods:**
+  - `isValidTxId(String transactionId)`: Validates the format of a transaction ID.
+  - `setTransactionId(String transactionId)`: Sets a unique transaction ID.
+  - `setCompleted(boolean completed)`: Marks the transaction as completed or incomplete.
+  - `toString()`: Provides a formatted string for displaying transaction details.
+  - `toFileString()`: Outputs a file-friendly string for persisting transaction data.
+
+- **Design Considerations:**
+  - **Data Integrity**: Ensures that the end date is calculated automatically based on the start date and duration, minimizing the risk of manual input errors.
+  - **Encapsulation**: Private fields with controlled access ensure data consistency, allowing only authorized modifications.
+  - **Readability**: The `formatDuration()` and `toString()` methods provide user-friendly representations of transaction data, making it easy to read and understand both on-screen and in storage.
+
 **`TransactionList` Class:**
 
 - **Responsibilities:**
