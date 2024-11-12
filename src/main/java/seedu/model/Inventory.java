@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents an inventory that holds fields, field types, and records.
+ * The inventory allows adding fields, setting their types, and managing records.
+ */
 public class Inventory {
     private List<String> fields;
     private Map<String, String> fieldTypes; // Map field <-> type
@@ -17,6 +21,13 @@ public class Inventory {
         this.records = new ArrayList<>();
     }
 
+    /**
+     * Constructs an inventory with specified fields, field types, and records.
+     *
+     * @param fields A list of field names in the inventory.
+     * @param fieldTypes A map associating field names to their types.
+     * @param records A list of records, where each record is a map of field names to their values.
+     */
     public Inventory(List<String> fields, Map<String, String> fieldTypes, List<Map<String, String>> records) {
         this.fields = fields;
         this.fieldTypes = fieldTypes;

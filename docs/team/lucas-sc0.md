@@ -22,9 +22,9 @@ and delete -a. Fixed inverted values being displayed in CSV due to hashmap imple
 
 2. Exception Handling and Assertions:
 * Custom exception were build on-top of existing code to handle invalid inputs: InventraInvalidRecordCountException
-* Created assertions for defensive programming 
-* Configured non-verbose logging for add command to ensure de-cluttering of UI 
-* Addressed bugs highlighted in PE-D 
+* Created assertions for defensive programming
+* Configured non-verbose logging for add command to ensure de-cluttering of UI
+* Addressed bugs highlighted in PE-D
 
 3. JUnit Test Cases
 * 44 AddCommand test cases which achieved:

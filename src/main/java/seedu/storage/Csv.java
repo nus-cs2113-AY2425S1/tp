@@ -15,17 +15,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Handles reading from and writing to a CSV file for the inventory management system.
+ * Supports operations such as loading data into an Inventory object, updating headers,
+ * appending records, and saving changes back to the CSV file.
+ */
 public class Csv {
 
     private final String csvFilePath;
 
+    /**
+     * Constructs a Csv instance with the specified CSV file path.
+     * Ensures that the parent directory and the file exist.
+     *
+     * @param relativeCsvFilePath the relative path to the CSV file
+     */
     public Csv(String relativeCsvFilePath) {
         this.csvFilePath = relativeCsvFilePath;
         ensureParentDirectoriesExist(); // Ensure the directory exists
         ensureFileExists();
     }
 
-    // Ensure the directory exists
     private void ensureParentDirectoriesExist() {
         File file = new File(csvFilePath);
         File parentDir = file.getParentFile(); // Get the parent directory
@@ -49,6 +59,12 @@ public class Csv {
         }
     }
 
+    /**
+     * Validates headers to ensure they meet length requirements when loading data into the inventory.
+     *
+     * @param inventory the Inventory object with fields to validate
+     * @throws InventraException if any header exceeds 20 characters
+     */
     private void validateHeadersOnLoad(Inventory inventory) throws InventraException {
         for (String field : inventory.getFields()) {
             if (field.length() > 20) {
@@ -61,6 +77,11 @@ public class Csv {
         }
     }
 
+    /**
+     * Updates the CSV file after a deletion operation by rewriting all records.
+     *
+     * @param inventory the Inventory object containing current fields and records
+     */
     public void updateCsvAfterDeletion(Inventory inventory) {
         List<String> fields = inventory.getFields();
         Map<String, String> fieldTypes = inventory.getFieldTypes();
@@ -99,7 +120,11 @@ public class Csv {
         }
     }
 
-    // Update the CSV file headers and keep the existing data
+    /**
+     * Updates the CSV file headers and retains existing records.
+     *
+     * @param inventory the Inventory object containing updated fields and types
+     */
     public void updateCsvHeaders(Inventory inventory) {
         List<String> fields = inventory.getFields();
         Map<String, String> fieldTypes = inventory.getFieldTypes();
@@ -134,7 +159,12 @@ public class Csv {
         }
     }
 
-    // Append a record to the CSV file considering the field order
+    /**
+     * Appends a single record to the CSV file, maintaining the field order.
+     *
+     * @param record    the record to append, with field-value pairs
+     * @param inventory the Inventory object containing the current field order
+     */
     public void appendRecord(Map<String, String> record, Inventory inventory) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(csvFilePath, true))) {
             List<String> values = new ArrayList<>();
@@ -148,7 +178,11 @@ public class Csv {
         }
     }
 
-    // Load records from the CSV file into the Inventory
+    /**
+     * Loads records from the CSV file into the given Inventory object.
+     *
+     * @param inventory the Inventory object to populate with data from the CSV file
+     */
     public void loadInventoryFromCsv(Inventory inventory) {
         File file = new File(csvFilePath);
         if (file.length() == 0) {
@@ -222,6 +256,11 @@ public class Csv {
         }
     }
 
+    /**
+     * Updates the entire CSV file with the latest inventory fields, field types, and records.
+     *
+     * @param inventory the Inventory object containing the latest data to save
+     */
     public void updateCsv(Inventory inventory) {
         List<String> fields = inventory.getFields();
         Map<String, String> fieldTypes = inventory.getFieldTypes();
