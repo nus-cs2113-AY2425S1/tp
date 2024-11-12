@@ -60,8 +60,8 @@ public class GraphPointsTest {
     @Test
     public void testEmptyExerciseSessions(){
         GraphPoints.graphExercisePoints(Exercise.PULL_UP, sessionList);
-        assertEquals(
-        "Here's your point progression for PULL_UP over your training sessions:" + System.lineSeparator()
+        assertEquals("Here's your point progression for PULL_UP over your training sessions:"
+                + System.lineSeparator()
                 + "Session Description | Date             | Points" + System.lineSeparator()
                 + "--------------------|------------------|" + System.lineSeparator()
                 + "session1            | " + testDatetimeOutput1 + " |  (0)" + System.lineSeparator()
