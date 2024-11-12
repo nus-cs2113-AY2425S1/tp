@@ -103,7 +103,38 @@ class StorageTest {
     }
 
     @Test
-    void testCreateSaveableFromString_validData() throws InvalidSaveDataException {
+    void testLoadSaveFileWithInvalidData() throws IOException {
+        // Write invalid data to the save file to simulate a corrupted file
+        try (FileWriter writer = new FileWriter(TEMP_SAVE_FILE_PATH)) {
+            writer.write("InvalidData|Random|Data\n");
+        }
+
+        ArrayList<Saveable> loadList = new ArrayList<>();
+
+        // Call the method and expect an exception or log
+        Storage.loadSaveFile(loadList);
+
+        // Verify that no items were loaded and loading stopped
+        assertEquals(0, loadList.size(), "No items should be loaded when invalid data is encountered.");
+    }
+
+    @Test
+    void testLoadSaveFileFileNotFound() {
+        // Delete the save file to simulate a FileNotFoundException
+        File tempSaveFile = Storage.getSaveFile();
+        tempSaveFile.delete();
+
+        ArrayList<Saveable> loadList = new ArrayList<>();
+
+        // Call the method and check for graceful handling (no items added to loadList)
+        Storage.loadSaveFile(loadList);
+
+        // Verify that no items were loaded
+        assertEquals(0, loadList.size(), "No items should be loaded when file is not found.");
+    }
+
+    @Test
+    void testCreateSaveableFromStringValidData() throws InvalidSaveDataException {
         // Check each Saveable type with valid data
         String sessionString = sessionList.get(0).toSaveString();
         Saveable session = Storage.createSaveableFromString(sessionString);
@@ -127,7 +158,7 @@ class StorageTest {
     }
 
     @Test
-    void testCreateSaveableFromString_invalidData() {
+    void testCreateSaveableFromStringInvalidData() {
         // Test with invalid data to trigger exception
         String invalidString = "InvalidData|Random|Data";
         assertThrows(InvalidSaveDataException.class, () -> Storage.createSaveableFromString(invalidString),

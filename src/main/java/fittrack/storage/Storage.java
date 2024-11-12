@@ -36,6 +36,10 @@ public class Storage {
         saveFile = new File(saveFilePath);
     }
 
+    public static File getSaveFile() {
+        return saveFile;
+    }
+
     /**
      * Initializes the save file by creating the necessary directories and file if they do not exist.
      */
