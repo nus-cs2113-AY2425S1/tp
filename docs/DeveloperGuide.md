@@ -252,7 +252,7 @@ to finally modifying and saving the recipe in the RecipeList:
 
 <!-- @@author -->
 <div style="page-break-after: always;"></div>
-
+<!-- @@author gskang-22 -->
 #### 3. `AddIngredientCommand` Class
 - The `AddIngredientCommand` class is responsible for adding a new ingredient to `IngredientList`
 - When executed, it takes an `Ingredient` object, adds it to the `IngredientList`, saves the updated list to the storage, and 
@@ -273,7 +273,7 @@ storage, and informs the user of the successful deletion or an error if the reci
 its name
 - Upon execution, it removes the specified `Ingredient`, updates the `Ingredientlist` in the storage, and notifies 
 the user about the deletion
-
+<!-- @@author -->
 #### 7. `FindCommand` Class
 - The `FindCommand` class is used to find recipes based on user's query and options
 - When executed, a list of matching recipes extracted from `RecipeList` will be printed out using the 
@@ -288,7 +288,7 @@ the user about the deletion
 - If no matching ingredient is found, the `printEmptyFindIngred()` of `Ui` method is called instead
 
 <!-- @@author -->
-
+<!-- @@author gskang-22 -->
 #### 9. `HelpCommand` Class
 - The `HelpCommand` class is designed to provide the user with a list of available commands and detailed instructions 
 on how to use them
@@ -302,7 +302,7 @@ on how to use them
 - The `ListIngredientCommand` class is responsible for listing all the ingredients currently stored in the 
 `IngredientList`
 - When executed, it retrieves the list of ingredients and displays them to the user through the UI
-
+<!-- @@author -->
 <!-- @@author 3CCLY -->
 
 #### 12. `RandomCommand` Class
