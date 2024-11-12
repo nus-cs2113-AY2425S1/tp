@@ -24,9 +24,9 @@
    - [View total amount in account: `view-total`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#view-total-amount-in-account-view-total)
    - [Searching: `search`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#searching-search)
    - [Leave the app: `bye`](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#leave-the-app-bye)
-
-4. [FAQs](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#faqs)
-5. [Command Summary](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#command-summary)
+4. [JSON Editing](#json-editing-)
+5. [FAQs](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#faqs)
+6. [Command Summary](https://ay2425s1-cs2113-w10-4.github.io/tp/UserGuide.html#command-summary)
 
 ---
 ## Introduction
@@ -62,6 +62,9 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
 >- Any updating action (e.g. deleting, re-categorizing...) will be performed on the whole transaction list, not the sole expense/ income list
 >- The upper limit for each transaction is 1000000000 (1 billion)
 
+> **&#9432;** **NOTES ON THE BUDGET:**
+>- The upper limit for each budget is 1000000000 (1 billion)
+
 > **&#9432;** **NOTES ON SAVE AND LOAD FUNCTIONALITY (FOR ADVANCED USERS)**
 >- The Save & Load Functionality is implemented by serialising TransactionList, CategoryList and budgets and save as JSON files in the local storage
 >- It is not advisable to edit JSON files directly as a corrupted JSON file may lead to unwanted effects
@@ -83,7 +86,7 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
     - If the category is not entered, the program will prompt you to enter a category or to leave it empty
     - You may either fill in a category already in the category list or create a new category if it is not present in the list
     - If the date is not entered, the system will take the current day.
-- **Examples:** Note that the follow-up question will be printed on a line
+- **Examples:** Note that the follow-up question and the added notification will be printed on a line
   ```
   add-expense ChiCha a/ 17 d/ 2024-07-09 c/ FnB
   add-expense Amusement park a/ 52 d/ 2024-08-09
@@ -102,7 +105,8 @@ uNivUSaver is a CLI-based software that helps students to develop a better habit
   yes
   New category 'FnB' created.
   -------------------------------------
-  Transaction added: Expense [amount=6.0, description=, date=2024-09-09 0000, category=FnB]
+  Transaction added:
+  Expense [amount=6.0, description=, date=2024-09-09 0000, category=FnB]
   Your current transaction list:
   1. Expense [amount=6.0, description=, date=2024-09-09 0000, category=FnB]
     -------------------------------------
