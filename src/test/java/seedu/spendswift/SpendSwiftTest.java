@@ -350,7 +350,7 @@ class BudgetManagerTest {
     }
 
       
-   @Test
+    @Test
    void testViewBudgetsWithNoBudgetsSet() {
         BudgetManager budgetManager = new BudgetManager();
         TrackerData trackerData = new TrackerData();
