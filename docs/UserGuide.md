@@ -1,5 +1,7 @@
 # User Guide
 
+<!-- @@author sukkaito -->
+
 ----------------------------------
 ## Table of Content
 - [Introduction](#introduction)
@@ -25,6 +27,8 @@
 - [YMFC\.Command Summary](#ymfccommand-summary)
 
 ----------------------------------
+
+<!-- @@author -->
 
 ## Introduction
 
@@ -196,6 +200,8 @@ Entire command **MUST** be in **lowercase**
 
 <!-- @@author -->
 
+<!-- @@author sukkaito -->
+
 ### Searching for specific Recipes
 
 Format: `find [OPTIONS/]KEYWORDS`
@@ -241,6 +247,8 @@ ________________________________________________________________________________
 Total: 1 recipes found!
 __________________________________________________________________________________
 ````
+
+<!-- @@author -->
 
 <!-- @@author 3CCLY -->
 

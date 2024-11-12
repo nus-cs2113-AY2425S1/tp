@@ -286,11 +286,16 @@ its name
 - Upon execution, it removes the specified `Ingredient`, updates the `Ingredientlist` in the storage, and notifies 
 the user about the deletion
 <!-- @@author -->
+
+<!-- @@author sukkaito -->
+
 #### 7. `FindCommand` Class
 - The `FindCommand` class is used to find recipes based on user's query and options
 - When executed, a list of matching recipes extracted from `RecipeList` will be printed out using the 
 `printFind()` method from the `Ui` class
 - If no matching recipe is found, method `printEmptyFind()` will be used instead
+
+<!-- @@author -->
 
 <!-- @@author seanngja -->
 
@@ -348,6 +353,8 @@ or in ascending numerical order of time taken
 
 <!-- @@author -->
 
+<!-- @@author sukkaito -->
+
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
 `parseCommand()` in order to process input commands.
@@ -359,6 +366,8 @@ and returns the appropriate command object containing the user's input parameter
 Note: The `getXYZCommand(args)` method is used for commands that further need to extract parameters from the user's input
 beyond just the command name, such as for the `sort` command which needs to extract from the input, the type of sort that
 is requested. In the example of the sort command, the `getXYZCommand(args)` method is called `getSortCommand()`.
+
+<!-- @@author -->
 
 <!-- @@author KSanjith -->
 

@@ -22,7 +22,7 @@ Given below are my contributions to the project.
 * **New Feature**: `YMFCException` class and some of its dependencies.
     * What it does: This class is used to handle exceptions specific to YMFC.
     * Justification: This feature is necessary since using built-in Java's `Exception` class can be confusing during development, and using custom exceptions would greatly enhance the readability of the source code.
-    * Credits: Idea from implementing my [iP](https://github.com/Sukkaito/ip) custom exceptions.
+    * Credits: Idea from implementing my [iP](https://github.com/Sukkaito/ip) custom exceptions and exception handling.
 
 * **New Feature**: `find` command and the `FindCommand` class
     * What it does: This class holds the arguments and options of the `find` command from user's input to find recipes based on provided options.
@@ -33,20 +33,29 @@ Given below are my contributions to the project.
 * **Code contributed**: [RepoSense link](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=Sukkaito&tabRepo=AY2425S1-CS2113-W13-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
 * **Enhancements to existing features**:
-    * Bug fixing (Pull requests [\#116](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/116), [\#120](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/120))
+    * Bug fixing (Pull requests [\#116](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/116), [\#120](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/120), [\#127](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/127), [\#137](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/137), [\#223](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/223), [\#230](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/230))
     * Tests for `parseCommand()` function of `Parser` class (Pull request [\#53](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/53)), `find` command (Pull request [\#71](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/71))
+    * Increase test coverage from 61% to 93% of lines (Pull requests [\#143](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/143), [\#145](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/145))
     * Other minor additions and modifications and code cleanup (details in RepoSense link above)
 
 * **Documentation**:
     * User Guide:
-        * Added documentation for features `find`, table of content and some document formating [\#99](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/99)
+        * Table of content (Pull request [\#99](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/99))
+        * Added documentation for features `find`, table of content and some document formating (Pull request [\#99](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/99))
+        * Miscellaneous patches (Pull request [\#139](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/139), [\#140](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/140), [\#228](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/228))
+        * Finalize UG (Pull request [\#243](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/243))
     * Developer Guide:
         * Section `Parser` class (Pull request [\#97](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/97))
         * Section `Recipe` and `RecipeList` diagrams (Pull request [\#110](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/110))
+        * Section `FindCommand` class (Pull request [\#152](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/152))
         * Directory cleanup (Pull request [\#102](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/102))
+        * Miscellaneous patches (Pull request [\#156](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/156), [\#159](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/159), [\#160](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/160), [\#161](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/161), [\#221](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/221))
+        * Finalize DG (Pull request [\#242](https://github.com/AY2425S1-CS2113-W13-1/tp/pull/242))
 
 * **Contributions to team-based tasks**:
     * Standardize issues, bug reports, commit messages, PRs format,...
+    * Managing issues and PRs
+    * Project managing release `v2.1` on GitHub
 
 * **Review/mentoring contributions**: 
     * List of PRs reviewed: [Link](https://github.com/AY2425S1-CS2113-W13-1/tp/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3Asukkaito)
