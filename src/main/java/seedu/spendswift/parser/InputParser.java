@@ -3,7 +3,20 @@ package seedu.spendswift.parser;
 
 import seedu.spendswift.ui.ErrorMessage;
 
+/**
+ * Parses user input strings for components such as names, categories, amounts, and indices.
+ * Provides methods for extracting specific parts of an input based on predefined prefixes.
+ */
 public class InputParser {
+
+    /**
+     * Extracts a component from the input string based on the given prefix.
+     * Component ends where another prefix starts or at the end of the string.
+     *
+     * @param input The input string to parse.
+     * @param prefix The prefix indicating the start of the component.
+     * @return The extracted component as a string, or an empty string.
+     */
     private String parseComponent(String input, String prefix) {
         int startIndex = input.indexOf(prefix);
         if (startIndex == -1) {
@@ -34,28 +47,22 @@ public class InputParser {
         return input.substring(startIndex, endIndex).trim();
     }
 
-    public String parseHomeCurrency(String input) throws IllegalArgumentException {
-        return parseCurrency(input, "hcur/");
-    }
 
-    public String parseOriginalCurrency(String input) throws IllegalArgumentException {
-        return parseCurrency(input, "ocur/");
-    }
 
-    private String parseCurrency(String input, String currencyPrefix) throws IllegalArgumentException {
-        // Ensure the currency code follows immediately after the prefix and is exactly three letters long
-        if (!input.matches(".*" + currencyPrefix + "[a-zA-Z]{3}(\\b|\\s|$).*")) {
-            throw new IllegalArgumentException("Error: A 3-letter currency code directly following '" +
-                currencyPrefix + "' is needed.");
+    /**
+     * Parses an indexed component from teh string input using "e/" prefix.
+     *
+     * @param input The input string to parse.
+     * @return The zero-based index as an integer, or -1 if parsing failed.
+     */
+    public int parseIndex(String input) {
+        String indexStr = parseComponent(input, "e/");
+        try {
+            return Integer.parseInt(indexStr) - 1;
+        } catch (NumberFormatException e) {
+            return -1;
+
         }
-
-        String currency = parseComponent(input, currencyPrefix);
-        if (currency.isEmpty() || !currency.matches("[a-zA-Z]{3}")) {
-            throw new IllegalArgumentException("Error: A valid 3-letter currency code is needed after '" +
-                currencyPrefix + "'. Found: '" + currency + "'");
-        }
-
-        return currency.toUpperCase();
     }
 
     public String parseName(String input) {
@@ -65,35 +72,15 @@ public class InputParser {
     public String parseCategory(String input) {
         return parseComponent(input, "c/");
     }
+
     /**
-     * Parses the limit from the input string.
+     * Parses a limit component from teh string input using "l/" prefix.
      *
-     * @param input The input string containing the limit component prefixed with "l/".
-     * @return The parsed limit as a double, capped at 1 quadrillion if exceeded.
-     *         Returns Double.NaN if the limit is invalid or not found.
+     * @param input The input string with limit to parse.
+     * @return The limit as a double.
      */
-    public static double parseLimit(String input) {
-        // Define the prefix to look for
-        final String PREFIX = "l/";
-        // Define the maximum allowed limit as 1 quadrillion without underscores
-        final double QUADRILLION = 1000000000000000.0; // 1,000,000,000,000,000
-
-        // Check if the input is valid and contains the prefix
-        if (input == null || !input.contains(PREFIX)) {
-            System.err.println("No limit prefix 'l/' found in the input.");
-            return Double.NaN;
-        }
-
-        // Split the input based on the prefix
-        String[] parts = input.split(PREFIX);
-        if (parts.length < 2) {
-            System.err.println("Limit prefix found but no value specified.");
-            return Double.NaN;
-        }
-
-        // Extract the substring after the prefix
-        String limitStr = parts[1].split(" ")[0].trim();
-
+    public double parseLimit(String input) {
+        String limitStr = parseComponent(input, "l/");
         try {
             // Parse the limit string into double
             double limit = Double.parseDouble(limitStr);
@@ -113,6 +100,16 @@ public class InputParser {
             return Double.NaN;
         }
     }
+
+
+
+    /**
+     * Parses an amount component from the input using "a/" prefix..
+     *
+     * @param input The input string containing the amount.
+     * @return The extracted amount as a double.
+     */
+
     public double parseAmount(String input) {
         String amountStr = parseComponent(input, "a/");
         try {
@@ -123,13 +120,17 @@ public class InputParser {
         }
     }
 
-    public int parseIndex(String input) {
-        String indexStr = parseComponent(input, "e/");
-        try {
-            return Integer.parseInt(indexStr) - 1;
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-}
 
+    /**
+     * Parses a name component from the input using "n/" prefix..
+     *
+     * @param input The input string containing the name.
+     * @return The extracted name as a string.
+     */
+    public String parseName(String input) {
+        return parseComponent(input, "n/");
+    }
+
+
+
+    
