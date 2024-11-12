@@ -74,11 +74,14 @@ List of commands:
     - Categories include: SALARY, INVESTMENT, GIFT, OTHER, UNCATEGORIZED
 4. edit [INDEX] [/des DESCRIPTION] [/a AMOUNT] [/d DATE] [/c CATEGORY]
    - Edits the transaction at the specified INDEX with optional fields
-     - If no INDEX is specified, last amended transaction will be edited by default
+     - If no INDEX is specified, last amended transaction will be edited
+       by default
 5. delete [INDEX] [/to END_INDEX]
    - Deletes the transaction at the specified INDEX
-    - If no INDEX is specified, last last amended transaction will be deleted by default
-    - If /to flag is included: Deletes transactions INDEX to END_INDEX inclusive
+    - If no INDEX is specified, last last amended transaction will be deleted 
+      by default
+    - If /to flag is included: Deletes transactions INDEX to END_INDEX 
+      inclusive
     - Bonus: delete all - deletes all transactions
 6. budget AMOUNT
    - Set/modify your monthly budget
@@ -506,6 +509,7 @@ Please do not modify these files manually, otherwise the transactions or the bud
 
 
 ## Command Summary
+
 | **Command**                                                           | **Description**                                                                                 |
 |-----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
 | `list [income \| expense] [/from START_DATE] [/to END_DATE]`          | Shows logged transactions, highlights categories, monthly budget, and balance                   |
