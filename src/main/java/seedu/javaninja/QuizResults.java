@@ -196,12 +196,29 @@ public class QuizResults {
             this.comment = comment;
         }
 
-        public String getTopic() { return topic; }
-        public int getScore() { return score; }
-        public Date getDate() { return date; }
-        public int getQuestionsAttempted() { return questionsAttempted; }
-        public int getTimeLimitInSeconds() { return timeLimitInSeconds; }
-        public String getComment() { return comment; }
+        public String getTopic() {
+            return topic;
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public Date getDate() {
+            return date;
+        }
+
+        public int getQuestionsAttempted() {
+            return questionsAttempted;
+        }
+
+        public int getTimeLimitInSeconds() {
+            return timeLimitInSeconds;
+        }
+
+        public String getComment() {
+            return comment;
+        }
 
         @Override
         public String toString() {
