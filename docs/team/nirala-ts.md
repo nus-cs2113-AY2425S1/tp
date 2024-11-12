@@ -73,10 +73,11 @@ In addition to the features I also
 
 ### Contributions to the Developer Guide (DG)
 
-**Sections Contributed**: Ui Component, Parser Component, Create Programme Implementation, User Stories Table
+**Sections Contributed**: Ui Component, Parser Component, Common Component, Create Programme Implementation, User Stories Table
 
 **UML Diagrams**:
 - **UI Component**: Showcased the structure and interactions within the `Ui` component, detailing its methods and relationships with other components.
+- **Common Component**: Provided UML diagram for the `Utils` class in `common` package.
 - **Parser Component**: Provided a visual overview of the Parser component, which includes the following classes:
   - Parser: The main class responsible for handling the parsing of user commands. 
   - FlagParser: Manages the interpretation and validation of flags in commands, enabling flexibility and alias support. 
@@ -94,6 +95,7 @@ In addition to the features I also
   - [PR #287 - standardise UG format, add missing features](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/287)
   - [PR #290 - add aliases, update flag definitions ](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/290)
   - [PR #291 - add FAQ, update tables](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/291)
+  - [PR #303 - Update UG](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/303)
 
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:

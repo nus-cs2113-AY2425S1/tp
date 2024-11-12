@@ -318,7 +318,7 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 
 ![Class_Diagram_for_Common_Component](images/commonUtilsComponent.png)
 
-`common` package contains utility classes that are used across the multiple packages.
+`common` package contains `Utils` class that is used across the multiple packages for validation and formatting.
 
 ---
 
