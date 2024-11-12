@@ -56,16 +56,14 @@ I wrote for all JUnit tests applicable to the methods I added within these class
 
 Documented the following features: Data initialisation, Add Reminder, List Reminders, List Upcoming Reminders, Delete Reminder.
 
-For each feature, I detailed its Purpose, Format, Constraints, and included Examples of its Expected Output.
+For each feature, I detailed its purpose, format, constraints, and included examples of its expected output.
 
 ### Developer Guide:
 
-Documented the Project Architecture with an Architecture Diagram and Overall Class Diagram.
 
-Documented Set User, Add Training Session, Modify Training Session, Delete Training Session, List Training Session
-and View Training Session, with a sequence diagram for each.
-
-Wrote the User Stories to give better perspective on project requirements and direction
+- Documented the Reminder class, designing sequence diagrams for Add Reminder, List Reminders, List Upcoming Reminders, 
+and Delete Reminder functionality.
+- Designed the Class diagram used to support the explanation of Storage functions.
 
 ## Project Management:
 ### Contributions to team-based tasks

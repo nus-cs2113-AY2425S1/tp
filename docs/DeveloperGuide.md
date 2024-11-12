@@ -59,6 +59,8 @@ as `TrainingSession`, `Goal`, `Reminder`, `FoodEntry`, and `WaterEntry`. The dat
 `data/saveFile.txt`, with functionality to initialize the save file, load data from it, and update the file with the 
 latest information. Below is a breakdown of the methods used for these tasks:
 
+![Class_Storage.png](Images/Class_Storage.png)
+
 #### 1. Initializing the Save File
 The `initialiseSaveFile()` method ensures that the necessary directory and save file exist. If the "data" directory or 
 "saveFile.txt" file is not found, the method attempts to create them. If successful, a message is logged confirming the 
@@ -123,7 +125,7 @@ application's file handling processes.
 This system provides an efficient and reliable way to persist and retrieve application data, ensuring data integrity and
 ease of maintenance.
 
-[//]: # (![Class_Storage.png]&#40;Images/Class_Storage.png&#41;)
+
 
 ### Set User
 When the application starts up, it will prompt the user for their gender and age via the Set User feature.
@@ -236,13 +238,25 @@ Additionally, the state diagram below shows the end state of the `editExercise` 
 ![Class_TrainingSessionEditState.png](Images/Class_TrainingSessionEditState.png)
 
 ### Add Reminder
-When a user inputs the command to add a new reminder (`remind <description> <deadline>`), a new instance of 
-the Reminder class is created. This Reminder object is initialized via the constructor function with the provided 
-description, deadline, and user information. This object is then added to the main reminder list passed from the main 
-`Fittrack` class. After addition, `printReminderDescription()` is invoked to display details of the new reminder to 
-confirm successful addition. The `updateSaveFile` function is then called within the `Parser` class, using the local 
-`toSaveFile` helper method to write a formatted string to the SaveFile Document - for information permanence between 
-user sessions.
+When a user inputs the command to add a new reminder (`remind <description> <deadline>`), the process begins by parsing 
+the input to separate the `description` and `deadline`. The description and deadline are split using the `//` delimiter.
+If the input does not adhere to the expected format an error message is displayed, and the process is halted. Both the 
+description and deadline are then validated; if either is empty or invalid, an exception is thrown, and an appropriate 
+error message is shown to the user.
+
+Once the input is validated, the deadline is parsed into a `LocalDateTime` object using the parseDeadline method. If 
+the deadline format is incorrect, a `DateTimeParseException` is caught, and an error message is displayed. 
+
+Following successful validation, a new `Reminder` object is created using the validated information and constructor of the Reminder class.
+
+The newly created Reminder object is then added to the `reminderList`, which is maintained by the `:FitTrack` class. 
+After the reminder is added, the `printAddedReminder()` method is invoked to display the reminder’s details to the 
+user. Finally, the `updateSaveFile` method is called within the Parser class, which utilizes the `toSaveFile` helper 
+method to format and write the updated reminder list to the `SaveFile` Document, ensuring the persistence of reminder 
+data between user sessions.
+
+![Sequence_addReminder.png](Images/Sequence_addReminder.png)
+
 
 ### List Reminder
 The "view reminders" command triggers a sequence that iterates through the main reminder list. For each reminder, 
@@ -250,23 +264,42 @@ The "view reminders" command triggers a sequence that iterates through the main 
 the system outputs a message indicating no reminders are available. This functionality lets users view all saved 
 reminders at a glance. 
 
+When Parser detects the `list-remind` command, it calls `printReminderList()` followed by `printReminderCount()`.
+`printSessionList()` first checks if reminderList is empty. If reminderList is empty, it prints a message saying so.
+If reminderList is not empty, it will be iterated through.
+For each Reminder in reminderList, `printReminderDescription()` is called, displaying the description and deadline of 
+each reminder as String. The `Reminder` objects' index will be printed, followed by the description and deadline before
+iterating to the next index. When all the Reminders have been printed, `Ui` calls `printSessionCount()` to display the total number of
+Reminders in `reminderList`.
+
+![Sequence_ListReminders.png](Images/Sequence_ListReminders.png)
+
 ### List Upcoming Reminders
 The "list upcoming reminders" command (`list-remind`) invokes the 
 `findUpcomingReminders(ArrayList<Reminder> mainReminderList)` helper method. This method iterates through 
-`remainderList`, checking if each reminder’s deadline is within one week from the current date. For reminders that 
-match this condition, they are added to an `upcomingReminderList`. Finally, for each reminder in `upcomingReminderList`,
-`printReminderDescription()` is called, displaying only those reminders with due 
+`remainderList` similarly to `list-remind`, checking if each reminder’s deadline is within one week (168 hours) from the
+current date/time. For reminders that match this condition, they are added to an `upcomingReminderList`. Finally, for 
+each reminder in `upcomingReminderList`, `printReminderDescription()` is called, displaying only those reminders with due 
 dates in the upcoming week. This function is called automatically at program initialisation to provide a summary 
 reminder for users starting the program.
 
+![Sequence_ListUpcomingReminders.png](Images/Sequence_ListUpcomingReminders.png)
+
+
 ### Delete Reminder
 The delete command (`delete-remind <index>`) removes a reminder at the specified index from the main list. 
+The validity of the passed `index` is checked, and an exception is thrown back to the parser to be handled if found to 
+be out of bounds, improperly formatted, or non-numeric.
+
 Before removal, the specified reminder is copied to a temporary instance, `sessionToDelete`, which holds the reminder's 
 data for confirmation. Following deletion, the details of the deleted reminder are printed by invoking 
-`printReminderDescription()` on `sessionToDelete`, confirming successful removal. The `sessionToDelete `instance is 
+`printReminderDescription()` on `reminderToDelete`, confirming successful removal. The `sessionToDelete `instance is 
 then discarded, ensuring efficient memory use. The `updateSaveFile` function is then called within the `Parser` class, 
 using the local `toSaveFile` helper method to write a formatted string to the SaveFile Document - for information 
 permanence between user sessions.
+
+![Sequence_DeleteReminder.png](Images/Sequence_DeleteReminder.png)
+
 
 ### Add Goals 
 

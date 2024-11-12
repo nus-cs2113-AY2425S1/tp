@@ -1,0 +1,53 @@
+@startuml
+title Sequence Diagram for "list" (all Reminders) Command
+skinparam style strictuml
+
+actor User
+participant ":FitTrack"
+participant ":Parser"
+participant ":Ui"
+participant ":Reminder"
+
+User -> ":FitTrack": List all Reminders Command
+activate ":FitTrack"
+":FitTrack" -> ":Parser": parse(...)
+activate ":Parser"
+":Parser" -> ":Ui": printUpcomingReminders(...)
+
+activate ":Ui"
+
+alt reminderList.isEmpty()
+    note over ":Ui"
+        Print LIST_REMINDER_LIST_EMPTY_MESSAGE
+    end note
+else !reminderList.isEmpty()
+    note over ":Ui"
+        Print LIST_SESSION_MESSAGE
+    end note
+    loop for each in sessionList
+        ":Ui" --> ":FitTrack": reminderList.get(reminderIndex)
+        activate ":FitTrack"
+        ":FitTrack" --> ":Ui": ":Reminder"
+        deactivate ":FitTrack"
+
+        ":Ui" -> ":Reminder": getReminderDescription()
+        activate ":Reminder"
+        ":Reminder" --> ":Ui": reminderDescription
+        deactivate ":Reminder"
+
+        note over ":Ui"
+            Print reminderDescription
+        end note
+    end
+    ":Ui" -> ":Ui": printReminderCount()
+    activate ":Ui"
+    ":Ui" --> ":Ui"
+    deactivate ":Ui"
+end
+":Ui" --> ":Parser"
+deactivate ":Ui"
+":Parser" --> ":FitTrack"
+deactivate ":Parser"
+deactivate ":FitTrack"
+
+@enduml

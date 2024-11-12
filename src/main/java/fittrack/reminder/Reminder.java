@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import static fittrack.storage.Storage.DATA_DELIMITER;
 import static fittrack.storage.Storage.DATA_DELIMITER_REGEX;
 
+/**
+ * Represents a reminder in the FitTrack application, which includes a description, a deadline, and a user.
+ * The reminder can be saved, loaded, and retrieved from a file. It also provides functionality to display
+ * the reminder information and find upcoming reminders within the next week.
+ * <p>
+ * The reminder is stored as a formatted string in a save file, where the format is as follows:
+ * {@code "Reminder | Description | Deadline | User"}.
+ * The class extends {@link fittrack.storage.Saveable}, providing save and load functionality.
+ */
 public class Reminder extends Saveable {
 
     private final LocalDateTime reminderDeadline;
