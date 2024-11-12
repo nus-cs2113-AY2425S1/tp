@@ -393,7 +393,7 @@ The class diagram below represents the Activity Manager system.
 ### Add Command
 The sequence diagram below illustrates the process for resolving the "add" command.
 
-![AddActivities.drawio.png](Images%28DG%29%2FAddActivities.drawio.png)
+![AddActivties.drawio.png](Images%28DG%29%2FAddActivties.drawio.png)
 
 <u>Components Breakdown:</u>
 - For simplicity, the `Ui` component has been taken out
@@ -407,7 +407,7 @@ being the names used, as well as an additional type to dictate activity type.
 ### Delete Command
 The sequence diagram below illustrates the process for resolving the "add" command.
 
-![DeleteActivities.drawio.png](Images%28DG%29%2FDeleteActivties.drawio.png)
+![DeleteActivties.drawio.png](Images%28DG%29%2FDeleteActivties.drawio.png)
 
 <u>Components Breakdown:</u>
 - For simplicity, the `Ui` component has been taken out
