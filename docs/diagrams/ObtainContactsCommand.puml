@@ -35,9 +35,9 @@ end
 ObtainContactsCommand -> ObtainContactsCommand: findMatchingSchool(jsonObject: JsonObject, schoolName: String)
 activate ObtainContactsCommand
 
-ObtainContactsCommand -> SchoolContactValidator
+ObtainContactsCommand -> SchoolContactValidator: isSchoolValid(jsonObject : JsonObject, schoolName : String)
 activate SchoolContactValidator
-SchoolContactValidator --> ObtainContactsCommand: isSchoolValid(jsonObject : JsonObject, schoolName : String)
+SchoolContactValidator --> ObtainContactsCommand: isSchoolValid:Boolean
 deactivate SchoolContactValidator
 
 alt school is valid
@@ -58,9 +58,9 @@ deactivate ObtainContactsCommand
 ObtainContactsCommand -> ObtainContactsCommand: checkValidContact(schoolInfo: JsonObject, matchingSchool: String, contactType: String)
 activate ObtainContactsCommand
 
-ObtainContactsCommand -> SchoolContactValidator
+ObtainContactsCommand -> SchoolContactValidator: isValidContactType(contactType : String)
 activate SchoolContactValidator
-SchoolContactValidator --> ObtainContactsCommand: isValidContactType(contactType : String)
+SchoolContactValidator --> ObtainContactsCommand: isValidContactType : Boolean
 deactivate SchoolContactValidator
 
 alt contact type is valid
