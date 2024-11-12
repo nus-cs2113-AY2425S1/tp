@@ -50,8 +50,6 @@ activate storage
 storage -> participant : getName()
 activate participant
 participant --> storage
-storage -> participant : getNumber()
-participant --> storage
 storage -> participant : getEmail()
 participant --> storage
 storage -> event : getEventName()
