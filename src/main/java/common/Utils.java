@@ -29,7 +29,7 @@ public class Utils {
     }
 
     public static void validate(int integer) {
-        if (integer < 0){
+        if (integer <= 0){
             throw ParserException.invalidInt(integer);
         }
     }
