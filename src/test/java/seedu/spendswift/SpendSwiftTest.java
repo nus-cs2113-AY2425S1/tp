@@ -493,58 +493,59 @@ class TrackerDataTest {
         assertEquals(newBudget, trackerData.getBudgets().get(newCategory));
     }
 }
-
 class FormatTest {
 
     @Test
-    void testFormatInput_NullInput() {
+    void testFormatInputNull() {
         assertNull(Format.formatInput(null), "Input is null, should return null.");
     }
 
     @Test
-    void testFormatInput_EmptyString() {
+    void testFormatInputEmptyString() {
         assertEquals("", Format.formatInput(""), "Empty string should return empty string.");
     }
 
     @Test
-    void testFormatInput_AllLowerCase() {
+    void testFormatInputAllLowerCase() {
         assertEquals("Hello", Format.formatInput("hello"), "Should capitalize first letter and make rest lower case.");
     }
 
     @Test
-    void testFormatInput_MixedCase() {
+    void testFormatInputMixedCase() {
         assertEquals("World", Format.formatInput("wOrLD"), "Should capitalize first letter and make rest lower case.");
     }
 
     @Test
-    void testFormatInput_AllUpperCase() {
+    void testFormatInputAllUpperCase() {
         assertEquals("Test", Format.formatInput("TEST"), "Should capitalize first letter and make rest lower case.");
     }
 
     // Tests for formatAmount method
 
     @Test
-    void testFormatAmount_RoundToWholeNumber() {
+    void testFormatAmountRoundToWholeNumber() {
         assertEquals("$123", Format.formatAmount(123.0), "Should format as whole number with dollar sign.");
     }
 
     @Test
-    void testFormatAmount_RoundToTwoDecimals() {
-        assertEquals("$123.46", Format.formatAmount(123.456), "Should format to two decimal places with dollar sign.");
+    void testFormatAmountRoundToTwoDecimals() {
+        assertEquals("$123.46", Format.formatAmount(123.456), 
+                "Should format to two decimal places with dollar sign.");
     }
 
     @Test
-    void testFormatAmount_RoundingNecessary() {
-        assertEquals("$123.46", Format.formatAmount(123.455), "Should round half up to two decimal places with dollar sign.");
+    void testFormatAmountRoundingNecessary() {
+        assertEquals("$123.46", Format.formatAmount(123.455), 
+                "Should round half up to two decimal places with dollar sign.");
     }
 
     @Test
-    void testFormatAmount_ExactDecimal() {
+    void testFormatAmountExactDecimal() {
         assertEquals("$123.50", Format.formatAmount(123.50), "Should handle exact decimal without rounding.");
     }
 
     @Test
-    void testFormatAmount_NegativeValue() {
+    void testFormatAmountNegativeValue() {
         assertEquals("-$123.45", Format.formatAmount(-123.45), "Should handle negative values correctly.");
     }
 }
