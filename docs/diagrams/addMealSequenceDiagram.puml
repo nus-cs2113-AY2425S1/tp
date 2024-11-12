@@ -23,6 +23,7 @@ activate Meal
 Meal --> Parser: meal object
 deactivate Meal
 
+create AddCmd
 Parser --> AddCmd: AddMealCommand(meal, date)
 deactivate Parser
 activate AddCmd

@@ -15,6 +15,7 @@ UI --> BB: command object
 BB -> Parser: parse(command)
 activate Parser
 
+create ViewCmd
 Parser --> ViewCmd: ViewMealCommand(date)
 deactivate Parser
 activate ViewCmd

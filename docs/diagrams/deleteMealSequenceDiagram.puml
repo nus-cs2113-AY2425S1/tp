@@ -17,6 +17,7 @@ UI --> BB: Command object
 BB -> Parser: parse(command)
 activate Parser
 
+create DeleteCmd
 Parser --> DeleteCmd: DeleteMealCommand(date)
 deactivate Parser
 activate DeleteCmd
