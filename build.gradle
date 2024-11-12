@@ -26,14 +26,16 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+    // Enable assertions during tests
+    jvmArgs += '-ea'
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("seedu.inventra.Inventra")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("inventra")
     archiveClassifier.set("")
 }
 
@@ -43,4 +45,6 @@ checkstyle {
 
 run{
     standardInput = System.in
+    // Enable assertions during run-time
+    jvmArgs += '-ea'
 }

@@ -13,5 +13,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
+text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+data/new_inventory.csv
+app.log
+test.csv
