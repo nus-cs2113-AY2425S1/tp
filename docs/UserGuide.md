@@ -372,6 +372,8 @@ Format: `sortI`
 
 Sorts all the stored ingredients within the inventory alphabetically by name, from 'a' to 'z'
 
+<div style="page-break-after: always;"></div>
+
 ## Features and Command - Getting Recipe Inspirations
 
 ### Displaying a Randomly-chosen Recipe
@@ -379,8 +381,6 @@ Sorts all the stored ingredients within the inventory alphabetically by name, fr
 Format: `random`
 
 Picks a recipe from the cookbook at random and displays it
-
-<div style="page-break-after: always;"></div>
 
 ### Recommend Recipes Based on Available Ingredients
 
