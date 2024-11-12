@@ -1,0 +1,59 @@
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam sequence {
+    ArrowColor #2C3E50
+    LifeLineBorderColor #2C3E50
+    ParticipantBorderColor #2C3E50
+    ParticipantBackgroundColor #FFFFFF
+}
+hide footbox
+
+participant ":LoadCommand" as LC
+participant ":RecurringExpenseList" as REL
+participant ":CsvUtils" as CSV
+participant ":RecurringExpense" as RE
+participant ":DateUtils" as DU
+
+LC -> REL: loadFromCsv(filePath)
+activate REL
+
+REL -> CSV: Retrieve recurring expenses
+CSV --> REL
+
+REL -> DU: getCurrentDate()
+activate DU
+DU --> REL: currentDate
+deactivate DU
+
+loop for each RecurringExpense
+    REL -> RE: getFrequency()
+    activate RE
+    RE --> REL: frequency
+    deactivate RE
+    
+    REL -> RE: getlastAddedDate()
+    activate RE
+    RE --> REL: lastAddedDate
+    deactivate RE
+    
+    alt frequency == "daily"
+        REL -> RE: addDailyExpense(lastAddedDate, currentDate)
+        activate RE
+        RE --> REL
+        deactivate RE
+    else frequency == "weekly"
+        REL -> RE: addWeeklyExpense(lastAddedDate, currentDate)
+        activate RE
+        RE --> REL
+        deactivate RE
+    else frequency == "monthly"
+        REL -> RE: addMonthlyExpense(lastAddedDate, currentDate)
+        activate RE
+        RE --> REL
+        deactivate RE
+    end
+end
+
+REL --> LC
+deactivate REL
+@enduml

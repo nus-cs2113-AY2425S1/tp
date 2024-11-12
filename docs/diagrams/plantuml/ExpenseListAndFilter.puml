@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+
+class ExpenseList {
+    +addExpense(price: Float, description: String, category: String): void
+    +addExpense(price: Float, description: String, category: String, dateAdded: LocalDate): void
+    +editExpenses(index: int): void
+    +deleteExpense(index: int): void
+    +listByFilter(category: String, from: String, to: String): ArrayList<Expense>
+}
+
+class ExpenseFilter {
+    +isAfterStartDate(expense: Expense, startDate: LocalDate) {static} : boolean
+    +isBeforeEndDate(expense: Expense, endDate: LocalDate) {static} : boolean
+    +isInCategory(expense: Expense, category: String) {static} : boolean
+    '+isFiltered(expense: Expense, category: String, startDate: String, endDate: String) {static} : boolean
+    '+filterExpenses(expenses: ArrayList<Expense>, category: String, from: String, to: String) {static} : ArrayList<Expense>
+    +isFiltered(expense: Expense, ...) {static} : boolean
+    +filterExpenses(expenses: ArrayList<Expense>, ...) {static} : ArrayList<Expense>
+}
+
+ExpenseList .down.> ExpenseFilter
+@enduml

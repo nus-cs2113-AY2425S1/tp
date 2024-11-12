@@ -1,0 +1,23 @@
+@startuml
+
+object CategoryFacade {
+    categoryTracker: CategoryTracker
+    categoryFilter: CategoryFilter
+    categoryStorage: CategoryStorage
+}
+
+object CategoryTracker
+
+object CategoryFilter {
+    categoryFacade: CategoryFacade
+}
+
+object CategoryStorage {
+    categoryFacade: CategoryFacade
+}
+
+CategoryFacade --> CategoryTracker : "1"
+CategoryFacade <--> CategoryFilter : " 1 "
+CategoryFacade --> CategoryStorage : " 1 "
+
+@enduml
