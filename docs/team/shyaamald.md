@@ -25,9 +25,16 @@ Given below are my contributions to the project.
   specified by the user.
   * Justification: This is to allow the user to view a help command only for the method it is needed for.
 
-* **Testing:**
-    * Added appropriate JUnit tests for list command
-* **Documentation:**
-    - User Guide: Added sections detailing list command, stats command and help command; kept command summary updated
+**Testing:**
+  * Added appropriate JUnit tests for list command.
+  * Performed extensive user testing of all key features.
+
+**Documentation:**
+  * Developer Guide: Added calculations section in design and implementation.
+  * User Guide: Added sections detailing list command, stats command and help command; kept command summary updated
   with every new feature that was added.
-    - Javadoc: Wrote Javadoc comments for most functions in `commands`.
+  * Javadoc: Wrote Javadoc comments for classes in `commands`.
+
+**Project Management:**
+  * Resolved issues found by testers during PE-D.
+  * Maintained code quality.
