@@ -24,6 +24,7 @@ The `UI` component manages the input and output interface between the user and t
 - **Keeps input and output streams flexible for testing**: The `UI` component is constructed with a `Scanner` and `PrintStream`, which can be replaced or redirected as needed, allowing easy adaptability for testing and debugging purposes.
 
 <!-- @@author Bev-low -->
+<div style="page-break-after: always;"></div>
 ### Programme Component
 
 ![Programme Component Classes Diagram](./images/programmeComponentClassDiagram.png)
@@ -70,7 +71,7 @@ The `ExerciseUpdate` component,
 - **Simplifies exercise modification logic**: With this class, the logic for updating exercises is consolidated, simplifying the code and ensuring consistency when modifying `Exercise` objects in various contexts.
 
 <!-- @@author Atulteja -->
-
+<div style="page-break-after: always;"></div>
 ### Meal Component
 
 ![Meal and MealList Class Diagram](./images/mealAndMealListClassDiagram.png)
