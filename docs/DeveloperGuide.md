@@ -52,6 +52,8 @@ This structure separates expenses and categories into distinct storage classes �
 — which clarifies their respective responsibilities. This separation promotes modularity and enhances maintainability 
 by ensuring each storage class focuses exclusively on managing one type of data.
 
+<div style="page-break-after: always;"></div>
+
 ### Parser
 
 ![Parser Class Diagram](classdiagrams/Parser.drawio.png)
@@ -71,6 +73,8 @@ components.
 
 Each class serves a distinct purpose and this clear division of responsibilities promotes modularity, 
 making the system more adaptable and maintainable.
+
+<div style="page-break-after: always;"></div>
 
 ### TrackerData
 
@@ -103,6 +107,8 @@ Each manager is responsible for a distinct aspect of the application — expense
 functionality within modules. As a result, adjustments to categories, expenses, or budgets can be made independently 
 without disrupting other parts of the system, supporting a scalable and well-organized financial tracking solution.
 
+<div style="page-break-after: always;"></div>
+
 ---
 
 ## add-expense
@@ -129,6 +135,8 @@ For simplification, the UI package is not included.
 4. Expense Creation
 - `ExpenseManager` creates an `Expense` instance with the validated name, amount, and category, then updates `TrackerData` with the new lists of expenses and categories.
 
+<div style="page-break-after: always;"></div>
+
 ## delete-expense
 **Overview**
 
@@ -152,6 +160,8 @@ The sequence diagram represents the flow for deleting an existing expense in Spe
 4. Error Handling and Deletion Execution
 - If `expenseIndex` is out of bounds (e.g., index larger than the list size), `ErrorMessage` informs the user, and the process stops.
 - If the index is within bounds, `ExpenseManager` removes the expense at `expenseIndex` and calls `SuccessMessage` to confirm the deletion to the user.
+
+<div style="page-break-after: always;"></div>
 
 ## add-category
 **Overview**
@@ -177,6 +187,8 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
    - If no match is found, a new `Category` object is created with the formatted name.
    - This new category is added to the categories list, which is then saved back to `TrackerData`.
    - A success message is displayed indicating that the category was added successfully.
+
+<div style="page-break-after: always;"></div>
 
 ## delete-category
 **Overview**
@@ -208,6 +220,8 @@ The sequence diagram represents the flow for deleting a category with no expense
 6. Deletion Execution
 If no expenses are tagged with the category, `CategoryManager` updates `TrackerData` by removing the category and calls `SuccessMessage` to confirm the deletion to the user.
 
+<div style="page-break-after: always;"></div>
+
 ## tag-expense
 **Overview**
 
@@ -238,6 +252,8 @@ The sequence diagram represents the flow for tagging an expense to an existing c
 - After tagging, `ExpenseManager` updates the expenses list in `TrackerData` to save the changes.
 - A success or error message is displayed to the user, depending on the result of the tagging operation.
 
+<div style="page-break-after: always;"></div>
+
 ## set-budget
 **Overview**
 
@@ -264,6 +280,8 @@ The sequence diagram represents the flow for setting a budget limit on an existi
   - Otherwise, `BudgetManager` creates a new budget instance and adds it to the budgets map in `TrackerData`.
 - `SuccessMessage` displays either an update or new budget message, depending on whether the budget was modified or newly created.
 
+<div style="page-break-after: always;"></div>
+
 ## view-expenses
 **Overview**
 
@@ -289,6 +307,8 @@ The sequence diagram represents the flow for printing all the expenses by catego
   - If it has expenses, they are printed in a structured format.
   - If it has no expenses, a "No expense" message is printed for that category.
 
+<div style="page-break-after: always;"></div>
+
 ## view-category
 **Overview**
 
@@ -312,6 +332,8 @@ The sequence diagram represents the flow for printing all the categories in Spen
 
 4. Return Flow
 - `CategoryManager` completes its task and returns control back through `Parser` to `SpendSwift`, which then completes the process.
+
+<div style="page-break-after: always;"></div>
 
 ## view-budget
 **Overview**
@@ -339,6 +361,8 @@ The sequence diagram represents the flow for printing all the budgets in SpendSw
 5. Checking Categories Without Budgets
 - Finally, `BudgetManager` checks if there are categories with expenses but no budget set. For each such category, it displays a message using `SuccessMessage` indicating that no budget is set.
 
+<div style="page-break-after: always;"></div>
+
 ## help
 **Overview**
 
@@ -358,6 +382,8 @@ The sequence diagram represents the flow for printing all the help messages in S
 3. Completion of Command Processing
 - After displaying the help message, `UI` returns control to the `Parser`.
 - The `Parser` then completes its processing, returning control to `SpendSwift`, which subsequently finishes handling the "help" command.
+
+<div style="page-break-after: always;"></div>
 
 ---
 
@@ -387,6 +413,8 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | v2.1    | Frequent user         | Delete a category entry                      | remove what is not in use                                |
 | v2.1    | Frequent user         | View all categories                          | see what categories I have been spending on              |
 
+<div style="page-break-after: always;"></div>
+
 ---
 
 ## Non-Functional Requirements
@@ -400,6 +428,8 @@ SpendSwift provides a fast, text-based solution for managing finances, eliminati
 | 4   | Customizability     | Users should be able to easily add and modify expense categories.                          | Allows users to tailor the system to their specific needs.                                  |
 | 5   | Automated Tasks     | Support automated budget resets at the start of each month.                                | Minimizes user effort in maintaining accurate monthly tracking.                             |
 | 6   | Accessibility       | The chat interface should be simple and intuitive.                                         | Ensures that all users can effectively interact with the system without extensive training. |
+
+<div style="page-break-after: always;"></div>
 
 ---
 
