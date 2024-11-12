@@ -17,11 +17,19 @@ public class QuizResults {
     private final Storage storage; // Made final
 
     /**
-     * Constructs a `QuizResults` instance and initializes the results list and storage.
+     * Constructs a `QuizResults` instance with default file-based storage.
      */
     public QuizResults() {
+        this(new Storage("./data/results.txt")); // Default file-based storage
+    }
+
+    /**
+     * Constructs a `QuizResults` instance with a specified storage, useful for testing.
+     * @param storage The storage to use for loading and saving results.
+     */
+    public QuizResults(Storage storage) {
         this.results = new ArrayList<>();
-        this.storage = new Storage("./data/results.txt");
+        this.storage = storage;
         loadResults();
     }
 
@@ -72,7 +80,6 @@ public class QuizResults {
             }
         }
     }
-
 
     /**
      * Saves the current results to storage.
@@ -179,7 +186,8 @@ public class QuizResults {
         private final int timeLimitInSeconds;
         private final String comment;
 
-        public Result(String topic, int score, Date date, int questionsAttempted, int timeLimitInSeconds, String comment) {
+        public Result(String topic, int score, Date date,
+                      int questionsAttempted, int timeLimitInSeconds, String comment) {
             this.topic = topic;
             this.score = score;
             this.date = date;

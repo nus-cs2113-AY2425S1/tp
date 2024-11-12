@@ -3,7 +3,8 @@ package seedu.javaninja;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+import java.util.ArrayList;
+//import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,12 +18,35 @@ public class QuizResultsTest {
 
     private QuizResults quizResults;
 
+    // Custom in-memory storage for testing without file I/O
+    private static class InMemoryStorage extends Storage {
+        private final List<String> data = new ArrayList<>();
+
+        public InMemoryStorage() {
+            super(""); // Call the superclass constructor with a dummy path
+        }
+
+        @Override
+        public List<String> loadData() {
+            return new ArrayList<>(data);
+        }
+
+        @Override
+        public void saveToFile(List<String> lines, boolean append) {
+            if (!append) {
+                data.clear();
+            }
+            data.addAll(lines);
+        }
+    }
+
     /**
-     * Sets up a new QuizResults instance before each test.
+     * Sets up a new QuizResults instance before each test, using in-memory storage.
      */
     @BeforeEach
     public void setUp() {
-        quizResults = new QuizResults(); // Use no-argument constructor
+        Storage inMemoryStorage = new InMemoryStorage();
+        quizResults = new QuizResults(inMemoryStorage);
     }
 
     /**

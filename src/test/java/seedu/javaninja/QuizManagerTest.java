@@ -1,9 +1,11 @@
+package seedu.javaninja;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.javaninja.Cli;
-import seedu.javaninja.QuizManager;
-import seedu.javaninja.Topic;
-import seedu.javaninja.QuizResults;
+//import seedu.javaninja.Cli;
+//import seedu.javaninja.QuizManager;
+//import seedu.javaninja.Topic;
+//import seedu.javaninja.QuizResults;
 import seedu.javaninja.question.Mcq;
 
 import java.util.List;
@@ -44,8 +46,12 @@ class QuizManagerTest {
 
         // Check if result was recorded
         List<QuizResults.Result> pastResults = quizManager.getQuizResults().getAllResults();
-        assertTrue(pastResults.stream().anyMatch(result -> result.getTopic().equals(nameOfTopic) && result.getScore() == 0),
-                "Past results should contain a score for the topic.");
+        assertTrue(
+                pastResults.stream()
+                        .anyMatch(result -> result.getTopic().equals(nameOfTopic) && result.getScore() == 0),
+                "Past results should contain a score for the topic."
+        );
+
     }
 
     @Test

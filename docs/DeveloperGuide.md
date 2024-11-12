@@ -1,14 +1,32 @@
 # JavaNinja Developer Guide
 Java Ninja is a command-line interface (CLI) learning tool focused on helping beginner programmers enhance their understanding of fundamental programming concepts.
 
-- [Design & implementation](#design-&-implementation)
-- [Product scope](#product-scope)
-    - [Target user profile](#target-user-profile)
-    - [Value proposition](#value-proposition)
+- [Design & Implementation](#design--implementation)
+  - [Java-Ninja Implementation](#java-ninja-implementation)
+  - [`Cli` Class](#cli-class)
+  - [`Parser` Class](#parser-class)
+  - [`QuizManager` Class](#quizmanager-class)
+  - [`TopicManager` Class](#topicmanager-class)
+  - [`QuizGenerator` Class](#quizgenerator-class)
+  - [`QuizResults` Class](#quizresults-class)
+
+- [Product Scope](#product-scope)
+  - [Target User Profile](#target-user-profile)
+  - [Value Proposition](#value-proposition)
 - [User Stories](#user-stories)
-- [Non-Functional Requirements](#non-Functional-Requirements)
-- [Glossary](#Glossary)
-- [Instructions for manual testing](#Instructions-for-manual-testing)
+- [Non-Functional Requirements](#non-functional-requirements)
+- [Glossary](#glossary)
+- [Instructions for Manual Testing](#instructions-for-manual-testing)
+- [JUnit Testing](#junit-testing)
+  - [`CliTest`](#clitest)
+  - [`FillInTheBlankTest`](#fillintheblanktest)
+  - [`JavaNinjaTest`](#javaninjatest)
+  - [`ParserTest`](#parsertest)
+  - [`QuizManagerTest`](#quizmanagertest)
+  - [`QuizGeneratorTest`](#quizgeneratortest)
+  - [`QuizResultsTest`](#quizresultstest)
+  - [`StorageTest`](#storagetest)
+  - [`QuizTimerTest`](#quiztimertest)
 
 ## Acknowledgements
 
@@ -175,6 +193,30 @@ The class maintains the current quiz, selected topic, and session limits for eac
 #### `QuizGenerator` sequence diagram with `select /d timed /t loops`: 
 ![QuizGeneratorSequenceDiagram](https://github.com/user-attachments/assets/894ad6c8-a199-401f-9e91-dd7ba53453f5)
 
+
+### `QuizResults` class:
+The `QuizResults` class is responsible for managing and storing quiz results. 
+It maintains a list of `Result` objects that contain data such as the topic, score, date, number of questions attempted, time limit, and performance comments. 
+The class provides functionality to add, load, and save results, as well as sort and filter them based on various criteria.
+
+#### `QuizResults` class diagram:
+![QuizResultsClassDiagram](https://github.com/user-attachments/assets/750d7387-254d-4b95-920e-b520caeccf71)
+
+#### How `QuizResults` works:
+- `QuizResults()`: Constructor that initializes the `QuizResults` object with an empty list of results and sets up the `Storage` for loading and saving data.
+- `addResult(String topic, int score, int questionsAttempted, int timeLimitInSeconds)`: Adds a new `Result` to the list, generates a performance comment, and saves the result to storage.
+- `loadResults()`: Loads existing results from the storage file, handling data parsing and potential corruption.
+- `saveResults()`: Saves all current results to the storage file, ensuring persistence of data between sessions.
+- `getAllResults()`: Returns a copy of all stored results for display or processing.
+- `getResultsByTopic(String topic)`: Filters results by the specified topic and returns them as a list.
+- `sortByDate(List<Result> results, boolean isNewestFirst)`: Sorts results by date in either ascending or descending order based on the `isNewestFirst` flag.
+- `sortByScore(List<Result> results)`: Sorts results by score in descending order (highest to lowest).
+- `sortByLowestScore(List<Result> results)`: Sorts results by score in ascending order (lowest to highest).
+- `generateComment(int score)`: Generates a comment based on the given score, providing feedback such as "Excellent!", "Good job!", "Needs improvement.", or "Better luck next time!".
+
+#### `QuizResults` sequence diagram with:
+![QuizResultsSequenceDiagram](https://github.com/user-attachments/assets/8dca81a1-0f82-431f-bc67-0c82fecdaf00)
+
 ## Product scope
 ### Target user profile
 This tool is designed for beginner programmers who want to enhance their skills in Java programming and command-line operations.
@@ -186,20 +228,26 @@ This tool offers an interactive learning experience through a series of tasks an
 
 ## User Stories
 
-| Version | As a ...              | I want to ...                             | So that I can ...                                            | Notes                        |
-|---------|-----------------------|-------------------------------------------|--------------------------------------------------------------|------------------------------|
-| v1.0    | user                  | see usage instructions                    | learn how to use the app                                     | can be displayed on app open |
-| v1.0    | user                  | submit quiz                               | complete the assessment                                      |                              |
-| v1.1    | user                  | take quizzes on Java fundamentals         | test my knowledge and practice programming concepts          |                              |
-| v1.2    | user                  | see my quiz score at the end of the quiz  | track my progress and improve                                |                              |
-| v2.0    | user                  | receive feedback after each quiz question | understand the correct answer and learn from my mistakes     |                              |
-| v2.0    | user                  | practice different topics individually    | focus on weak areas and strengthen my knowledge              |                              |
-| v2.0    | user                  | keep track of my quiz history             | monitor my improvement over time and revisit past mistakes   |                              |
-| v2.0    | user                  | attempt timed quizzes                     | simulate real exam conditions and manage my time efficiently |                              |
-| v2.0    | user                  | exit the quiz at any point                | take a break or do something else                            |                              |
-| v2.0    | user                  | see the correct answer to quiz questions  | learn and improve                                            |                              |
-| v2.0    | user                  | take quizzes in MCQ or true/false format  | get used to typing out answers                               |                              |
-| v2.0    | user                  | take quizzes in FITB format               | be exposed to multiple formats of assessment                 |                              |
+| Version | As a ...              | I want to ...                                             | So that I can ...                                              | Notes                        |
+|---------|-----------------------|-----------------------------------------------------------|----------------------------------------------------------------|------------------------------|
+| v1.0    | user                  | see usage instructions                                    | learn how to use the app                                       | can be displayed on app open |
+| v1.0    | user                  | submit quiz                                               | complete the assessment                                        |                              |
+| v1.1    | user                  | take quizzes on Java fundamentals                         | test my knowledge and practice programming concepts            |                              |
+| v1.2    | user                  | see my quiz score at the end of the quiz                  | track my progress and improve                                  |                              |
+| v2.0    | user                  | receive feedback after each quiz question                 | understand the correct answer and learn from my mistakes       |                              |
+| v2.0    | user                  | practice different topics individually                    | focus on weak areas and strengthen my knowledge                |                              |
+| v2.0    | user                  | keep track of my quiz history                             | monitor my improvement over time and revisit past mistakes     |                              |
+| v2.0    | user                  | attempt timed quizzes                                     | simulate real exam conditions and manage my time efficiently   |                              |
+| v2.0    | user                  | exit the quiz at any point                                | take a break or do something else                              |                              |
+| v2.0    | user                  | see the correct answer to quiz questions                  | learn and improve                                              |                              |
+| v2.0    | user                  | take quizzes in MCQ or true/false format                  | get used to typing out answers                                 |                              |
+| v2.0    | user                  | take quizzes in FITB format                               | be exposed to multiple formats of assessment                   |                              |
+| v2.1    | user                  | take quizzes from randomly selected topics                | challenge myself with questions from different topics          | 'select /d timed/untimed /t random' |
+| v2.1    | user                  | review my past quiz results sorted by highest/lowest score| analyze my best and worst performances                         | 'review highest/lowest'      |
+| v2.1    | user                  | review my past quiz results sorted by oldest/newest date  | view my latest or earliest quiz results                        | 'review oldest/newest'       |
+| v2.1    | user                  | view results for specific topics                          | track my progress in specific areas of study                   | 'review t/[TOPIC]'           |
+| v2.1    | user                  | sort specific topic results by highest/lowest/oldest/newest| get detailed insights into my performance for that topic       | 'review t/[TOPIC] highest/lowest/oldest/newest' |
+
 
 ## Non-Functional Requirements
 
@@ -218,7 +266,7 @@ This tool offers an interactive learning experience through a series of tasks an
 ---
 
 ### 1. Start Java Ninja Quiz Application
-1. Launch the application by following the steps in the [Quick Start Guide](UserGuide.md#quick-start).
+1. Launch the application by following the steps in the [Quick Start User Guide](https://ay2425s1-cs2113-w12-4.github.io/tp/UserGuide.html).
 2. **Expected**: A welcome message appears on the terminal, prompting for user input.
 
 ---
@@ -227,96 +275,122 @@ This tool offers an interactive learning experience through a series of tasks an
 
 #### 2.1 Initial Commands
 * **2.1.1 View Commands List**
-    * **Test Case**: `help`
-    * **Expected**: Displays a list of available commands with brief descriptions.
+  * **Test Case**: `help`
+  * **Expected**: Displays a list of available commands with brief descriptions.
 
 * **2.1.2 View Topics**
-    * **Test Case**: `view`
-    * **Expected**: Lists all quiz topics available for selection, such as loops, conditionals, and data types.
+  * **Test Case**: `view`
+  * **Expected**: Lists all quiz topics available for selection, such as loops, conditionals, and data types.
 
 ---
 
 #### 2.2 Select a Quiz Topic and Start Quiz
 * **2.2.1 Start Quiz with Valid Topic**
-    * **Prerequisites**: None
-    * **Test Case**: `select /d timed /t loops`
-    * **Expected**: Prompts the user to enter a time limit and number of questions for the quiz.
+  * **Prerequisites**: None
+  * **Test Case**: `select /d timed /t loops`
+  * **Expected**: Prompts the user to enter a time limit and number of questions for the quiz.
 
 * **2.2.2 Start Quiz with Invalid Topic**
-    * **Prerequisites**: None
-    * **Test Case**: `select /d timed /t invalidtopic`
-    * **Expected**: Error message indicating that the specified topic is not available.
-
-* **2.2.3 Start Quiz with invalid time format**
   * **Prerequisites**: None
-  * **Test Case**: `select /d invalidtime /t Loops`
-  * **Expected**: Error message indicating that it can only accept timed or untimed.
+  * **Test Case**: `select /d timed /t invalidtopic`
+  * **Expected**: Error message indicating that the specified topic is not available.
+
+* **2.2.3 Start Quiz with Random Topics**
+  * **Prerequisites**: None
+  * **Test Case**: `select /d timed /t random`
+  * **Expected**: Prompts the user to enter the number of topics and questions for a varied quiz session.
+
+* **2.2.4 Start Quiz with Invalid Time Format**
+  * **Prerequisites**: None
+  * **Test Case**: `select /d invalidtime /t loops`
+  * **Expected**: Error message indicating that the input can only be 'timed' or 'untimed'.
 
 ---
 
 #### 2.3 Taking a Quiz
 * **2.3.1 Answer Quiz Questions**
-    * **Prerequisites**: Quiz must be in progress.
-    * **Test Case**: Respond to questions in the quiz with valid answers.
-    * **Expected**: Each answer is processed, and the quiz proceeds to the next question.
+  * **Prerequisites**: Quiz must be in progress.
+  * **Test Case**: Respond to questions in the quiz with valid answers.
+  * **Expected**: Each answer is processed, and the quiz proceeds to the next question.
 
 * **2.3.2 Exit Quiz Early**
-    * **Prerequisites**: Quiz must be in progress.
-    * **Test Case**: `exit`
-    * **Expected**: Quiz ends immediately with a message confirming the early exit.
+  * **Prerequisites**: Quiz must be in progress.
+  * **Test Case**: `exit`
+  * **Expected**: Quiz ends immediately with a message confirming the early exit.
 
 * **2.3.3 Automatic Quiz End**
-    * **Prerequisites**: Set a time limit and question limit.
-    * **Test Case**: Allow the quiz to reach the time or question limit.
-    * **Expected**: Quiz ends automatically when the limit is reached, and the score is displayed.
+  * **Prerequisites**: Set a time limit and question limit.
+  * **Test Case**: Allow the quiz to reach the time or question limit.
+  * **Expected**: Quiz ends automatically when the limit is reached, and the score is displayed.
 
 ---
 
 #### 2.4 Add a Custom Question
 * **2.4.1 Add Valid Flashcard Question**
-    * **Prerequisites**: None
-    * **Test Case**: `add Flashcards /q What is the Java keyword to define a class? /a class`
-    * **Expected**: Confirmation message indicating that the flashcard was added successfully.
+  * **Prerequisites**: None
+  * **Test Case**: `add Flashcards /q What is the Java keyword to define a class? /a class`
+  * **Expected**: Confirmation message indicating that the flashcard was added successfully.
 
 * **2.4.2 Add Flashcard Question with Invalid Format**
-    * **Prerequisites**: None
-    * **Test Case 1**: `add Flashcards /q Invalid format`
-    * **Test Case 2**: `add Flashcards`
-    * **Expected**: Error message indicating that the correct format is required.
+  * **Prerequisites**: None
+  * **Test Case 1**: `add Flashcards /q Invalid format`
+  * **Test Case 2**: `add Flashcards`
+  * **Expected**: Error message indicating that the correct format is required.
 
 ---
 
 #### 2.5 Reviewing Past Results
 * **2.5.1 View Past Quiz Results**
-    * **Prerequisites**: At least one quiz completed in the session.
-    * **Test Case**: `review`
-    * **Expected**: Displays a summary of past quiz scores and feedback.
+  * **Prerequisites**: At least one quiz completed in the session.
+  * **Test Case**: `review`
+  * **Expected**: Displays a summary of past quiz scores and feedback, sorted by newest by default.
 
-* **2.5.2 View Results with No Quiz History**
-    * **Prerequisites**: No quizzes taken in the current session.
-    * **Test Case**: `review`
-    * **Expected**: Message indicating that no quiz history is available.
+* **2.5.2 Sort Past Results by Score**
+  * **Prerequisites**: At least one quiz completed in the session.
+  * **Test Case**: `review highest/lowest`
+  * **Expected**: Displays past quiz results sorted by highest/lowest score.
+
+* **2.5.3 Sort Past Results by Date**
+  * **Prerequisites**: At least one quiz completed in the session.
+  * **Test Case**: `review oldest/newest`
+  * **Expected**: Displays past quiz results sorted by oldest/newest quiz taken.
+
+* **2.5.4 View Results for a Specific Topic**
+  * **Prerequisites**: At least one quiz completed in the specified topic.
+  * **Test Case**: `review t/[TOPIC]`
+  * **Expected**: Displays past results filtered by the specified topic.
+
+* **2.5.5 Sort Specific Topic Results by Score or Date**
+  * **Prerequisites**: At least one quiz completed in the specified topic.
+  * **Test Case**: `review t/[TOPIC] highest/lowest/oldest/newest`
+  * **Expected**: Displays filtered results for the topic, sorted by highest/lowest score or oldest/newest attempt
+
+* **2.5.6 View Results with No Quiz History**
+  * **Prerequisites**: No quizzes taken in the current session.
+  * **Test Case**: `review`
+  * **Expected**: Message indicating that no quiz history is available.
 
 ---
 
 #### 2.6 Get Help Information
 * **2.6.1 View Help for All Commands**
-    * **Prerequisites**: None
-    * **Test Case**: `help`
-    * **Expected**: Displays descriptions of all available commands.
+  * **Prerequisites**: None
+  * **Test Case**: `help`
+  * **Expected**: Displays descriptions of all available commands.
 
 ---
 
 #### 2.7 Exiting the Application
 * **2.7.1 Exit the Application Mid-Session**
-    * **Prerequisites**: None
-    * **Test Case**: `exit`
-    * **Expected**: Program terminates with a goodbye message.
+  * **Prerequisites**: None
+  * **Test Case**: `quit`
+  * **Expected**: Program terminates with a goodbye message.
 
 * **2.7.2 Exit Application During Quiz**
-    * **Prerequisites**: Quiz in progress.
-    * **Test Case**: `quit`
-    * **Expected**: Program terminates immediately, ending the quiz and returning to the command line.
+  * **Prerequisites**: Quiz in progress.
+  * **Test Case**: `exit`
+  * **Expected**: Quiz session ends immediately, and the user returns to the main command prompt.
+
 
 ---
 
@@ -362,6 +436,7 @@ Tests the `Parser` class, responsible for interpreting user commands.
   - **`determineCommand_selectCommandWithoutTopic`**: Tests error handling for missing topic selection.
   - **`determineCommand_reviewCommand`**: Confirms past results display when using the "review" command.
   - **`determineCommand_helpCommand`**: Verifies that help information is displayed correctly.
+  - **`determineCommand_reviewCommandWithSorting`**: Tests sorting functionality for quiz results by highest, lowest, newest, and oldest.
 
 #### `QuizManagerTest`
 Tests the `QuizManager` class, which manages quiz operations.
@@ -377,6 +452,7 @@ Tests the `QuizGenerator` class, which manages a single quiz session.
   - **`getTimeLimitInSeconds`**: Confirms correct retrieval of the time limit from user input.
   - **`startQuiz_withValidTopic`**: Verifies quiz initialization with a valid topic.
   - **`getQuizScore`**: Ensures accurate score calculation upon quiz completion.
+  - **`startQuiz_withRandomTopics`**: Verifies quiz initialization and question selection when choosing random topics.
 
 #### `QuizResultsTest`
 Tests the `QuizResults` class, which handles the storage and retrieval of quiz results.
@@ -385,16 +461,22 @@ Tests the `QuizResults` class, which handles the storage and retrieval of quiz r
   - **`generateComment`**: Confirms appropriate feedback generation based on the score.
   - **`saveResults`**: Checks file-writing functionality for saving results.
   - **`loadResults`**: Tests the retrieval of formatted results from a file.
-
-#### `TopicManagerTest`
-Tests the `TopicManager` class, which is responsible for managing topics and their associated questions.
-- **Test Contents**:
-  - **`getOrCreateTopic_existingTopic`**: Verifies that an existing topic is retrieved correctly without duplication.
-  - **`getOrCreateTopic_newTopic`**: Ensures a new topic is created when it does not already exist.
-  - **`addTopic`**: Checks that a topic is added to the topic list only if it’s unique.
-  - **`loadQuestions`**: Tests loading of questions from an external file into the correct topics.
-  - **`printTopics`**: Confirms that all topics are displayed accurately to the user.
-  - **`addFlashcardByUser`**: Verifies that a flashcard question created by the user is added to the designated "Flashcards" topic.
+  - **`sortByScore`**: Verifies that results are sorted by highest and lowest scores.
+  - **`sortByDate`**: Checks sorting functionality for newest and oldest results.
+  - **`getResultsByTopic`**: Ensures results are correctly filtered by topic.
 
 #### `StorageTest`
 Tests data persistence in `Storage`, ensuring data integrity for quiz results and configuration settings.
+- **Test Contents**:
+  - **`loadData`**: Verifies that data is loaded correctly from a file.
+  - **`saveToFile`**: Confirms that data is saved properly to a file.
+  - **`clearFile`**: Ensures the content of the file is correctly cleared.
+  - **`initializeWithDefaultData`**: Verifies that default data is correctly written when the file is created or found empty.
+
+#### `QuizTimerTest`
+Tests the `QuizTimer` class to ensure the countdown timer operates as expected.
+- **Test Contents**:
+  - **`startTimer_validTime`**: Verifies the timer starts and completes with valid input.
+  - **`startTimer_expiryCallback`**: Ensures the callback function is executed when the timer expires.
+  - **`pauseTimer`**: Checks if the timer can be paused and resumed correctly.
+

@@ -1,0 +1,19 @@
+OOP|0|1731378522746|2|-1|Better luck next time!
+Loops|25|1731378551853|4|-1|Better luck next time!
+Loops|16|1731378704944|6|-1|Better luck next time!
+Java Basics|0|1731380865443|1|60|Better luck next time!
+Java Basics|60|1731380865465|10|300|Needs improvement.
+Java Basics|80|1731380865466|10|300|Good job!
+OOP|90|1731380865466|8|600|Excellent!
+Java Basics|80|1731380865468|10|300|Good job!
+Java Basics|60|1731380865469|10|300|Needs improvement.
+OOP|90|1731380865470|8|600|Excellent!
+Data Structures|75|1731380865470|12|450|Good job!
+Java Basics|60|1731381605302|10|300|Needs improvement.
+Java Basics|80|1731381605303|10|300|Good job!
+OOP|90|1731381605303|8|600|Excellent!
+Java Basics|80|1731381605304|10|300|Good job!
+Java Basics|60|1731381605305|10|300|Needs improvement.
+OOP|90|1731381605305|8|600|Excellent!
+Data Structures|75|1731381605306|12|450|Good job!
+Java Basics|0|1731381605342|1|60|Better luck next time!

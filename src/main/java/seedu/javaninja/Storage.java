@@ -1,12 +1,16 @@
 package seedu.javaninja;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 /**
  * The `Storage` class handles the saving and loading of data from files.
@@ -16,6 +20,8 @@ public class Storage {
 
     /**
      * Constructs a `Storage` object and ensures the directory for the file path exists.
+     * If the file is empty or missing, it initializes the file with default data from a resource.
+     *
      * @param filePath The path to the file that the `Storage` class will manage.
      */
     public Storage(String filePath) {
@@ -28,13 +34,15 @@ public class Storage {
             directory.mkdirs();
         }
 
-        // Create the file if it does not exist
+        // Create the file if it does not exist and initialize with default data if needed
         try {
-            if (!file.exists()) {
-                file.createNewFile();
+            if (!file.exists() || file.length() == 0) {
+                if (file.createNewFile()) {
+                    initializeWithDefaultData();
+                }
             }
         } catch (IOException e) {
-            System.err.println("Error creating file: " + e.getMessage());
+            System.err.println("Error creating or initializing file: " + e.getMessage());
         }
     }
 
@@ -98,6 +106,26 @@ public class Storage {
             writer.write(""); // Clear file content
         } catch (IOException e) {
             System.err.println("Error clearing file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Initializes the file with default data from a bundled resource (e.g., `Questions.txt`).
+     */
+    private void initializeWithDefaultData() {
+        try (InputStream defaultData = getClass().getResourceAsStream("/Questions.txt");
+             OutputStream outputStream = new FileOutputStream(filePath)) {
+            if (defaultData != null) {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = defaultData.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            } else {
+                System.err.println("Default Questions.txt not found in resources.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error initializing with default data: " + e.getMessage());
         }
     }
 }
