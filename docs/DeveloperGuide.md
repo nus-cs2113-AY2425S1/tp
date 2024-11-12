@@ -94,12 +94,12 @@ The sequence diagram below shows how the components interact with each other whe
 <div style="page-break-after: always;"></div>
 <!-- @@author 3CCLY -->
 
-### Ui Class
-The Ui class deals with taking in inputs from an input stream (in this case, the user input through `System.in`), 
+### `Ui` Class
+The `Ui` class deals with taking in inputs from an input stream (in this case, the user input through `System.in`), 
 and then printing messages read-able by the user (through `System.out`).
 
-### Recipe Class
-The Recipe class represents a singular recipe added by the user or loaded from the storage database. 
+### `Recipe` Class
+The `Recipe` class represents a singular recipe added by the user or loaded from the storage database. 
 A valid recipe object contains the following fields:
 + Name
 + List of Ingredients
@@ -109,21 +109,21 @@ A valid recipe object contains the following fields:
 
 The formatting of how a recipe is displayed and saved is handled by this class.
 
-### RecommendedRecipe Class
-The RecommendedRecipe class represents a recipe to recommend to the user with relevant statistics.
-A RecommendedRecipe object contains the following:
-+ Recipe (The Recipe being recommended)
+### `RecommendedRecipe` Class
+The `RecommendedRecipe` class represents a recipe to recommend to the user with relevant statistics.
+A `RecommendedRecipe` object contains the following:
++ Recipe (The `Recipe` being recommended)
 + Percentage Match (The percentage of the recipe's ingredients that the user has in their list of ingredients)
 + Missing Ingredients (A list of the recipe's ingredients that the user lack)
 
-#### SortByPercentMatch Class
-The SortByPercentMatch class inherits from the Java Comparator class to overload its compare method. 
-This is used to allow Java methods like sort which uses this method to know how to compare two RecommendedRecipe 
+#### `SortByPercentMatch` Class
+The `SortByPercentMatch` class inherits from the Java `Comparator` class to overload its compare method. 
+This is used to allow Java methods like sort which uses this method to know how to compare two `RecommendedRecipe` 
 objects based on their percentage match attribute. The compare method is implemented such that when used to sort 
-a list of RecommendedRecipe objects, they are sorted in descending order based on their percentage match attribute.
+a list of `RecommendedRecipe` objects, they are sorted in descending order based on their percentage match attribute.
 
-### RecipeList Class
-The RecipeList class represents a list of recipes. 
+### `RecipeList` Class
+The `RecipeList` class represents a list of recipes. 
 This class handles the addition, deletion and editing of recipes.
 
 <!-- @@author -->
@@ -131,56 +131,56 @@ This class handles the addition, deletion and editing of recipes.
 Shown below is a class diagram detailing the interaction between `RecipeList` and `Recipe`:
 ![RecipeClassDiagram.png](img/ClassDiagrams/recipesClassDiagram.png)
 
-### Ingredient Class
-The 'Ingredient' class represents an individual ingredient added by the user or loaded from the storage database.
+### `Ingredient` Class
+The `Ingredient` class represents an individual ingredient added by the user or loaded from the storage database.
 
 #### Implementation Details
 
 1. Attributes:
-   - String Name
+   - `String Name`
      - Stores the name of the ingredient, which serves as its unique identifier
 2. Constructor:
-   - Ingredient(String name): 
-     - Initializes an Ingredient instance with the specified name
+   - `Ingredient(String name)`: 
+     - Initializes an `Ingredient` instance with the specified name
 3. Methods:
-   - boolean equals(Ingredient ingredientToCheck):
-     - Compares the current Ingredient with another Ingredient based on their names
-   - @Override boolean equals(Object object):
-     - An overridden method that supports Java collection operations like retainAll and removeAll, allowing ingredients 
+   - `boolean equals(Ingredient ingredientToCheck)`:
+     - Compares the current `Ingredient` with another `Ingredient` based on their names
+   - `@Override boolean equals(Object object)`:
+     - An overridden method that supports Java collection operations like `retainAll()` and `removeAll()`, allowing ingredients 
 to be compared based on name alone in collections
-   - String toString():
+   - `String toString()`:
      - Returns the ingredient's name
-   - String toSaveString():
+   - `String toSaveString()`:
      - Returns a formatted string for saving ingredient data to a text file
-     - Follows the format "new n/<ingredient_name>"
+     - Follows the format: `new n/<ingredient_name>`
 
 The formatting of how an ingredient is displayed and saved is handled by this class.
 
 <div style="page-break-after: always;"></div>
 
-### IngredientList Class
-The IngredientList class represents a list of ingredients.
+### `IngredientList` Class
+The `IngredientList` class represents a list of ingredients.
 This class handles the addition, deletion and editing of ingredients.
 
 #### Implementation Details
 1. Attributes: 
-   - ArrayList<Ingredient> ingredients: Holds a list of Ingredient objects, representing the ingredients in the list
+   - `ArrayList<Ingredient> ingredients`: Holds a list of `Ingredient` objects, representing the ingredients in the list
 2. Constructor:
-   - IngredientList():
+   - `IngredientList()`:
    Initializes an empty list of ingredients.
 3. Methods:
-   - void addIngredient(Ingredient ingredient):
-     - Adds an Ingredient to the list 
-   - ArrayList<Ingredient> getIngredients():
+   - `void addIngredient(Ingredient ingredient)`:
+     - Adds an `Ingredient` to the list 
+   - `ArrayList<Ingredient> getIngredients()`:
      - Returns the current list of ingredients
-   - Ingredient getIngredient(int id):
+   - `Ingredient getIngredient(int id)`:
      - Retrieves an ingredient by its index in the list
-   - boolean removeIngredientByName(String name):
-     - Removes an Ingredient by name
+   - `boolean removeIngredientByName(String name)`:
+     - Removes an `Ingredient` by name
      - Returns true if the ingredient was found and removed, otherwise false
-   - int getCounter():
+   - `int getCounter()`:
      - Returns the number of ingredients in the list
-   - void sortAlphabetically():
+   - `void sortAlphabetically()`:
      - Sorts the ingredients list alphabetically by ingredient name
 
 Shown below is a class diagram detailing the interaction between `IngredientList` and `Ingredient`:
@@ -188,9 +188,9 @@ Shown below is a class diagram detailing the interaction between `IngredientList
 
 <div style="page-break-after: always;"></div>
 
-### Command Classes
-The command class deals with all the possible commands accepted by YMFC, with each command representing a specific 
-recognised user input (E.g. ListCommand representing the command to list all the recipes in the recipeList).
+### `Command` Classes
+The `Command` class deals with all the possible commands accepted by YMFC, with each command representing a specific 
+recognised user input (E.g. `ListCommand` representing the command to list all the recipes in the `recipeList`).
 
 #### 1. The `Command` base class
 - Serves as the abstract parent class for all specific commands
@@ -242,7 +242,7 @@ to finally printing the "recipe added" message to the User on the CLI:
 
 #### 2. `EditCommand` Class
 
-- The EditCommand class finds an existing recipe in RecipeList by name, and then replaces its parameter
+- The `EditCommand` class finds an existing recipe in RecipeList by name, and then replaces its parameter
 with the new parameters that the user inputted.
 
 Shown below is a sequence diagram detailing how an existing recipe is modified using the EditCommand object,
@@ -296,12 +296,12 @@ on how to use them
 
 #### 10. `ListCommand` Class
 - The `ListCommand` class is designed to list all the recipes present in the `RecipeList`
-- When executed, it retrieves the list of recipes and displays them to the user through the UI
+- When executed, it retrieves the list of recipes and displays them to the user through the `UI`
 
 #### 11. `ListIngredientCommand` Class
 - The `ListIngredientCommand` class is responsible for listing all the ingredients currently stored in the 
 `IngredientList`
-- When executed, it retrieves the list of ingredients and displays them to the user through the UI
+- When executed, it retrieves the list of ingredients and displays them to the user through the `UI`
 
 <!-- @@author 3CCLY -->
 
@@ -343,52 +343,52 @@ The remaining private methods represent separated cases for different commands.
 Shown below is a sequence diagram detailing how the Parser class interprets the user's CLI input
 and returns the appropriate command object containing the user's input parameters.
 ![parseCommandShort.png](img/SequenceDiagrams/ParseCommandShortSequenceDiagram.png)
-Note: The getXYZCommand(args) method is used for commands that further need to extract parameters from the user's input
-beyond just the command name, such as for the sort command which needs to extract from the input, the type of sort that
-is requested. In the example of the sort command, the getXYZCommand(args) method is called `getSortCommand()`.
+Note: The `getXYZCommand(args)` method is used for commands that further need to extract parameters from the user's input
+beyond just the command name, such as for the `sort` command which needs to extract from the input, the type of sort that
+is requested. In the example of the sort command, the `getXYZCommand(args)` method is called `getSortCommand()`.
 
 <!-- @@author KSanjith -->
 
-### Storage Class
-The Storage class 
-1. Saves the User's added recipes to a .txt file
+### `Storage` Class
+The `Storage` class 
+1. Saves the User's added recipes to a `.txt` file
   - Empty save files are created immediately once YMFC is launched for the first time
     - New empty save files are also created upon launch if the previous ones were deleted by the user
   - Saving recipes is done every time the recipes are modified in any way (such as added, deleted, sorted or edited)
-  - The following Sequence diagram shows how the saveRecipes() method in the Storage class
-    saves all the created recipes into the .txt file
+  - The following Sequence diagram shows how the `saveRecipes()` method in the Storage class
+    saves all the created recipes into the `.txt` file
 
 ![saveRecipes.png](img/SequenceDiagrams/SaveRecipesSequenceDiagram.png)
 
 <div style="page-break-after: always;"></div>
 
-2. reads the .txt save files to load in past saved recipes immediately when app is launched
+2. reads the `.txt` save files to load in past saved recipes immediately when app is launched
   - If the user had modified the save files to contain irregular lines of text, then they are simply ignored.
     - A message is printed to the CLI to alert user of the irregular lines within the save file
     - The irregular lines are immediately deleted from the save files
-  - The following Sequence diagram shows how the loadRecipes() method in the Storage class
-    loads in past saved recipes from the .txt file when the app is first launched
+  - The following Sequence diagram shows how the `loadRecipes()` method in the `Storage` class
+    loads in past saved recipes from the `.txt` file when the app is first launched
     - The sequence diagram does not show how irregular lines within save files are handled, 
 and only describes how regular, properly formatted save files are loaded in
 
 ![loadRecipes.png](img/SequenceDiagrams/LoadRecipesSequenceDiagram.png)
 
-The Storage class also saves and loads the list of user's available ingredients to another .txt save file.
+The `Storage` class also saves and loads the list of user's available ingredients to another `.txt` save file.
 The mechanisms with which it does so is highly similar to the 2 sequence diagrams above.
 
 ### Exception Class
-There is a main YMFCException class that extends the Exception class.
-There are then 4 child exception classes that inherit from the YMFCException class.
-* EmptyListException
+There is a main `YMFCException` class that extends the `Exception` class.
+There are then 4 child exception classes that inherit from the `YMFCException` class.
+* `EmptyListException`:
   * This exception is thrown mainly in the Parser class whenever the user inputs a command that would not work 
   with an empty list of recipes or ingredients
     * e.g. If the recipe cookbook is empty, and the user inputs the edit command, then this exception will be thrown. 
-      * Because there are no recipes in the empty cookbook that can be editted
-* InvalidArgumentException
+      * Because there are no recipes in the empty cookbook that can be edited
+* `InvalidArgumentException`:
   * This exception is mainly thrown in the Parser class whenever the user's input command has invalid arguments
-* InvalidCommandException
+* `InvalidCommandException`:
   * This exception is mainly thrown in the Parser class whenever the user's input does not match the available commands
-* InvalidSaveLineException
+* `InvalidSaveLineException`:
   * This exception is thrown whenever the save-load system encounters lines within the save file that 
   are not of the proper syntax
 
@@ -440,18 +440,18 @@ whatever ingredients the user has on hand.
 
 1. Should work on any Windows, MacOS or Linux computers as long as Java 17 is installed
 2. Should be easy to move data between different devices
-   - Only 2x .txt files need to be moved over
+   - Only 2x `.txt` files need to be moved over
 3. Should be easy to search, find and sort recipes in the list
    - There is the extensive ability to search for matching recipes by name, ingredients or steps
    - There is also the ability to sort recipes by name or by time taken
 
 ### Glossary
 
-* *Recipe* - A plan on cooking a meal that contains various attributes such as name, ingredients needed,
+* *`Recipe`* - A plan on cooking a meal that contains various attributes such as name, ingredients needed,
 steps to take, cuisine and time taken to cook
-* *RecipeList* - The collection of Recipes added by the user
-* *Ingredient* - A specific cooking item that the user currently has in their inventory
-* *IngredientList* - The collection of Ingredients available to the user
+* *`RecipeList`* - The collection of Recipes added by the user
+* *`Ingredient`* - A specific cooking item that the user currently has in their inventory
+* *`IngredientList`* - The collection of Ingredients available to the user (i.e. the inventory)
 
 ## Appendix: Instructions for manual testing
 
