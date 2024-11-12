@@ -1,0 +1,24 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class WaterCommandFactory {
+  - <u> COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  - prepareAddCommand(String argumentString): AddWaterCommand
+  - prepareDeleteCommand(String argumentString): DeleteWaterCommand
+  - prepareViewCommand(String argumentString): ViewWaterCommand
+}
+
+WaterCommandFactory "1" --> "1" InvalidCommand : "  creates"
+WaterCommandFactory "1" --> "1" DeleteWaterCommand : "  creates"
+WaterCommandFactory "1" --> "1" AddWaterCommand : "  creates"
+WaterCommandFactory "1  " --> "1" ViewWaterCommand : "  creates"
+WaterCommandFactory "1" -->  "1" FlagParser : "  creates"
+
+WaterCommandFactory ..> ParserUtils
+WaterCommandFactory ..> FlagDefinitions
+WaterCommandFactory ..> WaterException
+
+@enduml

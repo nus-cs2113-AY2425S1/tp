@@ -6,11 +6,13 @@ We used these third party libraries to develop our application:
 
 - Gson
 - Mockito
-<!-- @@author -->
+
 ## Design
 
+<!-- @@author nirala-ts -->
 ### UI Component
-![Class_Diagram_of_Ui_Component](images/uiComponent.png)
+
+![Class_Diagram_for_Ui](images/uiComponent.png)
 
 The `UI` component manages the input and output interface between the user and the system, allowing interaction through command input and message displays. It enables seamless communication of user requests and system feedback in an organized and formatted manner.
 
@@ -103,43 +105,28 @@ The `Water` component,
 
 ### History Component
 
-![Class diagram of History Component](./images/historycomponent.png)
+![Class diagram of History Component](./images/historyComponent.png)
 
-- **Chronologically stores workout records**: The `History` class uses a `LinkedHashMap<LocalDate, DailyRecord>` to store workout records, where each `LocalDate` key maps to a `DailyRecord` for that day. This data structure preserves insertion order, making it ideal for managing and viewing records in a sequential, date-based manner.
+- **Chronologically stores workout records**: The `History` class uses a `LinkedHashMap<LocalDate, DailyRecord>` to store workout records, mapping each `LocalDate` to a `DailyRecord` for that day. This data structure preserves insertion order, enabling sequential, date-based record management.
 
-- **Attributes**:
-    - `logger`: A `Logger` instance for tracking actions within the class. This attribute logs key operations such as record creation, deletion, and retrieval.
-    - `history`: A `LinkedHashMap<LocalDate, DailyRecord>` that stores the workout history. Each entry corresponds to a specific date (`LocalDate`) and contains a `DailyRecord` detailing the workout, meals, and water intake for that day. This attribute is central to the `History` class, as it maintains the entire workout log.
+- **Key Attributes**:
+    - **History Map**: The main attribute `history` is a `LinkedHashMap<LocalDate, DailyRecord>` storing each workout log, meal, and water intake record by date.
+    - **Logging**: A `Logger` instance for tracking actions, such as record creation, deletion, and retrieval, ensuring traceability within the class.
 
-- **Methods**:
-    - **`getRecordByDate(LocalDate date): DailyRecord`**: Retrieves the `DailyRecord` for a given date. If a record does not exist for the specified date, it creates a new `DailyRecord`, adds it to `history`, and returns it. This method ensures that any requested date has an associated `DailyRecord`, thus providing consistency in record-keeping.
+- **Efficient data retrieval and management**:
+    - **Accessing Records by Date**: The `History` class allows retrieval of `DailyRecord` entries by specific dates, supporting users who wish to review or edit their fitness data for a particular day.
+    - **Adding and Deleting Records**: Users can log new workout records or delete existing entries, providing flexibility in managing their fitness history.
 
-    - **`getHistory(): LinkedHashMap<LocalDate, DailyRecord>`**: Returns the complete `history` map, enabling access to all stored workout records. This method is useful for displaying or analyzing the entire workout log.
+- **Detailed representation for user interaction**:
+    - **Formatted Summaries**: Methods such as `getFormattedPersonalBests()` and `getWeeklyWorkoutSummary()` provide clear, formatted outputs, making it easy for users to read and interpret their progress.
+    - **String Representation**: The `toString()` method generates a readable output of all records, enhancing user experience in viewing historical data within the application interface.
 
-    - **`getWeeklyWorkoutSummary(): String`**: Compiles a summary of workout data from the past seven days, iterating over entries in `history` and formatting each day’s activities. If no records are found within the past week, it returns a message indicating the absence of data. This method helps users quickly assess their weekly workout progress.
+- **Ensures data integrity and consistency**:
+    - **Validation**: Before operations like deletion or retrieval, checks ensure records exist for specified dates, preventing errors in data handling.
+    - **Safe Updates and Comparisons**: By providing methods like `isBetter()` for comparing exercises, the `History` component ensures users’ records accurately reflect their achievements without duplication or inconsistencies.
 
-    - **`logRecord(LocalDate date, DailyRecord record): void`**: Adds or updates a `DailyRecord` for the specified date in `history`. This method supports adding new records and updating existing ones, offering flexibility in managing daily workout data.
+This structured and user-focused design of the `History` component empowers BuffBuddy users to track, manage, and assess their fitness journey effectively.
 
-    - **`deleteRecord(LocalDate date): DailyRecord`**: Deletes and returns the `DailyRecord` for a given date. If no record exists, it returns `null`. This method is useful for users who need to remove specific workout entries.
-
-    - **`hasRecord(LocalDate date): boolean`**: Checks if a workout record exists for a specific date. This method is helpful for validating the existence of records before performing operations like deletion or retrieval.
-
-    - **`getHistorySize(): int`**: Returns the number of entries in the `history`. This method provides quick access to the total count of workout records, which can be useful for summary statistics.
-
-    - **`getFormattedPersonalBests(): String`**: Generates a formatted summary of personal bests across all exercises. It retrieves the highest weight or best performance for each exercise type, helping users track their progress in specific workouts.
-
-    - **`getPersonalBestForExercise(String exerciseName): String`**: Retrieves the personal best performance for a specific exercise, based on weight lifted. If no record is found, it returns a message indicating the absence of a personal best for that exercise. This method is useful for users focused on improving their personal records.
-
-    - **`getPersonalBestsMap(): Map<String, Exercise>`** (private): Builds a map of the best performance for each exercise type by iterating through `DailyRecord` entries. This helper method supports the `getFormattedPersonalBests()` functionality.
-
-    - **`isBetter(Exercise current, Exercise best): boolean`** (private): Compares two `Exercise` instances to determine if the current one has a better performance (higher weight). This method supports the evaluation of personal bests.
-
-    - **`toString(): String`**: Converts the `history` map to a readable string format, displaying each `DailyRecord` entry by date with clear dividers between records. If `history` is empty, it returns a message indicating no records are available. This method is useful for summarizing all workout data for display.
-
-- **Interacts with `DailyRecord`, `Day`, and `Exercise` classes**: The `History` component accesses related classes for comprehensive tracking:
-    - **`DailyRecord`**: Each `DailyRecord` represents a single day’s workout, meals, and water intake.
-    - **`Day`**: Inside each `DailyRecord`, `Day` stores workout program details.
-    - **`Exercise`**: Used to represent individual exercises within a `Day`, allowing for detailed tracking and comparison of workout data.
 
 <!-- @@author Bev-low -->
 The `DailyRecord` component,
@@ -172,7 +159,7 @@ The `Storage` component,
 - **Relies on `ProgrammeList` and `History` from the Model component:** Since the `Storage` component is tasked with saving and retrieving
   the `ProgrammeList` and `History` objects, it ensures the data is accurately represented and stored.
 - **Utilizes custom serializers:** To properly handle date formats and other specific needs, Storage makes use of custom serializers for
-  objects like LocalDate from the `DateSerilazer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
+  objects like LocalDate from the `DateSerializer` class, ensuring that these objects are correctly serialized to and deserialized from JSON.
 
 The `FileManager` component,
 
@@ -191,61 +178,101 @@ The `DateSerializer` component,
 - **Implements `JsonSerializer` and `JsonDeserializer` interfaces**: The class implements both `JsonSerializer<LocalDate>` and `JsonDeserializer<LocalDate>` from the Gson library, allowing it to handle JSON conversion for `LocalDate` objects.
 - **Uses a standardized date format**: The `DateTimeFormatter` is configured with the pattern `dd-MM-yyyy`, which ensures that all serialized and deserialized dates conform to this format.
 
-<!-- @@author -->
+<!-- @@author nirala-ts -->
 ### Parser Component
 
-#### Overview
+![Class_Diagram_for_Factory_Component](images/parserComponent.png)
 
-The Parser Component is a key part of the application, responsible for interpreting user input and creating appropriate command objects for execution. 
-It handles the delegation of command creation to specialized factories and manages flag parsing for a range of commands related to program management, meals, water intake, and history. 
-This component includes several classes and factories to ensure organized and efficient parsing and command generation.
+The `Parser` component,
 
-![Class_Diagram_of_Parser_Component](images/parserComponent.png)
-
-#### Parser Component
-The `Parser` class serves as the main entry point for parsing user input. 
-It splits the command string into a main command and arguments, identifies the appropriate factory, and delegates the command creation process. 
-It uses the CommandFactory to create command objects based on user input.
-
-#### FlagParser
-The `FlagParser` is a utility class for parsing flagged arguments within commands. It simplifies the extraction of specific values from arguments, supporting formats like integer, date, string, and index.
-This class also manages alias mapping to provide flexibility in flag usage, allowing different aliases for the same flag.
-
-#### ParserUtils
-`ParserUtils` is a utility class that contains common parsing methods used across the parser classes, including methods for splitting arguments, parsing integers, floats, indices, and dates.
-It provides standardized parsing functionality to avoid redundancy.
-
-#### CommandFactory
-The `CommandFactory` class acts as a central factory that distributes command creation requests to specific factories such as `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`. 
-If an unrecognized command is provided, it returns an `InvalidCommand`.
-
-#### ProgCommandFactory
-
-The `ProgCommandFactory` is responsible for creating program-related commands. 
-It supports commands for creating, viewing, starting, deleting, logging, and editing programs, as well as adding or removing days and exercises from programs. 
-It relies on helper methods like `parseDay` and `parseExercise` to streamline parsing of day and exercise arguments.
-
-#### MealCommandFactory
-
-The `MealCommandFactory` handles commands related to meal management, including adding, deleting, and viewing meals. It uses flags to parse meal details such as the meal name, calories, and date. 
-The factory generates specific commands like `AddMealCommand`, `DeleteMealCommand`, and `ViewMealCommand` based on the parsed input.
+- **Acts as the main entry point for interpreting user input**: The `Parser` class breaks down the command string into a 
+  main command and arguments, identifies the relevant factory, and delegates command creation to the appropriate subcomponent.
+- **Delegates command creation to `CommandFactory`**: By leveraging `CommandFactory`, `Parser` hands off the creation of `Command` 
+  objects based on parsed command types and arguments, supporting extensibility for different command types.
 
 
-#### WaterCommandFactory
-The `WaterCommandFactory` is responsible for water-related commands. It parses arguments to identify commands for adding, deleting, and viewing water intake entries. 
-This factory ensures that water logs can be managed with commands such as `AddWaterCommand`, `DeleteWaterCommand`, and `ViewWaterCommand`.
+The `CommandFactory` component,
 
-#### HistoryCommandFactory
-The `HistoryCommandFactory` manages history-related commands. It supports viewing, listing, deleting history entries, and managing personal bests and weekly summaries. 
-The factory can generate commands such as `ViewHistoryCommand`, `DeleteHistoryCommand`, `WeeklySummaryCommand`, and `ViewPersonalBestCommand` depending on the parsed input.
+- **Centralizes command production**: The `CommandFactory` class is responsible for creating `Command` objects based on the command type in user input, providing a single access point for command creation.
+- **Manages subcommand factories**: It delegates specific command creation tasks to sub-factories, including `ProgCommandFactory`, `MealCommandFactory`, `WaterCommandFactory`, and `HistoryCommandFactory`, based on the parsed command. If the command is unsupported, it returns an `InvalidCommand`.
 
 
-![Class_Diagram_of_FlagDefinitions_Component](images/FlagDefinitionsComponent.png)
+The `ProgCommandFactory` component,
 
-#### FlagDefinitions
-The `FlagDefinitions` class contains predefined constants for the various flags used across commands, such as flags for dates, programs, days, exercises, names, sets, reps, weights, and calories.
-It standardizes flag usage throughout the component, ensuring consistency in flag names.
+![Class_Diagram_for_ProgCommandFactory_Component](images/progFactoryComponent.png)
 
+- **Processes program-related commands**: This factory handles commands related to creating, viewing, editing, starting, deleting, 
+  and logging programs within the application.
+- **Parses and prepares complex program structures**: It includes helper methods to interpret hierarchical program structures,
+  allowing users to create and modify workout programs with days and exercises. It also supports commands with complex flags, ensuring flexibility in program management.
+- _Note:_ Since `ProgCommandFactory` is responsible for creating a wide variety of commands, the class diagram has been simplified by using the superclass `Command` class to 
+  represent all sub-command classes that are actually created.
+
+
+
+The `MealCommandFactory` component,
+
+![Class_Diagram_for_MealCommandFactory_Component](images/mealFactoryComponent.png)
+
+
+- **Parses meal-related commands**: This factory handles commands for adding, deleting, and viewing meals, providing a structured 
+  way to manage dietary information within the application.
+- **Validates and processes flagged arguments**: It uses `FlagParser` to interpret and validate command flags for meal-related attributes, 
+  such as name, calories, and date. This ensures that inputs are correctly structured and validated before creating meal commands.
+
+
+The `WaterCommandFactory` component,
+
+![Class_Diagram_for_WaterCommandFactory_Component](images/waterFactoryComponent.png)
+
+- **Handles water tracking commands**: This factory parses commands related to adding, deleting, and viewing water entries, allowing 
+  users to track their daily water intake.
+- **Ensures valid water-related input**: It uses `FlagParser` to validate command flags, ensuring that water volume and date inputs are
+  correctly provided.
+
+
+The `HistoryCommandFactory` component,
+
+![Class_Diagram_for_HistoryCommandFactory_Component](images/historyFactoryComponent.png)
+
+- **Generates history-related commands**: This factory handles commands for viewing, listing, deleting history entries, and managing 
+  personal bests and weekly summaries.
+- **Interprets user commands and arguments for history management**: It uses helper methods (e.g., `prepareViewHistoryCommand`) to 
+  parse user commands and arguments, constructing the corresponding `Command` objects for various history-related operations.
+
+
+The `FlagParser` component,
+
+![Class_Diagram_for_FlagParser_Component](images/flagParserComponent.png)
+
+- **Interprets flagged arguments in command strings**: This class provides advanced parsing of flagged arguments, supporting flexible 
+  parsing and retrieval of values by flags, aliases, and data types (integer, float, date).
+- **Validates flags for correct command structure**: `FlagParser` ensures that required and unique flags are present, allowing flexible 
+  command input through aliases while enforcing structure.
+
+
+The `ParserUtils` component,
+
+![Class_Diagram_for_ParserUtils_Component](images/parserUtilsComponent.png)
+
+- **Provides utility methods for parsing tasks**: This class offers helper methods for argument splitting, number parsing, index validation, 
+  and date formatting, simplifying common parsing tasks.
+- **Handles date and number validation**: It includes specialized methods for parsing dates and numbers, ensuring valid input for commands 
+  requiring these data types.
+
+
+The `FlagDefinitions` component,
+
+![Class_Diagram_for_FlagDefinitions_Component](images/flagDefinitionsComponent.png)
+
+- **Defines standard command flags**: This class contains constants representing command flags, establishing a standard set of flags used 
+  across the application.
+- **Validates flags quickly**: By storing valid flags in a set (`VALID_FLAGS`), `FlagDefinitions` allows for efficient validation during 
+  command parsing.
+
+
+
+<!-- @@author TVageesan -->
 ### Command Component
 
 #### Overview
@@ -289,92 +316,161 @@ The following diagram documents all `ProgrammeCommand` subclasses.
 
 ### Common Component
 
-`common` package contains utility classes that are used across the multiple packages.
+![Class_Diagram_for_Common_Component](images/commonUtilsComponent.png)
+
+`common` package contains `Utils` class that is used across the multiple packages for validation and formatting.
 
 ---
 
+<!-- @@author nirala-ts -->
 ## Implementation
 
 ### Create Programme
 
 #### Overview
-The **Create Programme** feature allows users to create a new workout programme, which can be either empty (with only a name)
-or contain multiple days with specific exercises.
 
-### Example Usage
+#### Overview
+The **Create Programme** feature allows users to create a new workout programme. Users can either create a simple programme
+with just a name or design a multi-day schedule containing various exercises with details such as sets, reps, weight, and calories. 
+This feature enables users to personalize their workout plans according to their fitness goals.
 
-1. **User Starts BuffBuddy**:
-    - The user initiates the BuffBuddy application.
-    - `BuffBuddy` begins by calling `Ui` to read a command.
+These operations include:
+- Parsing the programme name and optional day/exercise details.
+- Creating and organizing Day and Exercise objects within the programme.
+- Adding the completed programme to ProgrammeList.
 
-2. **User Inputs Command**:
-    - `Ui` reads the command from the user and returns it to `BuffBuddy` as `fullCommand`.
+#### Example Usage
+Given below is an example usage scenario for 'create programme' and how the create programme command functions at each step.
 
-3. **Parsing the Command**:
-    - `BuffBuddy` calls `Parser.parse(fullCommand)` to interpret the command.
-    - `Parser` calls `CommandFactory.createCommand(commandString, argumentString)` to create an appropriate command based on `commandString`.
+**Step 1**: The user executes the command `programme create Starter /d 1 /e Push-Ups /e Squats` to create a new programme named "Starter" with one day containing two exercises: "Push-Ups" and "Squats".
 
-4. **Delegating to Specific Command Factory**:
-    - `CommandFactory` checks if `commandString` is related to program commands. If it is, `CommandFactory` calls `ProgCommandFactory.parse(argumentString)`.
+**Step 2**: After parsing this input, a `CreateProgrammeCommand` is created.
 
-5. **Handling Create Subcommand**:
-    - `ProgCommandFactory` checks if the subcommand is "create" and calls `prepareCreateCommand(arguments)` if it is.
+**Step 3**: The command then calls `ProgCommandFactory#prepareCreateCommand()` to parse the details of the programme.
 
-6. **Parsing Program Details**:
-    - In `prepareCreateCommand`, `ProgCommandFactory` iterates through each day specified in the `arguments`:
-        - For each day:
-            - `ProgCommandFactory.parseDay(dayString)` is called to parse details of the day.
-            - A new `Day` object is created.
-            - The parsed `Day` object is returned to `ProgCommandFactory`.
+**Step 4**: Inside `prepareCreateCommand`, the programme name and day details are parsed. For each day specified:
+- `ProgCommandFactory#parseDay()` is called to create a new `Day` object.
+- For each exercise in the day, `ProgCommandFactory#parseExercise()` is called to create an `Exercise` object with the specified details.
+- Each created `Exercise` is added to the `Day` object.
 
-            - For each exercise within the day:
-                - `ProgCommandFactory.parseExercise(exerciseString)` is called to parse exercise details.
-                - A new `Exercise` object is created.
-                - The parsed `Exercise` is inserted into the `Day` object.
+**Step 5**: The `CreateProgrammeCommand` then calls `ProgrammeList#insertProgramme()` with the parsed programme name and list of days to add the new programme to `ProgrammeList`.
 
-        - The fully populated `Day` object, containing all exercises, and the programme name is returned.
+**Step 6**: The created `Programme` object is returned to `CreateProgrammeCommand`.
 
-7. **Creating `CreateProgrammeCommand`**:
-    - After parsing the program structure, `ProgCommandFactory` creates a new `CreateProgrammeCommand` object with `progName` and parsed `days`.
+**Step 7**: The `CreateProgrammeCommand` formats a message indicating successful creation of the programme.
 
-8. **Returning to `CommandFactory`**:
-    - `ProgCommandFactory` returns the `CreateProgrammeCommand` object to `CommandFactory`, which then passes it back to `Parser`.
-    - `Parser` returns the command object to `BuffBuddy`.
+**Step 8**: The formatted message is included in a `CommandResult`, which is returned to the user interface.
 
-9. **Executing `CreateProgrammeCommand`**:
-    - `BuffBuddy` calls `CreateProgrammeCommand.execute()` to perform the action.
-    - Inside `execute()`, `CreateProgrammeCommand` calls `ProgrammeList.insertProgramme(programmeName, programmeContents)` to add the new program to the list.
-
-10. **Creating Program in `ProgrammeList`**:
-    - `ProgrammeList` creates a new `Programme` object with the provided name and content.
-    - The `Programme` object is added to the `ProgrammeList`.
-
-11. **Generating Command Result**:
-    - `CreateProgrammeCommand` creates a new `CommandResult` object, containing the result message of the operation.
-
-12. **Returning the Result**:
-    - `CreateProgrammeCommand` returns the `CommandResult` to `BuffBuddy`.
-
-13. **Displaying the Result to the User**:
-    - `BuffBuddy` calls `Ui.showMessage(result)` to display the result message.
-    - `Ui` formats and displays the result to the user, completing the flow of operations for the "Create Programme" feature.
-
-This process illustrates how BuffBuddy handles the creation of a workout program, from parsing user input to structuring program details and finally displaying the result back to the user.
+**Step 9**: The user interface displays the result message to the user, confirming the successful creation of the programme.
 
 #### Sequence Diagram
 
 ![Sequence Diagram for createProgramme feature](./images/createProgramme.png)
 
 
+_Note_: Happy path is assumed in the sequences diagram. Error handling has been simplified to keep the diagram brief.
+Generally, if a conditional check fails (i.e. if the Programme Name is missing), a ProgrammeException will be thrown and 
+interrupt the command execution. BuffBuddy will print the appropriate error message based on the Exception and then wait for the next command.
+
+
+<!-- @@author TVageesan -->
+### Start Programme
+
+#### Overview
+
+The **Start Programme** feature allows users to start a specific workout programme. This sets the programme as the active programme, which other commands will default to if no programme is explicitly specified.
+
+#### Sequence diagram
+
+![](images/startProgramme.png)
+
+#### Example Usage
+
+Given below is an example usage scenario for 'start programme' and how the start programme command functions at each step.
+
+**Step 1:** The user has a list of workout programmes stored in `ProgrammeList`. Each programme may contain multiple days and exercises.
+
+**Step 2:** The user executes the command `programme start 1` to start the first programme in the list.
+
+**Step 3:** After parsing this input, a `StartProgrammeCommand` is created and executed.
+
+**Step 4:** The command then calls `ProgrammeList#startProgramme()` with the given programme index to set the programme as active.
+
+**Step 5:** The `Programme` object that was started is returned to the `StartProgrammeCommand`.
+
+**Step 6:** The `StartProgrammeCommand` formats the details of the started programme into a message.
+
+**Step 7:** The formatted message is included in a `CommandResult`, which is returned to the user interface.
+
+**Step 8:** The user interface displays the result message to the user, confirming the successful activation of the programme.
+
+### View Programme
+
+#### Overview
+
+The **View Programme** feature allows users to view the details of a specific programme.
+
+#### Sequence Diagram
+
+![](images/viewProgramme.png)
+
+#### Example Usage
+
+Given below is an example usage scenario for 'view programme' and how the view programme command functions at each step.
+
+**Step 1:** The user has a list of workout programmes stored in `ProgrammeList`. Each programme may contain multiple days and exercises.
+
+**Step 2:** The user executes the command `programme view 1` to view the first programme in the list.
+
+**Step 3:** After parsing this input, a `ViewProgrammeCommand` is created and executed.
+
+**Step 4:** The command then calls `ProgrammeList#getProgramme()` with the given programme index to retrieve the programme from the list.
+
+**Step 5:** The retrieved `Programme` object is returned to the `ViewProgrammeCommand`.
+
+**Step 6:** The `ViewProgrammeCommand` formats the details of the retrieved programme into a message.
+
+**Step 7:** The formatted message is included in a `CommandResult`, which is returned to the user interface.
+
+**Step 8:** The user interface displays the result message to the user, showing the details of the selected programme.
+
+### Delete Programme
+
+#### Overview
+
+The **Delete Programme** feature allows users to delete created programmes from the programme list.
+
+#### Sequence Diagram
+
+![Delete Programme Sequence Diagram](images/deleteProgramme.png)
+
+#### Example Usage
+
+Given below is an example usage scenario for 'delete programme' and how the delete programme command functions at each step.
+
+**Step 1:** The user has a list of workout programmes stored in `ProgrammeList`. Each programme may contain multiple days and exercises.
+
+**Step 2:** The user executes the command `programme delete 1` to delete the first programme in the list.
+
+**Step 3:** After parsing this input, a `DeleteProgrammeCommand` is created and executed.
+
+**Step 4:** The command then calls `ProgrammeList#deleteProgram()` with the given programme index to remove the programme from the list.
+
+**Step 5:** The deleted `Programme` object is returned to the `DeleteProgrammeCommand`.
+
+**Step 6:** The `DeleteProgrammeCommand` formats the details of the deleted programme into a message.
+
+**Step 7:** The formatted message is included in a `CommandResult`, which is returned to the user interface.
+
+**Step 8:** The user interface displays the result message to the user, confirming the successful deletion of the programme.
 
 ### Edit Programme
 
 #### Overview
 
 The **Edit Programme** feature allows for in-depth management of programme structures, supporting operations to add, remove, and update days and exercises within each programme.
-Due to the nature of modelling a Workout Programme, a hierarchical data structure is used to represent workout data.
 
-To perform an edit to any aspect of this data, the EditCommand will traverse the hierarchy until it reaches the necessary depth to perform its edit operation.
+To perform an edit to any aspect of this data, the EditCommand will traverse the ProgrammeList and its nested data structures until it reaches the necessary depth to perform its edit operation.
 
 These operations include:
 
@@ -388,9 +484,12 @@ The overall design that enables this functionality is described generically by t
 
 ![Edit Command generic sequence](images/editCommand.png)
 
-The 'Model' class in the above diagram is a generalization of the various data models that are being interacted with
+The `Model` class in the above diagram is a generalization of the various data models that are being interacted with
 to perform each specific edit command. For each edit command, the following sequence diagrams
 further break down how this interaction works.
+
+In each diagram, error handling has been simplified to keep the diagram brief.
+Generally, if a conditional check fails (i.e. if the selected `Programme` does not exist), a `ProgrammeException` will be thrown and interrupt the command execution. `BuffBuddy` will print the appropriate error message based on the Exception and then wait for the next command.
 
 ##### Add day
 
@@ -410,7 +509,7 @@ Given below is an example usage scenario for 'delete exercise' and how the edit 
 
 Step 1. The user creates a programme with a given number of Days with their respective Exercises. ProgrammeList will contain a reference to this programme after its creation.
 
-Step 2. The user executes `programme edit /p 1 /d 1 /x 1` to delete the first exercise in the first day of the first programme.
+Step 2. The user executes `programme edit /p 1 /d 1 /xe 1` to delete the first exercise in the first day of the first programme.
 
 Step 3. After parsing this input, a `DeleteExerciseCommand` (inheriting from the generic `EditProgrammeCommand`) is created and executed.
 
@@ -429,10 +528,12 @@ To summarize, the following activity diagram describes how the overall operation
 ![Edit Command Diagram](images/editCommandActivityDiagram.png)
 
 
+<!-- @@author Atulteja -->
+
 
 ### Add Meal
 
-#### Feature Implementation
+#### Overview
 
 The **Add Meal** feature manages the functionality related to adding meals to a daily record. It interacts with various components such as `History`, `DailyRecord`, and `MealList` to ensure meals are added correctly.
 
@@ -470,7 +571,7 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Meal" command.
 
-The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram. 
+The following sequence diagrams shows the interactions between the necessary classes during the execution of the "Delete Meal" and "View meal" commands. The other interactions are not shown because they remain the same as the in the "Add Meal" sequence diagram. Only the different interactions are shown in the sequence diagram.
 
 #### Sequence Diagram for "Delete Meal" Command
 
@@ -482,7 +583,7 @@ The following sequence diagrams shows the interactions between the necessary cla
 
 #### Activity Diagram for "Add Meal" Feature
 
-![Add Meal Activity Diagram](images/addMealActivitydiagram.png)
+![Add Meal Activity Diagram](images/addMealActivityDiagram.png)
 
 #### Summary of Feature
 
@@ -523,7 +624,13 @@ The overall design that enables this functionality is described generically by t
 
 The diagram shows the interactions among different classes and objects during the execution of the "Add Water" command.
 
+
 #### Sequence Diagram for "Delete Water" Command 
+
+The following sequence diagrams (Delete Water, View Water) follow the same structure as the Add Water sequence diagram. In these diagrams, the section where `addWaterToRecord(waterToAdd)` is called is replaced with the respective method for each action.
+
+#### Sequence Diagram for "Delete Water" Command
+
 
 ![Delete Water Sequence Diagram](images/deleteWaterSequenceDiagram.png)
 
@@ -533,13 +640,13 @@ The diagram shows the interactions among different classes and objects during th
 
 #### Activity Diagram for "Add Water" Feature
 
-![Add Water Activity Diagram](images/addWaterActivitydiagram.png)
+![Add Water Activity Diagram](images/addWaterActivityDiagram.png)
 
 #### Summary of Feature
 
 The **Add Water** feature uses a **hierarchical command pattern** to manage water additions while maintaining good encapsulation and separation of concerns. The chosen design allows easy extensibility and maintainability.
 
-<!-- @@author -->
+<!-- @@author andreusxcarvalho -->
 
 ### WeeklySummary Feature
 
@@ -587,7 +694,46 @@ The following example illustrates the usage scenario and behavior of the Weekly 
 
 ### Sequence Diagram
 
-![Sequence Diagram for WeeklySummary feature](./images/History%20WeeklySummary%20UML%20Sequence%20Diagram.png)
+![Sequence Diagram for WeeklySummary feature](./images/weeklySummarySequenceDiagram.png)
+
+<!-- @@author andreusxcarvalho -->
+
+### Log Programme Feature
+
+The Log Programme feature allows users to log a specific day of a workout programme into the history on a specified date. This feature is implemented using components like `LogProgrammeCommand`, `Parser`, `ProgCommandFactory`, and `History`. Users can activate this feature by entering the `prog log` command in the UI. The implementation follows the command pattern, alongside a factory pattern for creating commands.
+
+### Overview
+
+The following component is crucial to the Log Programme feature:
+
+1. **LogProgrammeCommand Component**  
+   The `LogProgrammeCommand` is responsible for logging a workout day from a programme into the history and provides:
+
+    - Extends the abstract `Command` class.
+    - Uses the command word `"log"`.
+    - Executes by retrieving the specified day from the `ProgrammeList` and logging it to the `History`.
+    - Returns a `CommandResult` containing a success message or relevant feedback.
+
+### Example Usage
+
+The following example illustrates the usage scenario and behavior of the Log Programme feature:
+
+1. **Step 1**: The user enters the `prog log /p [PROG_INDEX] /d [DAY_INDEX] /t [DATE]` command in the UI. The UI reads this command and passes it to the `Parser`.
+2. **Step 2**: The `Parser` breaks down the command `prog log` into:
+    - Main command: `prog`
+    - Subcommand: `log`
+3. **Step 3**: The `Parser` uses `CommandFactory`, which recognizes this as a programme command and delegates to `ProgCommandFactory`.
+4. **Step 4**: `ProgCommandFactory` identifies `log` as the `LogProgrammeCommand` trigger and creates a new `LogProgrammeCommand` instance with the specified parameters.
+5. **Step 5**: The `LogProgrammeCommand` is passed back through the chain to the UI, which then calls its `execute` method.
+6. **Step 6**: During execution:
+    - `LogProgrammeCommand` retrieves the programme and day specified by the user from `ProgrammeList`.
+    - It then logs the day to the `History` object using `History`'s `getRecordByDate()` and `logRecord()` methods.
+    - The result is formatted in a `CommandResult`.
+    - The UI displays the result to the user.
+
+### Sequence Diagram
+
+![Sequence Diagram for Log Programme feature](./images/logProgrammeSequenceDiagram.png)
 
 
 <!-- @@author Bev-low -->
@@ -617,10 +763,10 @@ load the data from the file via `FileManager#load()`. The loaded data is then co
 objects, restoring the user's previous session.
 
 The following sequence diagram shows how a load operation for ProgrammeList goes through the Storage component:
-![Sequence Diagram for Load operation](./images/loadProgrammeListSeqenceDiagram.png)
+![Sequence Diagram for Load operation](./images/loadProgrammeListSequenceDiagram.png)
 
 The following sequence diagram shows how a save operation goes through the Storage component:
-![Sequence Diagram for Save operation](./images/saveSeqeunceDiagram.png)
+![Sequence Diagram for Save operation](./images/saveSequenceDiagram.png)
 <!-- @@author -->
 ---
 
@@ -645,40 +791,54 @@ Gym goers who need a quick way to create, manage and track their workout plans a
 - Users will be able to track their progress as they progress on their fitness journey
 - Users will be able to track water and calorie intake to better track their nutrition
 
+
+<!-- @@author nirala-ts-->
 ## User Stories
 
-| Version | As a ...               | I want to ...                                           | So that I can ...                                    |
-|---------|------------------------|---------------------------------------------------------|------------------------------------------------------|
-| v1.0    | fitness enthusiast     | create a new workout plan/routine                       | tailor my workout to fit my needs                    |
-| v1.0    | fitness enthusiast     | create a workout entry (input sets, weights, rep, time) | keep track of my progress                            |
-| v1.0    | fitness enthusiast     | view my routine when I begin my workout                 | follow my plan more effectively                      |
-| v1.0    | fitness enthusiast     | view their logged workout entry for a specific day      | see what they have done previously                   |
-| v1.0    | fitness enthusiast     | delete a workout entry                                  | remove mistakenly created logs                       |
-| v1.0    | fitness enthusiast     | delete a fitness routine if I no longer use it          | ensure my routines remain relevant and organized     |
-| v1.0    | fitness enthusiast     | edit my existing fitness routine                        | further customize my routines after making them      |
-| v2.0    | progress tracking user | view a summary of my weekly workout activity            | measure my overall progress                          |
-| v2.0    | progress tracking user | track my personal bests for each exercise               | see improvements over time                           |
-| v2.0    | nutrition-focused user | track calories burned during my workout                 | align my fitness routine with my dietary goals       |
-| v2.0    | nutrition-focused user | add a meal I just ate                                   | track my meals over time                             |
-| v2.0    | nutrition-focused user | delete a meal I ate                                     | delete a wrongly inputted meal                       |
-| v2.0    | nutrition-focused user | view my meals I ate on a certain date                   | see how much calories I have eaten                   |
-| v2.0    | hydration-focused user | add my water intake                                     | track my water intake for each day                   |
-| v2.0    | hydration-focused user | view my water intake                                    | see how much water I have consumed across days/week  |
-| v2.0    | hydration-focused user | delete a water intake                                   | remove any mistakes made when inputting water intake |
+| Version | As a ...               | I want to ...                                      | So that I can ...                                     |
+|---------|------------------------|----------------------------------------------------|-------------------------------------------------------|
+| v1.0    | fitness enthusiast     | create a new workout programme/routine             | tailor my workout to fit my needs                     |
+| v1.0    | fitness enthusiast     | set a programme as active                          | default to this programme when logging workouts       |
+| v1.0    | fitness enthusiast     | add a workout day to my programme                  | structure my programme with specific workout days     |
+| v1.0    | fitness enthusiast     | add exercises to a workout day                     | define the exercises and goals for that day           |
+| v1.0    | fitness enthusiast     | edit my existing fitness routine                   | further customize my routines after making them       |
+| v2.0    | fitness enthusiast     | update exercise details like weight, sets, or reps | adjust my routine based on progress or goals          |
+| v1.0    | fitness enthusiast     | delete a workout entry                             | remove mistakenly created logs                        |
+| v1.0    | fitness enthusiast     | delete a fitness routine if I no longer use it     | ensure my routines remain relevant and organized      |
+| v2.0    | fitness enthusiast     | delete a workout day or exercise from a programme  | keep my programme up to date with relevant exercises  |
+| v1.0    | fitness enthusiast     | log my workout for a specific day                  | keep track of my progress and activities              |
+| v1.0    | fitness enthusiast     | view my routine when I begin my workout            | follow my plan more effectively                       |
+| v2.0    | fitness enthusiast     | view a specific workout record                     | review my activities and progress on a particular day |
+| v2.0    | fitness enthusiast     | view all my workout programmes                     | have a quick overview of all available programmes     |
+| v2.0    | progress tracking user | view a summary of my weekly workout activity       | measure my overall progress                           |
+| v2.0    | progress tracking user | track my personal bests for each exercise          | see improvements over time                            |
+| v2.0    | nutrition-focused user | track calories burned during my workout            | align my fitness routine with my dietary goals        |
+| v2.0    | nutrition-focused user | add a meal I ate                                   | track my meals and caloric intake                     |
+| v2.0    | nutrition-focused user | delete a meal I logged                             | remove incorrect meal entries                         |
+| v2.0    | nutrition-focused user | view my meals on a certain date                    | see how many calories I consumed                      |
+| v2.0    | nutrition-focused user | view a caloric balance in the history view         | understand my net calorie intake and expenditure      |
+| v2.0    | hydration-focused user | add my water intake                                | track my water intake for each day                    |
+| v2.0    | hydration-focused user | view my water intake                               | see how much water I have consumed across days/week   |
+| v2.0    | hydration-focused user | delete a water intake                              | remove any mistakes made when inputting water intake  |
+| v2.0    | user                   | exit BuffBuddy                                     | close the program after completing my activities      |
+
 
 ## Non-Functional Requirements
 
-- Java 11 or above installed
-- Program built to support only single user
+- Ensure that you have Java 17 or above installed.
+- Program is built to support single user only
 
 ## Glossary
 
-- _exercise_ - Any exercise that can defined by a name, rep, set, weight and calories burned.
-- _day_ - A day is a collection of exercises meant to be done in one day
-- _programme_ - A programme is a weekly plan of workout days meant to be performed in rotation
+- **Exercise**: An exercise defined by a name, number of reps and sets, weight and average calories burned.
+- **Day**: A ‘workout day’ is a collection of exercises to be done together.
+- **Programme**: A programme is a collection of workout days.
+- **Daily Record**: A daily record contains a user's workout activity, food intake and water intake for any given day.
 
+
+<!-- @@author TVageesan -->
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
+1. Complete the [quick start](UserGuide.md) guide.
 

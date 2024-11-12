@@ -1,24 +1,19 @@
 @startuml
 skinparam classAttributeIconSize 0
-title Ui Class Diagram
-
-!define CLASS(x) class x
+hide circle
 
 class Ui {
-    - <u>ERROR_HEADER: String
-    - <u>GREETING: String
-    - <u>LOGO: String
-    - <u>PROMPT: String
-    - <u>FAREWELL: String
     - in: Scanner
     - out: PrintStream
 
     + readCommand(): String
+    + showLine(): void
     + showMessage(String msg): void
     + showMessage(Exception e): void
     + showMessage(CommandResult result): void
     + showWelcome(): void
     + showFarewell(): void
+    + showFirstTime(): void
 }
 
 class CommandResult {
@@ -27,8 +22,6 @@ class CommandResult {
   + getMessage(): String
 }
 
-Ui ..> Scanner
-Ui ..> PrintStream
 Ui ..> CommandResult
 
 @enduml

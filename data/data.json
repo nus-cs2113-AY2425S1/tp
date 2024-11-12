@@ -1,42 +1,44 @@
 {
   "programmeList": {
-    "currentActiveProgramme": -1,
-    "programmeList": []
-  },
-  "history": {
-    "07-11-2024": {
-      "day": {
-        "name": "Monday",
-        "exercises": [
+    "currentActiveProgramme": 0,
+    "programmeList": [
+      {
+        "programmeName": "Advanced Starter",
+        "dayList": [
           {
-            "sets": 3,
-            "reps": 15,
-            "weight": 30,
-            "calories": 200,
-            "name": "Bench_Press"
+            "name": "Monday",
+            "exercises": [
+              {
+                "sets": 3,
+                "reps": 15,
+                "weight": 30,
+                "calories": 200,
+                "name": "Bench Press"
+              },
+              {
+                "sets": 3,
+                "reps": 15,
+                "weight": 50,
+                "calories": 200,
+                "name": "Squat"
+              }
+            ]
           },
           {
-            "sets": 3,
-            "reps": 15,
-            "weight": 50,
-            "calories": 200,
-            "name": "Squat"
+            "name": "Wednesday",
+            "exercises": [
+              {
+                "sets": 3,
+                "reps": 10,
+                "weight": 10,
+                "calories": 100,
+                "name": "Bicep Curl"
+              }
+            ]
           }
         ]
-      },
-      "water": {
-        "waterList": [
-          500.3
-        ]
       }
-    },
-    "11-11-2024": {
-      "mealList": {
-        "meals": []
-      },
-      "water": {
-        "waterList": []
-      }
-    }
-  }
+    ]
+  },
+  "history": {}
 }

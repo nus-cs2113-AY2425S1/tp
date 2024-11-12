@@ -1,7 +1,7 @@
 # Project Portfolio: Low Beverly
 
 ## Project: BuffBuddy
-BuffBuddy is a fitness tracker that tracks your programmes, workouts, meals and water intake. The user interacts wtih
+BuffBuddy is a fitness tracker that tracks your programmes, workouts, meals and water intake. The user interacts with
 it using a CLI, and it has a GUI created with JavaFX. It is written in Java. 
 
 ## Summary of Contributions
@@ -11,37 +11,47 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 
 ### Enhancements Implemented
 
-- **Save/Load Feature**: Designed and wrote the code to save and load files into JSON Objects using the Gson Library.
-    - **What it does**: This feature allows the application to save and load data seamlessly, storing it in JSON format to ensure data persistence between sessions. The feature uses the Gson library to serialize and deserialize data into JSON objects, enabling a structured and readable file format.
-    - **Justification**: The save/load feature is essential for users to maintain their progress and data across sessions, making the application more reliable and user-friendly. Without this feature, users would risk losing their data upon closing the application.
-    - **Highlights**: This feature required careful design and implementation to integrate with the application's data model. Converting complex data into JSON format required precise management of data structures and file handling to ensure accuracy and consistency. The implementation also included error handling to manage file I/O exceptions and ensure robust file-saving capabilities.
-    - **Credits**: The Gson library was used extensively to handle JSON serialization and deserialization, making it easier to manage structured data within the application.
+- **Save/Load Feature**: Developed functionality to save and load data as JSON files using the Gson library.
+  - **What it does**: Enables the application to persist user data by saving it in JSON format, ensuring that data is retained across sessions. Utilizes Gson for efficient serialization and deserialization.
+  - **Justification**: Essential for user experience, allowing data continuity across application usage. Without it, users risk data loss upon closing.
+  - **Highlights**: Required careful integration with the data model, managing complex data structures accurately. Includes error handling through a `StorageException` and a validation method to detect and handle corrupted files, ensuring data integrity and reliability.
+  - **Credits**: The Gson library was extensively used for handling JSON serialization and deserialization.
 
-- **Water Intake Features**: Brief description of additional features or optimizations you contributed.
+- **Water Intake Features**: Developed functions to track, view, and manage daily water consumption.
+  - **What it does**: Allows users to log daily water intake, helping them monitor hydration goals over time. Users can add, view, and delete intake entries.
+  - **Justification**: Aids health-focused users by providing an easy way to track hydration, a crucial part of fitness and well-being.
+  - **Highlights**: Implemented methods to add, delete, and view water entries, with a data structure designed for accurate daily updates. Modular commands (add, delete, view) were created to adhere to object-oriented principles, improving code modularity and readability. Error handling prevents invalid entries (e.g., negative values), maintaining data accuracy.
+
+- **Custom Exceptions**: Developed specific exceptions to handle distinct error scenarios.
+  - **What it does**: Custom exceptions provide tailored error messages for common issues, enhancing user experience by guiding them through specific errors.
+  - **Justification**: Improves usability by offering context-specific error messages, rather than generic ones, helping users understand and resolve issues more easily.
+  - **Highlights**: Custom exceptions cover scenarios such as invalid inputs, out-of-bounds errors, and corrupted files. These exceptions ensure robust error handling across the application, allowing graceful failure and preventing incorrect data from being stored.
 
 ### Contributions to the User Guide (UG)
 - Added/edited the following sections:
-    - **Added documentation for programme edit features**: Provided comprehensive explanations and examples on how users can utilize the programme editing functionality, including steps to modify existing programmes and commands to customize their workout schedules.
-    - **Added documentation for day edit features**: Detailed the process for editing day-specific attributes within a programme, explaining how users can change, add, or remove day information, and offering clear usage examples for better understanding.
+    - **Added documentation for water features**: Documented how to use the water intake features, including adding, viewing, and deleting water entries.
+    - **Edited documentation for programme edit features**: Made the user guide more readable by splitting up the programme edit features into smaller commands
 
 ### Contributions to the Developer Guide (DG)
-- **Sections Contributed**: Storage component, Save/Load implementation, DailyRecord Class, Programme component, Exceptions
+- **Sections Contributed**: Storage component, DailyRecord Class, Programme component, Add Water Feature, Save/Load Feature
 - **UML Diagrams**:
     - **Storage Component**: Illustrates the structure and interactions of the Storage class within the system, including its methods and relationships with other components such as FileManager, ProgrammeList, and History. This diagram highlights how data is loaded, saved, and managed to ensure file operations are seamless and robust.
     - **DailyRecord Class**: Shows the design of the DailyRecord class, detailing its attributes (e.g., Day, MealList, Water) and methods (e.g., logging and retrieving records). This diagram showcases the relationships between DailyRecord and other classes it interacts with, demonstrating how it integrates within the system to manage daily workout, meal, and water intake data.
-    - **Save/Load Feature**: Depicts the sequence of operations involved in saving and loading data within the application. This includes interactions between the Storage, FileManager, and any serialization or deserialization logic. The diagram highlights the workflow of data persistence, ensuring data integrity and user session restoration.
     - **Programme component**: Provides an overview of the Programme component structure, displaying the relationships between ProgrammeList, Programme, Day, and Exercise classes. This diagram showcases how workout programmes are organized, managed, and stored, emphasizing the hierarchical relationship and flow of data within the system.
-    - **Exceptions**: Describes the custom exceptions defined in the system, detailing their inheritance from standard exception classes. The diagram displays how each custom exception (e.g., InvalidInputException, FileLoadException) is used and where it fits into the error-handling framework of the application, ensuring graceful degradation and user feedback during unexpected events.
+    - **Add Water Feature**: Depicts the sequence of operations and interactions involved in adding a water entry. The diagram shows the flow from the user’s action to the adding of the water entry in DailyRecord.
+    - **Save/Load Feature**: Depicts the sequence of operations involved in saving and loading data within the application. This includes interactions between the Storage, FileManager, and any serialization or deserialization logic. The diagram highlights the workflow of data persistence, ensuring data integrity and user session restoration.
+
 
 ### Contributions to Team-Based Tasks
 - Participated in team meetings.
-- Assisted with [mention any collaborative tasks, like integrating code from different features or team-based debugging sessions].
+- Setting up Gson and Mockito in Gradle.
+- Maintaining issue tracker and milestones.
+- Helped refactor and adapt meal-related functionality to align with the revised `History` and `DailyRecord` structure. Ensured that meal data was correctly managed and persisted within the updated framework.
+- Assisted with integrating custom exceptions into the main and test code in V2.0.
+- Participated in a collaborative debugging session to identify and resolve issues before the V2.0 release.
 
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:
-    - [PR #229 - Adjust history commands](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/229)
-    - [PR #228 - Update Programme Features in UG](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/228)
-    - [PR #212 - Add Water features JUnit tests](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/212)
     - [PR #208 - Polish v1 features](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/208)
     - [PR #179 - Update Developer Guide](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/179)
     - [PR #178 - Add documentation and testing for edit programme](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/178)
@@ -49,18 +59,12 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
     - [PR #164 - Add calorie information to Exercise objects](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/164)
     - [PR #162 - Refactor EditCommand](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/162)
     - [PR #159 - Fix History and Logging Issue](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/159)
-    - [PR #151 - Added WaterCommandFactory and ViewWaterCommand classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/151)
+    - [PR #151 - Added WaterCommandFactory and ViewWaterCommand classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/151) 
     - [PR #90 - Add assertions and logging details for files in parser package](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/90)
-    - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81)
-    - [PR #79 - Unit Test for Core Command Classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/79)
-    - [PR #73 - Fixing the loading and logging of History class PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/73)
-    - [#52 - Finalize version one](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/52)
-    - [PR #51 - History PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/51)
-    - [#49 - Adjust Storage class for better separation of concern PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/49)
-    - [#48 - Add skeleton code for JUnit Testing PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/48)
-    - [#46 - Add date parsing support for logging workouts PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/46)
-    - [#45 - Add delete & create day functionality to edit command PR](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/46)
-    - [#44 - Add delete programme functionality](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/44)
+    - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81) 
+    - [PR #45 - Add delete & create day functionality to edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/45)
+    - [PR #31 - Add create & edit command](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/31)
 - Mentored team members by providing code feedback and debugging assistance.
 
 ### Contributions Beyond the Project Team
+- Reported bugs in other team's product during peer reviews

@@ -1,0 +1,25 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+
+class MealCommandFactory {
+  - <u> COMMAND_WORD: String
+
+  + parse(String argumentString): Command
+  + prepareAddCommand(String argumentString): Command
+  + prepareDeleteCommand(String argumentString): Command
+  + prepareViewCommand(String argumentString): Command
+}
+
+MealCommandFactory "1" --> "1" InvalidCommand : "  creates"
+MealCommandFactory "1" --> "1" DeleteMealCommand : "  creates"
+MealCommandFactory "1" --> "1" AddMealCommand : "  creates"
+MealCommandFactory "1   " --> "1" ViewMealCommand : "  creates"
+MealCommandFactory "1 " --> "1" Meal : "  creates"
+MealCommandFactory "1" -->  "1" FlagParser : "  creates"
+
+MealCommandFactory ..> ParserUtils
+MealCommandFactory ..> FlagDefinitions
+MealCommandFactory ..> MealException
+
+@enduml

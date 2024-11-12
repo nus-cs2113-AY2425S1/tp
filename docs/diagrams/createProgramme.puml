@@ -1,18 +1,55 @@
 @startuml
 
+hide footbox
+
 actor User as user
-participant BuffBuddy
-participant Ui
-participant Parser
-participant CommandFactory
-participant ProgCommandFactory
-participant CreateProgrammeCommand
-participant ProgrammeList
-participant CommandResult
+participant ":BuffBuddy" as BuffBuddy
+participant ":Ui" as Ui
+participant ":Parser" as Parser
+participant ":CommandFactory" as CommandFactory
+participant ":ProgCommandFactory" as ProgCommandFactory
+participant ":CreateProgrammeCommand" as CreateProgrammeCommand
+participant ":ProgrammeList" as ProgrammeList
+participant ":CommandResult" as CommandResult
 
 
 user -> BuffBuddy: start BuffBuddy
 activate BuffBuddy
+
+create Ui
+BuffBuddy -> Ui: Ui()
+activate Ui
+
+Ui --> BuffBuddy
+deactivate Ui
+
+create Parser
+BuffBuddy -> Parser: Parser()
+activate Parser
+
+create CommandFactory
+Parser -> CommandFactory: CommandResult()
+activate CommandFactory
+
+create ProgCommandFactory
+CommandFactory -> ProgCommandFactory: ProgCommandFactory()
+activate ProgCommandFactory
+
+ProgCommandFactory --> CommandFactory
+deactivate ProgCommandFactory
+
+CommandFactory --> Parser
+deactivate CommandFactory
+
+Parser --> BuffBuddy
+deactivate Parser
+
+create ProgrammeList
+BuffBuddy -> ProgrammeList: loadProgrammeList()
+activate ProgrammeList
+
+ProgrammeList --> BuffBuddy
+deactivate ProgrammeList
 
 BuffBuddy -> Ui: readCommand()
 activate Ui
@@ -39,6 +76,7 @@ alt commandString is prog command
             ProgCommandFactory -> ProgCommandFactory: parseDay(dayString)
             activate ProgCommandFactory
 
+            create ":Day" as Day
             ProgCommandFactory -> Day: Day()
             activate Day
 
@@ -51,6 +89,7 @@ alt commandString is prog command
                 activate ProgCommandFactory
             end
 
+            create ":Exercise" as Exercise
             ProgCommandFactory -> Exercise: Exercise()
             activate Exercise
 
@@ -60,6 +99,10 @@ alt commandString is prog command
            return return Exercise
 
            ProgCommandFactory -> Day: insertExercise()
+           activate Day
+
+           Day --> ProgCommandFactory
+           deactivate Day
 
         end
         return return Day
@@ -67,6 +110,7 @@ alt commandString is prog command
     else subcommand is other commands
     end
 
+    create  CreateProgrammeCommand
     ProgCommandFactory -> CreateProgrammeCommand: CreateProgrammeCommand()
     activate CreateProgrammeCommand
 
@@ -77,6 +121,7 @@ alt commandString is prog command
 
     ProgCommandFactory --> CommandFactory: Return CreateProgrammeCommand
     deactivate ProgCommandFactory
+    destroy ProgCommandFactory
 
 
 else commandString is other commands
@@ -94,6 +139,7 @@ activate CreateProgrammeCommand
 CreateProgrammeCommand -> ProgrammeList: insertProgramme(programmeName, programmeContents)
 activate ProgrammeList
 
+create ":Programme" as Programme
 ProgrammeList -> Programme: Programme()
 activate Programme
 
@@ -103,6 +149,7 @@ deactivate Programme
 ProgrammeList --> CreateProgrammeCommand: Return Programme
 deactivate ProgrammeList
 
+create CommandResult
 CreateProgrammeCommand -> CommandResult: CommandResult()
 
 activate CommandResult
@@ -112,10 +159,18 @@ deactivate CommandResult
 
 CreateProgrammeCommand --> BuffBuddy: Return CommandResult
 deactivate CreateProgrammeCommand
+destroy CreateProgrammeCommand
 
 
 BuffBuddy -> Ui: showMessage(result)
+
+
 Ui --> user: Display result
+destroy CommandResult
+
+Ui --> BuffBuddy
+deactivate BuffBuddy
+
 deactivate Ui
 
 @enduml
