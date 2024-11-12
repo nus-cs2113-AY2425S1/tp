@@ -45,6 +45,8 @@ It can also keep track of what ingredients you have on hand, and recommend recip
 
 ## Features
 
+<!-- @@author KSanjith -->
+
 ### Recipes and Ingredients
 * There are 2 categories of data that YMFC will help you store: Recipes and Ingredients
 * The **Recipes** are stored in the **cookbook** database while **Ingredients** are stored in the **inventory** database
@@ -63,6 +65,8 @@ be automatically added to the ingredients inventory!
   * Because the ingredients within recipes and ingredients within the inventory refer to 2 completely different things!
   * The only way to add ingredients to your inventory is through the `new` command, which will be described later
 
+<!-- @@author -->
+
 <!-- @@author 3CCLY -->
 
 ### Save-Load System
@@ -76,6 +80,8 @@ be automatically added to the ingredients inventory!
 
 <!-- @@author -->
 
+<!-- @@author KSanjith -->
+
 ### Input Formatting Guide
 * If the command format is in `UPPER_CASE`, then it means it is to be substituted for the user's desired phrase
   * Example: In the parameter `n/NAME`, the user is to replace "NAME" with another word/phrase of their liking
@@ -84,11 +90,13 @@ such as `n/ABC Soup`.
   * Example: In the parameter `s/name`, the command must be typed exactly as shown.
   * The word "name" cannot be replaced with anything else.
 * The [ ] in `[PARAMETER]` means that the parameter in question is optional to add in the command.
-  * e.g. `n/NAME [t/TEST]` can be used as `n/Sanjith t/YAYYY` or as `n/Sanjith`
+  * e.g. `n/NAME [t/TEST]` can be used as `n/JohnDoe t/YAYYY` or as `n/JohnDoe`
 * The ... in `PARAMETER...` means that there can be multiple of that parameter.
   * NOTE: There must be **at least 1** parameter included.
-* Any command that has no additional parameters will ignore anything after the command, and will perform as usual.
-  * Example: `help me` would have the same results as `help`.
+* Any command that **has no additional parameters** will ignore anything after the command, and will perform as usual.
+  * This applies to commands such as `help`, `list`, `listI`, `sortI`, `random`, `recommend` and `bye`.
+  * Example: `help me` would have the same results as `help`. THIS IS INTENDED.
+  * However, `helpme` without the space in-between would be rejected, and fail to execute the `help` command.
 
 ### Getting Help:`help`
 
@@ -101,6 +109,8 @@ Lists out all the available commands and their proper format for use.
 Format: `bye`
 
 Will end the program and close the app.
+
+<!-- @@author -->
 
 ## Features and Command - CookBook for Recipes
 
@@ -160,6 +170,8 @@ You currently have 2 recipes in your list.
 __________________________________________________________________________________
 ````
 
+<!-- @@author KSanjith -->
+
 ### Listing out Existing Recipes
 
 Format: `list`
@@ -181,6 +193,8 @@ Format: `sort s/time`
 Sorts all the stored recipes by time taken, from lowest to highest
 Entire command **MUST** be in **lowercase**
 - i.e. sort s/TIME will be rejected
+
+<!-- @@author -->
 
 ### Searching for specific Recipes
 
@@ -378,6 +392,8 @@ to the least.
 
 <!-- @@author -->
 
+<!-- @@author KSanjith -->
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -412,3 +428,5 @@ If there are irregular lines in the save files, YMFC will discard them upon laun
 | `sortI`                                                                      | Sort the ingredients in the inventory alphabetically by name                                          |
 | `random`                                                                     | Display a randomly-chosen recipe from cookbook                                                        |
 | `recommend`                                                                  | Display all recipes that share common ingredients with what's available in the inventory              |
+
+<!-- @@author -->

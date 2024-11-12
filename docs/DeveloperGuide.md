@@ -38,6 +38,7 @@
         - [SortIngredientCommand](#15-sortingredientcommand-class)
     - [Parser Class](#parser-class)
     - [Storage Class](#storage-class)
+    - [Exception Class](#exception-class)
 3. [Appendix: Requirements](#appendix-requirements)
     - [Product Scope](#product-scope)
     - [User Stories](#user-stories)
@@ -50,7 +51,7 @@
 
 Certain aspects of YMFC's code was inspired from the following member(s) IPs:
 
-[Sanjith](http://github.com/KSanjith/ip) : Referenced to develop the working mechanisms of YMFC's storage class
+[Sanjith](http://github.com/KSanjith/ip) : Referenced to develop the working mechanisms of YMFC's storage class and save load system
 
 [Luyang](http://github.com/3CCLY/ip) : Referenced to develop the working mechanisms of YMFC's storage class
 
@@ -319,6 +320,8 @@ of their percentage match
 
 <!-- @@author -->
 
+<!-- @@author KSanjith -->
+
 #### 14. `SortCommand` Class
 - The `SortCommand`class is designed to sort all the existing recipes in the `RecipeList`
 - When executed, depending on the user's input parameter, it will either sort the recipes alphabetically by name,
@@ -329,6 +332,8 @@ or in ascending numerical order of time taken
 - The `SortIngredientCommand`class is designed to sort all the existing ingredients in the `IngredientList`
 - When executed, it will sort the ingredients alphabetically by name
 - It will then list out the newly ordered ingredients to the user, and update the save file with the new order of ingredients
+
+<!-- @@author -->
 
 ### Parser Class
 Self-explanatory, made for parsing user's input command. This class only consist of one public static method 
@@ -341,6 +346,8 @@ and returns the appropriate command object containing the user's input parameter
 Note: The getXYZCommand(args) method is used for commands that further need to extract parameters from the user's input
 beyond just the command name, such as for the sort command which needs to extract from the input, the type of sort that
 is requested. In the example of the sort command, the getXYZCommand(args) method is called `getSortCommand()`.
+
+<!-- @@author KSanjith -->
 
 ### Storage Class
 The Storage class 
@@ -368,6 +375,24 @@ and only describes how regular, properly formatted save files are loaded in
 
 The Storage class also saves and loads the list of user's available ingredients to another .txt save file.
 The mechanisms with which it does so is highly similar to the 2 sequence diagrams above.
+
+### Exception Class
+There is a main YMFCException class that extends the Exception class.
+There are then 4 child exception classes that inherit from the YMFCException class.
+* EmptyListException
+  * This exception is thrown mainly in the Parser class whenever the user inputs a command that would not work 
+  with an empty list of recipes or ingredients
+    * e.g. If the recipe cookbook is empty, and the user inputs the edit command, then this exception will be thrown. 
+      * Because there are no recipes in the empty cookbook that can be editted
+* InvalidArgumentException
+  * This exception is mainly thrown in the Parser class whenever the user's input command has invalid arguments
+* InvalidCommandException
+  * This exception is mainly thrown in the Parser class whenever the user's input does not match the available commands
+* InvalidSaveLineException
+  * This exception is thrown whenever the save-load system encounters lines within the save file that 
+  are not of the proper syntax
+
+<!-- @@author -->
 
 <div style="page-break-after: always;"></div>
 
@@ -409,6 +434,8 @@ whatever ingredients the user has on hand.
 
 <div style="page-break-after: always;"></div>
 
+<!-- @@author KSanjith -->
+
 ### Non-Functional Requirements
 
 1. Should work on any Windows, MacOS or Linux computers as long as Java 17 is installed
@@ -448,7 +475,8 @@ and your database of recipes and ingredients would have been saved and loaded in
 8. `find i/sugar`
    - Lists out all recipes that have an ingredient called sugar
 9. `edit e/Pasta i/pasta i/olive oil i/garlic s1/saute garlic in oil s2/boil paste s3/add pasta to garlic and mix`
-   - Edits the existing recipe and changes it's ingredients and steps
+   - Edits the existing recipe called Pasta and replaces it's ingredients and steps to the ones above
+   - Since n/NAME and c/CUISINE and t/TIME parameters are not entered, they will remain UNCHANGED
 10. `random`
     - Picks an added recipe at random and displays it
 11. `delete n/Apple Juice`
@@ -473,3 +501,5 @@ and your database of recipes and ingredients would have been saved and loaded in
 
 Refer to the [UserGuide](https://ay2425s1-cs2113-w13-1.github.io/tp/UserGuide.html) 
 for the full list of available commands, their syntax, and their expected behaviour.
+
+<!-- @@author -->
