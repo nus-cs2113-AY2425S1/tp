@@ -11,7 +11,8 @@ alt Valid ID
 else Invalid ID
     ":DeleteCommand" -> ":UI": showOutput("Invalid integer, please provide a valid internship ID")
     activate ":UI" #blue
+    ":UI"-->":User"
     deactivate ":UI"
 end
-
+return
 @enduml

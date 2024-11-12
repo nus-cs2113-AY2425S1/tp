@@ -29,12 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.EasInternship")
+    mainClass.set("seedu.easinternship.EasInternship")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
-    archiveClassifier.set("")
+    archiveFileName = "easInternship.jar"
 }
 
 checkstyle {

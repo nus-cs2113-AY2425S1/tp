@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.easinternship;
 
 import org.junit.jupiter.api.Test;
 import seedu.commands.AddCommand;

@@ -2,8 +2,8 @@ package seedu.commands;
 
 //@@author Ridiculouswifi
 
-import seedu.duke.Deadline;
-import seedu.duke.Internship;
+import seedu.easinternship.Deadline;
+import seedu.easinternship.Internship;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,11 +21,11 @@ public class CalendarCommand extends Command {
         ArrayList<String> companies = getCompanies(sortedDeadlines);
         uiCommand.showCalendar(sortedDeadlines, companies);
 
-        logger.log(Level.INFO, "CalendarCommand Executed");
+        LOGGER.log(Level.INFO, "CalendarCommand Executed");
     }
 
     protected ArrayList<Deadline> getDeadlines() {
-        List<Internship> allInternships = internships.getAllInternships();
+        List<Internship> allInternships = internshipsList.getAllInternships();
         ArrayList<Deadline> deadlines = new ArrayList<>();
         for (Internship internship : allInternships) {
             deadlines.addAll(internship.getDeadlines());
@@ -42,7 +42,7 @@ public class CalendarCommand extends Command {
         ArrayList<String> companies = new ArrayList<>();
         for (Deadline deadline : deadlines) {
             int internshipIndex = deadline.getInternshipId() - 1;
-            companies.add(internships.getInternship(internshipIndex).getCompany());
+            companies.add(internshipsList.getInternship(internshipIndex).getCompany());
         }
         return companies;
     }
