@@ -24,8 +24,8 @@ public class ExpenseStorage {
     /**
      * Constructs a {@code categoryStorage} object with the specified file path and UI.
      *
-     * @param ui The {@code UI} instance which displays messages to users.
      * @param expenseFilePath File paths where expenses are stored.
+     * @param ui The {@code UI} instance which displays messages to users.
      */
     public ExpenseStorage(String expenseFilePath, UI ui) {
         this.expenseFilePath = expenseFilePath;
@@ -38,6 +38,7 @@ public class ExpenseStorage {
      * Each line in the files represents an expense, including details of the expense.
      *
      * @param trackerData The {@code TrackerData} containing the categories and budgets to save.
+     * @throws IOException If an error occurs while reading from the file.
      */
     public void saveExpenses(TrackerData trackerData) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(expenseFilePath))) {
@@ -54,7 +55,6 @@ public class ExpenseStorage {
      * If the file does not exist, appropriate messages will be displayed, and no categories would be added.
      *
      * @param trackerData The {@code TrackerData} to save the expenses.
-     * @return A set of valid category names loaded from the file.
      * @throws IOException If an error occurs while reading from the file.
      */
     public void loadExpenses(TrackerData trackerData, Set<String> validCategories) throws IOException {

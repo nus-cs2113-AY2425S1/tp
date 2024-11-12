@@ -33,6 +33,7 @@ public class Storage {
      * Saves the expenses and categories to the file.
      *
      * @param trackerData The {@code TrackerData} containing the categories and budgets to save.
+     * @throws IOException If an error occurs while reading from the file.
      */
     public void saveData(TrackerData trackerData) throws IOException {
         categoryStorage.saveCategories(trackerData);

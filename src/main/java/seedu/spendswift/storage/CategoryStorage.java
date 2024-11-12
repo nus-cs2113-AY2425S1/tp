@@ -39,6 +39,7 @@ public class CategoryStorage {
      * Each line in the files represents a category, optionally comes with a budget.
      *
      * @param trackerData The {@code TrackerData} containing the categories and budgets to save.
+     * @throws IOException If an error occurs while reading from the file.
      */
     public void saveCategories(TrackerData trackerData) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(categoryFilePath))) {
