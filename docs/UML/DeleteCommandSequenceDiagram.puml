@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant "InputParser" as IP
+participant "DeleteCommand" as DC
+participant "FinancialList" as FL
+participant "BudgetLogic" as B
+participant "Storage" as ST
+
+User -> IP: Enters "delete [INDEX] [/to ENDINDEX]"
+IP -> DC: Parse command and create DeleteCommand
+activate DC
+DC -> FL: Delete entries in FinancialList
+alt Single Entry Deletion
+    DC -> FL: Remove entry at INDEX
+    opt If entry is an Expense
+        DC -> B: Update budget balance
+    end
+else Range Deletion
+    DC -> FL: Remove entries from INDEX to ENDINDEX
+    opt If any entry is an Expense
+        DC -> B: Update budget balance
+    end
+else Delete Last Amended
+    DC -> FL: Remove last amended transaction
+    opt If entry is an Expense
+        DC -> B: Update budget balance
+    end
+else Delete All
+    DC -> FL: Clear all entries
+    opt If expenses are cleared
+        DC -> B: Reset budget balance
+    end
+end
+DC -> ST: Update storage
+deactivate DC
+User <- DC: Display confirmation message
+@enduml

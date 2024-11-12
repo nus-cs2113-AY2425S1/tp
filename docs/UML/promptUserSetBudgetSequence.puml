@@ -30,9 +30,6 @@ opt budget not set
         return amount
         BudgetLogic -> BudgetLogic: handleSetBudget()
         activate BudgetLogic
-        ref over BudgetLogic
-        handleSetBudget
-        end
         return
         BudgetLogic -> BudgetLogic: recalculateBalance(financialList)
         activate BudgetLogic

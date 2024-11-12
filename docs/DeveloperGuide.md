@@ -23,6 +23,7 @@ img
     - [FinancialList and FinancialEntry](#financiallist-and-financialentry)
       - [FinancialList Component](#financiallist-component)
       - [FinancialEntry Component](#financialentry-component)
+    - [Budgeting](#budgeting)
     - [Commands](#commands)
     - [Adding Entries](#adding-entries)
     - [Deleting Entries](#deleting-entries)
@@ -30,7 +31,6 @@ img
     - [Listing Entries](#listing-entries)
     - [Exceptions and Logging](#exceptions-and-logging)
     - [Storage](#storage)
-    - [Budget and BudgetLogic](#budget-and-budgetlogic)
   - [Product scope](#product-scope)
     - [Target user profile:](#target-user-profile)
     - [Value proposition](#value-proposition)
@@ -48,6 +48,7 @@ img
   - [Instructions for manual testing](#instructions-for-manual-testing)
     - [Manual Testing](#manual-testing)
     - [JUnit Testing](#junit-testing)
+  - [Future Enhancements](#future-enhancements)
 
 ## Acknowledgements
 
@@ -58,13 +59,17 @@ Finance Buddy uses the following tools for development:
 
 ## Design and Implementation
 
-The simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
+The heavily simplified UML class diagram below provides an overview of the classes and their interactions with each other. 
 
 <img src="UML/overallArchi.png" alt="overall archi" width="auto" height="300">
 
 
 In the above diagram, Command and FinancialEntry are representative of the subclasses of 
 the `Command` and `FinancialEntry` classes, which are elaborated on in their respective sections.
+
+The `Commons` class contains various String constants and methods commonly used by the other classes,
+while the `Log` class contains a logger to facilitate logging in methods of other classes. Their relationship
+with the other classes has been omitted from the diagram for better understandability.
 
 The high-level overview of the program is shown in the diagram below as well.
 
@@ -176,7 +181,7 @@ the `dd/MM/yyyy` format.
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 HashMap<String, String> commandArgs = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
         
 LocalDate parsedDate = DateParser.parse("12/10/2024");
@@ -241,7 +246,7 @@ This sequence diagram illustrates how the `Logic` class works with other classes
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 FinancialList financialList = new FinancialList();  
 AppUi ui = new AppUi();
 Storage storage = new Storage();
@@ -311,7 +316,7 @@ The `FinancialList` component is the primary data structure responsible for mana
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 FinancialList financialList = new FinancialList();
 Income income = new Income(500.00, "Freelance Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
@@ -382,14 +387,14 @@ System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey(
     - `Income`: Returns formatted string as `[Income] - description $amount (on date) [category]`.
     - `Expense`: Returns formatted string as `[Expense] - description $amount (on date) [category]`.
   - **toStorageString()**:
-    - `Income`: Formats as `"I | amount | description | date | category"` for storage.
-    - `Expense`: Formats as `"E | amount | description | date | category"` for storage.
+    - `Income`: Formats as `"I ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"` for storage.
+    - `Expense`: Formats as `"E ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"` for storage.
 
 <ins>Usage Example</ins>
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
 
-``` java
+``` 
 Income income = new Income(500.00, "Freelancåe Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
 Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),
@@ -405,6 +410,117 @@ System.out.println(expense.toString());
 
 <div style="page-break-after: always;"></div>
 
+### Budgeting
+
+<ins>Overview</ins>
+
+Budgeting is facilitated by the `Budget` and `BudgetLogic` class.
+
+The `Budget` class serves as a representation of a user's budget in the application.
+It keeps track of the budget amount, remaining balance,
+the status of whether the budget has been set, and the date when the budget was last set.
+
+The `BudgetLogic` class serves as an intermediate class between the `Logic` and `Budget` class.
+The `BudgetLogic` class handles the logic directly related to the `Budget` class, including
+setting the budget, modifying the remaining balance when `Expense` is added, deleted or edited. It also
+recalculates the remaining balance, and prompts the user when the budget is exceeded.
+
+<ins>Class Structure</ins>
+
+The class diagram below shows the structure of `Budget` and `BudgetLogic`. The `Logic` class
+has been greatly simplified to simply show the association between these classes.
+
+<img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
+
+The constructor of the `Budget` class
+- Sets `budgetAmount` and `balance` to 0
+- Sets `isBudgetSet` to false
+- Sets `budgetSetDate` to null
+
+<ins>Methods</ins>
+
+The `Budget` class has the following methods:
+- `getBudgetAmount()`: `double` Returns the value of `budgetAmount`
+- `setBudgetAmount(double)`
+    - Sets the value of `budgetAmount` and `balance` to the provided value
+    - Sets `isBudgetSet` to true
+    - Sets `budgetSetDate` to the current date of the machine
+- `resetBudgetAmount()` Used for deleting budget
+    - Sets `budgetAmount` and `balance` to 0
+    - Sets `isBudgetSet` to false
+    - Sets `budgetSetDate` to null
+- `getBudgetAmountString()`: `String` Returns a `String` format of `budgetAmount`
+- `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
+- `getBalance()`: `double` Returns the value of `balance`
+- `updateBalance(double)` Sets the value of `balance` to the provided value, rounded to 2 decimal places
+- `getBalanceString()`: `String` Returns a `String` format of `balance`
+- `setBudgetSetDate(LocalDate)` Sets `budgetSetDate` to the date provided,
+  specifically for `Storage` class
+- `getBudgetSetDate()`: `LocalDate` Returns `budgetSetDate`
+- `toStorageString`: `String` Converts the budget attributes to a formatted `String`
+  specifically for the `Storage` class
+
+The `BudgetLogic` class has the following methods:
+- `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
+- `getBudget()`: `Budget` Returns `budget`
+- `promptUserToSetBudget(FinancialList)` Decides whether to prompt user to set a new budget
+    - If no budget has been set, or budget was set in a previous month, user is prompted to set a new budget
+    - If budget was set in a previous month and user does not wish to set a new budget, `budgetAmount` is retained
+- `handleSetBudget(FinancialList)`
+    - Handles the user input of whether to set a budget, and of the budget amount
+    - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
+    - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
+- `shouldSetBudget()`: `boolean`
+    - Constantly prompts user for a "yes" or "no" input
+    - Returns `true` if "yes" is inputted, `false` if "no" is inputted
+- `getValidBudgetAmountFromUser()`: `double`
+    - Constantly prompts user for a budget amount
+    - Returns the value inputted
+- `isValidBudgetAmount(double)`: `boolean` Returns `true` if the amount is within 0.01 to 9999999.00,
+  otherwise return `false`
+- `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
+- `printBudgetAndBalance()` Displays budget amount and remaining balance
+- `printBalanceAmount()` Displays the remaining balance if budget has been set
+- `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
+- `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
+  same year and month as the current date
+- `changeBalanceFromExpenseString(double, String)` and `changeBalanceFromExpense(double, LocalDate)`
+    - Both methods achieve the same result, but `changeBalanceFromExpenseString(double, String)`
+      first parses the date in `String` into `LocalDate`
+    - Modifies remaining balance if the `Expense` happened in the current month
+    - Displays message to warn user if budget has been exceeded
+- `recalculateBalance(FinancialList)` Resets the remaining balance to the budget amount,
+  then scans through the whole `FinancialList` and deducts the remaining balance accordingly
+
+<ins>Implementation Details</ins>
+
+Users set budget by invoking `budget AMOUNT`.
+The acceptable range of values are from 0.01 to 9999999.00,
+facilitated by `isValidBudgetAmount()` method in `BudgetLogic`.
+If the amount entered is 0, `resetBudgetAmount()` method in `Budget` is called.
+
+This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the
+following argument:
+- `argument`: Represents the budget amount to be set. This is a compulsory argument.
+
+The sequence diagrams below show 2 key methods of `BudgetLogic` class.
+
+The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
+
+<img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+
+The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class,
+and by the `Logic` class.
+
+<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
+
+<ins>Design Considerations</ins>
+
+Given that the `Budget` class has a significant enough number of attributes and methods,
+the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
+
+<div style="page-break-after: always;"></div>
+
 ### Commands
 
 <ins>Overview</ins>
@@ -413,27 +529,26 @@ The abstract class `Command` has been implemented to introduce an additional lay
 of abstraction between the `Logic` class and command execution,
 allowing for separation of handling command keywords and executing commands.
 
+<ins>Class Structure</ins>
+
 The diagram below shows the inheritance of the `Command` class. The diagram is only meant to show
 the hierarchy of classes and have been greatly simplified.
 
 <img src="UML/Command.png" alt="Command Inheritance Diagram" width="auto" height="200">
 
-<ins>Constructor</ins>
-
-The `Command` constructor updates the attributes based on the input arguments.
-
 <ins>Methods</ins>
 
 The abstract `Command` class and its related children classes have the following method:
 
-- `execute`: Effect the command based on the corresponding child class.
+- `execute`: Effect the command based on the corresponding child class
 
 ### Adding Entries
 
 <ins>Overview</ins>
 
 The feature to add entries is facilitated by the abstract class `AddEntryCommand`.
-The `AddExpenseCommand` and `AddIncomeCommand` classes extend from the `AddEntryCommand`,
+The `AddExpenseCommand` and `AddIncomeCommand` classes extend from the `AddEntryCommand`
+(see class diagram in the [above section](#commands)),
 and are used to add expenses and incomes respectively.
 
 <ins>Class Structure</ins>
@@ -465,6 +580,9 @@ following arguments:
   the current date is used. An exception occurs if this argument is used but the value is left blank.
 - `/c`: Category of the transaction, defaulting to UNCATEGORIZED if unspecified or invalid.
 
+There is a limit of 5000 entries in the `financialList` at any one time.
+Attempts to add entries above the limit will be rejected.
+
 Below is a simplified sequence diagram of the user adding an income. 
 A similar sequence happens when an expense is added.
 
@@ -476,8 +594,8 @@ A similar sequence happens when an expense is added.
 
 <ins>Overview</ins>
 
-The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense`
-entries can be deleted using this class.
+The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense` 
+entries can be deleted using this class. Additionally, users can delete a range of entries, the last amended transaction, or all entries at once.
 
 <ins>Class Structure</ins>
 
@@ -490,15 +608,25 @@ The `DeleteCommand` class has the following method:
 <ins>Implementation</ins>
 
 The user invokes the command to delete entries by entering the following command:
-`delete INDEX`.
+`delete [INDEX] [/to ENDINDEX]`.
 
-This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the
-following argument:
-- `argument`: Represents the index of the entry in the financial list to be deleted.
-  This is a compulsory argument.
+This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the following arguments:
+- `INDEX` (optional): Represents the starting index of the entry in the financial list to be deleted. If omitted, the last amended transaction is deleted by default.
+- `/to ENDINDEX` (optional): Represents the ending index for a range of entries to be deleted. If provided, entries from `INDEX` to `ENDINDEX` (inclusive) are deleted.
+- `"all"`: A special value for `INDEX` to delete all entries in the financial list.
+  - note: "all" is case-sensitive so variation like All or aLL will not execute delete all function.
 
-When executed, the `DeleteCommand` removes the entry at the specified index from the `FinancialList`,
-updating the list and storage.
+When executed, the `DeleteCommand` performs one of the following actions:
+1. Deletes the entry at the specified `INDEX`.
+2. Deletes a range of entries from `INDEX` to `ENDINDEX`.
+3. Deletes the last amended transaction if `INDEX` is omitted.
+4. Deletes all entries if `INDEX` is `"all"`.
+
+The `DeleteCommand` updates the `FinancialList` and storage to reflect the changes after deletion.
+
+Below is a sequence diagram illustrating the process of deleting entries. 
+It highlights the interactions between components such as `InputParser`, `DeleteCommand`, `FinancialList`, `BudgetLogic`, and `Storage`.
+![DeleteCommandSequenceDiagram.png](UML/DeleteCommandSequenceDiagram.png)
 
 ### Editing Entries
 
@@ -527,11 +655,15 @@ The user invokes the command to edit entries by entering the following command:
 This is parsed by the InputParser, returning a HashMap `commandArguments`, containing the
 following arguments:
 - `argument` Represents the index of the entry in the full financial list.
-  If no index is provided, the latest entry is edited.
+If no index is provided, the latest entry is edited.
+Note that the latest entry edit is not saved between sessions.
 - `/des` Represents the description of the transaction. This is an optional argument.
 - `/a` Represents the amount of money used in the transaction. This is an optional argument.
 - `/d` Represents the date on which the transaction occurred. This is an optional argument.
-- `/c` Represents the category used in the transaction. If an invalid category is provided, the entry will default to UNCATEGORIZED. This is an optional argument.
+- `/c` Represents the category used in the transaction. If an invalid category is provided,
+the entry will default to UNCATEGORIZED. This is an optional argument.
+
+If there is no change compared to the original entry, an error message is thrown.
 
 Below is a simplified sequence diagram of the user editing an entry. Note that the lifeline
 of `Expense` should terminate with the cross, but due to the limitations of plantUML, the
@@ -611,7 +743,7 @@ but only marks `Expense`s and `Income`s respectively as to be included.
 
 <ins>Usage Examples</ins>
 
-``` java
+``` 
 // Listing all entries in the financial list
 SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
 seeAllEntriesCommand.execute(financialList);
@@ -657,8 +789,8 @@ and the enumeration `LogLevels`.
 <ins>Implementation Details</ins>
 
 The `Log` class has a private constructor to prevent multiple instances of the class.
-The `Log` class is instantiated through the `LogHelper` class, and is accessed through the
-`getInstance()` method.
+The `Log` class is instantiated through the nested static `LogHelper` class,
+and is accessed through the `getInstance()` method.
 
 The `LogLevels` enumeration is used to indicate the level of a particular log.
 - `INFO` Represents informational messages that highlight the progress of the application.
@@ -675,7 +807,7 @@ Otherwise, the logging level is set to `INFO`.
 <ins>Example Usage</ins>
 
 Example usage of `FinanceBuddyException`:
-``` java
+``` 
 private double parseAmount(String amountStr) throws FinanceBuddyException {
   try {
     return Double.parseDouble(amountStr);
@@ -688,7 +820,7 @@ private double parseAmount(String amountStr) throws FinanceBuddyException {
 ```
 
 The exception messages from `FinanceBuddyException` can be displayed using the following code example:
-``` java
+``` 
 try {
   ...
 } catch (FinanceBuddyException e) {
@@ -697,12 +829,12 @@ try {
 ```
 
 The `Log` class can be used in other classes using the following code example:
-``` java
+``` 
 private static final Log logger = Log.getInstance();
 ```
 
 Logging can then be done by invoking `logger.log()`. For example:
-``` java
+``` 
 logger.log(LogLevels.INFO, "Expense added successfully.");
 logger.log(LogLevels.WARNING, "Invalid index inputted.");
 logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
@@ -834,7 +966,7 @@ The figure below show how the program load Budget from the files:
 
 <ins>Usage Example</ins>
 
-``` java
+```
 // Instantiate the Storage class and provide the file paths for financial data/budget
 Storage storage = new Storage();
 
@@ -855,115 +987,10 @@ storage.update(financialList, budgetLogic);
 
 <div style="page-break-after: always;"></div>
 
-### Budget and BudgetLogic
-
-<ins>Overview</ins>
-
-The `Budget` class serves as a representation of a user's budget in the application.
-It keeps track of the budget amount, remaining balance,
-the status of whether the budget has been set, and the date when the budget was last set.
-
-The `BudgetLogic` class serves as an intermediate class between the `Logic` and `Budget` class.
-The `BudgetLogic` class handles the logic directly related to the `Budget` class, including
-setting the budget, modifying the remaining balance when `Expense` is added, deleted or edited. It also
-recalculates the remaining balance, and prompts the user when the budget is exceeded.
-
-<ins>Class Structure</ins>
-
-The class diagram below shows the structure of `Budget` and `BudgetLogic`. The `Logic` class
-has been greatly simplified to simply show the association between these classes.
-
-<img src="UML/Budget.png" alt="Budget Diagram" width="auto" height="400">
-
-The constructor of the `Budget` class
-- Sets `budgetAmount` and `balance` to 0
-- Sets `isBudgetSet` to false
-- Sets `budgetSetDate` to null
-
-<ins>Methods</ins>
-
-The `Budget` class has the following methods:
-- `getBudgetAmount()`: `double` Returns the value of `budgetAmount`
-- `setBudgetAmount(double)`
-  - Sets the value of `budgetAmount` and `balance` to the provided value
-  - Sets `isBudgetSet` to true
-  - Sets `budgetSetDate` to the current date of the machine
-- `resetBudgetAmount()` Similar to the constructor,
-  - Sets `budgetAmount` and `balance` to 0
-  - Sets `isBudgetSet` to false
-  - Sets `budgetSetDate` to null
-- `getBudgetAmountString()`: `String` Returns a `String` format of `budgetAmount`
-- `isBudgetSet()`: `boolean` Returns the value of `isBudgetSet`
-- `getBalance()`: `double` Returns the value of `balance`
-- `updateBalance(double)` Sets the value of `balance` to the provided value, rounded to 2 decimal places
-- `getBalanceString()`: `String` Returns a `String` format of `balance`
-- `setBudgetSetDate(LocalDate)` Sets `budgetSetDate` to the date provided,
-specifically for `Storage` class
-- `getBudgetSetDate()`: `LocalDate` Returns `budgetSetDate`
-- `toStorageString`: `String` Converts the budget attributes to a formatted `String`
-  specifically for the `Storage` class
-
-The `BudgetLogic` class has the following methods:
-- `overwriteBudget(Budget)` Replaces `budget` with a new instance of `Budget` class
-- `getBudget()`: `Budget` Returns `budget`
-- `promptUserToSetBudget(FinancialList)` Decides whether to prompt user to set a new budget
-  - If no budget has been set, or budget was set in a previous month, user is prompted to set a new budget
-  - If budget was set in a previous month and user does not wish to set a new budget, `budgetAmount` is retained
-- `handleSetBudget(FinancialList)`
-  - Handles the user input of whether to set a budget, and of the budget amount
-  - Rejects inputs that are not "yes" or "no" when asking user whether to set a budget
-  - Rejects non-number inputs, or numbers smaller than 0.01 when asking user for budget amount
-- `shouldSetBudget()`: `boolean`
-  - Constantly prompts user for a "yes" or "no" input
-  - Returns `true` if "yes" is inputted, `false` if "no" is inputted
-- `getValidBudgetAmountFromUser()`: `double`
-  - Constantly prompts user for a budget amount
-  - Returns the value inputted
-- `isValidBudgetAmount(double)`: `boolean` Returns `true` if the amount is within 0.01 to 9999999.00,
-otherwise return `false`
-- `modifyBalance(double)` Deducts the remaining balance of the budget by the provided value
-- `printBudgetAndBalance()` Displays budget amount and remaining balance
-- `printBalanceAmount()` Displays the remaining balance if budget has been set
-- `hasExceededBudget()`: `boolean` Returns true if remaining balance is 0 or less
-- `isCurrentMonth(LocalDate)`: `boolean` Returns true if the date provided is in the
-same year and month as the current date
-- `changeBalanceFromExpenseString(double, String)` and `changeBalanceFromExpense(double, LocalDate)`
-  - Both methods achieve the same result, but `changeBalanceFromExpenseString(double, String)`
-  first parses the date in `String` into `LocalDate`
-  - Modifies remaining balance if the `Expense` happened in the current month
-  - Displays message to warn user if budget has been exceeded
-- `recalculateBalance(FinancialList)` Resets the remaining balance to the budget amount,
-then scans through the whole `FinancialList` and deducts the remaining balance accordingly
-
-<ins>Implementation Details</ins>
-
-The sequence diagrams below show 3 main methods of `BudgetLogic` class.
-
-The `promptUserSetBudget()` method is invoked by the `FinanceBuddy` main class.
-The sequence diagram shows an example of the method being called by the `Logic` class.
-
-<img src="UML/promptUserSetBudgetSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
-
-The `recalculateBudget()` method is called by other methods in the `BudgetLogic` class,
-and by the `Logic` class.
-
-<img src="UML/recalculateBalanceSequence.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
-
-The `changeBalanceFromExpense()` method is called by the `Logic` class.
-
-<img src="UML/changeBalanceFromExpense.png" alt="Set Budget Sequence Diagram" width="auto" height="400">
-
-<ins>Design Considerations</ins>
-
-Given that the `Budget` class has a significant enough number of attributes and methods,
-the `BudgetLogic` class was created to specifically handle the logic related to `Budget`.
-
-<div style="page-break-after: always;"></div>
-
 ## Product scope
 
 ### Target user profile:
-- University student who wants to manage their limited finances
+- Singaporean University student who wants to manage their limited finances
 - busy with academics and CCAs, wants to manage finances quickly
 - prefer desktop apps over other types
 - can type fast
@@ -978,21 +1005,25 @@ faster than a typical mouse/GUI driven app
 
 ## User Stories
 
-| Version | As a ...                       | I want to ...                                                             | So that I can ...                                              |
-|---------|--------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------|
-| v1.0    | new user                       | see usage instructions                                                    | remember how to use the app in case I forget the commands      |
-| v1.0    | user                           | record my daily expenses                                                  | keep track on how much I spend and what I spend on             |
-| v1.0    | user                           | delete my logging records                                                 | remove a wrong record                                          |
-| v1.0    | user                           | edit my logs                                                              | edit a wrong record                                            |
-| v1.0    | user                           | see my cash flows                                                         | have an overview of my cash flow                               |
-| v2.0    | user                           | view my expenditure over a certain period                                 | see how much money I spent recently                            |
-| v2.0    | user                           | keep a log of my data                                                     | retain memory of past transactions in previous runs of the app |
-| v2.0    | user                           | set a monthly budget for myself                                           | ensure that I am saving enough money                           |
-| v2.0    | user                           | be alerted when I exceed my allocated budget                              | know when I spend too much money                               |
-| v2.0    | user                           | categorise my spendings                                                   | know my spending across different areas                        |
-| v2.0    | user                           | view my expenditure over different categories                             | see where I spend the most                                     |
-| v2.0    | busy user                      | log my finances in the shortest possible time                             | have more time for other activities                            |
-| v2.1    | busy user                      | edit/delete my last added/edited entry without needing to enter its index | save time undoing mistakes made when logging entries           |
+| Version | As a ...                     | I want to ...                                                               | So that I can ...                                              |
+|---------|------------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------|
+| v1.0    | new user                     | see usage instructions                                                      | remember how to use the app in case I forget the commands      |
+| v1.0    | user                         | record my daily expenses                                                    | keep track on how much I spend and what I spend on             |
+| v1.0    | user                         | delete my logging records                                                   | remove a wrong record                                          |
+| v1.0    | user                         | edit my logs                                                                | edit a wrong record                                            |
+| v1.0    | user                         | see my cash flows                                                           | have an overview of my cash flow                               |
+| v2.0    | user                         | view my expenditure over a certain period                                   | see how much money I spent recently                            |
+| v2.0    | user                         | keep a log of my data                                                       | retain memory of past transactions in previous runs of the app |
+| v2.0    | user                         | set a monthly budget for myself                                             | ensure that I am saving enough money                           |
+| v2.0    | user                         | be alerted when I exceed my allocated budget                                | know when I spend too much money                               |
+| v2.0    | user                         | categorise my spendings                                                     | know my spending across different areas                        |
+| v2.0    | user                         | view my expenditure/income over different categories                        | see where I spend the most/earn the most from                  |
+| v2.0    | busy user                       | record transactions under the current date without having to enter the date | save time logging transactions                                 |
+| v2.0    | busy user                    | log my finances in the shortest possible time                               | have more time for other activities                            |
+| v2.1    | busy user                    | edit/delete my last added/edited entry without needing to enter its index   | save time undoing mistakes made when logging entries           |
+| v2.1    | user preoccupied with school | be prompted whether I want to set a new budget each month                   | remember to change my monthly budget should I wish to do so    |
+| v2.1    | user                         | be granted the option to carry over my budget from the previous month       | conveniently keep the same monthly budget across months        |
+| v2.1    | user                         | delete multiple entries at once                                             | quickly remove many old transactions at once                   |
 
 <div style="page-break-after: always;"></div>
 
@@ -1207,3 +1238,14 @@ View the [User Guide](UserGuide.md) for the list of UI commands and their relate
 ### JUnit Testing
 
 JUnit tests are written in the subdirectory `test` and serve to test the key methods part of the application.
+
+## Future Enhancements
+
+The following are features we intend to include in future iterations of this application.
+
+1. Allow methods for undo-ing previous commands.
+2. Implement feature to advise students on how to manage their money based on their income and financial goals.
+3. Implement gamification to encourage users to consistently log their finances and keep within their set budget
+4. Implement automatic categorization of transactions according to their description
+5. Allow automatic deletion of entries a certian duration (e.g. 5 months) after their recorded date according 
+to the user's preference
