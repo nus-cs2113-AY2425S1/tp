@@ -12,7 +12,7 @@ img
 
 ## Table of Contents
 
-- [Developer Guide](#developer-guide)
+- [Developer Guide](#financebuddy-developer-guide)
   - [Table of Contents](#table-of-contents)
   - [Acknowledgements](#acknowledgements)
   - [Design and Implementation](#design-and-implementation)
