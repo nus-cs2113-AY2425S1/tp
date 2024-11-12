@@ -11,6 +11,7 @@ public class AddPatientCommand extends HospitalCommand {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the hospital";
+    public static final String MESSAGE_EMPTY_PATIENT_NAME = "Patient name cannot be empty";
 
     private static final Logger logger = Logger.getLogger(AddPatientCommand.class.getName());
 
@@ -38,11 +39,15 @@ public class AddPatientCommand extends HospitalCommand {
      */
     @Override
     public CommandResult execute() {
-        assert name != null && !name.isEmpty() : "Patient name should not be null or empty";
+        assert name != null && !name.isEmpty() && !name.isBlank(): "Patient name should not be null or empty";
 
         if (hospital.isDuplicatePatient(name)) {
             logger.log(Level.WARNING, "Duplicate patient detected: {0}", name);
             return new CommandResult(MESSAGE_DUPLICATE_PATIENT);
+        }
+        if(name == null || name.isEmpty() || name.isBlank()){
+            logger.log(Level.WARNING, "Patient name is empty");
+            return new CommandResult(MESSAGE_EMPTY_PATIENT_NAME);
         }
 
         hospital.addPatient(name, tag);

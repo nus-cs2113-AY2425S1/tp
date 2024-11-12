@@ -358,27 +358,54 @@ The following sequence diagram illustrates how the state-switching mechanism wor
    ![Ui](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/cli_preview.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
 
-   Patient-related commands:
-  - `add Alice /tag patient` : Adds a patient named Alice to the list of patients.
+### Patient Management Commands
 
-  - `list` : Lists all patients.
+#### Adding a Patient
 
-  - `delete 1` : Deletes the 1st patient in the list.
+- **Test case**: `add Alice /tag critical`  
+  **Expected**: A new patient named "Alice" with the tag "critical" is added to the patient list. Confirmation is displayed in the CLI.
 
-  - `exit` : Exits the app.
+- **Test case**: `add Alice` (if "Alice" already exists)  
+  **Expected**: An error message is displayed indicating that this patient already exists.
 
-   Task-related commands:
+#### Deleting a Patient
 
-  - `todo Update patient records` : Adds a todo task named "Update patient records" to the list of tasks.
+**Prerequisites**: Ensure that there is at least one patient in the list.
 
-  - `list` : Lists all tasks.
+- **Test case**: `delete 1`  
+  **Expected**: The first patient is deleted from the list. Confirmation details are shown in the CLI.
 
-  - `delete 1` : Deletes the 1st task in the list.
+- **Test case**: `delete 0`  
+  **Expected**: No patient is deleted. An error message is shown indicating an invalid index.
 
-  - `mark 1` : Marks the 1st task in the list as done.
+- **Other incorrect delete commands to try**: `delete`, `delete x` (where `x` is larger than the list size)  
+  **Expected**: An error message is displayed for invalid or out-of-bounds index.
 
-  - `unmark 1` : Marks the 1st task in the list as undone.
+
+### Task Management Commands (in `TASK_STATE`)
+
+**Prerequisite**: Use `select <index>` to select a patient, entering `TASK_STATE`.
+
+#### Adding a Task
+
+- **Test case**: `todo Update records`  
+  **Expected**: A task named "Update records" is added to the selected patient’s task list. Confirmation is displayed.
+
+- **Test case**: `deadline Submit report /by tomorrow`  
+  **Expected**: A deadline task named "Submit report" with a due date of "tomorrow" is added. Confirmation is displayed.
+
+- **Error case**: `todo` without a description  
+  **Expected**: An error message is displayed indicating an invalid command format.
+
+#### Deleting a Task
+
+**Prerequisites**: The selected patient has at least one task.
+
+- **Test case**: `delete 1`  
+  **Expected**: The first task is deleted from the patient's task list. Confirmation is displayed.
+
+- **Error case**: `delete 100` (if there aren’t 100 tasks)  
+  **Expected**: An error message is displayed indicating that the task was not found.
 
 For more details on the commands of MediTask, please refer to the [User Guide](https://ay2425s1-cs2113-t11-1.github.io/tp/UserGuide.html).

@@ -15,7 +15,7 @@ MediTask is a desktop application designed to help nurses efficiently manage and
 1. Ensure that you have Java `17` or above installed.
 2. Down the latest version of `MediTask` from [here](https://github.com/AY2425S1-CS2113-T11-1/tp/releases).
 3. Copy the file to the folder you want to use as the _home folder_ for your `MediTask`.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tp.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar "CS2113-T11-1.MediTask.jar"` command to run the application.<br>
    ![Ui](https://github.com/AY2425S1-CS2113-T11-1/tp/raw/master/docs/images/cli_preview.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
@@ -240,7 +240,8 @@ Adds a task with deadline to the list of tasks.
 **Examples**:
 - `deadline Have medicine /by 19:00 /tag urgent`
     - Add task with description "Have medicine" with "urgent" tag and deadline at 19:00 of the same day to the bottom of selected patient's task list.
-      {: .highlight }
+
+{: .highlight }
 > **Note**:
 > - Patient must be selected before adding a deadline task.
 > - Ensure that the date and time follow the accepted formats, Refer to the

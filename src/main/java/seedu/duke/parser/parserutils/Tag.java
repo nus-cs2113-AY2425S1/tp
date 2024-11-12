@@ -13,11 +13,12 @@ public class Tag implements StringExtraction{
      */
     @Override
     public String extract(String input) {
-        String[] tag;
+        String[] tag = null;
 
         if(input.contains("/tag ")){
             tag = input.split("/tag ");
-        } else {
+        } 
+        if(tag == null || tag[1].isBlank()) {
             tag = new String[]{"No tag"};
             return tag[0].trim();
         }
