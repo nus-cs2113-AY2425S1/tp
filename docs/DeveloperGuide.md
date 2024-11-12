@@ -119,6 +119,8 @@ For simplification, the UI package is not included.
 
 ![add-expense](sequencediagrams/AddExpense.png)
 
+<div style="page-break-after: always;"></div>
+
 **Implementation**
 1. Input and Parsing
 - The `User` provides the command `add-expense n/<name> a/<amount> c/<category>` to `SpendSwift`.
@@ -143,6 +145,8 @@ For simplification, the UI package is not included.
 The sequence diagram represents the flow for deleting an existing expense in SpendSwift when the user inputs an `delete-expense` command.
 
 ![delete-expense](sequencediagrams/DeleteExpense.png)
+
+<div style="page-break-after: always;"></div>
 
 **Implementation**
 1. Input Parsing
@@ -170,6 +174,8 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
 
 ![add-category](sequencediagrams/AddCategory.png)
 
+<div style="page-break-after: always;"></div>
+
 **Implementation**
 1. User Input and Parsing:
    - The user inputs the command `add-category c/<categoryName>`. 
@@ -196,6 +202,8 @@ The sequence diagram represents the flow for adding a new category in SpendSwift
 The sequence diagram represents the flow for deleting a category with no expense tagged to it in SpendSwift when the user inputs an `delete-category` command.
 
 ![delete-category](sequencediagrams/DeleteCategory.png)
+
+<div style="page-break-after: always;"></div>
 
 **Implementation**
 1. Input Parsing
@@ -229,6 +237,8 @@ The sequence diagram represents the flow for tagging an expense to an existing c
 
 ![tag-expenses](sequencediagrams/TagExpense.png)
 
+<div style="page-break-after: always;"></div>
+
 **Implementation**
 1. Input Parsing
 - The `User` inputs a command in the format `tag-expense e/<index> c/<category>`.
@@ -261,6 +271,8 @@ The sequence diagram represents the flow for setting a budget limit on an existi
 
 ![set-budget](sequencediagrams/SetBudget.png)
 
+<div style="page-break-after: always;"></div>
+
 **Implementation**
 1. Input Parsing
 - The user enters a command in the format `set-budget c/<category> l/<limit>`.
@@ -289,6 +301,8 @@ The sequence diagram represents the flow for printing all the expenses by catego
 
 ![view-expenses](sequencediagrams/ViewExpenses.png)
 
+<div style="page-break-after: always;"></div>
+
 **Implementation**
 1. Command Processing
 - When a user inputs the `view-expenses` command, SpendSwift forwards this input to the `Parser`.
@@ -316,6 +330,8 @@ The sequence diagram represents the flow for printing all the categories in Spen
 
 ![view-category](sequencediagrams/ViewCategory.png)
 
+<div style="page-break-after: always;"></div>
+
 **Implementation**
 1. Command Parsing 
 - When a user enters `view-category`, `SpendSwift` forwards this command to `Parser`. 
@@ -341,6 +357,8 @@ The sequence diagram represents the flow for printing all the categories in Spen
 The sequence diagram represents the flow for printing all the budgets in SpendSwift when the user inputs an `view-budget` command.
 
 ![view-budget](sequencediagrams/ViewBudget.png)
+
+<div style="page-break-after: always;"></div>
 
 **Implementation**
 1. User Input and Parsing 
