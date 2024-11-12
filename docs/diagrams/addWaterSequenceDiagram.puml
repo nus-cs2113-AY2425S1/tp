@@ -22,7 +22,7 @@ end note
 activate Parser
 deactivate Parser
 create AddCmd
-Parser --> AddCmd: AddWaterCommand(waterToAdd, date)
+Parser --> AddCmd: new AddWaterCommand(waterToAdd, date)
 deactivate Parser
 
 activate AddCmd
