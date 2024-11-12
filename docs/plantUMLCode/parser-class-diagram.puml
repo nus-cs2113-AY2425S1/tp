@@ -36,6 +36,7 @@ end
 
 Parser --> Main: return
 deactivate Parser
+"Main" -[hidden]> "Main" :
 deactivate Main
 @enduml
 
@@ -58,6 +59,7 @@ end
 
 Parser --> Main: command:Command or null
 deactivate Parser
+"Main" -[hidden]> "Main" :
 deactivate Main
 @enduml
 
@@ -82,6 +84,7 @@ deactivate Parser
 
 Parser --> Main: arguments:Map<String,String>
 deactivate Parser
+"Main" -[hidden]> "Main" :
 deactivate Main
 @enduml
 

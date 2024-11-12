@@ -2,6 +2,9 @@
 participant ":Main" as Main
 participant ":Category" as Category
 
+"Main" -[hidden]> "Main" :
+
+activate Main
 Main -> Category: equals(Category2): boolean
 activate Category
 alt Same object (this == obj)
@@ -12,6 +15,42 @@ else Same name (name.equalsIgnoreCase(category.name))
     Category --> Main: true
 else Different name
     Category --> Main: false
+    deactivate Category
 end
+deactivate Main
+@enduml
+
+@startuml
+participant "Main" as Main
+participant "Category" as Category
+activate Main
+
+Main -> Category: new Category("ExampleName")
+activate Category
+Category --> Main: Category instance with name "ExampleName"
 deactivate Category
+@enduml
+
+@startuml
+participant "Main" as Main
+participant "Category" as Category
+activate Main
+
+Main -> Category: getName()
+activate Category
+Category --> Main: "ExampleName"
+deactivate Category
+@enduml
+
+@startuml
+skinparam classAttributeIconSize 0
+hide circle
+class "Category" {
+    - name: String
+    + Category(name: String)
+    + getName(): String
+    + equals(obj: Object): boolean
+    + hashCode(): int
+    + getTransactionType(): String
+}
 @enduml

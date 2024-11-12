@@ -1,24 +1,121 @@
 # Developer Guide
 
 ## Table of Contents
-1. [Acknowledgements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#acknowledgements)
-2. [Design & Implementation](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#design--implementation)
-    - [Category](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#category)
-    - [TransactionList](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#transactionlist)
-    - [Command](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command)
-    - [AddIncomeCommand](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#addincomecommand)
-    - [Command Parser](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#command-parser)
-3. [Product Scope](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#product-scope)
-    - [Target User Profile](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#target-user-profile)
-    - [Value Proposition](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#value-proposition)
-4. [User Stories](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#user-stories)
-5. [Non-Functional Requirements](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#non-functional-requirements)
-6. [Glossary](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#glossary)
-7. [Instructions for Manual Testing](https://ay2425s1-cs2113-w10-4.github.io/tp/DeveloperGuide.html#instructions-for-manual-testing)
+1. [Acknowledgements](#acknowledgements)
+2. [Notes](#notes)
+3. [High-level Architecture](#high-level-architecture)
+    - [User interaction](#user-interaction)
+    - [UI layer](#ui-layer)
+    - [Command handling layer](#command-handling-layer)
+    - [Data layer](#data-layer)
+    - [Persistent storage (Editable .json files)](#persistent-storage-editable-json-files)
+    - [General system flow](#general-system-flow)
+4. [Design & Implementation](#design--implementation)
+    - [Category](#category)
+    - [Transaction - Expense - Income](#transactionexpenseincome)
+    - [TransactionList](#transactionlist)
+    - [Command](#command)
+    - [AddIncomeCommand](#addincomecommand)
+    - [ViewHistoryCommand](#viewhistorycommand)
+    - [Command Parser](#command-parser)
+5. [Product Scope](#product-scope)
+    - [Target User Profile](#target-user-profile)
+    - [Value Proposition](#value-proposition)
+5. [User Stories](#user-stories)
+7. [Non-Functional Requirements](#non-functional-requirements)
+8. [Glossary](#glossary)
+9. [Instructions for Manual Testing](#instructions-for-manual-testing)
 
 ## Acknowledgements
 - The `Parser` is adapted from [Dan Linh's iP](https://github.com/DanLinhHuynh-Niwashi/ip/tree/master/src/main/java/niwa/parser) code, with changes to get on well with the current project 
 - The `Storage` uses external library Gson by Google from [Gson](https://github.com/google/gson.git), with changes to get on well with the current project
+
+## Notes
+- The Developer guide doesn't contain all the classes implemented in the final product, however, it contains the basic and important components, and some demonstration classes for providing an insight of how the product works.
+
+## High-level Architecture
+![Architecture](./diagrams/highArchitecture/high_level_architecture.png)
+
+### User interaction:
+
+- User - UI:
+    - The user interacts with the **UI** component via the CLI. This is where commands are input by the user.
+    - The **UI** displays the results of the commands processed by the system to the user.
+
+### UI layer:
+
+- Main - UI:
+    - The **Main** class calls the **UI** layer to get user input and display messages. It's a central point that manages the flow of execution.
+    - **UI** receives the user input and then sends it to the **Main** class for further processing.
+
+### Command handling layer:
+- **Main - Parser**:
+    - The **Main** class sends the user input (command) to the **Parser**, which is responsible for parsing the string to get correct command object and extract arguments.
+
+- **Parser - Command**:
+    - The **Parser** identifies the appropriate **Command** class based on the input, returning a specific command object (e.g., `AddExpenseCommand`, `ViewTotalCommand`, etc.).
+
+- **Main - Command**:
+    - **Main** then invokes the `execute()` method on the appropriate **Command**. The **Command** is responsible for processing the business logic related to the user request.
+
+### Data layer:
+
+- **Command - TransactionList**:
+    - **TransactionList** stores and manages all transactions (expenses and incomes). **Commands** interact with **TransactionList** to retrieve or modify transactions as needed (e.g., adding an expense, viewing a transaction).
+
+- **TransactionList - Transaction**:
+    - **TransactionList** contains individual **Transaction** objects. Each transaction represents a financial action (e.g., an expense or income), with details such as amount, description, date, or category. TransactionList provides methods to modify the list.
+
+- **Command - CategoryList**:
+    - **CategoryList** stores the categories used by transactions. **Commands** may interact with **CategoryList** to retrieve categories or modify them based on user input.
+
+- **CategoryList - Category**:
+    - **CategoryList** contains **Category** objects. Each category represents a classification for transactions, such as "Food," "Entertainment," etc. CategoryList provides methods to modify the list.
+  
+- **Command - BudgetTracker**:
+    - **BudgetTracker** handles the budgeting logic, ensuring that the user’s spending is within their defined budget. **Commands** can query **BudgetTracker** to get the current budget status or modify it.
+
+- **Command - Storage**:
+    - The **Command** interacts with **Storage** after execution to save data. For example, if a command requires adding a new transaction, the **Command** will use **Storage** to save that transaction to the file system.
+
+- **Main - Storage**:
+    - The **Main** class utilizes **Storage** to read the data on initialization.
+
+- **Storage - TransactionList, CategoryList, BudgetTracker**:
+    - **Storage** is responsible for reading and saving data to and from persistent storage (files). It manages interactions with the `transactions.json`, `categories.json`, and `budgets.json` files.
+    - **Storage** interacts with **TransactionList**, **CategoryList**, and **BudgetTracker** to load and save the relevant data.
+
+### Persistent storage (Editable .json files):
+
+- **transactions.json - Storage**:
+    - **transactions.json** is the file where all transaction data is stored. **Storage** interacts with this file to read and save transactions data.
+
+- **budgets.json - Storage**:
+    - **budgets.json** is the file where all user's budget data is stored. **Storage** interacts with this file to read and save budgets data.
+
+- **categories.json - Storage**:
+    - **categories.json** is the file contains the list of categories used to classify expenses (a subclass of transaction). **Storage** interacts with this file to load and save categories data.
+
+### General system flow
+1. **User interaction**:
+    - The **User** sends an input request to **UI**, which forwards this input (commandString) to **Main** for processing.
+
+2. **Command parsing**:
+    - **Main** splits `commandString` into `commandParts` and then calls **Parser** with the primary command identifier (`commandParts[0]`).
+    - **Parser** checks if a matching **Command** is registered. If the command is not found, **Parser** returns `null`. If the command is found, **Parser** returns the appropriate **Command** instance to **Main**.
+   
+3. **Error handling (if Command is not found)**:
+    - If no command matches, **Main** calls **UI** to print an error message.
+
+4. **Executing the command (if found)**:
+    - If the command exists, - **Main** then calls **Parser** with the secondary command argument string to extract arguments (`commandParts[1]`), **Parser** returns an `arguments` map.
+    - **Main** sets these arguments on the **Command** and then executes the command.
+    - The **Command** processes the request and returns a `result` list containing messages generated by the execution.
+
+5. **Displaying the result**:
+    - **Main** instructs **UI** to display the result to the **User**, providing feedback about the command execution.
+ 
+    ![Flow](./diagrams/highArchitecture/user_flow.png)
 
 ## Design & implementation
 ### Category
@@ -59,6 +156,39 @@ The `Category` class encapsulates the name of a category and provides functional
    - **Returns**: The formatted description of the category
    - **Process**: Generates a string representation of the `Category` object, useful for logging and debugging.
 
+### Transaction - Expense - Income
+The `Transaction` class is an abstract class to provide the similar behavior for Income and Expense class. It serves as the foundational representation of a transaction.
+
+The `Expense` class stores the data of an expense and gives string presentation function. It serves as the representation of an expense.
+
+The `Income` class stores the data of an income and gives string presentation function. It serves as the representation of an income.
+
+#### Class attributes
+1. **description**: String
+   - Description: Represents the transaction description.
+
+2. **dateTimeString**: String
+   - Description: Represents the date and time for the transaction. As we use Gsom library for parsing JSON data, we store this attribute as a String.
+
+3. **amount**: Double
+   - Description: Represents the amount of a transaction.
+
+4. **category**: Category
+   - Description: Private attribute for `Expense` class, to show the category of that expense.
+   
+#### Class main Methods
+1. **public LocalDateTime getDate()**
+   - **Returns**: The parsed LocalDateTime of the Transaction as date time is primarily stored as a String
+
+2. **public String toString()**
+   - **Returns**: The formatted description of the transaction
+   - **Process**: Generates a string representation of the `Transaction` object. This method is overridden by inherited classes to get their representation string.
+
+3. **public String getTransactionType()**
+   - **Returns**: The type the transaction
+   - **Process**: This method is overridden by inherited classes to get their own type string. Used by the Storage to parse specific inherited classes into JSON file
+   
+    ![Transaction](./diagrams/transactionclass/expense-income-class.png)
 
 
 ### TransactionList
@@ -74,9 +204,9 @@ operations that enable user to add, delete, search by (date/ category/ keywords)
 3. **Search Transactions**: Search `Transaction` in the `TransactionList` based on multiple keywords, date range or `category` of `Transaction`.
 
 #### Class attributes
-1. **transactions: `ArrayList<Transaction>**
+1. **transactions: `ArrayList&lt;Transaction&gt;**
     - Description: A List of `Transaction` objects stored that supports List operations.
-2. **InvertedIndex: `Map<String, List<Transaction>>**
+2. **InvertedIndex: `Map&lt;String, List&lt;Transaction&gt;&gt;**
     - Description: An inverted index implemented as a map that associates each unique keyword from transaction descriptions with a list of Transaction objects containing that keyword in their descriptions.
 
 #### Class main methods
@@ -146,6 +276,7 @@ The `Command` class is an abstract class that provide a common behavior that oth
       
 ### AddIncomeCommand
 The `AddIncomeCommand` class inherits Command class, handles the logic for adding an income transaction to the `TransactionList` by parsing input arguments, creating a new `Income` instance, and updating the transaction list.
+The other `AddExpenseCommand` has the similar logic, instead of one more checking step for category.
 
 ![AddIncomeCommand](./diagrams/addincomecommand/addincomecommand-class-diagram.png)
 
@@ -164,10 +295,10 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
 1. **execute()**
     - **Returns**: `List<String>`
     - **Process**:
-        1. Validates the input arguments.
-        2. Parses `amount` and `date` fields.
-        3. Instantiates a new `Income` transaction and adds it to `TransactionList`.
-        4. Calls `Storage.saveTransaction()` to persist data.
+        - Validates the input arguments.
+        - Parses `amount` and `date` fields.
+        - Instantiates a new `Income` transaction and adds it to `TransactionList`.
+        - Calls `Storage.saveTransaction()` to persist data.
 
     ![execute](./diagrams/addincomecommand/addincomecommand-class-diagram_001.png)
 
@@ -178,6 +309,38 @@ The `AddIncomeCommand` class inherits Command class, handles the logic for addin
         - `date`: Date when the income was received.
     - **Returns**: A new `Income` instance.
 
+### ViewHistoryCommand
+The `ViewHistoryCommand` class inherits Command class, handles the logic for viewing the current `TransactionList` by parsing input arguments and display to the user accordingly.
+The other `ViewExpenseCommand` and `ViewIncomeCommand` has the similar logic.
+
+#### Class responsibilities
+
+1. **Filtering transaction list**: The command filter the transaction list and find the transaction that meets the criteria
+3. **Return filtered string list**: The command return the filtered list of transactions in string format for displaying.
+
+#### Class attributes
+1. **transactions**: `TransactionList`
+    - Description: Stores the current list of all transactions.
+
+#### Class main methods
+
+1. **execute()**
+    - **Returns**: `List<String>`
+    - **Process**: As the arguments are optional, the command do a step-by-step filter for each criteria if it found the corresponding arguments
+        - Create a copy `ArrayList<Transaction> temp` from `transactions` for filtering
+        - Check the availability of the start date
+           - If available: `temp` = `temp` filtered by start date
+
+        - Check the availability of the end date
+           - If available: `temp` = `temp` filtered by end date
+
+        - Check if the start date is after the end date
+           - If yes: throw new exception (as the start date should be before the end date)
+
+        - Return a list of stringified filtered-transactions
+
+    ![execute](./diagrams/ViewHistoryDiagram/viewhistory-flow-diagram.png)
+   
 ### Command Parser
 The `Parser` class is responsible for interpreting user commands and extracting the associated arguments. It facilitates interaction between the user and the underlying command execution logic. There is only one Command Parser living through a session.
 
@@ -637,7 +800,7 @@ java -jar uNivUSaver.jar # Start the program.
 **Expected output:**  
 - The system displays the progress towards the budget for 2024-11.
 
-#### Test case 2: With no input
+#### Test case 2: With no month
 
 **Prerequisites:** The system should have some budget
 

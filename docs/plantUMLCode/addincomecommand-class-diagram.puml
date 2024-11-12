@@ -1,6 +1,7 @@
 @startuml
 skinparam classAttributeIconSize 0
-abstract class Command {
+hide circle
+abstract class "<<abstract>>\nCommand" {
     + execute(): List<String>
 }
 
@@ -38,42 +39,47 @@ class Income {
 }
 
 AddTransactionCommand <|-- AddIncomeCommand
-Command <|-- AddTransactionCommand
+"<<abstract>>\nCommand" <|-- AddTransactionCommand
 AddIncomeCommand --> "1" TransactionList : uses >
 TransactionList --> "*" Income : stores >
 @enduml
 
 @startuml
-participant "User" as User
+participant ":Main" as User
 
+"User" -[hidden]> "User" :
+activate User
 
-participant "AddIncomeCommand" as AddIncomeCmd
-User -> AddIncomeCmd: execute
+participant ":AddIncomeCommand" as AddIncomeCmd
+User -> AddIncomeCmd: execute()
 activate AddIncomeCmd
 
 alt Invalid arguments
     AddIncomeCmd --> User: "Error: Missing or invalid arguments"
 else Valid arguments
-    participant "Income" as IncomeClass
+    participant ":Income" as IncomeClass
     AddIncomeCmd -> IncomeClass: createTransaction(amount, description, date)
     activate IncomeClass
     IncomeClass --> AddIncomeCmd: Income instance
     deactivate IncomeClass
 
-    participant "TransactionList" as TransList
+    participant ":TransactionList" as TransList
     AddIncomeCmd -> TransList: addTransaction(Income)
     activate TransList
     TransList --> AddIncomeCmd: success
     deactivate TransList
 
-    participant "Storage" as Storage
+    participant "<<class>>\nStorage" as Storage
     AddIncomeCmd -> Storage: saveTransaction(TransactionList.getTransactions())
     activate Storage
     Storage --> AddIncomeCmd: confirmation
     deactivate Storage
 
     AddIncomeCmd --> User: "Income added successfully!"
-
 deactivate AddIncomeCmd
 end
+
+"User" -[hidden]> "User" :
+deactivate User
+
 @enduml

@@ -40,8 +40,7 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
   * Added menu for User Guide and formatting [PR#95](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/95), [PR#151](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/151).
  
 * **Developer Guide**:
-  * Added implementation details of the `Parser` and `Command` class [PR#82](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/82), [PR#135](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/135).
-  * Updated formatting for PDF Print [PR]
+  * Added implementation details of the `Parser`, `Command`,  `ViewHistory`, `Transaction` class [PR#82](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/82), [PR#135](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/135), [PR#224](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/224).
 
 #### Contributions to Team-based Tasks
 * Set up GitHub team organization and repository.
@@ -51,5 +50,18 @@ uNivUSaver is a CLI-based software designed to help students develop better mone
 
 #### Community
 * **Review/Mentoring Contributions**:
-
+  * Added PR reviews: [PR#34](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/34), [PR#51](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/51), [PR#56](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/56), [PR#57](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/57), [PR#62](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/62), [PR#67](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/67), [PR#68](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/34), [PR#94](https://github.com/AY2425S1-CS2113-W10-4/tp/pull/94)
 * **Contributions Beyond the Project Team**:
+  * Shared tip post on forum: [Link](https://github.com/nus-cs2113-AY2425S1/forum/issues/4)
+
+### Contributions to the Developer Guide (Extracts)
+* Added diagrams for Command Parser
+
+    ![register_command](../diagrams/parser/register-command-sequence.png)
+    ![parse_command](../diagrams/parser/parse-command-sequence.png)
+    ![extract_arguments](../diagrams/parser/extract-arguments-sequence.png)
+    ![getArguments](../diagrams/parser/parse-arguments-activity.png)
+
+* Added diagrams for ViewHistoryCommand
+
+    ![execute](../diagrams/ViewHistoryDiagram/viewhistory-flow-diagram.png)
