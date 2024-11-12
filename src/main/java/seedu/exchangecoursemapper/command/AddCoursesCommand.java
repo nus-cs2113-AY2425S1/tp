@@ -82,7 +82,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
                 Course courseToStore = new Course(puCourse, nusCourse, pu);
                 storage.addCourse(courseToStore);
             } else {
-                System.out.println(Logs.ADD_NEW_COURSE_MAPPING);
+                ui.displayErrorMessage();
             }
 
         } catch (IllegalArgumentException | IOException e) {
@@ -90,6 +90,7 @@ public class AddCoursesCommand extends PersonalTrackerCommand {
             System.out.println(e.getMessage());
         }
     }
+
 
     /**
      * Returns trimmed string without the `add` command.

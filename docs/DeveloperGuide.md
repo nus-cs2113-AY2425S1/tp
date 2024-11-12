@@ -268,7 +268,7 @@ This allows users to navigate this program easily and effectively.
     `switch` statements
 
 #### Sequence Diagram:
-- Represents when `execute()` method is called
+
   ![Help Command sequence diagram](images/HelpCommand.png)
 
 ### 3. List Schools Command

@@ -307,6 +307,10 @@ public class UI {
         System.out.println("The list is empty.\nPlease make sure there is mapped courses in your tracker.");
     }
 
+    public void displayErrorMessage() {
+        System.out.println(Logs.ADD_NEW_COURSE_MAPPING);
+    }
+
     public void printTheEnd() {
         System.out.println("This is the end of the list.");
     }
