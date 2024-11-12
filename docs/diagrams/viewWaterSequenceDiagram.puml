@@ -1,8 +1,10 @@
 @startuml
-actor User
+
 participant "ViewWaterCommand" as ViewCmd
 participant "DailyRecord" as DailyRec
 
+create ViewCmd
+-> ViewCmd : ViewWaterCommand()
 ViewCmd -> DailyRec: getWaterFromRecord()
 activate ViewCmd
 activate DailyRec
@@ -10,5 +12,6 @@ DailyRec --> ViewCmd: Water object
 deactivate DailyRec
 
 deactivate ViewCmd
+<-- ViewCmd
 destroy ViewCmd
 @enduml

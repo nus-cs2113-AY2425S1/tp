@@ -3,7 +3,8 @@
 participant "DeleteWaterCommand" as DeleteCmd
 participant "DailyRecord" as DailyRec
 
--> DeleteCmd : execute()
+create DeleteCmd
+-> DeleteCmd : DeleteWaterCommand(index)
 activate DeleteCmd
 DeleteCmd -> DailyRec: removeWaterFromRecord(index)
 activate DailyRec

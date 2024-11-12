@@ -25,6 +25,7 @@ deactivate Parser
 Parser -> Parser : Parse inputs
 activate Parser
 deactivate Parser
+create AddCmd
 Parser --> AddCmd: AddWaterCommand(waterToAdd, date)
 deactivate Parser
 
