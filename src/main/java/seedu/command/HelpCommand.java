@@ -5,10 +5,20 @@ import java.util.Map;
 
 import seedu.ui.Ui;
 
+/**
+ * Represents a command that provides help messages for different commands
+ * in the application. Each command has its own detailed usage message.
+ */
 public class HelpCommand extends Command {
 
     private final Map<String, String> helpMessages;
 
+    /**
+     * Constructs a {@code HelpCommand} with a specified UI.
+     * Initializes help messages for each command in the application.
+     *
+     * @param ui the UI handler for displaying help messages.
+     */
     public HelpCommand(Ui ui) {
         super(null, ui, null); // Inventory and Csv are not needed here
         helpMessages = new LinkedHashMap<>();
@@ -60,6 +70,13 @@ public class HelpCommand extends Command {
                         "   - Command: exit\n");
     }
 
+    /**
+     * Executes the help command based on the provided arguments.
+     * If no command is specified, displays all available commands and their descriptions.
+     * If a specific command is provided, displays detailed help for that command.
+     *
+     * @param parts the command arguments, where parts[1] may specify the command to display help for.
+     */
     public void execute(String[] parts) {
         if (parts.length < 2) {
             int i = 1;

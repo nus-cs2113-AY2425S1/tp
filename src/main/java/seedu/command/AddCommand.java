@@ -18,6 +18,12 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+/**
+ * Represents the command to add fields or records to the inventory in Inventra.
+ * Handles input validation and logging during the addition of fields and records.
+ * Supports adding multiple fields with types or a single record with values.
+ * Extends the {@code Command} class.
+ */
 public class AddCommand extends Command {
     private static final Logger LOGGER = Logger.getLogger(AddCommand.class.getName());
     // Updated regex to include additional characters
@@ -34,10 +40,23 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Constructs an {@code AddCommand} with the specified inventory, UI, and CSV handler.
+     *
+     * @param inventory the inventory where fields and records are added.
+     * @param ui        the UI handler for displaying messages.
+     * @param csv       the CSV handler for updating CSV data.
+     */
     public AddCommand(Inventory inventory, Ui ui, Csv csv) {
         super(inventory, ui, csv);
     }
 
+    /**
+     * Executes the add command based on the specified arguments. Adds fields or records to the inventory.
+     *
+     * @param args the arguments for the add command, including flags and data.
+     * @throws InventraException if there are issues with argument validity or data format.
+     */
     public void execute(String[] args) throws InventraException {
         if (args.length < 2) {
             throw new InventraMissingArgsException("flag");
@@ -63,6 +82,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Adds multiple fields to the inventory, validating each field's name, type, and format.
+     *
+     * @param fieldData the string containing the fields and types to add, separated by commas.
+     * @throws InventraException if the field data is invalid or contains duplicate fields.
+     */
     private void handleAddMultipleFields(String fieldData) throws InventraException {
         if (fieldData.isEmpty()) {
             throw new InventraMissingFieldsException();
@@ -105,6 +130,12 @@ public class AddCommand extends Command {
         ui.showFieldsAndRecords(inventory);
     }
 
+    /**
+     * Adds a single record to the inventory, ensuring that values match the expected field types.
+     *
+     * @param recordData the string containing values for each field, separated by commas.
+     * @throws InventraException if the number or format of values is incorrect.
+     */
     private void handleAddRecord(String recordData) throws InventraException {
         LOGGER.info("Handling add record: " + recordData);
 
@@ -151,6 +182,15 @@ public class AddCommand extends Command {
         ui.showSuccessRecordAdded();
     }
 
+    /**
+     * Validates the value of a specific field in the inventory based on its type.
+     *
+     * @param value the value to validate.
+     * @param type  the expected type of the field.
+     * @param field the name of the field.
+     * @return a validation message if the value is invalid, otherwise null.
+     * @throws InventraException if the value does not match the required type.
+     */
     public String validateValue(String value, String type, String field) throws InventraException {
         assert value != null && !value.isEmpty() : "Value should not be null or empty";
         assert type != null && !type.isEmpty() : "Field type should not be null or empty";

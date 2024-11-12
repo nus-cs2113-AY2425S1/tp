@@ -19,14 +19,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * UpdateCommand is a command class responsible for updating the inventory records or field headers
+ * in the system. It supports updating specific records or renaming fields within the inventory.
+ *
+ * Usage:
+ * - update -d <id>, <fieldname>, <newvalue>: updates a specific field of a record.
+ * - update -h <old>, <new>: renames an existing field (header).
+ */
 public class UpdateCommand extends Command {
 
     private static final String VALID_NAME_REGEX = "^[a-zA-Z0-9_\\- .;:'\"&()<!>{}%@*$#=~]+$";
 
+    /**
+     * Constructs an UpdateCommand with the given inventory, UI, and CSV handler.
+     *
+     * @param inventory the inventory to be updated
+     * @param ui        the UI handler for displaying messages
+     * @param csv       the CSV handler for updating the storage file
+     */
     public UpdateCommand(Inventory inventory, Ui ui, Csv csv) {
         super(inventory, ui, csv);
     }
 
+    /**
+     * Executes the update command based on the specified arguments.
+     *
+     * @param args the command arguments
+     * @throws InventraException if there are errors in command format or validation
+     */
     public void execute(String[] args) throws InventraException {
         if (args.length < 2) {
             throw new InventraMissingArgsException("Flag or update details");
@@ -54,6 +75,12 @@ public class UpdateCommand extends Command {
         }
     }
 
+    /**
+     * Handles the updating of a field (header) within the inventory.
+     *
+     * @param fieldData the field data in the format "old_field, new_field"
+     * @throws InventraException if there are errors in field validation or name matching
+     */
     private void handleUpdateField(String fieldData) throws InventraException {
         if (!fieldData.contains(",")) {
             throw new InventraMissingArgsException(
@@ -102,6 +129,13 @@ public class UpdateCommand extends Command {
         inventory.setRecords(updatedRecordsForHeaderChange);
     }
 
+    /**
+     * Updates the fields list, replacing the old field name with the new field name.
+     *
+     * @param oldFieldName the old field name
+     * @param newFieldName the new field name
+     * @return a list of updated fields
+     */
     private List<String> updateFields(String oldFieldName, String newFieldName) {
         List<String> updatedFields = new ArrayList<>();
         List<String> oldFields = inventory.getFields();
@@ -117,6 +151,13 @@ public class UpdateCommand extends Command {
         return updatedFields;
     }
 
+    /**
+     * Updates the field types, replacing the old field name with the new field name.
+     *
+     * @param oldFieldName the old field name
+     * @param newFieldName the new field name
+     * @return a map of updated field types
+     */
     private Map<String, String> updateFieldTypes(String oldFieldName, String newFieldName) {
         Map<String, String> updatedFieldTypes = new HashMap<>();
         Map<String, String> oldFieldTypes = inventory.getFieldTypes();
@@ -132,6 +173,13 @@ public class UpdateCommand extends Command {
         return updatedFieldTypes;
     }
 
+    /**
+     * Updates the records, replacing the old field name with the new field name.
+     *
+     * @param oldFieldName the old field name
+     * @param newFieldName the new field name
+     * @return a list of updated records
+     */
     private List<Map<String, String>> updateRecordsForHeaderChange(String oldFieldName, String newFieldName) {
         List<Map<String, String>> oldRecords = this.inventory.getRecords();
         List<Map<String, String>> updatedRecords = new ArrayList<>();
@@ -157,6 +205,12 @@ public class UpdateCommand extends Command {
         return fields.contains(oldFieldName);
     }
 
+    /**
+     * Handles updating a specific field of a record based on the provided record ID and new value.
+     *
+     * @param enteredString the entered record ID, field name, and new value in the format "id, fieldname, newvalue"
+     * @throws InventraException if validation fails for the field or value
+     */
     private void handleUpdateRecord(String enteredString) throws InventraException {
         String[] userInputs = enteredString.split(",\\s*");
 
@@ -232,6 +286,15 @@ public class UpdateCommand extends Command {
         return updatedRecords;
     }
 
+    /**
+     * Validates the value according to its expected data type.
+     *
+     * @param value the value to validate
+     * @param type  the expected type of the value (e.g., string, integer, float, date)
+     * @param field the field name associated with the value
+     * @return null if valid, otherwise an error message
+     * @throws InventraException if validation fails
+     */
     public String validateValue(String value, String type, String field) throws InventraException {
         assert value != null && !value.isEmpty() : "Value should not be null or empty";
         assert type != null && !type.isEmpty() : "Field type should not be null or empty";
@@ -307,6 +370,13 @@ public class UpdateCommand extends Command {
         }
     }
 
+    /**
+     * Parses a string as an integer index, ensuring it is a valid integer.
+     *
+     * @param indexString the string representing an index
+     * @return the parsed integer index
+     * @throws InventraInvalidNumberException if the index string is not a valid integer
+     */
     private int parseIndex(String indexString) throws InventraInvalidNumberException {
         try {
             return Integer.parseInt(indexString);

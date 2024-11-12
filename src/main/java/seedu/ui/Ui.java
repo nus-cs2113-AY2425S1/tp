@@ -9,6 +9,10 @@ import java.util.Map;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Ui class handles all user interface interactions including displaying messages,
+ * viewing fields and records, and taking user input.
+ */
 public class Ui {
     private static final int TERMINAL_WIDTH = 80;
     public void printGreeting() {
@@ -21,6 +25,13 @@ public class Ui {
         printMessage("Type help to receive manual.");
     }
 
+    /**
+     * Runs the main user interface loop, continually prompting for user input
+     * and executing corresponding commands until the user types 'exit'.
+     *
+     * @param inventory The inventory object where records are stored.
+     * @param csv The Csv storage handler for reading and writing CSV data.
+     */
     public void run(Inventory inventory, Csv csv) {
         Scanner in = new Scanner(System.in);
         printGreeting();
@@ -36,6 +47,11 @@ public class Ui {
         } while (!input.equals("exit"));
     }
 
+    /**
+     * Prints a message to the terminal.
+     *
+     * @param message The message to be printed.
+     */
     public void printMessage(String message) {
         System.out.println(message);
     }
@@ -52,12 +68,23 @@ public class Ui {
     }
 
 
+    /**
+     * Displays all fields and records in the inventory.
+     *
+     * @param inventory The inventory object that contains fields and records.
+     */
     public void showFieldsAndRecords(Inventory inventory) {
         List<String> fields = inventory.getFields();
         List<Map<String, String>> records = inventory.getRecords();
         showFieldsAndRecords(fields, records);
     }
 
+    /**
+     * Displays fields and records, formatted in a table.
+     *
+     * @param fields The list of field names.
+     * @param records The list of records to be displayed.
+     */
     public void showFieldsAndRecords(List<String> fields, List<Map<String, String>> records) {
         if (fields.isEmpty()) {
             printMessage("    No fields have been added yet.");
@@ -72,6 +99,13 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a single record with its original ID.
+     *
+     * @param fields The list of field names.
+     * @param record The record to be displayed.
+     * @param actualId The ID of the record.
+     */
     public void showSingleRecordWithOriginalId(List<String> fields, Map<String, String> record, int actualId) {
         StringBuilder header = new StringBuilder("    +");
         StringBuilder row = new StringBuilder("    | ");
@@ -87,7 +121,12 @@ public class Ui {
         printMessage(header.toString());
     }
 
-    // Prints table header with fields and adds the "ID" column
+    /**
+     * Prints the table header including the ID column and dynamic field widths.
+     *
+     * @param fields The list of field names.
+     * @param records The list of records to be displayed.
+     */
     private void printTableHeader(List<String> fields, List<Map<String, String>> records) {
         StringBuilder header = new StringBuilder("    | ");
         StringBuilder separator = new StringBuilder("    +");
@@ -112,6 +151,13 @@ public class Ui {
         printMessage(separator.toString());
     }
 
+    /**
+     * Calculates the maximum width of values for a specific field.
+     *
+     * @param records The list of records.
+     * @param field The field name for which the maximum width is calculated.
+     * @return The maximum width of the values for the specified field.
+     */
     private int getMaxValueWidth(List<Map<String, String>> records, String field) {
         return records.stream()
                 .map(record -> record.getOrDefault(field, "null").length())
@@ -119,6 +165,12 @@ public class Ui {
                 .orElse(20); // Ensure a minimum width of 20
     }
 
+    /**
+     * Prints the records in a table format.
+     *
+     * @param fields The list of field names.
+     * @param records The list of records to be displayed.
+     */
     private void printTableRecords(List<String> fields, List<Map<String, String>> records) {
         StringBuilder separator = new StringBuilder("    +");
 
@@ -169,6 +221,12 @@ public class Ui {
         printMessage(message);
     }
 
+    /**
+     * Returns a message indicating an unknown field type for a given field.
+     *
+     * @param field The field name.
+     * @return A message indicating that the field type is unknown.
+     */
     public String getUnknownTypeMessage(String field) {
         return "    Unknown field type for field '" + field + "'.";
     }

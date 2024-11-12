@@ -14,12 +14,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Command to view inventory items based on various criteria.
+ * Allows viewing all items, specific items by index, or filtered items by keyword.
+ */
 public class ViewCommand extends Command {
 
+    /**
+     * Constructs a ViewCommand with the specified inventory and user interface.
+     *
+     * @param inventory the inventory to operate on
+     * @param ui        the user interface for displaying information
+     */
     public ViewCommand(Inventory inventory, Ui ui) {
         super(inventory, ui, null);  // Passing `null` for unused dependencies
     }
 
+    /**
+     * Executes the view command based on the provided arguments.
+     * Supports viewing all items, a specific item by ID, or filtering items by a keyword.
+     *
+     * @param args the command arguments for the view operation
+     * @throws InventraException if there are missing arguments or invalid input
+     */
     public void execute(String[] args) throws InventraException {
         if (args.length < 2) {
             throw new InventraMissingArgsException("Flag or Item index");
@@ -47,6 +64,12 @@ public class ViewCommand extends Command {
         }
     }
 
+    /**
+     * Handles viewing a specific item by its ID.
+     *
+     * @param input the ID of the item to view
+     * @throws InventraException if the ID is invalid or out of bounds
+     */
     private void handleViewById(String input) throws InventraException {
         if (input.trim().isEmpty()) {
             throw new InventraMissingArgsException("Item index");
@@ -68,6 +91,13 @@ public class ViewCommand extends Command {
         }
     }
 
+    /**
+     * Handles viewing items that match a specified keyword.
+     * Filters items by checking each string field for the keyword.
+     *
+     * @param args the command arguments containing the keyword
+     * @throws InventraException if the keyword is missing or exceeds input length limit
+     */
     private void handleViewByKeyword(String[] args) throws InventraException {
         if (args.length < 3 || args[2].trim().isEmpty()) {
             throw new InventraMissingArgsException("Keyword for filtering");
