@@ -9,7 +9,9 @@ import seedu.spendswift.command.CategoryManager;
 import seedu.spendswift.command.Expense;
 import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.command.BudgetManager;
+import seedu.spendswift.command.Format;
 //import seedu.spendswift.command.ExpenseManager;
+
 
 
 
@@ -18,7 +20,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import java.math.BigDecimal;
-//import java.math.BigDecimal;
 //import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 //import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static org.junit.jupiter.api.Assertions.assertNotEquals;
-//import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 class ExpenseTest {
@@ -394,7 +395,7 @@ class BudgetManagerTest {
         assertEquals(0, BigDecimal.valueOf(validLimit).compareTo(setLimit),
             "The budget limit is set below  the maximum allowed");
 
-    } 
+    }
 
 
     void testSetInvalidBudgetLimitAboveMaximum() {
@@ -422,7 +423,7 @@ class BudgetManagerTest {
         // Assert that the budget limit remains unchanged and is not set above the maximum
         assertEquals(0, BigDecimal.valueOf(maxAllowedLimit).compareTo(currentLimit),
             "The budget limit should remain at the maximum allowed when an invalid limit is attempted");
-    
+
     }
 }
 
@@ -490,10 +491,59 @@ class TrackerDataTest {
         assertEquals(newBudget, trackerData.getBudgets().get(newCategory));
     }
 }
+class FormatTest {
 
+    @Test
+    void testFormatInputNull() {
+        assertNull(Format.formatInput(null), "Input is null, should return null.");
+    }
 
+    @Test
+    void testFormatInputEmptyString() {
+        assertEquals("", Format.formatInput(""), "Empty string should return empty string.");
+    }
 
+    @Test
+    void testFormatInputAllLowerCase() {
+        assertEquals("Hello", Format.formatInput("hello"), "Should capitalize first letter and make rest lower case.");
+    }
 
+    @Test
+    void testFormatInputMixedCase() {
+        assertEquals("World", Format.formatInput("wOrLD"), "Should capitalize first letter and make rest lower case.");
+    }
 
+    @Test
+    void testFormatInputAllUpperCase() {
+        assertEquals("Test", Format.formatInput("TEST"), "Should capitalize first letter and make rest lower case.");
+    }
 
+    // Tests for formatAmount method
 
+    @Test
+    void testFormatAmountRoundToWholeNumber() {
+        assertEquals("$123", Format.formatAmount(123.0), "Should format as whole number with dollar sign.");
+    }
+
+    @Test
+    void testFormatAmountRoundToTwoDecimals() {
+        assertEquals("$123.46", Format.formatAmount(123.456), 
+                "Should format to two decimal places with dollar sign.");
+    }
+
+    @Test
+    void testFormatAmountRoundingNecessary() {
+        assertEquals("$123.46", Format.formatAmount(123.455), 
+                "Should round half up to two decimal places with dollar sign.");
+    }
+
+    @Test
+    void testFormatAmountExactDecimal() {
+        assertEquals("$123.50", Format.formatAmount(123.50), "Should handle exact decimal without rounding.");
+    }
+
+    @Test
+    void testFormatAmountNegativeValue() {
+        assertEquals("-$123.45", Format.formatAmount(-123.45), "Should handle negative values correctly.");
+    }
+}
