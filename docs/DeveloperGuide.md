@@ -76,6 +76,8 @@ The high-level overview of the program is shown in the diagram below as well.
 
 <img src="UML/overallFlow.png" alt="overall flow" width="auto" height="500" class="centre">
 
+<div style="page-break-after: always;"></div>
+
 ### Ui and Parser
 <ins>Overview</ins>
 
