@@ -543,6 +543,8 @@ The abstract `Command` class and its related children classes have the following
 
 - `execute`: Effect the command based on the corresponding child class
 
+<div style="page-break-after: always;"></div>
+
 ### Adding Entries
 
 <ins>Overview</ins>
@@ -627,6 +629,8 @@ The `DeleteCommand` updates the `FinancialList` and storage to reflect the chang
 Below is a sequence diagram illustrating the process of deleting entries. 
 It highlights the interactions between components such as `InputParser`, `DeleteCommand`, `FinancialList`, `BudgetLogic`, and `Storage`.
 ![DeleteCommandSequenceDiagram.png](UML/DeleteCommandSequenceDiagram.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Editing Entries
 
@@ -896,8 +900,6 @@ The figure below show how the program load Budget from the files:
 
 <ins>Methods</ins>
 
-<ins>Methods</ins>
-
  - **getStorageFile()**:  
    Ensures the existence of the financial transaction storage file (`data/FinancialList.txt`) along with any necessary parent directories. 
    If these do not exist, they are created. 
@@ -990,12 +992,12 @@ storage.update(financialList, budgetLogic);
 ## Product scope
 
 ### Target user profile:
-- Singaporean University student who wants to manage their limited finances
-- busy with academics and CCAs, wants to manage finances quickly
-- prefer desktop apps over other types
-- can type fast
-- prefers typing to mouse interactions
-- is reasonably comfortable using CLI apps
+- Singaporean university student who wants to manage their limited finances
+- Busy with academics and CCAs, wants to manage finances quickly
+- Prefer desktop apps over other types
+- Can type fast
+- Prefers typing to mouse interactions
+- Is reasonably comfortable using CLI apps
 
 ### Value proposition
 FinanceBuddy allows our target user profile to keep track of their income/expenditures
