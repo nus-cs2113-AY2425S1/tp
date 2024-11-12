@@ -281,36 +281,54 @@ finding the transaction they are looking for easily with multiple filters.
 
 ## User Stories
 
-| Version     | As a ...                       | I want to ...                                                  | So that I can ...                                          |
-|-------------|--------------------------------|----------------------------------------------------------------|------------------------------------------------------------|
-| v1.0        | car rental front-desk employee | know the status of all the cars                                | inform customers about availability                        |
-| v1.0        | car rental front-desk employee | add customer details to our database                           | keep records for future transactions                       |
-| v1.0        | car rental company manager     | get an overview of all transactions                            | gauge how well the company is doing                        |
-| v1.0        | car rental front-desk employee | add a new transaction record to the database                   | keep track of transaction details                          |
-| v1.0        | car rental front-desk employee | add new cars to the car database                               | have a wider range of cars to offer to customers           |
-| v2.0 & v2.1 | car rental front-desk employee | save all my data                                               | ensure information will never be lost                      |
-| v2.0 & v2.1 | forgetful car rental employee  | view a help page containing all the commands                   | refer to it whenever I forget any commands                 |
-| v2.0 & v2.1 | car rental administrator       | search for all past transactions involving a specific customer | assess their rental history                                |
-| v2.0 & v2.1 | car rental administrator       | list all uncompleted transactions                              | follow up on active rentals                                |
-| v2.0 & v2.1 | car rental administrator       | list all completed transactions                                | review records of all past rentals                         |
-| v2.0 & v2.1 | car rental administrator       | remove all customers or transactions                           | clear out old data when no longer needed                   |
-| v2.0 & v2.1 | car rental administrator       | remove individual transactions                                 | remove any unnecessary records individually                |
-| v2.0 & v2.1 | car rental company manager     | list out all past and completed transactions                   | gauge how well the company is doing                        |
-| v2.0 & v2.1 | car rental fleet manager       | make changes to the car fleet                                  | add or remove cars from the inventory                      |
-| v2.0 & v2.1 | car rental fleet manager       | categorize cars by their price range                           | allow customers to choose based on budget                  |
-| v2.0 & v2.1 | car rental fleet manager       | add a new car to the list of available cars                    | provide customers with a wider selection                   |
-| v2.0 & v2.1 | car rental fleet manager       | list all available cars                                        | quickly check which cars can be rented                     |
-| v2.0 & v2.1 | car rental fleet manager       | list all rented-out cars                                       | view which cars are currently in use                       |
-| v2.0 & v2.1 | car rental fleet manager       | set a rental duration for each transaction                     | clarify each rental's timeline                             |
-| v2.0 & v2.1 | car rental fleet manager       | add or remove cars to match demand                             | manage the car inventory efficiently                       |
-| v2.0 & v2.1 | car rental front-desk employee | complete transactions after the customer returns the car       | finalize each rental transaction                           |
-| v2.0 & v2.1 | car rental front-desk employee | save customer information                                      | reuse information for returning customers without re-entry |
-| v2.0 & v2.1 | car rental front-desk employee | add a new transaction record to the database                   | keep track of transaction details                          |
-| v2.0 & v2.1 | car rental front-desk employee | remove a customer from the system                              | keep the customer list up-to-date                          |
-| v2.0 & v2.1 | car rental front-desk employee | unmark a completed transaction                                 | correct transaction records when needed                    |
-| v2.0 & v2.1 | car rental maintenance staff   | add information to a car                                       | view and edit the details of a car                         |
-| v2.0 & v2.1 | forgetful user                 | view a user guide                                              | have a quick summary of important commands                 |
-## Non-Functional Requirements
+Here's a breakdown of the user stories divided into the versions as requested:
+
+---
+
+### Version 1.0
+
+| Version | As a ...                       | I want to ...                          | So that I can ...                               |
+|---------|--------------------------------|----------------------------------------|-------------------------------------------------|
+| v1.0    | car rental front-desk employee | know the status of all the cars        | inform customers about availability             |
+| v1.0    | car rental front-desk employee | add customer details to our database   | keep records for future transactions            |
+| v1.0    | car rental company manager     | get an overview of all transactions    | gauge how well the company is doing             |
+| v1.0    | car rental front-desk employee | add a new transaction record           | keep track of transaction details               |
+| v1.0    | car rental front-desk employee | add new cars to the car database       | have a wider range of cars to offer to customers|
+
+---
+
+### Version 2.0 & 2.1
+
+| Version | As a ...                      | I want to ...                                           | So that I can ...                                        |
+|---------|-------------------------------|---------------------------------------------------------|----------------------------------------------------------|
+| v2.0    | car rental front-desk employee | save all my data                                        | ensure information will never be lost                    |
+| v2.0    | forgetful car rental employee | view a help page containing all the commands           | refer to it whenever I forget any commands               |
+| v2.0    | car rental administrator      | search for all past transactions involving a specific customer | assess their rental history                      |
+| v2.0    | car rental administrator      | list all uncompleted transactions                       | follow up on active rentals                              |
+| v2.0    | car rental administrator      | list all completed transactions                         | review records of all past rentals                       |
+| v2.0    | car rental administrator      | remove all customers or transactions                    | clear out old data when no longer needed                 |
+| v2.0    | car rental administrator      | remove individual transactions                          | remove any unnecessary records individually              |
+| v2.0    | car rental company manager    | list out all past and completed transactions            | gauge how well the company is doing                      |
+| v2.0    | car rental fleet manager      | make changes to the car fleet                           | add or remove cars from the inventory                    |
+| v2.0    | car rental fleet manager      | categorize cars by their price range                    | allow customers to choose based on budget                |
+
+
+
+| Version | As a ...                       | I want to ...                                      | So that I can ...                                       |
+|---------|--------------------------------|----------------------------------------------------|---------------------------------------------------------|
+| v2.1    | car rental fleet manager       | add a new car to the list of available cars        | provide customers with a wider selection                |
+| v2.1    | car rental fleet manager       | list all available cars                            | quickly check which cars can be rented                  |
+| v2.1    | car rental fleet manager       | list all rented-out cars                           | view which cars are currently in use                    |
+| v2.1    | car rental fleet manager       | set a rental duration for each transaction         | clarify each rental's timeline                          |
+| v2.1    | car rental fleet manager       | add or remove cars to match demand                 | manage the car inventory efficiently                    |
+| v2.1    | car rental front-desk employee | complete transactions after the customer returns the car | finalize each rental transaction                  |
+| v2.1    | car rental front-desk employee | save customer information                          | reuse information for returning customers without re-entry |
+| v2.1    | car rental front-desk employee | add a new transaction record to the database       | keep track of transaction details                       |
+| v2.1    | car rental front-desk employee | remove a customer from the system                  | keep the customer list up-to-date                       |
+| v2.1    | car rental front-desk employee | unmark a completed transaction                     | correct transaction records when needed                 |
+| v2.1    | car rental maintenance staff   | add information to a car                           | view and edit the details of a car                      |
+| v2.1    | forgetful user                 | view a user guide                                  | have a quick summary of important commands              |
+
 
 1. User can type fast, and prefer typing to mouse/voice commands.
 2. Program can run on Mainstream OS.
