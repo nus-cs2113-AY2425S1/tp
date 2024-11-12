@@ -776,7 +776,7 @@ testers are expected to do more *exploratory* testing.
 
 > [NOTE!]
 > The tests below would require the tester to corrupt the `myList.json` file stored in the data folder (found in
-> the directory where your terminal is running from).
+> the directory where the tester's terminal is running from).
 > 
 > To corrupt data: At least one saved course mapping plan saved in myList.json, then remove any of the information
 > (NUS course code, Partner University's name or the course that it offers which is mappable to the NUS course code).
