@@ -11,6 +11,12 @@ import seedu.spendswift.command.TrackerData;
 import seedu.spendswift.command.BudgetManager;
 import seedu.spendswift.command.Format;
 //import seedu.spendswift.command.ExpenseManager;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
+
 
 
 
@@ -545,5 +551,50 @@ class FormatTest {
     @Test
     void testFormatAmountNegativeValue() {
         assertEquals("-$123.45", Format.formatAmount(-123.45), "Should handle negative values correctly.");
+    }
+}
+
+class StorageTest   
+ {
+
+    @Test
+    void testSaveData() throws IOException {
+        UI ui = mock(UI.class);
+        TrackerData trackerData = mock(TrackerData.class);
+
+        Storage storage = new Storage("expenses.txt", "categories.txt", ui);
+        Storage spyStorage = spy(storage);
+        spyStorage.saveData(trackerData);
+
+        verify(spyStorage.getCategoryStorage(), times(1)).saveCategories(trackerData);
+        verify(spyStorage.getExpenseStorage(), times(1)).saveExpenses(trackerData);
+    }
+
+    @Test
+    void testLoadData() throws IOException {
+        UI ui = mock(UI.class);
+        TrackerData trackerData = mock(TrackerData.class);
+        Set<String> validCategories = Set.of("Food", "Transport");
+
+        Storage storage = new Storage("expenses.txt", "categories.txt", ui);
+        Storage spyStorage = spy(storage);
+
+        when(spyStorage.getCategoryStorage().loadCategories(trackerData)).thenReturn(validCategories);
+        spyStorage.loadData(trackerData);
+
+        verify(spyStorage.getExpenseStorage(), times(1)).loadExpenses(trackerData, validCategories);
+    }
+
+    @Test
+    void testLoadOrCreateCategory() {
+        TrackerData trackerData = new TrackerData();
+        trackerData.getCategories().add(new Category("Entertainment"));
+
+        Category result = Storage.loadOrCreateCategory(trackerData, "Entertainment");
+        assertEquals("Entertainment", result.getName());
+
+        result = Storage.loadOrCreateCategory(trackerData, "Health");
+        assertEquals("Health", result.getName());
+        assertTrue(trackerData.getCategories().contains(new Category("Health")));
     }
 }
