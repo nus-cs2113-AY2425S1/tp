@@ -112,52 +112,63 @@ public class Ui {
     /**
      * Displays entire help message, acts as a help guide for new users.
      */
-    public static void displayHelpMessage(){
-        String message = "1. Add expense/income entry. Note: amount - a/, (optional)date - d/, (optional)category - c/"+
-                "\nExamples:\nadd expense plane ticket to Japan a/1000 d/25/12/2024 c/transport \n" +
-                "add income tuition fees " + "a/1000 d/13/12/2024 \n" +
-                "2. Delete expense/income entry as shown in the income and expense lists." +
-                "\nExamples:\ndelete expense 1 \n"  + "delete income 2 \n" +
-                "3. List expenses based on category and month. Note(optional): category - c/, month - m/MM/yyyy\n" +
-                "Example:\nlist expenses c/food m/10/2024\n" +
-                "4. List income based on month. Note: month (optional) - m/MM/yyyy\n" +
-                "Example:\nlist incomes m/10/2024\n" +
-                "5. Add budget for current month. Note: amount - a/, (optional)month - m/MM/yyyy, (optional)category " +
-                "- c/\n" +
-                "Example:\nadd budget a/1000 m/09/2024 c/TRANSPORT\n" +
-                "6. Deduct budget for current month. Note: amount - a/, (optional)month - m/MM/yyyy, (optional)" +
-                "category - c/\n" +
-                "Example:\ndeduct budget a/500 m/10/2024\n" +
-                "7. List budget for specific month. Note: month - m/MM/yyyy \n" +
-                "Example:\nlist budgets m/05/2024\n" +
-                "8. List budget for the 12 most recent entries. \n" +
-                "Example:\nlist budgets\n" +
-                "9. List remaining budgets.\n" +
-                "Example:\nlist remaining budget\n" +
-                "10. Edit expense fields (with Category, Amount or Date). Note: Provide at least one of the 3 fields" +
-                " in the second line of input. Refer to example below.\n" +
-                "Example:\nedit expense 3\n" +
-                "a/1000 d/12/10/2024 c/food\n" +
-                "11. Edit income fields (with Amount or Date). Note: Provide at least one of the 2 fields in the" +
-                "second line of input. Refer to example below.\n" +
-                "Example:\nedit income 3\n" +
-                "a/1000 d/12/10/2024\n" +
-                "12. Display income spent. Note - (optional)month - m/MM/YYYY\n" +
-                "Example:\ndisplay income spent m/10/2024\n" +
-                "13. Search expense (with provided keyword)\n" +
-                "Example:\nsearch expense japan\n" +
-                "14. Display savings (by month or in total)\n" +
-                "Example:\ndisplay savings m/\ndisplay savings\n" +
-                "15. Breakdown expenses (by category)\n" +
-                "Example:\nbreakdown expenses\n" +
-                "16. Display monthly expenses. Note: year - y/YYYY\n" +
-                "Example:\ndisplay monthly expenses y/2024\n" +
-                "17. Display monthly expenses with categories. Note: month - m/MM/YYYY\n" +
-                "Example:\ndisplay expenses with categories m/09/2024\n" +
-                "18. Exit app. \n" +
-                "Example:\nbye";
+    public static void displayHelpMessage() {
+        // ANSI color codes for text formatting
+        String reset = "\u001B[0m";
+        String bold = "\u001B[1m";
+        String green = "\u001B[32m";
+        String yellow = "\u001B[33m";
+        String cyan = "\u001B[36m";
+
+        String message =
+                bold + cyan + "=== BudgetBuddy Help Guide ===" + reset + "\n\n" +
+                        bold + yellow + "Budget Commands:" + reset + "\n" +
+                        green + "- add budget a/AMOUNT [m/MONTH] [c/CATEGORY]:" + reset + " Add a budget for the " +
+                        "current month or a specified month/category." + "\n" +
+                        green + "- deduct budget a/AMOUNT [m/MONTH] [c/CATEGORY]:" + reset + " Deduct from a budget" +
+                        " for the current month or a specified month/category." + "\n" +
+                        green + "- list budgets [m/MONTH]:" + reset + " List all budgets, or budgets for a specific" +
+                        " month." + "\n" +
+                        green + "- list remaining budget:" + reset + " List remaining budget after expenses for each" +
+                        " month and category." + "\n\n" +
+
+                        bold + yellow + "Expense Commands:" + reset + "\n" +
+                        green + "- add expense DESCRIPTION a/AMOUNT [d/DATE] [c/CATEGORY]:" + reset + " Add an" +
+                        " expense with a description, amount, date, and category." + "\n" +
+                        green + "- delete expense INDEX:" + reset + " Delete an expense by its index." + "\n" +
+                        green + "- list expenses [m/MONTH] [c/CATEGORY]:" + reset + " List all expenses, or filter" +
+                        " by month or category." + "\n" +
+                        green + "- edit expense INDEX [a/AMOUNT] [c/CATEGORY] [d/DATE]:" + reset + " Edit an " +
+                        "existing expense by index and modify its amount, category, or date." + "\n" +
+                        green + "- display monthly expenses y/YEAR:" + reset + " Display a chart of monthly " +
+                        "expenses for a given year." + "\n" +
+                        green + "- display expenses with categories m/MONTH:" + reset + " Display a pie chart of " +
+                        "expenses by category for a given month." + "\n" +
+                        green + "- search expenses KEYWORD(S):" + reset + " Search expenses by keyword(s)." + "\n" +
+                        green + "- breakdown expenses:" + reset + " Display a breakdown of expenses by " +
+                        "category." + "\n\n" +
+
+                        bold + yellow + "Income Commands:" + reset + "\n" +
+                        green + "- add income DESCRIPTION a/AMOUNT [d/DATE]:" + reset + " Add an income with a " +
+                        "description, amount, and date." + "\n" +
+                        green + "- delete income INDEX:" + reset + " Delete an income by its index." + "\n" +
+                        green + "- edit income INDEX [a/AMOUNT] [d/DATE]:" + reset + " Edit an existing income by " +
+                        "index and modify its amount or date." + "\n" +
+                        green + "- list incomes [m/MONTH]:" + reset + " List all incomes or filter by month." + "\n" +
+                        green + "- display income spent [m/MONTH]:" + reset + " Display income spent as a " +
+                        "percentage of total income for the month." + "\n\n" +
+
+                        bold + yellow + "Savings Commands:" + reset + "\n" +
+                        green + "- display savings [m/]:" + reset + " Display the savings after deducting " +
+                        "expenses from incomes." + "\n\n" +
+
+                        // Explanation for optional and user input formatting
+                        reset + bold + cyan + "[ ] is optional. Commands with [ ] allow you to choose whether to " +
+                        "include that parameter." + reset + "\n" +
+                        bold + cyan + "User input is represented in BOLD text, such as a/AMOUNT" + reset;
         displayToUser(message);
     }
+
 
     /**
      * Prints message to user if there is no description provided in search.

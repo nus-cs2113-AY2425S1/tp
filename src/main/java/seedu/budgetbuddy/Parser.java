@@ -152,82 +152,101 @@ public class Parser {
 
         switch (type.toLowerCase()) {
         case "expense":
-            try {
-                if (parts.length != 5) {
-                    Ui.showMessage("Invalid Storage Format: " + input);
-                    return;
-                }
-                String description = parts[1];
-                double amount = Double.parseDouble(parts[2]);
-                LocalDate date = LocalDate.parse(parts[3], DateTimeFormatter.ofPattern("d/M/yyyy"));
-                Category category = Category.valueOf(parts[4].toUpperCase()); // Ensure category exists for expense
-                if (amount < 0) {
-                    Ui.showMessage("Invalid Storage Format: " + input);
-                    return;
-                }
-                ExpenseManager.loadExpense(new Expense(description, amount, date, category));
-            } catch (Exception e) {
-                Ui.showMessage("Invalid Storage Format: " + input);
-            }
+            parseExpense(input, parts);
             break;
 
         case "income":
-            try {
-                if (parts.length != 4) {
-                    Ui.showMessage("Invalid Storage Format: " + input);
-                    return;
-                }
-                String description = parts[1];
-                double amount = Double.parseDouble(parts[2]);
-                LocalDate date = LocalDate.parse(parts[3], DateTimeFormatter.ofPattern("d/M/yyyy"));
-                if (amount < 0) {
-                    Ui.showMessage("Invalid Storage Format: " + input);
-                    return;
-                }
-                IncomeManager.loadIncome(new Income(description, amount, date)); // No category needed for income
-            } catch (Exception e) {
-                Ui.showMessage("Invalid Input Format: " + input);
-            }
+            parseIncome(input, parts);
             break;
 
         case "budget":
-            try {
-                if (parts.length != 4) {
-                    Ui.showMessage("Invalid Storage Format: " + input);
-                    return;
-                }
-                YearMonth budgetDate = YearMonth.parse(parts[2], DateTimeFormatter.ofPattern("yyyy-MM"));
-
-                if (BudgetManager.getBudget(budgetDate) != null) {
-                    Ui.showMessage("Repeated budget entry: " + input);
-                    return;
-                }
-
-                // Adjust date format for YearMonth
-                String categoryPart = parts[3].trim();
-                categoryPart = categoryPart.substring(1, categoryPart.length() - 1);
-                Budget budget = new Budget(budgetDate);
-
-                String[] categories = categoryPart.split(", ");
-                for (String categoryEntry : categories) {
-                    String[] categorySplit = categoryEntry.split("=");
-                    Category category = Category.valueOf(categorySplit[0].toUpperCase());
-                    double categoryAmount = Double.parseDouble(categorySplit[1]);
-                    if (categoryAmount < 0) {
-                        Ui.showMessage("Invalid Storage Format: " + input);
-                        return;
-                    }
-                    budget.addAmount(category, categoryAmount);
-                }
-                BudgetManager.addBudget(budget);
-            } catch (Exception e) {
-                Ui.showMessage("Invalid Input Format: " + input);
-            }
+            parseBudget(input, parts);
             break;
 
         default:
             System.out.println("Unknown type in file: " + type);
             break;
+        }
+    }
+
+    private static void parseBudget(String input, String[] parts) {
+        try {
+            if (parts.length != 4) {
+                Ui.showMessage("Invalid Storage Format: " + input);
+                return;
+            }
+            YearMonth budgetDate = YearMonth.parse(parts[2], DateTimeFormatter.ofPattern("yyyy-MM"));
+
+            if (BudgetManager.getBudget(budgetDate) != null) {
+                Ui.showMessage("Repeated budget entry: " + input);
+                return;
+            }
+
+            // Adjust date format for YearMonth
+            String categoryPart = parts[3].trim();
+            categoryPart = categoryPart.substring(1, categoryPart.length() - 1);
+            Budget budget = new Budget(budgetDate);
+
+            String[] categories = categoryPart.split(", ");
+            if (addBudgetCategoryAmount(input, categories, budget)) {
+                return;
+            }
+            BudgetManager.addBudget(budget);
+        } catch (Exception e) {
+            Ui.showMessage("Invalid Input Format: " + input);
+        }
+    }
+
+    private static boolean addBudgetCategoryAmount(String input, String[] categories, Budget budget) {
+        for (String categoryEntry : categories) {
+            String[] categorySplit = categoryEntry.split("=");
+            Category category = Category.valueOf(categorySplit[0].toUpperCase());
+            double categoryAmount = Double.parseDouble(categorySplit[1]);
+            if (categoryAmount < 0) {
+                Ui.showMessage("Invalid Storage Format: " + input);
+                return true;
+            }
+            budget.addAmount(category, categoryAmount);
+        }
+        return false;
+    }
+
+    private static void parseIncome(String input, String[] parts) {
+        try {
+            if (parts.length != 4) {
+                Ui.showMessage("Invalid Storage Format: " + input);
+                return;
+            }
+            String description = parts[1];
+            double amount = Double.parseDouble(parts[2]);
+            LocalDate date = LocalDate.parse(parts[3], DateTimeFormatter.ofPattern("d/M/yyyy"));
+            if (amount < 0) {
+                Ui.showMessage("Invalid Storage Format: " + input);
+                return;
+            }
+            IncomeManager.loadIncome(new Income(description, amount, date)); // No category needed for income
+        } catch (Exception e) {
+            Ui.showMessage("Invalid Input Format: " + input);
+        }
+    }
+
+    private static void parseExpense(String input, String[] parts) {
+        try {
+            if (parts.length != 5) {
+                Ui.showMessage("Invalid Storage Format: " + input);
+                return;
+            }
+            String description = parts[1];
+            double amount = Double.parseDouble(parts[2]);
+            LocalDate date = LocalDate.parse(parts[3], DateTimeFormatter.ofPattern("d/M/yyyy"));
+            Category category = Category.valueOf(parts[4].toUpperCase()); // Ensure category exists for expense
+            if (amount < 0) {
+                Ui.showMessage("Invalid Storage Format: " + input);
+                return;
+            }
+            ExpenseManager.loadExpense(new Expense(description, amount, date, category));
+        } catch (Exception e) {
+            Ui.showMessage("Invalid Storage Format: " + input);
         }
     }
 }

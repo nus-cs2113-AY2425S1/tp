@@ -32,25 +32,31 @@ public class RemainingBudgetManager {
         remainingBudgets = new ArrayList<>();
         copyBudgetManager();
         ArrayList<Expense> expenses = ExpenseManager.getExpenses();
+        deductExpensesFromBudget(expenses);
+        LOGGER.info("Remaining budgets initialized and updated after deductions.");
+    }
+
+    /**
+     * Deducts the expenses from the existing budgets based on the list of expenses.
+     * For each expense, it attempts to find a matching budget for the given date
+     * and category, and deducts the expense amount from the respective budget.
+     *
+     * @param expenses The list of expenses to be deducted.
+     */
+    private void deductExpensesFromBudget(ArrayList<Expense> expenses) {
         for (Expense expense : expenses) {
             YearMonth expenseDate = YearMonth.from(expense.getDate());
             Category expenseCategory = expense.getCategory();
             double expenseAmount = expense.getAmount();
 
-            // Try to find a budget for the expense's YearMonth
             Budget matchingBudget = null;
-
             matchingBudget = searchForGivenBudget(expenseDate, matchingBudget);
-
-            // If no budget is found, create a new one with zero initial amount
             matchingBudget = createNewBudget(matchingBudget, expenseDate);
-
-            // Deduct the expense from the matching budget (allowing it to go negative)
             matchingBudget.deductExpense(expenseCategory, expenseAmount);
+
             LOGGER.info("Deducted " + expenseAmount + " from budget for " + expenseDate
                     + " in category " + expenseCategory);
         }
-        LOGGER.info("Remaining budgets initialized and updated after deductions.");
     }
 
     /**
@@ -130,25 +136,55 @@ public class RemainingBudgetManager {
         assert date != null : "Date cannot be null";
         assert category != null : "Category cannot be null";
 
-        for (Budget budget : remainingBudgets) {
-            if (budget.getDate().equals(expenseMonth)) {
-                Double remainingAmount = budget.getCategoryBudgets().get(category);
-                if (remainingAmount == null) {
-                    remainingAmount = 0.00; // If the category does not exist, assume remaining amount is 0
-                }
-                LOGGER.info("Retrieved remaining budget for " + expenseMonth + " in category " + category
-                        + ": " + remainingAmount);
-                String result = "The remaining budget for " + expenseMonth + " in the " + category
-                        + " category is: " + String.format("%.2f", remainingAmount);
-                if (remainingAmount < 0) {
-                    result += "\nCaution! You have exceeded your budget!";
-                }
-                return result;
-            }
+        String result = findRemainingAmount(category, expenseMonth);
+        if (result != null) {
+            return result;
         }
 
         // If no budget is found for the specified date
         LOGGER.warning("No budget found for " + expenseMonth + ".");
         return "No budget found for " + expenseMonth + ".";
+    }
+
+    /**
+     * Searches for the remaining budget for the specified date and category.
+     * This method checks if a budget exists for the specified month and retrieves the
+     * remaining amount for the specified category.
+     *
+     * @param category The category of the expense.
+     * @param expenseMonth The month and year of the expense.
+     * @return A string representing the remaining budget for the specified category, or null if no budget is found.
+     */
+    private String findRemainingAmount(Category category, YearMonth expenseMonth) {
+        for (Budget budget : remainingBudgets) {
+            if (budget.getDate().equals(expenseMonth)) {
+                return processAmount(category, expenseMonth, budget);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Processes the remaining amount for the specified category and budget.
+     * If the category does not have a budget, it assumes the remaining amount is 0.0.
+     *
+     * @param category The category for which the remaining budget is being processed.
+     * @param expenseMonth The month and year of the expense.
+     * @param budget The budget from which the remaining amount will be retrieved.
+     * @return A formatted string showing the remaining budget for the category and any warnings if exceeded.
+     */
+    private static String processAmount(Category category, YearMonth expenseMonth, Budget budget) {
+        Double remainingAmount = budget.getCategoryBudgets().get(category);
+        if (remainingAmount == null) {
+            remainingAmount = 0.00; // If the category does not exist, assume remaining amount is 0
+        }
+        LOGGER.info("Retrieved remaining budget for " + expenseMonth + " in category " + category
+                + ": " + remainingAmount);
+        String result = "The remaining budget for " + expenseMonth + " in the " + category
+                + " category is: " + String.format("%.2f", remainingAmount);
+        if (remainingAmount < 0) {
+            result += "\nCaution! You have exceeded your budget!";
+        }
+        return result;
     }
 }
