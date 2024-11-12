@@ -1,9 +1,16 @@
 package seedu.javaninja;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 
 /**
  * The `Storage` class handles the saving and loading of data from files.

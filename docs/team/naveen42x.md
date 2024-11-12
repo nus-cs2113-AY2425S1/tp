@@ -2,42 +2,93 @@
 
 ## Project: JavaNinja
 
-JavaNinja is a desktop learning tool application used for teaching programming concepts. The user interacts with it using a CLI. It is written in Java, and has about 10 kLoC.
+JavaNinja is a desktop learning tool application designed for teaching programming concepts. Users interact with the tool via a Command-Line Interface (CLI).
 
-Given below are my contributions to the project.
+Below are my key contributions to the project:
 
-### New Feature: Added the ability to undo/redo previous commands.
-- **What it does**: Allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-- **Justification**: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-- **Highlights**: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-- **Credits**: {mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}
+Here is also a link to the code that I have contributed:
 
-### New Feature: Added a history command that allows the user to navigate to previous commands using up/down keys.
+[Link to Contribution Dashboard for Naveen](https://nus-cs2113-ay2425s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-09-20&tabOpen=true&tabType=authorship&tabAuthor=naveen42x&tabRepo=AY2425S1-CS2113-W12-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=other~docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
-### Code contributed: [RepoSense link](#)
+---
 
-### Project management:
-- Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+### Main Classes and Structure
 
-### Enhancements to existing features:
-- Updated the GUI color scheme (Pull requests [#33](#), [#34](#))
-- Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests [#36](#), [#38](#))
+- **Primary Class Structure and Relationships**:
+  - Created key classes: `QuizResults`, `Storage`, `QuizResultsTest`, `StorageTest`, `QuizTimerTest`.
+  - Designed and maintained the `QuizResults` class, facilitating the storage and retrieval of quiz outcomes while managing data persistence.
+  - Implemented the `Storage` class for efficient file operations, ensuring smooth loading, saving, and initialization of data from external files.
+  - Followed object-oriented principles to make the code modular and maintainable.
 
-### Documentation:
-- **User Guide:**
-    - Added documentation for the features `delete` and `find` [#72](#72)
-    - Did cosmetic tweaks to existing documentation of features `clear`, `exit` [#74](#74)
-- **Developer Guide:**
-    - Added implementation details of the `delete` feature.
+---
 
-### Community:
-- PRs reviewed (with non-trivial review comments): [#12](#), [#32](#), [#19](#), [#42](#)
-- Contributed to forum discussions (examples: [1](#), [2](#), [3](#), [4](#))
-- Reported bugs and suggestions for other teams in the class (examples: [1](#), [2](#), [3](#))
-- Some parts of the history feature I added were adopted by several other classmates ([1](#), [2](#))
+### New Features Implemented
 
-### Tools:
-- Integrated a third party library (Natty) to the project ([#42](#))
-- Integrated a new Github plugin (CircleCI) to the team repo
+- **Quiz Results Management**:
+  - **Description**: Developed `QuizResults` to track and manage quiz outcomes, allowing users to review past quiz performances.
+  - **Justification**: This feature provides essential feedback to users, helping them monitor their learning progress and identify areas for improvement.
+  - **Review Functionality**:
+    - Enabled users to view quiz results for specific topics and introduced options to sort results by highest score, lowest score, newest, and oldest.
+    - **Justification**: This added flexibility enhances the user experience by making it easier for users to analyze their performance based on different criteria.
 
-{you can add/remove categories in the list above}
+- **Storage for Data Persistence**:
+  - **Description**: Implemented the `Storage` class to handle reading and writing data to files, supporting seamless data management for quizzes and results.
+  - **Justification**: Ensured the persistence of user data across sessions, which is crucial for a continuous and meaningful user experience.
+
+- **JUnit Tests for Reliability**:
+  - **Description**: Developed comprehensive tests for `QuizResultsTest`, `StorageTest`, and `QuizTimerTest` to verify the functionality and reliability of the respective modules.
+  - **Justification**: These tests enhanced the application's robustness and ensured that changes did not break existing features.
+
+- **Debugging and Issue Resolution**:
+  - **Description**: Engaged extensively in debugging the codebase to identify and fix issues, ensuring smooth operation across various features.
+  - **Justification**: Regular debugging and issue resolution contributed to maintaining code quality and application stability.
+
+---
+
+### Contributions to the User Guide
+
+- **Detailed Documentation**:
+  - Documented usage instructions for features related to `QuizResults` and data management, including viewing results for specific topics and sorting options (highest/lowest scores, newest/oldest dates).
+  - Added step-by-step guides on how to review quiz outcomes and interpret stored data.
+  - Added user stories.
+
+- **Enhanced Readability**:
+  - Structured sections and formatted content for clarity, ensuring users could easily navigate and understand the documentation.
+
+---
+
+### JUnit Tests
+
+- **Extensive Test Coverage**:
+  - Implemented comprehensive JUnit tests for `QuizResults`, `Storage`, and `QuizTimer` to cover edge cases and standard functionality.
+  - **Justification**: These tests ensured reliable performance and early detection of potential bugs, contributing to overall software quality.
+
+---
+
+### Contributions to the Developer Guide
+
+- **Documentation and Diagrams**:
+  - Authored detailed explanations for `QuizResults` and `Storage`, outlining their structure, roles, and methods.
+  - Created class and sequence diagrams for `QuizResults`, illustrating how data flows and interactions occur within the class.
+  - Developed a sequence diagram for `Storage` to demonstrate the process of reading and writing data to files.
+
+- **Formatting and Clarity**:
+  - Improved the layout of the Developer Guide, making it easy for new developers to understand project components and their relationships.
+
+---
+
+### Project Management and Team Contributions
+
+- **Feature and Code Review**:
+  - Conducted thorough code reviews to ensure adherence to project standards and maintain consistency.
+  - Addressed Checkstyle issues and optimized code formatting to enhance readability across the project.
+
+- **Collaboration and Debugging**:
+  - Participated in team discussions to share insights, troubleshoot problems, and support the integration of new features.
+  - Assisted in debugging various modules to resolve issues and improve the overall functionality of the application.
+
+---
+
+### Summary
+
+My contributions focused on building and enhancing the `QuizResults` and `Storage` functionalities, ensuring robust data handling and user feedback. I also emphasized testing for reliability and documentation for maintainability, supporting the long-term success of the JavaNinja project.

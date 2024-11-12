@@ -16,7 +16,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 ## Quick Start
 
 1. Ensure that you have Java 17 or above installed.
-2. Download the latest version of `JavaNinja` from [here](http://link.to/duke).
+2. Download the latest version of `JavaNinja` from [here](https://github.com/AY2425S1-CS2113-W12-4/tp/releases).
 3. Copy the file to the folder you want to use as the home folder for JavaNinja.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
    ```shell
@@ -155,15 +155,20 @@ quit
 
 ## Command Summary
 
-| Command                                      | Description                                                        |
-|----------------------------------------------|--------------------------------------------------------------------|
-| `view`                                       | View all available quiz topics.                                    |
-| `select /d timed OR untimed /t [TOPIC_NAME]` | Select a timed or untimed topic and start the quiz for that topic. |
-| `add Flashcards`                             | Add a custom flashcard question.                                   |
-| `review`                                     | View results of quizzes taken during this session.                 |
-| `help`                                       | List all commands with descriptions.                               |
-| `exit`                                       | Exit the quiz.                                                     |
-| `quit`                                       | Exit the program.                                                  |
+| Command                                         | Description                                                                     |
+|-------------------------------------------------|---------------------------------------------------------------------------------|
+| `view`                                          | View all available quiz topics.                                                 |
+| `select /d timed OR untimed /t [TOPIC_NAME]`    | Select a timed or untimed topic and start the quiz for that topic.              |
+| `select /d timed OR untimed /t random`          | Select a timed or untimed quiz with randomly chosen topics.                     |
+| `add Flashcards /q [QUESTION] /a [ANSWER]`      | Add a custom flashcard question for revision.                                   |
+| `review`                                        | View results of quizzes taken during this session, sorted by newest by default. |
+| `review highest/lowest/oldest/newest`           | View quiz results sorted by highest/lowest score or oldest/newest date.         |
+| `review t/[TOPIC]`                              | View results for a specific topic.                                              |
+| `review t/[TOPIC] highest/lowest/oldest/newest` | View sorted results for a specific topic.                                       |
+| `help`                                          | List all commands with descriptions.                                            |
+| `exit`                                          | Exit the quiz.                                                                  |
+| `quit`                                          | Exit the program.                                                               |
+
 
 
 ## Troubleshooting
