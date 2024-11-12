@@ -382,7 +382,8 @@ There are then 4 child exception classes that inherit from the YMFCException cla
 * EmptyListException
   * This exception is thrown mainly in the Parser class whenever the user inputs a command that would not work 
   with an empty list of recipes or ingredients
-    * e.g. When the user inputs the edit command when the recipe cookbook is empty and hence has to recipes to edit
+    * e.g. If the recipe cookbook is empty, and the user inputs the edit command, then this exception will be thrown. 
+      * Because there are no recipes in the empty cookbook that can be editted
 * InvalidArgumentException
   * This exception is mainly thrown in the Parser class whenever the user's input command has invalid arguments
 * InvalidCommandException
