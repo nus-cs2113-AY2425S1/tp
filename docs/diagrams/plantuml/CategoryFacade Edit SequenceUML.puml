@@ -16,7 +16,7 @@ participant ":CategoryTracker" as CT
 EC -> CF: call interface's method
 CF -> CT: call relevant method
 CT -> CT: update tracker with new increased/decreased totals
-CT --> CF: return
-CF --> EC: return
+CT --> CF:
+CF --> EC:
 
 @enduml

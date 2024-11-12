@@ -16,7 +16,7 @@ participant ":CategoryTracker" as CT
 SC -> CF: call interface's method
 CF -> CT: call method to set limit
 CT -> CT: update tracker with new limit
-CT --> CF: return
-CF --> SC: return
+CT --> CF:
+CF --> SC:
 
 @enduml

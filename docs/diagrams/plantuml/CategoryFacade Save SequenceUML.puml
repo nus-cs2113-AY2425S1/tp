@@ -8,13 +8,13 @@ skinparam sequence {
 }
 hide footbox
 
-participant "<<Class>> \n Storage" as S
+participant "<<class>> \n Storage" as S
 participant ":CategoryFacade" as CF
 participant ":CategoryStorage" as CS
 
 S -> CF: call interface's method
 CF -> CS: call save method
-CS --> CF: return
-CF --> S: return
+CS --> CF:
+CF --> S:
 
 @enduml
