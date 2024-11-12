@@ -29,8 +29,8 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 
 ### Contributions to the User Guide (UG)
 - Added/edited the following sections:
-    - **Added documentation for water features**: Documented how to use the water intake features, including adding, viewing, and deleting water entries.
-    - **Edited documentation for programme edit features**: Made the user guide more readable by splitting up the programme edit features into smaller commands
+  - **Water Features**: Documented usage for adding, viewing, and deleting water entries.
+  - **Programme Edit Features**: Enhanced readability by splitting programme edit commands into smaller sections.
 
 ### Contributions to the Developer Guide (DG)
 - **Sections Contributed**: Storage component, DailyRecord Class, Programme component, Add Water Feature, Save/Load Feature
@@ -53,10 +53,8 @@ it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
 ### Review/Mentoring Contributions
 - **Pull Request Reviews**:
     - [PR #208 - Polish v1 features](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/208)
-    - [PR #178 - Add documentation and testing for edit programme](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/178)
     - [PR #165 - Add delete log functionality](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/165)
     - [PR #162 - Refactor EditCommand](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/162)
-    - [PR #159 - Fix History and Logging Issue](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/159)
     - [PR #151 - Added WaterCommandFactory and ViewWaterCommand classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/151) 
     - [PR #90 - Add assertions and logging details for files in parser package](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/90)
     - [PR #81 - Add assertions & logging to Command classes](https://github.com/AY2425S1-CS2113-W10-3/tp/pull/81) 
