@@ -62,7 +62,10 @@ import static fittrack.messages.Messages.SEPARATOR;
 import static fittrack.messages.Messages.SET_USER_COMMAND;
 import static fittrack.messages.Messages.VIEW_SESSION_COMMAND;
 import static fittrack.parser.ParserHelpers.parseDeadline;
+import static fittrack.storage.Storage.DATA_DELIMITER;
 import static fittrack.storage.Storage.updateSaveFile;
+import static fittrack.ui.Ui.beginSegment;
+import static fittrack.ui.Ui.endSegment;
 import static fittrack.ui.Ui.printAddedReminder;
 import static fittrack.ui.Ui.printAddedSession;
 import static fittrack.ui.Ui.printDeletedReminder;
@@ -114,9 +117,12 @@ public class Parser {
         LocalDateTime timeNow = LocalDateTime.now();
         String formattedTimeNow = timeNow.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
-        // Throw exception if user inputs a vertical bar '|'
-        if (input.contains("|")){
-            throw new IOException(INVALID_VERTICAL_BAR_INPUT_MESSAGE);
+        // Print error if user inputs character used for data parsing
+        if (input.contains(DATA_DELIMITER)) {
+            beginSegment();
+            System.out.println(INVALID_VERTICAL_BAR_INPUT_MESSAGE);
+            endSegment();
+            return;
         }
 
         // Split the input into command and description if applicable

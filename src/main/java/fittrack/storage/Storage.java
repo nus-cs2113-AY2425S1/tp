@@ -23,18 +23,31 @@ import static fittrack.logger.FitTrackLogger.LOGGER;
 
 public class Storage {
 
-    public static final String SAVE_FILE = "data/saveFile.txt"; // Path to the save file
-    public static final File SAVEFILE = new File(SAVE_FILE); // File object for the save file
 
     public static final String DATA_DELIMITER = "|";
     public static final String DATA_DELIMITER_REGEX = "\\|";
+
+    private static String saveFilePath = "data/saveFile.txt"; // Path to the save file
+    private static File saveFile = new File(saveFilePath); // File object for the save file
+
+    // Helper function for testing suite
+    public static void setSaveFilePath(String path) {
+        saveFilePath = path;
+        saveFile = new File(saveFilePath);
+    }
+
+    public static File getSaveFile() {
+        return saveFile;
+    }
 
     /**
      * Initializes the save file by creating the necessary directories and file if they do not exist.
      */
     public static void initialiseSaveFile() {
-        Path dirPath = Paths.get("data"); // Path to the data directory
-        Path filePath = dirPath.resolve("saveFile.txt"); // Path to the save file
+        String[] pathData = saveFilePath.split("/");
+
+        Path dirPath = Paths.get(pathData[0]); // Path to the data directory
+        Path filePath = dirPath.resolve(pathData[1]); // Path to the save file
         File file = new File(filePath.toString()); // File object for the save file
 
         // Create directories if they do not exist
@@ -78,7 +91,7 @@ public class Storage {
      * @throws InvalidSaveDataException If an invalid save format or unrecognized item type is encountered.
      */
     public static void loadSaveFile(ArrayList<Saveable> loadList) {
-        try (Scanner scanner = new Scanner(SAVEFILE)) {
+        try (Scanner scanner = new Scanner(saveFile)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 Saveable item = createSaveableFromString(line);
@@ -108,7 +121,7 @@ public class Storage {
      * @return A Saveable object corresponding to the serialized data.
      * @throws InvalidSaveDataException If the prefix does not match any recognized Saveable subclass.
      */
-    private static Saveable createSaveableFromString(String saveString) throws InvalidSaveDataException {
+    protected static Saveable createSaveableFromString(String saveString) throws InvalidSaveDataException {
         if (saveString.startsWith("TrainingSession")) {
             return TrainingSession.fromSaveString(saveString);
         } else if (saveString.startsWith("Goal")) {
@@ -145,7 +158,7 @@ public class Storage {
             throw new IOException("Save file could not be updated. Invalid null list passed to function");
         }
 
-        try (FileWriter fw = new FileWriter(SAVEFILE)) {
+        try (FileWriter fw = new FileWriter(saveFile)) {
 
             // Update user information
             fw.write(user.toSaveString());
