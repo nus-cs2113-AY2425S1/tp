@@ -20,7 +20,7 @@ Java Ninja is a command-line interface (CLI) learning tool focused on helping be
 3. Copy the file to the folder you want to use as the home folder for JavaNinja.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar javaninja.jar command to run the application.
    ```shell
-   java -jar javaninja.jar
+   java -jar tp.jar
    ```
 5. Type the command in the command box and press Enter to execute it. e.g. typing help and pressing Enter will open the help window.
    Some example commands you can try:
