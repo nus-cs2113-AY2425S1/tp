@@ -38,6 +38,7 @@
         - [SortIngredientCommand](#15-sortingredientcommand-class)
     - [Parser Class](#parser-class)
     - [Storage Class](#storage-class)
+    - [Exception Class](#exception-class)
 3. [Appendix: Requirements](#appendix-requirements)
     - [Product Scope](#product-scope)
     - [User Stories](#user-stories)
