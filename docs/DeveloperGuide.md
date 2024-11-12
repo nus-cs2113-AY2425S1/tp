@@ -181,7 +181,7 @@ the `dd/MM/yyyy` format.
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 HashMap<String, String> commandArgs = InputParser.parseCommands("expense lunch /a 50 /d 12/10/2024 /c food");
         
 LocalDate parsedDate = DateParser.parse("12/10/2024");
@@ -246,7 +246,7 @@ This sequence diagram illustrates how the `Logic` class works with other classes
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 FinancialList financialList = new FinancialList();  
 AppUi ui = new AppUi();
 Storage storage = new Storage();
@@ -316,7 +316,7 @@ The `FinancialList` component is the primary data structure responsible for mana
 
 <ins>Usage Example</ins>
 
-``` java
+``` 
 FinancialList financialList = new FinancialList();
 Income income = new Income(500.00, "Freelance Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
@@ -387,14 +387,14 @@ System.out.println("Highest Expense Category: " + highestExpenseCategory.getKey(
     - `Income`: Returns formatted string as `[Income] - description $amount (on date) [category]`.
     - `Expense`: Returns formatted string as `[Expense] - description $amount (on date) [category]`.
   - **toStorageString()**:
-    - `Income`: Formats as `"I | amount | description | date | category"` for storage.
-    - `Expense`: Formats as `"E | amount | description | date | category"` for storage.
+    - `Income`: Formats as `"I ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"` for storage.
+    - `Expense`: Formats as `"E ¦¦ amount ¦¦ description ¦¦ date ¦¦ category"` for storage.
 
 <ins>Usage Example</ins>
 
 The following code segment demonstrates the creation of `Income` and `Expense` entries:
 
-``` java
+``` 
 Income income = new Income(500.00, "Freelancåe Project",
         LocalDate.of(2023, 10, 27), Income.Category.SALARY);
 Expense expense = new Expense(50.00, "Groceries", LocalDate.of(2023, 10, 28),
@@ -481,8 +481,8 @@ A similar sequence happens when an expense is added.
 
 <ins>Overview</ins>
 
-The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense`
-entries can be deleted using this class.
+The feature to delete entries is facilitated by the `DeleteCommand`. Both `Income` and `Expense` 
+entries can be deleted using this class. Additionally, users can delete a range of entries, the last amended transaction, or all entries at once.
 
 <ins>Class Structure</ins>
 
@@ -495,15 +495,25 @@ The `DeleteCommand` class has the following method:
 <ins>Implementation</ins>
 
 The user invokes the command to delete entries by entering the following command:
-`delete INDEX`.
+`delete [INDEX] [/to ENDINDEX]`.
 
-This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the
-following argument:
-- `argument`: Represents the index of the entry in the financial list to be deleted.
-  This is a compulsory argument.
+This command is parsed by the `InputParser`, returning a HashMap `commandArguments` containing the following arguments:
+- `INDEX` (optional): Represents the starting index of the entry in the financial list to be deleted. If omitted, the last amended transaction is deleted by default.
+- `/to ENDINDEX` (optional): Represents the ending index for a range of entries to be deleted. If provided, entries from `INDEX` to `ENDINDEX` (inclusive) are deleted.
+- `"all"`: A special value for `INDEX` to delete all entries in the financial list.
+  - note: "all" is case-sensitive so variation like All or aLL will not execute delete all function.
 
-When executed, the `DeleteCommand` removes the entry at the specified index from the `FinancialList`,
-updating the list and storage.
+When executed, the `DeleteCommand` performs one of the following actions:
+1. Deletes the entry at the specified `INDEX`.
+2. Deletes a range of entries from `INDEX` to `ENDINDEX`.
+3. Deletes the last amended transaction if `INDEX` is omitted.
+4. Deletes all entries if `INDEX` is `"all"`.
+
+The `DeleteCommand` updates the `FinancialList` and storage to reflect the changes after deletion.
+
+Below is a sequence diagram illustrating the process of deleting entries. 
+It highlights the interactions between components such as `InputParser`, `DeleteCommand`, `FinancialList`, `BudgetLogic`, and `Storage`.
+![DeleteCommandSequenceDiagram.png](UML/DeleteCommandSequenceDiagram.png)
 
 ### Editing Entries
 
@@ -616,7 +626,7 @@ but only marks `Expense`s and `Income`s respectively as to be included.
 
 <ins>Usage Examples</ins>
 
-``` java
+``` 
 // Listing all entries in the financial list
 SeeAllEntriesCommand seeAllEntriesCommand = new SeeAllEntriesCommand(null, null);
 seeAllEntriesCommand.execute(financialList);
@@ -680,7 +690,7 @@ Otherwise, the logging level is set to `INFO`.
 <ins>Example Usage</ins>
 
 Example usage of `FinanceBuddyException`:
-``` java
+``` 
 private double parseAmount(String amountStr) throws FinanceBuddyException {
   try {
     return Double.parseDouble(amountStr);
@@ -693,7 +703,7 @@ private double parseAmount(String amountStr) throws FinanceBuddyException {
 ```
 
 The exception messages from `FinanceBuddyException` can be displayed using the following code example:
-``` java
+``` 
 try {
   ...
 } catch (FinanceBuddyException e) {
@@ -702,12 +712,12 @@ try {
 ```
 
 The `Log` class can be used in other classes using the following code example:
-``` java
+``` 
 private static final Log logger = Log.getInstance();
 ```
 
 Logging can then be done by invoking `logger.log()`. For example:
-``` java
+``` 
 logger.log(LogLevels.INFO, "Expense added successfully.");
 logger.log(LogLevels.WARNING, "Invalid index inputted.");
 logger.log(LogLevels.SEVERE, "FinancialList is null.", exception);
@@ -839,7 +849,7 @@ The figure below show how the program load Budget from the files:
 
 <ins>Usage Example</ins>
 
-``` java
+```
 // Instantiate the Storage class and provide the file paths for financial data/budget
 Storage storage = new Storage();
 
