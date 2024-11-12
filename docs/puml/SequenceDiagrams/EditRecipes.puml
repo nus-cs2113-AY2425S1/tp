@@ -90,9 +90,11 @@ Ui --> EditCommand
 deactivate Ui
 
 
-deactivate EditCommand
+
 EditCommand --> YMFC
+
 deactivate EditCommand
+EditCommand -[hidden]-> YMFC
 
 destroy EditCommand
 
