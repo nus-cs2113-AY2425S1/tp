@@ -297,17 +297,17 @@ public class TrainingSession extends Saveable {
         String moodInfo = this.mood;
 
         // Collect information for each exercise type
-        String infoPU = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
+        String infoSU = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
         String infoSBJ = exerciseStations.get(Exercise.STANDING_BROAD_JUMP).getSaveStringInfo();
         String infoSR = exerciseStations.get(Exercise.SHUTTLE_RUN).getSaveStringInfo();
         String infoSAR = exerciseStations.get(Exercise.SIT_AND_REACH).getSaveStringInfo();
-        String infoSU = exerciseStations.get(Exercise.SIT_UP).getSaveStringInfo();
+        String infoPU = exerciseStations.get(Exercise.PULL_UP).getSaveStringInfo();
         String infoWAR = exerciseStations.get(Exercise.WALK_AND_RUN).getSaveStringInfo();
 
         return "TrainingSession" + DATA_DELIMITER + sessionInfo + DATA_DELIMITER + sessionDateTime + DATA_DELIMITER
-                + userSex + DATA_DELIMITER + userAge + DATA_DELIMITER + moodInfo + DATA_DELIMITER + infoPU
+                + userSex + DATA_DELIMITER + userAge + DATA_DELIMITER + moodInfo + DATA_DELIMITER + infoSU
                 + DATA_DELIMITER + infoSBJ + DATA_DELIMITER + infoSR + DATA_DELIMITER + infoSAR + DATA_DELIMITER
-                + infoSU + DATA_DELIMITER + infoWAR;
+                + infoPU + DATA_DELIMITER + infoWAR;
     }
 
     /**
