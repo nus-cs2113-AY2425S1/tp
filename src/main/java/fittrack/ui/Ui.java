@@ -75,7 +75,7 @@ public class Ui {
         assert sessionList != null : "Session list must not be null";
         assert !sessionList.isEmpty() : "Session list must not be empty";
         beginSegment();
-        System.out.println("Session " + sessionIndex + " has been modified:");
+        System.out.println("Session " + (sessionIndex + 1) + " has been modified:");
         System.out.println("New Date/Time: " + sessionList.get(sessionIndex).getSessionDatetime());
         endSegment();
     }
