@@ -19,7 +19,7 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 + Using the `add NUS_COURSE_CODE /pu PARTNER_UNIVERSITY /coursepu PU_COURSE_CODE` format, users could add their desired 
   course mapping into `myList.json` file for storage.
   [#31](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/31)
-+ Parse user's inputs to extract relevant information before validating course mapping in `CourseValidator` class.
++ Parse user's inputs to extract relevant information before validating the course mapping in the `CourseValidator` class.
   [#31](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/31)
 + Throw exceptions when there are missing inputs and keywords. 
 + Implement assertions, exceptions, and JUnit tests to handle and test error cases. 
@@ -40,14 +40,14 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 
 ### Course Validation -`Course` Class
 
-+ Abstract variables and methods related to course mapping. 
++ Abstract variables and methods related to a course mapping. 
  [#75](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/75)
 + Enhance OOP through abstraction and encapsulation.
 + `Course` class is subsequently used in `AddCoursesCommand` and `Storage` classes.
 
 ## User Guide Contribution
 
-+ Add documentation for add course mapping feature `add` 
++ Add documentation for the add course mapping feature `add` 
   [#194](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/194)
 + Add command summary for all features found in the application
 + Add the directory for the user guide
@@ -55,17 +55,17 @@ Click here to view my code contributions: [Nancy's TP Code Dashboard](https://nu
 ## Developer Guide Contribution
 
 + Add documentation for the add course mapping implementation, including a detailed explanation of the `AddCourseCommand`and `CourseValidator` classes. [#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112)
-+ Create a sequence diagram of AddCoursesCommand and CourseValidator respectively.[#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112), 
++ Create a sequence diagram for AddCoursesCommand and CourseValidator respectively. [#112](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/112), 
 [#208](https://github.com/AY2425S1-CS2113-W10-2/tp/pull/208)
 + Create a class diagram for the `CourseValidator` class. 
  [#165](https://github.com/AY2425S1-CS2113-W10-2/tp/issues/165)
-+ Update the glossary with clarifications of valid terms. 
++ Update the glossary with clarifications of the valid terms. 
 
 ## Contribution to team-based tasks
 + Maintain the issue tracker.
-+ Add Course class to enhance the modularity and reusability of course mapping across the project.
-+ Document command summary in the user guide and glossary for developer guide.
-+ Add a 'Things to Note' section in the User Guide to help guide user input and prevent unnecessary bugs.
++ Add Course class to enhance the modularity and reusability of course mappings across the project.
++ Document Command Summary in the User Guide and Glossary for Developer Guide.
++ Add a 'Things to Note' section in the User Guide to guide user input and prevent unnecessary bugs.
 
 ## Review / mentoring contributions
 

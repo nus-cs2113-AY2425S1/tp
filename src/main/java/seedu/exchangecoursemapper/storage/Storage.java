@@ -62,9 +62,9 @@ public class Storage {
     }
 
     /**
-     * Returns a list all the user's stored course mappings.
+     * Returns a list of all the user's stored course mappings.
      *
-     * @return a list with all the user's stored course mappings.
+     * @return A list containing all the stored course mappings.
      */
     public List<Course> loadAllCourses() {
         return courseRepository.loadAllCourses();
