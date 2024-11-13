@@ -1,0 +1,50 @@
+@startuml
+
+!include style.puml
+skinparam style strictuml
+
+scale 1.5
+
+actor User
+participant ":MediTask" as MediTask MAIN_COLOR
+participant ":Parser" as Parser PARSER_COLOR
+participant ":AddTaskCommand" as AddTaskCommand COMMAND_COLOR
+participant ":Task" as Task DATA_COLOR
+participant ":TaskList" as TaskList DATA_COLOR
+
+User -> MediTask: Selects a patient
+activate MediTask
+MediTask -> Parser: parse()
+activate Parser
+create AddTaskCommand
+Parser -> AddTaskCommand: AddTaskCommand(type, args)
+activate AddTaskCommand
+create Task
+AddTaskCommand -> Task: Task (type, args)
+activate Task
+alt Missing or invalid input
+    Task --> AddTaskCommand: return error
+    AddTaskCommand --> Parser: Return error message
+    Parser --> MediTask: return error
+    MediTask --> User: Display error
+else Valid input
+    Task --> AddTaskCommand: return :Task
+    deactivate Task
+    AddTaskCommand -> TaskList: Add task to list
+    activate TaskList
+    alt Task exists
+        TaskList --> AddTaskCommand: Throw DuplicateTaskException
+        AddTaskCommand --> Parser: Return duplicate error
+        Parser --> MediTask: return duplicate
+        MediTask --> User: "This task already exists"
+    else Task does not exist
+        TaskList --> AddTaskCommand: Confirm task addition
+        deactivate TaskList
+        AddTaskCommand --> Parser: return success
+        deactivate AddTaskCommand
+        Parser --> MediTask: return success
+        deactivate Parser
+        MediTask --> User: "New task added: <task>"
+    end
+end
+@enduml

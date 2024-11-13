@@ -1,0 +1,62 @@
+@startuml
+
+!include style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor COMMAND_COLOR
+skinparam classBackgroundColor COMMAND_COLOR
+scale 0.5
+abstract class Command {
+    - TaskList tasks
+    + setData(TaskList tasks)
+    + execute(): CommandResult
+}
+
+class CommandResult {
+    - feedbackToUser: String
+    + CommandResult(feedbackToUser: String)
+    + getFeedbackToUser(): String
+}
+
+'Patient-Related Commands
+class AddPatientCommand
+class DeletePatientCommand
+class FindPatientCommand
+class ListPatientCommand
+class SelectPatientCommand
+
+'Task-Related Commands
+class AddTaskCommand
+class DeleteTaskCommand
+class FindTaskCommand
+class ListTaskCommand
+class MarkTaskCommand
+class UnmarkTaskCommand
+
+'Other Master Commands
+class BackCommand
+class ExitCommand
+class HospitalCommand
+
+'Relationships
+
+Command ..> CommandResult
+
+Command <|-up AddPatientCommand
+Command <|-up DeletePatientCommand
+Command <|-up FindPatientCommand
+Command <|-up ListPatientCommand
+Command <|-up SelectPatientCommand
+
+Command <|-- AddTaskCommand
+Command <|-- DeleteTaskCommand
+Command <|-- FindTaskCommand
+Command <|-- ListTaskCommand
+Command <|-- MarkTaskCommand
+Command <|-- UnmarkTaskCommand
+
+Command <|-down BackCommand
+Command <|-down ExitCommand
+Command <|-down HospitalCommand
+
+@enduml

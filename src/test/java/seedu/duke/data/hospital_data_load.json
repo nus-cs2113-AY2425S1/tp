@@ -1,0 +1,35 @@
+{
+    "patients" : [ {
+      "name" : "Alice",
+      "tag" : null,
+      "taskList" : {
+        "completionRate" : 0.0,
+        "tasks" : [ {
+          "type" : "deadline",
+          "description" : "Consultation",
+          "isDone" : true,
+          "by" : "28-Oct-2024 23:59"
+        }, {
+          "type" : "repeat",
+          "description" : "Medication",
+          "repeat" : "week",
+          "isDone" : false
+        } ]
+      }
+    }, {
+      "name" : "Bob",
+      "tag" : null,
+      "taskList" : {
+        "tasks" : [ {
+          "type" : "todo",
+          "description" : "Surgery",
+          "isDone" : false
+        }, {
+          "type" : "repeat",
+          "description" : "Medication",
+          "isDone" : false,
+          "repeat" : "week"
+        } ]
+      }
+    } ]
+  }

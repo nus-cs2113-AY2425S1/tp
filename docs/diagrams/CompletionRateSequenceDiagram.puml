@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+
+actor ":User" as user
+participant ":Ui" as Ui UI_COLOR
+participant ":Hospital" as Hospital MODEL_COLOR
+participant ":Patient" as Patient MODEL_COLOR_T2
+participant ":TaskList" as TaskList LOGIC_COLOR
+scale 0.5
+
+== Show Task List for a Patient ==
+user -> Ui : showTaskList()
+Ui -> Hospital : getSelectedPatient()
+Hospital --> Ui : Patient (selected patient)
+
+Ui -> Patient : getTaskList()
+Patient --> Ui : TaskList
+
+Ui -> TaskList : getTasks() and calculateCompletionRate()
+TaskList --> Ui : List<Task>, completionPercentage
+
+Ui -> Ui : formatTaskListDisplay()
+
+Ui -> user : displayTaskListWithCompletionRate()
+
+== Show Patient List with Completion Rate ==
+user -> Ui : showPatientListWithCompletionRate()
+Ui -> Hospital : calculateOverallCompletionRate()
+Hospital -> Patient : getTaskList() for each patient
+Patient -> TaskList : calculateCompletionRate()
+TaskList --> Patient : completion rate
+Patient --> Hospital : completion rated
+Hospital --> Ui : overallCompletionRate, List<Patient>
+
+Ui -> Ui : formatPatientListDisplay()
+
+Ui -> user : displayPatientListWithCompletionRate()
+
+@enduml

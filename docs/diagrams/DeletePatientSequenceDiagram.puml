@@ -1,0 +1,56 @@
+@startuml
+
+!include style.puml
+skinparam ArrowFormatStyle plain
+skinparam style strictuml
+
+actor User
+participant ":MediTask" as MediTask MAIN_COLOR
+participant ":Parser" as Parser PARSER_COLOR
+participant ":DeleteParser" as DeleteParser PARSER_COLOR
+participant ":DeletePatientCommand" as DeletePatientCommand COMMAND_COLOR
+participant ":Hospital" as Hospital DATA_COLOR
+
+User -> MediTask : "delete <index>"
+activate MediTask
+
+MediTask -> Parser : parse command
+activate Parser
+
+Parser -> DeleteParser : execute command
+activate DeleteParser
+create DeletePatientCommand
+DeleteParser -> DeletePatientCommand : DeletePatientCommand(index)
+activate DeletePatientCommand
+
+DeletePatientCommand -> Hospital : getPatient(index)
+activate Hospital
+
+alt Index valid
+    Hospital --> DeletePatientCommand : return name
+    deactivate Hospital
+    DeletePatientCommand -> Hospital : deletePatient(index)
+    activate Hospital
+    Hospital --> DeletePatientCommand
+    DeletePatientCommand --> DeleteParser : "Deleted patient: <name>"
+
+    DeleteParser --> Parser : "Result message"
+    Parser --> MediTask : "Result message"
+    MediTask --> User : Display result message
+else Index invalid
+    Hospital --> DeletePatientCommand : throw Exception
+    deactivate Hospital
+
+    DeletePatientCommand --> DeleteParser : "Patient not found in the list!"
+    deactivate DeletePatientCommand
+    DeleteParser --> Parser : "Error message"
+    deactivate DeleteParser
+    Parser --> MediTask : "Error message"
+    deactivate Parser
+    MediTask --> User : Display error message
+    deactivate MediTask
+end
+
+destroy DeletePatientCommand
+
+@enduml

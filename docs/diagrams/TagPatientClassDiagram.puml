@@ -1,0 +1,42 @@
+@startuml
+
+!include style.puml
+scale 0.5
+
+skinparam classAttributeIconSize 0
+show methods
+show members
+
+class Ui UI_COLOR {
+    + showTaskScreen(patient: Patient)
+}
+
+class Hospital MODEL_COLOR {
+    - patients: List<Patient>
+    + addPatient(name: String, tag: String)
+    + getPatient(index: int): Patient
+}
+
+class Patient MODEL_COLOR {
+    - name: String
+    - tag: String
+    + getTag(): String
+    + setTag(tag: String)
+    + getFormattedTag(): String
+}
+
+abstract class Command COMMAND_COLOR {
+    + execute(): CommandResult
+}
+
+class AddPatientCommand COMMAND_COLOR extends Command{
+    - name: String
+    - tag: String
+    + execute(): CommandResult
+}
+
+Ui --> "displays" Patient
+Hospital "1" --> "manages *" Patient
+AddPatientCommand --> "adds patient with tag" Hospital
+
+@enduml

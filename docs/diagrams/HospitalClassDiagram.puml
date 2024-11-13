@@ -1,0 +1,63 @@
+@startuml
+
+!include style.puml
+
+class Hospital DATA_COLOR {
+    - selectedPatient: Patient
+    - logger: Logger
+    - patients: List<Patient>
+
+    + Hospital()
+    + clearSelectedPatient(): void
+    + addPatient(name: String): void
+    + addPatient(name: String, tag: String): void
+    + deletePatient(index: int): void
+    + getPatient(index: int): Patient
+    + setSelectedPatient(index: int): void
+    + getSelectedPatient(): Patient
+    + isValidIndex(index: int): boolean
+    + getSize(): int
+    + getPatients(): List<Patient>
+    + printList(): void
+    + isDuplicatePatient(name: String): boolean
+    + findPatients(keyword: String): ArrayList<Patient>
+    + calculateOverallCompletionRate(): double
+}
+
+class Patient DATA_COLOR {
+    - name: String
+    - taskList: TaskList
+    - tag: String
+
+    + Patient()
+    + Patient(name: String)
+    + Patient(name: String, index: int)
+    + Patient(name: String, tag: String)
+    + Patient(name: String, taskList: TaskList)
+    + getTag(): String
+    + setTag(tag: String): void
+    + getFormattedTag(): String
+    + getName(): String
+    + setName(name: String): void
+    + getTaskList(): TaskList
+    + setTaskList(taskList: TaskList): void
+    + toString(): String
+}
+
+
+class TaskList DATA_COLOR {
+    - tasks: ArrayList<Task>
+    - completionRate: double
+
+    + addTask(task: Task): void
+    + deleteTask(task: Task): void
+    + findTasks(task: Task): ArrayList<Task>
+    + getCompletionRate(): double
+    + getTasks(): ArrayList<Task>
+}
+
+
+Hospital .right.> "*" Patient
+Patient .right.> TaskList
+
+@enduml

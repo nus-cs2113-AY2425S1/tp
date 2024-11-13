@@ -1,0 +1,47 @@
+@startuml
+
+!include style.puml
+
+class Task DATA_COLOR {
+    - description: String
+    - isDone: boolean
+    + markAsDone(): void
+    + markAsUndone(): void
+    + isDone(): boolean
+    + createTask(): Task
+}
+
+class Todo DATA_COLOR{
+    + Todo(description: String)
+}
+
+class Deadline DATA_COLOR{
+    - by: String
+    + Deadline(description: String, by: String)
+    + getBy(): String
+}
+
+class Repeat DATA_COLOR{
+    - repeat: String
+    + Repeat(description: String, repeat: String)
+    + getRepeat(): String
+}
+
+class TaskList DATA_COLOR{
+    - tasks: ArrayList<Task>
+    - completionRate: double
+    + addTask(task: Task): void
+    + deleteTask(task: Task): void
+    + findTasks(task: Task): ArrayList<Task>
+    + getCompletionRate(): double
+    + getTasks(): ArrayList<Task>
+}
+
+'--- Inheritance Relationships ---
+Task <|-- Todo
+Task <|-- Deadline
+Task <|-- Repeat
+
+'--- Association ---
+TaskList --> "*" Task
+@enduml

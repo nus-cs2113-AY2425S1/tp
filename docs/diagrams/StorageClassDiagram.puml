@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+' skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+scale 1.5
+
+package Storage as StoragePackage {
+    Class "<<interface>>\nStorage" as Storage {
+        +getFilePath(): String
+        +checkFileFound(filepath: String): void
+        +save(objectToSave: T): void
+        +load(): T
+        +toString(): String
+    }
+
+    class StorageFile {
+        +StorageFile()
+        +StorageFile(filePath: String)
+        +getFilePath(): String
+        +save(hospital: Hospital): void
+        +load(): Hospital
+        +toString(): String
+        +checkFileFound(filePath: String): void
+        {static} -DEFAULT_STORAGE_FILEPATH: String
+        -filePath: String
+        -ui : UI
+        ' -jsonUtil : JsonUtil
+    }
+
+    class JsonUtil {
+        +saveToFile(filePath: String): void
+        +saveToFile(filePath: String, objectToSave: Hospital): void
+        +loadFromFile(filePath: String): Hospital
+        +toJson(hospital: Hospital): String
+        +fromJson(json: String): Hospital
+        {static} -objectMapper: ObjectMapper
+    }
+
+    class StorageBackup {
+        +StorageBackup()
+        +StorageBackup(filePath: String)
+        {static} +getBackupFilePath(): String
+        {static} +createBackupFileName(filePath: String): String
+        {static} +createBackupFile(filePath: String)
+        {static} -BACKUP_PREFIX: String
+        {static} -BACKUP_EXTENSION: String
+        {static} -fileBackupPath: String
+    }
+
+    class StorageDeserializer {
+        +deserialize(p: JsonParser, ctxt: DeserializationContext): List<Patient>
+    }
+
+    ' class StorageOperationException {
+    ' }
+
+    ' class Exception {
+    ' }
+}
+
+' package "hospital" {
+'     class Hospital {
+'         // TODO: Get from Hospital class
+'     }
+' }
+
+
+
+
+' package "exception" {
+'     class StorageOperationException {
+'     }
+' }
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
+
+StorageFile .up.|> Storage
+' StorageFile *-- "1" Hospital
+StorageFile --> "1" JsonUtil
+StorageFile --> "1" StorageBackup
+JsonUtil ..> StorageDeserializer
+' JsonUtil ..> StorageOperationException
+' StorageOperationException .down.|> Exception : extends
+' JsonUtil --> StorageOperationException : Throws
+
+@enduml

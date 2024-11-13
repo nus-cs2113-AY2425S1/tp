@@ -1,0 +1,46 @@
+@startuml
+
+!include style.puml
+scale 1.5
+
+' Define the StateManager class
+class StateManager LOGIC_COLOR {
+    - currentState: State
+    + StateManager()
+    + getCurrentState(): State
+    + setCurrentState(currentState: State): void
+    + changeState(state: StateType): void
+    + getState(): StateType
+    + runState(commandInput: String, command: Command, hospital: Hospital): CommandResult
+    + runMainState(commandInput: String, command: Command, hospital: Hospital): CommandResult
+    + runTaskState(commandInput: String, command: Command, hospital: Hospital): CommandResult
+}
+
+' Define the State class
+class State LOGIC_COLOR {
+    - currentStage: StateType
+    + State()
+    + State(state: StateType)
+    + getState(): StateType
+    + setState(state: StateType): void
+}
+
+' Define the StateType enum
+enum "<<enumeration>> \n StateType" as StateType LOGIC_COLOR  {
+    MAIN_STATE
+    TASK_STATE
+}
+
+' Define the CommandResult class
+class CommandResult COMMAND_COLOR {
+    - feedbackToUser: String
+    + CommandResult(feedbackToUser: String)
+    + getFeedbackToUser(): String
+}
+
+' Relationships
+StateManager .left.> "0..1" State
+State --> StateType : "uses"
+StateManager -down-> CommandResult : "returns"
+
+@enduml
