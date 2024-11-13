@@ -73,7 +73,7 @@ Code contributed: [AaronZZ10's Contributions](https://nus-cs2113-ay2425s1.github
 
 ### Team-Based Task Contributions
 - Improved code quality and documentation by organizing format, adding divider lines for readability, and creating a contents summary for the User Guide.
-- Reviewed teammates' pull requests, providing feedback to enhance code quality and functionality.
+- Reviewed teammates' pull requests, providing feedback to enhance code quality and functionality. [#54](https://github.com/AY2425S1-CS2113-T11-3/tp/pull/54), [#66](https://github.com/AY2425S1-CS2113-T11-3/tp/pull/66), [#68](https://github.com/AY2425S1-CS2113-T11-3/tp/pull/68)
 - Approved pull requests as needed to support workflow and project progression.
-- Identified bugs and suggested improvements in other teams' Developer Guides (DGs) during peer review.
+
 
