@@ -3,10 +3,16 @@
 /out/
 /*.iml
 
+*.class
+password.txt
+
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+
+*.class
+password.txt
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -15,3 +21,16 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/incomes.txt
+text-ui-test/password.txt
+text-ui-test/spendings.txt
+
+**/MANIFEST.MF
+
+/password.txt
+incomes.txt
+spendings.txt
+
+#logging files
+*.log
+*.log.*

@@ -1,9 +1,9 @@
 # About us
 
-Display | Name | Github Profile | Portfolio 
---------|:----:|:--------------:|:---------:
-![](https://via.placeholder.com/100.png?text=Photo) | John Doe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Joe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Ron John | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | John Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
-![](https://via.placeholder.com/100.png?text=Photo) | Don Roe | [Github](https://github.com/) | [Portfolio](docs/team/johndoe.md)
+|               Name |             Github Profile              |             Portfolio             |
+|-------------------:|:---------------------------------------:|:---------------------------------:|
+|     Wong Weng Hong | [Github](https://github.com/wongwh2002) | [Portfolio](./team/wongwh2002.md) |
+| Nigel Yeo Tong Wei | [Github](https://github.com/NigelYeoTW) | [Portfolio](./team/nigelyeotw.md) |
+|         Tng Wen Xi |   [Github](https://github.com/wx-03)    |   [Portfolio](./team/wx-03.md)    |
+|       Ryan Harwood |   [Github](https://github.com/rharwo)   |   [Portfolio](./team/rharwo.md)   |
+|       Tan Ping Hui |   [Github](https://github.com/TPH777)   |   [Portfolio](./team/tph777.md)   |
