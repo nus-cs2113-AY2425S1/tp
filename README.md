@@ -1,64 +1,41 @@
-# Duke project template
+# TutorLink
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+TutorLink is a command-line submission management assistant for students and teaching staff alike.
 
-## Setting up in Intellij
-
-Prerequisites: JDK 17 (use the exact version), update Intellij to the most recent version.
-
-1. **Ensure Intellij JDK 17 is defined as an SDK**, as described [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk) -- this step is not needed if you have used JDK 17 in a previous Intellij project.
-1. **Import the project _as a Gradle project_**, as described [here](https://se-education.org/guides/tutorials/intellijImportGradleProject.html).
-1. **Verify the setup**: After the importing is complete, locate the `src/main/java/seedu/duke/Duke.java` file, right-click it, and choose `Run Duke.main()`. If the setup is correct, you should see something like the below:
    ```
-   > Task :compileJava
-   > Task :processResources NO-SOURCE
-   > Task :classes
+   -------------------------------------------------------------
+   ___________      __               .____    .__        __
+   \__    ___/_ ___/  |_  ___________|    |   |__| ____ |  | __
+   |    | |  |  \   __\/  _ \_  __ \    |   |  |/    \|  |/ /
+   |    | |  |  /|  | (  <_> )  | \/    |___|  |   |  \    <
+   |____| |____/ |__|  \____/|__|  |_______ \__|___|  /__|_ \
+   \/       \/     \/
    
-   > Task :Duke.main()
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   
-   What is your name?
+   -------------------------------------------------------------
+   Hello! I'm TutorLink
+   What can I do for you?
+   -------------------------------------------------------------
    ```
-   Type some word and press enter to let the execution proceed to the end.
+### Command Summary 
+| **Command**        | **Description**                                              | **Example**                           |
+|--------------------|--------------------------------------------------------------|---------------------------------------|
+| `help`             | Displays list of commands                                    | `help`                                |
+| `add_student`      | Adds a student to the class roster                           | `add_student i/A1234567X n/John Doe`  |
+| `delete_student`   | Deletes a student from the class roster                      | `delete_student i/A1234567X`          |
+| `list_student`     | Lists all students in the class                              | `list_student`                        |
+| `find_student`     | Finds a student in the class roster by name or matric number | `find_student i/A1234567X n/John Doe` |
+| `add_component`    | Adds a new grading component to the class                    | `add_component c/Quiz 1 w/30 m/50`    |
+| `delete_component` | Deletes a grading component from the class                   | `delete_component c/Quiz 1`           |
+| `update_component` | Updates a component with a new maxscore or weight            | `update_component c/Quiz 1 w/40 m/60` |
+| `list_component`   | Lists all grading components                                 | `list_component`                      |
+| `add_grade`        | Adds a grade for a student for a specific component          | `add_grade i/A1234567X c/Quiz 1 s/45` |
+| `delete_grade`     | Deletes a student's grade for a specific component           | `delete_grade i/A1234567X c/Quiz 1`   |
+| `list_grade`       | Lists all grades for a student                               | `list_grade i/A1234567X`              |
+| `bye`              | Exits the program                                            | `bye`                                 |
 
-## Build automation using Gradle
+### Useful links:
+* [User Guide](/docs/UserGuide.md)
+* [Developer Guide](/docs/DeveloperGuide.md)
+* [About Us](/docs/AboutUs.md)
 
-* This project uses Gradle for build automation and dependency management. It includes a basic build script as well (i.e. the `build.gradle` file).
-* If you are new to Gradle, refer to the [Gradle Tutorial at se-education.org/guides](https://se-education.org/guides/tutorials/gradle.html).
 
-## Testing
-
-### I/O redirection tests
-
-* To run _I/O redirection_ tests (aka _Text UI tests_), navigate to the `text-ui-test` and run the `runtest(.bat/.sh)` script.
-
-### JUnit tests
-
-* A skeleton JUnit test (`src/test/java/seedu/duke/DukeTest.java`) is provided with this project template. 
-* If you are new to JUnit, refer to the [JUnit Tutorial at se-education.org/guides](https://se-education.org/guides/tutorials/junit.html).
-
-## Checkstyle
-
-* A sample CheckStyle rule configuration is provided in this project.
-* If you are new to Checkstyle, refer to the [Checkstyle Tutorial at se-education.org/guides](https://se-education.org/guides/tutorials/checkstyle.html).
-
-## CI using GitHub Actions
-
-The project uses [GitHub actions](https://github.com/features/actions) for CI. When you push a commit to this repo or PR against it, GitHub actions will run automatically to build and verify the code as updated by the commit/PR.
-
-## Documentation
-
-`/docs` folder contains a skeleton version of the project documentation.
-
-Steps for publishing documentation to the public: 
-1. If you are using this project template for an individual project, go your fork on GitHub.<br>
-   If you are using this project template for a team project, go to the team fork on GitHub.
-1. Click on the `settings` tab.
-1. Scroll down to the `GitHub Pages` section.
-1. Set the `source` as `master branch /docs folder`.
-1. Optionally, use the `choose a theme` button to choose a theme for your documentation.

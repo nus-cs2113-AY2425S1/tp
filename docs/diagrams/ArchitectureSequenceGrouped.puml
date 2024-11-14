@@ -1,0 +1,66 @@
+@startuml
+!include Style.puml
+participant ":TutorLink" as TL LOGIC_COLOR_5
+participant ":Ui" as UI LOGIC_COLOR_6
+participant ":Parser" as P LOGIC_COLOR_7
+participant ":XYZCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":XYZStorage" as S LOGIC_COLOR_4
+[->TL
+activate TL
+ref over TL, UI : setup
+loop until exit command issued
+    TL -> UI: getUserInput()
+    activate UI
+    TL <-- UI: line
+    deactivate UI
+    TL -> P : getCommand(line)
+    activate P
+    create C
+    P -> C
+    activate C
+    P <-- C : XYZCommand
+    deactivate C
+    TL <-- P: XYZCommand
+    deactivate P
+    TL -> C : getArgumentPrefixes()
+    activate C
+    TL <-- C : argumentPrefixes
+    deactivate C
+    TL -> P: getArguments(argumentPrefixes, line)
+    activate P
+    TL <-- P : HashMap<String,String>
+    deactivate P
+    TL -> C : execute(appState, arguments)
+    activate C
+    ref over C, A : specific command execution
+    alt command execution success
+        TL <-- C : CommandResult
+        deactivate C
+        destroy C
+        TL -> UI : displayResult()
+        activate UI
+        TL <-- UI
+        deactivate UI
+    else TutorLinkException
+        TL -> UI : displayException(exception)
+        activate UI
+        TL <-- UI
+        deactivate UI
+    end
+    TL -> TL : saveAllLists()
+    activate TL
+    TL -> S : save Student, Component and Grade Lists
+    activate S
+    TL <-- S
+    deactivate S
+    TL --> TL
+    deactivate TL
+end
+TL->UI: displayGoodbyeMessage()
+activate UI
+TL <-- UI
+deactivate UI
+[<--TL
+deactivate TL
+@enduml

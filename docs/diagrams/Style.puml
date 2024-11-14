@@ -1,0 +1,33 @@
+!define LOGIC_COLOR_1 #1A1A1A
+!define LOGIC_COLOR_2 #2C3E50
+!define LOGIC_COLOR_3 #8E44AD
+!define LOGIC_COLOR_4 #D35400
+!define LOGIC_COLOR_5 #C0392B
+!define LOGIC_COLOR_6 #2980B9
+!define LOGIC_COLOR_7 #27AE60
+!define LOGIC_COLOR_8 #F39C12
+!define LOGIC_COLOR_9 #8E44AD
+!define LOGIC_COLOR_10 #34495E
+
+!define USER_COLOR #000000
+
+skinparam ArrowFontStyle bold
+skinparam MinClassWidth 50
+skinparam ParticipantPadding 10
+skinparam Shadowing false
+skinparam DefaultTextAlignment center
+skinparam packageStyle Rectangle
+
+hide footbox
+hide members
+hide circle
+
+<style>
+    participant {
+        FontColor White
+    }
+    ref {
+
+    }
+
+</style>

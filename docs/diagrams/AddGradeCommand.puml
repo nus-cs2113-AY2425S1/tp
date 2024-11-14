@@ -1,0 +1,61 @@
+'@@author yeekian
+@startuml
+!include Style.puml
+group sd AddGradeCommand
+participant ":AddGradeCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":CommandResult" as R LOGIC_COLOR_8
+participant ":Grade" as G LOGIC_COLOR_5
+
+[->C : execute(appState, arguments)
+activate C
+
+C -> C : findComponentFromComponents
+activate C
+C -> A : findComponent(componentDescription)
+activate A
+C <-- A : componentFilteredList
+deactivate A
+C --> C : component
+deactivate C
+
+C -> C : findStudentFromStudents
+activate C
+C -> A : findStudentByMatricNumber(matricNumber)
+activate A
+C <-- A : studentFilteredList
+deactivate A
+C --> C : student
+deactivate C
+
+C -> C : convertScoreToValidDouble(scoreNumber)
+activate C
+C --> C : score
+deactivate C
+
+Create G
+C -> G : Grade(component, student, score)
+activate G
+C <-- G : grade
+deactivate G
+
+C -> A : addGrade(grade)
+activate A
+C <-- A
+deactivate A
+
+
+create R
+C -> R : new CommandResult
+activate R
+C <-- R : CommandResult
+deactivate R
+
+[<-- C : CommandResult
+deactivate C
+
+end
+destroy R
+destroy C
+
+@enduml

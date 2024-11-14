@@ -1,0 +1,26 @@
+@startuml
+!include Style.puml
+group sd AddStudentCommand
+participant ":AddStudentCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":CommandResult" as R LOGIC_COLOR_8
+
+[-> C: execute(appState, arguments)
+activate C
+
+C -> A : addStudent(matricNumber, name)
+activate A
+C <-- A
+deactivate A
+create R
+C -> R : new CommandResult
+activate R
+C <-- R : CommandResult
+deactivate R
+
+[<-- C : CommandResult
+deactivate C
+end
+destroy R
+destroy C
+@enduml

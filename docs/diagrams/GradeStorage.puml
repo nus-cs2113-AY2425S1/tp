@@ -1,0 +1,70 @@
+@startuml
+
+!include Style.puml
+participant ":TutorLink" as TL LOGIC_COLOR_5
+participant ":Ui" as UI LOGIC_COLOR_6
+
+participant "gradeStorage: GradeStorage" as GS LOGIC_COLOR_4
+participant "grades: ArrayList<Grade>" as AL LOGIC_COLOR_3
+participant "discardedEntries: ArrayList<String>" as DE LOGIC_COLOR_7
+
+group sd load grade data
+
+create GS
+TL -> GS: new GradeStorage(filepath, components, students)
+activate GS
+create DE
+GS -> DE: new ArrayList<String>()
+activate DE
+GS <-- DE: discardedEntries: String
+deactivate DE
+TL <-- GS: gradeStorage: GradeStorage
+deactivate GS
+
+TL -> GS: loadGradeList()
+activate GS
+
+create AL
+GS -> AL: new ArrayList<Grade>()
+activate AL
+GS <-- AL: grades: Grade
+deactivate AL
+
+loop file has next line
+    GS -> GS: getGradeFromFileLine(currentLine: String, grades: Grade)
+    activate GS
+    GS --> GS: newGrade: Grade
+    deactivate GS
+
+    alt read grade success
+        GS -> AL: add(newGrade)
+        activate AL
+        GS <-- AL
+        deactivate AL
+    else InvalidDataFileLineException
+        GS -> DE: add(currentLine: String)
+        activate DE
+        GS <-- DE
+        deactivate DE
+    end
+
+end
+
+TL <-- GS: grades: Grade
+deactivate GS
+
+destroy AL
+
+TL -> GS: getDiscardedEntries()
+activate GS
+TL <-- GS: discardedGrades: String
+deactivate GS
+
+TL -> UI: displayDiscardedEntries(discardedGrades)
+activate UI
+TL <-- UI
+deactivate UI
+
+end
+
+@enduml

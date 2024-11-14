@@ -1,0 +1,45 @@
+'@@author yeekian
+@startuml
+!include Style.puml
+group sd DeleteGradeCommand
+participant ":DeleteGradeCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":CommandResult" as R LOGIC_COLOR_8
+
+[->C : execute(appState, arguments)
+activate C
+
+C -> C : findComponentFromComponents
+activate C
+C -> A : findComponent(componentDescription)
+activate A
+C <-- A : componentFilteredList
+deactivate A
+C --> C : component
+deactivate C
+
+
+C -> A : findStudentByMatricNumber(matricNumber)
+activate A
+C <-- A : studentFilteredList
+deactivate A
+
+C -> A : deleteGrade(matricNumber, componentDescription)
+activate A
+C <-- A
+deactivate A
+
+create R
+C -> R : new CommandResult
+activate R
+C <-- R : CommandResult
+deactivate R
+
+[<-- C : CommandResult
+deactivate C
+
+end
+destroy R
+destroy C
+
+@enduml

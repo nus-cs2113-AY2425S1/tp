@@ -1,0 +1,35 @@
+@startuml
+
+!include Style.puml
+skinparam rectangle{
+    fontColor white
+}
+skinparam defaultFontSize 17
+
+actor User
+rectangle {
+rectangle Ui LOGIC_COLOR_1
+rectangle Parser LOGIC_COLOR_2
+rectangle Command LOGIC_COLOR_3
+rectangle AppState LOGIC_COLOR_4
+rectangle TutorLink LOGIC_COLOR_5
+rectangle Storage LOGIC_COLOR_6
+rectangle CommandResult LOGIC_COLOR_7
+}
+
+User -down-> TutorLink
+TutorLink -down-> Parser
+TutorLink -> Ui
+TutorLink -up-> CommandResult
+Parser .> TutorLink
+Ui .> TutorLink
+TutorLink -> AppState
+Parser .down.> Command
+Command ..> AppState
+TutorLink -down-> Storage
+Parser.>CommandResult
+
+file "Data Files" as DataFiles #lightgreen
+DataFiles <.right. Storage
+
+@enduml

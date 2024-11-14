@@ -1,0 +1,37 @@
+@startuml
+
+participant "TutorLink" as TL
+participant "Ui" as UI
+participant "Parser" as P
+participant "Storage" as S
+participant "CommandResult" as CR
+
+-> TL
+TL->UI: displayWelcomeMessage()
+TL -> S: loadStoredData()
+TL <-- S: appState
+loop until exit command issued
+TL -> UI : getUserInput()
+TL <-- UI : String
+TL -> P : getCommand(line)
+TL <-- P : Command
+TL -> "<<class>>\nCommand" : getArgumentPrefixes()
+TL <-- "<<class>>\nCommand" : String[] argumentPrefixes
+TL -> P : getArguments(argumentPrefixes)
+TL <-- P : HashMap<String,String> arguments
+TL -> Command : execute(appState, arguments)
+alt success
+    TL <-- Command : CommandResult
+    opt storage required
+        TL -> S : saveData(appState)
+    end
+    TL -> UI: displayResult(commandResult)
+else exception
+    TL <-- Command : TutorLinkException
+    TL -> UI: displayException(TutorLinkException)
+end
+end
+TL->UI: displayGoodbyeMessage()
+<--TL
+
+@enduml

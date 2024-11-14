@@ -1,0 +1,54 @@
+@startuml
+!include Style.puml
+group sd AddComponentCommand
+participant ":AddComponentCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":HashMap<String, String>" as H LOGIC_COLOR_7
+participant ":CommandResult" as R LOGIC_COLOR_8
+
+[-> C
+C -> H : get("c/")
+activate H
+C <-- H : componentName
+deactivate H
+C -> H : get("w/")
+activate H
+C <-- H : weightageNumber
+deactivate H
+C -> H : get("m/")
+activate H
+C <-- H : maxScoreNumber
+deactivate H
+destroy H
+
+
+opt componentName or weightageNumber or maxScoreNumber is null
+[<-- C : throw IllegalValueException
+end
+
+C -> C : convertWeightageToValidDouble(weightageNumber)
+activate C
+C --> C : weightageNumber
+deactivate C
+
+C -> C : convertMaxScoreToValidDouble(maxScore)
+activate C
+C --> C : maxScore
+deactivate C
+
+C -> A : addComponent(new Component(componentName, maxScore, weightage))
+activate A
+C <-- A
+deactivate A
+
+create R
+C -> R : new CommandResult
+activate R
+C <-- R : CommandResult
+deactivate R
+
+[<-- C : CommandResult
+end
+destroy R
+destroy C
+@enduml

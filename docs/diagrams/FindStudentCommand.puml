@@ -1,0 +1,35 @@
+@startuml
+!include Style.puml
+group sd FindStudentCommand
+participant ":FindStudentCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":CommandResult" as R LOGIC_COLOR_8
+
+[-> C : execute(appState, arguments)
+activate C
+
+alt matricNumber not null
+C -> A : findStudentByMatricNumber(matricNumber)
+activate A
+C <-- A : StudentList
+deactivate A
+else matricNumber null
+C -> A : findStudentByName(name)
+activate A
+C <-- A : StudentList
+deactivate A
+end
+
+deactivate A
+create R
+C -> R : new CommandResult
+activate R
+C <-- R : CommandResult
+deactivate R
+
+[<-- C : CommandResult
+deactivate C
+end
+destroy R
+destroy C
+@enduml

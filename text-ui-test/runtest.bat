@@ -12,6 +12,14 @@ for /f "tokens=*" %%a in (
     set jarloc=%%a
 )
 
+:: delete data directory from previous run if it exists
+if exist ".\data" (
+    rmdir /s /q ".\data"
+)
+
+:: copy data_init to data
+xcopy "..\..\text-ui-test\data_init" ".\data" /s /e /i
+
 java -jar %jarloc% < ..\..\text-ui-test\input.txt > ..\..\text-ui-test\ACTUAL.TXT
 
 cd ..\..\text-ui-test

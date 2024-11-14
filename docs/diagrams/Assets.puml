@@ -1,0 +1,127 @@
+@startuml App Diagram
+
+'https://plantuml.com/class-diagram
+' !include Style.puml
+skinparam classAttributeIconSize 0
+skinparam classMethodIconSize 0
+skinparam linetype ortho
+
+package TutorLink <<Rectangle>>{
+
+class CommandResult {
+    + CommandResult(msg: String)
+    + toString(): String
+}
+
+class Ui {
+    + displayResult(result: CommandResult)
+    + displayException(error: TutorLinkException)
+    + displayWelcomeMessage()
+    + getUserInput(): String
+}
+
+Ui .. CommandResult
+
+Ui .. TutorLinkException
+
+abstract class TutorLinkException
+
+abstract class Command {
+    + {static}COMMAND_WORD: String
+    + Command() {abstract}
+    + {abstract} getArgumentsPrefixes() : String[]
+    + execute(state: AppState, arguments: HashMap<String, String>): CommandResult {abstract}
+    + isExit(): boolean
+}
+
+Command ..right.. CommandResult
+
+
+abstract class Component {
+    - name: String
+    - maxScore: double
+    - weight: double
+    + getName(): String
+    + getMaxScore(): double
+    + getWeight(): double
+    + equals(Object obj):boolean
+    + toString(): String
+}
+class Exam
+class ClassParticipation
+class Assignment
+
+Exam --|> Component
+ClassParticipation --|> Component
+Assignment --|> Component
+
+
+class Student{
+    - name: String
+    - matricNumber: String
+    + getName(): String
+    + getMatricNumber(): String
+    + equals(Object obj): boolean
+    + toString(): String
+}
+
+class Grade{
+    - score: double
+    - component: Component
+    - student: Student
+    + Grade(component: Component, student: Student, score: double)
+    + equals(Object obj):boolean
+    + toString(): String
+}
+
+
+class AppState
+class GradeList{
+	- size(): int
+	+ getGradeArrayList(): ArrayList<Grade>
+    + findGrade(matricNumber: String, componentDescription: String): GradeList
+    + addGrade(grade: Grade): void
+    + deleteGrade(matricNumber: String, componentDescription: String): void
+	+ deleteGradesByMatric(matricNumber: String) : void
+	+ deleteGradesByComponent(componentDescription: String) : void
+    + calculateStudentGPA(matricNumber: String): double
+    + toString(): String
+}
+class StudentList {
+    + findStudentByMatricNumber(matricNumber: String): StudentList
+    + findStudentByName(name: String): StudentList
+	+ getStudentArrayList() : StudentList
+    + addStudent(matricNumber: String, name: String) void
+    + deleteStudent(matricNumber: String, name: String): void
+    + size(): int
+    + toString(): String
+}
+class ComponentList {
+    + findComponent(id: String): ComponentList
+    + addComponent(component: Component): void
+    + deleteComponent(component: Component): void
+    + findAllComponents(): ArrayList<Component>
+    + size(): int
+    + toString(): String
+}
+
+AppState -> "1" GradeList
+AppState --> "1" StudentList
+AppState -> "1" ComponentList
+
+GradeList -> "*" Grade
+ComponentList -> "*" Component
+StudentList -> "*" Student
+
+Command .. AppState
+
+class Parser {
+    + getArguments(argumentList: String[], line: String): HashMap<String, String>
+    + getCommand(line: String) : Command
+}
+
+Parser .. Command
+
+}
+
+@enduml

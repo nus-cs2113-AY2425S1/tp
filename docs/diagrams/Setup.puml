@@ -1,0 +1,40 @@
+@startuml
+!include Style.puml
+participant ":TutorLink" as TL LOGIC_COLOR_5
+participant ":Ui" as UI LOGIC_COLOR_6
+participant ":AppState" as A LOGIC_COLOR_2
+participant "studentStorage:Storage" as SS LOGIC_COLOR_4
+participant "componentStorage:Storage" as CS LOGIC_COLOR_4
+participant "gradeStorage:Storage" as GS LOGIC_COLOR_4
+
+group sd setup
+
+alt setup success
+
+    ref over TL, UI, SS: load student data
+
+    ref over TL, UI, CS: load component data
+
+    ref over TL, UI, GS: load grade data
+
+    create A
+    TL -> A : new AppState(students, grades, components)
+    activate A
+    TL <-- A : appState
+    deactivate A
+else TutorLinkException
+        TL -> UI : displayException(exception)
+        activate UI
+        TL <-- UI
+        deactivate UI
+end
+
+deactivate UI
+
+TL->UI: displayWelcomeMessage()
+activate UI
+TL <-- UI
+deactivate UI
+
+end
+@enduml

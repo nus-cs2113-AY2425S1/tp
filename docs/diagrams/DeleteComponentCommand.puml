@@ -1,0 +1,50 @@
+@startuml
+!include Style.puml
+group sd DeleteComponentCommand
+participant ":DeleteComponentCommand" as C LOGIC_COLOR_3
+participant ":AppState" as A LOGIC_COLOR_2
+participant ":HashMap<String, String>" as H LOGIC_COLOR_7
+participant ":ComponentList" as CL LOGIC_COLOR_6
+participant ":CommandResult" as R LOGIC_COLOR_8
+
+[-> C
+
+C -> H : get("n/")
+activate H
+C <-- H : componentName
+deactivate H
+destroy H
+
+opt componentName is null
+    [<-- C : throw IllegalValueException
+end
+
+C -> A : findComponent(componentName)
+activate A
+A --> C : componentsToDelete
+deactivate A
+
+alt componentsToDelete.size() == 0
+    <-- C : throw ComponentNotFoundException
+else componentsToDelete.size() > 1
+    <-- C : throw DuplicateComponentException
+end
+
+C -> A : deleteComponent(componentsToDelete.getComponentArrayList().get(0))
+activate A
+C <-- A
+deactivate A
+
+create R
+C -> R : new CommandResult
+activate R
+C <-- R : CommandResult
+deactivate R
+
+
+[<-- C : CommandResult
+end
+destroy R
+destroy C
+
+@enduml

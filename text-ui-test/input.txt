@@ -1,1 +1,24 @@
-James Gosling
+add_student i/A0276007H n/Ethan Chua
+add_student i/A9999999Z n/John Doe
+add_student i/a1111111b n/John Smith
+list_student
+add_component c/Quiz 1 w/20 m/10
+add_component c/Quiz 2 w/20 m/20
+add_component c/Quiz 3 w/20 m/20
+add_component c/Quiz 4 w/20 m/20
+add_grade c/Quiz 1 s/10 i/A0276007H
+add_grade c/Quiz 2 s/20 i/A0276007H
+add_grade c/Quiz 3 s/20 i/A0276007H
+add_grade c/Quiz 4 s/20 i/A0276007H
+list_grade
+add_grade c/Quiz 1 s/5 i/A9999999Z
+add_grade c/Quiz 2 s/7.5 i/A9999999Z
+add_grade c/Quiz 3 s/10 i/A9999999Z
+add_grade c/Quiz 4 s/10 i/A9999999Z
+list_grade
+add_grade c/Quiz 1 s/0 i/a1111111b
+add_grade c/Quiz 2 s/0 i/a1111111b
+add_grade c/Quiz 3 s/0 i/a1111111b
+add_grade c/Quiz 4 s/0 i/a1111111b
+list_grade
+bye
