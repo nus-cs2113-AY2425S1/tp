@@ -19,4 +19,4 @@ Display |  Name   |             Github Profile             | Portfolio
 
 Display |    Name     |             Github Profile             | Portfolio 
 --------|:-----------:|:--------------------------------------:|:---------:
-![](./team/Kenneth.jpg) | Kenneth Tan | [Github](https://github.com/SemiColonKen) | [Portfolio](./team/SemiColonKen.md)
+![](./team/Kenneth.jpg) | Kenneth Tan | [Github](https://github.com/SemiColonKen) | [Portfolio](./team/semicolonken.md)
