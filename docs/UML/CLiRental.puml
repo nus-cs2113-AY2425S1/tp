@@ -1,0 +1,38 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+
+class CliRental{
+    main() : void
+    getName() : void
+    printGreeting() : void
+}
+
+class Customer{
+    <<static>> NUMBER_OF_PARAMETERS : int = 4
+    username : string
+    age : int
+    contactNumber : string
+
+    Customer(string, int, string)
+    getUsername() : string
+    getContactNumber() : string
+    getAge() : int
+    setUsername(string) : Void
+    setAge(int) : void
+    setContactNumber(String contactNumber) : void
+    toString() : string
+    toFileString() : string
+}
+
+class CustomerList{
+        addCustomer(Customer) : void
+        addCustomerWithoutPrintingInfo(Customer) : void
+        removeCustomer(String) : void
+        getCustomers() : ArrayList<String>
+        printCustomers() : void
+        customerListToFileString() : string
+}
+hide footbox
+@enduml

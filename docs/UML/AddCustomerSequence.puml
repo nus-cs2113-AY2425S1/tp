@@ -1,0 +1,72 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+mainframe sd add-user
+participant ":Parser" as Parser
+participant ":CustomerParser" as CustomerParser
+participant ":Customer" as Customer
+participant ":CustomerException" as CustomerException
+participant ":CustomerList" as CustomerList
+
+activate Parser
+Parser -> CustomerParser : parseIntoCustomer(userInput : String)
+activate CustomerParser
+    CustomerParser -> CustomerParser : isValidSequence(parameters : String[], userInput : String)
+    activate CustomerParser
+        loop parameter of parameters
+            opt userInput does not contain parameter
+                CustomerParser <-- CustomerParser : return false
+            end opt
+        end loop
+
+        loop iterate from 1 to (length of parameters - 1)
+            opt parameters not in sequence
+                CustomerParser <-- CustomerParser : return false
+            end opt
+        end loop
+
+        CustomerParser --> CustomerParser : return true
+    deactivate CustomerParser
+
+    alt isValidSequence
+        CustomerParser -> CustomerParser : parseIntoCustomer(userInput : String)
+        activate CustomerParser
+            CustomerParser -> CustomerParser :parseParameterContents(String[] parameters, String userInput)
+            activate CustomerParser
+                CustomerParser --> CustomerParser : return contents
+            deactivate CustomerParser
+            create Customer
+
+            CustomerParser -> Customer :
+            activate Customer
+            CustomerParser <-- Customer : return
+            deactivate Customer
+            CustomerParser --> CustomerParser : return new Customer
+        deactivate CustomerParser
+    else
+        CustomerParser -> CustomerException : addCustomerException()
+        activate CustomerException
+            note right of CustomerException
+                The static method creates
+                a new CustomerException
+            end note
+            CustomerException --> CustomerParser : return new CustomerException
+        deactivate CustomerException
+        Parser <-- CustomerParser : throw new CustomerException
+    end alt
+    Parser <-- CustomerParser : return new Customer
+
+deactivate CustomerParser
+
+Parser -> CustomerList : addCustomer(customer : Customer)
+note right of CustomerList
+    Adds the new Customer to a ArrayList
+    and prints information to the user
+end note
+activate CustomerList
+    Parser <-- CustomerList : return
+deactivate CustomerList
+deactivate Parser
+hide footbox
+@enduml

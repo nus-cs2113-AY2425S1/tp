@@ -12,6 +12,9 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.11.0'
+    testImplementation 'org.mockito:mockito-inline:4.11.0'
 }
 
 test {
@@ -29,11 +32,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("seedu.clirental.CliRental")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("CliRental")
     archiveClassifier.set("")
 }
 
@@ -42,5 +45,6 @@ checkstyle {
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }

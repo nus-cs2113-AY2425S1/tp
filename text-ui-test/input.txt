@@ -1,1 +1,17 @@
-James Gosling
+add-user /u Obama /a 42 /c 80009000
+add-user /u Trump /a 78 /c 89965443
+add-car /n Audi A4 /c SZX789C /p 248
+add-car /n Ford F150 /c STV968Z /p 348
+list-cars
+list-users
+help
+add-tx /c SZX789C /u trump /d 21 /s 12-11-2024
+add-tx /c SZX789C /u obama /d 20 /s 13-11-2024
+add-tx /c STV968Z /u obama /d 20 /s 13-11-2024
+list-txs
+mark-tx /t tx1
+list-txs
+unmark-tx /t tx1
+list-txs
+find-txs-by-customer /u obama
+exit

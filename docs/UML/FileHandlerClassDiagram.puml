@@ -1,0 +1,84 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class FileHandler {
+    {field}{static} -DIR_NAME : String = "data"
+    {field}{static} -DATA_DIR : File
+    {method}{static} +getDataDir() : File
+    {method}{static} +getCarFile() : CarFile
+    {method}{static} +getCustomerFile() : CustomerFile
+    {method}{static} +getTransactionFile() : TransactionFile
+    {method}{static} +getDirName() : String
+    {method}{static} +createAndLoadFiles() : void
+    {method}{static} +createNewFile(filename : File) : void
+    {method}{static} +createFolderIfNotExist() : void
+    {method}{static} +updateFiles() : void
+    {method}{static} -createFolder() : void
+    {method}{static} +containEmptyParameter(parameters : String[]) : boolean
+}
+
+class CarFile {
+    {field}  -carDataFileName : String
+    {field}  -carDataFilePath : String
+    {field}  -carDataFile : File
+    {method} +getCarDataFilename() : String
+    {method} +addCarWithParameters(parameters : String[], errorLines : ArrayList<Integer>, line : int) : void
+    {method} +updateCarDataFile() : void
+    {method} +createCarFileIfNotExist() : void
+    {method} +deleteCarFileIfExist() : void
+    {method} +loadCarData() : void
+    {method} +scanLineAndAddCar(scanner : Scanner, errorLines : ArrayList<Integer>, line : int) : void
+    {method} +loadCarDataIfExist() : void
+    {method} +getAbsolutePath() : String
+}
+
+class CustomerFile {
+    {field}  -customerDataFileName : String
+    {field}  -customerDataFilePath : String
+    {field}  -customerDataFile : File
+    {method} +getCustomerDataFilename() : String
+    {method} +createCustomerFileIfNotExist() : void
+    {method} +loadCustomerData() : void
+    {method} +scanLineAndAddCustomer(scanner : Scanner, errorLines : ArrayList<Integer>, line : int) : void
+    {method} +updateCustomerDataFile() : void
+    {method} +addCustomerWithParameters(parameters : String[], errorLines : ArrayList<Integer>, line : int) : void
+    {method} +loadCustomerDataIfExist() : void
+    {method} +getAbsolutePath() : String
+}
+
+class TransactionFile {
+    {field}  -transactionDataFileName : String
+    {field}  -transactionDataFilePath : String
+    {field}  -transactionDataFile : File
+    {method} +getTransactionDataFilename() : String
+    {method} +createTransactionFileIfNotExist() : void
+    {method} +loadTransactionData() : void
+    {method} +scanLineAndAddTransaction(scanner : Scanner, errorLines : ArrayList<Integer>, line : int) : void
+    {method} +addTransactionWithParameters(parameters : String[], errorLines : ArrayList<Integer>, line : int) : void
+    {method} +loadTransactionDataIfExist() : void
+    {method} +updateTransactionDataFile() : void
+    {method} +getAbsolutePath() : String
+}
+
+FileHandler --> "1" CarFile : "creates"
+FileHandler --> "1" CustomerFile : "creates"
+FileHandler --> "1" TransactionFile : "creates"
+
+CarFile ..> CarList : "edits"
+CarFile ..> Car : "creates"
+CarFile ..> FileHandler
+
+CustomerFile ..> CustomerList : "edits"
+CustomerFile ..> FileHandler
+CustomerFile ..> Customer : "creates"
+
+TransactionFile ..> TransactionList : "edits"
+TransactionFile ..> Transaction : "creates"
+TransactionFile ..> FileHandler
+
+note right of FileHandler
+    All classes other than FileHandler , TransactionFile ,
+    CarFile , CustomerFile will be empty for sake of simplicity
+    and size of the class diagram
+end note
+@enduml

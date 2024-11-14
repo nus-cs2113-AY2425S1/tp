@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant ":Parser" as Parser
+participant ":CarList" as CarList
+participant ":Car" as Car
+
+activate Parser
+Parser -> CarList : printCarList()
+activate CarList
+alt carsList is not empty
+    loop For each Car in CarList
+        CarList -> Car : getModel()
+        activate Car
+            Car --> CarList : return model
+        deactivate Car
+        CarList -> Car : getLicensePlateNumber()
+        activate Car
+            Car --> CarList : return licensePlateNumber
+        deactivate Car
+        CarList -> CarList : formatPriceToTwoDp(price)
+        activate CarList
+            CarList -> Car : getPrice()
+                activate Car
+                    Car --> CarList : return price
+                deactivate Car
+            CarList --> CarList : return formattedPrice
+        deactivate CarList
+        CarList -> Car : getRentedStatus()
+        activate Car
+            Car --> CarList : return rentedStatus
+        deactivate Car
+        CarList -> Car : getExpensiveStatus()
+        activate Car
+            Car --> CarList : return expensiveStatus
+        deactivate Car
+        CarList -> CarList : getMedianPrice()
+        activate CarList
+            CarList --> CarList : return median car price
+        deactivate CarList
+    end loop
+end alt
+Parser <-- CarList : return
+deactivate CarList
+deactivate Parser
+hide footbox
+@enduml

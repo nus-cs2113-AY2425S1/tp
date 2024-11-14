@@ -1,0 +1,105 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+class CliRental {
+
+}
+
+class Parser {
+
+}
+class CarParser{
+
+}
+
+class TransactionParser{
+
+}
+
+class Car {
+
+}
+
+class Transaction {
+
+}
+
+class CarList {
+
+}
+
+class TransactionList {
+
+}
+
+class Customer  {
+
+}
+
+class CustomerList {
+
+}
+
+class CustomerParser  {
+
+}
+
+class CustomerException {
+
+}
+
+class FileHandler {
+
+}
+
+class CarFile {
+
+}
+
+class CustomerFile {
+
+}
+
+class TransactionFile {
+
+}
+
+FileHandler --> "1" CarFile : "create"
+FileHandler --> "1" CustomerFile : "create"
+FileHandler --> "1" TransactionFile : "create"
+
+CarFile ..> CarList : "edit"
+CarFile ..> Car : "create"
+CarFile ..> FileHandler : "uses"
+
+CustomerFile ..> CustomerList : "edit"
+CustomerFile ..> FileHandler : "uses"
+CustomerFile ..> Customer : "create"
+
+TransactionFile ..> TransactionList : "edit"
+TransactionFile ..> Transaction : "create"
+TransactionFile ..> FileHandler : "uses"
+
+CliRental ..> Parser
+CliRental ..> CustomerException
+
+Parser ..> CarParser
+Parser ..> TransactionParser
+Parser ..> CustomerParser
+
+CarParser -- Car: <font color=black>parse into Car object >
+CarParser ..> CarList
+
+TransactionParser -- Transaction : parse into Transaction object >
+TransactionParser ..> TransactionList
+
+CarList *-- "<font color=black size=40>*" Car
+TransactionList *-- "<font color=black size=40>*" Transaction
+
+CustomerParser ..> Customer : "creates"
+CustomerParser ..> CustomerException : "throws"
+
+CustomerList  *-- "*" Customer : "contains"
+
+@enduml

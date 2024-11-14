@@ -1,0 +1,65 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam {
+classAttributeIconSize 0
+defaultFontSize 25
+ArrowFontSize 25
+}
+
+class CliRental {
+{method}{static} +main(args : String[]) : void
+{method}<font size=30>...
+}
+class Parser {
+{method}{static} +parse(userInput : String): boolean
+{method}<font size=30>...
+}
+class CarParser <<Car>>{
+{method}{static} +parseIntoCar(userInput : String): Car
+}
+class TransactionParser <<Transaction>>{
+{method}{static} +parseIntoTransaction(userInput : String): Transaction
+}
+class Car <<Car>>{
+{field} -licensePlateNumber : String
+{field} -isRented : boolean
+<font size=30>...
+{method} +getLicensePlateNumber() : String
+{method} +markAsRented() : void
+{method} +markAsAvailable() : void
+{method} +isRented() : boolean
+{method} +getRentedStatus() : String
+{method}<font size=30>...
+}
+class Transaction <<Transaction>>{
+{field} -carLicensePlate : String
+<font size=30>...
+{method} +getCarLicensePlate() : String
+{method}<font size=30>...
+}
+class CarList <<Car>>{
+{method}{static} +addCar(car : Car) : void
+{method}{static} +markCarAsRented(carLicensePlateNumber : String) : void
+{method}<font size=30>...
+}
+class TransactionList <<Transaction>>{
+{method}{static} +addTx(transaction : Transaction) : void
+{method}<font size=30>...
+}
+
+CliRental ..> Parser
+
+Parser ..> CarParser
+Parser ..> TransactionParser
+
+CarParser -- Car: <font color=black>parse into Car object >
+CarParser ..> CarList
+
+TransactionParser -- Transaction : parse into Transaction object >
+TransactionParser ..> TransactionList
+
+CarList *-- "<font color=black size=40>*" Car
+TransactionList *-- "<font color=black size=40>*" Transaction
+
+@enduml

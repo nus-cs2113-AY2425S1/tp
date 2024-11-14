@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!define BOX_COLOR #FFFFFF
+
+hide footbox
+skinparam sequenceMessageAlign center
+
+box <font size=14>add-car\n BOX_COLOR
+participant "CliRental" as CliRental
+participant "<<class>>\nParser" as Parser
+participant "<<class>>\nCarParser" as CarParser
+participant "car :Car" as Car
+participant "<<class>>\nCarList" as CarList
+end box
+
+CliRental -> Parser ++ : parse user input
+Parser -> CarParser ++ : parse into Car object
+
+create Car
+CarParser -> Car ++
+Car --> CarParser --
+CarParser --> Parser --: car : Car
+
+Parser -> CarList ++ : addCar(car)
+CarList --> Parser --: car added to list
+Parser --> CliRental --: exit status
+
+@enduml

@@ -1,9 +1,153 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+       ______    __    _     ____                  __             __
+      / ____/   / /   (_)   / __ \  ___    ____   / /_  ____ _   / /
+     / /       / /   / /   / /_/ / / _ \  / __ \ / __/ / __ `/  / /
+    / /___    / /   / /   / _, _/ /  __/ / / / // /_  / /_/ /  / /
+    \____/   /_/   /_/   /_/ |_|  \___/ /_/ /_/ \__/  \__,_/  /_/
 
-What is your name?
-Hello James Gosling
+Hello, thank you for choosing our car rental management program CliRental
+____________________________________________________________
+Available Commands:
+help - Provides a list of all commands and their descriptions.
+add-user /u [CUSTOMER_NAME] /a [AGE] /c [CONTACT_NUMBER] - Adds a new customer to the system.
+remove-user /u [CUSTOMER_NAME] - Removes a customer from the system.
+remove-all-users - Remove all customers.
+list-users - Lists all customers.
+add-car /n [CAR_MODEL] /c [LICENSE_PLATE_NUMBER] /p [PRICE] - Adds a new car to the fleet.
+remove-car /i [LICENSE_PLATE_NUMBER] - Removes a car from the fleet.
+list-cars - Lists all cars.
+list-rented - Lists all rented-out cars.
+list-available - Lists all available cars.
+remove-all-cars - Remove all existing cars in the cars list.
+add-tx /c [LICENSE_PLATE_NUMBER] /u [CUSTOMER_NAME] /d [DURATION] /s [START_DATE: <dd-MM-yyyy>] - Adds a new rental transaction.
+mark-tx /t [TRANSACTION_ID] - Marks a rental transaction completed.
+unmark-tx /t [TRANSACTION_ID] - Unmark a rental transaction.
+remove-tx /t [TRANSACTION_ID] - Removes an existing rental transaction.
+remove-all-txs - Removes transactions history
+list-txs - Lists all transactions.
+list-txs-completed - Lists all completed transactions.
+list-txs-uncompleted - Lists all uncompleted transactions.
+find-txs-by-customer /u [CUSTOMER_NAME] - Finds transactions by a customer's name.
+exit - Exits the program.
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Customer added
+Customer name: Obama
+Age: 42
+Contact Number: 80009000
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Customer added
+Customer name: Trump
+Age: 78
+Contact Number: 89965443
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Car added to list
+Car details:
+Audi A4 | SZX789C | $248.00 | Available | Affordable | Median price: 248.0
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Car added to list
+Car details:
+Ford F150 | STV968Z | $348.00 | Available | Expensive | Median price: 248.0
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Here are the current cars in the company:
+1) Audi A4 | SZX789C | $248.00 | Available | Affordable | Median price: 248.0
+2) Ford F150 | STV968Z | $348.00 | Available | Expensive | Median price: 248.0
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Here are all the customers:
+1) Obama | 42 | 80009000
+2) Trump | 78 | 89965443
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Available Commands:
+help - Provides a list of all commands and their descriptions.
+add-user /u [CUSTOMER_NAME] /a [AGE] /c [CONTACT_NUMBER] - Adds a new customer to the system.
+remove-user /u [CUSTOMER_NAME] - Removes a customer from the system.
+remove-all-users - Remove all customers.
+list-users - Lists all customers.
+add-car /n [CAR_MODEL] /c [LICENSE_PLATE_NUMBER] /p [PRICE] - Adds a new car to the fleet.
+remove-car /i [LICENSE_PLATE_NUMBER] - Removes a car from the fleet.
+list-cars - Lists all cars.
+list-rented - Lists all rented-out cars.
+list-available - Lists all available cars.
+remove-all-cars - Remove all existing cars in the cars list.
+add-tx /c [LICENSE_PLATE_NUMBER] /u [CUSTOMER_NAME] /d [DURATION] /s [START_DATE: <dd-MM-yyyy>] - Adds a new rental transaction.
+mark-tx /t [TRANSACTION_ID] - Marks a rental transaction completed.
+unmark-tx /t [TRANSACTION_ID] - Unmark a rental transaction.
+remove-tx /t [TRANSACTION_ID] - Removes an existing rental transaction.
+remove-all-txs - Removes transactions history
+list-txs - Lists all transactions.
+list-txs-completed - Lists all completed transactions.
+list-txs-uncompleted - Lists all uncompleted transactions.
+find-txs-by-customer /u [CUSTOMER_NAME] - Finds transactions by a customer's name.
+exit - Exits the program.
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Transaction added:
+[ ] TX1 | SZX789C | Trump | 21 days
+Start Date: 12-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+This car has been rented!
+What would you like to do?
+____________________________________________________________
+Transaction added:
+[ ] TX2 | STV968Z | Obama | 20 days
+Start Date: 13-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Here are all the transactions:
+1) [ ] TX1 | SZX789C | Trump | 21 days
+Start Date: 12-11-2024 | End Date: 03-12-2024
+2) [ ] TX2 | STV968Z | Obama | 20 days
+Start Date: 13-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Transaction completed: [X] TX1 | SZX789C | Trump | 21 days
+Start Date: 12-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Here are all the transactions:
+1) [X] TX1 | SZX789C | Trump | 21 days
+Start Date: 12-11-2024 | End Date: 03-12-2024
+2) [ ] TX2 | STV968Z | Obama | 20 days
+Start Date: 13-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Transaction set uncompleted: [ ] TX1 | SZX789C | Trump | 21 days
+Start Date: 12-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Here are all the transactions:
+1) [ ] TX1 | SZX789C | Trump | 21 days
+Start Date: 12-11-2024 | End Date: 03-12-2024
+2) [ ] TX2 | STV968Z | Obama | 20 days
+Start Date: 13-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+Transaction(s) by Obama found:
+[ ] TX2 | STV968Z | Obama | 20 days
+Start Date: 13-11-2024 | End Date: 03-12-2024
+____________________________________________________________
+What would you like to do?
+____________________________________________________________
+____________________________________________________________
+Goodbye!

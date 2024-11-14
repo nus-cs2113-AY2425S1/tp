@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+hide footbox
+skinparam sequenceMessageAlign left
+
+participant "CliRental" as CliRental
+participant "<<class>>\nParser" as Parser
+participant "<<class>>\nCarParser" as CarParser
+participant "<<class>>\nCarList" as CarList
+
+CliRental -> Parser ++ : parse user input
+Parser -> CarParser ++ : parse into license plate number
+
+alt isValidFormat && isValidLicensePlateNumber
+    CarParser --> Parser : return license plate number
+    Parser -> CarList ++: remove car using license plate number
+    alt license plate number found in car list
+        CarList --> Parser : car removed from car list
+    else license plate number not found in car list
+        CarList --> Parser --: shows <b>"No car found with license plate"</b> message
+    end
+else invalid format or license plate number
+CarParser --> Parser --: CarException thrown
+end
+
+Parser --> CliRental --: exit status
+
+@enduml

@@ -1,0 +1,13 @@
+help
+add-user /u John /a 22 /c 90907638
+list-users
+remove-user /u John
+add-car /n Toyota Corolla /c SGM4932K /p 120
+list-cars
+remove-car /i SGM4932K
+add-tx /p SBS123B /u John /d 30 /s 2024-10-17
+list-tx
+remove-tx /t 1
+remove-all-cars
+remove-all-txs
+exit

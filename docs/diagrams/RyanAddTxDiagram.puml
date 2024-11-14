@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+!define BOX_COLOR #FFFFFF
+
+hide footbox
+skinparam {
+sequenceMessageAlign center
+}
+
+box <font size=14>add-tx\n BOX_COLOR
+participant "CliRental" as CliRental
+participant "<<class>>\nParser" as Parser
+participant "<<class>>\nTransactionParser" as TransactionParser
+participant "transaction :Transaction" as Transaction
+participant "<<class>>\nTransactionList" as TransactionList
+end box
+
+CliRental -> Parser ++ : parse user input
+Parser -> TransactionParser ++ : parse into Transaction object
+
+create Transaction
+TransactionParser -> Transaction ++
+Transaction --> TransactionParser --
+TransactionParser --> Parser -- : transaction : Transaction
+
+Parser -> TransactionList ++ : addTx(transaction)
+
+TransactionList --> Parser --: transaction added to list and <b>car mark as "rented"</b>
+
+Parser --> CliRental --: exit status
+
+@enduml
