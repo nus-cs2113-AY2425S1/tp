@@ -1,0 +1,80 @@
+@startuml
+
+hide footbox
+skinparam sequenceReferenceBackgroundColor #f7807c
+
+participant ":AddItemCommand" as AddItemCommand #E0BBE4
+participant "newItem:Item" as newItem #95E1D3
+participant ":ItemMap" as ItemMap #F9FBCB
+participant "oldSet:TreeSet" as oldTreeSet #67E072
+participant "newSet:TreeSet" as newTreeSet #67E072
+participant "oldItem:Item" as oldItem #95E1D3
+participant ":Storage" as Storage #FFABAB
+
+-> AddItemCommand : execute(items, storage)
+activate AddItemCommand
+
+AddItemCommand -> newItem : newItem(itemName, quantity, expiryDate)
+activate newItem
+return item
+deactivate newItem
+
+AddItemCommand -> ItemMap : addItem(item)
+activate ItemMap
+
+ItemMap -> newItem : <<get attributes>>
+activate newItem
+return <<attributes>>
+deactivate newItem
+
+alt item with same name exists
+    ItemMap -> ItemMap : get(name)
+    activate ItemMap
+    return itemSet
+
+    loop until item with same expiry date \nis found or end of array is reached
+        opt item has same expiry date
+            ItemMap -> oldItem : setQuantity(newQuantity)
+            activate oldItem
+            return
+            deactivate oldItem
+        end
+    end
+
+    opt item with same expiry \ndate not found
+        ItemMap -> oldTreeSet : add(item)
+        activate oldTreeSet
+        return
+        deactivate oldTreeSet
+    end
+
+
+else else
+    ItemMap -> newTreeSet ** : TreeSet<>()
+    activate newTreeSet
+    return itemSet
+    deactivate newTreeSet
+    ItemMap -> newTreeSet : add(item)
+    activate newTreeSet
+    return
+    deactivate newTreeSet
+    ItemMap -> ItemMap : put(name, itemSet)
+    activate ItemMap
+    return
+    ||10||
+end
+
+ItemMap --> AddItemCommand
+deactivate ItemMap
+
+AddItemCommand -> Storage : saveItem(item)
+activate Storage
+||||||
+return
+deactivate Storage
+
+<-- AddItemCommand
+deactivate AddItemCommand
+destroy AddItemCommand
+
+@enduml

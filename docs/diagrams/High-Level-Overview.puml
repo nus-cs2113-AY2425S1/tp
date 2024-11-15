@@ -1,0 +1,71 @@
+``` plantuml
+@startuml
+
+hide circle
+skinparam packageStyle rectangle
+
+left to right direction
+
+package "pill" {
+    class Pill
+
+    package "util" {
+        class Ui
+        class Parser
+        class StringMatcher
+        class Printer
+        class Storage
+        class ItemMap
+        class Item
+        class DateTime
+        class PillLogger
+        class TransactionManager
+        class Order
+        class Transaction
+        class Visualizer
+    }
+
+    package exceptions {
+        class PillException
+        class ExceptionMessages
+    }
+    package command {
+        class Command
+    }
+
+
+
+    Pill --> Ui
+    Pill -> Printer
+
+
+    Ui --> Parser
+    Ui --> ItemMap
+    Ui --> Storage
+    ItemMap --> Item
+
+
+    Parser -> command
+    Parser -up> StringMatcher
+    Parser --> DateTime
+    StringMatcher -> Parser
+    Parser -> PillLogger
+    command --> exceptions
+    command --> TransactionManager
+    command --> Visualizer
+    command -> PillLogger
+    Parser --> exceptions
+
+    ItemMap -> Storage
+    TransactionManager --> Storage
+    TransactionManager ---> Order
+    TransactionManager ---> Transaction
+
+    PillException -left> ExceptionMessages
+
+}
+
+
+
+@enduml
+```
