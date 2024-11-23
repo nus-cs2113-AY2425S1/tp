@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ExpenseManager {
+    + addExpenseRequest(input : String, expenseManager : ExpenseManager, trackerData : TrackerData) : void
+    + addExpense(trackerData : TrackerData, name : String, amount : double, categoryName : String) : void
+    + deleteExpenseRequest(input : String, expenseManager : ExpenseManager, trackerData : TrackerData) : void
+    + deleteExpense(trackerData : TrackerData, expenseIndex : int) : void
+    + viewExpensesByCategory(trackerData : TrackerData) : void
+    + tagExpense(trackerData : TrackerData, input : String) : void
+    - tagExpenseHelper(trackerData : TrackerData, expenseIndex : int, categoryName : String) : void
+    + formatInput(input : String) : String
+}
+
+ExpenseManager "1" --> "1" TrackerData : uses
+ExpenseManager "1" ..> "many" Expense : manages
+ExpenseManager "1" ..> "many" Category : tags
+
+@enduml

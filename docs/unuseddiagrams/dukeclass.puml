@@ -1,0 +1,24 @@
+@startuml
+
+class Duke {
+    + main(args : String[]) : void
+    + addExpenseRequest(input : String, expenseTracker : ExpenseTracker) : void
+    + setBudgetLimitRequest(input : String, expenseTracker : ExpenseTracker) : void
+    + deleteExpenseRequest(input : String, expenseTracker : ExpenseTracker) : void
+}
+
+class ExpenseTracker {
+    + addExpense(name : String, amount : double, category : String) : void
+    + addCategory(input : String) : void
+    + tagExpense(input : String) : void
+    + viewBudget() : void
+    + setBudgetLimit(category : String, limit : double) : void
+    + viewExpensesByCategory() : void
+    + toggleAutoReset() : void
+    + deleteExpense(expenseIndex : int) : void
+}
+
+Duke ..> ExpenseTracker : uses
+
+@enduml
+

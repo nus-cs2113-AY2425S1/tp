@@ -1,0 +1,20 @@
+@startuml
+class Expense {
+    - name : String
+    - amount : double
+    - category : Category
+
+    + Expense(name : String, amount : double, category : Category)
+    + getName() : String
+    + getAmount() : double
+    + getCategory() : Category
+    + setCategory(category : Category) : void
+    + formatAmount() : String
+    + toString() : String
+}
+
+class Category {
+}
+
+Expense "1" --> "1" Category : category
+@enduml

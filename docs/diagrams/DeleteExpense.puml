@@ -1,0 +1,70 @@
+@startuml
+actor User
+participant ":SpendSwift" as SpendSwift
+participant ":Parser" as Parser
+participant ":ExpenseManager" as ExpenseManager
+participant ":TrackerData" as TrackerData
+participant ":InputParser" as InputParser
+participant ":ErrorMessage" as ErrorMessage
+participant ":SuccessMessage" as SuccessMessage
+participant ":Expense" as Expense
+
+User -> SpendSwift : input("delete-expense e/2")
+activate SpendSwift
+SpendSwift -> Parser : parseCommand(input, trackerData)
+
+activate Parser
+Parser -> ExpenseManager : deleteExpenseRequest(input, expenseManager, trackerData)
+
+activate ExpenseManager
+ExpenseManager -> InputParser : parseIndex(input)
+activate InputParser
+InputParser --> ExpenseManager : return expenseIndex: int
+deactivate InputParser
+
+opt Invalid Index
+    ExpenseManager -> ErrorMessage : printInvalidIndex()
+    activate ErrorMessage
+    ErrorMessage --> ExpenseManager : return
+    deactivate ErrorMessage
+    ExpenseManager --> Parser : return
+    Parser --> SpendSwift : return
+    SpendSwift --> User : return
+end
+
+ExpenseManager -> ExpenseManager : deleteExpense(trackerData, expenseIndex)
+
+activate ExpenseManager
+ExpenseManager -> TrackerData : getExpenses()
+activate TrackerData
+TrackerData --> ExpenseManager : return expenses: List<Expense>
+deactivate TrackerData
+
+ExpenseManager -> Expense : remove expense at expenseIndex
+activate Expense
+Expense --> ExpenseManager : return
+deactivate Expense
+
+ExpenseManager -> SuccessMessage : printDeleteExpense(removedExpense)
+activate SuccessMessage
+SuccessMessage --> ExpenseManager : return
+deactivate SuccessMessage
+
+opt Index Out of Bounds
+    ExpenseManager -> ErrorMessage : printOutOfBoundsIndex()
+    activate ErrorMessage
+    ErrorMessage --> ExpenseManager : return
+    deactivate ErrorMessage
+end
+
+ExpenseManager --> ExpenseManager : return
+deactivate ExpenseManager
+
+ExpenseManager --> Parser : return
+deactivate ExpenseManager
+Parser --> SpendSwift : return false
+deactivate Parser
+SpendSwift --> User : return
+deactivate SpendSwift
+
+@enduml

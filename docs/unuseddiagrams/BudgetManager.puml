@@ -1,0 +1,22 @@
+@startuml
+class BudgetManager {
+    - lastResetMonth : int
+    - isAutoResetEnabled : boolean
+    + BudgetManager()
+    + toggleAutoReset() : void
+    + checkAndResetBudgets(trackerData : TrackerData) : void
+    + manageMonthlyReset(trackerData : TrackerData) : void
+    - resetBudgets(trackerData : TrackerData) : void
+    + setBudgetLimit(trackerData : TrackerData, categoryName : String, limit : double) : void
+    + setBudgetLimitRequest(input : String, budgetManager : BudgetManager, trackerData : TrackerData) : void
+    + viewBudget(trackerData : TrackerData) : void
+    - formatDecimal(value : double) : String
+    - formatInput(input : String) : String
+}
+
+BudgetManager "1" --> "1" TrackerData : uses
+BudgetManager "1" ..> "*" Budget : manages
+BudgetManager "1" ..> "*" Category : manages
+
+
+@enduml

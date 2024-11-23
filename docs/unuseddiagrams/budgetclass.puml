@@ -1,0 +1,19 @@
+
+@startuml
+class Category {
+}
+
+class Budget {
+    -category : Category
+    -limit : double
+
+    +Budget(category: Category, limit: double)
+    +getCategory() : Category
+    +getLimit() : double
+    +setLimit(limit: double) : void
+    +formatLimit(limit: double) : String
+    +toString() : String
+}
+
+Budget "1" --> "1" Category : has
+@enduml

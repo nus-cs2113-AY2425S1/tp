@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class TrackerData {
+    - categories : List<Category>
+    - expenses : List<Expense>
+    - budgets : Map<Category, Budget>
+    + TrackerData()
+    + getCategories() : List<Category>
+    + getExpenses() : List<Expense>
+    + getBudgets() : Map<Category, Budget>
+    + setCategories(categories : List<Category>) : void
+    + setExpenses(expenses : List<Expense>) : void
+    + setBudgets(budgets : Map<Category, Budget>) : void
+}
+
+TrackerData "1" *-- "many" Category : contains
+TrackerData "1" *-- "many" Expense : contains
+TrackerData "1" *-- "*" Budget : contains
+
+@enduml

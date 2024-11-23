@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+participant "Storage" as Storage
+participant "BufferedReader" as BufferedRead
+participant "TrackerData" as TrackerData
+participant "UI" as UI
+actor User
+
+User -> Storage : loadData(trackerData)
+activate Storage
+
+Storage -> File : Check if file exists
+alt File does not exist
+    Storage -> UI : printFileNotFount()
+    deactivate Storage
+
+else File exists
+    Storage -> BufferedReader : new BufferedReader
+    activate BufferedReader
+    BufferedReader -> Storage : read "Budgets" / "Expenses"
+    alt Reading Budgets:
+        loop For each line in "Budgets"
+            BufferedReader -> Storage : Return line
+            Storage -> TrackerData : add new budget entry with category and limit
+
+    else Reading Expenses
+        loop For each line in "Expenses":
+            BufferedReader -> Storage : Return line
+            Storage -> Storage : load category
+            storage -> TrackerData : add new "Expenses"
+        end
+    end
+
+
+    BufferedReader -> Storage : close reader
+    Storage -> UI : printDataLoaded()
+    deactivate BufferedReader
+end
+deactivate Storage
+@enduml

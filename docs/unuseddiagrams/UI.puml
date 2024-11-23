@@ -1,0 +1,32 @@
+@startuml
+class UI {
+    - WELCOME_MESSAGE : String
+    - EXIT_MESSAGE : String
+    - FILE_NOT_FOUND : String
+    - DATA_LOADED_MESSAGE : String
+    - DATA_SAVED_MESSAGE : String
+    - ERROR_LOADING_DATA_MESSAGE : String
+    - ERROR_SAVING_DATA_MESSAGE : String
+    - INVALID_INPUT_MESSAGE : String
+    - HELP_INTRO_MESSAGE : String
+    - HELP_ADD_EXPENSE : String
+    - HELP_DELETE_EXPENSE : String
+    - HELP_ADD_CATEGORY : String
+    - HELP_TAG_EXPENSE : String
+    - HELP_VIEW_EXPENSES : String
+    - HELP_SET_BUDGET : String
+    - HELP_VIEW_BUDGET : String
+    - HELP_TOGGLE_RESET : String
+    - HELP_EXIT : String
+    + printWelcomeMessage() : void
+    + printExitMessage() : void
+    + printDataLoaded() : void
+    + printDataSaved() : void
+    + printLoadingError(errorMessage : String) : void
+    + printSavingError(errorMessage : String) : void
+    + printParserInvalidInput() : void
+    + printFileNotFound() : void
+    + printHelpMessage() : void
+}
+
+@enduml
