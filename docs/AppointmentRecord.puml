@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
+
+class AppointmentRecord {
+    -appointments: List<Appointment>
+    -formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+    -checkDateTime(availableDate: LocalDate, availableTime: LocalTime): boolean
+    -checkExistingAppintmentRecords(name: String, nric: String, searchInput: String): boolean
+    -checkForCorruptedNric(nric: String): void
+    -sort(): void
+    -noAppointmentMessage(): void
+    +AppointmentRecord()
+    +addAppointment(appointment: Appointment): void
+    +addAppointment(name: String, nric: String, date: String, time: String): void
+    +findAppointments(input: String): List<Appointment>
+    +getAppointments(): List<Appointment>
+    +setAppointments(appointments: List<Appointment>): void
+    +appointmentNotice(): void
+    +checkAvailability(date: LocalDate, time: LocalTime): LocalTime
+    +listAppointments(): void
+    +removePastAppointments(): void
+    +deleteAppointment(nric: String, date: String, time: String): void
+    +initFile(appointmentFilePath: String): void
+    +autosave(appointmentFilePath: String): void
+    +retrieveData(appointmentFilePath: String): void
+}
+
+interface FileOperation {
+    +initFile(filePath: String): void
+    +autosave(filePath: String): void
+    +retrieveData(filePath: String): void
+}
+
+class Appointment {
+    -patientName: String
+    -patientNric: String
+    -time: LocalTime
+    -date: LocalDate
+    -consultationDuration: long = 30
+}
+
+class CommandHandler {}
+class FileHandler {}
+class Main {}
+
+FileOperation <|.. AppointmentRecord : implements
+
+Main --> AppointmentRecord : creates >
+CommandHandler --> AppointmentRecord : modifies >
+FileHandler --> AppointmentRecord : manages files >
+
+AppointmentRecord "1" o-- "many" Appointment
+
+
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Doctor
+
+Doctor -> ":Main" ++: add n/Patricia Chan ic/S9870789B p/98097890 d/Gastric m/Gaviscon, Paracetamol\n dob/01-11-1998 ha/Bukit Batok East Avenue 3 v/29-10-2024 10:00\n al/Peanuts s/Female mh/Hypertension, Breast Cancer
+
+":Main" -> ":Scanner" ++: nextLine()
+return input
+
+":Main" -> ":Parser" ++: handleCommand(input, commandHandler,\nrecords, appointmentRecord)
+":Parser" -> ":CommandHandler" ++: add(input, records)
+
+":CommandHandler" -> ":CommandHandler" ++: extractName(input)
+return "Patricia Chan"
+
+":CommandHandler" -> ":CommandHandler" ++: extractNric(input)
+return "S9870789B"
+
+":CommandHandler" -> ":CommandHandler" ++: extractVisitDateTime(input)
+return LocalDateTime("29-10-2024 10:00")
+
+alt Validation Fails
+    ":CommandHandler" --> Doctor: Error: Please provide valid [name/NRIC/visit date]
+else  Validation Succeeds
+    note over ":CommandHandler"
+        Continue to Part 2
+        for Patient Creation
+    end note
+end
+
+@enduml

@@ -12,6 +12,9 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    testImplementation 'org.mockito:mockito-core:5.3.1'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.3.1'
 }
 
 test {
@@ -29,11 +32,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("bookbob.Main")
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("Main")
     archiveClassifier.set("")
 }
 
@@ -43,4 +46,5 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

@@ -1,0 +1,83 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+actor Doctor
+
+Doctor -> ":Main" ++
+":Main" -> ":Records" **
+activate ":Records"
+":Records" --> ":Main" --: records:Records
+
+":Main" -> ":AppointmentRecord" **
+activate ":AppointmentRecord"
+":AppointmentRecord" --> ":Main" --: appointmentRecord:AppointmentRecord
+
+":Main" -> ":FileHandler" ++: initFile(records)
+":FileHandler" --> ":Main" --
+
+":Main" -> ":FileHandler" ++: initFile(appointmentRecord)
+":FileHandler" --> ":Main" --
+
+":Main" -> ":CommandHandler" **
+activate ":CommandHandler"
+":CommandHandler" --> ":Main" --: commandHandler:CommandHandler
+
+Doctor -> ":Main": appointment n/Patricia Chan ic/S9870789B date/06-11-2024 time/14:30
+
+":Main" -> ":Parser" ++: handleCommand(input, commandHandler, records, appointmentRecord)
+":Parser" -> ":CommandHandler" ++: appointment(input, appointmentRecord)
+
+":CommandHandler" -> ":CommandHandler" ++: extractName(input)
+":CommandHandler" --> ":CommandHandler" --: name = "Patricia Chan"
+
+":CommandHandler" -> ":CommandHandler" ++: extractNric(input)
+":CommandHandler" --> ":CommandHandler" --: nric = "S9870789B"
+
+":CommandHandler" -> ":CommandHandler" ++: extractDate(input)
+":CommandHandler" --> ":CommandHandler" --: date = "06-11-2024"
+
+":CommandHandler" -> ":CommandHandler" ++: extractTime(input)
+":CommandHandler" --> ":CommandHandler" --: time = "14:30"
+
+":CommandHandler" -> ":AppointmentRecord" ++: addAppointment(appointment)
+":AppointmentRecord" -> ":AppointmentRecord" ++: checkAvailability(date, time)
+":AppointmentRecord" --> ":AppointmentRecord" --: nextAvailableTime
+":AppointmentRecord" -> ":AppointmentRecord" ++: checkDateTime(availableDate, availableTime)
+":AppointmentRecord" --> ":AppointmentRecord" --:
+":AppointmentRecord" -> ":AppointmentRecord" ++: checkExistingAppintmentRecords(name, nric, searchInput)
+":AppointmentRecord" --> ":AppointmentRecord" --:
+
+opt checkDateTime(availableDate, availableTime) == false
+    Doctor <-- ":AppointmentRecord": There is already an appointment at the given timeslot. The next available timeslot is: 18:30
+    end
+
+opt checkExistingAppintmentRecords(name, nric, searchInput) == false
+    Doctor <-- ":AppointmentRecord":Please check if the name is correct
+    Doctor <-- ":AppointmentRecord":Appointment made previously with patient NRIC, S1234567A, has the name John Doe
+    end
+
+alt nextAvailableTime == "14:30"
+    create ":Appointment"
+    ":AppointmentRecord" -> ":Appointment" **: new Appointment("Patricia Chan", "S9870789B",\n"06-11-2024", "14:30")
+    activate ":Appointment"
+    ":Appointment" --> ":AppointmentRecord" --: appointment
+
+    ":AppointmentRecord" -> ":AppointmentRecord" ++: sort()
+    ":AppointmentRecord" --> ":AppointmentRecord" --:
+
+    ":AppointmentRecord" --> ":CommandHandler" --:
+
+    ":CommandHandler" -> ":FileHandler" ++: autosave(appointmentRecord)
+    return
+
+    Doctor <-- ":AppointmentRecord": Appointment on 06-11-2024 14:30 with Patient\nPatricia Chan, S9870789B has been added.
+else
+    Doctor <-- ":AppointmentRecord": There is already an appointment at the given timeslot.\nThe next available timeslot is: [nextAvailableTime]
+end
+
+":CommandHandler" --> ":Parser" --
+":Parser" --> ":Main" --
+deactivate ":Main"
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam classAttributeIconSize 0
+hide circle
+
+class Main {
+  -{static} logger: Logger {readOnly}
+  -{static} directoryName: String {readOnly}
+  -{static} logFilePath: String {readOnly}
+  -loggerConfig(): void
+  +{static} main(args: String[]): void
+}
+
+class CommandHandler {
+}
+
+class Records {
+}
+
+class AppointmentRecord {
+}
+
+class Patient {
+}
+
+class Visit {
+}
+
+class Appointment {
+}
+
+class Parser {
+}
+
+CommandHandler --> Appointment : searches and modifies >
+CommandHandler --> Visit : searches and modifies >
+AppointmentRecord "1" o-- "many" Appointment
+Main --> CommandHandler : creates >
+Main --> Records : creates >
+Main --> AppointmentRecord : creates >
+Main ---> Parser : calls >
+CommandHandler --> Patient : searches and modifies >
+Records "1" o-- "many" Patient
+Patient "1" o-- "many" Visit
+
+@enduml

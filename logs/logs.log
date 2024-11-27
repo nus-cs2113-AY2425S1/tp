@@ -1,0 +1,64 @@
+Nov 09, 2024 7:14:04 PM bookbob.Main logAndExecute
+INFO: Processing help command
+Nov 09, 2024 7:14:04 PM bookbob.Main logAndExecute
+INFO: Successfully processed help command
+Nov 09, 2024 7:16:38 PM bookbob.Main logAndExecute
+INFO: Processing list command
+Nov 09, 2024 7:16:38 PM bookbob.Main logAndExecute
+INFO: Successfully processed list command
+Nov 09, 2024 7:16:53 PM bookbob.Main validateParameters
+INFO: Missing required parameter: ic/
+Nov 09, 2024 7:17:02 PM bookbob.Main validateParameters
+INFO: Missing required parameter: n/
+Nov 09, 2024 7:17:25 PM bookbob.Main logAndExecute
+INFO: Processing add command
+Nov 09, 2024 7:17:25 PM bookbob.Main logAndExecute
+INFO: Successfully processed add command
+Nov 09, 2024 7:17:47 PM bookbob.Main logAndExecute
+INFO: Processing exit command
+Nov 10, 2024 7:51:26 PM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 10, 2024 7:51:30 PM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 10, 2024 7:51:42 PM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 10, 2024 8:19:07 PM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 10, 2024 8:32:26 PM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 10, 2024 8:32:43 PM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 10, 2024 8:37:12 PM bookbob.Main main
+SEVERE: Error while initializing appointment file
+Nov 10, 2024 8:37:23 PM bookbob.Main main
+SEVERE: Error while initializing appointment file
+Nov 10, 2024 8:37:31 PM bookbob.Main main
+SEVERE: Error while initializing appointment file
+Nov 11, 2024 1:15:27 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 1:16:33 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 1:20:04 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 1:37:43 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 1:47:15 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 1:51:18 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 1:56:13 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 2:01:22 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 9:56:59 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 9:57:53 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 11:56:37 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 11:57:02 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 11:57:19 AM bookbob.Main main
+SEVERE: Error while initializing file
+Nov 11, 2024 11:59:03 AM bookbob.Main main
+SEVERE: Error while initializing file

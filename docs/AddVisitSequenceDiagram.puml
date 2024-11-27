@@ -1,0 +1,61 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Doctor
+
+Doctor -> ":Main" ++: addVisit ic/S9870789B v/29-10-2024 10:00 d/Gastric m/Gaviscon, Paracetamol
+
+":Main" -> ":Scanner" ++: nextLine()
+return input
+
+":Main" -> ":Parser" ++: handleCommand(input, commandHandler,\nrecords, appointmentRecord)
+":Parser" -> ":CommandHandler" ++: addVisit(input, records)
+
+":CommandHandler" -> ":CommandHandler" ++: extractNric(input)
+return "S9870789B"
+
+":CommandHandler" -> ":Records" ++: getPatients()
+return ArrayList<Patient>
+
+loop for each patient in ArrayList<Patient> until patient with NRIC S9870789B is found
+    ":CommandHandler" -> ":Patient" ++: getNric()
+    return NRIC
+end
+
+participant "targetPatient:Patient"
+
+":CommandHandler" -> ":CommandHandler" ++: extractVisitDate(input)
+return "29-10-2024 10:00"
+
+":CommandHandler" -> ":CommandHandler" ++: extractDiagnoses(input)
+return ["Gastric"]
+
+":CommandHandler" -> ":CommandHandler" ++: extractMedications(input)
+return ["Gaviscon", "Paracetamol"]
+
+create ":Visit"
+":CommandHandler" -> ":Visit"**: new Visit(visitDate, diagnoses, medications)
+activate ":Visit"
+":CommandHandler" <-- ":Visit": newVisit:Visit
+deactivate ":Visit"
+
+":CommandHandler" -> "targetPatient:Patient" ++: getVisits()
+participant "visitList:ArrayList<Visit>"
+return visitList
+
+":CommandHandler" -> "visitList:ArrayList<Visit>" ++: add(newVisit)
+return true
+
+":CommandHandler" -> ":FileHandler" ++: autosave(records)
+return
+
+":Parser" <-- ":CommandHandler"
+deactivate ":CommandHandler"
+
+":Main" <-- ":Parser": command executed
+deactivate ":Parser"
+
+Doctor <-- ":Main": Visit added successfully for patient: Patricia Chan\nVisit date: 29-10-2024 10:00\nDiagnoses: Gastric\nMedications: Gaviscon, Paracetamol
+deactivate ":Main"
+
+@enduml
