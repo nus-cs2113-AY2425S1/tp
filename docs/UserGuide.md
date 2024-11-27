@@ -254,7 +254,7 @@ Format: find Prefix/Value where Prefix can be:
 - mh/MEDICAL_HISTORY <br>
 <br>
 **Note** : <br>
-- Trailing spaces are fine, but there are <u>no spaces</u> anywhere in <u>between Prefix/Value</u>.  <br>
+- "find" Trims Leading spaces and Trailing spaces. But there are <u>no spaces</u> anywhere in <u>between Prefix/Value</u>.  <br>
 
 Examples:
 * `find n/John` - Finds all patients whose names contain "John"
@@ -321,7 +321,7 @@ Name: James Ho, NRIC: S9534567A, Phone: 80976890, Address: , DOB: , Allergy: [Po
 ```
 
 Additional examples:
-* `edit ic/S9890897U dob/31-01-1990 ha/Orchard Road` - Edit a patient record with optional fields in a different order than the format shown above.
+* `edit ic/S9890897U /to dob/31-01-1990 ha/Orchard Road` - Edit a patient record with optional fields in a different order than the format shown above.
 
 The examples above result in successful patient record updates, which are automatically saved.
 
