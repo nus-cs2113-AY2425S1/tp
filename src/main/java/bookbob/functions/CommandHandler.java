@@ -38,7 +38,7 @@ public class CommandHandler {
                 +-------------+---------------------------------------+---------------------------------+
                 | Add         | add n/NAME ic/NRIC [p/PHONE_NUMBER]   | add n/James Ho ic/S9534567A     |
                 |             | [d/DIAGNOSIS] [m/MEDICATION]          | p/91234567 d/Asthma m/Albuterol |
-                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/01011990        |
+                |             | [ha/HOME_ADDRESS] [dob/DATE_OF_BIRTH] | ha/NUS-PGPR dob/21-05-1990      |
                 |             | [v/VISIT_DATE_TIME] [al/ALLERGY]      | v/21-10-2024 15:48 al/Pollen    |
                 |             | [s/SEX] [mh/MEDICALHISTORY]           | s/Female mh/Diabetes            |
                 |             | DATE format: dd-mm-yyyy               |                                 |
